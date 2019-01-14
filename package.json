@@ -1,0 +1,59 @@
+{
+  "name": "@alertlogic/subscriptions",
+  "version": "0.2.0",
+  "licenses": [
+    {
+      "type": "MIT",
+      "url": "https://github.com/alertlogic/subscriptions-client/blob/master/LICENSE"
+    }
+  ],
+  "description": "A client for interacting with the Alert Logic Subscriptions Public API.",
+  "author": {
+    "name": "Barry Skidmore",
+    "email": "bskidmore@alertlogic.com"
+  },
+  "keywords": [
+    "Alert Logic",
+    "Subscriptions",
+    "Client"
+  ],
+  "maintainers": [
+    {
+      "name": "Barry Skidmore",
+      "email": "bskidmore@alertlogic.com"
+    },
+    {
+      "name": "Alert Logic NPM Team",
+      "email": "npm@alertlogic.com"
+    }
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/alertlogic/subscriptions-client"
+  },
+  "main": "index.js",
+  "typings": "index.d.ts",
+  "scripts": {
+    "start": "",
+    "lint": "./node_modules/.bin/eslint *.js **/*.js",
+    "test": "./node_modules/.bin/mocha --reporter spec",
+    "install-hooks": "./scripts/install.sh",
+    "interactive": "node -i -e \"var SubscriptionsClient = require('./index.js')\""
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "chai": "^4.2.0",
+    "eslint": "^5.9.0",
+    "eslint-config-airbnb-base": "^13.1.0",
+    "eslint-config-google": "^0.11.0",
+    "eslint-config-standard": "^12.0.0",
+    "eslint-plugin-import": "^2.14.0",
+    "eslint-plugin-node": "^8.0.0",
+    "eslint-plugin-promise": "^4.0.1",
+    "eslint-plugin-standard": "^4.0.0",
+    "mocha": "^5.2.0"
+  },
+  "peerDependencies": {
+    "@alertlogic/client": "^0.2.0"
+  }
+}
