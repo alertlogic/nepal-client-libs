@@ -18,6 +18,3 @@ yarn-error.log*
 *.njsproj
 *.sln
 *.sw*
-
-# Generated output
-dist
