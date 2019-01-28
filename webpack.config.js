@@ -3,6 +3,7 @@ const path = require('path');
 module.exports = (env) => {
 
   return {
+    mode: 'production',
     entry: {
       'index': path.resolve(__dirname, './dist/commonjs/index.js')
     },
