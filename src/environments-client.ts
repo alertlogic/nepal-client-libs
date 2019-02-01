@@ -1,13 +1,38 @@
 /**
  * A client for interacting with the Alert Logic Environments Public API.
  */
-const ALClient = require('@alertlogic/client');
+import { ALClient } from '@alertlogic/client';
 
-const EnvironmentsClient = function EnvironmentsClient() {
+export interface EnvironmentCreateArgs {
+  type: string;
+  type_id: string;
+  discover: boolean;
+  scan: boolean;
+  mode?: string;
+  defender_support?: boolean;
+  name?: string;
+  defender_location_id?: string;
+}
+
+export interface EnvironmentUpdateArgs {
+  credential_id?: string;
+  scope?: any;
+  enabled?: boolean;
+  name?: boolean;
+  mode?: string;
+}
+
+export interface EnvironmentStatusArgs {
+  status: string;
+  timestamp: number;
+  details?: string;
+}
+
+class EnvironmentsClient {
   /**
    * Expose ALClient to Credentials client
    */
-  this.ALClient = ALClient;
+  private alClient = ALClient;
 
   /**
    * Add an environment
@@ -21,12 +46,14 @@ const EnvironmentsClient = function EnvironmentsClient() {
    *      "discover":true,
    *      "scan":false}'
    */
-  this.addEnvironment = async function addEnvironment(accountId, environment) {
-    const added = await this.ALClient.Post({
-      service_name: 'environments', account_id: accountId, version: 'v1', data: environment,
+  async addEnvironment(accountId: string, environment: EnvironmentCreateArgs) {
+    const added = await this.alClient.post({
+      service_name: 'environments',
+      account_id: accountId,
+      data: environment,
     });
     return added;
-  };
+  }
 
   /**
    * Delete an environment
@@ -34,12 +61,14 @@ const EnvironmentsClient = function EnvironmentsClient() {
    * /environments/v1/:account_id/:environment_id
    * "https://api.cloudinsight.alertlogic.com/environments/v1/01000001/B37CEE84-6D27-4D0F-943C-F23937587574"
    */
-  this.deleteEnvironment = async function deleteEnvironment(accountId, environmentId) {
-    const deleted = await this.ALClient.Delete({
-      service_name: 'environments', account_id: accountId, path: `/${environmentId}`, version: 'v1',
+  async deleteEnvironment(accountId: string, environmentId: string) {
+    const deleted = await this.alClient.delete({
+      service_name: 'environments',
+      account_id: accountId,
+      path: `/${environmentId}`,
     });
     return deleted;
-  };
+  }
 
   /**
    * Get an environment
@@ -47,12 +76,15 @@ const EnvironmentsClient = function EnvironmentsClient() {
    * /environments/v1/:account_id/:environment_id
    * "https://api.cloudinsight.alertlogic.com/environments/v1/01000001/582C62B4-9D1D-4F1C-9117-BE4198198861"
    */
-  this.getEnvironment = async function getEnvironment(accountId, environmentId, queryParams) {
-    const environment = await this.ALClient.Fetch({
-      service_name: 'environments', account_id: accountId, path: `/${environmentId}`, version: 'v1', params: queryParams,
+  async getEnvironment(accountId: string, environmentId: string, queryParams: any) {
+    const environment = await this.alClient.fetch({
+      service_name: 'environments',
+      account_id: accountId,
+      path: `/${environmentId}`,
+      params: queryParams,
     });
     return environment;
-  };
+  }
 
   /**
    * Get list of accounts with environments
@@ -60,12 +92,15 @@ const EnvironmentsClient = function EnvironmentsClient() {
    * /environments/v1/accounts
    * "https://api.cloudinsight.alertlogic.com/environments/v1/accounts"
    */
-  this.getAccounts = async function getAccounts(accountId, queryParams) {
-    const accounts = await this.ALClient.Fetch({
-      service_name: 'environments', account_id: accountId, path: '/accounts', version: 'v1', params: queryParams,
+  async getAccounts(accountId: string, queryParams: any) {
+    const accounts = await this.alClient.fetch({
+      service_name: 'environments',
+      account_id: accountId,
+      path: '/accounts',
+      params: queryParams,
     });
     return accounts;
-  };
+  }
 
   /**
    * Get environments for an account
@@ -73,12 +108,13 @@ const EnvironmentsClient = function EnvironmentsClient() {
    * /environments/v1/:account_id
    * "https://api.cloudinsight.alertlogic.com/environments/v1/01000001"
    */
-  this.getEnvironments = async function getEnvironments(accountId) {
-    const accounts = await this.ALClient.Fetch({
-      service_name: 'environments', account_id: accountId, version: 'v1',
+  async getEnvironments(accountId: string) {
+    const accounts = await this.alClient.fetch({
+      service_name: 'environments',
+      account_id: accountId,
     });
     return accounts;
-  };
+  }
 
   /**
    * Update an environment
@@ -98,12 +134,15 @@ const EnvironmentsClient = function EnvironmentsClient() {
    *        ]},
    *      "enabled":true}'
    */
-  this.updateEnvironment = async function updateEnvironment(accountId, environmentId, environment) {
-    const updated = await this.ALClient.Post({
-      service_name: 'environments', account_id: accountId, path: `/${environmentId}`, version: 'v1', data: environment,
+  async updateEnvironment(accountId: string, environmentId: string, environment: EnvironmentUpdateArgs) {
+    const updated = await this.alClient.post({
+      service_name: 'environments',
+      account_id: accountId,
+      path: `/${environmentId}`,
+      data: environment,
     });
     return updated;
-  };
+  }
 
   /**
    * Update environment status
@@ -112,14 +151,15 @@ const EnvironmentsClient = function EnvironmentsClient() {
    * "https://api.cloudinsight.alertlogic.com/environments/v1/01000001/CC4BB141-A2F8-4C80-BC25-CBA1E58EBC5E/status"
    * -d '{"status":"ok", "timestamp": 1471277293, "details":"status is ok now"}'
    */
-  this.updateEnvironmentStatus = async function updateEnvironmentStatus(accountId,
-    environmentId,
-    status) {
-    const updated = await this.ALClient.Set({
-      service_name: 'environments', account_id: accountId, path: `/${environmentId}/status`, version: 'v1', data: status,
+  async updateEnvironmentStatus(accountId: string, environmentId: string, status: EnvironmentStatusArgs) {
+    const updated = await this.alClient.set({
+      service_name: 'environments',
+      account_id: accountId,
+      path: `/${environmentId}/status`,
+      data: status,
     });
     return updated;
-  };
-};
+  }
+}
 
-module.exports = EnvironmentsClient;
+export const environmentsClient =  new EnvironmentsClient();
