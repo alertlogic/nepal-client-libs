@@ -1,6 +1,6 @@
 {
   "name": "@alertlogic/credentials",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "license": "MIT",
   "description": "A client for interacting with the Alert Logic Credentials Public API.",
   "author": {
@@ -46,12 +46,9 @@
     "webpack-cli": "^3.2.1"
   },
   "peerDependencies": {
-    "@alertlogic/client": "^0.6.0"
+    "@alertlogic/client": "^0.8.0"
   },
   "files": [
     "dist"
-  ],
-  "dependencies": {
-    "@alertlogic/client": "^0.6.0"
-  }
+  ]
 }
