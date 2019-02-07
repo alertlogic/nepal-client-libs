@@ -28,7 +28,7 @@ class CredentialsClient {
     const deleted = await this.alClient.delete({
       service_name: 'credentials',
       account_id: accountId,
-      path: `/${environmentId}/${assetType}/scan/${credentialType}${assetKey}`,
+      path: `/${environmentId}/${assetType}/scan/${credentialType}/${assetKey}`,
     });
     return deleted;
   }
@@ -45,7 +45,7 @@ class CredentialsClient {
     const credentials = await this.alClient.fetch({
       service_name: 'credentials',
       account_id: accountId,
-      path: `/${environmentId}/host/scan${assetKey}`,
+      path: `/${environmentId}/host/scan/${assetKey}`,
     });
     return credentials;
   }
@@ -81,7 +81,7 @@ class CredentialsClient {
     const stored = await this.alClient.set({
       service_name: 'credentials',
       account_id: accountId,
-      path: `/${environmentId}/${assetType}/scan${assetKey}`,
+      path: `/${environmentId}/${assetType}/scan/${assetKey}`,
       data: credential,
     });
     return stored;
