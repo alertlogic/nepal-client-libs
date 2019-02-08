@@ -1,4 +1,4 @@
-  @alertlogic/aims
+  @alertlogic/policies
 =========
 
 A client for working with the Policies Alert Logic API.
