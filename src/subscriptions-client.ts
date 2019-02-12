@@ -1,5 +1,5 @@
 
-import { ALClient } from '@alertlogic/client';
+import { ALClient } from '@al/client';
 
 class SubscriptionsClient {
 

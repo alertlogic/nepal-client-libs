@@ -1,9 +1,9 @@
-  @alertlogic/subscriptions
+  @al/subscriptions
 =========
 
 A client for interacting with the Alert Logic Subscriptions Public API.
 
-This library uses @alertlogic/client as its HTTP provider interface.
+This library uses @al/client as its HTTP provider interface.
 
 ## Disclaimer
 
@@ -11,12 +11,12 @@ Until the release of version 1.0.0 all current minor version increments may be b
 
 ## Installation
 
-      npm install @alertlogic/subscriptions --save
+      npm install @al/subscriptions --save
 
 ## Usage
 
-      var SubscriptionsClient = require('@alertlogic/subscriptions').SubscriptionsClient; //commonjs - e.g. node
-      import { SubscriptionsClient } from '@alertlogic/subscriptions'; //ES2015 - e.g. Angular, TS projects
+      var SubscriptionsClient = require('@al/subscriptions').SubscriptionsClient; //commonjs - e.g. node
+      import { SubscriptionsClient } from '@al/subscriptions'; //ES2015 - e.g. Angular, TS projects
   
   Get Entitlements
 
