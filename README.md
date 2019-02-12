@@ -1,9 +1,9 @@
-  @alertlogic/credentials
+  @al/credentials
 =========
 
 A client for interacting with the Alert Logic Credentials Public API.
 
-This library uses @alertlogic/client as its HTTP provider interface.
+This library uses @al/client as its HTTP provider interface.
 
 ## Disclaimer
 
@@ -11,12 +11,12 @@ Until the release of version 1.0.0 all current minor version increments may be b
 
 ## Installation
 
-      npm install @alertlogic/credentials --save
+      npm install @al/credentials --save
 
 ## Usage
 
-      var CredentialsClient = require('@alertlogic/credentials').CredentialsClient //commonjs - e.g. node
-      import { CredentialsClient } from '@alertlogic/credentials'; //ES2015 - e.g. Angular, TS projects
+      var CredentialsClient = require('@al/credentials').CredentialsClient //commonjs - e.g. node
+      import { CredentialsClient } from '@al/credentials'; //ES2015 - e.g. Angular, TS projects
 
   Delete Credentials
 
