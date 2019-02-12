@@ -1,9 +1,9 @@
-  @alertlogic/deployments
+  @al/deployments
 =========
 
 A client for working with the Deployments Alert Logic API.
 
-This library uses @alertlogic/client as its HTTP provider interface.
+This library uses @al/client as its HTTP provider interface.
 
 ## Disclaimer
 
@@ -11,12 +11,12 @@ Until the release of version 1.0.0 all current minor version increments may be b
 
 ## Installation
 
-      npm install @alertlogic/deployments --save
+      npm install @al/deployments --save
 
 ## Usage
 
-      var DeploymentsClient = require('@alertlogic/deployments').DeploymentsClient; //commonjs - e.g. node
-      import { DeploymentsClient } from '@alertlogic/deployments'; //ES2015 - e.g. Angular, TS projects
+      var DeploymentsClient = require('@al/deployments').DeploymentsClient; //commonjs - e.g. node
+      import { DeploymentsClient } from '@al/deployments'; //ES2015 - e.g. Angular, TS projects
 
   Get Deployment
 

@@ -1,7 +1,7 @@
 /**
  * Module to deal with available Deployments Public API endpoints
  */
-import { ALClient } from '@alertlogic/client';
+import { ALClient } from '@al/client';
 
 type DeploymentMonitoringConfiguration = {
   enabled: true;
