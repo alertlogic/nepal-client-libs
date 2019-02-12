@@ -1,7 +1,7 @@
 /**
  * A client for interacting with the Alert Logic Environments Public API.
  */
-import { ALClient } from '@alertlogic/client';
+import { ALClient } from '@al/client';
 
 export interface EnvironmentCreateArgs {
   type: string;

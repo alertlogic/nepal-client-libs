@@ -1,9 +1,9 @@
-  @alertlogic/environments
+  @al/environments
 =========
 
 A client for interacting with the Alert Logic Environments Public API.
 
-This library uses @alertlogic/client as its HTTP provider interface.
+This library uses @al/client as its HTTP provider interface.
 
 ## Disclaimer
 
@@ -11,12 +11,12 @@ Until the release of version 1.0.0 all current minor version increments may be b
 
 ## Installation
 
-      npm install @alertlogic/environments --save
+      npm install @al/environments --save
 
 ## Usage
 
-      var EnvironmentsClient = require('@alertlogic/environments').EnvironmentsClient //commonjs - e.g. node
-      import { EnvironmentsClient } from '@alertlogic/environments'; //ES2015 - e.g. Angular, TS projects
+      var EnvironmentsClient = require('@al/environments').EnvironmentsClient //commonjs - e.g. node
+      import { EnvironmentsClient } from '@al/environments'; //ES2015 - e.g. Angular, TS projects
 
   Add Environment
 
