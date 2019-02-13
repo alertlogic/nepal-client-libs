@@ -1,0 +1,20 @@
+export { suggestionsClient as SuggestionsClient } from './suggestions-client';
+export {
+  CreateSavedQueryParams,
+  UpdateSavedQueryParams,
+  SavedQuery,
+  SearchCategory,
+  SearchRule,
+  SearchToken,
+  SuggestionNamespaceSpecification,
+  SuggestValueSpecification,
+  SuggestedFieldSpecification,
+  SuggestionQueryGlobalOptions,
+  SuggestionsRequestParams,
+  SuggestedTerm,
+  SuggestionsSearchQuery,
+  DescribeSearchRequest,
+  DescribeSearchResponse,
+  TranslateSearchRequest,
+  TranslateSearchResponse,
+} from './suggestions-service.types';
