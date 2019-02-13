@@ -1,7 +1,7 @@
 /**
  * Module to deal with available Cargo Public API endpoints
  */
-import { ALClient, APIRequestParams } from '@alertlogic/client';
+import { ALClient, APIRequestParams } from '@al/client';
 
 export interface TableauReportDefinition {
   site_id: string;
@@ -24,7 +24,7 @@ export interface SearchReportDefinition {
 export interface CreateReportRequest {
   name: string;
   type: 'search' | 'tableau';
-  definition: TableauReportDefinition;
+  definition: SearchReportDefinition | TableauReportDefinition;
   schedule: string;
   is_active: boolean;
   per_accounts_id: string[];
@@ -36,6 +36,67 @@ export interface ReportScheduleRequest {
   sub_results: {
     account_id: string;
   }[];
+}
+
+export interface ListScheduledReportsQueryParams {
+  limit?: number;
+  order?: string;
+  report_id?: string;
+  report_type?: string;
+  continuation?: string;
+}
+
+export interface CargoReport {
+  id: string;
+  create_time: number;
+  per_account_ids: string[];
+  type: string;
+  definition: {
+    saved_query_id: string;
+  };
+  latest_schedule: number;
+  name: string;
+  schedule: string;
+  is_active: boolean;
+}
+
+export interface CargoReportResponse {
+  account_id: string;
+  report: CargoReport;
+}
+
+export interface CargoReportListResponse {
+  account_id: string;
+  reports: CargoReport[];
+}
+
+export interface CargoScheduledReport {
+  id: string;
+  name: string;
+  status: 'scheduled' | 'running' | 'cancelled' | 'completed';
+  scheduled_time: number;
+  create_time: number;
+  type: string;
+  definition: {
+    saved_query_id: string;
+  };
+  sub_results?: [{
+    account_id: string;
+    status: 'ok' | 'error';
+    result_id: string;
+    is_reference: boolean;
+  }];
+}
+
+export interface CargoScheduledReportResponse {
+  account_id: string;
+  scheduled_report: CargoScheduledReport;
+}
+
+export interface CargoScheduledReportListResponse {
+  account_id: string;
+  continuation: string;
+  scheduled_reports: CargoScheduledReport[];
 }
 
 class CargoClient {
@@ -59,35 +120,35 @@ class CargoClient {
    * Get report for given account_id and report_id
    */
   async getReport(accountId: string, reportId: string) {
-    const reports = await this.alClient.fetch({
+    const report = await this.alClient.fetch({
       service_name: this.serviceName,
       account_id: accountId,
       path: `/reports/${reportId}`,
     });
-    return reports;
+    return report as CargoReportResponse;
   }
   /**
    * Update one or several properties of existing report for given account_id and report_id
    */
   async updateReport(accountId: string, reportId: string, reportRequest: CreateReportRequest) {
-    const reports = await this.alClient.set({
+    const report = await this.alClient.set({
       service_name: this.serviceName,
       account_id: accountId,
       path: `/reports/${reportId}`,
       data: reportRequest,
     });
-    return reports;
+    return report;
   }
   /**
    * Remove report for given account_id and report_id
    */
   async removeReport(accountId: string, reportId: string) {
-    const reports = await this.alClient.delete({
+    const report = await this.alClient.delete({
       service_name: this.serviceName,
       account_id: accountId,
       path: `/deployments/${reportId}`,
     });
-    return reports;
+    return report;
   }
   /**
    * Get list of reports for given account_id
@@ -102,7 +163,7 @@ class CargoClient {
       apiRequestParams.params = queryParams;
     }
     const reports = await this.alClient.fetch(apiRequestParams);
-    return reports;
+    return reports as CargoReportListResponse;
   }
   /**
    * Scheduled report for given account_id
@@ -147,7 +208,7 @@ class CargoClient {
       account_id: accountId,
       path: `/scheduled_report/${scheduleReportId}`,
     });
-    return report;
+    return report as CargoScheduledReport;
   }
   /**
    * Retrieve result data of scheduled report run for given account_id, scheduled_report_id and result_id
@@ -171,6 +232,22 @@ class CargoClient {
       path: `/scheduled_report/${scheduleReportId}/result`,
     });
     return result;
+  }
+  /**
+   * List scheduled reports for given account_id.
+   * This method is paginated
+   */
+  async listScheduledReports(accountId: string, queryParams?: ListScheduledReportsQueryParams) {
+    const requestArgs: APIRequestParams = {
+      service_name: this.serviceName,
+      account_id: accountId,
+      path: '/scheduled_report',
+    };
+    if (queryParams) {
+      requestArgs.params = queryParams;
+    }
+    const result = await this.alClient.fetch(requestArgs);
+    return result as CargoScheduledReportListResponse;
   }
 }
 
