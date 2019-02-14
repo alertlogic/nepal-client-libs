@@ -6,11 +6,13 @@ import {
   CreateSavedQueryParams,
   UpdateSavedQueryParams,
   SavedQuery,
+  FetchQueriesResponse,
   SearchCategory,
   SearchRule,
   SearchToken,
+  SearchRulesResponse,
   SuggestionsRequestParams,
-  SuggestedTerm,
+  SuggestSearchResponse,
   DescribeSearchResponse,
   TranslateSearchRequest,
   DescribeSearchRequest,
@@ -47,17 +49,15 @@ class SuggestionsClient {
   /**
    * Get a list of saved queries for the given account ID
    */
-  async getQueries(accountId: string, queryParams?: {data_type: string}) {
+  async getQueries(accountId: string, queryParams: {data_type?: string} = {}) {
     const fetchRequestParams: APIRequestParams = {
       service_name: this.serviceName,
       account_id: accountId,
       path: '/queries',
+      params: queryParams,
     };
-    if (queryParams) {
-      fetchRequestParams.params = queryParams;
-    }
-    const query = await this.alClient.fetch(fetchRequestParams);
-    return query as SavedQuery[];
+    const queries = await this.alClient.fetch(fetchRequestParams);
+    return queries as FetchQueriesResponse;
   }
   /**
    * Update the saved query with the given ID. All body parameters are optional, but at least one should be given.
@@ -117,7 +117,7 @@ class SuggestionsClient {
    * Get a list of search rules. If the ids parameter is passed with a CSV of IDs, the result is the set of rules identified by each ID in a rules array.
    * If no ids parameter is passed, returns all rules
    */
-  async getRules(accountId: string, queryParams?: {ids?: string[], include_categories?: string}) {
+  async getRules(accountId: string, queryParams?: {ids?: string, include_categories?: boolean}) {
     const fetchRequestParams: APIRequestParams = {
       service_name: this.serviceName,
       account_id: accountId,
@@ -126,14 +126,14 @@ class SuggestionsClient {
     if (queryParams) {
       fetchRequestParams.params = queryParams;
     }
-    const rule = await this.alClient.fetch(fetchRequestParams);
-    return rule as SearchRule[];
+    const rules = await this.alClient.fetch(fetchRequestParams);
+    return rules as SearchRulesResponse;
   }
   /**
    * Get a list of search tokens. If the ids parameter is passed with a CSV of IDs, the result is the set of tokens identified by each ID in a tokens array.
    * If no ids parameter is passed, returns all rules
    */
-  async getTokens(accountId: string, queryParams?: {ids?: string[]}) {
+  async getTokens(accountId: string, queryParams?: {ids?: string}) {
     const fetchRequestParams: APIRequestParams = {
       service_name: this.serviceName,
       account_id: accountId,
@@ -149,7 +149,7 @@ class SuggestionsClient {
    * This hints suggestions to preload and index the data sets for the given account_id. If the data for this account is already in the cache, nothing is done
    */
   async precache(accountId: string) {
-    const precache = await this.alClient.post({
+    const precache = await this.alClient.fetch({
       service_name: this.serviceName,
       account_id: accountId,
       path: '/precache',
@@ -166,7 +166,7 @@ class SuggestionsClient {
       path: `/suggest/${dataType}`,
       data: requestParams,
     });
-    return suggest as SuggestedTerm[];
+    return suggest as SuggestSearchResponse;
   }
   /**
    * This endpoint takes an entire search request  and rewrites it so that the descriptor fields (field_descriptors array and display attributes on some id fields) have been added or updated.

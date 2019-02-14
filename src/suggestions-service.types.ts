@@ -20,6 +20,10 @@ export interface SavedQuery {
   search_request: any;
 }
 
+export interface FetchQueriesResponse {
+  queries: SavedQuery[];
+}
+
 export interface SearchCategory {
   id: string;
   name: string;
@@ -40,6 +44,10 @@ export interface SearchRule {
   categories?: SearchCategory[];
 }
 
+export interface SearchRulesResponse {
+  rules: SearchRule[];
+}
+
 export interface SearchToken {
   id: string;
   desc: string;
@@ -50,7 +58,7 @@ export interface SearchToken {
 
 export interface SuggestionNamespaceSpecification {
   ns: string;
-  max_names: number;
+  max_names?: number;
 }
 
 export interface SuggestValueSpecification {
@@ -72,7 +80,7 @@ export interface SuggestionQueryGlobalOptions {
 }
 
 export interface SuggestionsRequestParams {
-  subject: string;
+  subject?: string;
   suggest_names?: SuggestionNamespaceSpecification[];
   suggest_values?: SuggestValueSpecification[];
   options?: SuggestionQueryGlobalOptions;
@@ -87,7 +95,7 @@ export interface SuggestedFieldDescriptor {
   groupable?: boolean;
   name?: string;
   operators?: string[];
-  parent?: SuggestedFieldSpecification;
+  id?: SuggestedFieldSpecification;
   path?: string;
   search_name?: string;
   searchable: boolean;
@@ -121,6 +129,10 @@ export interface SuggestionsSearchQuery {
   having?: any;
   limit?: number;
   time_range?: any;
+}
+
+export interface SuggestSearchResponse {
+  suggested_terms: SuggestedTerm[];
 }
 
 export interface DescribeSearchError {
