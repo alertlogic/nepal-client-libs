@@ -1,4 +1,6 @@
 const path = require('path');
+const PeerDepsExternalsPlugin = require('peer-deps-externals-webpack-plugin');
+
 
 module.exports = (env) => {
 
@@ -13,7 +15,10 @@ module.exports = (env) => {
       library: 'deploymentsClient',
       libraryTarget: 'umd', // supports commonjs, amd and web browsers
       globalObject: 'this'
-    }
+    },
+    plugins: [
+      new PeerDepsExternalsPlugin(),
+    ],
   };
 
 };
