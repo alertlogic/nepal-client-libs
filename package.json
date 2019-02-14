@@ -1,5 +1,5 @@
 {
-  "name": "@alertlogic/otis",
+  "name": "@al/otis",
   "version": "0.1.0",
   "license": "MIT",
   "description": "A client for interacting with the Alert Logic OTIS Public API",
@@ -24,7 +24,7 @@
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/alertlogic/otis"
+    "url": "https://github.com/alertlogic/otis-client"
   },
   "main": "./dist/umd/index.js",
   "module": "./dist/commonjs/index.js",
@@ -40,6 +40,7 @@
     "interactive": "node -i -e \"const OTISClient = require('./dist/commonjs/index.js').OTISClient;\""
   },
   "devDependencies": {
+    "peer-deps-externals-webpack-plugin": "^1.0.4",
     "tslint": "^5.12.1",
     "tslint-config-airbnb": "^5.11.1",
     "typescript": "^3.2.4",
@@ -47,12 +48,9 @@
     "webpack-cli": "^3.2.1"
   },
   "peerDependencies": {
-    "@alertlogic/client": "^0.9.0"
+    "@al/client": "^0.12.0"
   },
   "files": [
     "dist"
-  ],
-  "dependencies": {
-    "@alertlogic/client": "^0.9.0"
-  }
+  ]
 }
