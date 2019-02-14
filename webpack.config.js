@@ -1,7 +1,6 @@
 const path = require('path');
 const PeerDepsExternalsPlugin = require('peer-deps-externals-webpack-plugin');
 
-
 module.exports = (env) => {
 
   return {
