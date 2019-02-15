@@ -4,36 +4,40 @@
 import { ALClient, APIRequestParams } from '@al/client';
 
 export interface TableauReportDefinition {
-  site_id: string;
-  workbook_id: string;
-  view_id: string;
-  saved_view_id: string;
+  site_id?: string;
+  workbook_id?: string;
+  view_id?: string;
+  saved_view_id?: string;
 }
 
-export interface ReportTimeRange {
-  days: number;
-  hours: number;
-  minutes: number;
+export interface CargoReportTimeRange {
+  days?: number;
+  hours?: number;
+  minutes?: number;
 }
 
 export interface SearchReportDefinition {
   saved_query_id: string;
-  timerange: ReportTimeRange;
+  timerange?: CargoReportTimeRange;
 }
 
 export interface CreateReportRequest {
   name: string;
-  type: 'search' | 'tableau';
+  type: string;
   definition: SearchReportDefinition | TableauReportDefinition;
-  schedule: string;
-  is_active: boolean;
-  per_accounts_id: string[];
+  schedule?: string;
+  is_active?: boolean;
+  per_accounts_id?: string[];
+}
+
+export interface CreateReportResponse {
+  id: string;
 }
 
 export interface ReportScheduleRequest {
   report_id: string;
-  scheduled_time: string;
-  sub_results: {
+  scheduled_time?: string;
+  sub_results?: {
     account_id: string;
   }[];
 }
@@ -114,7 +118,7 @@ class CargoClient {
       path: '/report',
       data: reportRequest,
     });
-    return result;
+    return result as CreateReportResponse;
   }
   /**
    * Get report for given account_id and report_id
@@ -153,16 +157,13 @@ class CargoClient {
   /**
    * Get list of reports for given account_id
    */
-  async listReports(accountId: string, queryParams?: any) {
-    const apiRequestParams: APIRequestParams = {
+  async listReports(accountId: string, queryParams: {report_type?: string} = {}) {
+    const reports = await this.alClient.fetch({
       service_name: this.serviceName,
       account_id: accountId,
       path: '/report',
-    };
-    if (queryParams) {
-      apiRequestParams.params = queryParams;
-    }
-    const reports = await this.alClient.fetch(apiRequestParams);
+      params: queryParams,
+    });
     return reports as CargoReportListResponse;
   }
   /**
