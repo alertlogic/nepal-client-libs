@@ -111,7 +111,7 @@ export interface SuggestedTermValue {
 export interface SuggestedTerm {
   field: SuggestedFieldSpecification;
   field_descriptor: SuggestedFieldDescriptor;
-  values: SuggestedTermValue[] | string[] | number[];
+  values: (SuggestedTermValue | string | number)[];
 }
 
 export interface TimeRangeSpecification {
