@@ -11,7 +11,7 @@ class SubscriptionsClient {
    * /subscriptions/v1/:account_id/entitlements
    * "https://api.global-integration.product.dev.alertlogic.com/subscriptions/v1/01000001/entitlements"
    */
-  async getEntitlements(accountId, queryParams) {
+  async getEntitlements(accountId, queryParams?) {
     const entitlements = await this.alClient.fetch({
       service_name: 'subscriptions',
       account_id: accountId,
