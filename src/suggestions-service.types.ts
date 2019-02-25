@@ -167,3 +167,24 @@ export interface TranslateSearchResponse {
   };
   errors: DescribeSearchError[];
 }
+
+interface UserTimeStamp {
+  at?: number;
+  by?: string;
+}
+
+export interface SearchTemplate {
+  id?: string;
+  name?: string;
+  account_id?: string;
+  data_type?: string;
+  description?: string;
+  group_id?: string;
+  search_request?: any;
+  created?: UserTimeStamp;
+  modified?: UserTimeStamp;
+}
+
+export interface SearchTemplatesResponse {
+  templates: SearchTemplate[];
+}

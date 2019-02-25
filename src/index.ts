@@ -22,4 +22,6 @@ export {
   DescribeSearchResponse,
   TranslateSearchRequest,
   TranslateSearchResponse,
+  SearchTemplate,
+  SearchTemplatesResponse,
 } from './suggestions-service.types';

@@ -17,6 +17,8 @@ import {
   TranslateSearchRequest,
   DescribeSearchRequest,
   TranslateSearchResponse,
+  SearchTemplate,
+  SearchTemplatesResponse,
 } from './suggestions-service.types';
 
 class SuggestionsClient {
@@ -193,6 +195,54 @@ class SuggestionsClient {
       data: searchRequest,
     });
     return describe as TranslateSearchResponse;
+  }
+
+  async getSearchTemplates(accountId: string, queryParams: {type?: string} = {}) {
+    const template = await this.alClient.fetch({
+      service_name: this.serviceName,
+      account_id: accountId,
+      path: '/templates',
+      params: queryParams,
+    });
+    return template as SearchTemplatesResponse;
+  }
+
+  async getSearchTemplate(accountId: string, templateId: string) {
+    const template = await this.alClient.fetch({
+      service_name: this.serviceName,
+      account_id: accountId,
+      path: `/templates/${templateId}`,
+    });
+    return template as SearchTemplate;
+  }
+
+  async createSearchTemplate(accountId: string, template: SearchTemplate) {
+    const createTemplate = await this.alClient.post({
+      service_name: this.serviceName,
+      account_id: accountId,
+      path: '/templates',
+      data: template,
+    });
+    return createTemplate as SearchTemplate;
+  }
+
+  async updateSearchTemplate(accountId: string, templateId: string, template: SearchTemplate) {
+    const updateTemplate = await this.alClient.set({
+      service_name: this.serviceName,
+      account_id: accountId,
+      path: `/templates/${templateId}`,
+      data: template,
+    });
+    return updateTemplate;
+  }
+
+  async deleteSearchTemplate(accountId: string, templateId: string) {
+    const deleteTemplate = await this.alClient.delete({
+      service_name: this.serviceName,
+      account_id: accountId,
+      path: `/templates/${templateId}`,
+    });
+    return deleteTemplate;
   }
 }
 
