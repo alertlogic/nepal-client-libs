@@ -58,8 +58,9 @@ class SuggestionsClient {
       path: '/queries',
       params: queryParams,
     };
-    const queries = await this.alClient.fetch(fetchRequestParams);
-    return queries as FetchQueriesResponse;
+    const queries = await this.alClient.fetch(fetchRequestParams)
+      .then((response: FetchQueriesResponse) => response.queries);
+    return queries;
   }
   /**
    * Update the saved query with the given ID. All body parameters are optional, but at least one should be given.
@@ -128,8 +129,9 @@ class SuggestionsClient {
     if (queryParams) {
       fetchRequestParams.params = queryParams;
     }
-    const rules = await this.alClient.fetch(fetchRequestParams);
-    return rules as SearchRulesResponse;
+    const rules = await this.alClient.fetch(fetchRequestParams)
+      .then((response: SearchRulesResponse) => response.rules);
+    return rules;
   }
   /**
    * Get a list of search tokens. If the ids parameter is passed with a CSV of IDs, the result is the set of tokens identified by each ID in a tokens array.
