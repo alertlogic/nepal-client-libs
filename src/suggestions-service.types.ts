@@ -16,8 +16,10 @@ export interface SavedQuery {
   account_id: string;
   group_id:string;
   name:string;
+  description?: string;
   data_type:string;
   search_request: any;
+  deleted: boolean;
 }
 
 export interface FetchQueriesResponse {
@@ -181,10 +183,34 @@ export interface SearchTemplate {
   description?: string;
   group_id?: string;
   search_request?: any;
+  deleted: boolean;
   created?: UserTimeStamp;
   modified?: UserTimeStamp;
 }
 
 export interface SearchTemplatesResponse {
   templates: SearchTemplate[];
+}
+
+export interface FetchGroupsQueryParams {
+  deleted?: boolean;
+  include_object?: boolean;
+  include_child_groups?: boolean;
+  data_type?: string;
+  view_type?: string;
+  include_managing_account_groups?: boolean;
+}
+
+export interface SavedGroup {
+  id?: string;
+  account_id?: string;
+  parent_id?: string;
+  name?: string;
+  description?: string;
+  deleted?: boolean;
+  groups?: SavedGroup[];
+  templates?: SearchTemplate[];
+  queries?: SavedQuery[];
+  created?: UserTimeStamp;
+  modified?: UserTimeStamp;
 }
