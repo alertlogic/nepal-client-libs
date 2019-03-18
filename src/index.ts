@@ -24,4 +24,6 @@ export {
   TranslateSearchResponse,
   SearchTemplate,
   SearchTemplatesResponse,
+  FetchGroupsQueryParams,
+  SavedGroup,
 } from './suggestions-service.types';
