@@ -50,20 +50,6 @@ export interface ListScheduledReportsQueryParams {
   continuation?: string;
 }
 
-export interface CargoReport {
-  id: string;
-  create_time: number;
-  per_account_ids: string[];
-  type: string;
-  definition: {
-    saved_query_id: string;
-  };
-  latest_schedule: number;
-  name: string;
-  schedule: string;
-  is_active: boolean;
-}
-
 export interface CargoReportResponse {
   account_id: string;
   report: CargoReport;
@@ -74,33 +60,39 @@ export interface CargoReportListResponse {
   reports: CargoReport[];
 }
 
-export interface CargoScheduledReport {
+export interface CargoReport {
   id: string;
-  name: string;
-  status: 'scheduled' | 'running' | 'cancelled' | 'completed';
-  scheduled_time: number;
-  create_time: number;
-  type: string;
-  definition: {
-    saved_query_id: string;
-  };
+  name?: string;
+  status?: 'scheduled' | 'running' | 'cancelled' | 'completed';
+  schedule?: string;
+  schedule_display_name?: string;
+  scheduled_time?: number;
+  create_time?: number;
+  type?: string;
+  definition?: SearchReportDefinition;
+  subkey?: string;
   sub_results?: [{
     account_id: string;
     status: 'ok' | 'error';
     result_id: string;
     is_reference: boolean;
   }];
+  notify_behaviour?: string;
+  delete_empty_result?: boolean;
+  per_account_ids?: string[];
+  latest_schedule?: number;
+  is_active?: boolean;
 }
 
 export interface CargoScheduledReportResponse {
   account_id: string;
-  scheduled_report: CargoScheduledReport;
+  scheduled_report: CargoReport;
 }
 
 export interface CargoScheduledReportListResponse {
   account_id: string;
   continuation: string;
-  scheduled_reports: CargoScheduledReport[];
+  scheduled_reports: CargoReport[];
 }
 
 class CargoClient {
@@ -209,7 +201,7 @@ class CargoClient {
       account_id: accountId,
       path: `/scheduled_report/${scheduleReportId}`,
     });
-    return report as CargoScheduledReport;
+    return report as CargoReport;
   }
   /**
    * Retrieve result data of scheduled report run for given account_id, scheduled_report_id and result_id

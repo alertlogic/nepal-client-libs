@@ -8,5 +8,4 @@ export {
   CargoReportTimeRange,
   CargoReportListResponse,
   CargoScheduledReportResponse,
-  CargoScheduledReportListResponse,
-  CargoScheduledReport } from './cargo-client';
+  CargoScheduledReportListResponse } from './cargo-client';
