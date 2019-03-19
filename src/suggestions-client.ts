@@ -264,7 +264,7 @@ class SuggestionsClient {
   /**
    * Get a group by account ID, object type, and group ID.
    */
-  async getGroup(accountId: string, objectType: 'queries'| 'templates', groupId: string, queryParams: FetchGroupsQueryParams) {
+  async getGroup(accountId: string, objectType: 'queries'| 'templates', groupId: string, queryParams: FetchGroupsQueryParams = {}) {
     const group = await this.alClient.fetch({
       service_name: this.serviceName,
       account_id: accountId,
@@ -276,14 +276,18 @@ class SuggestionsClient {
   /**
    * Get a list of all groups (by object type) for the given account ID.
    */
-  async getGroups(accountId: string, objectType: 'queries'| 'templates', queryParams: FetchGroupsQueryParams) {
+  async getGroups(accountId: string, objectType: 'queries'| 'templates', queryParams: FetchGroupsQueryParams = {}) {
     const groups = await this.alClient.fetch({
       service_name: this.serviceName,
       account_id: accountId,
       path: `/groups/${objectType}`,
       params: queryParams,
     });
-    return groups as SavedGroup[];
+    return groups as {
+      groups: SavedGroup[],
+      templates?: SearchTemplate[],
+      queries?: SavedQuery[],
+    };
   }
   /**
    * Groups can be used to organize saved queries and search templates. Groups are associated with a specific object type, either queries or templates.
