@@ -1,9 +1,24 @@
 
-import { ALClient } from '@al/client';
+import { ALClient, AlApiClient } from '@al/client';
+import { AlEntitlementCollection } from './types';
 
-class SubscriptionsClient {
+export class AlSubscriptionsClient {
 
-  private alClient = ALClient;
+  private alClient;
+
+  constructor( client:AlApiClient = null ) {
+      this.alClient = client || ALClient;
+  }
+
+  /**
+   * GET all Entitlements for an account
+   * /subscriptions/v1/:account_id/entitlements
+   * "https://api.global-integration.product.dev.alertlogic.com/subscriptions/v1/01000001/entitlements"
+   */
+  async getEntitlements( accountId:string ):Promise<AlEntitlementCollection> {
+    const rawEntitlementData = await this.getRawEntitlements( accountId );
+    return AlEntitlementCollection.import( rawEntitlementData );
+  }
 
   /**
    * Get Entitlements
@@ -11,7 +26,7 @@ class SubscriptionsClient {
    * /subscriptions/v1/:account_id/entitlements
    * "https://api.global-integration.product.dev.alertlogic.com/subscriptions/v1/01000001/entitlements"
    */
-  async getEntitlements(accountId, queryParams?) {
+  async getRawEntitlements(accountId, queryParams?) {
     const entitlements = await this.alClient.fetch({
       service_name: 'subscriptions',
       account_id: accountId,
@@ -20,6 +35,9 @@ class SubscriptionsClient {
     });
     return entitlements;
   }
+
+  /**
+   * Get Entitlement
 
   /**
    * List Account Ids with a provided entitlement
@@ -149,4 +167,5 @@ class SubscriptionsClient {
   }
 }
 
-export const subscriptionsClient =  new SubscriptionsClient();
+/* tslint:disable:variable-name */
+export const SubscriptionsClient = new AlSubscriptionsClient();

@@ -20,7 +20,7 @@ describe('Subscriptions Client Test Suite:', () => {
       stub.restore();
     });
     it('should call fetch() on the ALClient instance to the entitlements endpoint', async() => {
-      await SubscriptionsClient.getEntitlements(accountId, queryParams);
+      await SubscriptionsClient.getRawEntitlements(accountId, queryParams);
       expect(stub.callCount).to.equal(1);
       const payload = {
         service_name: serviceName,

@@ -1,1 +1,5 @@
-export { subscriptionsClient as SubscriptionsClient } from './subscriptions-client';
+export * from './types';
+export {
+    SubscriptionsClient,
+    AlSubscriptionsClient
+} from './subscriptions-client';
