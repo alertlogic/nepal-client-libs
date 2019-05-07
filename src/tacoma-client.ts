@@ -1,5 +1,5 @@
 /**
- * Module to deal with available Ticket Master Public API endpoints
+ * Module to deal with available Tacoma Public API endpoints
  */
 import { ALClient } from '@al/client';
 
@@ -64,7 +64,7 @@ export interface WorkbookSitesResponse {
   workbooks?: WorkbooksResponse[];
 }
 
-export interface WoorkbooksListResponse {
+export interface WorkbooksListResponse {
   account_id?: string;
   sites?: WorkbookSitesResponse[];
 }
@@ -178,7 +178,7 @@ class TacomaClient {
       path: '/workbooks',
       params: queryParams,
     });
-    return workbooks as WoorkbooksListResponse;
+    return workbooks as WorkbooksListResponse;
   }
 
 }
