@@ -1,5 +1,5 @@
 /**
- * Module to deal with available Ticket Master Public API endpoints
+ * Module to deal with available Launcher Public API endpoints
  */
 import { ALClient } from '@al/client';
 
@@ -55,6 +55,30 @@ export interface AmiMap {
   'us-west-1'?: AmiMapEntry[];
   'us-west-2'?: AmiMapEntry[];
   'ap-southeast-2'?: AmiMapEntry[];
+}
+
+export interface AccountEnvironmentAssetsResponse {
+  environments: EnvironmentAssets[];
+}
+
+export interface EnvironmentAssets {
+  environment_id?: string;
+  account_id?: string;
+  vpcs?: VPCInfo[];
+}
+
+interface ResourceIdKeyPair {
+  resource_id: string;
+  resource_key: string;
+}
+
+export interface VPCInfo {
+  vpc_key: string;
+  region: string;
+  route_table: ResourceIdKeyPair;
+  launch_configuration: ResourceIdKeyPair;
+  security_group: ResourceIdKeyPair;
+  auto_scaling_group: ResourceIdKeyPair;
 }
 
 class LauncherClient {
@@ -117,7 +141,7 @@ class LauncherClient {
       service_name: this.serviceName,
       path: '/resources',
     });
-    return resources;
+    return resources as AccountEnvironmentAssetsResponse;
   }
 
   /**
@@ -132,7 +156,7 @@ class LauncherClient {
       service_name: this.serviceName,
       path: `/${environmentId}/resources`,
     });
-    return resources;
+    return resources as EnvironmentAssets;
   }
 
 }
