@@ -1,4 +1,4 @@
-  @al/cargo
+  @al/dashboards
 =========
 
 A client for interacting with the Alert Logic Dashboards Public API.
