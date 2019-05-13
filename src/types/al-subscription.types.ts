@@ -9,29 +9,16 @@
 
 /**
  *  AlEntitlementRecord describes the basic properties of an entitlement.
+ *  This may not represent the complete entitlement record, but excluded fields are generally not of interest outside of very specific use cases.
  */
 /* tslint:disable:variable-name*/
-export class AlEntitlementRecord
+export interface AlEntitlementRecord
 {
-    public productId:string;
-    public active:boolean           =   true;
-    public expires:Date             =   null;
-    public value_type:string        =   null;
-    public value:number             =   0;
-
-    //  I know, my constructors are so damn old-fashioned :'(
-    constructor( productId:string, active:boolean = true, expires:Date = null, rawData:any = {} ) {
-        this.productId = productId;
-        this.active = active;
-        this.expires = expires;
-        if ( rawData.value_type ) {
-            this.value_type = rawData.value_type;
-        }
-        if ( rawData.value ) {
-            this.value = rawData.value;
-        }
-    }
-
+    productId:string;
+    active:boolean;
+    expires:Date;
+    value_type?:string;
+    value?:number;
 }
 
 /**
@@ -40,6 +27,7 @@ export class AlEntitlementRecord
 export class AlEntitlementCollection
 {
     protected collection:{[productId:string]:AlEntitlementRecord} = {};
+    protected evaluationCache:{[expression:string]:boolean} = {};
 
     constructor( entitlements:AlEntitlementRecord[] = null ) {
         if ( entitlements ) {
@@ -47,6 +35,9 @@ export class AlEntitlementCollection
         }
     }
 
+    /**
+     * Static method to import an AlEntitlementCollection from a raw API response.
+     */
     public static import( rawData:any ):AlEntitlementCollection {
         let records = [];
         if ( rawData.hasOwnProperty( "entitlements" ) ) {
@@ -56,11 +47,14 @@ export class AlEntitlementCollection
                     console.warn("Unexpected API result: entitlements data is missing `product_family` or `status` properties." );
                     continue;
                 }
-                let endDate = entitlement.hasOwnProperty( "end_date" ) ? new Date( entitlement.end_date * 1000 ) : null;
-                records.push( new AlEntitlementRecord(  entitlement.product_family,
-                                                        ( entitlement.status === 'active' || entitlement.status === 'pending_activation' ) ? true : false,
-                                                        endDate,
-                                                        entitlement ) );
+                let endDate = entitlement.hasOwnProperty( "end_date" ) ? new Date( entitlement.end_date * 1000 ) : new Date(8640000000000000);
+                records.push( {
+                    productId: entitlement.product_family,
+                    active: ( entitlement.status === 'active' || entitlement.status === 'pending_activation' ) ? true : false,
+                    expires: endDate,
+                    value_type: entitlement.value_type || null,
+                    value: entitlement.value || 0
+                } );
             }
         } else {
             console.warn("Unexpected API result: entitlements data should contain an `entitlements` property, but none was found." );
@@ -68,15 +62,22 @@ export class AlEntitlementCollection
         }
         if ( rawData.hasOwnProperty( "legacy_features" ) ) {
             for ( let i = 0; i < rawData.legacy_features.length; i++ ) {
-                records.push( new AlEntitlementRecord( "legacy:" + rawData.legacy_features[i], true ) );
+                records.push( {
+                    productId: `legacy:${rawData.legacy_features[i]}`,
+                    active: true,
+                    expires: new Date(8640000000000000)
+                } );
             }
         }
         if ( rawData.hasOwnProperty( "account_id" ) && rawData.account_id === '2' ) {
             //  We need a pseudo entitlement to indicate this user is an internal Alert Logic user.
-            records.push( new AlEntitlementRecord( "al_internal_user", true  ) );
+            records.push( {
+                productId: "al_internal_user",
+                active: true,
+                expires: new Date(8640000000000000)
+            } );
         }
-        let collection = new AlEntitlementCollection( records );
-        return collection;
+        return new AlEntitlementCollection( records );
     }
 
     /**
@@ -85,6 +86,7 @@ export class AlEntitlementCollection
      *      -   Latest active expiration supercedes earlier expirations
      */
     public merge( entitlements:AlEntitlementRecord[] ) {
+        this.evaluationCache = {};      //  flush cached evaluation outputs if the entitlement set changes
         for ( let i = 0; i < entitlements.length; i++ ) {
             let entitlement = entitlements[i];
             if ( this.collection.hasOwnProperty( entitlement.productId ) ) {
@@ -107,8 +109,63 @@ export class AlEntitlementCollection
         if ( this.collection.hasOwnProperty( productId ) ) {
             return this.collection[productId];
         }
-        return new AlEntitlementRecord( productId, false, new Date( Date.now() - 86400000 ) );
+        return {
+            productId: productId,
+            active: false,
+            expires: new Date(-8640000000000000)
+        };
     }
 
-}
+    /**
+     * Evaluates a logic expression about entitlements, returning true if the entitlements match the expression or false otherwise.
+     *
+     *  @param {string} entitlementExpression should be a string that expresses a specific combination of product families
+     *                  with a | separated list of product families (see subscriptions service API documentation for available
+     *                  product families).
+     *  @returns {boolean} Indicating whether ANY of the product families in the entitlement expression
+     *                  are active.
+     *
+     *  Example entitlement expressions:
+     *
+     *      threat_manager&log_manager&!cloud_insight                       <-- TM and LM and NOT Cloud Insight
+     *      cloud_insight&!cloud_defender|threat_manager|log_manager        <-- Cloud Insight && NOT ( Cloud Defender | Log Manager | Threat Manager )
+     */
+    public evaluateExpression( entitlementExpression:string ):boolean {
+        if ( ! this.evaluationCache.hasOwnProperty( entitlementExpression ) ) {
+            let groups = entitlementExpression.split("&");
+            let result:boolean = true;
 
+            for ( let g = 0; g < groups.length; g++ ) {
+                let groupExpression = groups[g];
+                let negatedGroup = false;
+                if ( groupExpression[0] === '!' ) {
+                    negatedGroup = true;
+                    groupExpression = groupExpression.substring( 1 );
+                }
+
+                let productIds = groupExpression.split("|");
+                let entitlement = null;
+                for ( let p = 0; p < productIds.length; p++ ) {
+                    let productId = productIds[p];
+                    let item = this.getProduct( productId );
+                    if ( item.active ) {
+                        entitlement = item;
+                        break;
+                    }
+                }
+
+                if ( negatedGroup ) {
+                    entitlement = ! entitlement;
+                }
+
+                if ( ! entitlement ) {
+                    result = false;
+                    break;  //  no need to process further if we know this expression evaluates to false
+                }
+            }
+
+            this.evaluationCache[entitlementExpression] = result;
+        }
+        return this.evaluationCache[entitlementExpression];
+    }
+}
