@@ -41,7 +41,7 @@
     "interactive": "node -i -e \"const SubscriptionsClient = require('./dist/commonjs/index.js').SubscriptionsClient;\""
   },
   "dependencies": {
-    "@al/client": "^1.0.0-beta.4"
+    "@al/client": "^1.0.0-beta.5"
   },
   "devDependencies": {
     "@types/chai": "^4.1.7",
