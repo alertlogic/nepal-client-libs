@@ -1,5 +1,5 @@
 /**
- * Module to deal with available Ticket Master Public API endpoints
+ * Module to deal with available Assets Query Public API endpoints
  */
 import { ALClient } from '@al/client';
 import {
