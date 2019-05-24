@@ -27,7 +27,8 @@ module.exports = function (config) {
       },
       compilerOptions: {
         lib: [
-          "es2015"
+          "es2015",
+          "dom"
         ]
       }
     },
