@@ -17,7 +17,7 @@ interface AzureExplorerCredential {
     active_directory_id?: string;
     username?: string;
     password?: string;
-  }
+  };
 }
 
 class AzureExplorerClient {
