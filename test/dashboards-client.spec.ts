@@ -5,6 +5,7 @@ import * as sinon from 'sinon';
 
 const serviceName = 'dashboards';
 const accountId = '12345';
+const serviceVersion = 'v2';
 const userId = '332211';
 const deploymentId = 'xy`-123';
 const dashboardItemId = '00-AA-11-XY';
@@ -31,6 +32,7 @@ describe('Dashboards Client Test Suite:', () => {
       expect(stub.callCount).to.equal(1);
       const payload = {
         service_name: serviceName,
+        version: serviceVersion,
         account_id: accountId,
         path: `/deployments/${deploymentId}/dashboard_items`,
         data: dashboardItemRequest,
@@ -51,6 +53,7 @@ describe('Dashboards Client Test Suite:', () => {
       expect(stub.callCount).to.equal(1);
       const payload = {
         service_name: serviceName,
+        version: serviceVersion,
         account_id: accountId,
         path: `/deployments/${deploymentId}/dashboard_items/${dashboardItemId}`,
       };
@@ -70,6 +73,7 @@ describe('Dashboards Client Test Suite:', () => {
       expect(stub.callCount).to.equal(1);
       const payload = {
         service_name: serviceName,
+        version: serviceVersion,
         account_id: accountId,
         path: `/deployments/${deploymentId}/dashboard_items/${dashboardItemId}`,
         data: dashboardItemRequest,
@@ -90,6 +94,7 @@ describe('Dashboards Client Test Suite:', () => {
       expect(stub.callCount).to.equal(1);
       const payload = {
         service_name: serviceName,
+        version: serviceVersion,
         account_id: accountId,
         path: `/deployments/${deploymentId}/dashboard_items/${dashboardItemId}`,
       };
@@ -109,6 +114,7 @@ describe('Dashboards Client Test Suite:', () => {
       expect(stub.callCount).to.equal(1);
       const payload = {
         service_name: serviceName,
+        version: serviceVersion,
         account_id: accountId,
         path: `/deployments/${deploymentId}/dashboard_items`,
         params: {},
@@ -130,6 +136,7 @@ describe('Dashboards Client Test Suite:', () => {
       expect(stub.callCount).to.equal(1);
       const payload = {
         service_name: serviceName,
+        version: serviceVersion,
         account_id: accountId,
         path: `/users/${userId}/dashboard_items`,
         data: dashboardItemRequest,
@@ -150,6 +157,7 @@ describe('Dashboards Client Test Suite:', () => {
       expect(stub.callCount).to.equal(1);
       const payload = {
         service_name: serviceName,
+        version: serviceVersion,
         account_id: accountId,
         path: `/users/${userId}/dashboard_items/${dashboardItemId}`,
       };
@@ -169,6 +177,7 @@ describe('Dashboards Client Test Suite:', () => {
       expect(stub.callCount).to.equal(1);
       const payload = {
         service_name: serviceName,
+        version: serviceVersion,
         account_id: accountId,
         path: `/users/${userId}/dashboard_items/${dashboardItemId}`,
         data: dashboardItemRequest,
@@ -189,6 +198,7 @@ describe('Dashboards Client Test Suite:', () => {
       expect(stub.callCount).to.equal(1);
       const payload = {
         service_name: serviceName,
+        version: serviceVersion,
         account_id: accountId,
         path: `/users/${userId}/dashboard_items/${dashboardItemId}`,
       };
@@ -208,6 +218,7 @@ describe('Dashboards Client Test Suite:', () => {
       expect(stub.callCount).to.equal(1);
       const payload = {
         service_name: serviceName,
+        version: serviceVersion,
         account_id: accountId,
         path: `/users/${userId}/dashboard_items`,
         params: {},
@@ -229,6 +240,7 @@ describe('Dashboards Client Test Suite:', () => {
       expect(stub.callCount).to.equal(1);
       const payload = {
         service_name: serviceName,
+        version: serviceVersion,
         account_id: accountId,
         path: '/user/dashboard_items',
         data: dashboardItemRequest,
@@ -249,6 +261,7 @@ describe('Dashboards Client Test Suite:', () => {
       expect(stub.callCount).to.equal(1);
       const payload = {
         service_name: serviceName,
+        version: serviceVersion,
         account_id: accountId,
         path: `/user/dashboard_items/${dashboardItemId}`,
       };
@@ -268,6 +281,7 @@ describe('Dashboards Client Test Suite:', () => {
       expect(stub.callCount).to.equal(1);
       const payload = {
         service_name: serviceName,
+        version: serviceVersion,
         account_id: accountId,
         path: `/user/dashboard_items/${dashboardItemId}`,
         data: dashboardItemRequest,
@@ -288,6 +302,7 @@ describe('Dashboards Client Test Suite:', () => {
       expect(stub.callCount).to.equal(1);
       const payload = {
         service_name: serviceName,
+        version: serviceVersion,
         account_id: accountId,
         path: `/user/dashboard_items/${dashboardItemId}`,
       };
@@ -307,6 +322,7 @@ describe('Dashboards Client Test Suite:', () => {
       expect(stub.callCount).to.equal(1);
       const payload = {
         service_name: serviceName,
+        version: serviceVersion,
         account_id: accountId,
         path: '/user/dashboard_items',
         params: {},
