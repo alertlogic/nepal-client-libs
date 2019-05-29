@@ -53,6 +53,7 @@ class DashboardsClient {
 
   private alClient = ALClient;
   private serviceName = 'dashboards';
+  private version = 'v2';
 
   /**
    * Creates a dashboard item for given deployment and returns it
@@ -60,6 +61,7 @@ class DashboardsClient {
   async createDeploymentDashboardItem(accountId: string, deploymentId: string, reportRequest: DashboardRequest) {
     const dashboard = await this.alClient.post({
       service_name: this.serviceName,
+      version: this.version,
       account_id: accountId,
       path: `/deployments/${deploymentId}/dashboard_items`,
       data: reportRequest,
@@ -72,6 +74,7 @@ class DashboardsClient {
   async getDeploymentDashboardItem(accountId: string, deploymentId: string, dashboardItemId: string) {
     const dashboard = await this.alClient.fetch({
       service_name: this.serviceName,
+      version: this.version,
       account_id: accountId,
       path: `/deployments/${deploymentId}/dashboard_items/${dashboardItemId}`,
     });
@@ -83,6 +86,7 @@ class DashboardsClient {
   async updateDeploymentDashboardItem(accountId: string, deploymentId: string, dashboardItemId: string, reportRequest: DashboardRequest) {
     const dashboard = await this.alClient.set({
       service_name: this.serviceName,
+      version: this.version,
       account_id: accountId,
       path: `/deployments/${deploymentId}/dashboard_items/${dashboardItemId}`,
       data: reportRequest,
@@ -95,6 +99,7 @@ class DashboardsClient {
   async deleteDeploymentDashboardItem(accountId: string, deploymentId: string, dashboardItemId: string) {
     const dashboard = await this.alClient.delete({
       service_name: this.serviceName,
+      version: this.version,
       account_id: accountId,
       path: `/deployments/${deploymentId}/dashboard_items/${dashboardItemId}`,
     });
@@ -106,6 +111,7 @@ class DashboardsClient {
   async listDeploymentDashboardItems(accountId: string, deploymentId: string, requestQueryParams: DashboardsRequestQueryParams = {}) {
     const dashboards = await this.alClient.fetch({
       service_name: this.serviceName,
+      version: this.version,
       account_id: accountId,
       path: `/deployments/${deploymentId}/dashboard_items`,
       params: requestQueryParams,
@@ -118,6 +124,7 @@ class DashboardsClient {
   async createUserDashboardItem(accountId: string, userId: string, reportRequest: DashboardRequest) {
     const dashboard = await this.alClient.post({
       service_name: this.serviceName,
+      version: this.version,
       account_id: accountId,
       path: `/users/${userId}/dashboard_items`,
       data: reportRequest,
@@ -130,6 +137,7 @@ class DashboardsClient {
   async getUserDashboardItem(accountId: string, userId: string, dashboardItemId: string) {
     const dashboard = await this.alClient.fetch({
       service_name: this.serviceName,
+      version: this.version,
       account_id: accountId,
       path: `/users/${userId}/dashboard_items/${dashboardItemId}`,
     });
@@ -141,6 +149,7 @@ class DashboardsClient {
   async updateUserDashboardItem(accountId: string, userId: string, dashboardItemId: string, reportRequest: DashboardRequest) {
     const dashboard = await this.alClient.set({
       service_name: this.serviceName,
+      version: this.version,
       account_id: accountId,
       path: `/users/${userId}/dashboard_items/${dashboardItemId}`,
       data: reportRequest,
@@ -153,6 +162,7 @@ class DashboardsClient {
   async deleteUserDashboardItem(accountId: string, userId: string, dashboardItemId: string) {
     const dashboard = await this.alClient.delete({
       service_name: this.serviceName,
+      version: this.version,
       account_id: accountId,
       path: `/users/${userId}/dashboard_items/${dashboardItemId}`,
     });
@@ -164,6 +174,7 @@ class DashboardsClient {
   async listUserDashboardItems(accountId: string, userId: string, requestQueryParams: DashboardsRequestQueryParams = {}) {
     const dashboards = await this.alClient.fetch({
       service_name: this.serviceName,
+      version: this.version,
       account_id: accountId,
       path: `/users/${userId}/dashboard_items`,
       params: requestQueryParams,
@@ -176,6 +187,7 @@ class DashboardsClient {
   async createOwnDashboardItem(accountId: string, reportRequest: DashboardRequest) {
     const dashboard = await this.alClient.post({
       service_name: this.serviceName,
+      version: this.version,
       account_id: accountId,
       path: '/user/dashboard_items',
       data: reportRequest,
@@ -188,6 +200,7 @@ class DashboardsClient {
   async getOwnDashboardItem(accountId: string, dashboardItemId: string) {
     const dashboard = await this.alClient.fetch({
       service_name: this.serviceName,
+      version: this.version,
       account_id: accountId,
       path: `/user/dashboard_items/${dashboardItemId}`,
     });
@@ -199,6 +212,7 @@ class DashboardsClient {
   async listOwnDashboardItems(accountId: string, requestQueryParams: DashboardsRequestQueryParams = {}) {
     const dashboards = await this.alClient.fetch({
       service_name: this.serviceName,
+      version: this.version,
       account_id: accountId,
       path: '/user/dashboard_items',
       params: requestQueryParams,
@@ -211,6 +225,7 @@ class DashboardsClient {
   async updateOwnDashboardItem(accountId: string, dashboardItemId: string, reportRequest: DashboardRequest) {
     const dashboard = await this.alClient.set({
       service_name: this.serviceName,
+      version: this.version,
       account_id: accountId,
       path: `/user/dashboard_items/${dashboardItemId}`,
       data: reportRequest,
@@ -223,6 +238,7 @@ class DashboardsClient {
   async deleteOwnDashboardItem(accountId: string, dashboardItemId: string) {
     const dashboard = await this.alClient.delete({
       service_name: this.serviceName,
+      version: this.version,
       account_id: accountId,
       path: `/user/dashboard_items/${dashboardItemId}`,
     });
