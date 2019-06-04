@@ -50,6 +50,7 @@ export class AlSubscriptionsClient {
       service_name: 'subscriptions',
       account_id: accountId,
       path: `/entitlements/${productFamily}`,
+      retry_count: 5
     });
     return accounts;
   }
