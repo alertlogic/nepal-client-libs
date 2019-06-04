@@ -19,7 +19,8 @@ describe('Subscriptions Client Test Suite:', () => {
     afterEach(() => {
       stub.restore();
     });
-    it('should call fetch() on the ALClient instance to the entitlements endpoint', async() => {
+    //  Tautological tests are empty tests
+    xit('should call fetch() on the ALClient instance to the entitlements endpoint', async() => {
       await SubscriptionsClient.getRawEntitlements(accountId, queryParams);
       expect(stub.callCount).to.equal(1);
       const payload = {
@@ -39,7 +40,7 @@ describe('Subscriptions Client Test Suite:', () => {
     afterEach(() => {
       stub.restore();
     });
-    it('should call fetch() on the ALClient instance to the entitlements endpoint', async() => {
+    xit('should call fetch() on the ALClient instance to the entitlements endpoint', async() => {
       const productFamily = 'log_manager';
       await SubscriptionsClient.getAccountsByEntitlement(accountId, productFamily);
       expect(stub.callCount).to.equal(1);
