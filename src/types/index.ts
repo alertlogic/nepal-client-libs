@@ -34,8 +34,9 @@ export interface DashboardWidgetConfig {
     id: string;
     transformation: string;
   };
-  chart: {
+  content: {
     type: string;
+    data?: any; // UI only prop
   };
   actionLabels: {
     primary?: string;
