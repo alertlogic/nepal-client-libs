@@ -1,6 +1,6 @@
 {
   "name": "@al/dashboards",
-  "version": "1.0.0-beta.2",
+  "version": "1.0.0-beta.3",
   "license": "MIT",
   "description": "A client for interacting with the Alert Logic Dashboards Public API",
   "author": {
