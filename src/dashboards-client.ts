@@ -152,11 +152,10 @@ class DashboardsClient {
   /**
    * Creates a user dashboard item for the authenticated user and returns it
    */
-  async createOwnDashboardItem(accountId: string, reportRequest: DashboardRequest) {
+  async createOwnDashboardItem(reportRequest: DashboardRequest) {
     const dashboard = await this.alClient.post({
       service_name: this.serviceName,
       version: this.version,
-      account_id: accountId,
       path: '/user/dashboard_items',
       data: reportRequest,
     });
@@ -165,11 +164,10 @@ class DashboardsClient {
   /**
    * Get a dashboard item for the authenticated user.
    */
-  async getOwnDashboardItem(accountId: string, dashboardItemId: string, requestQueryParams: {resolve_shared_refs?: boolean} = {}) {
+  async getOwnDashboardItem(dashboardItemId: string, requestQueryParams: {resolve_shared_refs?: boolean} = {}) {
     const item = await this.alClient.fetch({
       service_name: this.serviceName,
       version: this.version,
-      account_id: accountId,
       path: `/user/dashboard_items/${dashboardItemId}`,
       params: requestQueryParams,
     });
@@ -178,11 +176,10 @@ class DashboardsClient {
   /**
    * Return a list of dashboard items for the authenticated user based on the criteria in the query parameters.
    */
-  async listOwnDashboardItems(accountId: string, requestQueryParams: DashboardItemsRequestQueryParams = {}) {
+  async listOwnDashboardItems(requestQueryParams: DashboardItemsRequestQueryParams = {}) {
     const items = await this.alClient.fetch({
       service_name: this.serviceName,
       version: this.version,
-      account_id: accountId,
       path: '/user/dashboard_items',
       params: requestQueryParams,
     });
@@ -191,11 +188,10 @@ class DashboardsClient {
   /**
    * Update an existing user dashboard item (of the authenticated user) and return it.
    */
-  async updateOwnDashboardItem(accountId: string, dashboardItemId: string, reportRequest: DashboardRequest) {
+  async updateOwnDashboardItem(dashboardItemId: string, reportRequest: DashboardRequest) {
     const dashboard = await this.alClient.set({
       service_name: this.serviceName,
       version: this.version,
-      account_id: accountId,
       path: `/user/dashboard_items/${dashboardItemId}`,
       data: reportRequest,
     });
@@ -204,11 +200,10 @@ class DashboardsClient {
   /**
    * Delete a dashboard item for the authenticated user.
    */
-  async deleteOwnDashboardItem(accountId: string, dashboardItemId: string) {
+  async deleteOwnDashboardItem(dashboardItemId: string) {
     const dashboard = await this.alClient.delete({
       service_name: this.serviceName,
       version: this.version,
-      account_id: accountId,
       path: `/user/dashboard_items/${dashboardItemId}`,
     });
     return dashboard;

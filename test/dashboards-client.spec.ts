@@ -249,12 +249,11 @@ describe('Dashboards Client Test Suite:', () => {
       stub.restore();
     });
     it('should call post() on the ALClient instance to the users dashboard items endpoint with the correct payload', async() => {
-      await DashboardsClient.createOwnDashboardItem(accountId, dashboardItemRequest);
+      await DashboardsClient.createOwnDashboardItem(dashboardItemRequest);
       expect(stub.callCount).to.equal(1);
       const payload = {
         service_name: serviceName,
         version: serviceVersion,
-        account_id: accountId,
         path: '/user/dashboard_items',
         data: dashboardItemRequest,
       };
@@ -270,12 +269,11 @@ describe('Dashboards Client Test Suite:', () => {
       stub.restore();
     });
     it('should call fetch() on the ALClient instance to the users dashboard items endpoint with the correct payload', async() => {
-      await DashboardsClient.getOwnDashboardItem(accountId, dashboardItemId);
+      await DashboardsClient.getOwnDashboardItem(dashboardItemId);
       expect(stub.callCount).to.equal(1);
       const payload = {
         service_name: serviceName,
         version: serviceVersion,
-        account_id: accountId,
         path: `/user/dashboard_items/${dashboardItemId}`,
         params: {},
       };
@@ -291,12 +289,11 @@ describe('Dashboards Client Test Suite:', () => {
       stub.restore();
     });
     it('should call set() on the ALClient instance to the users dashboard items endpoint with the correct payload', async() => {
-      await DashboardsClient.updateOwnDashboardItem(accountId, dashboardItemId, dashboardItemRequest);
+      await DashboardsClient.updateOwnDashboardItem(dashboardItemId, dashboardItemRequest);
       expect(stub.callCount).to.equal(1);
       const payload = {
         service_name: serviceName,
         version: serviceVersion,
-        account_id: accountId,
         path: `/user/dashboard_items/${dashboardItemId}`,
         data: dashboardItemRequest,
       };
@@ -312,12 +309,11 @@ describe('Dashboards Client Test Suite:', () => {
       stub.restore();
     });
     it('should call delete() on the ALClient instance to the users dashboard items endpoint', async() => {
-      await DashboardsClient.deleteOwnDashboardItem(accountId, dashboardItemId);
+      await DashboardsClient.deleteOwnDashboardItem(dashboardItemId);
       expect(stub.callCount).to.equal(1);
       const payload = {
         service_name: serviceName,
         version: serviceVersion,
-        account_id: accountId,
         path: `/user/dashboard_items/${dashboardItemId}`,
       };
       assert.deepEqual(payload, stub.args[0][0]);
@@ -332,12 +328,11 @@ describe('Dashboards Client Test Suite:', () => {
       stub.restore();
     });
     it('should call fetch() on the ALClient instance to the users dashboard items endpoint', async() => {
-      await DashboardsClient.listOwnDashboardItems(accountId);
+      await DashboardsClient.listOwnDashboardItems();
       expect(stub.callCount).to.equal(1);
       const payload = {
         service_name: serviceName,
         version: serviceVersion,
-        account_id: accountId,
         path: '/user/dashboard_items',
         params: {},
       };
