@@ -1,6 +1,6 @@
 {
   "name": "@al/dashboards",
-  "version": "0.2.1",
+  "version": "1.0.0-beta.2",
   "license": "MIT",
   "description": "A client for interacting with the Alert Logic Dashboards Public API",
   "author": {
@@ -59,8 +59,8 @@
     "webpack": "^4.29.0",
     "webpack-cli": "^3.2.1"
   },
-  "peerDependencies": {
-    "@al/client": "^0.13.0"
+  "dependencies": {
+    "@al/client": "^1.0.0-rc.3"
   },
   "files": [
     "dist"
