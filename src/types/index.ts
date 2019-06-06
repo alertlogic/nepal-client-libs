@@ -1,9 +1,13 @@
-export type DashboardRequest =
-  { type: 'shared_dashboard_ref'; shared_dashboard_ref: SharedDashboardRefItem } |
-  { type: 'shared_widget_ref'; shared_widget_ref: SharedDashboardRefItem } |
-  { type: 'data_source'; data_source: DashboardDataSourceConfig; name: string; description?: string; } |
-  { type: 'widget_configuration'; widget_configuration: DashboardWidgetConfig; name: string; description?: string; } |
-  { type: 'dashboard_layout'; dashboard_layout: DashboardLayoutConfig; name: string; description?: string; };
+export interface DashboardRequest {
+  name?: string;
+  description?: string;
+  type: 'shared_dashboard_ref' | 'shared_widget_ref' | 'dashboard_layout' | 'widget_configuration' |'data_source';
+  shared_dashboard_ref?: SharedDashboardRefItem;
+  shared_widget_ref?: SharedDashboardRefItem;
+  dashboard_layout?: DashboardLayoutConfig;
+  widget_configuration?: DashboardWidgetConfig;
+  data_source?: DashboardDataSourceConfig;
+}
 
 export interface DeploymentDashboardItem {
   id: string;
@@ -56,30 +60,32 @@ export interface DashboardLayoutConfig {
   widgets: DashboardLayoutWidgetConfig[];
 }
 
-export type UserDashboardItem = {
+export interface UserDashboardItem {
   id?: string;
   account_id?: string;
   user_id?: string;
   created?: UserTimeStamp;
   modified?: UserTimeStamp;
-} & (
-  {type: 'shared_dashboard_ref', shared_dashboard_ref: SharedDashboardRefItem} |
-  {type: 'shared_widget_ref', shared_widget_ref: SharedDashboardRefItem} |
-  {type: 'dashboard_layout', dashboard_layout: DashboardLayoutConfig, name: string, description?: string} |
-  {type: 'widget_configuration', widget_configuration: DashboardWidgetConfig, name: string, description?: string} |
-  {type: 'data_source', data_source: DashboardDataSourceConfig, name: string, description?: string}
-);
+  name?: string;
+  description?: string;
+  type: 'shared_dashboard_ref' | 'shared_widget_ref' | 'dashboard_layout' | 'widget_configuration' |'data_source';
+  shared_dashboard_ref?: SharedDashboardRefItem;
+  shared_widget_ref?: SharedDashboardRefItem;
+  dashboard_layout?: DashboardLayoutConfig;
+  widget_configuration?: DashboardWidgetConfig;
+  data_source?: DashboardDataSourceConfig;
+}
 
-export type SharedDashboardRef = {
+export interface SharedDashboardRef {
   id?: string;
   account_id?: string;
   user_id?: string;
   created?: UserTimeStamp;
   modified?: UserTimeStamp;
-} & (
-  {type: 'shared_dashboard_ref', shared_dashboard_ref: SharedDashboardRefItem} |
-  {type: 'shared_widget_ref', shared_widget_ref: SharedWidgetRefItem}
-);
+  type: 'shared_dashboard_ref' | 'shared_widget_ref';
+  shared_dashboard_ref?: SharedDashboardRefItem;
+  shared_widget_ref?: SharedWidgetRefItem;
+}
 
 export interface SharedDashboardRefItem {
   id?: string;
@@ -154,19 +160,19 @@ export interface DashboardGroupsResponse {
   dashboard_items?: SharedDashboardItem[];
 }
 
-export type SharedDashboardItem = {
+export interface SharedDashboardItem {
   id?: string;
   account_id?: string;
   name: string;
   description?: string;
   shared_account_ids?: 'own' | 'managed' | string[];
   group_id?: string;
+  type: 'dashboard' | 'widget';
+  dashboard?: any;
+  widget?: any;
   created?: UserTimeStamp;
   modified?: UserTimeStamp;
-} & (
-  { type: 'dashboard'; dashboard: any } |
-  { type: 'widget'; widget: any }
-);
+}
 
 export interface SharedDashboardItemsRequestQueryParams {
   limit?: number;
