@@ -15,7 +15,7 @@ describe('Assets Query Client Test Suite:', () => {
     afterEach(() => {
       stub.restore();
     });
-    it('should call fetch() on the ALClient instance', async() => {
+    it('should call fetch() on the ALClient instance', async () => {
       await AssetsQueryClient.getHealth('1234', 'agent');
       expect(stub.callCount).to.equal(1);
     });
@@ -28,7 +28,7 @@ describe('Assets Query Client Test Suite:', () => {
     afterEach(() => {
       stub.restore();
     });
-    it('should call fetch() on the ALClient instance', async() => {
+    it('should call fetch() on the ALClient instance', async () => {
       await AssetsQueryClient.getHealthSummary('1234');
       expect(stub.callCount).to.equal(1);
     });
@@ -41,8 +41,8 @@ describe('Assets Query Client Test Suite:', () => {
     afterEach(() => {
       stub.restore();
     });
-    it('should call fetch() on the ALClient instance', async() => {
-      await AssetsQueryClient.findAsset('1234', {uuid: '0987'});
+    it('should call fetch() on the ALClient instance', async () => {
+      await AssetsQueryClient.findAsset('1234', { uuid: '0987' });
       expect(stub.callCount).to.equal(1);
     });
   });
@@ -54,8 +54,8 @@ describe('Assets Query Client Test Suite:', () => {
     afterEach(() => {
       stub.restore();
     });
-    it('should call fetch() on the ALClient instance', async() => {
-      await AssetsQueryClient.findAssets('1234', {parameters: [{uuid: '0987'}, {uuid: '4567'}]});
+    it('should call fetch() on the ALClient instance', async () => {
+      await AssetsQueryClient.findAssets('1234', { parameters: [{ uuid: '0987' }, { uuid: '4567' }] });
       expect(stub.callCount).to.equal(1);
     });
   });
@@ -67,7 +67,7 @@ describe('Assets Query Client Test Suite:', () => {
     afterEach(() => {
       stub.restore();
     });
-    it('should call fetch() on the ALClient instance', async() => {
+    it('should call fetch() on the ALClient instance', async () => {
       await AssetsQueryClient.getAssetDetails('1234');
       expect(stub.callCount).to.equal(1);
     });
@@ -80,7 +80,7 @@ describe('Assets Query Client Test Suite:', () => {
     afterEach(() => {
       stub.restore();
     });
-    it('should call fetch() on the ALClient instance', async() => {
+    it('should call fetch() on the ALClient instance', async () => {
       await AssetsQueryClient.getAccountAssets('1234');
       expect(stub.callCount).to.equal(1);
     });
@@ -93,7 +93,7 @@ describe('Assets Query Client Test Suite:', () => {
     afterEach(() => {
       stub.restore();
     });
-    it('should call fetch() on the ALClient instance', async() => {
+    it('should call fetch() on the ALClient instance', async () => {
       await AssetsQueryClient.getDeploymentAssets('1234', '0987');
       expect(stub.callCount).to.equal(1);
     });
@@ -106,7 +106,7 @@ describe('Assets Query Client Test Suite:', () => {
     afterEach(() => {
       stub.restore();
     });
-    it('should call fetch() on the ALClient instance', async() => {
+    it('should call fetch() on the ALClient instance', async () => {
       await AssetsQueryClient.getTagsSummary('1234', '0987');
       expect(stub.callCount).to.equal(1);
     });
@@ -119,7 +119,7 @@ describe('Assets Query Client Test Suite:', () => {
     afterEach(() => {
       stub.restore();
     });
-    it('should call fetch() on the ALClient instance', async() => {
+    it('should call fetch() on the ALClient instance', async () => {
       await AssetsQueryClient.getTopology('1234', '0987');
       expect(stub.callCount).to.equal(1);
     });
@@ -132,7 +132,7 @@ describe('Assets Query Client Test Suite:', () => {
     afterEach(() => {
       stub.restore();
     });
-    it('should call fetch() on the ALClient instance', async() => {
+    it('should call fetch() on the ALClient instance', async () => {
       await AssetsQueryClient.getAssessmentSpecs('1234', '0987');
       expect(stub.callCount).to.equal(1);
     });
@@ -145,7 +145,7 @@ describe('Assets Query Client Test Suite:', () => {
     afterEach(() => {
       stub.restore();
     });
-    it('should call fetch() on the ALClient instance', async() => {
+    it('should call fetch() on the ALClient instance', async () => {
       await AssetsQueryClient.getRemediationItemsList('1234', '0987');
       expect(stub.callCount).to.equal(1);
     });
@@ -158,7 +158,7 @@ describe('Assets Query Client Test Suite:', () => {
     afterEach(() => {
       stub.restore();
     });
-    it('should call fetch() on the ALClient instance', async() => {
+    it('should call fetch() on the ALClient instance', async () => {
       await AssetsQueryClient.getRemediationItems('1234', '0987');
       expect(stub.callCount).to.equal(1);
     });
@@ -171,8 +171,8 @@ describe('Assets Query Client Test Suite:', () => {
     afterEach(() => {
       stub.restore();
     });
-    it('should call set() on the ALClient instance', async() => {
-      await AssetsQueryClient.completeRemediations('1234', '0987', {operation: 'complete_remediations', remediation_items: ['4567', '7654']});
+    it('should call set() on the ALClient instance', async () => {
+      await AssetsQueryClient.completeRemediations('1234', '0987', { operation: 'complete_remediations', remediation_items: ['4567', '7654'] });
       expect(stub.callCount).to.equal(1);
     });
   });
@@ -184,8 +184,8 @@ describe('Assets Query Client Test Suite:', () => {
     afterEach(() => {
       stub.restore();
     });
-    it('should call set() on the ALClient instance', async() => {
-      await AssetsQueryClient.disposeRemediations('1234', '0987', {operation: 'dispose_remediations', reason: 'because', comment: 'testing', expires: 1234, remediation_items: ['4567', '7654']});
+    it('should call set() on the ALClient instance', async () => {
+      await AssetsQueryClient.disposeRemediations('1234', '0987', { operation: 'dispose_remediations', reason: 'because', comment: 'testing', expires: 1234, remediation_items: ['4567', '7654'] });
       expect(stub.callCount).to.equal(1);
     });
   });
@@ -197,8 +197,8 @@ describe('Assets Query Client Test Suite:', () => {
     afterEach(() => {
       stub.restore();
     });
-    it('should call set() on the ALClient instance', async() => {
-      await AssetsQueryClient.planRemediations('1234', '0987', {operation: 'plan_remediations', filters: ['because'], user_id: '0987', remediations: ['4567', '7654']});
+    it('should call set() on the ALClient instance', async () => {
+      await AssetsQueryClient.planRemediations('1234', '0987', { operation: 'plan_remediations', filters: ['because'], user_id: '0987', remediations: ['4567', '7654'] });
       expect(stub.callCount).to.equal(1);
     });
   });
@@ -210,8 +210,8 @@ describe('Assets Query Client Test Suite:', () => {
     afterEach(() => {
       stub.restore();
     });
-    it('should call set() on the ALClient instance', async() => {
-      await AssetsQueryClient.uncompleteRemediations('1234', '0987', {operation: 'uncomplete_remediations', remediation_items: ['4567', '7654']});
+    it('should call set() on the ALClient instance', async () => {
+      await AssetsQueryClient.uncompleteRemediations('1234', '0987', { operation: 'uncomplete_remediations', remediation_items: ['4567', '7654'] });
       expect(stub.callCount).to.equal(1);
     });
   });
@@ -223,10 +223,22 @@ describe('Assets Query Client Test Suite:', () => {
     afterEach(() => {
       stub.restore();
     });
-    it('should call set() on the ALClient instance', async() => {
-      await AssetsQueryClient.undisposeRemediations('1234', '0987', {operation: 'uncomplete_remediations', remediation_items: ['4567', '7654']});
+    it('should call set() on the ALClient instance', async () => {
+      await AssetsQueryClient.undisposeRemediations('1234', '0987', { operation: 'uncomplete_remediations', remediation_items: ['4567', '7654'] });
       expect(stub.callCount).to.equal(1);
     });
   });
-    
+  describe('when getting health summary', () => {
+    let stub: sinon.SinonSpy;
+    beforeEach(() => {
+      stub = sinon.stub(AssetsQueryClient['alClient'], 'fetch');
+    });
+    afterEach(() => {
+      stub.restore();
+    });
+    it('should call fetch() on the ALClient instance', async () => {
+      await AssetsQueryClient.getExposuresDeploymentSummary('1234');
+      expect(stub.callCount).to.equal(1);
+    });
+  });
 });

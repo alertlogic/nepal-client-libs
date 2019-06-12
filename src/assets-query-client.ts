@@ -8,6 +8,7 @@ import {
   FindAssetsRequest,
   TagsSummaryResponse,
   TopologyResponse,
+  DeploymentExposuresSummary,
 } from './types';
 
 class AssetsQueryClient {
@@ -286,6 +287,21 @@ class AssetsQueryClient {
       data: remediationData,
     });
     return remediations;
+  }
+
+  /**
+   * Exposures Deployment Suymmary
+   * GET
+   * /remediations/v1/:account_id/exposures/deployment/summary
+   * "https://api.cloudinsight.alertlogic.com/remediations/v1/10000001/exposures/deployment/summary"
+   */
+  async getExposuresDeploymentSummary(accountId: string) {
+    const summaries = await this.alClient.fetch({
+      account_id: accountId,
+      service_name: 'remediations',
+      path: 'exposures/deployment/summary',
+    });
+    return summaries as DeploymentExposuresSummary[];
   }
 
 }
