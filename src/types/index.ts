@@ -73,7 +73,7 @@ export interface ThreatSummary {
   high: number;
 }
 
-export interface DeploymentExposuresSummary {
+export interface ExposuresDeploymentSummary {
   type: string;
   tri: number;
   threatiness: number;

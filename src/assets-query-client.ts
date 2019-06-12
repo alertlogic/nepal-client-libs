@@ -8,7 +8,7 @@ import {
   FindAssetsRequest,
   TagsSummaryResponse,
   TopologyResponse,
-  DeploymentExposuresSummary,
+  ExposuresDeploymentSummary,
 } from './types';
 
 class AssetsQueryClient {
@@ -290,7 +290,7 @@ class AssetsQueryClient {
   }
 
   /**
-   * Exposures Deployment Suymmary
+   * Exposures Deployment Summary
    * GET
    * /remediations/v1/:account_id/exposures/deployment/summary
    * "https://api.cloudinsight.alertlogic.com/remediations/v1/10000001/exposures/deployment/summary"
@@ -301,7 +301,7 @@ class AssetsQueryClient {
       service_name: 'remediations',
       path: 'exposures/deployment/summary',
     });
-    return summaries as DeploymentExposuresSummary[];
+    return summaries as ExposuresDeploymentSummary[];
   }
 
 }
