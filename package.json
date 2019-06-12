@@ -59,8 +59,8 @@
     "webpack": "^4.29.0",
     "webpack-cli": "^3.2.1"
   },
-  "peerDependencies": {
-    "@al/client": "^0.13.0"
+  "dependencies": {
+    "@al/client": "^1.0.0-rc.5"
   },
   "files": [
     "dist"
