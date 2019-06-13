@@ -65,3 +65,25 @@ export interface TopologyResponse {
   extras?: any;
   image?: any;
 }
+
+export interface ThreatSummary {
+  medium: number;
+  low: number;
+  info: number;
+  high: number;
+}
+
+export interface ExposuresDeploymentSummary {
+  type: string;
+  tri: number;
+  threatiness: number;
+  summary: ThreatSummary;
+  severity: number;
+  raw_severity: number;
+  p90_severity: number;
+  name: string;
+  key: string;
+  deployment_id: string;
+  asset_count: number;
+  account_id: string;
+}

@@ -1,5 +1,5 @@
 const path = require('path');
-const PeerDepsExternalsPlugin = require('peer-deps-externals-webpack-plugin');
+const nodeExternals = require('webpack-node-externals');
 
 module.exports = (env) => {
 
@@ -8,6 +8,7 @@ module.exports = (env) => {
     entry: {
       'index': path.resolve(__dirname, './dist/commonjs/index.js')
     },
+    externals: [nodeExternals()],
     output: {
       path: path.resolve(__dirname, './dist/umd'),
       filename: '[name].js',
@@ -15,9 +16,7 @@ module.exports = (env) => {
       libraryTarget: 'umd', // supports commonjs, amd and web browsers
       globalObject: 'this'
     },
-    plugins: [
-      new PeerDepsExternalsPlugin()
-    ]
+    plugins: []
   };
 
 };
