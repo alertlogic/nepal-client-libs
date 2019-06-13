@@ -340,7 +340,7 @@ class IRISClient {
    * /iris/v2/:account_id/incident/aggregations
    * "https://api.cloudinsight.alertlogic.com/iris/v2/2/incident/aggregations?size=0"
    */
-  async getAggregationsForFields(accountId: string, filterExpression: any, queryParams?: {multi?: boolean, size?: number, meta?: boolean}) {
+  async getAggregationsForFields(accountId: string, filterExpression: any, queryParams?: {multi?: boolean, size?: number, metadata?: boolean, raw_totals?: boolean}) {
     const aggregations = await this.alClient.post({
       account_id: accountId,
       service_name: this.serviceName,
