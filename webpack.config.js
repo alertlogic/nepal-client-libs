@@ -12,7 +12,7 @@ module.exports = (env) => {
     output: {
       path: path.resolve(__dirname, './dist/umd'),
       filename: '[name].js',
-      library: 'aimsClient',
+      library: 'assetsQueryClient',
       libraryTarget: 'umd', // supports commonjs, amd and web browsers
       globalObject: 'this'
     },
