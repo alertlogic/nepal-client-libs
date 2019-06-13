@@ -1,6 +1,6 @@
 {
   "name": "@al/iris",
-  "version": "1.0.0-beta.2",
+  "version": "1.0.0-beta.3",
   "license": "MIT",
   "description": "A client for interacting with the Alert Logic Iris Public API",
   "author": {
@@ -60,7 +60,7 @@
     "webpack-node-externals": "^1.7.2"
   },
   "dependencies": {
-    "@al/client": "^1.0.0-rc.5"
+    "@al/client": "^1.0.0-rc.6"
   },
   "files": [
     "dist"
