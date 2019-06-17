@@ -40,6 +40,31 @@ export interface DashboardWidgetConfig {
   };
   content: {
     type: string;
+    data?: any;
+  };
+  actions?: {
+    primary?: {
+      name: string,
+      action?: DashboardWidgetButtonAction;
+    };
+    link1?: string;
+    link2?: string;
+    settings?: string;
+  };
+}
+
+export interface DashboardWidgetButtonAction {
+  target_app: string;
+  path?: string;
+}
+
+export interface DashboardWidgetConfig {
+  source: {
+    id: string;
+    transformation: string;
+  };
+  content: {
+    type: string;
     data?: any; // UI only prop
   };
   actionLabels: {
