@@ -32,6 +32,7 @@ export class AlSubscriptionsClient {
       account_id: accountId,
       path: '/entitlements',
       params: queryParams,
+      retry_count: 5
     });
     return entitlements;
   }
@@ -49,8 +50,7 @@ export class AlSubscriptionsClient {
     const accounts = await this.alClient.fetch({
       service_name: 'subscriptions',
       account_id: accountId,
-      path: `/entitlements/${productFamily}`,
-      retry_count: 5
+      path: `/entitlements/${productFamily}`
     });
     return accounts;
   }
