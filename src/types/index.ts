@@ -30,7 +30,13 @@ export interface DashboardDataSourceConfig {
   sources: {
     service: string;
     method: string;
+    args?: DashboardDataSourceArgs;
   }[];
+}
+
+export interface DashboardDataSourceArgs {
+  body?: any;
+  query_parameters?: {[key: string]: any};
 }
 
 export interface DashboardWidgetConfig {
@@ -56,20 +62,6 @@ export interface DashboardWidgetConfig {
 export interface DashboardWidgetButtonAction {
   target_app: string;
   path?: string;
-}
-
-export interface DashboardWidgetConfig {
-  source: {
-    id: string;
-    transformation: string;
-  };
-  content: {
-    type: string;
-    data?: any; // UI only prop
-  };
-  actionLabels: {
-    primary?: string;
-  };
 }
 
 export interface DashboardLayoutWidgetConfig {
