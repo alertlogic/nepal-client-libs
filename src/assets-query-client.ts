@@ -301,7 +301,7 @@ class AssetsQueryClient {
       account_id: accountId,
       service_name: 'assets_query',
       path: 'exposures/deployment/summary',
-      version: '2',
+      version: 'v2',
     });
     return summaries as ExposuresSummary;
   }
