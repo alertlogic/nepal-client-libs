@@ -9,6 +9,7 @@ import {
   TagsSummaryResponse,
   TopologyResponse,
   ExposuresDeploymentSummary,
+  ExposuresSummary,
 } from './types';
 
 class AssetsQueryClient {
@@ -293,17 +294,17 @@ class AssetsQueryClient {
    * Exposures Deployment Summary
    * GET
    * /remediations/v1/:account_id/exposures/deployment/summary
-   * "https://api.cloudinsight.alertlogic.com/remediations/v1/10000001/exposures/deployment/summary"
+   * "https://api.cloudinsight.alertlogic.com/remediations/v2/10000001/exposures/deployment/summary"
    */
   async getExposuresDeploymentSummary(accountId: string) {
     const summaries = await this.alClient.fetch({
       account_id: accountId,
       service_name: 'remediations',
       path: 'exposures/deployment/summary',
+      version: '2',
     });
-    return summaries as ExposuresDeploymentSummary[];
+    return summaries as ExposuresSummary;
   }
-
 }
 
 export const assetsQueryClient = new AssetsQueryClient();

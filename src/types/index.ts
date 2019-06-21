@@ -73,6 +73,17 @@ export interface ThreatSummary {
   high: number;
 }
 
+export interface ExposuresSummary {
+  exposures: ExposuresDeploymentSummary[];
+  summary: {
+    all: number;
+    high: number;
+    medium: number;
+    low: number;
+    number: number;
+  };
+}
+
 export interface ExposuresDeploymentSummary {
   type: string;
   tri: number;

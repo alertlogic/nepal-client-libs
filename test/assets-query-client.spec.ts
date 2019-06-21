@@ -228,7 +228,7 @@ describe('Assets Query Client Test Suite:', () => {
       expect(stub.callCount).to.equal(1);
     });
   });
-  describe('when getting health summary', () => {
+  describe('when getting exposures summary', () => {
     let stub: sinon.SinonSpy;
     beforeEach(() => {
       stub = sinon.stub(AssetsQueryClient['alClient'], 'fetch');
