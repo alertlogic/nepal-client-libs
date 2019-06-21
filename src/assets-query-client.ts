@@ -293,13 +293,13 @@ class AssetsQueryClient {
   /**
    * Exposures Deployment Summary
    * GET
-   * /remediations/v1/:account_id/exposures/deployment/summary
-   * "https://api.cloudinsight.alertlogic.com/remediations/v2/10000001/exposures/deployment/summary"
+   * /assets_query/v1/:account_id/exposures/deployment/summary
+   * "https://api.cloudinsight.alertlogic.com/assets_query/v2/10000001/exposures/deployment/summary"
    */
   async getExposuresDeploymentSummary(accountId: string) {
     const summaries = await this.alClient.fetch({
       account_id: accountId,
-      service_name: 'remediations',
+      service_name: 'assets_query',
       path: 'exposures/deployment/summary',
       version: '2',
     });
