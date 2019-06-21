@@ -1,6 +1,6 @@
 {
   "name": "@al/dashboards",
-  "version": "1.0.0-beta.5",
+  "version": "1.0.0-rc.1",
   "license": "MIT",
   "description": "A client for interacting with the Alert Logic Dashboards Public API",
   "author": {
@@ -57,10 +57,11 @@
     "tslint-config-airbnb": "^5.11.1",
     "typescript": "^3.2.4",
     "webpack": "^4.29.0",
-    "webpack-cli": "^3.2.1"
+    "webpack-cli": "^3.2.1",
+    "webpack-node-externals": "^1.7.2"
   },
   "dependencies": {
-    "@al/client": "^1.0.0-rc.6"
+    "@al/client": "^1.0.0-rc.8"
   },
   "files": [
     "dist"
