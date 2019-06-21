@@ -80,7 +80,7 @@ export interface ExposuresSummary {
     high: number;
     medium: number;
     low: number;
-    number: number;
+    info: number;
   };
 }
 
