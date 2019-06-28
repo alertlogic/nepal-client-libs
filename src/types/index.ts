@@ -60,8 +60,9 @@ export interface DashboardWidgetConfig {
 }
 
 export interface DashboardWidgetButtonAction {
-  target_app: string;
+  target_app?: string;
   path?: string;
+  url?: string;
 }
 
 export interface DashboardLayoutWidgetConfig {
