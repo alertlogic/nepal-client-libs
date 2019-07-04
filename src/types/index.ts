@@ -109,8 +109,8 @@ export interface SharedDashboardRefItem {
   id?: string;
   account_id?: string;
   name?: string;
-  type: 'dashboard';
-  dashboard: any;
+  type?: 'dashboard';
+  dashboard?: any;
   created?: UserTimeStamp;
   modified?: UserTimeStamp;
 }
