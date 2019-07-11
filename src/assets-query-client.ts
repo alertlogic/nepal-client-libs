@@ -10,6 +10,7 @@ import {
   TopologyResponse,
   ExposuresDeploymentSummary,
   ExposuresSummary,
+  ExposureQueryParams,
 } from './types';
 
 class AssetsQueryClient {
@@ -302,6 +303,23 @@ class AssetsQueryClient {
       service_name: 'assets_query',
       path: 'exposures/deployment/summary',
       version: 'v2',
+    });
+    return summaries as ExposuresSummary;
+  }
+
+  /**
+   * Exposures Query
+   * GET
+   * /assets_query/v2/:account_id/exposures
+   * "https://api.cloudinsight.alertlogic.com/assets_query/v2/10000001/exposures"
+   */
+  async queryExposures(accountId: string, queryParams: ExposureQueryParams = {}) {
+    const summaries = await this.alClient.fetch({
+      account_id: accountId,
+      service_name: 'assets_query',
+      path: 'exposures',
+      version: 'v2',
+      params: queryParams,
     });
     return summaries as ExposuresSummary;
   }

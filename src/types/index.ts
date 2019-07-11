@@ -98,3 +98,13 @@ export interface ExposuresDeploymentSummary {
   asset_count: number;
   account_id: string;
 }
+
+export interface ExposureQueryParams {
+  group?: 'exposure' | 'remediation' | 'asset';
+  filter?: string;
+  include_remediations?: boolean;
+  include_exposures?: boolean;
+  details?: boolean;
+  include_filters?: boolean;
+  scope?: boolean;
+}
