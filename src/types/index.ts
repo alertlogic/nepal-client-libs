@@ -75,6 +75,7 @@ export interface DashboardLayoutWidgetConfig {
 }
 
 export interface DashboardLayoutConfig {
+  index?: number;
   widgets: DashboardLayoutWidgetConfig[];
 }
 
