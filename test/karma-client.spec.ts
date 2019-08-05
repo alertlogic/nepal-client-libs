@@ -12,6 +12,7 @@ afterEach(() => {
 });
 
 describe('Kalm Client Test Suite', () => {
+  const accountId = '1234';
   describe('when retrieving catalog tables', () => {
     let stub: sinon.SinonSpy;
 
@@ -48,10 +49,11 @@ describe('Kalm Client Test Suite', () => {
     });
 
     it ('should should call fetch() on the ALClient instance to the startSimpleQuery end point', async() => {
-      await KalmClient.startSimpleQuery('test');
+      await KalmClient.startSimpleQuery(accountId, 'test');
       expect(stub.callCount).to.equal(1);
       const payload = {
         service_name: serviceName,
+        account_id: accountId,
         version: serviceVersion,
         path: '/simple/test'
       };
