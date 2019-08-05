@@ -46,5 +46,17 @@ describe('Kalm Client Test Suite', () => {
 
       assert.deepEqual(payload, stub.args[0][0]);
     });
+
+    it ('should should call fetch() on the ALClient instance to the startSimpleQuery end point', async() => {
+      await KalmClient.startSimpleQuery('test');
+      expect(stub.callCount).to.equal(1);
+      const payload = {
+        service_name: serviceName,
+        version: serviceVersion,
+        path: '/simple/test'
+      };
+
+      assert.deepEqual(payload, stub.args[0][0]);
+    });
   });
 });
