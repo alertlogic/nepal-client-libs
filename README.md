@@ -1,7 +1,7 @@
-  @al/dashboards
+  @al/kalm
 =========
 
-A client for interacting with the Alert Logic Dashboards Public API.
+A client for interacting with the Alert Logic Kalm Public API.
 
 This library uses @al/client as its HTTP provider interface.
 
@@ -11,12 +11,12 @@ Until the release of version 1.0.0 all current minor version increments may be b
 
 ## Installation
 
-      npm install @al/dashboards --save
+      npm install @al/kalm --save
 
 ## Usage
 
-      var DashboardsClient = require('@al/dashboards').DashboardsClient; //commonjs - e.g. node
-      import { DashboardsClient } from '@al/dashboards'; //ES2015 - e.g. Angular, TS projects
+      var KalmClient = require('@al/kalm').KalmClient; //commonjs - e.g. node
+      import { KalmClient } from '@al/kalm'; //ES2015 - e.g. Angular, TS projects
         
 ## Interactive
 

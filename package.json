@@ -1,6 +1,6 @@
 {
   "name": "@al/kalm",
-  "version": "1.0.0",
+  "version": "0.1.0",
   "license": "MIT",
   "description": "A client for interacting with the Alert Logic Kalm Public API",
   "author": {
@@ -13,10 +13,6 @@
     "Service"
   ],
   "maintainers": [
-    {
-      "name": "Stephen Jones",
-      "email": "bskidmore@alertlogic.com"
-    },
     {
       "name": "Alert Logic NPM Team",
       "email": "npm@alertlogic.com"
