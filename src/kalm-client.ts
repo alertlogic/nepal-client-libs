@@ -32,6 +32,18 @@ class KalmClient {
     });
     return item as StorageDescriptor;
   }
+
+  /*
+   *
+   */
+  async startSimpleQuery(namedQuery: string) {
+    const items = await this.alClient.fetch({
+      service_name: this.serviceName,
+      version: this.version,
+      path: `/simple/${namedQuery}`,
+    });
+    return items as any;
+  }
 }
 
 export const kalmClient =  new KalmClient();
