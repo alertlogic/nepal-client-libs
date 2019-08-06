@@ -39,9 +39,8 @@ class KalmClient {
   async startSimpleQuery(accountID: string, namedQuery: string) {
     const items = await this.alClient.fetch({
       service_name: this.serviceName,
-      account_id: accountID,
       version: this.version,
-      path: `/simple/${namedQuery}`,
+      path: `/query/${accountID}/simple/${namedQuery}`,
     });
     return items as any;
   }
