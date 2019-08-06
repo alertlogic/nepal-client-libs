@@ -113,7 +113,7 @@ export interface ExposuresQueryResponse {
   };
   filters?: ExposuresQueryFilter[];
   exposures?: ExposureQueryResults;
-  redmediations?: ExposureQueryResults;
+  remediations?: ExposureQueryResults;
 }
 
 export interface ExposuresQueryFilter {
