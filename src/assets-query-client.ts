@@ -11,6 +11,7 @@ import {
   ExposuresDeploymentSummary,
   ExposuresSummary,
   ExposureQueryParams,
+  ExposuresQueryResponse,
 } from './types';
 
 class AssetsQueryClient {
@@ -321,7 +322,7 @@ class AssetsQueryClient {
       version: 'v2',
       params: queryParams,
     });
-    return summaries as ExposuresSummary;
+    return summaries as ExposuresQueryResponse;
   }
 }
 
