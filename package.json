@@ -4,8 +4,8 @@
   "license": "MIT",
   "description": "A client for interacting with the Alert Logic Subscriptions Public API",
   "author": {
-    "name": "Barry Skidmore",
-    "email": "bskidmore@alertlogic.com"
+    "name": "Alert Logic NPM Team",
+    "email": "npm@alertlogic.com"
   },
   "keywords": [
     "Alert Logic",
@@ -13,10 +13,6 @@
     "Service"
   ],
   "maintainers": [
-    {
-      "name": "Barry Skidmore",
-      "email": "bskidmore@alertlogic.com"
-    },
     {
       "name": "Alert Logic NPM Team",
       "email": "npm@alertlogic.com"
