@@ -1,6 +1,6 @@
 {
   "name": "@al/kalm",
-  "version": "0.1.5",
+  "version": "0.1.6",
   "license": "MIT",
   "description": "A client for interacting with the Alert Logic Kalm Public API",
   "author": {
@@ -57,7 +57,7 @@
     "webpack-node-externals": "^1.7.2"
   },
   "dependencies": {
-    "@al/client": "^1.0.0-rc.8"
+    "@al/client": "^1.0.0"
   },
   "files": [
     "dist"
