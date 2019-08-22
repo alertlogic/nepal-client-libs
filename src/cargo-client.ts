@@ -42,6 +42,15 @@ export interface ReportScheduleRequest {
   }[];
 }
 
+export interface ReportScheduleOnceRequest {
+  name: string;
+  type: string;
+  definition: SearchReportDefinition | TableauReportDefinition;
+  per_account_ids?: string[];
+  notify_behavior?: string;
+  delete_empty_result?: boolean;
+}
+
 export interface ListScheduledReportsQueryParams {
   limit?: number;
   order?: string;
@@ -161,8 +170,8 @@ class CargoClient {
   /**
    * Scheduled report for given account_id
    */
-  async scheduleReport(accountId: string, scheduleReportRequest: ReportScheduleRequest) {
-    const result = await this.alClient.delete({
+  async scheduleReport(accountId: string, scheduleReportRequest: ReportScheduleRequest | ReportScheduleOnceRequest) {
+    const result = await this.alClient.post({
       service_name: this.serviceName,
       account_id: accountId,
       path: '/scheduled_report',
