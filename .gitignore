@@ -21,3 +21,6 @@ yarn-error.log*
 
 # Generated output
 dist
+coverage
+
+package-lock.json
