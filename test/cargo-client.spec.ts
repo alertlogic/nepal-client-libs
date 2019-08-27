@@ -56,12 +56,12 @@ describe('CARGO CLIENT - Test Suite', () => {
   });
   describe('When updating report', async () => {
     beforeEach(() => {
-      stub = sinon.stub(CargoClient['alClient'], 'set');
+      stub = sinon.stub(CargoClient['alClient'], 'post');
     });
     afterEach(() => {
       stub.restore();
     });
-    it('Should call the ALClient instance\'s SET.', async () => {
+    it('Should call the ALClient instance\'s POST.', async () => {
       await CargoClient.updateReport('2', '1', testReq); 
       expect(stub.callCount).to.equal(1);
     });
