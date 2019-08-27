@@ -1,6 +1,6 @@
 {
   "name": "@al/kalm",
-  "version": "0.1.8",
+  "version": "0.1.9",
   "license": "MIT",
   "description": "A client for interacting with the Alert Logic Kalm Public API",
   "author": {

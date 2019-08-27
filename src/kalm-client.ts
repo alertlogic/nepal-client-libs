@@ -41,7 +41,7 @@ class KalmClient {
       service_name: this.serviceName,
       version: this.version,
       account_id: accountId,
-      path: `/simple/${namedQuery}`,
+      path: `/query/${namedQuery}`,
     });
     return items as any;
   }
