@@ -128,7 +128,7 @@ class CargoClient {
     const report = await this.alClient.fetch({
       service_name: this.serviceName,
       account_id: accountId,
-      path: `/reports/${reportId}`,
+      path: `/report/${reportId}`,
     });
     return report as CargoReportResponse;
   }
@@ -136,10 +136,10 @@ class CargoClient {
    * Update one or several properties of existing report for given account_id and report_id
    */
   async updateReport(accountId: string, reportId: string, reportRequest: CreateReportRequest) {
-    const report = await this.alClient.set({
+    const report = await this.alClient.post({
       service_name: this.serviceName,
       account_id: accountId,
-      path: `/reports/${reportId}`,
+      path: `/report/${reportId}`,
       data: reportRequest,
     });
     return report;
