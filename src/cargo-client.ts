@@ -151,7 +151,7 @@ class CargoClient {
     const report = await this.alClient.delete({
       service_name: this.serviceName,
       account_id: accountId,
-      path: `/deployments/${reportId}`,
+      path: `/report/${reportId}`,
     });
     return report;
   }
