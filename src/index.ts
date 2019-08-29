@@ -1,11 +1,1 @@
-export {
-  cargoClient as CargoClient,
-  CargoReport,
-  CreateReportRequest,
-  CreateReportResponse,
-  SearchReportDefinition,
-  CargoReportResponse,
-  CargoReportTimeRange,
-  CargoReportListResponse,
-  CargoScheduledReportResponse,
-  CargoScheduledReportListResponse } from './cargo-client';
+export { cargoClient as CargoClient, * } from './cargo-client';
