@@ -157,6 +157,7 @@ export interface ExposureQueryResultItem {
   categories?: string[];
   asset_count?: number;
   account_id?: string;
+  cve?: string;
 }
 
 export interface ExposureRemediationItem {
