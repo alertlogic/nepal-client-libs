@@ -76,6 +76,7 @@ export interface DashboardLayoutWidgetConfig {
 
 export interface DashboardLayoutConfig {
   index?: number;
+  refreshRate?: number;
   widgets: DashboardLayoutWidgetConfig[];
 }
 
