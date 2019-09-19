@@ -71,7 +71,7 @@ export interface CargoReportListResponse {
 
 export interface CargoReport {
   id: string;
-  name?: string;
+  name: string;
   status?: 'scheduled' | 'running' | 'cancelled' | 'completed';
   schedule?: string;
   schedule_display_name?: string;
