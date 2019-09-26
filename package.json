@@ -4,8 +4,8 @@
   "license": "MIT",
   "description": "A client for interacting with the Alert Logic Deployments Public API",
   "author": {
-    "name": "Barry Skidmore",
-    "email": "bskidmore@alertlogic.com"
+    "name": "Alert Logic NPM Team",
+    "email": "npm@alertlogic.com"
   },
   "keywords": [
     "Alert Logic",
@@ -13,10 +13,6 @@
     "Service"
   ],
   "maintainers": [
-    {
-      "name": "Barry Skidmore",
-      "email": "bskidmore@alertlogic.com"
-    },
     {
       "name": "Alert Logic NPM Team",
       "email": "npm@alertlogic.com"
@@ -40,15 +36,15 @@
     "interactive": "node -i -e \"const DeploymentsClient = require('./dist/commonjs/index.js').DeploymentsClient;\""
   },
   "devDependencies": {
-    "peer-deps-externals-webpack-plugin": "^1.0.4",
     "tslint": "^5.12.1",
     "tslint-config-airbnb": "^5.11.1",
     "typescript": "^3.2.4",
     "webpack": "^4.29.0",
-    "webpack-cli": "^3.2.1"
+    "webpack-cli": "^3.2.1",
+    "webpack-node-externals": "^1.7.2"
   },
-  "peerDependencies": {
-    "@al/client": "^0.12.0"
+  "dependencies": {
+    "@al/client": "1.0.0"
   },
   "files": [
     "dist"
