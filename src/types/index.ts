@@ -1,21 +1,15 @@
 type DeploymentMonitoringConfiguration = {
-  enabled: true;
+  enabled: boolean;
   ct_install_region: string;
-} | {
-  enabled: false;
 };
 
 type CloudDefenderProductIntegrationSettings = {
-  enabled: true;
+  enabled: boolean;
   location_id: string;
-} | {
-  enabled: false;
 };
 
 type DeploymentStatus = {
-  status: 'new' | 'ok';
-} | {
-  status: 'warning' | 'error';
+  status: 'new' | 'ok' | 'warning' | 'error';
   message?: string;
 };
 
@@ -32,8 +26,14 @@ interface ExcludedAsset {
   key : string;
 }
 
-interface DeploymentRequest {
+export interface DeploymentCreateBody {
   name: string;
+  platform: {
+    type: 'aws' | 'azure' | 'datacenter';
+    id?: string;
+    monitor?: DeploymentMonitoringConfiguration
+    default?: boolean;
+  };
   mode?: 'manual' | 'readonly' | 'automatic' | 'guided' | 'none';
   enabled?: boolean;
   discover?: boolean;
@@ -43,6 +43,8 @@ interface DeploymentRequest {
     exclude?: ExcludedAsset[];
   };
   cloud_defender?: CloudDefenderProductIntegrationSettings;
+  credentials?: DeploymentCredentials[];
+  version?: string;
 }
 
 interface DeploymentCredentials {
@@ -51,46 +53,8 @@ interface DeploymentCredentials {
   version?: string;
 }
 
-export interface AWSDeploymentRequest extends DeploymentRequest {
-  platform: {
-    type: 'aws';
-    id?: string;
-    monitor?: DeploymentMonitoringConfiguration
-  };
-  credentials?: DeploymentCredentials[];
-}
-
-export interface AzureDeploymentRequest extends DeploymentRequest {
-  platform: {
-    type: 'azure';
-    id?: string;
-  };
-  credentials?: DeploymentCredentials[];
-}
-
-export interface DatacenterDeploymentRequest extends DeploymentRequest {
-  platform: {
-    type: 'datacenter';
-    default?: boolean;
-  };
-  credentials?: DeploymentCredentials[];
-}
-
-export interface AWSDeploymentUpdate extends AWSDeploymentRequest {
-  version: number;
+export interface DeploymentUpdateBody extends DeploymentCreateBody {
   status?: DeploymentStatus;
-}
-
-export interface AzureDeploymentUpdate extends DeploymentRequest {
-  version: number;
-  status?: DeploymentStatus;
-}
-
-export interface DatacenterDeploymentUpdate extends DeploymentRequest {
-  version: number;
-  status?: DeploymentStatus;
-  mode?: 'none';
-  credentials?: [];
 }
 
 interface UserTimeStamp {
@@ -98,18 +62,19 @@ interface UserTimeStamp {
   at: number;
 }
 
-export interface AWSDeployment {
+export interface Deployment {
   id?: string;
   account_id?: string;
   version?: number;
   name?: string;
   platform?: {
-    type?: string;
+    type?: 'aws' | 'azure' | 'datacenter';
     id?: string;
     monitor?: {
       enabled?: boolean;
       ct_install_region?: string;
-    }
+    },
+    default?: boolean
   };
   mode?: 'manual' | 'readonly' | 'automatic'| 'guided' | 'none';
   enabled?: boolean;
