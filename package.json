@@ -1,6 +1,6 @@
 {
   "name": "@al/subscriptions",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "license": "MIT",
   "description": "A client for interacting with the Alert Logic Subscriptions Public API",
   "author": {
