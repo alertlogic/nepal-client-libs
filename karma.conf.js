@@ -29,7 +29,8 @@ module.exports = function (config) {
         lib: [
           "es2015",
           "dom"
-        ]
+        ],
+        esModuleInterop: true
       }
     },
 

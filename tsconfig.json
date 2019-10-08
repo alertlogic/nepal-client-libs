@@ -12,8 +12,7 @@
       "es6",
       "es2015",
       "dom"
-    ],
-
+    ]
   },
   "files": [
     "./src/index.ts"
