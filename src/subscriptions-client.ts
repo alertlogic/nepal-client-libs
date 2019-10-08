@@ -27,7 +27,7 @@ export class AlSubscriptionsClient {
    * "https://api.global-integration.product.dev.alertlogic.com/subscriptions/v1/01000001/entitlements"
    */
   async getRawEntitlements(accountId, queryParams?) {
-    const entitlements = await this.alClient.fetch({
+    const entitlements = await this.alClient.get({
       service_name: 'subscriptions',
       account_id: accountId,
       path: '/entitlements',
@@ -47,7 +47,7 @@ export class AlSubscriptionsClient {
    * "https://api.global-integration.product.dev.alertlogic.com/subscriptions/v1/account_ids/entitlement/log_manager"
    */
   async getAccountsByEntitlement(accountId, productFamily) {
-    const accounts = await this.alClient.fetch({
+    const accounts = await this.alClient.get({
       service_name: 'subscriptions',
       account_id: accountId,
       path: `/entitlements/${productFamily}`
@@ -126,7 +126,7 @@ export class AlSubscriptionsClient {
    * "https://api.global-integration.product.dev.alertlogic.com/subscriptions/v1/01000001/subscription/AAB2A94F-2A2F-474E-BEFD-C387E595F153"
    */
   async getSubscription(accountId, subscriptionId) {
-    const subscription = await this.alClient.fetch({
+    const subscription = await this.alClient.get({
       service_name: 'subscriptions',
       account_id: accountId,
       path: `/subscription/${subscriptionId}`,
@@ -141,7 +141,7 @@ export class AlSubscriptionsClient {
    * "https://api.global-integration.product.dev.alertlogic.com/subscriptions/v1/01000001/subscriptions"
    */
   async getSubscriptions(accountId) {
-    const subscriptions = await this.alClient.fetch({
+    const subscriptions = await this.alClient.get({
       service_name: 'subscriptions',
       account_id: accountId,
       path: '/subscriptions',
@@ -158,7 +158,7 @@ export class AlSubscriptionsClient {
    *      "status":"unsubscribe-success"}'
    */
   async updateAWSSubscription(accountId, subscription) {
-    const updated = await this.alClient.set({
+    const updated = await this.alClient.put({
       service_name: 'subscriptions',
       account_id: accountId,
       path: '/subscription/aws',

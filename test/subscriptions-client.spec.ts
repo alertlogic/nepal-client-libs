@@ -14,13 +14,13 @@ describe('Subscriptions Client Test Suite:', () => {
   describe('when retrieving entitlements for a given account', () => {
     let stub: sinon.SinonSpy;
     beforeEach(() => {
-      stub = sinon.stub(SubscriptionsClient['alClient'], 'fetch');
+      stub = sinon.stub(SubscriptionsClient['alClient'], 'get');
     });
     afterEach(() => {
       stub.restore();
     });
     //  Tautological tests are empty tests
-    xit('should call fetch() on the ALClient instance to the entitlements endpoint', async() => {
+    xit('should call get() on the ALClient instance to the entitlements endpoint', async() => {
       await SubscriptionsClient.getRawEntitlements(accountId, queryParams);
       expect(stub.callCount).to.equal(1);
       const payload = {
@@ -35,12 +35,12 @@ describe('Subscriptions Client Test Suite:', () => {
   describe('when retrieving accounts for a given enitlement', () => {
     let stub: sinon.SinonSpy;
     beforeEach(() => {
-      stub = sinon.stub(SubscriptionsClient['alClient'], 'fetch');
+      stub = sinon.stub(SubscriptionsClient['alClient'], 'get');
     });
     afterEach(() => {
       stub.restore();
     });
-    xit('should call fetch() on the ALClient instance to the entitlements endpoint', async() => {
+    xit('should call get() on the ALClient instance to the entitlements endpoint', async() => {
       const productFamily = 'log_manager';
       await SubscriptionsClient.getAccountsByEntitlement(accountId, productFamily);
       expect(stub.callCount).to.equal(1);
@@ -128,12 +128,12 @@ describe('Subscriptions Client Test Suite:', () => {
   describe('when retrieving a single subscription', () => {
     let stub: sinon.SinonSpy;
     beforeEach(() => {
-      stub = sinon.stub(SubscriptionsClient['alClient'], 'fetch');
+      stub = sinon.stub(SubscriptionsClient['alClient'], 'get');
     });
     afterEach(() => {
       stub.restore();
     });
-    it('should call fetch() on the ALClient instance to the subscription endpoint for the supplied subscription ID', async() => {
+    it('should call get() on the ALClient instance to the subscription endpoint for the supplied subscription ID', async() => {
       const subscriptionId = '123-ABC=-?!';
       await SubscriptionsClient.getSubscription(accountId, subscriptionId);
       expect(stub.callCount).to.equal(1);
@@ -148,12 +148,12 @@ describe('Subscriptions Client Test Suite:', () => {
   describe('when retrieving all subscriptions', () => {
     let stub: sinon.SinonSpy;
     beforeEach(() => {
-      stub = sinon.stub(SubscriptionsClient['alClient'], 'fetch');
+      stub = sinon.stub(SubscriptionsClient['alClient'], 'get');
     });
     afterEach(() => {
       stub.restore();
     });
-    it('should call fetch() on the ALClient instance to the subscriptions endpoint for the supplied subscription ID', async() => {
+    it('should call get() on the ALClient instance to the subscriptions endpoint for the supplied subscription ID', async() => {
       await SubscriptionsClient.getSubscriptions(accountId);
       expect(stub.callCount).to.equal(1);
       const payload = {
@@ -167,12 +167,12 @@ describe('Subscriptions Client Test Suite:', () => {
   describe('when retrieving all subscriptions', () => {
     let stub: sinon.SinonSpy;
     beforeEach(() => {
-      stub = sinon.stub(SubscriptionsClient['alClient'], 'set');
+      stub = sinon.stub(SubscriptionsClient['alClient'], 'put');
     });
     afterEach(() => {
       stub.restore();
     });
-    it('should call set() on the ALClient instance to the subscription/aws endpoint with the supplied subscription data', async() => {
+    it('should call put() on the ALClient instance to the subscription/aws endpoint with the supplied subscription data', async() => {
       const subscription = {
         product_code:'ebbgj0o0g5cwo4**********',
         status:'unsubscribe-success',

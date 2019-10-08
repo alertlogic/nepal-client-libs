@@ -94,6 +94,10 @@ export class AlEntitlementCollection
                     if ( entitlement.expires >= this.collection[entitlement.productId].expires ) {
                         this.collection[entitlement.productId] = entitlement;
                     }
+                } else {
+                    if ( entitlement.expires >= this.collection[entitlement.productId].expires ) {
+                        delete this.collection[entitlement.productId];
+                    }
                 }
             } else {
                 this.collection[entitlement.productId] = entitlement;
