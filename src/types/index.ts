@@ -39,6 +39,10 @@ export interface DashboardDataSourceArgs {
   query_parameters?: {[key: string]: any};
 }
 
+export interface WidgetConfigOptions {
+  ignoreFooter?: boolean;
+}
+
 export interface DashboardWidgetConfig {
   source: {
     id: string;
@@ -47,6 +51,7 @@ export interface DashboardWidgetConfig {
   content: {
     type: string;
     data?: any;
+    options?: WidgetConfigOptions;
   };
   actions?: {
     primary?: {
