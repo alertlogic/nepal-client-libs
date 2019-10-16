@@ -31,6 +31,7 @@ export interface DashboardDataSourceConfig {
     service: string;
     method: string;
     args?: DashboardDataSourceArgs;
+    mock?: any;
   }[];
 }
 
