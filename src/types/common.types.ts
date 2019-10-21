@@ -133,8 +133,11 @@ export interface AlEndpointsSummaryData
         platformName:string;
         count:number;
     }[];
-    totalAttacks:number;
-    totalBlockedAttacks:number;
+    osBreakdown: {
+        osName:string;
+        osVersion:string;
+        count:number;
+    }[];
     responseBreakdown: {
         isolated:number;
         quarantined:number;
@@ -155,5 +158,9 @@ export interface AlEndpointsSummaryData
         username:string;
         attackCount:number;
     }[];
+
+    totalAttacks:number;
+    totalBlockedAttacks:number;
+    totalEndpoints:number;
 }
 

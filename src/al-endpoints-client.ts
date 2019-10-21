@@ -76,11 +76,13 @@ export class AlEndpointsClientInstance {
     }
 
     public async getEndpointsSummary( accountId:string ):Promise<AlEndpointsSummaryData> {
+        console.log("Getting endpoints summary..." );
         const requestDescriptor = {
             service_stack: AlLocation.GestaltAPI,
             service_name: undefined,
             version: undefined,
-            path: `endpoints_summary/${accountId}`
+            path: `endpoints_summary/${accountId}`,
+            traceRequest: true
         };
         const summary = await ALClient.get( requestDescriptor );
         return summary;

@@ -39,8 +39,7 @@ export class AlEndpointsSummary
             notRecently: 0
         },
         platformBreakdown: [],
-        totalAttacks: 0,
-        totalBlockedAttacks: 0,
+        osBreakdown: [],
         responseBreakdown: {
             isolated: 0,
             quarantined: 0,
@@ -49,11 +48,15 @@ export class AlEndpointsSummary
         },
         attackTypes:[],
         attackedEndpoints:[],
-        attackedUsers:[]
+        attackedUsers:[],
+        totalAttacks: 0,
+        totalBlockedAttacks: 0,
+        totalEndpoints: 0,
     };
 
     protected endpointMap:{[endpointId:string]:{endpoint:AlEndpointDetail,attackCount:number}} = {};
     protected platformAggregation:{[productFamily:string]:{[product:string]:number}} = {};
+    protected osAggregation:{[osName:string]:{[osVersion:string]:number}} = {};
     protected attackTypes:{[eventType:string]:{count:number,name:string,description:string,endpointIds:string[]}} = {};
     protected attackedEndpoints:{[endpointId:string]:number} = {};
     protected attackedUsers:{[userId:string]:number} = {};
@@ -91,6 +94,7 @@ export class AlEndpointsSummary
     }
 
     protected digestEndpoint( endpoint:AlEndpointDetail ) {
+        this.summary.totalEndpoints++;
         this.endpointMap[endpoint.id] = { endpoint, attackCount: 0 };
         if ( endpoint.presence === 'ONLINE' ) {
             this.summary.checkinBreakdown.online += 1;
@@ -102,17 +106,35 @@ export class AlEndpointsSummary
                 this.summary.checkinBreakdown.notRecently += 1;
             }
         }
-        if ( endpoint.systemInformation && endpoint.systemInformation.manufacturer && endpoint.systemInformation.productName ) {
-            const platformFamily = endpoint.systemInformation.manufacturer;
-            const platformName = endpoint.systemInformation.productName;
-            if ( ! this.platformAggregation.hasOwnProperty( platformFamily ) ) {
-                this.platformAggregation[platformFamily] = {};
+        if ( endpoint.systemInformation ) {
+            if ( endpoint.systemInformation.manufacturer && endpoint.systemInformation.productName ) {
+                const platformFamily = endpoint.systemInformation.manufacturer;
+                const platformName = endpoint.systemInformation.productName;
+                if ( ! this.platformAggregation.hasOwnProperty( platformFamily ) ) {
+                    this.platformAggregation[platformFamily] = {};
+                }
+                if ( ! this.platformAggregation[platformFamily].hasOwnProperty( platformName ) ) {
+                    this.platformAggregation[platformFamily][platformName] = 0;
+                }
+                this.platformAggregation[platformFamily][platformName]++;
             }
-            if ( ! this.platformAggregation[platformFamily].hasOwnProperty( platformName ) ) {
-                this.platformAggregation[platformFamily][platformName] = 0;
+            if ( endpoint.systemInformation.os ) {
+                let extractor = new RegExp( /(.*)\(([0-9a-zA-Z.]+)\)/i );
+                let matches = extractor.exec( endpoint.systemInformation.os );
+                if ( matches && matches.length >= 3 ) {
+                    const osName = matches[1].trim();
+                    const osVersion = matches[2].trim();
+                    if ( ! this.osAggregation.hasOwnProperty( osName ) ) {
+                        this.osAggregation[osName] = {};
+                    }
+                    if ( ! this.osAggregation[osName].hasOwnProperty( osVersion ) ) {
+                        this.osAggregation[osName][osVersion] = 0;
+                    }
+                    this.osAggregation[osName][osVersion]++;
+                }
             }
-            this.platformAggregation[platformFamily][platformName]++;
         }
+
         switch( endpoint.status ) {
             case "ACTIVE" :
                 if ( endpoint.primaryStatus === 'ERROR' ) {
@@ -201,6 +223,11 @@ export class AlEndpointsSummary
         Object.entries( this.platformAggregation ).forEach( ( [ platformFamily, data ] ) => {
             Object.entries( data ).forEach( ( [ platformName, count ] ) => {
                 this.summary.platformBreakdown.push( { platformFamily, platformName, count } );
+            } );
+        } );
+        Object.entries( this.osAggregation ).forEach( ( [ osName, data ] ) => {
+            Object.entries( data ).forEach( ( [ osVersion, count ] ) => {
+                this.summary.osBreakdown.push( { osName, osVersion, count } );
             } );
         } );
         /*
