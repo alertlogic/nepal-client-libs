@@ -53,6 +53,7 @@ export interface DashboardWidgetConfig {
     type: string;
     data?: any;
     options?: WidgetConfigOptions;
+    presentation?: any;
   };
   actions?: {
     primary?: {
