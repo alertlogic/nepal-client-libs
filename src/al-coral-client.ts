@@ -1,19 +1,20 @@
 /**
  * Module to deal with available Correlations Public API endpoints
  */
+import { AlResponseValidationError } from '@al/common';
 import { ALClient, APIRequestParams } from '@al/client';
 
-export interface CreateCorrelationNotificationOnlyRequest {
+export interface AlCreateCorrelationNotificationOnlyRequest {
   enabled:            boolean;
   expression:         string;
   name:               string;
   attacker_field:     string;
   victim_field:       string;
   expression_window:  string;
-  incident?:          IncidentDefinition;
+  incident?:          AlIncidentDefinition;
 }
 
-export interface IncidentDefinition {
+export interface AlIncidentDefinition {
   visibility:     string;
   classification: string;
   severity:       string;
@@ -21,49 +22,40 @@ export interface IncidentDefinition {
   description:    string;
 }
 
-export interface CreateCorrelationNotificationOnlyResponse {
-  correlation_id: string;
-}
-
-export interface IncidentSpecificationResponse {
+export interface AlIncidentSpecificationResponse {
   severities:     string[];
-  clasifications: IncidentClassification[];
+  clasifications: { name:string, value:string }[];
 }
 
-export interface IncidentClassification {
-  name:   string;
-  value:  string;
-}
+export class AlCoralClientInstance {
 
-class CoralClient {
-
-  private alClient    = ALClient;
   private serviceName = 'aecoral';
 
   /**
    *  Create correlation rule - notification only / incidents from correlation
    */
-  async createCorrelationRule(accountId: string, correlationRequest: CreateCorrelationNotificationOnlyRequest) {
-    const result = await this.alClient.post({
+  async createCorrelationRule(accountId: string, correlationRequest: AlCreateCorrelationNotificationOnlyRequest):Promise<string> {
+    const result = await ALClient.post({
       service_name: this.serviceName,
       account_id: accountId,
       path: '/correlations',
       data: correlationRequest,
     });
-    return result as CreateCorrelationNotificationOnlyResponse;
+    if ( ! result.hasOwnProperty("correlation_id" ) ) {
+        throw new AlResponseValidationError(`Service returned unexpected result; missing 'correlation_id' property.` );
+    }
+    return result.correlation_id as string;
   }
 
   /**
    *  Get possible correlation incident severities and classifications.
    */
   async getIncidentSpecifications(accountId: string) {
-    const result = await this.alClient.get({
+    const result = await ALClient.get({
       service_name: this.serviceName,
       account_id: accountId,
       path: '/incident_spec',
     });
-    return result as IncidentSpecificationResponse;
+    return result as AlIncidentSpecificationResponse;
   }
 }
-
-export const coralClient =  new CoralClient();
