@@ -81,8 +81,7 @@ export class AlEndpointsClientInstance {
             service_stack: AlLocation.GestaltAPI,
             service_name: undefined,
             version: undefined,
-            path: `endpoints_summary/${accountId}`,
-            traceRequest: true
+            path: `endpoints_summary/${accountId}`
         };
         const summary = await ALClient.get( requestDescriptor );
         return summary;

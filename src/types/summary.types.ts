@@ -94,8 +94,12 @@ export class AlEndpointsSummary
     }
 
     protected digestEndpoint( endpoint:AlEndpointDetail ) {
-        this.summary.totalEndpoints++;
         this.endpointMap[endpoint.id] = { endpoint, attackCount: 0 };
+        if ( endpoint.status === 'ARCHIVED' || endpoint.primaryStatus === 'ARCHIVED' ) {
+            this.summary.stateBreakdown.archived++;
+            return;
+        }
+        this.summary.totalEndpoints++;
         if ( endpoint.presence === 'ONLINE' ) {
             this.summary.checkinBreakdown.online += 1;
         } else {
@@ -119,7 +123,7 @@ export class AlEndpointsSummary
                 this.platformAggregation[platformFamily][platformName]++;
             }
             if ( endpoint.systemInformation.os ) {
-                let extractor = new RegExp( /(.*)\(([0-9a-zA-Z.]+)\)/i );
+                let extractor = new RegExp( /(.*)\(([0-9a-zA-Z.]*)\)/i );
                 let matches = extractor.exec( endpoint.systemInformation.os );
                 if ( matches && matches.length >= 3 ) {
                     const osName = matches[1].trim();
@@ -146,9 +150,6 @@ export class AlEndpointsSummary
             case "UNINSTALLED" :
                 this.summary.stateBreakdown.disabled += 1;
                 break;
-            case "ARCHIVED" :
-                this.summary.stateBreakdown.archived += 1;
-                break;
         }
         if ( endpoint.agentVersion !== ( this.agentVersionInfo.orgRVAgent || this.agentVersionInfo.globalRVAgent ) ) {
             this.summary.currencyBreakdown.outOfDate++;
@@ -169,6 +170,9 @@ export class AlEndpointsSummary
         }
         if ( ! this.endpointMap.hasOwnProperty( incident.endpointId ) ) {
             console.warn(`Missing endpoint '${incident.endpointId}' associated with incident ${incident.id}` );
+            return;
+        }
+        if ( this.endpointMap[incident.endpointId].endpoint.status === 'ARCHIVED' ) {
             return;
         }
 
@@ -198,21 +202,20 @@ export class AlEndpointsSummary
         }
         this.attackedUsers[incident.user]++;
 
-        if ( incident.prevented ) {
+        let isolation:boolean = false;
+        if ( endpoint.endpointShadowCache && endpoint.endpointShadowCache.reported && endpoint.endpointShadowCache.reported.networkIsolationState === 'active' ) {
+            isolation = true;
+        }
+        if ( isolation ) {
+            this.summary.responseBreakdown.isolated++;
+            this.summary.totalBlockedAttacks++;
+        } else if ( incident.automatedQuarantineState === 'QUARANTINED' ) {
             this.summary.totalBlockedAttacks++;
             this.summary.responseBreakdown.quarantined++;
         } else if ( incident.overridden ) {
             this.summary.responseBreakdown.overridden++;
         } else {
-            let isolation:boolean = false;
-            if ( endpoint.endpointShadowCache && endpoint.endpointShadowCache.reported && endpoint.endpointShadowCache.reported.networkIsolationState === 'active' ) {
-                isolation = true;
-            }
-            if ( isolation ) {
-                this.summary.responseBreakdown.isolated++;
-            } else {
-                this.summary.responseBreakdown.noResponse++;
-            }
+            this.summary.responseBreakdown.noResponse++;
         }
 
         this.attackTypes[incident.eventType].count++;
