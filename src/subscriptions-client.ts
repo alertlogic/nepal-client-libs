@@ -32,7 +32,8 @@ export class AlSubscriptionsClient {
       account_id: accountId,
       path: '/entitlements',
       params: queryParams,
-      retry_count: 5
+      retry_count: 5,
+      ttl: 5 * 60 * 1000    /* 5 minute in-memory caching */
     });
     return entitlements;
   }
