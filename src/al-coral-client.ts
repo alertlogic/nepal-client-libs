@@ -86,7 +86,7 @@ export class AlCoralClientInstance {
     /**
      *  Delete correlation rule
      */
-     async removeCorrelationRule(accountId: string, correlationId: string) {
+    async removeCorrelationRule(accountId: string, correlationId: string) {
         const correlation =  await ALClient.delete({
             service_name: this.serviceName,
             account_id:   accountId,
@@ -98,7 +98,7 @@ export class AlCoralClientInstance {
     /**
      *  Get correlation rule by ID
      */
-     async getCorrelationRule(accountId: string, correlationId: string): Promise<AlCorrelationRule> {
+    async getCorrelationRule(accountId: string, correlationId: string): Promise<AlCorrelationRule> {
         const correlation = await ALClient.get({
             service_name: this.serviceName,
             account_id:   accountId,
@@ -110,7 +110,7 @@ export class AlCoralClientInstance {
     /**
      *  Get all correlation rules
      */
-     async getAllCorrelations(accountId: string): Promise<AlCorrelationRule[]> {
+    async getAllCorrelations(accountId: string): Promise<AlCorrelationRule[]> {
          const correlations = await ALClient.get({
              service_name: this.serviceName,
              account_id:   accountId,
@@ -122,18 +122,18 @@ export class AlCoralClientInstance {
     /**
      *   Update correlation rule
      */
-     async updateCorrelationRule(accountId: string, correlationId: string, correlation: AlCreateIncidentsFromCorrelationRequest): Promise<string> {
-        const correlation_res = await ALClient.post({
+    async updateCorrelationRule(accountId: string, correlationId: string, correlation: AlCreateIncidentsFromCorrelationRequest): Promise<string> {
+        const correlationResult = await ALClient.post({
             service_name: this.serviceName,
             account_id:   accountId,
             path:         `/correlations/${correlationId}`,
             data:         correlation
         });
 
-        if (!correlation_res.hasOwnProperty("correlation_id")) {
+        if (!correlationResult.hasOwnProperty("correlation_id")) {
             throw new AlResponseValidationError(`Service returned unexpected result; missing 'correlation_id' property.`);
         }
-        return correlation_res.correlation_id as string;
+        return correlationResult.correlation_id as string;
      }
 
     /**
