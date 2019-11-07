@@ -172,10 +172,6 @@ export class AlEndpointsSummary
             console.warn(`Missing endpoint '${incident.endpointId}' associated with incident ${incident.id}` );
             return;
         }
-        if ( this.endpointMap[incident.endpointId].endpoint.status === 'ARCHIVED' ) {
-            return;
-        }
-
         const endpointData = this.endpointMap[incident.endpointId];
         const endpoint = endpointData.endpoint;
         const rule = this.mappingDictionary.rules[incident.eventType];
@@ -202,15 +198,10 @@ export class AlEndpointsSummary
         }
         this.attackedUsers[incident.user]++;
 
-        let isolation:boolean = false;
-        if ( endpoint.endpointShadowCache && endpoint.endpointShadowCache.reported && endpoint.endpointShadowCache.reported.networkIsolationState === 'active' ) {
-            isolation = true;
+        if( incident.prevented) {
+            this.summary.totalBlockedAttacks++;
         }
-        if ( isolation ) {
-            this.summary.responseBreakdown.isolated++;
-            this.summary.totalBlockedAttacks++;
-        } else if ( incident.automatedQuarantineState === 'QUARANTINED' ) {
-            this.summary.totalBlockedAttacks++;
+        if ( incident.automatedQuarantineState === 'QUARANTINED' ) {
             this.summary.responseBreakdown.quarantined++;
         } else if ( incident.overridden ) {
             this.summary.responseBreakdown.overridden++;
