@@ -63,9 +63,9 @@ describe('AECORAL CLIENT', () => {
             stub.restore();
         });
         it('Should call the ALClient instance\'s FETCH.', async () => {
-            await AlCoralClient.getIncidentSpecifications('2');
+            await AlCoralClient.getIncidentSpecifications();
             expect(stub.callCount).to.equal(1);
-            expect(stub.args[0][0].url).to.equal("https://api.cloudinsight.alertlogic.com/aecoral/v1/2/incident_spec");
+            expect(stub.args[0][0].url).to.equal("https://api.cloudinsight.alertlogic.com/aecoral/v1/incident_spec");
         });
     });
     describe('When removing a correlation rule', () => {
