@@ -37,7 +37,7 @@ export interface AlCorrelationRule {
 
 export interface AlIncidentSpecificationResponse {
     severities:     string[];
-    clasifications: { name: string, value: string }[];
+    classifications: { name: string, value: string }[];
 }
 
 export interface AlCorrelationValidationResponse {
@@ -152,7 +152,7 @@ export class AlCoralClientInstance {
     /**
      *  Get possible correlation incident severities and classifications.
      */
-    async getIncidentSpecifications() {
+    async getIncidentSpecifications(): Promise<AlIncidentSpecificationResponse> {
         const result = await ALClient.get({
             service_name: this.serviceName,
             path:         '/incident_spec',
