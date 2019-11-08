@@ -152,10 +152,9 @@ export class AlCoralClientInstance {
     /**
      *  Get possible correlation incident severities and classifications.
      */
-    async getIncidentSpecifications(accountId: string) {
+    async getIncidentSpecifications() {
         const result = await ALClient.get({
             service_name: this.serviceName,
-            account_id:   accountId,
             path:         '/incident_spec',
         });
         return result as AlIncidentSpecificationResponse;
