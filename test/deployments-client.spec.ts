@@ -91,14 +91,14 @@ describe('Deployments Client Test Suite', () => {
     let stub: sinon.SinonSpy;
 
     beforeEach(() => {
-      stub = sinon.stub(DeploymentsClient['alClient'], 'fetch');
+      stub = sinon.stub(DeploymentsClient['alClient'], 'get');
     });
 
     afterEach(() => {
       stub.restore();
     });
 
-    it('should should call fetch() on the ALClient instance to the deployments endpoint', async() => {
+    it('should should call get() on the ALClient instance to the deployments endpoint', async() => {
       await DeploymentsClient.getDeployment(accountId, deploymentId);
       expect(stub.callCount).to.equal(1);
       const payload = {
@@ -114,14 +114,14 @@ describe('Deployments Client Test Suite', () => {
     let stub: sinon.SinonSpy;
 
     beforeEach(() => {
-      stub = sinon.stub(DeploymentsClient['alClient'], 'fetch');
+      stub = sinon.stub(DeploymentsClient['alClient'], 'get');
     });
 
     afterEach(() => {
       stub.restore();
     });
 
-    it('should should call fetch() on the ALClient instance to the deployments endpoint', async() => {
+    it('should should call get() on the ALClient instance to the deployments endpoint', async() => {
       await DeploymentsClient.listDeployments(accountId);
       expect(stub.callCount).to.equal(1);
       const payload = {

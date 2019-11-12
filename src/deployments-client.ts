@@ -43,7 +43,7 @@ class DeploymentsClient {
   }
 
   async getDeployment(accountId: string, deploymentId: string) {
-    const deployment = await this.alClient.fetch({
+    const deployment = await this.alClient.get({
       service_name: this.serviceName,
       account_id: accountId,
       path: `/deployments/${deploymentId}`,
@@ -52,7 +52,7 @@ class DeploymentsClient {
   }
 
   async listDeployments(accountId: string) {
-    const deployments = await this.alClient.fetch({
+    const deployments = await this.alClient.get({
       service_name: this.serviceName,
       account_id: accountId,
       path: '/deployments',
