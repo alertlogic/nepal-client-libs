@@ -13,7 +13,7 @@ class KalmClient {
   *
   */
   async listCatalogTables() {
-    const items = await this.alClient.fetch({
+    const items = await this.alClient.get({
       service_name: this.serviceName,
       version: this.version,
       path: '/catalog/table',
@@ -25,7 +25,7 @@ class KalmClient {
   *
   */
   async getCatalogTable(table: string) {
-    const item = await this.alClient.fetch({
+    const item = await this.alClient.get({
       service_name: this.serviceName,
       version: this.version,
       path: `/catalog/table/${table}`,
@@ -37,7 +37,7 @@ class KalmClient {
    *
    */
   async startSimpleQuery(accountId: string, namedQuery: string) {
-    const items = await this.alClient.fetch({
+    const items = await this.alClient.get({
       service_name: this.serviceName,
       version: this.version,
       account_id: accountId,
