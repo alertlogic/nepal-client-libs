@@ -3,16 +3,7 @@
  */
 import { AlResponseValidationError } from '@al/common';
 import { ALClient } from '@al/client';
-
-
-export interface ALSubscriptionKey
-{
-    feature:    string;
-    subkey:     string;
-    name:       string;
-    created:    { at: string, by: string};
-    modified:   { at: string, by: string};
-}
+import { ALSubscriptionKey } from './types';
 
 export class AlHeraldClientInstance {
 
@@ -20,7 +11,10 @@ export class AlHeraldClientInstance {
     private serviceVersion = 'v1';
 
     /**
-     *  Get all subscriptions keys
+     * Get all subscriptions keys
+     * GET
+     * /herald/v1/subscription_keys
+     * "https://api.cloudinsight.alertlogic.com/herald/v1/subscription_keys"
      */
     async getAllSubscriptionKeys(): Promise<ALSubscriptionKey[]> {
         const subscriptionKeys = await ALClient.get({
