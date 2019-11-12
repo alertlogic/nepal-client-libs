@@ -39,7 +39,7 @@ class DashboardsClient {
    * Return a dashboard item for a given deployment.
    */
   async getDeploymentDashboardItem(accountId: string, deploymentId: string, dashboardItemId: string) {
-    const item = await this.alClient.fetch({
+    const item = await this.alClient.get({
       service_name: this.serviceName,
       version: this.version,
       account_id: accountId,
@@ -76,7 +76,7 @@ class DashboardsClient {
    * Return a list of dashboard items for a given deployment based on the criteria in the query parameters.
    */
   async listDeploymentDashboardItems(accountId: string, deploymentId: string, requestQueryParams: DashboardItemsRequestQueryParams = {}) {
-    const items = await this.alClient.fetch({
+    const items = await this.alClient.get({
       service_name: this.serviceName,
       version: this.version,
       account_id: accountId,
@@ -102,7 +102,7 @@ class DashboardsClient {
    * Return a dashboard item for a given user.
    */
   async getUserDashboardItem(accountId: string, userId: string, dashboardItemId: string, requestQueryParams: {resolve_shared_refs?: boolean} = {}) {
-    const item = await this.alClient.fetch({
+    const item = await this.alClient.get({
       service_name: this.serviceName,
       version: this.version,
       account_id: accountId,
@@ -140,7 +140,7 @@ class DashboardsClient {
    * Return a list of dashboard items for a given user based on the criteria in the query parameters.
    */
   async listUserDashboardItems(accountId: string, userId: string, requestQueryParams: DashboardItemsRequestQueryParams = {}) {
-    const items = await this.alClient.fetch({
+    const items = await this.alClient.get({
       service_name: this.serviceName,
       version: this.version,
       account_id: accountId,
@@ -165,7 +165,7 @@ class DashboardsClient {
    * Get a dashboard item for the authenticated user.
    */
   async getOwnDashboardItem(dashboardItemId: string, requestQueryParams: {resolve_shared_refs?: boolean} = {}) {
-    const item = await this.alClient.fetch({
+    const item = await this.alClient.get({
       service_name: this.serviceName,
       version: this.version,
       path: `/user/dashboard_items/${dashboardItemId}`,
@@ -177,7 +177,7 @@ class DashboardsClient {
    * Return a list of dashboard items for the authenticated user based on the criteria in the query parameters.
    */
   async listOwnDashboardItems(requestQueryParams: DashboardItemsRequestQueryParams = {}) {
-    const items = await this.alClient.fetch({
+    const items = await this.alClient.get({
       service_name: this.serviceName,
       version: this.version,
       path: '/user/dashboard_items',
@@ -227,7 +227,7 @@ class DashboardsClient {
    * Get a group by account ID and group ID.
    */
   async getDashboardGroup(accountId: string, dashboardGroupId: string, requestQueryParams: DashboardRequestParams = {}) {
-    const group = await this.alClient.fetch({
+    const group = await this.alClient.get({
       service_name: this.serviceName,
       version: this.version,
       account_id: accountId,
@@ -240,7 +240,7 @@ class DashboardsClient {
    * Get a list of all groups (by dashboard type) for the given account ID.
    */
   async listDashboardGroups(accountId: string, requestQueryParams: DashboardGroupsRequestParams = {}) {
-    const groups = await this.alClient.fetch({
+    const groups = await this.alClient.get({
       service_name: this.serviceName,
       version: this.version,
       account_id: accountId,
@@ -292,7 +292,7 @@ class DashboardsClient {
    * Get a shared dashboard item.
    */
   async getSharedDashboardItem(accountId: string, sharedDashboardItemId: string) {
-    const item = await this.alClient.fetch({
+    const item = await this.alClient.get({
       service_name: this.serviceName,
       version: this.version,
       account_id: accountId,
@@ -304,7 +304,7 @@ class DashboardsClient {
    * Get a list of shared dashboard items based on the criteria in the query parameters.
    */
   async listSharedDashboardItems(accountId: string, requestQueryParams: SharedDashboardItemsRequestQueryParams = {}) {
-    const items = await this.alClient.fetch({
+    const items = await this.alClient.get({
       service_name: this.serviceName,
       version: this.version,
       account_id: accountId,

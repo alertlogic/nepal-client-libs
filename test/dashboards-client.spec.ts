@@ -55,12 +55,12 @@ describe('Dashboards Client Test Suite:', () => {
   describe('when retrieving a single dashboard item for a given deployment', () => {
     let stub: sinon.SinonSpy;
     beforeEach(() => {
-      stub = sinon.stub(DashboardsClient['alClient'], 'fetch');
+      stub = sinon.stub(DashboardsClient['alClient'], 'get');
     });
     afterEach(() => {
       stub.restore();
     });
-    it('should call fetch() on the ALClient instance to the deployments dashboard items endpoint with the correct payload', async() => {
+    it('should call get() on the ALClient instance to the deployments dashboard items endpoint with the correct payload', async() => {
       await DashboardsClient.getDeploymentDashboardItem(accountId, deploymentId, dashboardItemId);
       expect(stub.callCount).to.equal(1);
       const payload = {
@@ -116,12 +116,12 @@ describe('Dashboards Client Test Suite:', () => {
   describe('when retreiving all dashboard items for a given deployment', () => {
     let stub: sinon.SinonSpy;
     beforeEach(() => {
-      stub = sinon.stub(DashboardsClient['alClient'], 'fetch');
+      stub = sinon.stub(DashboardsClient['alClient'], 'get');
     });
     afterEach(() => {
       stub.restore();
     });
-    it('should call fetch() on the ALClient instance to the deployments dashboard items endpoint', async() => {
+    it('should call get() on the ALClient instance to the deployments dashboard items endpoint', async() => {
       await DashboardsClient.listDeploymentDashboardItems(accountId, deploymentId);
       expect(stub.callCount).to.equal(1);
       const payload = {
@@ -159,12 +159,12 @@ describe('Dashboards Client Test Suite:', () => {
   describe('when retrieving a single dashboard item for a given user', () => {
     let stub: sinon.SinonSpy;
     beforeEach(() => {
-      stub = sinon.stub(DashboardsClient['alClient'], 'fetch');
+      stub = sinon.stub(DashboardsClient['alClient'], 'get');
     });
     afterEach(() => {
       stub.restore();
     });
-    it('should call fetch() on the ALClient instance to the users dashboard items endpoint with the correct payload', async() => {
+    it('should call get() on the ALClient instance to the users dashboard items endpoint with the correct payload', async() => {
       await DashboardsClient.getUserDashboardItem(accountId, userId, dashboardItemId);
       expect(stub.callCount).to.equal(1);
       const payload = {
@@ -221,12 +221,12 @@ describe('Dashboards Client Test Suite:', () => {
   describe('when retreiving all dashboard items for a given user', () => {
     let stub: sinon.SinonSpy;
     beforeEach(() => {
-      stub = sinon.stub(DashboardsClient['alClient'], 'fetch');
+      stub = sinon.stub(DashboardsClient['alClient'], 'get');
     });
     afterEach(() => {
       stub.restore();
     });
-    it('should call fetch() on the ALClient instance to the users dashboard items endpoint', async() => {
+    it('should call get() on the ALClient instance to the users dashboard items endpoint', async() => {
       await DashboardsClient.listUserDashboardItems(accountId, userId);
       expect(stub.callCount).to.equal(1);
       const payload = {
@@ -263,12 +263,12 @@ describe('Dashboards Client Test Suite:', () => {
   describe('when retrieving a single dashboard item for the currently authenticated user', () => {
     let stub: sinon.SinonSpy;
     beforeEach(() => {
-      stub = sinon.stub(DashboardsClient['alClient'], 'fetch');
+      stub = sinon.stub(DashboardsClient['alClient'], 'get');
     });
     afterEach(() => {
       stub.restore();
     });
-    it('should call fetch() on the ALClient instance to the users dashboard items endpoint with the correct payload', async() => {
+    it('should call get() on the ALClient instance to the users dashboard items endpoint with the correct payload', async() => {
       await DashboardsClient.getOwnDashboardItem(dashboardItemId);
       expect(stub.callCount).to.equal(1);
       const payload = {
@@ -322,12 +322,12 @@ describe('Dashboards Client Test Suite:', () => {
   describe('when retreiving all dashboard items for the currently authenticated user', () => {
     let stub: sinon.SinonSpy;
     beforeEach(() => {
-      stub = sinon.stub(DashboardsClient['alClient'], 'fetch');
+      stub = sinon.stub(DashboardsClient['alClient'], 'get');
     });
     afterEach(() => {
       stub.restore();
     });
-    it('should call fetch() on the ALClient instance to the users dashboard items endpoint', async() => {
+    it('should call get() on the ALClient instance to the users dashboard items endpoint', async() => {
       await DashboardsClient.listOwnDashboardItems();
       expect(stub.callCount).to.equal(1);
       const payload = {
@@ -364,12 +364,12 @@ describe('Dashboards Client Test Suite:', () => {
   describe('when retrieving a dashboard group', () => {
     let stub: sinon.SinonSpy;
     beforeEach(() => {
-      stub = sinon.stub(DashboardsClient['alClient'], 'fetch');
+      stub = sinon.stub(DashboardsClient['alClient'], 'get');
     });
     afterEach(() => {
       stub.restore();
     });
-    it('should call fetch() on the ALClient instance to the shared groups endpoint for the supplied group id', async() => {
+    it('should call get() on the ALClient instance to the shared groups endpoint for the supplied group id', async() => {
       await DashboardsClient.getDashboardGroup(accountId, dashboardGroupId);
       expect(stub.callCount).to.equal(1);
       const payload = {
@@ -385,12 +385,12 @@ describe('Dashboards Client Test Suite:', () => {
   describe('when retrieving a list of dashboard groups', () => {
     let stub: sinon.SinonSpy;
     beforeEach(() => {
-      stub = sinon.stub(DashboardsClient['alClient'], 'fetch');
+      stub = sinon.stub(DashboardsClient['alClient'], 'get');
     });
     afterEach(() => {
       stub.restore();
     });
-    it('should call fetch() on the ALClient instance to the shared groups endpoint with the correct payload', async() => {
+    it('should call get() on the ALClient instance to the shared groups endpoint with the correct payload', async() => {
       await DashboardsClient.listDashboardGroups(accountId);
       expect(stub.callCount).to.equal(1);
       const payload = {
@@ -469,12 +469,12 @@ describe('Dashboards Client Test Suite:', () => {
   describe('when retrieving a shared dashboard item', () => {
     let stub: sinon.SinonSpy;
     beforeEach(() => {
-      stub = sinon.stub(DashboardsClient['alClient'], 'fetch');
+      stub = sinon.stub(DashboardsClient['alClient'], 'get');
     });
     afterEach(() => {
       stub.restore();
     });
-    it('should call fetch() on the ALClient instance to the shared dashboard items endpoint for the supplied group id', async() => {
+    it('should call get() on the ALClient instance to the shared dashboard items endpoint for the supplied group id', async() => {
       await DashboardsClient.getSharedDashboardItem(accountId, sharedDashboardItemId);
       expect(stub.callCount).to.equal(1);
       const payload = {
@@ -489,12 +489,12 @@ describe('Dashboards Client Test Suite:', () => {
   describe('when retrieving a list of shared dashboard items', () => {
     let stub: sinon.SinonSpy;
     beforeEach(() => {
-      stub = sinon.stub(DashboardsClient['alClient'], 'fetch');
+      stub = sinon.stub(DashboardsClient['alClient'], 'get');
     });
     afterEach(() => {
       stub.restore();
     });
-    it('should call fetch() on the ALClient instance to the shared dashboard items endpoint with the correct payload', async() => {
+    it('should call get() on the ALClient instance to the shared dashboard items endpoint with the correct payload', async() => {
       await DashboardsClient.listSharedDashboardItems(accountId);
       expect(stub.callCount).to.equal(1);
       const payload = {
