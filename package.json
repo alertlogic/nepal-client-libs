@@ -1,6 +1,6 @@
 {
   "name": "@al/assets-query",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "license": "MIT",
   "description": "A client for interacting with the Alert Logic Assets Query Public API",
   "author": {
@@ -60,7 +60,7 @@
     "webpack-node-externals": "^1.7.2"
   },
   "dependencies": {
-    "@al/client": "^1.0.1"
+    "@al/client": "^1.1.9"
   },
   "files": [
     "dist"
