@@ -26,7 +26,7 @@ class AssetsQueryClient {
    * asset_type: agent, appliance, network, vpc
    */
   async getHealth(accountId: string, assetType: string, queryParams?: {scope?: boolean, filter: string}) {
-    const health = await this.alClient.fetch({
+    const health = await this.alClient.get({
       account_id: accountId,
       service_name: 'remediations',
       path: `/health/${assetType}`,
@@ -42,7 +42,7 @@ class AssetsQueryClient {
    * "https://api.cloudinsight.alertlogic.com/remediations/v1/10000001/health/summary"
    */
   async getHealthSummary(accountId: string,  queryParams?: {scope?: boolean, filter: string}) {
-    const health = await this.alClient.fetch({
+    const health = await this.alClient.get({
       account_id: accountId,
       service_name: 'remediations',
       path: '/health/summary',
@@ -58,7 +58,7 @@ class AssetsQueryClient {
    * "https://api.cloudinsight.alertlogic.com/assets_query/v1/01000001/find?collector_type=agent&uuid=CD7C26C3-FAA1-4AD1-86CB-9628ED1B3327"
    */
   async findAsset(accountId: string,  queryParams?: {uuid: string, collector_type?: string}) {
-    const assets = await this.alClient.fetch({
+    const assets = await this.alClient.get({
       account_id: accountId,
       service_name: 'assets_query',
       path: '/find',
@@ -74,7 +74,7 @@ class AssetsQueryClient {
    * "https://api.cloudinsight.alertlogic.com/assets_query/v1/01000001/find?collector_type=agent&uuid=CD7C26C3-FAA1-4AD1-86CB-9628ED1B3327"
    */
   async findAssets(accountId: string,  queryParams?: FindAssetsRequest) {
-    const assets = await this.alClient.fetch({
+    const assets = await this.alClient.get({
       account_id: accountId,
       service_name: 'assets_query',
       path: '/find',
@@ -90,7 +90,7 @@ class AssetsQueryClient {
    * "https://api.cloudinsight.alertlogic.com/assets_query/v1/12345678/details?type=host&key=id:i-0fa67ce21528409bc&deployment=aws:1234567890®ion=id:us-east-2"
    */
   async getAssetDetails(accountId: string,  queryParams?: {type?: string, key?: string, deployment?: string, region?: string, appliance_uuid?: string, ip_address?: string, port?: string, host_uuid?: string}) {
-    const assets = await this.alClient.fetch({
+    const assets = await this.alClient.get({
       account_id: accountId,
       service_name: 'assets_query',
       path: '/details',
@@ -106,7 +106,7 @@ class AssetsQueryClient {
    * "https://api.cloudinsight.alertlogic.com/assets_query/v1/01000001/assets"
    */
   async getAccountAssets(accountId: string, queryParams?: any) {
-    const assets = await this.alClient.fetch({
+    const assets = await this.alClient.get({
       account_id: accountId,
       service_name: 'assets_query',
       path: '/assets',
@@ -122,7 +122,7 @@ class AssetsQueryClient {
    * "https://api.cloudinsight.alertlogic.com/assets_query/v1/01000001/deployments/1C0EFEC8-7DBE-480D-A025-ECC13DE30AD5/assets"
    */
   async getDeploymentAssets(accountId: string, deploymentId: string, queryParams?: any) {
-    const assets = await this.alClient.fetch({
+    const assets = await this.alClient.get({
       account_id: accountId,
       service_name: 'assets_query',
       path: `/deployments/${deploymentId}/assets`,
@@ -138,7 +138,7 @@ class AssetsQueryClient {
    * "https://api.cloudinsight.alertlogic.com/assets_query/v1/01000001/deployments/CD7C26C3-FAA1-4AD1-86CB-9628ED1B3327/tags/summary"
    */
   async getTagsSummary(accountId: string, deploymentId: string) {
-    const tags = await this.alClient.fetch({
+    const tags = await this.alClient.get({
       account_id: accountId,
       service_name: 'assets_query',
       path: `/deployments/${deploymentId}/tags/summary`,
@@ -153,7 +153,7 @@ class AssetsQueryClient {
    * "https://api.cloudinsight.alertlogic.com/assets_query/v1/19000001/deployments/814C2911-09BB-1005-9916-7831C1BAC182/topology"
    */
   async getTopology(accountId: string, deploymentId: string, queryParams?: {include_filters?: boolean, include_remediations?: boolean, disposed?: string, extras?: string}) {
-    const topology = await this.alClient.fetch({
+    const topology = await this.alClient.get({
       account_id: accountId,
       service_name: 'assets_query',
       path: `/deployments/${deploymentId}/topology`,
@@ -169,7 +169,7 @@ class AssetsQueryClient {
    * "https://api.cloudinsight.alertlogic.com/remediations/v1/10000001/deployments/347203EF-134C-1005-8499-1289DB15AB31/assessment-specs"
    */
   async getAssessmentSpecs(accountId: string, deploymentId: string) {
-    const assessment = await this.alClient.fetch({
+    const assessment = await this.alClient.get({
       account_id: accountId,
       service_name: 'remediations',
       path: `/deployments/${deploymentId}/assessment-specs`,
@@ -184,7 +184,7 @@ class AssetsQueryClient {
    * "https://api.cloudinsight.alertlogic.com/remediations/v1/10000001/deployments/347203EF-134C-1005-8499-1289DB15AB31/remediation-items-list"
    */
   async getRemediationItemsList(accountId: string, deploymentId: string) {
-    const remediations = await this.alClient.fetch({
+    const remediations = await this.alClient.get({
       account_id: accountId,
       service_name: 'remediations',
       path: `/deployments/${deploymentId}/remediation-items-list`,
@@ -199,7 +199,7 @@ class AssetsQueryClient {
    * "https://api.cloudinsight.alertlogic.com/remediations/v1/10000001/deployments/347203EF-134C-1005-8499-1289DB15AB31/remediation-items"
    */
   async getRemediationItems(accountId: string, deploymentId: string) {
-    const remediations = await this.alClient.fetch({
+    const remediations = await this.alClient.get({
       account_id: accountId,
       service_name: 'remediations',
       path: `/deployments/${deploymentId}/remediation-items`,
@@ -299,7 +299,7 @@ class AssetsQueryClient {
    * "https://api.cloudinsight.alertlogic.com/assets_query/v2/10000001/exposures/deployment/summary"
    */
   async getExposuresDeploymentSummary(accountId: string, queryParams?: ExposureQueryParams) {
-    const summaries = await this.alClient.fetch({
+    const summaries = await this.alClient.get({
       account_id: accountId,
       service_name: 'assets_query',
       path: 'exposures/deployment/summary',
@@ -316,7 +316,7 @@ class AssetsQueryClient {
    * "https://api.cloudinsight.alertlogic.com/assets_query/v2/10000001/exposures"
    */
   async queryExposures(accountId: string, queryParams?: ExposureQueryParams) {
-    const summaries = await this.alClient.fetch({
+    const summaries = await this.alClient.get({
       account_id: accountId,
       service_name: 'assets_query',
       path: 'exposures',
