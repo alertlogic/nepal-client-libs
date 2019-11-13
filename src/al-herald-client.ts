@@ -40,7 +40,7 @@ export class AlHeraldClientInstance {
      * @param accountId
      * @param type
      */
-    async createAccountIntegration( accountId: string, type: string, payload: AlHeraldIntegrationPayload): Promise<AlHeraldIntegration> {
+    async createIntegration( accountId: string, type: string, payload: AlHeraldIntegrationPayload): Promise<AlHeraldIntegration> {
         const accountIntegration = await this.client.post({
             service_name: this.serviceName,
             version: this.serviceVersion,
@@ -123,7 +123,7 @@ export class AlHeraldClientInstance {
      * -d '{ "name": "My Webhook Rename", "target_url": "https://www.example.com/add/path" }'
      */
     async updateIntegration(accountId: string, integrationId: string, payload: AlHeraldIntegrationPayload) : Promise<AlHeraldIntegration> {
-        const integrationUpdate = await this.client.get({
+        const integrationUpdate = await this.client.put({
             service_name: this.serviceName,
             version: this.serviceVersion,
             account_id: accountId,
