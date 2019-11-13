@@ -96,7 +96,7 @@ export class AlHeraldClientInstance {
             account_id: accountId,
             path: '/integrations'
         });
-        return accountIntegrations as AccountIntegration[];
+        return accountIntegrations.integrations as AccountIntegration[];
     }
 
     /**
@@ -112,7 +112,7 @@ export class AlHeraldClientInstance {
             path: '/integration_types'
         });
 
-        return integrationTypes as IntegrationTypes[];
+        return integrationTypes.integration_types as IntegrationTypes[];
     }
 
     /**
