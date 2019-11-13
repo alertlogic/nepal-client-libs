@@ -11,17 +11,17 @@ Until the release of version 1.0.0 all current minor version increments may be b
 
 ## Installation
 
-      npm install @al/herald--save
+      npm install @al/herald --save
 
 ## Usage
 
       var HeraldClient = require('@al/herald').HeraldClient; //commonjs - e.g. node
       import { HeraldClient } from '@al/herald'; //ES2015 - e.g. Angular, TS projects
-        
+
 ## Interactive
 
   Loads the library into memory and stays in an interactive node shell.
-  
+
       npm run interactive
 
   NOTE - You must build the sources before running this command, see Building section below
