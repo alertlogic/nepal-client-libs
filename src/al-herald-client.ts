@@ -2,7 +2,7 @@
  * Herald API client
  */
 import { AlApiClient, AlDefaultClient } from '@al/client';
-import { ALSubscriptionKey, AccountIntegration, AccountIntegrationPayload, IntegrationTypes } from './types';
+import { AlHeraldSubscriptionKey, AlHeraldIntegration, AlHeraldIntegrationPayload, AlHeraldIntegrationTypes } from './types';
 
 export class AlHeraldClientInstance {
 
@@ -20,7 +20,7 @@ export class AlHeraldClientInstance {
      * /herald/v1/subscription_keys
      * "https://api.cloudinsight.alertlogic.com/herald/v1/subscription_keys"
      */
-    async getAllSubscriptionKeys(): Promise<ALSubscriptionKey[]> {
+    async getAllSubscriptionKeys(): Promise<AlHeraldSubscriptionKey[]> {
         const subscriptionKeys = await this.client.get({
             service_name: this.serviceName,
             version:      this.serviceVersion,
@@ -40,7 +40,7 @@ export class AlHeraldClientInstance {
      * @param accountId
      * @param type
      */
-    async createAccountIntegration( accountId: string, type: string, payload: AccountIntegrationPayload): Promise<AccountIntegration> {
+    async createAccountIntegration( accountId: string, type: string, payload: AlHeraldIntegrationPayload): Promise<AlHeraldIntegration> {
         const accountIntegration = await this.client.post({
             service_name: this.serviceName,
             version: this.serviceVersion,
@@ -48,7 +48,7 @@ export class AlHeraldClientInstance {
             path: `/integrations/${type}`,
             data: payload
         });
-        return accountIntegration as AccountIntegration;
+        return accountIntegration as AlHeraldIntegration;
     }
 
     /**
@@ -73,14 +73,14 @@ export class AlHeraldClientInstance {
      * /herald/v1/:account_id/integrations/:id
      * "https://api.cloudinsight.alertlogic.com/herald/v1/12345678/integrations/E31302AE-C9B7-4A4B-BC83-85806383D3FE"
      */
-    async getIntegrationById(accountId: string, integrationId: string): Promise<AccountIntegration> {
+    async getIntegrationById(accountId: string, integrationId: string): Promise<AlHeraldIntegration> {
         const accountIntegration = await this.client.get({
             service_name: this.serviceName,
             version: this.serviceVersion,
             account_id: accountId,
             path: `/integrations/${integrationId}`
         });
-        return accountIntegration as AccountIntegration;
+        return accountIntegration as AlHeraldIntegration;
     }
 
     /**
@@ -96,7 +96,7 @@ export class AlHeraldClientInstance {
             account_id: accountId,
             path: '/integrations'
         });
-        return accountIntegrations.integrations as AccountIntegration[];
+        return accountIntegrations.integrations as AlHeraldIntegration[];
     }
 
     /**
@@ -112,7 +112,7 @@ export class AlHeraldClientInstance {
             path: '/integration_types'
         });
 
-        return integrationTypes.integration_types as IntegrationTypes[];
+        return integrationTypes.integration_types as AlHeraldIntegrationTypes[];
     }
 
     /**
@@ -122,7 +122,7 @@ export class AlHeraldClientInstance {
      * "https://api.cloudinsight.alertlogic.com/herald/v1/12345678/integrations/E31302AE-C9B7-4A4B-BC83-85806383D3FE"
      * -d '{ "name": "My Webhook Rename", "target_url": "https://www.example.com/add/path" }'
      */
-    async updateIntegration(accountId: string, integrationId: string, payload: AccountIntegrationPayload) : Promise<AccountIntegration> {
+    async updateIntegration(accountId: string, integrationId: string, payload: AlHeraldIntegrationPayload) : Promise<AlHeraldIntegration> {
         const integrationUpdate = await this.client.get({
             service_name: this.serviceName,
             version: this.serviceVersion,
@@ -131,7 +131,7 @@ export class AlHeraldClientInstance {
             data: payload
         });
 
-        return integrationUpdate as AccountIntegration;
+        return integrationUpdate as AlHeraldIntegration;
     }
 
 }
