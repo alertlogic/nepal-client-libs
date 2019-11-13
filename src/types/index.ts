@@ -13,3 +13,24 @@ export interface ALSubscriptionKey
     created?:    AlChangeStamp;
     modified?:   AlChangeStamp;
 }
+
+export interface AccountIntegrationPayload{
+    name: string;
+    target_url: string;
+}
+
+export interface AccountIntegration
+{
+    id: string;
+    account_id: string;
+    target_url: string;
+    name: string;
+    type: string;
+    created: AlChangeStamp;
+    modified: AlChangeStamp;
+}
+
+export interface IntegrationTypes
+{
+    name: string;
+}
