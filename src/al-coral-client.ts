@@ -4,7 +4,7 @@
 import { AlResponseValidationError } from '@al/common';
 import { ALClient, APIRequestParams } from '@al/client';
 
-export interface AlCreateCorrelationNotificationOnlyRequest {
+export interface AlCreateCorrelationRequest {
     enabled:            boolean;
     expression:         string;
     name:               string;
@@ -21,10 +21,6 @@ export interface AlIncidentDefinition {
     severity:       string;
     summary:        string;
     description:    string;
-}
-
-export interface AlCreateIncidentsFromCorrelationRequest extends AlCreateCorrelationNotificationOnlyRequest {
-    observation?:    AlIncidentDefinition;
 }
 
 export interface AlCorrelationRule {
@@ -71,17 +67,17 @@ export class AlCoralClientInstance {
     /**
      *  Create correlation rule - notification only / incidents from correlation
      */
-    async createCorrelationRule(accountId: string, correlationRequest: AlCreateIncidentsFromCorrelationRequest | AlCreateCorrelationNotificationOnlyRequest):Promise<string> {
+    async createCorrelationRule(accountId: string, correlationRequest: AlCreateCorrelationRequest):Promise<string> {
         const result = await ALClient.post({
             service_name: this.serviceName,
             account_id:   accountId,
             path:         '/correlations',
             data:         correlationRequest,
         });
-        if ( ! result.hasOwnProperty("correlation_id" ) ) {
-            throw new AlResponseValidationError(`Service returned unexpected result; missing 'correlation_id' property.` );
+        if ( ! result.hasOwnProperty("correlation_rule_id" ) ) {
+            throw new AlResponseValidationError(`Service returned unexpected result; missing 'correlation_rule_id' property.` );
         }
-        return result.correlation_id as string;
+        return result.correlation_rule_id as string;
     }
 
     /**
@@ -123,7 +119,7 @@ export class AlCoralClientInstance {
     /**
      *   Update correlation rule
      */
-    async updateCorrelationRule(accountId: string, correlationId: string, correlation: AlCreateIncidentsFromCorrelationRequest): Promise<string> {
+    async updateCorrelationRule(accountId: string, correlationId: string, correlation: AlCreateCorrelationRequest): Promise<string> {
         const correlationResult = await ALClient.post({
             service_name: this.serviceName,
             account_id:   accountId,
@@ -131,16 +127,16 @@ export class AlCoralClientInstance {
             data:         correlation
         });
 
-        if (!correlationResult.hasOwnProperty("correlation_id")) {
-            throw new AlResponseValidationError(`Service returned unexpected result; missing 'correlation_id' property.`);
+        if (!correlationResult.hasOwnProperty("correlation_rule_id")) {
+            throw new AlResponseValidationError(`Service returned unexpected result; missing 'correlation_rule_id' property.`);
         }
-        return correlationResult.correlation_id as string;
+        return correlationResult.correlation_rule_id as string;
      }
 
     /**
      *  It tests the validity of an input or in a debugging capacity to see what content aecoral would generate for a given input.
      */
-    async validateCorrelationPolicy(accountId: string, correlation: AlCreateIncidentsFromCorrelationRequest) {
+    async validateCorrelationPolicy(accountId: string, correlation: AlCreateCorrelationRequest) {
         const validation = await ALClient.post({
             service_name: this.serviceName,
             account_id:   accountId,
