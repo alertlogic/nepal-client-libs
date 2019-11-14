@@ -2,7 +2,11 @@
  * Herald API client
  */
 import { AlApiClient, AlDefaultClient } from '@al/client';
-import { AlHeraldSubscriptionKey, AlHeraldIntegration, AlHeraldIntegrationPayload, AlHeraldIntegrationTypes } from './types';
+import {
+    AlHeraldIntegration,
+    AlHeraldIntegrationPayload,
+    AlHeraldIntegrationTypes,
+    AlHeraldSubscriptionKey } from './types';
 
 export class AlHeraldClientInstance {
 

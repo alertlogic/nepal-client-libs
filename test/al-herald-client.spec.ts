@@ -53,18 +53,18 @@ describe('HERALD CLIENT', () => {
     const integrationsMock = {
         "integrations":[
             {
-                "id": "E31302AE-C9B7-4A4B-BC83-85806383D3FE",
+                "id": "E31302AE",
                 "account_id": "12345678",
                 "target_url": "https://www.example.com",
                 "name": "My Webhook",
                 "type": "webhook",
                 "created": {
                     "at": 1517452871,
-                    "by": "3B8EAFA0-1E1A-4744-AB53-0EE45EA8B102"
+                    "by": "3B8EAFA0"
                 },
                 "modified": {
                     "at": 1517452871,
-                    "by": "3B8EAFA0-1E1A-4744-AB53-0EE45EA8B102"
+                    "by": "3B8EAFA0"
                 }
             }
         ]

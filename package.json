@@ -38,7 +38,8 @@
     "lint": "tslint -p tsconfig.json",
     "clean": "rm -rf dist",
     "prepublishOnly": "npm run build",
-    "interactive": "npm run build && node -i -e \"const HeraldClient = require('./dist/commonjs/index.js').HeraldClient;\""
+    "interactive": "npm run build && node -i -e \"const HeraldClient = require('./dist/commonjs/index.js').AlHeraldClient;\"",
+    "interactive-dev": "npm run build-dev && node -i -e \"const HeraldClient = require('./dist/commonjs/index.js').AlHeraldClient;\""
   },
   "devDependencies": {
     "@types/chai": "^4.1.7",
