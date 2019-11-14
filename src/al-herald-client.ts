@@ -8,6 +8,7 @@ import {
     AlHeraldIntegrationPayload,
     AlHeraldIntegrationTypes,
     AlHeraldSubscriptionKey,
+    ALHeraldSubscriptionsKeyByAccountRecord,
 } from './types';
 
 export class AlHeraldClientInstance {
@@ -51,6 +52,82 @@ export class AlHeraldClientInstance {
         return subscriptions.subscriptions as ALHeraldAccountSubscription[];
     }
 
+    /**
+     * Get all integration subscriptions by feature
+     * GET
+     * /herald/v1/integrations/:integration_id/subscriptions/:feature
+     * "https://api.global-integration.product.dev.alertlogic.com/herald/v1/integrations/E31302AE-C9B7-4A4B-BC83-85806383D3FE/subscriptions/incidents"
+     */
+    async getAllIntegrationSubscriptionsByFeature( integrationId :string, feature: string): Promise<ALHeraldSubscriptionsKeyByAccountRecord[]> {
+        const integrations = await this.client.get({
+            service_name: this.serviceName,
+            version: this.serviceVersion,
+            path: `/integrations/${integrationId}/subscriptions/${feature}`,
+        });
+        return integrations.accounts as ALHeraldSubscriptionsKeyByAccountRecord[];
+    }
+
+    /**
+     * Get all user subscriptions
+     * GET
+     * /herald/v1/users/:user_id/subscriptions
+     * "https://api.global-integration.product.dev.alertlogic.com/herald/v1/users/715A4EC0-9833-4D6E-9C03-A537E3F98D23/subscriptions"
+     */
+    async getAllUserSubscriptions( userId: string ): Promise<ALHeraldAccountSubscription[]> {
+        const subscriptions = await this.client.get({
+            service_name: this.serviceName,
+            version: this.serviceVersion,
+            path: `/users/${userId}/subscriptions`,
+        });
+        return subscriptions.accounts as ALHeraldAccountSubscription[];
+    }
+
+    /**
+     * Get all user subscriptions by feature
+     * GET
+     * /herald/v1/users/:user_id/subscriptions/:feature
+     * "https://api.global-integration.product.dev.alertlogic.com/herald/v1/users/715A4EC0-9833-4D6E-9C03-A537E3F98D23/subscriptions/incidents"
+     */
+    async getAllUserSubscriptionsByFeature( userId: string, feature: string ): Promise<ALHeraldAccountSubscription[]> {
+        const subscriptions = await this.client.get({
+            service_name: this.serviceName,
+            version: this.serviceVersion,
+            path: `/users/${userId}/subscriptions/${feature}`,
+        });
+        return subscriptions.accounts as ALHeraldAccountSubscription[];
+    }
+
+    /**
+     * Get integration subscriptions
+     * GET
+     * /herald/v1/:account_id/integrations/:integration_id/subscriptions
+     * "https://api.global-integration.product.dev.alertlogic.com/herald/v1/12345678/integrations/E31302AE-C9B7-4A4B-BC83-85806383D3FE/subscriptions"
+     */
+    async getIntegrationSubscriptions( accountId: string, integrationId: string ): Promise<ALHeraldSubscriptionsKeyByAccountRecord> {
+        const subscriptions = await this.client.get({
+            service_name: this.serviceName,
+            version: this.serviceVersion,
+            account_id: accountId,
+            path: `/integrations/${integrationId}/subscriptions`,
+        });
+        return subscriptions as ALHeraldSubscriptionsKeyByAccountRecord;
+    }
+
+    /**
+     * Get integration subscriptions by feature
+     * GET
+     * /herald/v1/:account_id/integrations/:integration_id/subscriptions/:feature
+     * "https://api.global-integration.product.dev.alertlogic.com/herald/v1/12345678/integrations/E31302AE-C9B7-4A4B-BC83-85806383D3FE/subscriptions/incidents"
+     */
+    async getIntegrationSubscriptionsByFeature( accountId: string, integrationId: string, feature: string ): Promise<ALHeraldSubscriptionsKeyByAccountRecord> {
+        const subscriptions = await this.client.get({
+            service_name: this.serviceName,
+            version: this.serviceVersion,
+            account_id: accountId,
+            path: `/integrations/${integrationId}/subscriptions/${feature}`,
+        });
+        return subscriptions as ALHeraldSubscriptionsKeyByAccountRecord;
+    }
 
     /**** Integrations ***/
     /**

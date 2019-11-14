@@ -43,6 +43,24 @@ describe('HERALD CLIENT', () => {
         "total_count": 1
     };
 
+    const subscriptionIntegrationAccountMock = {
+        "accounts":
+        [
+          {
+            "account_id": "12345678",
+            "subscriptions":
+            [
+              {
+                "feature": "incidents",
+                "subkey": "escalations/primary",
+                "name": "Primary Escalations",
+                "subscribed": false
+              }
+            ]
+          }
+        ]
+      };
+
     const subscriptionkeysMock = {
         "subscription_keys":[
            {
@@ -133,6 +151,91 @@ describe('HERALD CLIENT', () => {
                 await AlHeraldClient.getAllAccountSubscriptionByFeature(accountId,feature);
                 expect( stub.callCount ).to.equal(1);
                 expect( stub.args[0][0].url ).to.equal(`${apiBaseURL}/${service}/${version}/${accountId}/subscriptions/${feature}`);
+            });
+        });
+
+        describe('When fetching all integration subscriptions by feature', () => {
+
+            beforeEach(() => {
+                stub = sinon.stub(ALClient as any, 'axiosRequest').returns(Promise.resolve({status: 200, data: subscriptionIntegrationAccountMock}));
+            });
+            afterEach(() => {
+                stub.restore();
+            });
+            it('Should call the AlHeraldClient instance\'s GET.', async () => {
+                const feature = "incidents";
+                const integrationId = "";
+                await AlHeraldClient.getAllIntegrationSubscriptionsByFeature(integrationId, feature);
+                expect( stub.callCount ).to.equal(1);
+                expect( stub.args[0][0].url ).to.equal(`${apiBaseURL}/${service}/${version}/integrations/${integrationId}/subscriptions/${feature}`);
+            });
+        });
+
+        describe('When fetching all user subscriptions', () => {
+
+            beforeEach(() => {
+                stub = sinon.stub(ALClient as any, 'axiosRequest').returns(Promise.resolve({status: 200, data: subscriptionIntegrationAccountMock}));
+            });
+            afterEach(() => {
+                stub.restore();
+            });
+            it('Should call the AlHeraldClient instance\'s GET.', async () => {
+                const userId = "123456";
+                await AlHeraldClient.getAllUserSubscriptions( userId );
+                expect( stub.callCount ).to.equal(1);
+                expect( stub.args[0][0].url ).to.equal(`${apiBaseURL}/${service}/${version}/users/${userId}/subscriptions`);
+            });
+        });
+
+        describe('When fetching all user subscriptions by feature', () => {
+
+            beforeEach(() => {
+                stub = sinon.stub(ALClient as any, 'axiosRequest').returns(Promise.resolve({status: 200, data: subscriptionIntegrationAccountMock}));
+            });
+            afterEach(() => {
+                stub.restore();
+            });
+            it('Should call the AlHeraldClient instance\'s GET.', async () => {
+                const userId = "123456";
+                const feature = "incidents";
+                await AlHeraldClient.getAllUserSubscriptionsByFeature( userId, feature );
+                expect( stub.callCount ).to.equal(1);
+                expect( stub.args[0][0].url ).to.equal(`${apiBaseURL}/${service}/${version}/users/${userId}/subscriptions/${feature}`);
+            });
+        });
+
+        describe('When fetching all integration subscriptions', () => {
+
+            beforeEach(() => {
+                stub = sinon.stub(ALClient as any, 'axiosRequest').returns(Promise.resolve({status: 200, data: subscriptionIntegrationAccountMock}));
+            });
+            afterEach(() => {
+                stub.restore();
+            });
+            it('Should call the AlHeraldClient instance\'s GET.', async () => {
+                const accountId = "123456";
+                const integrationId = "245234523453";
+                await AlHeraldClient.getIntegrationSubscriptions( accountId, integrationId );
+                expect( stub.callCount ).to.equal(1);
+                expect( stub.args[0][0].url ).to.equal(`${apiBaseURL}/${service}/${version}/${accountId}/integrations/${integrationId}/subscriptions`);
+            });
+        });
+
+        describe('When fetching all integration subscriptions by feature', () => {
+
+            beforeEach(() => {
+                stub = sinon.stub(ALClient as any, 'axiosRequest').returns(Promise.resolve({status: 200, data: subscriptionIntegrationAccountMock}));
+            });
+            afterEach(() => {
+                stub.restore();
+            });
+            it('Should call the AlHeraldClient instance\'s GET.', async () => {
+                const accountId = "123456";
+                const integrationId = "245234523453";
+                const feature = "incidents";
+                await AlHeraldClient.getIntegrationSubscriptionsByFeature( accountId, integrationId, feature );
+                expect( stub.callCount ).to.equal(1);
+                expect( stub.args[0][0].url ).to.equal(`${apiBaseURL}/${service}/${version}/${accountId}/integrations/${integrationId}/subscriptions/${feature}`);
             });
         });
     });
