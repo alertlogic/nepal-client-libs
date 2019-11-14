@@ -7,11 +7,32 @@ export { AlChangeStamp, AIMSAuthentication, AIMSUser, AIMSAccount, AIMSSessionDe
 
 export interface AlHeraldSubscriptionKey
 {
-    feature:    string;
-    subkey:     string;
-    name:       string;
-    created?:    AlChangeStamp;
-    modified?:   AlChangeStamp;
+    feature: string;
+    subkey: string;
+    name: string;
+    created?: AlChangeStamp;
+    modified?: AlChangeStamp;
+}
+
+export interface ALHeraldSubscriptionRecord
+{
+    feature: string;
+    subkey?: string;
+    name?: string;
+    subscribed: boolean;
+}
+
+export interface ALHeraldSubscriptionsKeyByAccountRecord
+{
+    account_id: string;
+    subscriptions: ALHeraldSubscriptionRecord[];
+}
+
+export interface ALHeraldAccountSubscription
+{
+    subscriber_type: string;
+    user_id: string;
+    accounts: ALHeraldSubscriptionsKeyByAccountRecord[];
 }
 
 export interface AlHeraldIntegrationPayload{

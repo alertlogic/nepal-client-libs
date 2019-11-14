@@ -19,6 +19,30 @@ describe('HERALD CLIENT', () => {
     const apiBaseURL = "https://api.cloudinsight.alertlogic.com";
     const service = "herald";
     const version = "v1";
+
+    const subscriptionAccountMock = {
+        "subscriptions": [
+            {
+                "subscriber_type": "user",
+                "user_id": "ABCGEFG-12545-1234-ABCDEGF",
+                "accounts": [
+                    {
+                        "account_id": "12345678",
+                        "subscriptions": [
+                            {
+                                "feature": "incidents",
+                                "subkey": "escalations/primary",
+                                "name": "Primary Escalations",
+                                "subscribed": false
+                            }
+                        ]
+                    }
+                ]
+            }
+        ],
+        "total_count": 1
+    };
+
     const subscriptionkeysMock = {
         "subscription_keys":[
            {
@@ -79,17 +103,37 @@ describe('HERALD CLIENT', () => {
         ]
     };
 
-    describe('When fetching all subscription keys', () => {
-        beforeEach(() => {
-            stub = sinon.stub(ALClient as any, 'axiosRequest').returns(Promise.resolve({status: 200, data: subscriptionkeysMock}));
+    describe('Subscriptions ', () => {
+        describe('When fetching all subscription keys', () => {
+
+            beforeEach(() => {
+                stub = sinon.stub(ALClient as any, 'axiosRequest').returns(Promise.resolve({status: 200, data: subscriptionkeysMock}));
+            });
+            afterEach(() => {
+                stub.restore();
+            });
+            it('Should call the AlHeraldClient instance\'s GET.', async () => {
+                await AlHeraldClient.getAllSubscriptionKeys();
+                expect( stub.callCount ).to.equal(1);
+                expect( stub.args[0][0].url ).to.equal(`${apiBaseURL}/${service}/${version}/subscription_keys`);
+            });
         });
-        afterEach(() => {
-            stub.restore();
-        });
-        it('Should call the AlHeraldClient instance\'s GET.', async () => {
-            await AlHeraldClient.getAllSubscriptionKeys();
-            expect( stub.callCount ).to.equal(1);
-            expect( stub.args[0][0].url ).to.equal(`${apiBaseURL}/${service}/${version}/subscription_keys`);
+
+        describe('When fetching all account subscriptions by feature', () => {
+
+            beforeEach(() => {
+                stub = sinon.stub(ALClient as any, 'axiosRequest').returns(Promise.resolve({status: 200, data: subscriptionAccountMock}));
+            });
+            afterEach(() => {
+                stub.restore();
+            });
+            it('Should call the AlHeraldClient instance\'s GET.', async () => {
+                const feature = "incidents";
+                const accountId = "2";
+                await AlHeraldClient.getAllAccountSubscriptionByFeature(accountId,feature);
+                expect( stub.callCount ).to.equal(1);
+                expect( stub.args[0][0].url ).to.equal(`${apiBaseURL}/${service}/${version}/${accountId}/subscriptions/${feature}`);
+            });
         });
     });
 

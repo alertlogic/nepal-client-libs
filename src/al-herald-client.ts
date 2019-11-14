@@ -3,10 +3,12 @@
  */
 import { AlApiClient, AlDefaultClient } from '@al/client';
 import {
+    ALHeraldAccountSubscription,
     AlHeraldIntegration,
     AlHeraldIntegrationPayload,
     AlHeraldIntegrationTypes,
-    AlHeraldSubscriptionKey } from './types';
+    AlHeraldSubscriptionKey,
+} from './types';
 
 export class AlHeraldClientInstance {
 
@@ -27,10 +29,26 @@ export class AlHeraldClientInstance {
     async getAllSubscriptionKeys(): Promise<AlHeraldSubscriptionKey[]> {
         const subscriptionKeys = await this.client.get({
             service_name: this.serviceName,
-            version:      this.serviceVersion,
-            path:         '/subscription_keys'
+            version: this.serviceVersion,
+            path: '/subscription_keys'
         });
-        return subscriptionKeys;
+        return subscriptionKeys as AlHeraldSubscriptionKey[];
+    }
+
+    /**
+     * Get all account subscriptions by feature
+     * GET
+     * /herald/v1/:account_id/subscriptions/:feature
+     * "https://api.global-integration.product.dev.alertlogic.com/herald/v1/12345678/subscriptions/incidents"
+     */
+    async getAllAccountSubscriptionByFeature( accountId: string, feature: string): Promise<ALHeraldAccountSubscription[]> {
+        const subscriptions = await this.client.get({
+            service_name: this.serviceName,
+            version: this.serviceVersion,
+            account_id: accountId,
+            path: `/subscriptions/${feature}`,
+        });
+        return subscriptions.subscriptions as ALHeraldAccountSubscription[];
     }
 
 
