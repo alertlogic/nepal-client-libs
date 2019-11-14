@@ -5,7 +5,7 @@ import { AlChangeStamp, AIMSAuthentication, AIMSUser, AIMSAccount, AIMSSessionDe
  */
 export { AlChangeStamp, AIMSAuthentication, AIMSUser, AIMSAccount, AIMSSessionDescriptor } from '@al/client';
 
-export interface ALHeraldSubscriptionKey
+export interface AlHeraldSubscriptionKey
 {
     feature: string;
     subkey: string;
@@ -33,27 +33,6 @@ export interface ALHeraldAccountSubscription
     subscriber_type: string;
     user_id: string;
     accounts: ALHeraldSubscriptionsKeyByAccountRecord[];
-}
-
-export interface AccountIntegrationPayload{
-    name: string;
-    target_url: string;
-}
-
-export interface AccountIntegration
-{
-    id: string;
-    account_id: string;
-    target_url: string;
-    name: string;
-    type: string;
-    created: AlChangeStamp;
-    modified: AlChangeStamp;
-}
-
-export interface IntegrationTypes
-{
-    name: string;
 }
 
 export interface AlHeraldIntegrationPayload{
