@@ -16,6 +16,9 @@ afterEach(() => {
 let stub: sinon.SinonSpy;
 
 describe('HERALD CLIENT', () => {
+    const apiBaseURL = "https://api.cloudinsight.alertlogic.com";
+    const service = "herald";
+    const version = "v1";
     const subscriptionkeysMock = {
         "subscription_keys":[
            {
@@ -47,6 +50,35 @@ describe('HERALD CLIENT', () => {
         ]
     };
 
+    const integrationsMock = {
+        "integrations":[
+            {
+                "id": "E31302AE",
+                "account_id": "12345678",
+                "target_url": "https://www.example.com",
+                "name": "My Webhook",
+                "type": "webhook",
+                "created": {
+                    "at": 1517452871,
+                    "by": "3B8EAFA0"
+                },
+                "modified": {
+                    "at": 1517452871,
+                    "by": "3B8EAFA0"
+                }
+            }
+        ]
+    };
+
+    const integrationTypesMock = {
+        "integration_types":
+        [
+            {
+            "name": "webhooks"
+            }
+        ]
+    };
+
     describe('When fetching all subscription keys', () => {
         beforeEach(() => {
             stub = sinon.stub(ALClient as any, 'axiosRequest').returns(Promise.resolve({status: 200, data: subscriptionkeysMock}));
@@ -56,8 +88,139 @@ describe('HERALD CLIENT', () => {
         });
         it('Should call the AlHeraldClient instance\'s GET.', async () => {
             await AlHeraldClient.getAllSubscriptionKeys();
-            expect(stub.callCount).to.equal(1);
-            expect(stub.args[0][0].url).to.equal("https://api.cloudinsight.alertlogic.com/herald/v1/subscription_keys");
+            expect( stub.callCount ).to.equal(1);
+            expect( stub.args[0][0].url ).to.equal(`${apiBaseURL}/${service}/${version}/subscription_keys`);
         });
+    });
+
+    describe('Integrations ', () => {
+        describe('When performing a create integration', () => {
+            beforeEach(() => {
+                stub = sinon.stub(ALClient as any, 'axiosRequest').returns(Promise.resolve({status: 200, data: integrationsMock.integrations[0]}));
+            });
+            afterEach(() => {
+                stub.restore();
+            });
+            it('Should call the AlHeraldClient instance\'s POST.', async () => {
+                const accountId = "12345678";
+                const type = "webhook";
+                const payloadData = {
+                    name: 'name',
+                    target_url: 'https://www.example.com'
+                };
+                await AlHeraldClient.createIntegration( accountId, type, payloadData );
+
+                const payload = stub.args[0][0];
+                expect( stub.callCount ).to.equal( 1 );
+                expect( payload.method ).to.equal( "POST" );
+                expect( payload.url ).to.equal( `${apiBaseURL}/${service}/${version}/${accountId}/integrations/${type}` );
+            });
+        });
+
+        describe('When performing a delete integration', () => {
+
+            beforeEach(() => {
+                stub = sinon.stub(ALClient as any, 'axiosRequest').returns(Promise.resolve({status: 200 }));
+            });
+            afterEach(() => {
+                stub.restore();
+            });
+            it('Should call the AlHeraldClient instance\'s DELETE.', async () => {
+                const accountId = "12345678";
+                const integrationId = "ABC";
+
+                await AlHeraldClient.deleteIntegration( accountId, integrationId);
+
+                const payload = stub.args[0][0];
+                expect( stub.callCount ).to.equal( 1 );
+                expect( payload.method ).to.equal( "DELETE" );
+                expect( payload.url ).to.equal( `${apiBaseURL}/${service}/${version}/${accountId}/integrations/${integrationId}` );
+            });
+        });
+
+        describe('When performing a get integration by id', () => {
+
+            beforeEach(() => {
+                stub = sinon.stub(ALClient as any, 'axiosRequest').returns(Promise.resolve({status: 200, data: integrationsMock.integrations[0]}));
+            });
+            afterEach(() => {
+                stub.restore();
+            });
+            it('Should call the AlHeraldClient instance\'s GET.', async () => {
+                const accountId = "12345678";
+                const integrationId = "ABC";
+
+                const result = await AlHeraldClient.getIntegrationById( accountId, integrationId);
+                const payload = stub.args[0][0];
+                expect( stub.callCount ).to.equal( 1 );
+                expect( payload.method ).to.equal( "GET" );
+                expect( payload.url ).to.equal( `${apiBaseURL}/${service}/${version}/${accountId}/integrations/${integrationId}` );
+                expect( result ).to.equal( integrationsMock.integrations[0] );
+            });
+        });
+
+        describe('When performing a get integrations by account', () => {
+
+            beforeEach(() => {
+                stub = sinon.stub(ALClient as any, 'axiosRequest').returns(Promise.resolve({status: 200, data: integrationsMock }));
+            });
+            afterEach(() => {
+                stub.restore();
+            });
+            it('Should call the AlHeraldClient instance\'s GET by one account.', async () => {
+                const accountId = "12345678";
+                const integrationId = "ABC";
+
+                const result = await AlHeraldClient.getIntegrationsByAccount( accountId );
+                const payload = stub.args[0][0];
+                expect( stub.callCount ).to.equal( 1 );
+                expect( payload.method ).to.equal( "GET" );
+                expect( payload.url ).to.equal( `${apiBaseURL}/${service}/${version}/${accountId}/integrations` );
+                expect( result ).to.equal( integrationsMock.integrations );
+            });
+        });
+
+        describe('When performing an update integration', () => {
+            beforeEach(() => {
+                stub = sinon.stub(ALClient as any, 'axiosRequest').returns(Promise.resolve({status: 200, data: integrationsMock.integrations[0]}));
+            });
+            afterEach(() => {
+                stub.restore();
+            });
+            it('Should call the AlHeraldClient instance\'s POST.', async () => {
+                const accountId = "12345678";
+                const integrationId = "ABC";
+                const payloadData = {
+                    name: 'name',
+                    target_url: 'https://www.example.com'
+                };
+                const result = await AlHeraldClient.updateIntegration( accountId, integrationId, payloadData );
+
+                const payload = stub.args[0][0];
+                expect( stub.callCount ).to.equal( 1 );
+                expect( payload.method ).to.equal( "PUT" );
+                expect( payload.url ).to.equal( `${apiBaseURL}/${service}/${version}/${accountId}/integrations/${integrationId}` );
+                expect( result ).to.equal( integrationsMock.integrations[0] );
+            });
+        });
+
+        describe('When performing a get integration types', () => {
+            beforeEach(() => {
+                stub = sinon.stub(ALClient as any, 'axiosRequest').returns(Promise.resolve({status: 200, data: integrationTypesMock}));
+            });
+            afterEach(() => {
+                stub.restore();
+            });
+            it('Should call the AlHeraldClient instance\'s GET.', async () => {
+                const result = await AlHeraldClient.getIntegrationTypes();
+
+                const payload = stub.args[0][0];
+                expect( stub.callCount ).to.equal( 1 );
+                expect( payload.method ).to.equal( "GET" );
+                expect( payload.url ).to.equal( `${apiBaseURL}/${service}/${version}/integration_types` );
+                expect( result ).to.equal( integrationTypesMock.integration_types );
+            });
+        });
+
     });
 });
