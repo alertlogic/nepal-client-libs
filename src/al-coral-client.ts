@@ -78,10 +78,10 @@ export class AlCoralClientInstance {
             path:         '/correlations',
             data:         correlationRequest,
         });
-        if ( ! result.hasOwnProperty("correlation_id" ) ) {
-            throw new AlResponseValidationError(`Service returned unexpected result; missing 'correlation_id' property.` );
+        if ( ! result.hasOwnProperty("correlation_rule_id" ) ) {
+            throw new AlResponseValidationError(`Service returned unexpected result; missing 'correlation_rule_id' property.` );
         }
-        return result.correlation_id as string;
+        return result.correlation_rule_id as string;
     }
 
     /**
@@ -131,10 +131,10 @@ export class AlCoralClientInstance {
             data:         correlation
         });
 
-        if (!correlationResult.hasOwnProperty("correlation_id")) {
-            throw new AlResponseValidationError(`Service returned unexpected result; missing 'correlation_id' property.`);
+        if (!correlationResult.hasOwnProperty("correlation_rule_id")) {
+            throw new AlResponseValidationError(`Service returned unexpected result; missing 'correlation_rule_id' property.`);
         }
-        return correlationResult.correlation_id as string;
+        return correlationResult.correlation_rule_id as string;
      }
 
     /**
