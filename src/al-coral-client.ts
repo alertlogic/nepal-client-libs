@@ -11,6 +11,7 @@ export interface AlCreateCorrelationNotificationOnlyRequest {
     attacker_field:     string;
     victim_field:       string;
     expression_window:  string;
+    unique?:            string;
     incident?:          AlIncidentDefinition;
 }
 
