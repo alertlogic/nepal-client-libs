@@ -4,7 +4,7 @@
 import { AlResponseValidationError } from '@al/common';
 import { ALClient, APIRequestParams } from '@al/client';
 
-export interface AlCreateCorrelationNotificationOnlyRequest {
+export interface AlCreateCorrelationRequest {
     enabled:            boolean;
     expression:         string;
     name:               string;
@@ -21,10 +21,6 @@ export interface AlIncidentDefinition {
     severity:       string;
     summary:        string;
     description:    string;
-}
-
-export interface AlCreateIncidentsFromCorrelationRequest extends AlCreateCorrelationNotificationOnlyRequest {
-    observation?:    AlIncidentDefinition;
 }
 
 export interface AlCorrelationRule {
@@ -71,7 +67,7 @@ export class AlCoralClientInstance {
     /**
      *  Create correlation rule - notification only / incidents from correlation
      */
-    async createCorrelationRule(accountId: string, correlationRequest: AlCreateIncidentsFromCorrelationRequest | AlCreateCorrelationNotificationOnlyRequest):Promise<string> {
+    async createCorrelationRule(accountId: string, correlationRequest: AlCreateCorrelationRequest):Promise<string> {
         const result = await ALClient.post({
             service_name: this.serviceName,
             account_id:   accountId,
@@ -123,7 +119,7 @@ export class AlCoralClientInstance {
     /**
      *   Update correlation rule
      */
-    async updateCorrelationRule(accountId: string, correlationId: string, correlation: AlCreateIncidentsFromCorrelationRequest): Promise<string> {
+    async updateCorrelationRule(accountId: string, correlationId: string, correlation: AlCreateCorrelationRequest): Promise<string> {
         const correlationResult = await ALClient.post({
             service_name: this.serviceName,
             account_id:   accountId,
@@ -140,7 +136,7 @@ export class AlCoralClientInstance {
     /**
      *  It tests the validity of an input or in a debugging capacity to see what content aecoral would generate for a given input.
      */
-    async validateCorrelationPolicy(accountId: string, correlation: AlCreateIncidentsFromCorrelationRequest) {
+    async validateCorrelationPolicy(accountId: string, correlation: AlCreateCorrelationRequest) {
         const validation = await ALClient.post({
             service_name: this.serviceName,
             account_id:   accountId,

@@ -44,7 +44,7 @@ describe('AECORAL CLIENT', () => {
 
     describe('When creating a notification-only correlation rule', () => {
         beforeEach(() => {
-            stub = sinon.stub(ALClient as any, 'axiosRequest').returns(Promise.resolve({ status: 200, data: { correlation_id: "12345678" }}));
+            stub = sinon.stub(ALClient as any, 'axiosRequest').returns(Promise.resolve({ status: 200, data: { correlation_rule_id: "12345678" }}));
         });
         afterEach(() => {
             stub.restore();
@@ -57,7 +57,7 @@ describe('AECORAL CLIENT', () => {
     });
     describe('When fetching incident specifications', () => {
         beforeEach(() => {
-            stub = sinon.stub(ALClient as any, 'axiosRequest').returns(Promise.resolve({ status: 200, data: { correlation_id: "12345678" }}));
+            stub = sinon.stub(ALClient as any, 'axiosRequest').returns(Promise.resolve({ status: 200, data: { correlation_rule_id: "12345678" }}));
         });
         afterEach(() => {
             stub.restore();
@@ -109,7 +109,7 @@ describe('AECORAL CLIENT', () => {
     });
     describe('When updating a correlation rule', () => {
         beforeEach(() => {
-            stub = sinon.stub(ALClient as any, 'axiosRequest').returns(Promise.resolve({status: 200, data: {correlation_id: "12345678"}}));
+            stub = sinon.stub(ALClient as any, 'axiosRequest').returns(Promise.resolve({status: 200, data: {correlation_rule_id: "12345678"}}));
         });
         afterEach(() => {
             stub.restore();
