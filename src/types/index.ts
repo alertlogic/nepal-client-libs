@@ -56,16 +56,38 @@ export interface AlHeraldIntegrationTypes
     name: string;
 }
 
+export interface AlHeraldNotificationDataBase{
+    whispir?: boolean;
+    tld?: string;
+}
 
-export interface AlHeraldNotificationData{
-    service_owners: string;
-    put:string;
-    they:string;
-    in: string;
-    it: string;
-    goes: string;
-    whispir: boolean;
-    // incident fields
+export interface AlHeraldNotificationDataEndpoints extends AlHeraldNotificationDataBase{
+    detail_url?: string;
+    device_name?: string;
+    device_tags?: string;
+    device_user_name?: string;
+    process_name?: string;
+    process_path?: string;
+    rule_name?: string;
+    subject?: string;
+}
+
+export interface AlHeraldNotificationDataSearch extends AlHeraldNotificationDataBase{
+    account_id?: string;
+    domain?: string;
+    query_id?: string;
+    result_count?: string;
+    schedule?: string;
+    search_id?: string;
+    search_name?: string;
+    time?: string;
+    time_range?: string;
+    time_range_end_ts?: string;
+    time_range_start_ts?: string;
+}
+
+
+export interface AlHeraldNotificationDataIncident extends AlHeraldNotificationDataBase{
     analyst_notes?: string;
     attack_summary?: string;
     cid?: string;
@@ -82,7 +104,14 @@ export interface AlHeraldNotificationData{
     status?: string;
     target_host?: string;
     threat?: string;
-    tld?: string;
+}
+
+export interface AlHeraldNotificationData{
+    [key: string]: unknown
+    | AlHeraldNotificationDataBase
+    | AlHeraldNotificationDataEndpoints
+    | AlHeraldNotificationDataSearch
+    | AlHeraldNotificationDataIncident
 }
 
 export interface AlHeraldNotificationAttachment{
