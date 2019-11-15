@@ -142,7 +142,7 @@ export interface AlEndpointsSummaryData
         isolated:number;
         quarantined:number;
         overridden:number;
-        noResponse:number;
+        unresolved:number;
     };
     attackTypes: {
         name:string;

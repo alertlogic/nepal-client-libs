@@ -44,7 +44,7 @@ export class AlEndpointsSummary
             isolated: 0,
             quarantined: 0,
             overridden: 0,
-            noResponse: 0
+            unresolved: 0
         },
         attackTypes:[],
         attackedEndpoints:[],
@@ -95,66 +95,66 @@ export class AlEndpointsSummary
 
     protected digestEndpoint( endpoint:AlEndpointDetail ) {
         this.endpointMap[endpoint.id] = { endpoint, attackCount: 0 };
-        if ( endpoint.status === 'ARCHIVED' || endpoint.primaryStatus === 'ARCHIVED' ) {
+        if ( endpoint.primaryStatus === 'ARCHIVED' ) {
             this.summary.stateBreakdown.archived++;
-            return;
         }
         this.summary.totalEndpoints++;
         if ( endpoint.presence === 'ONLINE' ) {
             this.summary.checkinBreakdown.online += 1;
         } else {
-            const checkInMinutes = Math.floor( ( ( Date.now() / 1000 ) - this.iso8601ToTimestamp( endpoint.lastSeen ) ) / 60 );
-            if ( checkInMinutes < 60 ) {
-                this.summary.checkinBreakdown.recent += 1;
-            } else {
+            const checkInDays = (Date.now() - new Date(endpoint.lastSeen).getTime()) / (1000 * 3600 * 24);
+            if ( checkInDays > 60 ) {
                 this.summary.checkinBreakdown.notRecently += 1;
-            }
-        }
-        if ( endpoint.systemInformation ) {
-            if ( endpoint.systemInformation.manufacturer && endpoint.systemInformation.productName ) {
-                const platformFamily = endpoint.systemInformation.manufacturer;
-                const platformName = endpoint.systemInformation.productName;
-                if ( ! this.platformAggregation.hasOwnProperty( platformFamily ) ) {
-                    this.platformAggregation[platformFamily] = {};
-                }
-                if ( ! this.platformAggregation[platformFamily].hasOwnProperty( platformName ) ) {
-                    this.platformAggregation[platformFamily][platformName] = 0;
-                }
-                this.platformAggregation[platformFamily][platformName]++;
-            }
-            if ( endpoint.systemInformation.os ) {
-                let extractor = new RegExp( /(.*)\(([0-9a-zA-Z.]*)\)/i );
-                let matches = extractor.exec( endpoint.systemInformation.os );
-                if ( matches && matches.length >= 3 ) {
-                    const osName = matches[1].trim();
-                    const osVersion = matches[2].trim();
-                    if ( ! this.osAggregation.hasOwnProperty( osName ) ) {
-                        this.osAggregation[osName] = {};
-                    }
-                    if ( ! this.osAggregation[osName].hasOwnProperty( osVersion ) ) {
-                        this.osAggregation[osName][osVersion] = 0;
-                    }
-                    this.osAggregation[osName][osVersion]++;
+            } else {
+                if( endpoint.primaryStatus !== 'ARCHIVED') { // not sure about this!!!
+                    this.summary.checkinBreakdown.recent += 1;
                 }
             }
         }
+        if( endpoint.primaryStatus !== 'ARCHIVED') {
+            if ( endpoint.systemInformation ) {
+                if ( endpoint.systemInformation.manufacturer && endpoint.systemInformation.productName ) {
+                    const platformFamily = endpoint.systemInformation.manufacturer;
+                    const platformName = endpoint.systemInformation.productName;
+                    if ( ! this.platformAggregation.hasOwnProperty( platformFamily ) ) {
+                        this.platformAggregation[platformFamily] = {};
+                    }
+                    if ( ! this.platformAggregation[platformFamily].hasOwnProperty( platformName ) ) {
+                        this.platformAggregation[platformFamily][platformName] = 0;
+                    }
+                    this.platformAggregation[platformFamily][platformName]++;
+                }
+                if ( endpoint.systemInformation.os ) {
+                    let extractor = new RegExp( /(.*)\(([0-9a-zA-Z.]*)\)/i );
+                    let matches = extractor.exec( endpoint.systemInformation.os );
+                    if ( matches && matches.length >= 3 ) {
+                        const osName = matches[1].trim();
+                        const osVersion = matches[2].trim();
+                        if ( ! this.osAggregation.hasOwnProperty( osName ) ) {
+                            this.osAggregation[osName] = {};
+                        }
+                        if ( ! this.osAggregation[osName].hasOwnProperty( osVersion ) ) {
+                            this.osAggregation[osName][osVersion] = 0;
+                        }
+                        this.osAggregation[osName][osVersion]++;
+                    }
+                }
+            }
 
-        switch( endpoint.status ) {
-            case "ACTIVE" :
-                if ( endpoint.primaryStatus === 'ERROR' ) {
-                    this.summary.stateBreakdown.error += 1;
-                } else {
-                    this.summary.stateBreakdown.protected += 1;
-                }
-                break;
-            case "UNINSTALLED" :
+            if(endpoint.primaryStatus === 'ON' || endpoint.secondaryStatus === 'INACTIVE_WITH_STATUS_ON') {
+                this.summary.stateBreakdown.protected += 1;
+            }
+            if(endpoint.primaryStatus === 'OFF' || endpoint.secondaryStatus === 'INACTIVE_WITH_STATUS_OFF') {
                 this.summary.stateBreakdown.disabled += 1;
-                break;
-        }
-        if ( endpoint.agentVersion !== ( this.agentVersionInfo.orgRVAgent || this.agentVersionInfo.globalRVAgent ) ) {
-            this.summary.currencyBreakdown.outOfDate++;
-        } else {
-            this.summary.currencyBreakdown.current++;
+            }
+            if(endpoint.primaryStatus === 'ERROR') {
+                this.summary.stateBreakdown.error += 1;
+            }
+            if ([this.agentVersionInfo.orgRVAgent, this.agentVersionInfo.globalRVAgent].includes(endpoint.agentVersion)) {
+                this.summary.currencyBreakdown.current++;
+            } else {
+                this.summary.currencyBreakdown.outOfDate++;
+            }
         }
     }
 
@@ -206,7 +206,7 @@ export class AlEndpointsSummary
         } else if ( incident.overridden ) {
             this.summary.responseBreakdown.overridden++;
         } else {
-            this.summary.responseBreakdown.noResponse++;
+            this.summary.responseBreakdown.unresolved++;
         }
 
         this.attackTypes[incident.eventType].count++;
