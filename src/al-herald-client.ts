@@ -7,6 +7,11 @@ import {
     AlHeraldIntegration,
     AlHeraldIntegrationPayload,
     AlHeraldIntegrationTypes,
+    AlHeraldNotification,
+    AlHeraldNotificationIncident,
+    AlHeraldNotificationList,
+    AlHeraldNotificationPayload,
+    AlHeraldNotificationQuery,
     AlHeraldSubscriptionKey,
     ALHeraldSubscriptionsKeyByAccountRecord,
 } from './types';
@@ -25,7 +30,7 @@ export class AlHeraldClientInstance {
      * Get all subscriptions keys
      * GET
      * /herald/v1/subscription_keys
-     * "https://api.cloudinsight.alertlogic.com/herald/v1/subscription_keys"
+     * "https://api.global-integration.product.dev.alertlogic.com/herald/v1/subscription_keys"
      */
     async getAllSubscriptionKeys(): Promise<AlHeraldSubscriptionKey[]> {
         const subscriptionKeys = await this.client.get({
@@ -134,7 +139,7 @@ export class AlHeraldClientInstance {
      * Create integration for one specific account
      * POST
      * /herald/v1/:account_id/integrations/:type
-     * "https://api.cloudinsight.alertlogic.com/herald/v1/12345678/integrations/webhook"
+     * "https://api.global-integration.product.dev.alertlogic.com/herald/v1/12345678/integrations/webhook"
      * -d '{ "name": "My Webhook", "target_url": "https://www.example.com" }'
      * @param accountId
      * @param type
@@ -154,7 +159,7 @@ export class AlHeraldClientInstance {
      * Delete an integration for one account
      * DELETE
      * /herald/v1/:account_id/integrations/:id
-     * "https://api.cloudinsight.alertlogic.com/herald/v1/12345678/integrations/E31302AE-C9B7-4A4B-BC83-85806383D3FE"
+     * "https://api.global-integration.product.dev.alertlogic.com/herald/v1/12345678/integrations/E31302AE-C9B7-4A4B-BC83-85806383D3FE"
      */
     async deleteIntegration(accountId: string, integrationId: string) {
         const accountIntegrationDelete = await this.client.delete({
@@ -170,7 +175,7 @@ export class AlHeraldClientInstance {
      * Get one integration for one account
      * GET
      * /herald/v1/:account_id/integrations/:id
-     * "https://api.cloudinsight.alertlogic.com/herald/v1/12345678/integrations/E31302AE-C9B7-4A4B-BC83-85806383D3FE"
+     * "https://api.global-integration.product.dev.alertlogic.com/herald/v1/12345678/integrations/E31302AE-C9B7-4A4B-BC83-85806383D3FE"
      */
     async getIntegrationById(accountId: string, integrationId: string): Promise<AlHeraldIntegration> {
         const accountIntegration = await this.client.get({
@@ -186,7 +191,7 @@ export class AlHeraldClientInstance {
      * Get the integrations for one account
      * GET
      * /herald/v1/:account_id/integrations
-     * "https://api.cloudinsight.alertlogic.com/herald/v1/12345678/integrations"
+     * "https://api.global-integration.product.dev.alertlogic.com/herald/v1/12345678/integrations"
      */
     async getIntegrationsByAccount(accountId: string ) {
         const accountIntegrations = await this.client.get({
@@ -202,7 +207,7 @@ export class AlHeraldClientInstance {
      * Get the integration types
      * GET
      * /herald/v1/integration_types
-     * "https://api.cloudinsight.alertlogic.com/herald/v1/integration_types"
+     * "https://api.global-integration.product.dev.alertlogic.com/herald/v1/integration_types"
      */
     async getIntegrationTypes() {
         const integrationTypes = await this.client.get({
@@ -218,7 +223,7 @@ export class AlHeraldClientInstance {
      * Update integration for the specified account
      * PUT
      * /herald/v1/:account_id/integrations/:id
-     * "https://api.cloudinsight.alertlogic.com/herald/v1/12345678/integrations/E31302AE-C9B7-4A4B-BC83-85806383D3FE"
+     * "https://api.global-integration.product.dev.alertlogic.com/herald/v1/12345678/integrations/E31302AE-C9B7-4A4B-BC83-85806383D3FE"
      * -d '{ "name": "My Webhook Rename", "target_url": "https://www.example.com/add/path" }'
      */
     async updateIntegration(accountId: string, integrationId: string, payload: AlHeraldIntegrationPayload) : Promise<AlHeraldIntegration> {
@@ -233,4 +238,158 @@ export class AlHeraldClientInstance {
         return integrationUpdate as AlHeraldIntegration;
     }
 
+    /**** Notifications ***/
+    /**
+     * Get the notifications by id
+     * GET
+     * /herald/v1/notifications/:notifications_id
+     * "https://api.global-integration.product.dev.alertlogic.com/herald/v1/notifications/12345678"
+     */
+    // Check with backend looks like is not working ok
+    async getNotificationsById(notificationId: string ) {
+        const notification = await this.client.get({
+            service_name: this.serviceName,
+            version: this.serviceVersion,
+            path: `/notifications/${notificationId}`
+        });
+        return notification as AlHeraldNotification;
+    }
+
+    /**
+     * Get the notifications by account id
+     * GET
+     * /herald/v1/notifications/:notifications_id
+     * "https://api.global-integration.product.dev.alertlogic.com/herald/v1/12345678/notifications"
+     */
+    async getNotificationsByAccountId(accountId: string, queryParams: AlHeraldNotificationQuery ) {
+        const notification = await this.client.get({
+            service_name: this.serviceName,
+            version: this.serviceVersion,
+            account_id: accountId,
+            path: '/notifications'
+        });
+        return notification as AlHeraldNotificationList;
+    }
+
+    /**
+     * Get the notifications by id and by account id
+     * GET
+     * /herald/v1/:account_id/notifications/id/:notification_id
+     * "https://api.global-integration.product.dev.alertlogic.com/herald/v1/12345678/notifications/id/3B8EAFAABCASDD"
+     */
+    async getNotificationsByIdAndByAccountId(accountId: string, notificationId: string ) {
+        const notification = await this.client.get({
+            service_name: this.serviceName,
+            version: this.serviceVersion,
+            account_id: accountId,
+            path: '/notifications'
+        });
+        return notification as AlHeraldNotification;
+    }
+
+    /**
+     * Get sent notifications by incidentId and accountId
+     * GET
+     * /herald/v1/:account_id/notifications/features/incidents/incidents/:long_incident_id
+     * https://api.global-integration.product.dev.alertlogic.com/herald/v1/12345678/notifications/features/incidents/incidents/e81183mmmebdccf2
+     */
+    async getSentNotificationsByIncidentId(accountId: string, incidentId: string ) {
+        const notification = await this.client.get({
+            service_name: this.serviceName,
+            version: this.serviceVersion,
+            account_id: accountId,
+            path: `/notifications/features/incidents/incidents/${incidentId}`
+        });
+        return notification.notifications as AlHeraldNotificationIncident[];
+    }
+
+    /**
+     * Get notifications by feature
+     * GET
+     * /herald/v1/:account_id/notifications/:feature
+     * https://api.global-integration.product.dev.alertlogic.com/herald/v1/12345678/notifications/incidents
+     */
+    async getNotificationsByFeature(accountId: string, feature: string, queryParams: AlHeraldNotificationQuery ) {
+        const notification = await this.client.get({
+            service_name: this.serviceName,
+            version: this.serviceVersion,
+            account_id: accountId,
+            path: `/notifications/${feature}`
+        });
+        return notification.notifications as AlHeraldNotificationList;
+    }
+
+    /**
+     * Get notifications by feature
+     * GET
+     * /herald/v1/:account_id/notifications/:feature/:subkey
+     * https://api.global-integration.product.dev.alertlogic.com/herald/v1/12345678/notifications/incidents/escalations/critical
+     */
+    async getNotificationsByFeatureBySubscription(accountId: string, feature: string, subkey: string, queryParams: AlHeraldNotificationQuery ) {
+        const notification = await this.client.get({
+            service_name: this.serviceName,
+            version: this.serviceVersion,
+            account_id: accountId,
+            path: `/notifications/${feature}/${subkey}`
+        });
+        return notification.notifications as AlHeraldNotificationList;
+    }
+
+    /**
+     * Create a notification
+     * POST
+     * /herald/v1/:account_id/notifications
+     * "https://api.global-integration.product.dev.alertlogic.com/herald/v1/12345678/notifications"
+     * -d '{
+            "feature": "incidents",
+            "subkey": "escalations/critical",
+            "data": {
+                "service_owners": "can",
+                "put": "whatever",
+                "they": "want",
+                "in": "here",
+                "it": "all",
+                "goes": "to",
+                "whispir": true
+            },
+            "attachments": [
+                {
+                    "name": "filename.png",
+                    "description": "This is an optional description for the attachment",
+                    "url": "https://example.com/info.png"
+                }
+            ]
+        }'
+     */
+    async createNotification( accountId: string, payload: AlHeraldNotificationPayload): Promise<AlHeraldNotification> {
+        const notification = await this.client.post({
+            service_name: this.serviceName,
+            version: this.serviceVersion,
+            account_id: accountId,
+            path: '/notifications',
+            data: payload
+        });
+        return notification as AlHeraldNotification;
+    }
+
+    /**
+     * Update notification by id
+     * PUT
+     * /herald/v1/:account_id/notifications/:notification_id
+     * https://api.global-integration.product.dev.alertlogic.com/herald/v1/12345678/notifications/3B8EAFA0-1E1A-4744-AB53-0EE45EA8B102
+     * -d '{
+            "status": "published"
+        }'
+     */
+    async updateNotification(accountId: string, notificationId: string, payload: {status:string}) : Promise<AlHeraldNotification> {
+        const notificationUpdate = await this.client.put({
+            service_name: this.serviceName,
+            version: this.serviceVersion,
+            account_id: accountId,
+            path: `/notifications/${notificationId}`,
+            data: payload
+        });
+
+        return notificationUpdate as AlHeraldNotification;
+    }
 }
