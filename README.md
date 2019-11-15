@@ -11,7 +11,7 @@ Until the release of version 1.0.0 all current minor version increments may be b
 
 ## Installation
 
-      npm install @al/aecoral--save
+      npm install @al/aecoral --save
 
 ## Usage
 
