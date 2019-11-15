@@ -30,6 +30,7 @@ export interface AlCorrelationRule {
     expression_window: string;
     name:              string;
     victim_field:      string;
+    incident?:          AlIncidentDefinition;
 }
 
 export interface AlIncidentSpecificationResponse {
