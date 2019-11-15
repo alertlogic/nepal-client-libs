@@ -86,7 +86,6 @@ export interface AlHeraldNotificationDataSearch extends AlHeraldNotificationData
     time_range_start_ts?: string;
 }
 
-
 export interface AlHeraldNotificationDataIncident extends AlHeraldNotificationDataBase{
     analyst_notes?: string;
     attack_summary?: string;
@@ -96,7 +95,7 @@ export interface AlHeraldNotificationDataIncident extends AlHeraldNotificationDa
     customer_name?: string;
     deployment_name?: string;
     incident_id?: string;
-    invedtigation_report?: string;
+    investigation_report?: string;
     location_ip?: string;
     long_incident_id?: string;
     recommendations?: string;
@@ -111,7 +110,7 @@ export interface AlHeraldNotificationData{
     | AlHeraldNotificationDataBase
     | AlHeraldNotificationDataEndpoints
     | AlHeraldNotificationDataSearch
-    | AlHeraldNotificationDataIncident
+    | AlHeraldNotificationDataIncident;
 }
 
 export interface AlHeraldNotificationAttachment{
