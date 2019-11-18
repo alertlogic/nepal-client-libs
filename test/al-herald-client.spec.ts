@@ -601,4 +601,80 @@ describe('HERALD CLIENT', () => {
             });
         });
     });
+
+    describe('Test endpoints', () => {
+
+        describe('When performing a test template', () => {
+            const templatePayload = {
+                "template_name": "Search Scheduled Report",
+                "email": "aem@example.com",
+                "data": {},
+                "attachments": [
+                    {
+                        "name": "filename.png",
+                        "description": "This is an optional description for the attachment",
+                        "url": "https://example.com/info.png"
+                    }
+                ]
+            };
+
+            beforeEach(() => {
+                stub = sinon.stub(ALClient as any, 'axiosRequest').returns(
+                    Promise.resolve({
+                        status: 200,
+                        data: {
+                            message_id: "654ADB6465A"
+                        }
+                    })
+                );
+            });
+            afterEach(() => {
+                stub.restore();
+            });
+            it('Should call the AlHeraldClient instance\'s POST.', async () => {
+                await AlHeraldClient.testTemplate( templatePayload );
+                const payload = stub.args[0][0];
+                expect( stub.callCount ).to.equal( 1 );
+                expect( payload.method ).to.equal( "POST" );
+                expect( payload.url ).to.equal( `${apiBaseURL}/${service}/${version}/template/test` );
+            });
+        });
+
+        describe('When performing a test webhook', () => {
+            const weebhookPayload = {
+                "url": "https://webhook.site/123",
+                "method": "POST",
+                "data": {
+                    "some_data": "some_value",
+                    "another_data": 123
+                }
+            };
+
+            beforeEach(() => {
+                stub = sinon.stub(ALClient as any, 'axiosRequest').returns(
+                    Promise.resolve({
+                        status: 200,
+                        data: {
+                            "response": {
+                                "rawbody": "{\r\n\"key1\":123,\r\n\"key2\":\"value2\"\r\n}\r\n",
+                                "code": 200
+                            }
+                        }
+                    })
+                );
+            });
+
+            afterEach(() => {
+                stub.restore();
+            });
+            it('Should call the AlHeraldClient instance\'s POST.', async () => {
+                await AlHeraldClient.testWebhook( weebhookPayload );
+                const payload = stub.args[0][0];
+                expect( stub.callCount ).to.equal( 1 );
+                expect( payload.method ).to.equal( "POST" );
+                expect( payload.url ).to.equal( `${apiBaseURL}/${service}/${version}/webhook/test` );
+            });
+        });
+
+    });
 });

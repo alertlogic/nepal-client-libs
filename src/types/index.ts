@@ -135,7 +135,7 @@ export interface AlHeraldNotificationPayload
     feature: string;
     subkey: string;
     data: AlHeraldNotificationData;
-    attachments:AlHeraldNotificationAttachment[];
+    attachments: AlHeraldNotificationAttachment[];
 }
 
 export interface AlHeraldNotificationQuery
@@ -185,4 +185,23 @@ export interface AlHeraldTemplateMap extends AlHeraldTemplateMapPayload
 {
     created: AlChangeStamp;
     modified: AlChangeStamp;
+}
+
+export interface AlHeraldTestWebhookPayload
+{
+    url: string;
+    method: string;
+    data: unknown;
+}
+
+export interface AlHeraldTestWebhookResponse
+{
+    rawbody: string;
+    code: number;
+}
+
+export interface AlHeraldTestTemplatePayload{
+    template_name: string;
+    email: string;
+    attachments: AlHeraldNotificationAttachment[];
 }
