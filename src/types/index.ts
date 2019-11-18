@@ -14,7 +14,7 @@ export interface AlHeraldSubscriptionKey
     modified?: AlChangeStamp;
 }
 
-export interface ALHeraldSubscriptionRecord
+export interface AlHeraldSubscriptionRecord
 {
     feature: string;
     subkey?: string;
@@ -22,17 +22,23 @@ export interface ALHeraldSubscriptionRecord
     subscribed: boolean;
 }
 
-export interface ALHeraldSubscriptionsKeyByAccountRecord
+export interface AlHeraldSubscriptionsKeyByAccountRecord
 {
     account_id: string;
-    subscriptions: ALHeraldSubscriptionRecord[];
+    subscriptions: AlHeraldSubscriptionRecord[];
 }
 
-export interface ALHeraldAccountSubscription
+export interface AlHeraldAccountSubscription
 {
     subscriber_type: string;
     user_id: string;
-    accounts: ALHeraldSubscriptionsKeyByAccountRecord[];
+    accounts: AlHeraldSubscriptionsKeyByAccountRecord[];
+}
+
+export interface AlHeraldSubscriptionsKeyByAccountsRecord
+{
+    account_ids: string[];
+    subscriptions: AlHeraldSubscriptionRecord[];
 }
 
 export interface AlHeraldIntegrationPayload{
@@ -119,17 +125,13 @@ export interface AlHeraldNotificationAttachment{
     url: string;
 }
 
-export interface AlHeraldNotification
+export interface AlHeraldNotification extends AlHeraldNotificationPayload
 {
     id: string;
     account_id?: string;
-    feature: string;
-    subkey: string;
     status: string;
-    data: AlHeraldNotificationData;
     message_id?: string;
     integration_message_ids?: string[];
-    attachments ?: AlHeraldNotificationAttachment;
     created: AlChangeStamp;
     modified: AlChangeStamp;
 }
@@ -176,4 +178,17 @@ export interface AlHeraldNotificationIncident extends AlHeraldNotification
 {
     integration_statuses?: AlHeraldNotificationIntegrationStatuses;
     statuses?: AlHeraldNotificationStatuses[];
+}
+
+export interface AlHeraldTemplateMapPayload
+{
+    feature: string;
+    subkey_part: string;
+    template_name: string;
+}
+
+export interface AlHeraldTemplateMap extends AlHeraldTemplateMapPayload
+{
+    created: AlChangeStamp;
+    modified: AlChangeStamp;
 }

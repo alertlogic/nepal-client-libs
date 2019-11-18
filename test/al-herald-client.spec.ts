@@ -121,6 +121,42 @@ describe('HERALD CLIENT', () => {
         ]
     };
 
+    const notificationsMock = {
+        "notifications": [
+            {
+                "id": "OOOFFF0-1E1A-4744-AB53-AAND",
+                "account_id": "12345678",
+                "feature": "incidents",
+                "subkey": "escalations/critical",
+                "status": "published",
+                "data": {
+                    "service_owners": "can",
+                    "put": "whatever",
+                    "they": "want",
+                    "in": "here",
+                    "it": "all",
+                    "goes": "to",
+                    "whispir": true
+                },
+                "message_id": "C99506BEB44BF9CF",
+                "integration_message_ids": [
+                    "A63F81A7-0000000",
+                    "C9E0EFB1-47EAAEE95EF6"
+                ],
+                "created": {
+                    "at": 1517314312,
+                    "by": "28122406-4A947EA324EF"
+                },
+                "modified": {
+                    "at": 1517324325,
+                    "by": "B1E6F70E-8DF1-40DB-"
+                }
+            }
+        ],
+        "total_count": 1,
+        "continuation_id": "g1lJX1....wf4ZgQ"
+    };
+
     describe('Subscriptions ', () => {
         describe('When fetching all subscription keys', () => {
 
@@ -351,7 +387,7 @@ describe('HERALD CLIENT', () => {
             afterEach(() => {
                 stub.restore();
             });
-            it('Should call the AlHeraldClient instance\'s POST.', async () => {
+            it('Should call the AlHeraldClient instance\'s PUT.', async () => {
                 const accountId = "12345678";
                 const integrationId = "ABC";
                 const payloadData = {
@@ -386,5 +422,200 @@ describe('HERALD CLIENT', () => {
             });
         });
 
+    });
+
+    describe('Notifications ', () => {
+        const notificationId = "1234567890";
+        const accountId= "123";
+        const query = { since: "10 nov 2019", limit: 5, until: "15 nov 2019" };
+        const feature = "incidents";
+        const notificationPayloadMock = {
+            "feature": "incidents",
+            "subkey": "escalations/critical",
+            "data": {
+                "it": "all",
+                "goes": "to",
+                "whispir": true
+            },
+            "attachments": [
+                {
+                "name": "filename.png",
+                "description": "This is an optional description for the attachment",
+                "url": "https://example.com/info.png"
+                }
+            ]
+        };
+
+        describe('When performing a get notification by id', () => {
+            beforeEach(() => {
+                stub = sinon.stub(ALClient as any, 'axiosRequest').returns(Promise.resolve({status: 200, data: notificationsMock.notifications[0]}));
+            });
+            afterEach(() => {
+                stub.restore();
+            });
+            it('Should call the AlHeraldClient instance\'s GET.', async () => {
+                await AlHeraldClient.getNotificationsById( notificationId );
+                const payload = stub.args[0][0];
+                expect( stub.callCount ).to.equal( 1 );
+                expect( payload.method ).to.equal( "GET" );
+                expect( payload.url ).to.equal( `${apiBaseURL}/${service}/${version}/notifications/${notificationId}` );
+            });
+        });
+
+        describe('When performing a get notifications by account', () => {
+            beforeEach(() => {
+                stub = sinon.stub(ALClient as any, 'axiosRequest').returns(Promise.resolve({status: 200, data: notificationsMock}));
+            });
+            afterEach(() => {
+                stub.restore();
+            });
+            it('Should call the AlHeraldClient instance\'s GET.', async () => {
+                await AlHeraldClient.getNotificationsByAccountId( accountId, query );
+                const payload = stub.args[0][0];
+                expect( stub.callCount ).to.equal( 1 );
+                expect( payload.method ).to.equal( "GET" );
+                expect( payload.url ).to.equal( `${apiBaseURL}/${service}/${version}/${accountId}/notifications` );
+                expect( payload.params ).to.equal( query );
+            });
+        });
+
+        describe('When performing a get notification by account and by notification id', () => {
+            beforeEach(() => {
+                stub = sinon.stub(ALClient as any, 'axiosRequest').returns(Promise.resolve({status: 200, data: notificationsMock.notifications[0]}));
+            });
+            afterEach(() => {
+                stub.restore();
+            });
+            it('Should call the AlHeraldClient instance\'s GET.', async () => {
+                await AlHeraldClient.getNotificationsByIdAndByAccountId( accountId, notificationId );
+                const payload = stub.args[0][0];
+                expect( stub.callCount ).to.equal( 1 );
+                expect( payload.method ).to.equal( "GET" );
+                expect( payload.url ).to.equal( `${apiBaseURL}/${service}/${version}/${accountId}/notifications/id/${notificationId}` );
+            });
+        });
+
+        describe('When performing a get sent notifications by incident id', () => {
+            beforeEach(() => {
+                stub = sinon.stub(ALClient as any, 'axiosRequest').returns(Promise.resolve({status: 200, data: notificationsMock}));
+            });
+            afterEach(() => {
+                stub.restore();
+            });
+            it('Should call the AlHeraldClient instance\'s GET.', async () => {
+                const incidentId = "abcdfe";
+                await AlHeraldClient.getSentNotificationsByIncidentId( accountId, incidentId );
+                const payload = stub.args[0][0];
+                expect( stub.callCount ).to.equal( 1 );
+                expect( payload.method ).to.equal( "GET" );
+                expect( payload.url ).to.equal( `${apiBaseURL}/${service}/${version}/${accountId}/notifications/features/incidents/incidents/${incidentId}` );
+            });
+        });
+
+        describe('When performing a get notifications by account and by feature', () => {
+            beforeEach(() => {
+                stub = sinon.stub(ALClient as any, 'axiosRequest').returns(Promise.resolve({status: 200, data: notificationsMock}));
+            });
+            afterEach(() => {
+                stub.restore();
+            });
+            it('Should call the AlHeraldClient instance\'s GET.', async () => {
+                await AlHeraldClient.getNotificationsByFeature( accountId, feature, query );
+                const payload = stub.args[0][0];
+                expect( stub.callCount ).to.equal( 1 );
+                expect( payload.method ).to.equal( "GET" );
+                expect( payload.url ).to.equal( `${apiBaseURL}/${service}/${version}/${accountId}/notifications/${feature}` );
+            });
+        });
+
+        describe('When performing a get notifications by account, by feature id and by subscription', () => {
+            beforeEach(() => {
+                stub = sinon.stub(ALClient as any, 'axiosRequest').returns(Promise.resolve({ status: 200, data: notificationsMock }));
+            });
+            afterEach(() => {
+                stub.restore();
+            });
+            it('Should call the AlHeraldClient instance\'s GET.', async () => {
+                const subscription = "escalations/critical";
+                await AlHeraldClient.getNotificationsByFeatureBySubscription( accountId, feature, subscription, query );
+                const payload = stub.args[0][0];
+                expect( stub.callCount ).to.equal( 1 );
+                expect( payload.method ).to.equal( "GET" );
+                expect( payload.url ).to.equal( `${apiBaseURL}/${service}/${version}/${accountId}/notifications/${feature}/${subscription}` );
+            });
+        });
+
+        describe('When performing a sent notification', () => {
+            beforeEach(() => {
+                stub = sinon.stub(ALClient as any, 'axiosRequest').returns(Promise.resolve({status: 200, data: notificationsMock.notifications[0]}));
+            });
+            afterEach(() => {
+                stub.restore();
+            });
+            it('Should call the AlHeraldClient instance\'s POST.', async () => {
+                await AlHeraldClient.sendNotification( accountId, notificationPayloadMock );
+                const payload = stub.args[0][0];
+                expect( stub.callCount ).to.equal( 1 );
+                expect( payload.method ).to.equal( "POST" );
+                expect( payload.url ).to.equal( `${apiBaseURL}/${service}/${version}/${accountId}/notifications` );
+            });
+        });
+
+        describe('When performing an update notification', () => {
+            beforeEach(() => {
+                stub = sinon.stub(ALClient as any, 'axiosRequest').returns(Promise.resolve({status: 200, data: notificationsMock.notifications[0]}));
+            });
+            afterEach(() => {
+                stub.restore();
+            });
+            it('Should call the AlHeraldClient instance\'s PUT.', async () => {
+                await AlHeraldClient.updateNotification( accountId, notificationId, {status: "published"} );
+                const payload = stub.args[0][0];
+                expect( stub.callCount ).to.equal( 1 );
+                expect( payload.method ).to.equal( "PUT" );
+                expect( payload.url ).to.equal( `${apiBaseURL}/${service}/${version}/${accountId}/notifications/${notificationId}` );
+            });
+        });
+    });
+
+    describe('Template mapping', () => {
+        const templateMapping = {
+            feature: "search",
+            subkey_part: "scheduled",
+            template_name: "Search Scheduled Report"
+        };
+
+        describe('When performing a create template', () => {
+            beforeEach(() => {
+                stub = sinon.stub(ALClient as any, 'axiosRequest').returns(Promise.resolve({status: 200, data: templateMapping}));
+            });
+            afterEach(() => {
+                stub.restore();
+            });
+            it('Should call the AlHeraldClient instance\'s POST.', async () => {
+                await AlHeraldClient.createTemplateMapping( templateMapping );
+                const payload = stub.args[0][0];
+                expect( stub.callCount ).to.equal( 1 );
+                expect( payload.method ).to.equal( "POST" );
+                expect( payload.url ).to.equal( `${apiBaseURL}/${service}/${version}/template_mappings` );
+            });
+        });
+
+        describe('When performing an update template', () => {
+            beforeEach(() => {
+                stub = sinon.stub(ALClient as any, 'axiosRequest').returns(Promise.resolve({status: 200, data: templateMapping}));
+            });
+            afterEach(() => {
+                stub.restore();
+            });
+
+            it('Should call the AlHeraldClient instance\'s PUT.', async () => {
+                await AlHeraldClient.updateTemplateMapping(templateMapping.feature, templateMapping.subkey_part, { template_name : "new name" } );
+                const payload = stub.args[0][0];
+                expect( stub.callCount ).to.equal( 1 );
+                expect( payload.method ).to.equal( "PUT" );
+                expect( payload.url ).to.equal( `${apiBaseURL}/${service}/${version}/template_mappings/${templateMapping.feature}/${templateMapping.subkey_part}` );
+            });
+        });
     });
 });
