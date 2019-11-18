@@ -274,6 +274,23 @@ describe('HERALD CLIENT', () => {
                 expect( stub.args[0][0].url ).to.equal(`${apiBaseURL}/${service}/${version}/${accountId}/integrations/${integrationId}/subscriptions/${feature}`);
             });
         });
+
+        describe('When fetching all user subscriptions', () => {
+
+            beforeEach(() => {
+                stub = sinon.stub(ALClient as any, 'axiosRequest').returns(Promise.resolve({status: 200, data: subscriptionIntegrationAccountMock}));
+            });
+            afterEach(() => {
+                stub.restore();
+            });
+            it('Should call the AlHeraldClient instance\'s GET.', async () => {
+                const accountId = "123456";
+                const userId = "245234523453";
+                await AlHeraldClient.getUserSubscriptions( accountId, userId );
+                expect( stub.callCount ).to.equal(1);
+                expect( stub.args[0][0].url ).to.equal(`${apiBaseURL}/${service}/${version}/${accountId}/users/${userId}/subscriptions`);
+            });
+        });
     });
 
     describe('Integrations ', () => {

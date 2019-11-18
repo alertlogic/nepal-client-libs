@@ -14,7 +14,7 @@ export interface AlHeraldSubscriptionKey
     modified?: AlChangeStamp;
 }
 
-export interface ALHeraldSubscriptionRecord
+export interface AlHeraldSubscriptionRecord
 {
     feature: string;
     subkey?: string;
@@ -22,17 +22,23 @@ export interface ALHeraldSubscriptionRecord
     subscribed: boolean;
 }
 
-export interface ALHeraldSubscriptionsKeyByAccountRecord
+export interface AlHeraldSubscriptionsKeyByAccountRecord
 {
     account_id: string;
-    subscriptions: ALHeraldSubscriptionRecord[];
+    subscriptions: AlHeraldSubscriptionRecord[];
 }
 
-export interface ALHeraldAccountSubscription
+export interface AlHeraldAccountSubscription
 {
     subscriber_type: string;
     user_id: string;
-    accounts: ALHeraldSubscriptionsKeyByAccountRecord[];
+    accounts: AlHeraldSubscriptionsKeyByAccountRecord[];
+}
+
+export interface AlHeraldSubscriptionsKeyByAccountsRecord
+{
+    account_ids: string[];
+    subscriptions: AlHeraldSubscriptionRecord[];
 }
 
 export interface AlHeraldIntegrationPayload{
