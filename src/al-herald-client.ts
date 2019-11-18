@@ -1,7 +1,7 @@
 /**
  * Herald API client
  */
-import { AlApiClient, AlDefaultClient } from '@al/client';
+import { AlApiClient, AlDefaultClient, AIMSAccount } from '@al/client';
 import {
     ALHeraldAccountSubscription,
     AlHeraldIntegration,
@@ -445,7 +445,7 @@ export class AlHeraldClientInstance {
      *
      * @param accountId AIMS Account ID
      * @param feature Feature name of the subscription key. examples: endpoints, search, incidents.
-     * @param subkey
+     * @param subkey A 2-part, "/" delimited string that identifies the specific class and/or type the subscription is for, e.g. "escalations/primary", an escalation to the primary contact(s)
      * @param queryParams
      * @returns a promise with the notifications
      *
@@ -511,6 +511,53 @@ export class AlHeraldClientInstance {
 
         return notificationUpdate as AlHeraldNotification;
     }
+    /***** Subscribers */
+
+    /**
+     * Get a list of Account IDs that have a user subscribed for the specified feature and subscription key
+     * GET
+     * /herald/v1/subscribers/account_ids/:feature/:subkey
+     *
+     * @param accountId AIMS Account ID
+     * @param feature Feature name of the subscription key. examples: endpoints, search, incidents.
+     * @param subkey A 2-part, "/" delimited string that identifies the specific class and/or type the subscription is for, e.g. "escalations/primary", an escalation to the primary contact(s)
+     * @returns a promise with the account ids
+     *
+     * @remarks
+     * https://console.account.product.dev.alertlogic.com/users/api/herald/index.html#api-Subscribers-GetAccountIdwithSubscribers
+     */
+    async getSubscriberIds( accountId: string, feature: string, subkey: string ): Promise<string[]> {
+        const accounts = await this.client.get({
+            service_name: this.serviceName,
+            version: this.serviceVersion,
+            account_id: accountId,
+            path: `/subscribers/account_ids/${feature}/${subkey}`
+        });
+        return accounts.account_ids as string[];
+    }
+
+    /**
+     * Get a list of Account that have a user subscribed for the specified feature and subscription key
+     * GET
+     * /herald/v1/:account_id/subscribers/:feature/:subkey
+     *
+     * @param accountId AIMS Account ID
+     * @param feature Feature name of the subscription key. examples: endpoints, search, incidents.
+     * @param subkey A 2-part, "/" delimited string that identifies the specific class and/or type the subscription is for, e.g. "escalations/primary", an escalation to the primary contact(s)
+     * @returns a promise with the account ids
+     *
+     * @remarks
+     * https://console.account.product.dev.alertlogic.com/users/api/herald/index.html#api-Subscribers-GetSubscribers
+     */
+    async getSubscribers( accountId: string, feature: string, subkey: string ): Promise<AIMSAccount[]> {
+        const accounts = await this.client.get({
+            service_name: this.serviceName,
+            version: this.serviceVersion,
+            account_id: accountId,
+            path: `/subscribers/${feature}/${subkey}`
+        });
+        return accounts.subscribers as AIMSAccount[];
+    }
 
     /***** Template mappings */
 
@@ -541,7 +588,7 @@ export class AlHeraldClientInstance {
      * /herald/v1/template_mappings/:feature/:subkey_part
      *
      * @param feature An alphanumeric string representing a product or sub-system, e.g. "incidents".
-     * @param subkey_part A string that identifies a set of subscriptions, e.g. "search" subkey part matches "search/:uniqueId" subscription.
+     * @param subkeyPart A string that identifies a set of subscriptions, e.g. "search" subkey part matches "search/:uniqueId" subscription.
      * @param payload object with template name
      *
      * @returns a promise with the template updated
