@@ -129,6 +129,22 @@ export class AlHeraldClientInstance {
         return subscriptions as ALHeraldSubscriptionsKeyByAccountRecord;
     }
 
+    /**
+     * Get user subscriptions
+     * GET
+     * /herald/v1/:account_id/users/:user_id/subscriptions
+     * "https://api.global-integration.product.dev.alertlogic.com/herald/v1/12345678/users/715A4EC0-9833-4D6E-9C03-A537E3F98D23/subscriptions"
+     */
+    async getUserSubscriptions( accountId: string, userId: string ): Promise<ALHeraldSubscriptionsKeyByAccountRecord> {
+        const subscriptions = await this.client.get({
+            service_name: this.serviceName,
+            version: this.serviceVersion,
+            account_id: accountId,
+            path: `/users/${userId}/subscriptions`,
+        });
+        return subscriptions as ALHeraldSubscriptionsKeyByAccountRecord;
+    }
+
     /**** Integrations ***/
     /**
      * Create integration for one specific account
