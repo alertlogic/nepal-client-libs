@@ -119,17 +119,13 @@ export interface AlHeraldNotificationAttachment{
     url: string;
 }
 
-export interface AlHeraldNotification
+export interface AlHeraldNotification extends AlHeraldNotificationPayload
 {
     id: string;
     account_id?: string;
-    feature: string;
-    subkey: string;
     status: string;
-    data: AlHeraldNotificationData;
     message_id?: string;
     integration_message_ids?: string[];
-    attachments ?: AlHeraldNotificationAttachment;
     created: AlChangeStamp;
     modified: AlChangeStamp;
 }
@@ -176,4 +172,17 @@ export interface AlHeraldNotificationIncident extends AlHeraldNotification
 {
     integration_statuses?: AlHeraldNotificationIntegrationStatuses;
     statuses?: AlHeraldNotificationStatuses[];
+}
+
+export interface AlHeraldTemplateMapPayload
+{
+    feature: string;
+    subkey_part: string;
+    template_name: string;
+}
+
+export interface AlHeraldTemplateMap extends AlHeraldTemplateMapPayload
+{
+    created: AlChangeStamp;
+    modified: AlChangeStamp;
 }

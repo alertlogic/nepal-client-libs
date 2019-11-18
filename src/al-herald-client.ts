@@ -14,6 +14,8 @@ import {
     AlHeraldNotificationQuery,
     AlHeraldSubscriptionKey,
     ALHeraldSubscriptionsKeyByAccountRecord,
+    AlHeraldTemplateMap,
+    AlHeraldTemplateMapPayload,
 } from './types';
 
 export class AlHeraldClientInstance {
@@ -459,7 +461,7 @@ export class AlHeraldClientInstance {
     }
 
     /**
-     * Create a notification
+     * Send a notification
      * POST
      * /herald/v1/:account_id/notifications
      *
@@ -470,7 +472,7 @@ export class AlHeraldClientInstance {
      * @remarks
      * https://console.account.product.dev.alertlogic.com/users/api/herald/index.html#api-Notifications-SendANotification
      */
-    async createNotification( accountId: string, payload: AlHeraldNotificationPayload): Promise<AlHeraldNotification> {
+    async sendNotification( accountId: string, payload: AlHeraldNotificationPayload): Promise<AlHeraldNotification> {
         const notification = await this.client.post({
             service_name: this.serviceName,
             version: this.serviceVersion,
@@ -505,5 +507,53 @@ export class AlHeraldClientInstance {
         });
 
         return notificationUpdate as AlHeraldNotification;
+    }
+
+    /***** Template mappings */
+
+    /**
+     * Create a template mapping and returns newly created mapping object.
+     * POST
+     * /herald/v1/template_mappings
+     *
+     * @param payload template map
+     * @returns a promise with the template
+     *
+     * @remarks
+     * https://console.account.product.dev.alertlogic.com/users/api/herald/index.html#api-Template_Mappings-CreateTemplateMapping
+     */
+    async createTemplateMapping( payload: AlHeraldTemplateMapPayload): Promise<AlHeraldTemplateMap> {
+        const template = await this.client.post({
+            service_name: this.serviceName,
+            version: this.serviceVersion,
+            path: '/template_mappings',
+            data: payload
+        });
+        return template as AlHeraldTemplateMap;
+    }
+
+    /**
+     * Update template
+     * PUT
+     * /herald/v1/template_mappings/:feature/:subkey_part
+     *
+     * @param feature An alphanumeric string representing a product or sub-system, e.g. "incidents".
+     * @param subkey_part A string that identifies a set of subscriptions, e.g. "search" subkey part matches "search/:uniqueId" subscription.
+     * @param payload object with template name
+     *
+     * @returns a promise with the template updated
+     *
+     * @remarks
+     * https://console.account.product.dev.alertlogic.com/users/api/herald/index.html#api-Template_Mappings-UpdateTemplateMapping
+     */
+    async updateTemplateMapping( feature: string, subkey_part:string, payload: {template_name:string}) : Promise<AlHeraldTemplateMap> {
+        const template = await this.client.put({
+            service_name: this.serviceName,
+            version: this.serviceVersion,
+            path: `/template_mappings/${feature}/${subkey_part}`,
+            data: payload
+        });
+
+        return template as AlHeraldTemplateMap;
     }
 }
