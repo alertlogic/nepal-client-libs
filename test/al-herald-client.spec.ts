@@ -44,8 +44,18 @@ describe('HERALD CLIENT', () => {
     };
 
     const subscriptionMultipleAccountMock = [
-        {"feature": "incidents","subkey": "escalations/primary","name": "Primary Escalations","subscribed": false},
-        {"feature": "incidents","subkey": "escalations/technical","name": "Technical Escalations","subscribed": true}
+        {
+            "feature": "incidents",
+            "subkey": "escalations/primary",
+            "name": "Primary Escalations",
+            "subscribed": false
+        },
+        {
+            "feature": "incidents",
+            "subkey": "escalations/technical",
+            "name": "Technical Escalations",
+            "subscribed": true
+        }
     ];
 
     const payloadMockForUpdateSubscriptions =[
@@ -914,6 +924,105 @@ describe('HERALD CLIENT', () => {
                 expect( stub.callCount ).to.equal( 1 );
                 expect( payload.method ).to.equal( "DELETE" );
                 expect( payload.url ).to.equal(`${apiBaseURL}/${service}/${version}/${accountId}/subscription_keys/${payloadRequest.feature}/${payloadRequest.subkey}`);
+            });
+        });
+
+        describe('When performing a get subscription key by feature and subkey', () => {
+
+            beforeEach(() => {
+                stub = sinon.stub(ALClient as any, 'axiosRequest').returns(Promise.resolve({status: 200, data: subscriptionkeysMock.subscription_keys[0]}));
+            });
+            afterEach(() => {
+                stub.restore();
+            });
+            it('Should call the AlHeraldClient instance\'s GET.', async () => {
+                await AlHeraldClient.getSubscriptionKey( payloadRequest.feature, payloadRequest.subkey);
+                const payload = stub.args[0][0];
+                expect( stub.callCount ).to.equal( 1 );
+                expect( payload.method ).to.equal( "GET" );
+                expect( payload.url ).to.equal( `${apiBaseURL}/${service}/${version}/subscription_keys/${payloadRequest.feature}/${payloadRequest.subkey}` );
+            });
+        });
+
+        describe('When performing a get subscription keys', () => {
+
+            beforeEach(() => {
+                stub = sinon.stub(ALClient as any, 'axiosRequest').returns(Promise.resolve({status: 200, data: subscriptionkeysMock}));
+            });
+            afterEach(() => {
+                stub.restore();
+            });
+            it('Should call the AlHeraldClient instance\'s GET.', async () => {
+                const params = { showAll : true };
+                const result = await AlHeraldClient.getSubscriptionKeys( params );
+                const payload = stub.args[0][0];
+                expect( stub.callCount ).to.equal( 1 );
+                expect( payload.method ).to.equal( "GET" );
+                expect( payload.url ).to.equal( `${apiBaseURL}/${service}/${version}/subscription_keys` );
+                expect( payload.params ).to.equal( params );
+                expect( result ).to.equal( subscriptionkeysMock.subscription_keys );
+            });
+        });
+
+        describe('When performing a get subscription keys by feature', () => {
+
+            beforeEach(() => {
+                stub = sinon.stub(ALClient as any, 'axiosRequest').returns(Promise.resolve({status: 200, data: subscriptionkeysMock}));
+            });
+            afterEach(() => {
+                stub.restore();
+            });
+            it('Should call the AlHeraldClient instance\'s GET.', async () => {
+                const params = { subscription_key_type : "global" };
+                const result = await AlHeraldClient.getSubscriptionKeysByFeature( payloadRequest.feature, params );
+                const payload = stub.args[0][0];
+                expect( stub.callCount ).to.equal( 1 );
+                expect( payload.method ).to.equal( "GET" );
+                expect( payload.url ).to.equal( `${apiBaseURL}/${service}/${version}/subscription_keys/${payloadRequest.feature}` );
+                expect( payload.params ).to.equal( params );
+                expect( result ).to.equal( subscriptionkeysMock.subscription_keys );
+            });
+        });
+
+        describe('When performing an update account subscription key', () => {
+            beforeEach(() => {
+                stub = sinon.stub(ALClient as any, 'axiosRequest').returns(Promise.resolve({status: 200, data: subscriptionkeysMock.subscription_keys[0]}));
+            });
+            afterEach(() => {
+                stub.restore();
+            });
+            it('Should call the AlHeraldClient instance\'s PUT.', async () => {
+                const payloadData = {
+                    name : "test"
+                };
+                const result = await AlHeraldClient.updateAccountSubscriptionKey( accountId, payloadRequest.feature, payloadRequest.subkey, payloadData );
+
+                const payload = stub.args[0][0];
+                expect( stub.callCount ).to.equal( 1 );
+                expect( payload.method ).to.equal( "PUT" );
+                expect( payload.url ).to.equal( `${apiBaseURL}/${service}/${version}/${accountId}/subscription_keys/${payloadRequest.feature}/${payloadRequest.subkey}` );
+                expect( result ).to.equal( subscriptionkeysMock.subscription_keys[0] );
+            });
+        });
+
+        describe('When performing an update subscription key', () => {
+            beforeEach(() => {
+                stub = sinon.stub(ALClient as any, 'axiosRequest').returns(Promise.resolve({status: 200, data: subscriptionkeysMock.subscription_keys[0]}));
+            });
+            afterEach(() => {
+                stub.restore();
+            });
+            it('Should call the AlHeraldClient instance\'s PUT.', async () => {
+                const payloadData = {
+                    name : "test"
+                };
+                const result = await AlHeraldClient.updateSubscriptionKey( payloadRequest.feature, payloadRequest.subkey, payloadData );
+
+                const payload = stub.args[0][0];
+                expect( stub.callCount ).to.equal( 1 );
+                expect( payload.method ).to.equal( "PUT" );
+                expect( payload.url ).to.equal( `${apiBaseURL}/${service}/${version}/subscription_keys/${payloadRequest.feature}/${payloadRequest.subkey}` );
+                expect( result ).to.equal( subscriptionkeysMock.subscription_keys[0] );
             });
         });
     });
