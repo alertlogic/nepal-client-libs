@@ -43,6 +43,46 @@ describe('HERALD CLIENT', () => {
         "total_count": 1
     };
 
+    const subscriptionMultipleAccountMock = [
+        {
+            "feature": "incidents",
+            "subkey": "escalations/primary",
+            "name": "Primary Escalations",
+            "subscribed": false
+        },
+        {
+            "feature": "incidents",
+            "subkey": "escalations/technical",
+            "name": "Technical Escalations",
+            "subscribed": true
+        }
+    ];
+
+    const payloadMockForUpdateSubscriptions =[
+        {
+            "account_id": "12345678",
+            "subscriptions": [
+                {
+                    "feature": "incidents",
+                    "subkey": "critical/default",
+                    "name": "Critical",
+                    "subscribed": true
+                }
+            ]
+        },
+        {
+            "account_id": "87654321",
+            "subscriptions": [
+                {
+                    "feature": "incidents",
+                    "subkey": "escalations/primary",
+                    "name": "Primary Escalations",
+                    "subscribed": false
+                }
+            ]
+        }
+    ];
+
     const subscriptionIntegrationAccountMock = {
         "account_id": "12345678",
         "subscriptions":
@@ -338,6 +378,164 @@ describe('HERALD CLIENT', () => {
                 await AlHeraldClient.getIntegrationSubscriptionsByFeature( accountId, integrationId, feature );
                 expect( stub.callCount ).to.equal(1);
                 expect( stub.args[0][0].url ).to.equal(`${apiBaseURL}/${service}/${version}/${accountId}/integrations/${integrationId}/subscriptions/${feature}`);
+            });
+        });
+
+        describe('When fetching all user subscriptions', () => {
+
+            beforeEach(() => {
+                stub = sinon.stub(ALClient as any, 'axiosRequest').returns(Promise.resolve({status: 200, data: subscriptionIntegrationAccountMock}));
+            });
+            afterEach(() => {
+                stub.restore();
+            });
+            it('Should call the AlHeraldClient instance\'s GET.', async () => {
+                const accountId = "123456";
+                const userId = "245234523453";
+                await AlHeraldClient.getUserSubscriptions( accountId, userId );
+                expect( stub.callCount ).to.equal(1);
+                expect( stub.args[0][0].url ).to.equal(`${apiBaseURL}/${service}/${version}/${accountId}/users/${userId}/subscriptions`);
+            });
+        });
+
+        describe('When fetching all user subscriptions by feature', () => {
+
+            beforeEach(() => {
+                stub = sinon.stub(ALClient as any, 'axiosRequest').returns(Promise.resolve({status: 200, data: subscriptionIntegrationAccountMock}));
+            });
+            afterEach(() => {
+                stub.restore();
+            });
+            it('Should call the AlHeraldClient instance\'s GET.', async () => {
+                const accountId = "123456";
+                const userId = "245234523453";
+                const feature = "incidents";
+                await AlHeraldClient.getUserSubscriptionsByFeature( accountId, userId, feature );
+                expect( stub.callCount ).to.equal(1);
+                expect( stub.args[0][0].url ).to.equal(`${apiBaseURL}/${service}/${version}/${accountId}/users/${userId}/subscriptions/${feature}`);
+            });
+        });
+
+        describe('When setting user subscriptions', () => {
+
+            beforeEach(() => {
+                stub = sinon.stub(ALClient as any, 'axiosRequest').returns(Promise.resolve({status: 200, data: subscriptionIntegrationAccountMock}));
+            });
+            afterEach(() => {
+                stub.restore();
+            });
+            it('Should call the AlHeraldClient instance\'s GET.', async () => {
+                const accountId = "123456";
+                const userId = "245234523453";
+                const feature = "incidents";
+                await AlHeraldClient.setUserSubscriptions( accountId, userId, feature, subscriptionMultipleAccountMock );
+
+                const payload = stub.args[0][0];
+                expect( stub.callCount ).to.equal( 1 );
+                expect( payload.method ).to.equal( "PUT" );
+                expect( stub.args[0][0].url ).to.equal(`${apiBaseURL}/${service}/${version}/${accountId}/users/${userId}/subscriptions/${feature}`);
+            });
+        });
+
+        describe('When unset user subscriptons by feature', () => {
+
+            beforeEach(() => {
+                stub = sinon.stub(ALClient as any, 'axiosRequest').returns(Promise.resolve({status: 200 }));
+            });
+            afterEach(() => {
+                stub.restore();
+            });
+            it('Should call the AlHeraldClient instance\'s DELETE.', async () => {
+                const accountId = "12345678";
+                const userId = "312313";
+                const feature = "incidents";
+
+                await AlHeraldClient.unsetUserSubscriptionsByFeature( accountId, userId, feature );
+
+                const payload = stub.args[0][0];
+                expect( stub.callCount ).to.equal( 1 );
+                expect( payload.method ).to.equal( "DELETE" );
+                expect( payload.url ).to.equal( `${apiBaseURL}/${service}/${version}/${accountId}/users/${userId}/subscriptions/${feature}` );
+            });
+        });
+
+        describe('When unset integrations subscriptions by feature', () => {
+
+            beforeEach(() => {
+                stub = sinon.stub(ALClient as any, 'axiosRequest').returns(Promise.resolve({status: 200 }));
+            });
+            afterEach(() => {
+                stub.restore();
+            });
+            it('Should call the AlHeraldClient instance\'s DELETE.', async () => {
+                const accountId = "12345678";
+                const integrationId = "43242342";
+                const feature = "incidents";
+
+                await AlHeraldClient.unsetIntegrationsSubscriptionsByFeature( accountId, integrationId, feature );
+
+                const payload = stub.args[0][0];
+                expect( stub.callCount ).to.equal( 1 );
+                expect( payload.method ).to.equal( "DELETE" );
+                expect( payload.url ).to.equal( `${apiBaseURL}/${service}/${version}/${accountId}/integrations/${integrationId}/subscriptions/${feature}` );
+            });
+        });
+
+        describe('When update integrations subscription', () => {
+            beforeEach(() => {
+                stub = sinon.stub(ALClient as any, 'axiosRequest').returns(Promise.resolve({status: 200, data: notificationsMock.notifications[0]}));
+            });
+            afterEach(() => {
+                stub.restore();
+            });
+            it('Should call the AlHeraldClient instance\'s PUT.', async () => {
+                const accountId = "12345678";
+                const integrationId = "43242342";
+                const feature = "incidents";
+                const subkey = "incidents/primary";
+                await AlHeraldClient.updateIntegrationSubscription(accountId,integrationId,feature,subkey,true);
+                const payload = stub.args[0][0];
+                expect( stub.callCount ).to.equal( 1 );
+                expect( payload.method ).to.equal( "PUT" );
+                expect( payload.url ).to.equal( `${apiBaseURL}/${service}/${version}/${accountId}/integrations/${integrationId}/subscriptions/${feature}/${subkey}` );
+            });
+        });
+
+        describe('When update user subscription', () => {
+            beforeEach(() => {
+                stub = sinon.stub(ALClient as any, 'axiosRequest').returns(Promise.resolve({status: 200, data: notificationsMock.notifications[0]}));
+            });
+            afterEach(() => {
+                stub.restore();
+            });
+            it('Should call the AlHeraldClient instance\'s PUT.', async () => {
+                const accountId = "12345678";
+                const userId = "435235423";
+                const feature = "incidents";
+                const subkey = "incidents/primary";
+                await AlHeraldClient.updateUserSubscription(accountId, userId, feature, subkey, true);
+                const payload = stub.args[0][0];
+                expect( stub.callCount ).to.equal( 1 );
+                expect( payload.method ).to.equal( "PUT" );
+                expect( payload.url ).to.equal( `${apiBaseURL}/${service}/${version}/${accountId}/users/${userId}/subscriptions/${feature}/${subkey}` );
+            });
+        });
+
+        describe('When update user subscription for account list', () => {
+            beforeEach(() => {
+                stub = sinon.stub(ALClient as any, 'axiosRequest').returns(Promise.resolve({status: 200, data: notificationsMock.notifications[0]}));
+            });
+            afterEach(() => {
+                stub.restore();
+            });
+            it('Should call the AlHeraldClient instance\'s POST.', async () => {
+                const userId = "435235423";
+                const feature = "incidents";
+                await AlHeraldClient.updateUserSubscriptionForAccountsList(userId, feature, payloadMockForUpdateSubscriptions);
+                const payload = stub.args[0][0];
+                expect( stub.callCount ).to.equal( 1 );
+                expect( payload.method ).to.equal( "POST" );
+                expect( payload.url ).to.equal( `${apiBaseURL}/${service}/${version}/users/${userId}/subscriptions/${feature}` );
             });
         });
     });
