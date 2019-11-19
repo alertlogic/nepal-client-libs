@@ -14,6 +14,7 @@ import {
     AlHeraldNotificationQuery,
     AlHeraldSubscriptionKey,
     AlHeraldSubscriptionKeyPayload,
+    AlHeraldSubscriptionKeyQuery,
     AlHeraldSubscriptionsKeyByAccountRecord,
     AlHeraldSubscriptionsKeyByAccountsRecord,
     AlHeraldTemplateMap,
@@ -847,6 +848,120 @@ Header"
             path: `/subscription_keys/${feature}/${subkey}`
         });
         return subscriptionDelete;
+    }
+
+    /**
+     * Get subscription key for a specified feature and subkey
+     * GET
+     * /herald/v1/subscription_keys/:feature/:subkey
+     *
+     * @param feature Feature name of the subscription key. examples: endpoints, search, incidents.
+     * @param subkey A 2-part, "/" delimited string that identifies the specific class and/or type the subscription is for, e.g. "escalations/primary", an escalation to the primary contact(s)
+     * @returns a promise with the subscription key
+     *
+     * @remarks
+     * https://console.account.product.dev.alertlogic.com/users/api/herald/index.html#api-Subscription_Keys-GetSubscriptionKeybyFeatureSubKey
+     */
+    async getSubscriptionKey( feature: string, subkey: string ): Promise<AlHeraldSubscriptionKey> {
+        const subscription = await this.client.get({
+            service_name: this.serviceName,
+            version: this.serviceVersion,
+            path: `/subscription_keys/${feature}/${subkey}`
+        });
+        return subscription as AlHeraldSubscriptionKey;
+    }
+
+    /**
+     * Get list of subscription keys
+     * GET
+     * /herald/v1/subscription_keys
+     *
+     * @param query with show_all Do not filter out some subscription keys; Default value: false
+     * AND subscription_key_type Filter the subscription account to only global or account subscription keys; Allowed values: global, account
+     * @returns a promise with the subscription keys
+     *
+     * @remarks
+     * https://console.account.product.dev.alertlogic.com/users/api/herald/index.html#api-Subscription_Keys-GetSubscriptionKey
+     */
+    async getSubscriptionKeys(queryParams:AlHeraldSubscriptionKeyQuery): Promise<AlHeraldSubscriptionKey[]> {
+        const subscriptions = await this.client.get({
+            service_name: this.serviceName,
+            version: this.serviceVersion,
+            path: `/subscription_keys`,
+            params: queryParams
+        });
+        return subscriptions.subscription_keys as AlHeraldSubscriptionKey[];
+    }
+
+    /**
+     * Get list of subscription keys by feature
+     * GET
+     * /herald/v1/subscription_keys/:feature
+     *
+     * @param feature Feature name of the subscription key. examples: endpoints, search, incidents.
+     * @param queryParams Filter the subscription account to only global or account subscription keys; Allowed values: global, account
+     * @returns a promise with the subscription keys
+     *
+     * @remarks
+     */
+    async getSubscriptionKeysByFeature( feature: string, queryParams:{ subscription_key_type ?: string } ): Promise<AlHeraldSubscriptionKey[]> {
+        const subscriptions = await this.client.get({
+            service_name: this.serviceName,
+            version: this.serviceVersion,
+            path: `/subscription_keys/${feature}`,
+            params: queryParams
+        });
+        return subscriptions.subscription_keys as AlHeraldSubscriptionKey[];
+    }
+
+    /**
+     * Update account subscription key
+     * PUT
+     * /herald/v1/:account_id/subscription_keys/:feature/:subkey
+     *
+     * @param accountId AIMS Account ID
+     * @param feature Feature name of the subscription key. examples: endpoints, search, incidents.
+     * @param subkey A 2-part, "/" delimited string that identifies the specific class and/or type the subscription is for, e.g. "escalations/primary", an escalation to the primary contact(s)
+     * @param payload with the subscription's name.
+     * @returns a promise with the notification updated
+     *
+     * @remarks
+     * https://console.account.product.dev.alertlogic.com/users/api/herald/index.html#api-Subscription_Keys-UpdateAccountSubscriptionKey
+     */
+    async updateAccountSubscriptionKey( accountId: string, feature: string, subkey:string, payload: {name:string}) : Promise<AlHeraldSubscriptionKey> {
+        const subscriptionUpdated = await this.client.put({
+            service_name: this.serviceName,
+            version: this.serviceVersion,
+            account_id: accountId,
+            path: `/subscription_keys/${feature}/${subkey}`,
+            data: payload
+        });
+
+        return subscriptionUpdated as AlHeraldSubscriptionKey;
+    }
+
+    /**
+     * Update subscription Key
+     * PUT
+     * /herald/v1/subscription_keys/:feature/:subkey
+     *
+     * @param feature Feature name of the subscription key. examples: endpoints, search, incidents.
+     * @param subkey A 2-part, "/" delimited string that identifies the specific class and/or type the subscription is for, e.g. "escalations/primary", an escalation to the primary contact(s)
+     * @param payload with the subscription's name.
+     * @returns a promise with the notification updated
+     *
+     * @remarks
+     * https://console.account.product.dev.alertlogic.com/users/api/herald/index.html#api-Subscription_Keys-UpdateAccountSubscriptionKey
+     */
+    async updateSubscriptionKey( feature: string, subkey:string, payload: {name:string}) : Promise<AlHeraldSubscriptionKey> {
+        const subscriptionUpdated = await this.client.put({
+            service_name: this.serviceName,
+            version: this.serviceVersion,
+            path: `/subscription_keys/${feature}/${subkey}`,
+            data: payload
+        });
+
+        return subscriptionUpdated as AlHeraldSubscriptionKey;
     }
 
     /***** Template mappings */
