@@ -14,6 +14,7 @@ import {
     AlHeraldNotificationQuery,
     AlHeraldSubscriptionKey,
     AlHeraldSubscriptionKeyPayload,
+    AlHeraldSubscriptionRecord,
     AlHeraldSubscriptionsKeyByAccountRecord,
     AlHeraldSubscriptionsKeyByAccountsRecord,
     AlHeraldTemplateMap,
@@ -240,13 +241,13 @@ export class AlHeraldClientInstance {
      * @remarks
      * https://console.account.product.dev.alertlogic.com/users/api/herald/index.html#api-Subscriptions-SetUserSubscriptionsForAccountFeature
      */
-    async setUserSubscriptions( accountId: string, userId: string, feature: string, payload: AlHeraldSubscriptionsKeyByAccountsRecord): Promise<AlHeraldSubscriptionsKeyByAccountsRecord> {
+    async setUserSubscriptions( accountId: string, userId: string, feature: string, payload: AlHeraldSubscriptionRecord[]): Promise<AlHeraldSubscriptionsKeyByAccountsRecord> {
         const subscriptions = await this.client.put({
             service_name: this.serviceName,
             version: this.serviceVersion,
             account_id: accountId,
             path: `/users/${userId}/subscriptions/${feature}`,
-            data: payload
+            data: { "subscriptions" : payload }
         });
         return subscriptions as AlHeraldSubscriptionsKeyByAccountsRecord;
     }
