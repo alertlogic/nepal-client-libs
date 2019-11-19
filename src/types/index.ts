@@ -12,10 +12,17 @@ export interface AlHeraldSubscriptionKeyPayload
     name: string;
     mapped_subkey?: string;
 }
+
 export interface AlHeraldSubscriptionKey extends AlHeraldSubscriptionKeyPayload
 {
     created?: AlChangeStamp;
     modified?: AlChangeStamp;
+}
+
+export interface AlHeraldSubscriptionKeyQuery
+{
+    showAll?: boolean;
+    subscriptionKeyType?: string;
 }
 
 export interface AlHeraldSubscriptionRecord
