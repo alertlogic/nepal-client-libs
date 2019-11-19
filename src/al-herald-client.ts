@@ -13,6 +13,7 @@ import {
     AlHeraldNotificationPayload,
     AlHeraldNotificationQuery,
     AlHeraldSubscriptionKey,
+    AlHeraldSubscriptionKeyPayload,
     AlHeraldSubscriptionsKeyByAccountRecord,
     AlHeraldSubscriptionsKeyByAccountsRecord,
     AlHeraldTemplateMap,
@@ -778,6 +779,74 @@ Header"
             path: `/subscribers/${feature}/${subkey}`
         });
         return accounts.subscribers as AIMSAccount[];
+    }
+
+    /***** Subscriptions keys */
+
+    /**
+     * Creates a subscription key specific to a given account, returns a subscription key.
+     * POST
+     * /herald/v1/:account_id/subscription_keys
+     * @param accountId AIMS Account ID
+     * @param payload with the subscription key
+     * @returns a promise with subscription key
+     *
+     * @remarks
+     * https://console.account.product.dev.alertlogic.com/users/api/herald/index.html#api-Subscription_Keys-CreateAccountSubscriptionKey
+     */
+    async createAccountSubscriptionKey( accountId: string, payload: AlHeraldSubscriptionKeyPayload): Promise<AlHeraldSubscriptionKey> {
+        const subscription = await this.client.post({
+            service_name: this.serviceName,
+            version: this.serviceVersion,
+            path: '/subscription_keys',
+            account_id: accountId,
+            data: payload
+        });
+        return subscription as AlHeraldSubscriptionKey;
+    }
+
+    /**
+     * Creates a subscription key, returns a subscription key.
+     * POST
+     * /herald/v1/subscription_keys
+     * @param payload with the subscription key
+     * @returns a promise with subscription key
+     *
+     * @remarks
+     * https://console.account.product.dev.alertlogic.com/users/api/herald/index.html#api-Subscription_Keys-CreateSubscriptionKey
+     */
+    async createSubscriptionKey( payload: AlHeraldSubscriptionKeyPayload): Promise<AlHeraldSubscriptionKey> {
+        const subscription = await this.client.post({
+            service_name: this.serviceName,
+            version: this.serviceVersion,
+            path: '/subscription_keys',
+            data: payload
+        });
+        return subscription as AlHeraldSubscriptionKey;
+    }
+
+    /**
+     * Delete a subscription key specific to a given account along with all subscriptions related to the matched subscription key.
+     * DELETE
+     * /herald/v1/:account_id/subscription_keys/:feature/:subkey
+     * "https://api.global-integration.product.dev.alertlogic.com/herald/v1/12345678/users/715A4EC0-9833-4D6E-9C03-A537E3F98D23/subscriptions/incidents"
+     *
+     * @param accountId AIMS Account ID
+     * @param feature Feature name of the subscription key. examples: endpoints, search, incidents
+     * @param subkey A 2-part, "/" delimited string that identifies the specific class and/or type the subscription is for, e.g. "escalations/primary", an escalation to the primary contact(s).
+     * @returns just the status code
+     *
+     * @remarks
+     * https://console.account.product.dev.alertlogic.com/users/api/herald/index.html#api-Subscription_Keys-DeleteAccountSubscriptionKey
+     */
+    async deleteAccountSubscriptionKey( accountId: string, feature: string, subkey: string) {
+        const subscriptionDelete = await this.client.delete({
+            service_name: this.serviceName,
+            version: this.serviceVersion,
+            account_id: accountId,
+            path: `/subscription_keys/${feature}/${subkey}`
+        });
+        return subscriptionDelete;
     }
 
     /***** Template mappings */
