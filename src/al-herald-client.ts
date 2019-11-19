@@ -299,6 +299,110 @@ Header"
         return integrationsSubscriptionDelete;
     }
 
+    /**
+     * Updates integrations's subscription in a given account, feature and subkey
+     * PUT
+     * /herald/v1/:account_id/integrations/:integration_id/subscriptions/:feature/:subkey
+     * "https://api.global-integration.product.dev.alertlogic.com/herald/v1/12345678/integrations/E31302AE-C9B7-4A4B-BC83-85806383D3FE/subscriptions/incidents/escalations/primary"
+     *
+     * @param accountId AIMS Account ID
+     * @param integrationId Corresponding integration identifier.
+     * @param feature Feature name of the subscription key. examples: endpoints, search, incidents
+     * @param subscribed Boolean value
+     * @returns a promise with the subscriptions
+     *
+     * @remarks
+     * https://console.account.product.dev.alertlogic.com/users/api/herald/index.html#api-Subscriptions-SetIntegrationsSubscriptionsForAccountFeatureSubkey
+     */
+    async updateIntegrationSubscription( accountId: string, integrationId: string, feature: string, subkey: string, subscribed: boolean) : Promise<AlHeraldSubscriptionsKeyByAccountRecord> {
+        const subscriptions = await this.client.put({
+            service_name: this.serviceName,
+            version: this.serviceVersion,
+            account_id: accountId,
+            path: `/integrations/${integrationId}/subscriptions/${feature}/${subkey}`,
+            data: { "subscribed": subscribed }
+        });
+
+        return subscriptions as AlHeraldSubscriptionsKeyByAccountRecord;
+    }
+
+    /**
+     * Updates integrations's subscription in a given account, feature and subkey
+     * POST
+     * /herald/v1/integrations/:integration_id/subscriptions/:feature
+     * "https://api.global-integration.product.dev.alertlogic.com/herald/v1/integrations/E31302AE-C9B7-4A4B-BC83-85806383D3FE/subscriptions/incidents"
+     *
+     * @param integrationId Corresponding integration identifier.
+     * @param feature Feature name of the subscription key. examples: endpoints, search, incidents
+     * @param subscribed Boolean value
+     * @returns a promise with the subscriptions
+     *
+     * @remarks
+     * https://console.account.product.dev.alertlogic.com/users/api/herald/index.html#api-Subscriptions-UpdateIntegrationsSubscriptionsForAccountsList
+     */
+    async updateIntegrationSubscriptionForAccountsList( integrationId: string, feature: string, accounts: AlHeraldSubscriptionsKeyByAccountRecord[]) : Promise<AlHeraldSubscriptionsKeyByAccountRecord[]> {
+        const subscriptions = await this.client.post({
+            service_name: this.serviceName,
+            version: this.serviceVersion,
+            path: `/integrations/${integrationId}/subscriptions/${feature}`,
+            data: { "accounts": accounts }
+        });
+
+        return subscriptions.accounts as AlHeraldSubscriptionsKeyByAccountRecord[];
+    }
+
+    /**
+     * Updates user's subscription in a given account, feature and subkey
+     * PUT
+     * /herald/v1/:account_id/users/:user_id/subscriptions/:feature/:subkey
+     * "https://api.global-integration.product.dev.alertlogic.com/herald/v1/12345678/users/715A4EC0-9833-4D6E-9C03-A537E3F98D23/subscriptions/incidents/escalations/primary"
+     *
+     * @param accountId AIMS Account ID
+     * @param userId AIMS User ID
+     * @param feature Feature name of the subscription key. examples: endpoints, search, incidents
+     * @param subkey Subscription subkey
+     * @param subscribed Boolean value
+     * @returns a promise with the subscriptions
+     *
+     * @remarks
+     * https://console.account.product.dev.alertlogic.com/users/api/herald/index.html#api-Subscriptions-SetUserSubscriptionsForAccountFeatureSubkey
+     */
+    async updateUserSubscription( accountId: string, userId: string, feature: string, subkey: string, subscribed: boolean) : Promise<AlHeraldSubscriptionsKeyByAccountRecord> {
+        const subscriptions = await this.client.put({
+            service_name: this.serviceName,
+            version: this.serviceVersion,
+            account_id: accountId,
+            path: `/users/${userId}/subscriptions/${feature}/${subkey}`,
+            data: { "subscribed": subscribed }
+        });
+
+        return subscriptions as AlHeraldSubscriptionsKeyByAccountRecord;
+    }
+
+    /**
+     * Updates user's subscriptions for feature and accounts list
+     * POST
+     * /herald/v1/users/:user_id/subscriptions/:feature
+     * "https://api.global-integration.product.dev.alertlogic.com/herald/v1/users/715A4EC0-9833-4D6E-9C03-A537E3F98D23/subscriptions/incidents"
+     *
+     * @param userId AIMS User ID
+     * @param feature Feature name of the subscription key. examples: endpoints, search, incidents
+     * @returns a promise with the subscriptions
+     *
+     * @remarks
+     * https://console.account.product.dev.alertlogic.com/users/api/herald/index.html#api-Subscriptions-UpdateUserSubscriptionsForAccountsList
+     */
+    async updateUserSubscriptionForAccountsList( userId: string, feature: string, accounts: AlHeraldSubscriptionsKeyByAccountRecord[]) : Promise<AlHeraldSubscriptionsKeyByAccountRecord[]> {
+        const subscriptions = await this.client.post({
+            service_name: this.serviceName,
+            version: this.serviceVersion,
+            path: `/users/${userId}/subscriptions/${feature}`,
+            data: { "accounts": accounts }
+        });
+
+        return subscriptions.accounts as AlHeraldSubscriptionsKeyByAccountRecord[];
+    }
+
     /**** Integrations ***/
     /**
      * Create integration for one specific account
