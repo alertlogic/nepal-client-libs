@@ -5,11 +5,15 @@ import { AlChangeStamp, AIMSAuthentication, AIMSUser, AIMSAccount, AIMSSessionDe
  */
 export { AlChangeStamp, AIMSAuthentication, AIMSUser, AIMSAccount, AIMSSessionDescriptor } from '@al/client';
 
-export interface AlHeraldSubscriptionKey
+export interface AlHeraldSubscriptionKeyPayload
 {
     feature: string;
     subkey: string;
     name: string;
+    mapped_subkey?: string;
+}
+export interface AlHeraldSubscriptionKey extends AlHeraldSubscriptionKeyPayload
+{
     created?: AlChangeStamp;
     modified?: AlChangeStamp;
 }

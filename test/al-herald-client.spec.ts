@@ -578,6 +578,109 @@ describe('HERALD CLIENT', () => {
         });
     });
 
+    describe('Subscribers ', () =>{
+        const accountId = "12345";
+        const feature = "feature";
+        const subkey = "feature/primary";
+
+        describe('When performing a get subscribers', () => {
+            const accountsMock = [];
+            beforeEach(() => {
+                stub = sinon.stub(ALClient as any, 'axiosRequest').returns(Promise.resolve({status: 200, data: {subscribers: accountsMock }}));
+            });
+            afterEach(() => {
+                stub.restore();
+            });
+            it('Should call the AlHeraldClient instance\'s GET.', async () => {
+                const result = await AlHeraldClient.getSubscribers(accountId,feature,subkey );
+
+                const payload = stub.args[0][0];
+                expect( stub.callCount ).to.equal( 1 );
+                expect( payload.method ).to.equal( "GET" );
+                expect( payload.url ).to.equal( `${apiBaseURL}/${service}/${version}/${accountId}/subscribers/${feature}/${subkey}` );
+                expect( result ).to.equal( accountsMock );
+            });
+        });
+
+        describe('When performing a get subscribers account ids', () => {
+            const accountsIdMock = ["abc","def"];
+            beforeEach(() => {
+                stub = sinon.stub(ALClient as any, 'axiosRequest').returns(Promise.resolve({status: 200, data: {account_ids: accountsIdMock }}));
+            });
+            afterEach(() => {
+                stub.restore();
+            });
+            it('Should call the AlHeraldClient instance\'s GET.', async () => {
+                const result = await AlHeraldClient.getSubscriberIds(accountId,feature,subkey );
+
+                const payload = stub.args[0][0];
+                expect( stub.callCount ).to.equal( 1 );
+                expect( payload.method ).to.equal( "GET" );
+                expect( payload.url ).to.equal( `${apiBaseURL}/${service}/${version}/${accountId}/subscribers/account_ids/${feature}/${subkey}` );
+                expect( result ).to.equal( accountsIdMock );
+            });
+        });
+    });
+
+    describe('Subscriptions keys', () =>{
+        const accountId = "12345";
+        const payloadRequest = {
+            "subkey":"feature/primary",
+            "name":"Primary Feature",
+            "feature":"feature"
+        };
+
+        describe('When performing a create subscription key tie to one account', () => {
+
+            beforeEach(() => {
+                stub = sinon.stub(ALClient as any, 'axiosRequest').returns(Promise.resolve({status: 200, data: subscriptionkeysMock.subscription_keys[0]}));
+            });
+            afterEach(() => {
+                stub.restore();
+            });
+            it('Should call the AlHeraldClient instance\'s POST.', async () => {
+                await AlHeraldClient.createAccountSubscriptionKey( accountId, payloadRequest );
+                const payload = stub.args[0][0];
+                expect( stub.callCount ).to.equal( 1 );
+                expect( payload.method ).to.equal( "POST" );
+                expect( payload.url ).to.equal(`${apiBaseURL}/${service}/${version}/${accountId}/subscription_keys`);
+            });
+        });
+
+        describe('When performing a create subscription key', () => {
+
+            beforeEach(() => {
+                stub = sinon.stub(ALClient as any, 'axiosRequest').returns(Promise.resolve({status: 200, data: subscriptionkeysMock.subscription_keys[0]}));
+            });
+            afterEach(() => {
+                stub.restore();
+            });
+            it('Should call the AlHeraldClient instance\'s POST.', async () => {
+                await AlHeraldClient.createSubscriptionKey( payloadRequest );
+                const payload = stub.args[0][0];
+                expect( stub.callCount ).to.equal( 1 );
+                expect( payload.method ).to.equal( "POST" );
+                expect( payload.url ).to.equal(`${apiBaseURL}/${service}/${version}/subscription_keys`);
+            });
+        });
+
+        describe('When performing a delete subscription key', () => {
+            beforeEach(() => {
+                stub = sinon.stub(ALClient as any, 'axiosRequest').returns(Promise.resolve({status: 200 }));
+            });
+            afterEach(() => {
+                stub.restore();
+            });
+            it('Should call the AlHeraldClient instance\'s DELETE.', async () => {
+                await AlHeraldClient.deleteAccountSubscriptionKey( accountId, payloadRequest.feature, payloadRequest.subkey );
+                const payload = stub.args[0][0];
+                expect( stub.callCount ).to.equal( 1 );
+                expect( payload.method ).to.equal( "DELETE" );
+                expect( payload.url ).to.equal(`${apiBaseURL}/${service}/${version}/${accountId}/subscription_keys/${payloadRequest.feature}/${payloadRequest.subkey}`);
+            });
+        });
+    });
+
     describe('Template mapping', () => {
         const templateMapping = {
             feature: "search",
