@@ -99,16 +99,20 @@ export class AlEndpointsSummary
             this.summary.stateBreakdown.archived++;
         }
         this.summary.totalEndpoints++;
-        if ( endpoint.presence === 'ONLINE' ) {
-            this.summary.checkinBreakdown.online += 1;
+
+        const diff = Math.abs(Date.now() - new Date(endpoint.lastSeen).getTime());
+        const lastSeenDiffInMins = Math.floor((diff / 1000) / 60);
+        const lastSeenDiffInDays = diff / (1000 * 3600 * 24);
+        if ( lastSeenDiffInDays > 30 ) {
+            this.summary.checkinBreakdown.notRecently += 1;
         } else {
-            const checkInDays = (Date.now() - new Date(endpoint.lastSeen).getTime()) / (1000 * 3600 * 24);
-            if ( checkInDays > 30 ) {
-                this.summary.checkinBreakdown.notRecently += 1;
-            } else {
-                if( endpoint.primaryStatus !== 'ARCHIVED') { // not sure about this!!!
-                    this.summary.checkinBreakdown.recent += 1;
+            if( endpoint.primaryStatus !== 'ARCHIVED') {
+                if(lastSeenDiffInMins > 60) {
+                 this.summary.checkinBreakdown.recent += 1;
+                } else {
+                    this.summary.checkinBreakdown.online += 1;
                 }
+
             }
         }
         if( endpoint.primaryStatus !== 'ARCHIVED') {
