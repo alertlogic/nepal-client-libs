@@ -103,7 +103,7 @@ export class AlEndpointsSummary
             this.summary.checkinBreakdown.online += 1;
         } else {
             const checkInDays = (Date.now() - new Date(endpoint.lastSeen).getTime()) / (1000 * 3600 * 24);
-            if ( checkInDays > 60 ) {
+            if ( checkInDays > 30 ) {
                 this.summary.checkinBreakdown.notRecently += 1;
             } else {
                 if( endpoint.primaryStatus !== 'ARCHIVED') { // not sure about this!!!

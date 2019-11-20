@@ -1,6 +1,6 @@
 {
   "name": "@al/endpoints",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "An API Client for the Alert Logic EEP product backend.",
   "main": "./dist/umd/index.js",
   "scripts": {
