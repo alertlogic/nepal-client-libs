@@ -2,7 +2,7 @@
  * Module to deal with available Correlations Public API endpoints
  */
 import { AlResponseValidationError } from '@al/common';
-import { ALClient, APIRequestParams } from '@al/client';
+import { ALClient } from '@al/client';
 
 export interface AlCreateCorrelationRequest {
     enabled:            boolean;
@@ -24,13 +24,17 @@ export interface AlIncidentDefinition {
 }
 
 export interface AlCorrelationRule {
-    attacker_field:    string;
-    enabled:           boolean;
-    expression:        string;
-    expression_window: string;
-    name:              string;
-    victim_field:      string;
-    incident?:          AlIncidentDefinition;
+    correlation_rule_id?: string;
+    attacker_field:       string;
+    enabled:              boolean;
+    expression:           object | string;
+    expression_window:    string;
+    name:                 string;
+    victim_field:         string;
+    incident?:            AlIncidentDefinition;
+    create_ts?:           number;
+    update_ts?:           number;
+    unique?:              string;
 }
 
 export interface AlIncidentSpecificationResponse {
@@ -108,7 +112,7 @@ export class AlCoralClientInstance {
     /**
      *  Get all correlation rules
      */
-    async getAllCorrelations(accountId: string): Promise<{[key: string]: AlCorrelationRule}> {
+    async getAllCorrelations(accountId: string): Promise<AlCorrelationRule[]> {
          const correlations = await ALClient.get({
              service_name: this.serviceName,
              account_id:   accountId,
