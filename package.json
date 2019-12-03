@@ -41,9 +41,9 @@
     "interactive": "npm run build && node -i -e \"const CargoClient = require('./dist/commonjs/index.js').CargoClient;\""
   },
   "devDependencies": {
-    "@types/chai": "^4.1.7",
+    "@types/chai": "^4.2.6",
     "@types/mocha": "^5.2.6",
-    "@types/sinon": "^7.0.11",
+    "@types/sinon": "^7.5.1",
     "chai": "^4.2.0",
     "karma": "^4.0.1",
     "karma-chrome-launcher": "^2.2.0",
@@ -61,8 +61,8 @@
     "webpack-node-externals": "^1.7.2"
   },
   "dependencies": {
-    "@al/client": "^1.1.0",
-    "@al/common": "^1.1.0"
+    "@al/client": "^1.1.12",
+    "@al/common": "^1.1.12"
   },
   "files": [
     "dist"
