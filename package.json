@@ -1,6 +1,6 @@
 {
   "name": "@al/aecoral",
-  "version": "1.0.8",
+  "version": "1.0.9",
   "license": "MIT",
   "description": "A client for interacting with the Alert Logic Analytics Engine Correlations Public API",
   "author": {
