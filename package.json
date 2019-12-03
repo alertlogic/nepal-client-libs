@@ -1,6 +1,6 @@
 {
   "name": "@al/tacoma",
-  "version": "0.1.0",
+  "version": "1.1.0",
   "license": "MIT",
   "description": "A client for interacting with the Alert Logic Tacoma Public API",
   "author": {
@@ -60,9 +60,12 @@
     "webpack-cli": "^3.2.1"
   },
   "peerDependencies": {
-    "@al/client": "^0.13.0"
+    "@al/client": "^1.1.0"
   },
   "files": [
     "dist"
-  ]
+  ],
+  "dependencies": {
+    "@al/client": "^1.1.10"
+  }
 }
