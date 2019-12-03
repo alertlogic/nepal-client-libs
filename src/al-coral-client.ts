@@ -126,7 +126,7 @@ export class AlCoralClientInstance {
      *   Update correlation rule
      */
     async updateCorrelationRule(accountId: string, correlationId: string, correlation: AlCreateCorrelationRequest): Promise<string> {
-        const correlationResult = await ALClient.post({
+        const correlationResult = await ALClient.put({
             service_name: this.serviceName,
             account_id:   accountId,
             path:         `/correlations/${correlationId}`,
