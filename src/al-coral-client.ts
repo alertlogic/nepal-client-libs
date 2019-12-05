@@ -36,6 +36,9 @@ export interface AlCorrelationRule {
     create_ts?:           number;
     update_ts?:           number;
     unique?:              string;
+    last_trigger_ts?:     number;
+    create_by?:           string;
+    update_by?:           string;
 }
 
 export interface AlIncidentSpecificationResponse {
