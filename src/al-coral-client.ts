@@ -16,11 +16,12 @@ export interface AlCreateCorrelationRequest {
 }
 
 export interface AlIncidentDefinition {
-    visibility:     string;
-    classification: string;
-    severity:       string;
-    summary:        string;
-    description:    string;
+    visibility:       string;
+    classification:   string;
+    severity:         string;
+    summary:          string;
+    description:      string;
+    recommendations?: string;
 }
 
 export interface AlCorrelationRule {
