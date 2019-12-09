@@ -1,8 +1,14 @@
 /*
-* Module to deal with available Dashboards Public API endpoints
+* Module to deal with available Kalm Public API endpoints
 */
 import { ALClient } from '@al/client';
 import { StorageDescriptor } from './types';
+
+interface SimpleQueryAdditionalParams {
+  start_time?: string;
+  end_time?: string;
+  managed_accounts?: string;
+}
 
 class KalmClient {
   private alClient = ALClient;
@@ -36,12 +42,13 @@ class KalmClient {
   /*
    *
    */
-  async startSimpleQuery(accountId: string, namedQuery: string) {
+  async startSimpleQuery(accountId: string, namedQuery: string, queryParams: SimpleQueryAdditionalParams = {}) {
     const items = await this.alClient.get({
       service_name: this.serviceName,
       version: this.version,
       account_id: accountId,
       path: `/query/${namedQuery}`,
+      params: queryParams,
     });
     return items as any;
   }
