@@ -55,7 +55,8 @@ describe('Kalm Client Test Suite', () => {
         service_name: serviceName,
         version: serviceVersion,
         account_id: accountId,
-        path: `/query/test`
+        path: `/query/test`,
+        params: {}
       };
 
       assert.deepEqual(payload, stub.args[0][0]);
