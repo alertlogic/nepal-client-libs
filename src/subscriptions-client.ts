@@ -1,4 +1,4 @@
-
+import { AlLocation } from '@al/common';
 import { ALClient, AlApiClient } from '@al/client';
 import { AlEntitlementCollection } from './types';
 
@@ -28,6 +28,7 @@ export class AlSubscriptionsClient {
    */
   async getRawEntitlements(accountId, queryParams?) {
     const entitlements = await this.alClient.get({
+      service_stack: AlLocation.GlobalAPI,
       service_name: 'subscriptions',
       account_id: accountId,
       path: '/entitlements',
@@ -49,6 +50,7 @@ export class AlSubscriptionsClient {
    */
   async getAccountsByEntitlement(accountId, productFamily) {
     const accounts = await this.alClient.get({
+      service_stack: AlLocation.GlobalAPI,
       service_name: 'subscriptions',
       account_id: accountId,
       path: `/entitlements/${productFamily}`
