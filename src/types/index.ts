@@ -81,9 +81,14 @@ export interface DashboardLayoutWidgetConfig {
   };
 }
 
+export interface DashboardMeta {
+  layoutFormat: string;
+}
+
 export interface DashboardLayoutConfig {
   index?: number;
   refreshRate?: number;
+  meta?: DashboardMeta;
   widgets: DashboardLayoutWidgetConfig[];
 }
 
