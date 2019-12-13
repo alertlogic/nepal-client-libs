@@ -66,25 +66,25 @@ export class AetherClientInstance {
             cursor?: string
         }) {
         let queryParams = '';
-        if (advanced.parser) {
+        if (advanced && advanced.parser) {
             queryParams.concat('&q.parser=', advanced.parser);
         }
-        if (advanced.options) {
+        if (advanced && advanced.options) {
             queryParams.concat('&options=', advanced.options);
         }
-        if (advanced.size) {
+        if (advanced && advanced.size) {
             queryParams.concat('&size=', advanced.size.toString());
         }
-        if (advanced.sort) {
+        if (advanced && advanced.sort) {
             queryParams.concat('&sort=', advanced.sort);
         }
-        if (advanced.start) {
+        if (advanced && advanced.start) {
             queryParams.concat('&start=', advanced.start.toString());
         }
-        if (advanced.format) {
+        if (advanced && advanced.format) {
             queryParams.concat('&format=', advanced.format);
         }
-        if (advanced.cursor) {
+        if (advanced && advanced.cursor) {
             queryParams.concat('&cursor=', advanced.cursor);
         }
 
