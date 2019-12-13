@@ -34,15 +34,14 @@ export interface AetherSearchResponse {
     hits?: {
         found?: number;
         start?: number;
-        hit?:   AetherResult[];
+        hit?: AetherResult[];
     };
 }
 
-export class AetherClientInstance
-{
+export class AetherClientInstance {
     private serviceName = 'aether';
 
-    public constructor( public client:AlApiClient = ALClient ) {
+    public constructor(public client: AlApiClient = ALClient) {
     }
 
     /**
@@ -54,23 +53,46 @@ export class AetherClientInstance
      * Please note that this is a provisional method and subject to imminent change.
      *
      * @param query The search string, or null.
-     * @param advanced Optional, currently unused
+     * @param advanced Optional, configuration parameters for sorting, paging & other things
      */
-    public async search( query:string,
-                         advanced?: {
-                            parser?: string,
-                            options?: string,
-                            size?: number,
-                            sort?: string,
-                            start?: number,
-                            format?: string,
-                            cursor?: string
-                        } ) {
+    public async search(query: string,
+        advanced?: {
+            parser?: string,
+            options?: string,
+            size?: number,
+            sort?: string,
+            start?: number,
+            format?: string,
+            cursor?: string
+        }) {
+        let queryParams = '';
+        if (advanced && advanced.parser) {
+            queryParams.concat('&q.parser=', advanced.parser);
+        }
+        if (advanced && advanced.options) {
+            queryParams.concat('&options=', advanced.options);
+        }
+        if (advanced && advanced.size) {
+            queryParams.concat('&size=', advanced.size.toString());
+        }
+        if (advanced && advanced.sort) {
+            queryParams.concat('&sort=', advanced.sort);
+        }
+        if (advanced && advanced.start) {
+            queryParams.concat('&start=', advanced.start.toString());
+        }
+        if (advanced && advanced.format) {
+            queryParams.concat('&format=', advanced.format);
+        }
+        if (advanced && advanced.cursor) {
+            queryParams.concat('&cursor=', advanced.cursor);
+        }
+
         const results = await this.client.post({
             service_name: this.serviceName,
             path: '/exposures/2013-01-01/search',
             version: null,
-            data: `q=${encodeURIComponent(query)}`
+            data: `q=${encodeURIComponent(query)}&${encodeURIComponent(queryParams)}`
         });
         return results as AetherSearchResponse;
     }
