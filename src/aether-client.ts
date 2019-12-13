@@ -67,25 +67,25 @@ export class AetherClientInstance {
         }) {
         let queryParams = '';
         if (advanced && advanced.parser) {
-            queryParams.concat('&q.parser=', advanced.parser);
+            queryParams = queryParams.concat('&q.parser=', advanced.parser);
         }
         if (advanced && advanced.options) {
-            queryParams.concat('&options=', advanced.options);
+            queryParams = queryParams.concat('&options=', advanced.options);
         }
         if (advanced && advanced.size) {
-            queryParams.concat('&size=', advanced.size.toString());
+            queryParams = queryParams.concat('&size=', advanced.size.toString());
         }
         if (advanced && advanced.sort) {
-            queryParams.concat('&sort=', advanced.sort);
+            queryParams = queryParams.concat('&sort=', advanced.sort);
         }
         if (advanced && advanced.start) {
-            queryParams.concat('&start=', advanced.start.toString());
+            queryParams = queryParams.concat('&start=', advanced.start.toString());
         }
         if (advanced && advanced.format) {
-            queryParams.concat('&format=', advanced.format);
+            queryParams = queryParams.concat('&format=', advanced.format);
         }
         if (advanced && advanced.cursor) {
-            queryParams.concat('&cursor=', advanced.cursor);
+            queryParams = queryParams.concat('&cursor=', advanced.cursor);
         }
 
         const results = await this.client.post({
