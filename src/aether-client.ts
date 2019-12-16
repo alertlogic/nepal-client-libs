@@ -92,7 +92,7 @@ export class AetherClientInstance {
             service_name: this.serviceName,
             path: '/exposures/2013-01-01/search',
             version: null,
-            data: `q=${encodeURIComponent(query)}&${encodeURIComponent(queryParams)}`
+            data: `q=${query}${queryParams}`
         });
         return results as AetherSearchResponse;
     }
