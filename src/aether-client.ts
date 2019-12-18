@@ -63,7 +63,9 @@ export class AetherClientInstance {
             sort?: string,
             start?: number,
             format?: string,
-            cursor?: string
+            cursor?: string,
+            fp?:string,
+            facet?:string
         }) {
         let queryParams = '';
         if (advanced && advanced.parser) {
@@ -88,6 +90,12 @@ export class AetherClientInstance {
             queryParams = queryParams.concat('&cursor=', advanced.cursor);
         }
 
+        if (advanced && advanced.fp) {
+            queryParams = queryParams.concat('&fp=', advanced.fp);
+        }
+        if (advanced && advanced.facet) {
+            queryParams = queryParams.concat('&', advanced.facet);
+        }
         const results = await this.client.post({
             service_name: this.serviceName,
             path: '/exposures/2013-01-01/search',
