@@ -25,6 +25,16 @@ export interface AetherResult {
         severity?: string;
     };
 }
+export interface Bucket {
+    value: string;
+    count: number;
+}
+export interface FacetObject {
+    buckets: Bucket[];
+}
+export interface AetherFacetResponse {
+    [property: string]: FacetObject;
+}
 
 export interface AetherSearchResponse {
     status?: {
@@ -35,6 +45,7 @@ export interface AetherSearchResponse {
         found?: number;
         start?: number;
         hit?: AetherResult[];
+        facets?: AetherFacetResponse;
     };
 }
 
@@ -64,8 +75,8 @@ export class AetherClientInstance {
             start?: number,
             format?: string,
             cursor?: string,
-            fp?:string,
-            facet?:string
+            fp?: string,
+            facet?: string
         }) {
         let queryParams = '';
         if (advanced && advanced.parser) {
