@@ -4,6 +4,8 @@
 import { ALClient, AlApiClient } from '@al/client';
 import { AlCargoClientInstance } from './al-cargo-client';
 import {
+    ReportExecutionRecord,
+    ReportExecutionRecords,
     ReportSchedule,
     ReportSchedules
 } from './types';
@@ -180,6 +182,123 @@ export class AlCargoClientInstanceV2 extends AlCargoClientInstance {
         });
 
         return result.execution_record_count as number;
+    }
+
+    /**
+     * Create execution record for given account_id. This API allows to manually submit execution record for existing schedule definition
+     * or create run-once record, which will be run only once immediately after submitting.
+     * In case of run_once record, the request body should include schedule records spec.
+     * GET
+     * /cargo/v2/:account_id/execution_record
+     * "https://api.cloudinsight.alertlogic.com/cargo/v2/13334567/execution_record"
+     *
+     *  @param accountId The AIMS Account ID
+     *  @returns a promise with the number of executions
+     *  @remarks
+     *  https://console.account.product.dev.alertlogic.com/users/api/cargo/index.html#api-Execution_Records-CreateExecutionRecord
+     */
+    async createExecutionRecord(accountId: string): Promise<ReportExecutionRecord> {
+        const result = await this.client.get({
+            service_name: this.serviceName,
+            version: this.serviceVersion,
+            account_id: accountId,
+            path: `/execution_record`
+        });
+
+        return result as ReportExecutionRecord;
+    }
+
+    /**
+     * Create execution record for given account_id. This API allows to manually submit execution record for existing schedule definition
+     * or create run-once record, which will be run only once immediately after submitting.
+     * In case of run_once record, the request body should include schedule records spec.
+     * GET
+     * /cargo/v2/:account_id/execution_record/:execution_record_id/result
+     * "https://api.cloudinsight.alertlogic.com/cargo/v2/13334567/execution_record/20160801-183000-FB3D65D4-3905-1005-894D-0EA0987B68E5/result"
+     *
+     *  @param accountId The AIMS Account ID
+     *  @param executionRecordId The Execution Record ID
+     *  @returns a promise with the report execution record.
+     *  @remarks
+     *  https://console.account.product.dev.alertlogic.com/users/api/cargo/index.html#api-Execution_Records-GetExecutionRecordResult
+     */
+    async getExecutionRecordResult(accountId: string, executionRecordId:string ): Promise<ReportExecutionRecord> {
+        const result = await this.client.get({
+            service_name: this.serviceName,
+            version: this.serviceVersion,
+            account_id: accountId,
+            path: `/execution_record/${executionRecordId}/result`
+        });
+
+        return result as ReportExecutionRecord;
+    }
+
+    /**
+     * Get execution record for given account_id and execution_record_id.
+     * GET
+     * /cargo/v2/:account_id/execution_record/:execution_record_id
+     * "https://api.cloudinsight.alertlogic.com/cargo/v2/13334567/execution_record/20160808-073000-FB3D65D4-3905-1005-894D-0EA0987B68E5"
+     *
+     *  @param accountId The AIMS Account ID
+     *  @param executionRecordId The Execution Record ID
+     *  @returns a promise with the execution record
+     *  @remarks
+     *  https://console.account.product.dev.alertlogic.com/users/api/cargo/index.html#api-Execution_Records-GetExecutionRecord
+     */
+    async getExecutionRecord(accountId: string, executionRecordId:string ): Promise<ReportExecutionRecord> {
+        const result = await this.client.get({
+            service_name: this.serviceName,
+            version: this.serviceVersion,
+            account_id: accountId,
+            path: `/execution_record/${executionRecordId}`
+        });
+
+        return result as ReportExecutionRecord;
+    }
+
+    /**
+     * Get execution record for given account_id and execution_record_id.
+     * GET
+     * /cargo/v2/:account_id/execution_record
+     * "https://api.cloudinsight.alertlogic.com/cargo/v2/13334567/execution_record"
+     *
+     *  @param accountId The AIMS Account ID
+     *  @returns a promise with the list execution records
+     *  @remarks
+     *  https://console.account.product.dev.alertlogic.com/users/api/cargo/index.html#api-Execution_Records-ListExecutionRecords
+     */
+    async getListExecutionRecords(accountId: string): Promise<ReportExecutionRecords> {
+        const result = await this.client.get({
+            service_name: this.serviceName,
+            version: this.serviceVersion,
+            account_id: accountId,
+            path: `/execution_record`
+        });
+
+        return result as ReportExecutionRecords;
+    }
+
+    /**
+     * Remove execution record for given account_id and execution_record_id.
+     * DELETE
+     * /cargo/v2/:account_id/execution_record/:execution_record_id
+     * "https://api.global-integration.product.dev.alertlogic.com/cargo/v2/13334567/execution_record/20160801-213000-FB3D65D4-3905-1005-894D-0EA0987B68E5"
+     *
+     *  @param  accountId The AIMS Account ID
+     *  @param  executionRecordId  The Execution Record ID
+     *  @returns just the status code
+     *
+     *  @remarks
+     *  https://console.account.product.dev.alertlogic.com/users/api/index.html#api-Execution_Records-RemoveExecutionRecord
+     */
+    async deleteExecutionRecord( accountId: string, executionRecordId: string) {
+        const result = await this.client.delete({
+            service_name: this.serviceName,
+            version: this.serviceVersion,
+            account_id: accountId,
+            path: `/execution_record/${executionRecordId}`
+        });
+        return result;
     }
 
 }
