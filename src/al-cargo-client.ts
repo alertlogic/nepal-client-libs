@@ -16,7 +16,7 @@ import { TableauReportDefinition,
 
 export class AlCargoClientInstance {
 
-  private serviceName = 'cargo';
+  protected serviceName = 'cargo';
 
   constructor( public client:AlApiClient = ALClient ) {
   }

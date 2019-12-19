@@ -86,3 +86,51 @@ export interface CargoScheduledReportListResponse {
     scheduled_reports: CargoReport[];
 }
 
+export interface ReportSchedule {
+    id?: string;
+    name?: string;
+    type?: string;
+    definition?: SearchReportDefinition;
+    schedule?: {
+        daily?: CargoReportTimeRange;
+        weekly?: CargoReportTimeRange;
+        monthly?: CargoReportTimeRange;
+    };
+    is_active?: boolean;
+    notify_behavior?: string;
+    delete_empty_result?: boolean;
+}
+
+export interface ReportSchedules {
+    account_id: string;
+    schedules: ReportSchedule[];
+}
+
+export interface ReportArtifact {
+    result_id?: string;
+    is_rerference?: boolean;
+}
+
+export interface ReportExecutionRecord {
+    id: string;
+    account_id?: string;
+    schedule_id?: string;
+    name?: string;
+    status?: 'scheduled' | 'running' | 'cancelled' | 'completed';
+    type?: string;
+    definition?: SearchReportDefinition|TableauReportDefinition;
+    schedule?: ReportSchedule;
+    scheduled_time?: number;
+    subkey?: string;
+    artifact_data?: ReportArtifact;
+    notify_behaviour?: string;
+    delete_empty_result?: boolean;
+    create_time?: number;
+    run_once?: boolean;
+}
+
+export interface ReportExecutionRecords {
+    account_id: string;
+    continuation: string;
+    execution_records: ReportExecutionRecord[];
+}
