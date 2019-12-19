@@ -5,18 +5,29 @@ import { AlChangeStamp, AIMSAuthentication, AIMSUser, AIMSAccount, AIMSSessionDe
  */
 export { AlChangeStamp, AIMSAuthentication, AIMSUser, AIMSAccount, AIMSSessionDescriptor } from '@al/client';
 
-export interface AlHeraldSubscriptionKeyPayload
+export interface AlHeraldAccountSubscriptionKeyPayload
 {
     feature: string;
     subkey: string;
     name: string;
-    mapped_subkey?: string;
 }
 
-export interface AlHeraldSubscriptionKey extends AlHeraldSubscriptionKeyPayload
+export interface AlHeraldSubscriptionKeyPayload extends AlHeraldAccountSubscriptionKeyPayload
 {
-    created?: AlChangeStamp;
-    modified?: AlChangeStamp;
+    mapped_subkey?: string;
+    template_name: string;
+}
+
+export interface AlHeraldAccountSubscriptionKey extends AlHeraldSubscriptionKey
+{
+    account_id: string;
+}
+
+export interface AlHeraldSubscriptionKey extends AlHeraldAccountSubscriptionKeyPayload
+{
+    mapped_subkey?: string;
+    created: AlChangeStamp;
+    modified: AlChangeStamp;
 }
 
 export interface AlHeraldSubscriptionKeyQuery
@@ -42,7 +53,8 @@ export interface AlHeraldSubscriptionsKeyByAccountRecord
 export interface AlHeraldAccountSubscription
 {
     subscriber_type: string;
-    user_id: string;
+    user_id?: string;
+    integration_id?: string;
     accounts: AlHeraldSubscriptionsKeyByAccountRecord[];
 }
 
@@ -71,6 +83,14 @@ export interface AlHeraldIntegration
 export interface AlHeraldIntegrationTypes
 {
     name: string;
+}
+
+export interface AlHeraldAccountByFeatureQuery {
+    subscriber_type?: string;
+}
+
+export interface AlHeraldSubscriptionKeysByFeatureQuery {
+    subscription_key_type: string;
 }
 
 export interface AlHeraldNotificationDataBase{
