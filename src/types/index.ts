@@ -76,6 +76,7 @@ export interface AlHeraldIntegration
     target_url: string;
     name: string;
     type: string;
+    headers?: object;
     created: AlChangeStamp;
     modified: AlChangeStamp;
 }
