@@ -64,7 +64,7 @@ export class AetherClientInstance {
      * Please note that this is a provisional method and subject to imminent change.
      *
      * @param query The search string, or null.
-     * @param advanced Optional, configuration parameters for sorting, paging & other things
+     * @param advanced Optional, configuration parameters for sorting, paging & criteria
      */
     public async search(query: string,
         advanced?: {
@@ -75,37 +75,36 @@ export class AetherClientInstance {
             start?: number,
             format?: string,
             cursor?: string,
-            fp?: string,
+            fq?: string,
             facet?: string
         }) {
         let queryParams = '';
-        if (advanced && advanced.parser) {
-            queryParams = queryParams.concat('&q.parser=', advanced.parser);
+        if (advanced && advanced.hasOwnProperty('parser')) {
+            queryParams = queryParams.concat(`&q.parser=${advanced.parser}`);
         }
-        if (advanced && advanced.options) {
-            queryParams = queryParams.concat('&options=', advanced.options);
+        if (advanced && advanced.hasOwnProperty('options')) {
+            queryParams = queryParams.concat(`&options=${advanced.options}`);
         }
-        if (advanced && advanced.size) {
-            queryParams = queryParams.concat('&size=', advanced.size.toString());
+        if (advanced && advanced.hasOwnProperty('size')) {
+            queryParams = queryParams.concat(`&size=${advanced.size.toString()}`);
         }
-        if (advanced && advanced.sort) {
-            queryParams = queryParams.concat('&sort=', advanced.sort);
+        if (advanced && advanced.hasOwnProperty('sort')) {
+            queryParams = queryParams.concat(`&sort=${advanced.sort}`);
         }
-        if (advanced && advanced.start) {
-            queryParams = queryParams.concat('&start=', advanced.start.toString());
+        if (advanced && advanced.hasOwnProperty('start')) {
+            queryParams = queryParams.concat(`&start=${advanced.start.toString()}`);
         }
-        if (advanced && advanced.format) {
-            queryParams = queryParams.concat('&format=', advanced.format);
+        if (advanced && advanced.hasOwnProperty('format')) {
+            queryParams = queryParams.concat(`&format=${advanced.format}`);
         }
-        if (advanced && advanced.cursor) {
-            queryParams = queryParams.concat('&cursor=', advanced.cursor);
+        if (advanced && advanced.hasOwnProperty('cursor')) {
+            queryParams = queryParams.concat(`&cursor=${advanced.cursor}`);
         }
-
-        if (advanced && advanced.fp) {
-            queryParams = queryParams.concat('&fp=', advanced.fp);
+        if (advanced && advanced.hasOwnProperty('fq')) {
+            queryParams = queryParams.concat(`&fq=${advanced.fq}`);
         }
-        if (advanced && advanced.facet) {
-            queryParams = queryParams.concat('&', advanced.facet);
+        if (advanced && advanced.hasOwnProperty('facet')) {
+            queryParams = queryParams.concat(`&${advanced.facet}`);
         }
         const results = await this.client.post({
             service_name: this.serviceName,
