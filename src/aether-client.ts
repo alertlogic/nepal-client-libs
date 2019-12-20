@@ -45,8 +45,8 @@ export interface AetherSearchResponse {
         found?: number;
         start?: number;
         hit?: AetherResult[];
-        facets?: AetherFacetResponse;
     };
+    facets?: AetherFacetResponse;
 }
 
 export class AetherClientInstance {
