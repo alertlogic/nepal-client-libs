@@ -44,6 +44,7 @@ export interface AetherSearchResponse {
     hits?: {
         found?: number;
         start?: number;
+        cursor?: string;
         hit?: AetherResult[];
     };
     facets?: AetherFacetResponse;
