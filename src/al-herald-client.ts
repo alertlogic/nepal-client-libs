@@ -59,7 +59,7 @@ export class AlHeraldClientInstance {
             path: '/subscription_keys',
             params: queryParams
         });
-        return subscriptionKeys as AlHeraldSubscriptionKey[];
+        return subscriptionKeys.subscription_keys as AlHeraldSubscriptionKey[];
     }
 
     /**
@@ -95,7 +95,6 @@ export class AlHeraldClientInstance {
      *
      * @param integrationId Corresponding integration identifier.
      * @param feature Feature name of the subscription key. examples: endpoints, search, incidents.
-     * @param queryParams subscriber_type: Filter by subscriber type (user as default). Allowed values: user, webhook, all.
      * @returns a promise with the subscriptions
      *
      * @remarks
@@ -122,13 +121,13 @@ export class AlHeraldClientInstance {
      * @remarks
      * https://console.account.product.dev.alertlogic.com/users/api/herald/index.html#api-Subscriptions-GetUserSubscriptionsAllAccounts
      */
-    async getAllUserSubscriptions(userId: string): Promise<AlHeraldAccountSubscription[]> {
+    async getAllUserSubscriptions(userId: string): Promise<AlHeraldSubscriptionsKeyByAccountRecord[]> {
         const subscriptions = await this.client.get({
             service_name: this.serviceName,
             version: this.serviceVersion,
             path: `/users/${userId}/subscriptions`,
         });
-        return subscriptions.accounts as AlHeraldAccountSubscription[];
+        return subscriptions.accounts as AlHeraldSubscriptionsKeyByAccountRecord[];
     }
 
     /**
@@ -144,13 +143,13 @@ export class AlHeraldClientInstance {
      * @remarks
      * https://console.account.product.dev.alertlogic.com/users/api/herald/index.html#api-Subscriptions-GetUserSubscriptionsAllAccountsInFeature
      */
-    async getAllUserSubscriptionsByFeature(userId: string, feature: string): Promise<AlHeraldAccountSubscription[]> {
+    async getAllUserSubscriptionsByFeature(userId: string, feature: string): Promise<AlHeraldSubscriptionsKeyByAccountRecord[]> {
         const subscriptions = await this.client.get({
             service_name: this.serviceName,
             version: this.serviceVersion,
             path: `/users/${userId}/subscriptions/${feature}`,
         });
-        return subscriptions.accounts as AlHeraldAccountSubscription[];
+        return subscriptions.accounts as AlHeraldSubscriptionsKeyByAccountRecord[];
     }
 
     /**
@@ -322,6 +321,7 @@ Header"
      * @param accountId AIMS Account ID
      * @param integrationId Corresponding integration identifier.
      * @param feature Feature name of the subscription key. examples: endpoints, search, incidents
+     * @param subkey Subscription subkey
      * @param subscribed Boolean value
      * @returns a promise with the subscriptions
      *
@@ -362,7 +362,7 @@ Header"
             data: { "accounts": accounts }
         });
 
-        return subscriptions.accounts as AlHeraldSubscriptionsKeyByAccountRecord[];
+        return subscriptions as AlHeraldSubscriptionsKeyByAccountRecord[];
     }
 
     /**
@@ -401,6 +401,7 @@ Header"
      *
      * @param userId AIMS User ID
      * @param feature Feature name of the subscription key. examples: endpoints, search, incidents
+     * @param accounts List of accounts subscription data
      * @returns a promise with the subscriptions
      *
      * @remarks
@@ -414,7 +415,32 @@ Header"
             data: { "accounts": accounts }
         });
 
-        return subscriptions.accounts as AlHeraldSubscriptionsKeyByAccountRecord[];
+        return subscriptions as AlHeraldSubscriptionsKeyByAccountRecord[];
+    }
+
+    /**
+     * Set User Subscriptions For Accounts List
+     * PUT
+     * /herald/v1/users/:user_id/subscriptions/:feature
+     * "https://api.global-integration.product.dev.alertlogic.com/herald/v1/users/715A4EC0-9833-4D6E-9C03-A537E3F98D23/subscriptions/incidents"
+     *
+     * @param userId AIMS User ID
+     * @param feature Feature name of the subscription key. examples: endpoints, search, incidents
+     * @param accounts List of accounts subscription data
+     * @returns a promise with the subscriptions
+     *
+     * @remarks
+     * https://console.account.product.dev.alertlogic.com/users/api/herald/index.html#api-Subscriptions-UpdateUserSubscriptionsForAccountsList
+     */
+    async setUserSubscriptionForAccountsList(userId: string, feature: string, accounts: AlHeraldSubscriptionsKeyByAccountRecord[]) : Promise<AlHeraldSubscriptionsKeyByAccountRecord[]> {
+        const subscriptions = await this.client.put({
+            service_name: this.serviceName,
+            version: this.serviceVersion,
+            path: `/users/${userId}/subscriptions/${feature}`,
+            data: { "accounts": accounts }
+        });
+
+        return subscriptions as AlHeraldSubscriptionsKeyByAccountRecord[];
     }
 
     /**** Integrations ***/
@@ -901,7 +927,7 @@ Header"
             path: `/subscription_keys/${feature}`,
             params: queryParams
         });
-        return subscriptions as AlHeraldSubscriptionKey[];
+        return subscriptions.subscription_keys as AlHeraldSubscriptionKey[];
     }
 
     /**
