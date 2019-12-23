@@ -25,6 +25,16 @@ export interface AetherResult {
         severity?: string;
     };
 }
+export interface Bucket {
+    value: string;
+    count: number;
+}
+export interface FacetObject {
+    buckets: Bucket[];
+}
+export interface AetherFacetResponse {
+    [property: string]: FacetObject;
+}
 
 export interface AetherSearchResponse {
     status?: {
@@ -36,6 +46,7 @@ export interface AetherSearchResponse {
         start?: number;
         hit?: AetherResult[];
     };
+    facets?: AetherFacetResponse;
 }
 
 export class AetherClientInstance {
@@ -53,7 +64,7 @@ export class AetherClientInstance {
      * Please note that this is a provisional method and subject to imminent change.
      *
      * @param query The search string, or null.
-     * @param advanced Optional, configuration parameters for sorting, paging & other things
+     * @param advanced Optional, configuration parameters for sorting, paging & criteria
      */
     public async search(query: string,
         advanced?: {
@@ -63,36 +74,43 @@ export class AetherClientInstance {
             sort?: string,
             start?: number,
             format?: string,
-            cursor?: string
+            cursor?: string,
+            fq?: string,
+            facet?: string
         }) {
         let queryParams = '';
-        if (advanced && advanced.parser) {
-            queryParams.concat('&q.parser=', advanced.parser);
+        if (advanced && advanced.hasOwnProperty('parser')) {
+            queryParams = queryParams.concat(`&q.parser=${advanced.parser}`);
         }
-        if (advanced && advanced.options) {
-            queryParams.concat('&options=', advanced.options);
+        if (advanced && advanced.hasOwnProperty('options')) {
+            queryParams = queryParams.concat(`&options=${advanced.options}`);
         }
-        if (advanced && advanced.size) {
-            queryParams.concat('&size=', advanced.size.toString());
+        if (advanced && advanced.hasOwnProperty('size')) {
+            queryParams = queryParams.concat(`&size=${advanced.size.toString()}`);
         }
-        if (advanced && advanced.sort) {
-            queryParams.concat('&sort=', advanced.sort);
+        if (advanced && advanced.hasOwnProperty('sort')) {
+            queryParams = queryParams.concat(`&sort=${advanced.sort}`);
         }
-        if (advanced && advanced.start) {
-            queryParams.concat('&start=', advanced.start.toString());
+        if (advanced && advanced.hasOwnProperty('start')) {
+            queryParams = queryParams.concat(`&start=${advanced.start.toString()}`);
         }
-        if (advanced && advanced.format) {
-            queryParams.concat('&format=', advanced.format);
+        if (advanced && advanced.hasOwnProperty('format')) {
+            queryParams = queryParams.concat(`&format=${advanced.format}`);
         }
-        if (advanced && advanced.cursor) {
-            queryParams.concat('&cursor=', advanced.cursor);
+        if (advanced && advanced.hasOwnProperty('cursor')) {
+            queryParams = queryParams.concat(`&cursor=${advanced.cursor}`);
         }
-
+        if (advanced && advanced.hasOwnProperty('fq')) {
+            queryParams = queryParams.concat(`&fq=${advanced.fq}`);
+        }
+        if (advanced && advanced.hasOwnProperty('facet')) {
+            queryParams = queryParams.concat(`&${advanced.facet}`);
+        }
         const results = await this.client.post({
             service_name: this.serviceName,
             path: '/exposures/2013-01-01/search',
             version: null,
-            data: `q=${encodeURIComponent(query)}&${encodeURIComponent(queryParams)}`
+            data: `q=${query}${queryParams}`
         });
         return results as AetherSearchResponse;
     }
