@@ -243,3 +243,8 @@ export interface AlHeraldTestTemplatePayload{
     email: string;
     attachments: AlHeraldNotificationAttachment[];
 }
+
+export interface ALHeraldSubscriber {
+    subscriber: string;
+    subscriber_type: "user" | "webhook" | "all";
+}
