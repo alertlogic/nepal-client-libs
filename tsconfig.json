@@ -9,6 +9,7 @@
     "esModuleInterop": true,
     "declarationDir": "./dist/typings/",
     "lib": [
+      "es2017",
       "es6",
       "es2015",
       "dom"
