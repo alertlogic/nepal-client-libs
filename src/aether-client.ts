@@ -34,15 +34,21 @@ export interface AetherSearchResponse {
     hits?: {
         found?: number;
         start?: number;
-        hit?:   AetherResult[];
+        cursor?: string;
+        hit?: AetherResult[];
+    };
+    facets?: {
+        [property: string]: {
+            value: string;
+            count: number;
+        }[];
     };
 }
 
-export class AetherClientInstance
-{
+export class AetherClientInstance {
     private serviceName = 'aether';
 
-    public constructor( public client:AlApiClient = ALClient ) {
+    public constructor(public client: AlApiClient = ALClient) {
     }
 
     /**
@@ -54,23 +60,20 @@ export class AetherClientInstance
      * Please note that this is a provisional method and subject to imminent change.
      *
      * @param query The search string, or null.
-     * @param advanced Optional, currently unused
+     * @param advanced Optional, configuration parameters for sorting, paging & criteria
      */
-    public async search( query:string,
-                         advanced?: {
-                            parser?: string,
-                            options?: string,
-                            size?: number,
-                            sort?: string,
-                            start?: number,
-                            format?: string,
-                            cursor?: string
-                        } ) {
+    public async search(query: string, advanced?: { parser?: string, options?: string, size?: number, sort?: string, start?: number, format?: string, cursor?: string, fq?: string, facet?: string }) {
+        const queryParams = Object.entries({ q: query, ...advanced })
+            .map(([parameter, value]) => `${parameter}=${value.toString()}`)
+            .join(`&`)
+            .replace(`&facet=`, `&`)
+            .replace(`&parser=`, `&q.parser=`);
+
         const results = await this.client.post({
             service_name: this.serviceName,
             path: '/exposures/2013-01-01/search',
             version: null,
-            data: `q=${encodeURIComponent(query)}`
+            data: `${queryParams}`
         });
         return results as AetherSearchResponse;
     }
