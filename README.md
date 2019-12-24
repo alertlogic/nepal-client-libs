@@ -11,7 +11,7 @@ Until the release of version 1.0.0 all current minor version increments may be b
 
 ## Installation
 
-      npm install @al/inquisitor --save
+      npm install @al/aether --save
 
 ## Usage
 
