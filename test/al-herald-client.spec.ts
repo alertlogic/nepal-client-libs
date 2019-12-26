@@ -874,7 +874,8 @@ describe('HERALD CLIENT', () => {
         const payloadRequest = {
             "subkey":"feature/primary",
             "name":"Primary Feature",
-            "feature":"feature"
+            "feature":"feature",
+            "template_name": "template test"
         };
 
         describe('When performing a create subscription key tie to one account', () => {
@@ -954,7 +955,7 @@ describe('HERALD CLIENT', () => {
             });
             it('Should call the AlHeraldClient instance\'s GET.', async () => {
                 const params = { showAll : true };
-                const result = await AlHeraldClient.getSubscriptionKeys( params );
+                const result = await AlHeraldClient.getAllSubscriptionKeys( params );
                 const payload = stub.args[0][0];
                 expect( stub.callCount ).to.equal( 1 );
                 expect( payload.method ).to.equal( "GET" );
