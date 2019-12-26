@@ -4,7 +4,8 @@
 import { AlApiClient, AlDefaultClient } from '@al/client';
 import { AlHeraldClientInstance } from './al-herald-client';
 import {
-    ALHeraldSubscriber
+    ALHeraldSubscriber,
+    ALHeraldNotificationType
 } from './types/index';
 
 export class AlHeraldClientInstanceV2 extends AlHeraldClientInstance {
@@ -82,6 +83,91 @@ export class AlHeraldClientInstanceV2 extends AlHeraldClientInstance {
             path: `/subscriptions/${subscriptionId}/subscribers/${subscriberType}/:subscriber`
         });
         return result;
+    }
+
+    /***** NotificationTypes V2 *****/
+
+    /**
+     * Create a notification type
+     * POST
+     * /herald/v2/notification_types
+     *
+     * @param notificationTypePayload Notification type payload
+     * @returns a promise with the new notification type
+     *
+     * @remarks
+     * https://console.account.product.dev.alertlogic.com/users/api/herald/index.html#api-NotificationTypes-CreateNotificationType
+     */
+    async createNotificationType(notificationTypePayload: ALHeraldNotificationType): Promise<ALHeraldNotificationType> {
+        const result = await this.client.post({
+            service_name: this.serviceName,
+            version: this.serviceVersion,
+            path: '/notification_types',
+            data: notificationTypePayload
+        });
+        return result as ALHeraldNotificationType;
+    }
+
+    /**
+     * Delete a notification type
+     * DELETE
+     * /herald/v2/notification_types/:notification_type
+     *
+     * @param notificationType Notification type
+     * @returns just the status code
+     *
+     * @remarks
+     * https://console.account.product.dev.alertlogic.com/users/api/herald/index.html#api-NotificationTypes-DeleteNotificationType
+     */
+    async deleteNotificationType(notificationType: string) {
+        const result = await this.client.delete({
+            service_name: this.serviceName,
+            version: this.serviceVersion,
+            path: `/notification_types/${notificationType}`
+        });
+        return result;
+    }
+
+    /**
+     * List all notification types
+     * GET
+     * /herald/v2/notification_types
+     *
+     * @return a promise with all notification types
+     *
+     * @remarks
+     * https://console.account.product.dev.alertlogic.com/users/api/herald/index.html#api-NotificationTypes-GetNotificationType
+     */
+    async getAllNotificationTypes(): Promise<ALHeraldNotificationType[]> {
+        const result = await this.client.get({
+            service_name: this.serviceName,
+            version: this.serviceVersion,
+            path: '/notification_types'
+        });
+        return result.notification_types as ALHeraldNotificationType[];
+    }
+
+    /**
+     * Update a notification type
+     * PUT
+     * /herald/v2/notification_types/:notification_type
+     *
+     * @param notificationType The notification type as string
+     * @param payload Notification type object
+     * @returns a promise with the notification type that was updated
+     *
+     * @remarks
+     * https://console.account.product.dev.alertlogic.com/users/api/herald/index.html#api-NotificationTypes-UpdateNotificationType
+     */
+    async updateNotificationType(notificationType: string, payload: ALHeraldNotificationType) : Promise<ALHeraldNotificationType> {
+        const subscriptions = await this.client.put({
+            service_name: this.serviceName,
+            version: this.serviceVersion,
+            path: `/notification_types/${notificationType}`,
+            data: payload
+        });
+
+        return subscriptions as ALHeraldNotificationType;
     }
 
 }

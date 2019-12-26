@@ -248,3 +248,10 @@ export interface ALHeraldSubscriber {
     subscriber: string;
     subscriber_type: "user" | "webhook" | "all";
 }
+
+export interface ALHeraldNotificationType {
+    notification_type: string;
+    name: string;
+    default_template: string;
+    templates: string[];
+}
