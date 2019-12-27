@@ -170,12 +170,13 @@ export class AlCargoClientInstance {
     let continuation;
     while ( 1 ) {
       let result = await this.listScheduledReports( accountId, continuation ? { continuation } : undefined );
+      results = results.concat( result.scheduled_reports );
+
       if ( result.continuation ) {
         continuation = result.continuation;
-        results = results.concat( result.scheduled_reports );
       } else {
           //    No more data
-          break;
+        break;
       }
     }
     return results;
