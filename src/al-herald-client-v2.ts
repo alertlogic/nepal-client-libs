@@ -5,7 +5,9 @@ import { AlApiClient, AlDefaultClient } from '@al/client';
 import { AlHeraldClientInstance } from './al-herald-client';
 import {
     ALHeraldSubscriber,
-    ALHeraldNotificationType
+    AlHeraldNotificationType,
+    AlHeraldNotificationV2,
+    AlHeraldNotification
 } from './types/index';
 
 export class AlHeraldClientInstanceV2 extends AlHeraldClientInstance {
@@ -98,14 +100,14 @@ export class AlHeraldClientInstanceV2 extends AlHeraldClientInstance {
      * @remarks
      * https://console.account.product.dev.alertlogic.com/users/api/herald/index.html#api-NotificationTypes-CreateNotificationType
      */
-    async createNotificationType(notificationTypePayload: ALHeraldNotificationType): Promise<ALHeraldNotificationType> {
+    async createNotificationType(notificationTypePayload: AlHeraldNotificationType): Promise<AlHeraldNotificationType> {
         const result = await this.client.post({
             service_name: this.serviceName,
             version: this.serviceVersion,
             path: '/notification_types',
             data: notificationTypePayload
         });
-        return result as ALHeraldNotificationType;
+        return result as AlHeraldNotificationType;
     }
 
     /**
@@ -138,13 +140,13 @@ export class AlHeraldClientInstanceV2 extends AlHeraldClientInstance {
      * @remarks
      * https://console.account.product.dev.alertlogic.com/users/api/herald/index.html#api-NotificationTypes-GetNotificationType
      */
-    async getAllNotificationTypes(): Promise<ALHeraldNotificationType[]> {
+    async getAllNotificationTypes(): Promise<AlHeraldNotificationType[]> {
         const result = await this.client.get({
             service_name: this.serviceName,
             version: this.serviceVersion,
             path: '/notification_types'
         });
-        return result.notification_types as ALHeraldNotificationType[];
+        return result.notification_types as AlHeraldNotificationType[];
     }
 
     /**
@@ -159,7 +161,7 @@ export class AlHeraldClientInstanceV2 extends AlHeraldClientInstance {
      * @remarks
      * https://console.account.product.dev.alertlogic.com/users/api/herald/index.html#api-NotificationTypes-UpdateNotificationType
      */
-    async updateNotificationType(notificationType: string, payload: ALHeraldNotificationType) : Promise<ALHeraldNotificationType> {
+    async updateNotificationType(notificationType: string, payload: AlHeraldNotificationType) : Promise<AlHeraldNotificationType> {
         const subscriptions = await this.client.put({
             service_name: this.serviceName,
             version: this.serviceVersion,
@@ -167,7 +169,74 @@ export class AlHeraldClientInstanceV2 extends AlHeraldClientInstance {
             data: payload
         });
 
-        return subscriptions as ALHeraldNotificationType;
+        return subscriptions as AlHeraldNotificationType;
+    }
+
+    /***** Notifications V2 *****/
+
+    /**
+     * Get a notification by account id and notification id
+     * GET
+     * /herald/v2/:account_id/notifications/:notification_id
+     *
+     * @param accountId AIMS Account ID
+     * @param notification_id Notification id
+     * @returns a promise with the notification
+     *
+     * @remarks
+     * https://console.account.product.dev.alertlogic.com/users/api/herald/index.html#api-Notifications-GetANotificationByAccountIdAndNotificationId
+     */
+    async getNotificationByAccountIdAndNotificationId(accountId: string, notificationId: string): Promise<AlHeraldNotificationV2> {
+        const accountIntegration = await this.client.get({
+            service_name: this.serviceName,
+            version: this.serviceVersion,
+            account_id: accountId,
+            path: `/notifications/${notificationId}`
+        });
+        return accountIntegration as AlHeraldNotificationV2;
+    }
+
+    /**
+     * Get a notification
+     * GET
+     * /herald/v2/notifications/:notification_id
+     *
+     * @param notificationId AIMS Account ID
+     * @returns a promise with a notification
+     *
+     * @remarks
+     * https://console.account.product.dev.alertlogic.com/users/api/herald/index.html#api-Notifications-GetANotification
+     */
+    async getNotification(notificationId: string): Promise<AlHeraldNotificationV2> {
+        const notification = await this.client.get({
+            service_name: this.serviceName,
+            version: this.serviceVersion,
+            path: `/notifications/${notificationId}`
+        });
+        return notification as AlHeraldNotificationV2;
+    }
+
+    /**
+     * Send a notification
+     * POST
+     * /herald/v1/:account_id/notifications
+     *
+     * @param accountId AIMS Account ID
+     * @param payload notification object
+     * @returns a promise with a notification
+     *
+     * @remarks
+     * https://console.account.product.dev.alertlogic.com/users/api/herald/index.html#api-Notifications-SendANotification
+     */
+    async sendNotificationV2(accountId: string, payload: AlHeraldNotificationV2): Promise<AlHeraldNotificationV2> {
+        const notification = await this.client.post({
+            service_name: this.serviceName,
+            version: this.serviceVersion,
+            account_id: accountId,
+            path: '/notifications',
+            data: payload
+        });
+        return notification as AlHeraldNotificationV2;
     }
 
 }

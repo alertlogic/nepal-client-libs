@@ -170,10 +170,10 @@ export interface AlHeraldNotification extends AlHeraldNotificationPayload
 
 export interface AlHeraldNotificationPayload
 {
-    feature: string;
-    subkey: string;
-    data: AlHeraldNotificationData;
-    attachments: AlHeraldNotificationAttachment[];
+    feature?: string;
+    subkey?: string;
+    data?: AlHeraldNotificationData;
+    attachments?: AlHeraldNotificationAttachment[];
 }
 
 export interface AlHeraldNotificationQuery
@@ -210,6 +210,16 @@ export interface AlHeraldNotificationIncident extends AlHeraldNotification
 {
     integration_statuses?: AlHeraldNotificationIntegrationStatuses;
     statuses?: AlHeraldNotificationStatuses[];
+}
+
+export interface AlHeraldNotificationIncidentByIncidentId
+{
+    id: string;
+    feature: string;
+    subkey: string;
+    subject: string;
+    statuses: AlHeraldNotificationStatuses[];
+    integration_statuses?: AlHeraldNotificationIntegrationStatuses;
 }
 
 export interface AlHeraldTemplateMapPayload
@@ -249,9 +259,74 @@ export interface ALHeraldSubscriber {
     subscriber_type: "user" | "webhook" | "all";
 }
 
-export interface ALHeraldNotificationType {
+export interface AlHeraldNotificationType {
     notification_type: string;
     name: string;
     default_template: string;
     templates: string[];
+}
+
+export interface AlHeraldNotificationV2 extends AlHeraldNotificationPayload
+{
+    id?: string;
+    account_id?: string;
+    type: string;
+    message_id?: string;
+    integration_message_ids?: string[];
+    notification_data: AlHeraldNotificationDataV2;
+    asset_data: AlHeraldAssetData;
+    payload: AlHeraldNotificationDataIncident;
+    status?: string;
+    created?: AlChangeStamp;
+    modified?: AlChangeStamp;
+}
+
+export interface AlHeraldNotificationDataV2 {
+    class: string;
+    threat_level: string;
+    attackers: string[];
+    targets: string[];
+    status: string;
+    appliance: string;
+    detection_source: string;
+}
+
+export interface AlHeraldAssetData {
+    deployment_id: string;
+    tags: AlPairValues[];
+    tag_keys: AlPairValues[];
+}
+
+export interface AlPairValues {
+    key: string;
+    value: string;
+}
+
+export interface AlHeraldNotificationByAccountId {
+    notifications: AlHeraldNotificationByAccountData[];
+    total_count: number;
+    continuation_id: string;
+}
+
+export interface AlHeraldNotificationByAccountData {
+    id: string;
+    account_id: string;
+    feature: string;
+    subkey: string;
+    status: string;
+    data: AlHeraldNotificationDataByAccountId;
+    message_id: string;
+    integration_message_ids: string[];
+    created: AlChangeStamp;
+    modified: AlChangeStamp;
+}
+
+export interface AlHeraldNotificationDataByAccountId {
+    service_owners: string;
+    put: string;
+    they: string;
+    in: string;
+    it: string;
+    goes: string;
+    whispir: boolean;
 }

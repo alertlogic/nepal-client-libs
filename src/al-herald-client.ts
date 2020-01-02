@@ -26,7 +26,9 @@ import {
     AlHeraldTestWebhookResponse,
     AlHeraldTestWebhookPayload,
     AlHeraldAccountByFeatureQuery,
-    AlHeraldSubscriptionKeysByFeatureQuery
+    AlHeraldSubscriptionKeysByFeatureQuery,
+    AlHeraldNotificationByAccountId,
+    AlHeraldNotificationIncidentByIncidentId
 } from './types';
 
 export class AlHeraldClientInstance {
@@ -662,14 +664,14 @@ Header"
      * @remarks
      * https://console.account.product.dev.alertlogic.com/users/api/herald/index.html#api-Notifications-GetSentIncidentNotificationsByAccountIdAndFeature
      */
-    async getSentNotificationsByIncidentId(accountId: string, incidentId: string): Promise<AlHeraldNotificationIncident[]> {
+    async getSentNotificationsByIncidentId(accountId: string, incidentId: string): Promise<AlHeraldNotificationIncidentByIncidentId[]> {
         const notification = await this.client.get({
             service_name: this.serviceName,
             version: this.serviceVersion,
             account_id: accountId,
             path: `/notifications/features/incidents/incidents/${incidentId}`
         });
-        return notification.notifications as AlHeraldNotificationIncident[];
+        return notification.notifications as AlHeraldNotificationIncidentByIncidentId[];
     }
 
     /**
@@ -745,6 +747,28 @@ Header"
             data: payload
         });
         return notification as AlHeraldNotification;
+    }
+
+    /**
+     * Get notifications by account id
+     * GET
+     * /herald/v1/:account_id/notifications
+     *
+     * @param accountId AIMS Account ID
+     * @returns a promise with notifications
+     *
+     * @remarks
+     * https://console.account.product.dev.alertlogic.com/users/api/herald/index.html#api-Notifications-GetANotificationByAccountId
+     */
+    async getNotificationByAccountId(accountId: string, queryParams: AlHeraldNotificationQuery): Promise<AlHeraldNotificationByAccountId> {
+        const notification = await this.client.post({
+            service_name: this.serviceName,
+            version: this.serviceVersion,
+            account_id: accountId,
+            path: '/notifications',
+            params: queryParams
+        });
+        return notification as AlHeraldNotificationByAccountId;
     }
 
     /**
