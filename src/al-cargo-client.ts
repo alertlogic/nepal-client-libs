@@ -168,8 +168,19 @@ export class AlCargoClientInstance {
   async listAllScheduledReports( accountId: string, queryParams?:ListScheduledReportsQueryParams):Promise<CargoReport[]> {
     let results:CargoReport[] = [];
     let continuation;
+
+    let params: ListScheduledReportsQueryParams = {};
+    if( queryParams !== undefined ) {
+      params = queryParams;
+    }
+
     while ( 1 ) {
-      let result = await this.listScheduledReports( accountId, continuation ? { continuation } : undefined );
+
+      if( continuation ) {
+        params.continuation = continuation;
+      }
+
+      let result = await this.listScheduledReports( accountId, params );
       results = results.concat( result.scheduled_reports );
 
       if ( result.continuation ) {
