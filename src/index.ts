@@ -6,3 +6,4 @@ export const ALCargo:AlCargoClientInstance = AlGlobalizer.instantiate( "al.cargo
 /* tslint:enable:variable-name */
 
 export * from './types';
+export * from './al-cargo-client-v2';
