@@ -226,7 +226,8 @@ export interface AlHeraldTemplateMapPayload
 {
     feature: string;
     subkey_part: string;
-    template_name: string;
+    template_name?: string;
+    template_id?: string;
 }
 
 export interface AlHeraldTemplateMap extends AlHeraldTemplateMapPayload
