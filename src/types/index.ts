@@ -3,6 +3,8 @@ export interface TableauReportDefinition {
     workbook_id?: string;
     view_id?: string;
     saved_view_id?: string;
+    format?: string;
+    filter_values?: unknown;
 }
 
 export interface CargoReportTimeRange {
@@ -33,12 +35,17 @@ export interface ReportScheduleRequest {
     }[];
 }
 
+export interface ExecutionRecord {
+    schedule_id: string;
+    scheduled_time?: number;
+}
+
 export interface ReportScheduleOnceRequest {
     name: string;
-    type: string;
+    type: 'search'|'tableau';
     definition: SearchReportDefinition | TableauReportDefinition;
     per_account_ids?: string[];
-    notify_behavior?: string;
+    notify_behavior?: 'always'|'never'|'ifnotempty';
     delete_empty_result?: boolean;
 }
 
@@ -90,8 +97,9 @@ export interface ReportSchedule {
     id?: string;
     name?: string;
     type?: string;
-    definition?: SearchReportDefinition;
+    definition?: SearchReportDefinition|TableauReportDefinition;
     schedule?: {
+        every_15_minutes?: CargoReportTimeRange;
         daily?: CargoReportTimeRange;
         weekly?: CargoReportTimeRange;
         monthly?: CargoReportTimeRange;
@@ -116,7 +124,7 @@ export interface ReportExecutionRecord {
     account_id?: string;
     schedule_id?: string;
     name?: string;
-    status?: 'scheduled' | 'running' | 'cancelled' | 'completed';
+    status?: 'scheduled' | 'running' | 'cancelled' | 'completed' | 'failed';
     type?: string;
     definition?: SearchReportDefinition|TableauReportDefinition;
     schedule?: ReportSchedule;
