@@ -38,7 +38,7 @@ export class AlEntitlementCollection
     /**
      * Static method to import an AlEntitlementCollection from a raw API response.
      */
-    public static import( rawData:any ):AlEntitlementCollection {
+    public static import( rawData:any, internalUser:boolean = false ):AlEntitlementCollection {
         let records = [];
         if ( rawData.hasOwnProperty( "entitlements" ) ) {
             for ( let i = 0; i < rawData.entitlements.length; i++ ) {
@@ -69,7 +69,7 @@ export class AlEntitlementCollection
                 } );
             }
         }
-        if ( rawData.hasOwnProperty( "account_id" ) && rawData.account_id === '2' ) {
+        if ( rawData.hasOwnProperty( "account_id" ) && rawData.account_id === '2' || internalUser ) {
             //  We need a pseudo entitlement to indicate this user is an internal Alert Logic user.
             records.push( {
                 productId: "al_internal_user",

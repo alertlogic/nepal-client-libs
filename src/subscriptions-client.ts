@@ -5,6 +5,7 @@ import { AlEntitlementCollection } from './types';
 export class AlSubscriptionsClient {
 
   private alClient;
+  private internalUser:boolean = false;
 
   constructor( client:AlApiClient = null ) {
       this.alClient = client || ALClient;
@@ -17,7 +18,7 @@ export class AlSubscriptionsClient {
    */
   async getEntitlements( accountId:string ):Promise<AlEntitlementCollection> {
     const rawEntitlementData = await this.getRawEntitlements( accountId );
-    return AlEntitlementCollection.import( rawEntitlementData );
+    return AlEntitlementCollection.import( rawEntitlementData, this.internalUser );
   }
 
   /**
@@ -168,6 +169,10 @@ export class AlSubscriptionsClient {
       data: subscription,
     });
     return updated;
+  }
+
+  public setInternalUser( internal:boolean ) {
+    this.internalUser = internal;
   }
 }
 
