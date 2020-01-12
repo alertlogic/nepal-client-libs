@@ -7,7 +7,9 @@ import {
     ReportExecutionRecord,
     ReportExecutionRecords,
     ReportSchedule,
-    ReportSchedules
+    ReportSchedules,
+    ExecutionRecord,
+    ReportScheduleOnceRequest
 } from './types';
 
 export class AlCargoClientInstanceV2 extends AlCargoClientInstance {
@@ -188,24 +190,50 @@ export class AlCargoClientInstanceV2 extends AlCargoClientInstance {
      * Create execution record for given account_id. This API allows to manually submit execution record for existing schedule definition
      * or create run-once record, which will be run only once immediately after submitting.
      * In case of run_once record, the request body should include schedule records spec.
-     * GET
+     * POST
      * /cargo/v2/:account_id/execution_record
      * "https://api.cloudinsight.alertlogic.com/cargo/v2/13334567/execution_record"
      *
      *  @param accountId The AIMS Account ID
-     *  @returns a promise with the number of executions
+     *  @param payload contains the execution record definition
+     *  @returns a promise with the result
      *  @remarks
      *  https://console.account.product.dev.alertlogic.com/users/api/cargo/index.html#api-Execution_Records-CreateExecutionRecord
      */
-    async createExecutionRecord(accountId: string): Promise<ReportExecutionRecord> {
+    async createExecutionRecord(accountId: string, payload: ExecutionRecord|ReportScheduleOnceRequest){
+        const result = await this.client.post({
+            service_name: this.serviceName,
+            version: this.serviceVersion,
+            account_id: accountId,
+            path: `/execution_record`,
+            data: payload
+        });
+
+        return result;
+    }
+
+    /**
+     * Retrieve tar archive with execution record run results for given account_id and multiple execution_record_ids.
+     * GET
+     * /cargo/v2/:account_id/execution_record/archive
+     * "https://api.cloudinsight.alertlogic.com/cargo/v2/13334567/execution_record/archive"
+     *
+     *  @param accountId The AIMS Account ID
+     *  @param executionRecordIds String could be contains one or more record IDs separate by comas
+     *  @returns a tar archive.
+     *  @remarks
+     *  https://console.account.product.dev.alertlogic.com/users/api/cargo/index.html#api-Execution_Records-GetExecutionRecordMultipleResult
+     */
+    async getExecutionRecordResultsArchive(accountId: string, executionRecordIds: string ){
         const result = await this.client.get({
             service_name: this.serviceName,
             version: this.serviceVersion,
             account_id: accountId,
-            path: `/execution_record`
+            path: "/execution_record/archive",
+            params: {execution_record_ids: executionRecordIds}
         });
 
-        return result as ReportExecutionRecord;
+        return result;
     }
 
     /**
@@ -257,7 +285,7 @@ export class AlCargoClientInstanceV2 extends AlCargoClientInstance {
     }
 
     /**
-     * Get execution record for given account_id and execution_record_id.
+     * List execution records for given account_id.
      * GET
      * /cargo/v2/:account_id/execution_record
      * "https://api.cloudinsight.alertlogic.com/cargo/v2/13334567/execution_record"
@@ -298,6 +326,7 @@ export class AlCargoClientInstanceV2 extends AlCargoClientInstance {
             account_id: accountId,
             path: `/execution_record/${executionRecordId}`
         });
+
         return result;
     }
 
