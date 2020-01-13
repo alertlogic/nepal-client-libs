@@ -73,16 +73,22 @@ export class AlCargoClientInstanceV2 extends AlCargoClientInstance {
      * "https://api.cloudinsight.alertlogic.com/cargo/v2/13334567/schedule"
      *
      *  @param  accountId AIMS Account ID
+     *  @filterByType schedule type "search", "tableau"
      *  @returns a promise with the schedule data
      *  @remarks
      *  https://console.account.product.dev.alertlogic.com/users/api/index.html#api-Schedules-ListSchedules
      */
-    async getAllSchedules(accountId: string): Promise<ReportSchedules> {
+    async getAllSchedules(accountId: string, filterByType?:string ): Promise<ReportSchedules> {
+        let params={};
+        if(filterByType) {
+            params['type'] = filterByType;
+        }
         const result = await this.client.get({
         service_name: this.serviceName,
         version: this.serviceVersion,
         account_id: accountId,
         path: `/schedule`,
+        params: params
         });
         return result as ReportSchedules;
     }
