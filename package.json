@@ -1,11 +1,11 @@
 {
   "name": "@al/iris",
-  "version": "1.0.0",
+  "version": "1.1.1",
   "license": "MIT",
   "description": "A client for interacting with the Alert Logic Iris Public API",
   "author": {
-    "name": "Barry Skidmore",
-    "email": "bskidmore@alertlogic.com"
+    "name": "Alert Logic UI Team",
+    "email": "ui@alertlogic.com"
   },
   "keywords": [
     "Alert Logic",
@@ -14,12 +14,8 @@
   ],
   "maintainers": [
     {
-      "name": "Barry Skidmore",
-      "email": "bskidmore@alertlogic.com"
-    },
-    {
-      "name": "Alert Logic NPM Team",
-      "email": "npm@alertlogic.com"
+      "name": "Alert Logic UI Team",
+      "email": "ui@alertlogic.com"
     }
   ],
   "repository": {
@@ -35,7 +31,7 @@
     "build-dev": "npm run clean &&  tsc && webpack --mode=development",
     "build": "webpack",
     "prebuild": "npm run clean && npm run lint && npm run test && tsc",
-    "lint": "tslint -p tsconfig.json",
+    "lint": "tslint -p tsconfig.json -c node_modules/@al/common/dist/config/tslint.json",
     "clean": "rm -rf dist",
     "prepublishOnly": "npm run build",
     "interactive": "npm run build && node -i -e \"const IRISClient = require('./dist/commonjs/index.js').IRISClient;\""
@@ -60,7 +56,8 @@
     "webpack-node-externals": "^1.7.2"
   },
   "dependencies": {
-    "@al/client": "^1.0.0"
+    "@al/client": "^1.1.0",
+    "@al/common": "^1.1.19"
   },
   "files": [
     "dist"
