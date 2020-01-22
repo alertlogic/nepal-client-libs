@@ -58,6 +58,17 @@ export interface AlHeraldAccountSubscription
     accounts: AlHeraldSubscriptionsKeyByAccountRecord[];
 }
 
+export interface AlHeraldOptionV2 {
+    email_subject ?: string;
+    webhook_payload ?: string;
+    attachments ?: any;
+}
+
+export interface AlHeraldSubscribersV2 {
+    id: string; // uuid
+    type:  "user"|"integration";
+}
+
 // not sure how this type is going to be, because this is not documented in the api side yet
 export interface AlHeraldAccountSubscriptionV2
 {
@@ -69,7 +80,15 @@ export interface AlHeraldAccountSubscriptionV2
     account_id: string;
     created: AlChangeStamp;
     modified: AlChangeStamp;
-    last_notification: AlChangeStamp;
+    last_notification: number;
+    external_id ?: string; // external_id will be there if it is class of scheduled
+    options ?: AlHeraldOptionV2; // "email_subject",  webhook_payload
+    filters ?: {
+        account: Object,
+        notification: Object,
+        asset: Object
+    };
+    subscribers ?: AlHeraldSubscribersV2[];
 }
 
 export interface AlHeraldSubscriptionsKeyByAccountsRecord
