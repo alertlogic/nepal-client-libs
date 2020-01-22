@@ -58,6 +58,17 @@ export interface AlHeraldAccountSubscription
     accounts: AlHeraldSubscriptionsKeyByAccountRecord[];
 }
 
+// not sure how this type is going to be, because this is not documented in the api side yet
+export interface AlHeraldAccountSubscriptionV2
+{
+    notification_type: string;
+    name: string;
+    id: string;
+    class: string;
+    active: boolean;
+    account_id: string;
+}
+
 export interface AlHeraldSubscriptionsKeyByAccountsRecord
 {
     account_ids: string[];
