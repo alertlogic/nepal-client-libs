@@ -67,6 +67,9 @@ export interface AlHeraldAccountSubscriptionV2
     class: string;
     active: boolean;
     account_id: string;
+    created: AlChangeStamp;
+    modified: AlChangeStamp;
+    last_notification: AlChangeStamp;
 }
 
 export interface AlHeraldSubscriptionsKeyByAccountsRecord
