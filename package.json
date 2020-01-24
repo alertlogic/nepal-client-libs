@@ -61,7 +61,7 @@
     "webpack-node-externals": "^1.7.2"
   },
   "dependencies": {
-    "@al/client": "^1.1.9"
+    "@al/client": "^1.1.13"
   },
   "files": [
     "dist"

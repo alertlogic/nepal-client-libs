@@ -176,12 +176,13 @@ class DashboardsClient {
   /**
    * Return a list of dashboard items for the authenticated user based on the criteria in the query parameters.
    */
-  async listOwnDashboardItems(requestQueryParams: DashboardItemsRequestQueryParams = {}) {
+  async listOwnDashboardItems(accountId: string, requestQueryParams: DashboardItemsRequestQueryParams = {}) {
     const items = await this.alClient.get({
       service_name: this.serviceName,
       version: this.version,
       path: '/user/dashboard_items',
       params: requestQueryParams,
+      context_account_id: accountId,
     });
     return items as DashboardItemsListResponse;
   }
