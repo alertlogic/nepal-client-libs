@@ -328,13 +328,15 @@ describe('Dashboards Client Test Suite:', () => {
       stub.restore();
     });
     it('should call get() on the ALClient instance to the users dashboard items endpoint', async() => {
-      await DashboardsClient.listOwnDashboardItems();
+      const contextAccountId = '12345';
+      await DashboardsClient.listOwnDashboardItems(contextAccountId);
       expect(stub.callCount).to.equal(1);
       const payload = {
         service_name: serviceName,
         version: serviceVersion,
         path: '/user/dashboard_items',
         params: {},
+        context_account_id: contextAccountId,
       };
       assert.deepEqual(payload, stub.args[0][0]);
     });
