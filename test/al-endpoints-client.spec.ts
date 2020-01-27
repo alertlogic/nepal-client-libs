@@ -7,8 +7,11 @@ import { AIMSClient, AIMSOrganization } from '@al/aims';
 import { AlEndpointsClientInstance } from '../src';
 
 describe('Endpoints API Client', () => {
-    let requestStub:sinon.SinonSpy, getOrgStub:sinon.SinonSpy;
-    let apiBaseURL, globalBaseURL, endpointsApiURL;
+    let requestStub:sinon.SinonSpy;
+    let getOrgStub:sinon.SinonSpy;
+    let apiBaseURL: string;
+    let globalBaseURL: string;
+    let endpointsApiURL: string;
     const accountIdMock:string = "67108880";
     const organizationIdMock:string = "0000-AA-12345678-BBCD-ZZZZ";
     const organizationMock:AIMSOrganization = {
