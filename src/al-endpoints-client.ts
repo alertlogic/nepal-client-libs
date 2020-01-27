@@ -76,7 +76,6 @@ export class AlEndpointsClientInstance {
     }
 
     public async getEndpointsSummary( accountId:string ):Promise<AlEndpointsSummaryData> {
-        console.log("Getting endpoints summary..." );
         const organizationId = await this.getAccountOrganizationId( accountId );
         const requestDescriptor = {
             service_stack: AlLocation.EndpointsAPI,
