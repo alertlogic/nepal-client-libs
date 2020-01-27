@@ -114,10 +114,12 @@ export interface AlEndpointDetail
 export interface AlEndpointsSummaryData
 {
     stateBreakdown: {
-        protected:number;
-        disabled:number;
-        archived:number;
-        error:number;
+        ARCHIVED:number;
+        ERROR:number;
+        INACTIVE:number;
+        INSTALLING:number;
+        OFF:number;
+        ON:number;
     };
     currencyBreakdown: {
         current:number;
@@ -134,9 +136,12 @@ export interface AlEndpointsSummaryData
         count:number;
     }[];
     osBreakdown: {
-        osName:string;
-        osVersion:string;
-        count:number;
+        os:string;
+        versions: {
+            osName:string;
+            osVersion:string;
+            count:number;
+        }[];
     }[];
     responseBreakdown: {
         isolated:number;
@@ -144,23 +149,27 @@ export interface AlEndpointsSummaryData
         overridden:number;
         unresolved:number;
     };
-    attackTypes: {
-        name:string;
-        description:string;
-        attackCount:number;
+    incidentTypes: {
+        ruleName:string;
+        monitoredCount:number;
+        protectCount:number;
     }[];
-    attackedEndpoints: {
+    endpointsWithIncidents: {
         endpointId:string;
         endpointName:string;
-        attackCount:number;
+        monitoredCount:number;
+        attackedCount:number;
     }[];
-    attackedUsers: {
+    usersWithIncidents: {
         username:string;
-        attackCount:number;
+        monitoredCount:number;
+        protectCount:number;
     }[];
 
-    totalAttacks:number;
-    totalBlockedAttacks:number;
+    totalIncidents:number;
+    totalProtectIncidents:number;
+    totalMonitoredIncidents:number;
     totalEndpoints:number;
+    totalUsers:number;
 }
 
