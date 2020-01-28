@@ -38,7 +38,7 @@ export interface AlApplicationSyslog  {
 export interface AlApplicationEventlog {
     collect_from_discovered_streams?: boolean;
     og_api_request_size?: number;
-    streams?: AlApplicationStream[];
+    streams?: string[];
 }
 
 export interface AlApplicationFlatfile  {
