@@ -41,28 +41,29 @@
     "interactive": "npm run build && node -i -e \"const CargoClient = require('./dist/commonjs/index.js').CargoClient;\""
   },
   "devDependencies": {
-    "@types/chai": "^4.2.6",
-    "@types/mocha": "^5.2.6",
+    "@types/chai": "^4.2.7",
+    "@types/mocha": "^5.2.7",
+    "@types/node": "^13.5.0",
     "@types/sinon": "^7.5.1",
     "chai": "^4.2.0",
-    "karma": "^4.0.1",
-    "karma-chrome-launcher": "^2.2.0",
+    "karma": "^4.4.1",
+    "karma-chrome-launcher": "^3.1.0",
     "karma-cli": "^2.0.0",
     "karma-mocha": "^1.3.0",
-    "karma-mocha-reporter": "^2.0.0",
-    "karma-typescript": "^4.0.0",
-    "mocha": "^6.1.3",
-    "sinon": "^7.3.1",
-    "tslint": "^5.19.0",
-    "tslint-config-airbnb": "^5.11.1",
-    "typescript": "^3.2.4",
-    "webpack": "^4.29.0",
-    "webpack-cli": "^3.2.1",
+    "karma-mocha-reporter": "^2.2.5",
+    "karma-typescript": "^4.1.1",
+    "mocha": "^7.0.1",
+    "sinon": "^8.1.1",
+    "tslint": "^6.0.0",
+    "tslint-config-airbnb": "^5.11.2",
+    "typescript": "^3.7.5",
+    "webpack": "^4.41.5",
+    "webpack-cli": "^3.3.10",
     "webpack-node-externals": "^1.7.2"
   },
   "dependencies": {
-    "@al/client": "^1.1.12",
-    "@al/common": "^1.1.12"
+    "@al/client": "^1.1.13",
+    "@al/common": "^1.1.23"
   },
   "files": [
     "dist"

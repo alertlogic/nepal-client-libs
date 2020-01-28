@@ -2,15 +2,12 @@
  * Module to deal with available Cargo Public API endpoints
  */
 import { ALClient, AlApiClient, APIRequestParams } from '@al/client';
-import { TableauReportDefinition,
-    CargoReportTimeRange,
-    SearchReportDefinition,
+import {
     CreateReportRequest,
     ReportScheduleRequest,
     ReportScheduleOnceRequest,
     ListScheduledReportsQueryParams,
     CargoReport,
-    CargoScheduledReportResponse,
     CargoScheduledReportListResponse,
 } from './types';
 
