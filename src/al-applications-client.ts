@@ -30,7 +30,8 @@ export class AlApplicationsClientInstance {
         const applicationList = await this.client.get({
             service_name: this.serviceName,
             version: this.serviceVersion,
-            account_id: accountId
+            account_id: accountId,
+            path: '/applications',
         });
         return applicationList as AlApplication[];
     }
