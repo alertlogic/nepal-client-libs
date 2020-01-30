@@ -73,5 +73,5 @@ export interface AlRule extends AlBaseApplication {
 }
 
 export interface AlRuleForDeployment extends AlRule {
-    deployment_id?: string;
+    deployment_id: string;
 }
