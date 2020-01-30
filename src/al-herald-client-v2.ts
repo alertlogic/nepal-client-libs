@@ -7,8 +7,8 @@ import {
     ALHeraldSubscriber,
     AlHeraldNotificationType,
     AlHeraldNotificationV2,
-    AlHeraldNotification,
-    AlHeraldAccountSubscriptionV2
+    AlHeraldAccountSubscriptionV2,
+    AlHeraldSubscriptionsQueryV2
 } from './types/index';
 
 export class AlHeraldClientInstanceV2 extends AlHeraldClientInstance {
@@ -65,7 +65,6 @@ export class AlHeraldClientInstanceV2 extends AlHeraldClientInstance {
         return result.subscribers as ALHeraldSubscriber[];
     }
 
-
     /**
      * Get all subscriptions
      * GET
@@ -76,14 +75,16 @@ export class AlHeraldClientInstanceV2 extends AlHeraldClientInstance {
      *  @returns a promise with the subscriptions
      *
      *  @remarks
-     *  https://console.account.product.dev.alertlogic.com/users/api/herald/index.html#api-Subscription_Keys-GetSubscriptionKey
+     *  https://console.account.product.dev.alertlogic.com/users/api/herald/index.html#api-Subscriptions_v2-ListSubscriptions
      */
-    async getAllSubscriptionsByAccount(accountId: string): Promise<AlHeraldAccountSubscriptionV2[]> {
+    async getAllSubscriptionsByAccount(accountId: string, queryParams?: AlHeraldSubscriptionsQueryV2 ): Promise<AlHeraldAccountSubscriptionV2[]> {
+
         const subscriptionKeys = await this.client.get({
             service_name: this.serviceName,
             version: this.serviceVersion,
             account_id: accountId,
-            path: '/subscriptions'
+            path: '/subscriptions',
+            params: queryParams
         });
         return subscriptionKeys.subscriptions as AlHeraldAccountSubscriptionV2[];
     }
