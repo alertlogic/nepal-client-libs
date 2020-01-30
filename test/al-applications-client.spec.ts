@@ -5,8 +5,8 @@ import { describe, before } from 'mocha';
 import * as sinon from 'sinon';
 
 beforeEach(() => {
-    ALClient.setGlobalParameters( { noEndpointsResolution: true } );
-} );
+    ALClient.setGlobalParameters({ noEndpointsResolution: true });
+});
 
 afterEach(() => {
     sinon.restore();
@@ -88,29 +88,197 @@ describe('APPLICATION CLIENT', () => {
         }
     ];
 
+    const rulesListMock = [
+        {
+            version: 2,
+            scope: [
+                {
+                    value: 'IIS',
+                    type: 'tag',
+                    name: 'Application'
+                }
+            ],
+            modified: {
+                by: '1443C74F-2AF7-4D7F-BF4A-FDFFE9C67182',
+                at: 1573734506
+            },
+            id: 'BD30F3F3-5D12-421A-B806-C65155C40CE1',
+            created: {
+                by: '1443C74F-2AF7-4D7F-BF4A-FDFFE9C67182',
+                at: 1573734227
+            },
+            config: {
+                flatfile: {
+                    path: 'C:\\inetpub\\logs\\LogFiles\\*',
+                    message_timestamp: {
+                        type: 'automatic'
+                    },
+                    message_split_spec: {
+                        type: 'single_line'
+                    },
+                    filename: {
+                        type: 'automatic',
+                        pattern: '*.log'
+                    }
+                }
+            },
+            application_id: '3',
+            account_id: '2'
+        },
+        {
+            version: 1,
+            scope: [],
+            modified: {
+                by: '1443C74F-2AF7-4D7F-BF4A-FDFFE9C67182',
+                at: 1573733352
+            },
+            id: 'E78E4878-A96E-48BD-A27B-0EE56BEA1FE4',
+            created: {
+                by: '1443C74F-2AF7-4D7F-BF4A-FDFFE9C67182',
+                at: 1573733352
+            },
+            config: {
+                syslog: {
+                    disk_limit: 500,
+                    disk_cache_size: 10,
+                    container_logs_enabled: true,
+                    agent_port: 1514
+                }
+            },
+            application_id: '1',
+            account_id: '2'
+        }
+    ];
+
+    const rulesListByDeploymentMock = [
+        {
+            version: 2,
+            scope: [
+                {
+                    value: 'IIS',
+                    type: 'tag',
+                    name: 'Application'
+                }
+            ],
+            modified: {
+                by: '1443C74F-2AF7-4D7F-BF4A-FDFFE9C67182',
+                at: 1573734506
+            },
+            id: 'BD30F3F3-5D12-421A-B806-C65155C40CE1',
+            created: {
+                by: '1443C74F-2AF7-4D7F-BF4A-FDFFE9C67182',
+                at: 1573734227
+            },
+            config: {
+                flatfile: {
+                    path: 'C:\\inetpub\\logs\\LogFiles\\*',
+                    message_timestamp: {
+                        type: 'automatic'
+                    },
+                    message_split_spec: {
+                        type: 'single_line'
+                    },
+                    filename: {
+                        type: 'automatic',
+                        pattern: '*.log'
+                    }
+                }
+            },
+            application_id: '3',
+            account_id: '2'
+        },
+        {
+            version: 1,
+            scope: [],
+            modified: {
+                by: '1443C74F-2AF7-4D7F-BF4A-FDFFE9C67182',
+                at: 1573733352
+            },
+            id: 'E78E4878-A96E-48BD-A27B-0EE56BEA1FE4',
+            created: {
+                by: '1443C74F-2AF7-4D7F-BF4A-FDFFE9C67182',
+                at: 1573733352
+            },
+            config: {
+                syslog: {
+                    disk_limit: 500,
+                    disk_cache_size: 10,
+                    container_logs_enabled: true,
+                    agent_port: 1514
+                }
+            },
+            application_id: '1',
+            account_id: '2'
+        }
+    ];
+
     describe('List ', () => {
         describe('When getting application list', () => {
 
             beforeEach(() => {
-                stub = sinon.stub(ALClient as any, 'axiosRequest').returns(Promise.resolve({status: 200, data: applicationListMock}));
+                stub = sinon.stub(ALClient as any, 'axiosRequest').returns(Promise.resolve({ status: 200, data: applicationListMock }));
             });
             afterEach(() => {
                 stub.restore();
             });
-            it('Should call the AlHeraldClient instance\'s GET.', async () => {
+            it('Should call the AlApplicationClient instance\'s GET to get the aplications.', async () => {
                 const accountId = "2";
-                const result =  await AlApplicationsClient.getAllApplication(accountId);
+                const result = await AlApplicationsClient.getAllApplication(accountId);
                 const payload = stub.args[0][0];
 
-                expect( stub.callCount ).to.equal(1);
-                expect( payload.method ).to.equal( "GET" );
-                expect( payload.url ).to.equal(`${apiBaseURL}/${service}/${version}/${accountId}/applications`);
-                expect( result ).to.equal( applicationListMock );
-                expect( result.length ).to.equal( 3 );
-                expect( result[0].config.syslog ).not.to.equal(undefined);
-                expect( result[1].config.eventlog ).not.to.equal(undefined);
-                expect( result[2].config.flatfile ).not.to.equal(undefined);
+                expect(stub.callCount).to.equal(1);
+                expect(payload.method).to.equal("GET");
+                expect(payload.url).to.equal(`${apiBaseURL}/${service}/${version}/${accountId}/applications`);
+                expect(result).to.equal(applicationListMock);
+                expect(result.length).to.equal(3);
+                expect(result[0].config.syslog).not.to.equal(undefined);
+                expect(result[1].config.eventlog).not.to.equal(undefined);
+                expect(result[2].config.flatfile).not.to.equal(undefined);
+            });
+        });
+
+        describe('When getting rules list', () => {
+            beforeEach(() => {
+                stub = sinon.stub(ALClient as any, 'axiosRequest').returns(Promise.resolve({ status: 200, data: rulesListMock }));
+            });
+            afterEach(() => {
+                stub.restore();
+            });
+            it('Should call the AlApplicationClient instance\'s GET to get the rules.', async () => {
+                const accountId = "2";
+                const result = await AlApplicationsClient.getAllRules(accountId);
+                const payload = stub.args[0][0];
+
+                expect(stub.callCount).to.equal(1);
+                expect(payload.method).to.equal("GET");
+                expect(payload.url).to.equal(`${apiBaseURL}/${service}/${version}/${accountId}/rules`);
+                expect(result).to.equal(rulesListMock);
+                expect(result.length).to.equal(2);
+                expect(result[0].config.flatfile).not.to.equal(undefined);
+                expect(result[1].config.syslog).not.to.equal(undefined);
+            });
+        });
+
+        describe('When getting rules list by deployment', () => {
+            beforeEach(() => {
+                stub = sinon.stub(ALClient as any, 'axiosRequest').returns(Promise.resolve({ status: 200, data: rulesListByDeploymentMock }));
+            });
+            afterEach(() => {
+                stub.restore();
+            });
+            it('Should call the AlApplicationClient instance\'s GET the rules by deployment.', async () => {
+                const accountId = "2";
+                const result = await AlApplicationsClient.getAllRulesByDeployment(accountId, '1234567890');
+                const payload = stub.args[0][0];
+
+                expect(stub.callCount).to.equal(1);
+                expect(payload.method).to.equal("GET");
+                expect(payload.url).to.equal(`${apiBaseURL}/${service}/${version}/${accountId}/deployments/1234567890/rules`);
+                expect(result).to.equal(rulesListByDeploymentMock);
+                expect(result.length).to.equal(2);
+                expect(result[0].config.flatfile).not.to.equal(undefined);
+                expect(result[1].config.syslog).not.to.equal(undefined);
             });
         });
     });
-} );
+});
