@@ -42,6 +42,7 @@ export interface AlApplicationEventlog {
 }
 
 export interface AlApplicationFlatfile {
+    path?: string;
     message_timestamp?: AlApplicationMessageTimestamp;
     message_split_spec?: AlApplicationMessageSplitSpec;
     filename: AlApplicationFileName;
@@ -74,4 +75,10 @@ export interface AlRule extends AlBaseApplication {
 
 export interface AlRuleForDeployment extends AlRule {
     deployment_id: string;
+}
+
+export interface AlRulePayload {
+    application_id?: string;
+    config?: AlApplicationConfig;
+    scope: AlApplicationFileName[];
 }

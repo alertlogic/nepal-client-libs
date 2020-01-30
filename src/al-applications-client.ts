@@ -2,7 +2,7 @@
  * Applications API client
  */
 import { AlApiClient, AlDefaultClient, AIMSAccount } from '@al/client';
-import { AlApplication, AlRule, AlRuleForDeployment } from './types';
+import { AlApplication, AlRule, AlRuleForDeployment, AlRulePayload } from './types';
 
 export class AlApplicationsClientInstance {
 
@@ -34,6 +34,31 @@ export class AlApplicationsClientInstance {
             path: '/applications',
         });
         return applicationList as AlApplication[];
+    }
+
+    /**
+     * Creates a new log collection rule. All omitted properties will be derived from the application definition.
+     * POST
+     * /applications/v1/:account_id/rules
+     * "https://api.product.dev.alertlogic.com/applications/v1/01000001/rules"
+     *
+     * @param accountId AIMS Account ID
+     * @param data The application log rule request body
+     * @returns a promise with the subscriptions
+     *
+     * @remarks
+     * https://console.product.dev.alertlogic.com/api/applications/#api-Rules-PostRules
+     */
+    async addRule(accountId: string, data: AlRulePayload) : Promise<AlRule> {
+        const rules = await this.client.post({
+            service_name: this.serviceName,
+            version: this.serviceVersion,
+            account_id: accountId,
+            path: `/rules`,
+            data: data
+        });
+
+        return rules as AlRule;
     }
 
     /**
@@ -79,4 +104,5 @@ export class AlApplicationsClientInstance {
         });
         return rulesList as AlRuleForDeployment[];
     }
+
 }
