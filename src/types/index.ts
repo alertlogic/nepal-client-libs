@@ -5,30 +5,30 @@ import { AlChangeStamp } from '@al/client';
  */
 export { AlChangeStamp } from '@al/client';
 
-export interface AlApplicationStream{
+export interface AlApplicationStream {
     name: string;
 }
 
-export interface AlApplicationMessageSplitSpec{
+export interface AlApplicationMessageSplitSpec {
     type?: "single_line";
 }
 
-export interface AlApplicationMessageTimestamp{
+export interface AlApplicationMessageTimestamp {
     type?: "Automatic Timestamp" | "Parsed Timestamp";
 }
 
-export interface AlApplicationFileName{
+export interface AlApplicationFileName {
     type?: string;
     name?: string;
     value?: string;
 }
 
-export interface AlApplicationScope{
+export interface AlApplicationScope {
     type?: string;
     pattern?: string;
 }
 
-export interface AlApplicationSyslog  {
+export interface AlApplicationSyslog {
     container_logs_enabled?: boolean;
     disk_cache_size?: number;
     disk_limit?: number;
@@ -41,25 +41,37 @@ export interface AlApplicationEventlog {
     streams?: string[];
 }
 
-export interface AlApplicationFlatfile  {
+export interface AlApplicationFlatfile {
     message_timestamp?: AlApplicationMessageTimestamp;
     message_split_spec?: AlApplicationMessageSplitSpec;
     filename: AlApplicationFileName;
 }
 
-export interface AlApplicationConfig  {
+export interface AlApplicationConfig {
     syslog?: AlApplicationSyslog;
     flatfile?: AlApplicationFlatfile;
     eventlog?: AlApplicationEventlog;
 }
 
-export interface AlApplication
-{
+interface AlBaseApplication {
     id: string;
     name: string;
-    deployment_id?: string;
-    scope: AlApplicationFileName[];
     created: AlChangeStamp;
     modified: AlChangeStamp;
     config?: AlApplicationConfig;
+}
+
+export interface AlApplication extends AlBaseApplication {
+    name: string;
+}
+
+export interface AlRule extends AlBaseApplication {
+    scope: AlApplicationFileName[];
+    version: number;
+    application_id: string;
+    account_id: string;
+}
+
+export interface AlRuleForDeployment extends AlRule {
+    deployment_id?: string;
 }
