@@ -1,7 +1,7 @@
-import { AlApplicationsClient, AlApplication } from '../src/index';
+import { AlApplicationsClient, AlRulePayload } from '../src/index';
 import { ALClient } from '@al/client';
 import { expect } from 'chai';
-import { describe, before } from 'mocha';
+import { describe } from 'mocha';
 import * as sinon from 'sinon';
 
 beforeEach(() => {
@@ -211,6 +211,42 @@ describe('APPLICATION CLIENT', () => {
             account_id: '2'
         }
     ];
+    const ruleMock = {
+        "version": 1,
+        "scope": [
+            {
+                "value": "IIS",
+                "type": "tag",
+                "name": "Application"
+            }
+        ],
+        "modified": {
+            "by": "1443C74F-2AF7-4D7F-BF4A-FDFFE9C67182",
+            "at": 1573734227
+        },
+        "id": "BD30F3F3-5D12-421A-B806-C65155C40CE1",
+        "deployment_id": "AD30F3F3-5D12-421A-B806-C65155C40CE2",
+        "created": {
+            "by": "1443C74F-2AF7-4D7F-BF4A-FDFFE9C67182",
+            "at": 1573734227
+        },
+        "config": {
+            "flatfile": {
+                "path": "C:\\inetpub\\logs\\LogFiles\\W3SVC777",
+                "message_timestamp": {
+                    "type": "automatic"
+                },
+                "message_split_spec": {
+                    "type": "single_line"
+                },
+                "filename": {
+                    "type": "automatic",
+                    "pattern": "*.log"
+                }
+            }
+        },
+        "application_id": "3"
+    };
 
     describe('List ', () => {
         describe('When getting application list', () => {
@@ -278,6 +314,32 @@ describe('APPLICATION CLIENT', () => {
                 expect(result.length).to.equal(2);
                 expect(result[0].config.flatfile).not.to.equal(undefined);
                 expect(result[1].config.syslog).not.to.equal(undefined);
+            });
+        });
+    });
+
+    describe('Rules ', () => {
+        describe('When Add rule', () => {
+
+            beforeEach(() => {
+                stub = sinon.stub(ALClient as any, 'axiosRequest').returns(Promise.resolve({status: 200, data: ruleMock}));
+            });
+            afterEach(() => {
+                stub.restore();
+            });
+            it('Should call the AlApplicationsClient instance\'s POST.', async () => {
+                const accountId = "2";
+                const dataPayload = { "application_id": "3", "config": {"flatfile": {"path": "C:\\inetpub\\logs\\LogFiles\\W3SVC777"}}, "scope": [{"type": "tag", "name": "Application", "value": "IIS"}] } as AlRulePayload;
+                const result =  await AlApplicationsClient.addRule(accountId, dataPayload);
+                const payload = stub.args[0][0];
+
+                expect( stub.callCount ).to.equal(1);
+                expect( payload.method ).to.equal( "POST" );
+                expect( payload.url ).to.equal(`${apiBaseURL}/${service}/${version}/${accountId}/rules`);
+                expect( result ).to.equal( ruleMock );
+                expect( result.application_id ).to.equal('3');
+                expect( result.config.flatfile ).not.to.equal(undefined);
+                expect( result.config.flatfile.path ).to.equal(dataPayload.config.flatfile.path);
             });
         });
     });
