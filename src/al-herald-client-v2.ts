@@ -8,7 +8,9 @@ import {
     AlHeraldNotificationType,
     AlHeraldNotificationV2,
     AlHeraldAccountSubscriptionV2,
-    AlHeraldSubscriptionsQueryV2
+    AlHeraldSubscriptionsQueryV2,
+    AlHeraldAccountSubscriptionPayloadV2,
+    AlHeraldAccountSubscriptionResponseV2
 } from './types/index';
 
 export class AlHeraldClientInstanceV2 extends AlHeraldClientInstance {
@@ -63,30 +65,6 @@ export class AlHeraldClientInstanceV2 extends AlHeraldClientInstance {
             path: `/subscriptions/${subscriptionId}/subscribers`
         });
         return result.subscribers as ALHeraldSubscriber[];
-    }
-
-    /**
-     * Get all subscriptions
-     * GET
-     * /herald/v2/:accountId/subscriptions
-     * "https://api.global-integration.product.dev.alertlogic.com/herald/v2/:accountId/subscriptions"
-     *
-     *  @param accountId The AIMS Account ID
-     *  @returns a promise with the subscriptions
-     *
-     *  @remarks
-     *  https://console.account.product.dev.alertlogic.com/users/api/herald/index.html#api-Subscriptions_v2-ListSubscriptions
-     */
-    async getAllSubscriptionsByAccount(accountId: string, queryParams?: AlHeraldSubscriptionsQueryV2 ): Promise<AlHeraldAccountSubscriptionV2[]> {
-
-        const subscriptionKeys = await this.client.get({
-            service_name: this.serviceName,
-            version: this.serviceVersion,
-            account_id: accountId,
-            path: '/subscriptions',
-            params: queryParams
-        });
-        return subscriptionKeys.subscriptions as AlHeraldAccountSubscriptionV2[];
     }
 
     /**
@@ -264,4 +242,72 @@ export class AlHeraldClientInstanceV2 extends AlHeraldClientInstance {
         return notification as AlHeraldNotificationV2;
     }
 
+    /***** Subscriptions V2 *****/
+    /**
+     * Create a subscription for an account
+     * POST
+     * /herald/v2/:account_id/subscriptions
+     * @param accountId The AIMS Account ID
+     * @param subscription payload
+     * @returns a promise with the new subscription
+     *
+     * @remarks
+     * https://console.account.product.dev.alertlogic.com/users/api/herald/index.html#api-Subscriptions_v2-CreateSubscription
+     */
+    async createSubscription(accountId: string, subscription: AlHeraldAccountSubscriptionPayloadV2): Promise<AlHeraldAccountSubscriptionResponseV2> {
+        const result = await this.client.post({
+            service_name: this.serviceName,
+            version: this.serviceVersion,
+            account_id: accountId,
+            path: '/subscriptions',
+            data: subscription
+        });
+        return result as AlHeraldAccountSubscriptionResponseV2;
+    }
+
+    /**
+     * Delete a subscription by id
+     * DELETE
+     * /herald/v2/:account_id/subscriptions/:subscription_id
+     *
+     * @param accountId The AIMS Account ID
+     * @param subscription id
+     * @returns just the status code
+     *
+     * @remarks
+     * https://console.account.product.dev.alertlogic.com/users/api/herald/index.html#api-Subscriptions_v2-DeleteSubscription
+     */
+    async deleteSubscriptionById(accountId:string, subscriptionId: string) {
+        const result = await this.client.delete({
+            service_name: this.serviceName,
+            version: this.serviceVersion,
+            account_id: accountId,
+            path: `/subscriptions/${subscriptionId}`
+        });
+        return result;
+    }
+
+    /**
+     * Get all subscriptions
+     * GET
+     * /herald/v2/:accountId/subscriptions
+     * "https://api.global-integration.product.dev.alertlogic.com/herald/v2/:accountId/subscriptions"
+     *
+     * @param accountId The AIMS Account ID
+     * @returns a promise with the subscriptions
+     *
+     * @remarks
+     * https://console.account.product.dev.alertlogic.com/users/api/herald/index.html#api-Subscriptions_v2-ListSubscriptions
+     */
+    async getAllSubscriptionsByAccount(accountId: string, queryParams?: AlHeraldSubscriptionsQueryV2 ): Promise<AlHeraldAccountSubscriptionV2[]> {
+
+        const subscriptionKeys = await this.client.get({
+            service_name: this.serviceName,
+            version: this.serviceVersion,
+            account_id: accountId,
+            path: '/subscriptions',
+            params: queryParams
+        });
+        return subscriptionKeys.subscriptions as AlHeraldAccountSubscriptionV2[];
+    }
 }
