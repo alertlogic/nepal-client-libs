@@ -62,6 +62,30 @@ export class AlApplicationsClientInstance {
     }
 
     /**
+     * Return the log collection rule
+     * GET
+     * /applications/v1/:account_id/rules/:rule_id
+     * "https://api.product.dev.alertlogic.com/applications/v1/01000001/rules/0C51E404-4BB4-4228-B6B7-32B43029C76F"
+     *
+     * @param accountId AIMS Account ID
+     * @param ruleId Rule identifier
+     * @returns a promise with the log collection rule
+     *
+     * @remarks
+     * https://console.product.dev.alertlogic.com/api/applications/#api-Rules-GetRule
+     */
+    async getRule(accountId: string, ruleId: string) : Promise<AlRule> {
+        const rule = await this.client.get({
+            service_name: this.serviceName,
+            version: this.serviceVersion,
+            account_id: accountId,
+            path: `/rules/${ ruleId }`
+        });
+
+        return rule as AlRule;
+    }
+
+    /**
      * Return the list of log collection rules
      * GET
      * /applications/v1/:account_id/rules

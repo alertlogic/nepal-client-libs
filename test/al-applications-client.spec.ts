@@ -342,5 +342,28 @@ describe('APPLICATION CLIENT', () => {
                 expect( result.config.flatfile.path ).to.equal(dataPayload.config.flatfile.path);
             });
         });
+
+        describe('When get rule', () => {
+
+            beforeEach(() => {
+                stub = sinon.stub(ALClient as any, 'axiosRequest').returns(Promise.resolve({status: 200, data: ruleMock}));
+            });
+            afterEach(() => {
+                stub.restore();
+            });
+            it('Should call the AlApplicationsClient instance\'s GET.', async () => {
+                const accountId = "2";
+                const ruleId = "0C51E404-4BB4-4228-B6B7-32B43029C76F";
+                const result =  await AlApplicationsClient.getRule(accountId, ruleId);
+                const payload = stub.args[0][0];
+
+                expect( stub.callCount ).to.equal(1);
+                expect( payload.method ).to.equal( "GET" );
+                expect( payload.url ).to.equal(`${apiBaseURL}/${ service }/${ version }/${ accountId }/rules/${ ruleId }`);
+                expect( result ).to.equal( ruleMock );
+                expect( result.application_id ).to.equal('3');
+                expect( result.config.flatfile ).not.to.equal(undefined);
+            });
+        });
     });
 });
