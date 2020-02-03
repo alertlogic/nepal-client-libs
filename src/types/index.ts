@@ -75,7 +75,7 @@ export interface AlHeraldAccountSubscriptionPayloadV2
     class: string;
     schedule_id ?: string; // Required when class is schedule
     notification_type: string;
-    id: string;
+    id?: string;
     active: boolean;
     options ?: AlHeraldOptionV2; // "email_subject",  webhook_payload
     filters ?: Object;
