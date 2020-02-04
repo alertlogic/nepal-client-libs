@@ -65,7 +65,7 @@ export interface AlHeraldOptionV2 {
 }
 
 export interface AlHeraldSubscribersV2 {
-    id: string; // uuid
+    subscriber : string; // uuid
     type:  "user"|"integration";
 }
 
