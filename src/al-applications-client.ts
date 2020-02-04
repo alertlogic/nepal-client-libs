@@ -108,6 +108,52 @@ export class AlApplicationsClientInstance {
     }
 
     /**
+     * Allows to delete a rule
+     * DELETE
+     * /applications/v1/:account_id/rules/:rule_id
+     *
+     * @param accountId The AIMS Account ID
+     * @param ruleId The Rule identifier to delete
+     * @returns just the status code
+     *
+     * @remarks
+     * https://api.product.dev.alertlogic.com/applications/v1/01000001/rules/B37CEE84-6D27-4D0F-943C-F23937587574
+     */
+    async deleteRule(accountId: string, ruleId: string) {
+        const result = await this.client.delete({
+            service_name: this.serviceName,
+            version: this.serviceVersion,
+            account_id: accountId,
+            path: `/rules/${ruleId}`
+        });
+        return result;
+    }
+
+    /**
+     * Update a Rule
+     * PUT
+     * /applications/v1/:account_id/rules/:rule_id
+     *
+     * @param notificationType The notification type as string
+     * @param payload Notification type object
+     * @returns a promise with the notification type that was updated
+     *
+     * @remarks
+     * https://api.product.dev.alertlogic.com/applications/v1/01000001/rules/BD30F3F3-5D12-421A-B806-C65155C40CE1
+     */
+    async updateRule(accountId: string, ruleId: string, payload: AlRulePayload) : Promise<AlRule> {
+        const subscriptions = await this.client.put({
+            service_name: this.serviceName,
+            version: this.serviceVersion,
+            account_id: accountId,
+            path: `/rules/${ruleId}`,
+            data: payload
+        });
+
+        return subscriptions as AlRule;
+    }
+
+    /**
      * Return the list of log collection rules for a deployment
      * GET
      * /applications/v1/:account_id/deployments/:deployment_id/rules
