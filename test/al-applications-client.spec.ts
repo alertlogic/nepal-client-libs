@@ -343,6 +343,51 @@ describe('APPLICATION CLIENT', () => {
             });
         });
 
+        describe('When modify a rule', () => {
+
+            beforeEach(() => {
+                stub = sinon.stub(ALClient as any, 'axiosRequest').returns(Promise.resolve({status: 200, data: ruleMock}));
+            });
+            afterEach(() => {
+                stub.restore();
+            });
+            it('Should call the AlApplicationsClient instance\'s PUT.', async () => {
+                const accountId = "2";
+                const ruleId = "BD30F3F3-5D12-421A-B806-C65155C40CE1";
+                const dataPayload = { "application_id": "3", "config": {"flatfile": {"path": "C:\\inetpub\\logs\\LogFiles\\W3SVC777"}}, "scope": [{"type": "tag", "name": "Application", "value": "IIS"}] } as AlRulePayload;
+                const result =  await AlApplicationsClient.updateRule(accountId, ruleId, dataPayload);
+                const payload = stub.args[0][0];
+
+                expect( stub.callCount ).to.equal(1);
+                expect( payload.method ).to.equal( "PUT" );
+                expect( payload.url ).to.equal(`${apiBaseURL}/${service}/${version}/${accountId}/rules/${ruleId}`);
+                expect( result ).to.equal( ruleMock );
+                expect( result.application_id ).to.equal('3');
+                expect( result.config.flatfile ).not.to.equal(undefined);
+                expect( result.config.flatfile.path ).to.equal(dataPayload.config.flatfile.path);
+            });
+        });
+
+        describe('When delete a rule', () => {
+
+            beforeEach(() => {
+                stub = sinon.stub(ALClient as any, 'axiosRequest').returns(Promise.resolve({status: 200}));
+            });
+            afterEach(() => {
+                stub.restore();
+            });
+            it('Should call the AlApplicationsClient instance\'s DELETE.', async () => {
+                const accountId = "2";
+                const ruleId = "BD30F3F3-5D12-421A-B806-C65155C40CE1";
+                const result =  await AlApplicationsClient.deleteRule(accountId, ruleId);
+                const payload = stub.args[0][0];
+
+                expect( stub.callCount ).to.equal(1);
+                expect( payload.method ).to.equal( "DELETE" );
+                expect( payload.url ).to.equal(`${apiBaseURL}/${service}/${version}/${accountId}/rules/${ruleId}`);
+            });
+        });
+
         describe('When get rule', () => {
 
             beforeEach(() => {
