@@ -403,7 +403,7 @@ export class AlIrisClientInstance {
             "recon": "Recon",
             "trojan-activity": "Trojan Activity",
         };
-        if ( ! rawDictionary.hasOwnProperty("Classification") || ! rawDictionary.hasOwnProperty("Detection Source") || ! rawDictionary.hasOwnProperty("Threat Level" ) ) {
+        if ( ! rawDictionary.hasOwnProperty("class") || ! rawDictionary.hasOwnProperty("detection_source") || ! rawDictionary.hasOwnProperty("threat_level" ) ) {
             throw new AlResponseValidationError( `Received unexpected data from the iris/v3 incident_filters endpoint` );
         }
         let dictionary:AlIncidentFilterDictionary = {
@@ -420,9 +420,9 @@ export class AlIrisClientInstance {
                 };
             }
         };
-        transcribe( rawDictionary['Classification'], dictionary.classifications );
-        transcribe( rawDictionary['Detection Source'], dictionary.detectionSources );
-        transcribe( rawDictionary['Threat Level'], dictionary.threatLevels );
+        transcribe( rawDictionary['class'], dictionary.classifications );
+        transcribe( rawDictionary['detection_source'], dictionary.detectionSources );
+        transcribe( rawDictionary['threat_level'], dictionary.threatLevels );
         return dictionary;
     }
 }
