@@ -114,12 +114,53 @@ export interface AlEndpointDetail
 export interface AlEndpointsSummaryData
 {
     stateBreakdown: {
-        ARCHIVED:number;
-        ERROR:number;
-        INACTIVE:number;
-        INSTALLING:number;
-        OFF:number;
-        ON:number;
+        primaryState: {
+            INACTIVE: number;
+            ERROR: number;
+            ARCHIVED: number;
+            OFF: number;
+            ON: number;
+            INSTALLING: number;
+        },
+        secondaryState: {
+            UPGRADE_NEEDED_WITH_STATUS_OFF: number;
+            UPGRADE_NEEDED_WITH_STATUS_ON: number;
+            UPGRADE_IN_PROGRESS_WITH_STATUS_OFF: number;
+            PENDING_PROTECTION_CHANGE_WITH_STATUS_OFF: number;
+            VIRTUALIZATION_NOT_SUPPORTED_BUT_INSTALLED_WITH_STATUS_OFF: number;
+            INACTIVE_WITH_STATUS_ON: number;
+            REBOOT_REQUIRED: number;
+            INSTALLATION_IN_PROGRESS: number;
+            UPGRADE_IN_PROGRESS_WITH_STATUS_ON: number;
+            MANUALLY_ENABLE_VIRTUALIZATION_WITH_STATUS_OFF: number;
+            REBOOT_REQUIRED_WITH_STATUS_ON: number;
+            THIRTYTWO_BIT_UNSUPPORTED_BUT_INSTALLED_WITH_STATUS_ON: number;
+            VT_MODE_OFF_STATUS_ON: number;
+            DISABLE_HYPERV: number;
+            MANUALLY_ENABLE_VIRTUALIZATION_WITH_STATUS_ON: number;
+            THIRTYTWO_BIT_UNSUPPORTED_BUT_INSTALLED_WITH_STATUS_OFF: number;
+            PENDING_PROTECTION_CHANGE_WITH_STATUS_ON: number;
+            VIRTUALIZATION_NOT_SUPPORTED_BUT_INSTALLED_WITH_STATUS_ON: number;
+            ACTIVE: number;
+            HARDWARE_NOT_SUPPORTED_BUT_INSTALLED_WITH_STATUS_OFF: number;
+            DISABLE_HYPERV_WITH_STATUS_ON: number;
+            THIRTYTWO_BIT_UNSUPPORTED: number;
+            CPU_NOT_SUPPORTED: number;
+            VT_MODE_OFF_STATUS_OFF: number;
+            INACTIVE_WITH_STATUS_OFF: number;
+            DISABLE_HYPERV_WITH_STATUS_OFF: number;
+            PROTECTION_TURNED_OFF: number;
+            REBOOT_REQUIRED_WITH_STATUS_OFF: number;
+            RAPIDVISOR_UNINSTALLED: number;
+            HARDWARE_NOT_SUPPORTED_BUT_INSTALLED_WITH_STATUS_ON: number;
+            VIRTUALIZATION_NOT_SUPPORTED_BUT_INSTALLED: number;
+            MANUALLY_ENABLE_VIRTUALIZATION: number;
+            INACTIVE_WITH_STATUS_ARCHIVED: number;
+            THIRTYTWO_BIT_UNSUPPORTED_BUT_INSTALLED: number;
+            VIRTUALIZATION_NOT_SUPPORTED: number;
+            RAPIDVISOR_ERROR: number;
+            HARDWARE_NOT_SUPPORTED_BUT_INSTALLED: number;
+        }
     };
     currencyBreakdown: {
         current:number;
@@ -158,7 +199,7 @@ export interface AlEndpointsSummaryData
         endpointId:string;
         endpointName:string;
         monitoredCount:number;
-        attackedCount:number;
+        protectCount:number;
     }[];
     usersWithIncidents: {
         username:string;
