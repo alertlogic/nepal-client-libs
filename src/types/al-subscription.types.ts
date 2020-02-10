@@ -29,7 +29,7 @@ export class AlEntitlementCollection
     protected collection:{[productId:string]:AlEntitlementRecord} = {};
     protected evaluationCache:{[expression:string]:boolean} = {};
 
-    constructor( entitlements:AlEntitlementRecord[] = null ) {
+    constructor( entitlements?:AlEntitlementRecord[] ) {
         if ( entitlements ) {
             this.merge( entitlements );
         }
@@ -39,26 +39,24 @@ export class AlEntitlementCollection
      * Static method to import an AlEntitlementCollection from a raw API response.
      */
     public static import( rawData:any, internalUser:boolean = false ):AlEntitlementCollection {
+        if ( ! rawData.hasOwnProperty( "entitlements" ) || typeof( rawData.entitlements ) !== 'object' ) {
+            throw new Error("Invalid usage: AlEntitlementCollection should be called with a raw entitlement descriptor." );
+        }
         let records = [];
-        if ( rawData.hasOwnProperty( "entitlements" ) ) {
-            for ( let i = 0; i < rawData.entitlements.length; i++ ) {
-                let entitlement = rawData.entitlements[i];
-                if ( ! entitlement.hasOwnProperty( "product_family" ) || ! entitlement.hasOwnProperty( "status" ) ) {
-                    console.warn("Unexpected API result: entitlements data is missing `product_family` or `status` properties." );
-                    continue;
-                }
-                let endDate = entitlement.hasOwnProperty( "end_date" ) ? new Date( entitlement.end_date * 1000 ) : new Date(8640000000000000);
-                records.push( {
-                    productId: entitlement.product_family,
-                    active: ( entitlement.status === 'active' || entitlement.status === 'pending_activation' ) ? true : false,
-                    expires: endDate,
-                    value_type: entitlement.value_type || null,
-                    value: entitlement.value || 0
-                } );
+        for ( let i = 0; i < rawData.entitlements.length; i++ ) {
+            let entitlement = rawData.entitlements[i];
+            if ( ! entitlement.hasOwnProperty( "product_family" ) || ! entitlement.hasOwnProperty( "status" ) ) {
+                console.warn("Unexpected API result: entitlements data is missing `product_family` or `status` properties." );
+                continue;
             }
-        } else {
-            console.warn("Unexpected API result: entitlements data should contain an `entitlements` property, but none was found." );
-            return new AlEntitlementCollection();
+            let endDate = entitlement.hasOwnProperty( "end_date" ) ? new Date( entitlement.end_date * 1000 ) : new Date(8640000000000000);
+            records.push( {
+                productId: entitlement.product_family,
+                active: ( entitlement.status === 'active' || entitlement.status === 'pending_activation' ) ? true : false,
+                expires: endDate,
+                value_type: entitlement.value_type || null,
+                value: entitlement.value || 0
+            } );
         }
         if ( rawData.hasOwnProperty( "legacy_features" ) ) {
             for ( let i = 0; i < rawData.legacy_features.length; i++ ) {
@@ -69,7 +67,7 @@ export class AlEntitlementCollection
                 } );
             }
         }
-        if ( rawData.hasOwnProperty( "account_id" ) && rawData.account_id === '2' || internalUser ) {
+        if ( ( rawData.hasOwnProperty( "account_id" ) && rawData.account_id === '2' ) || internalUser ) {
             //  We need a pseudo entitlement to indicate this user is an internal Alert Logic user.
             records.push( {
                 productId: "al_internal_user",
@@ -78,6 +76,20 @@ export class AlEntitlementCollection
             } );
         }
         return new AlEntitlementCollection( records );
+    }
+
+    /**
+     * Convenience method to generate a working collection from a simple list of productIds/entitlement keys.
+     */
+    public static fromArray( entitlementKeys:string[] ):AlEntitlementCollection {
+        return AlEntitlementCollection.import( entitlementKeys.map( entitlementKey => {
+            return {
+                productId: entitlementKey,
+                active: true,
+                expires: new Date( Date.now() + 86400000 ),
+                value: 0
+            };
+        } ) );
     }
 
     /**
@@ -171,5 +183,32 @@ export class AlEntitlementCollection
             this.evaluationCache[entitlementExpression] = result;
         }
         return this.evaluationCache[entitlementExpression];
+    }
+
+    /**
+     * Returns an array of all of the entitlement keys that are active in the managed collection.
+     */
+    public getActiveEntitlementKeys():string[] {
+        return Object.keys( this.collection ).filter( entitlementKey => this.collection[entitlementKey].active );
+    }
+
+    /**
+     * Implements ALConditionalSubject.getPropertyValue, allowing entitlement collections to be tested using standardized queries.
+     * Namespace is assumed to be managed by a parent object, and is ignored.
+     *
+     * The special property `$` refers to the entire collection of *active* entitlements, as strings.
+     */
+    public getPropertyValue( property:string, ns:string ):any {
+        if ( property === '$' ) {
+            return this.getActiveEntitlementKeys();
+        } else {
+            let parts = property.split(".");
+            let value = this.getProduct( parts[0] );
+            if ( parts.length === 1 ) {
+                return value.active;
+            } else {
+                return value.hasOwnProperty( parts[1] ) ? value.hasOwnProperty( parts[1] ) : null;
+            }
+        }
     }
 }
