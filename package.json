@@ -1,6 +1,6 @@
 {
   "name": "@al/subscriptions",
-  "version": "1.1.5",
+  "version": "1.1.6",
   "license": "MIT",
   "description": "A client for interacting with the Alert Logic Subscriptions Public API",
   "author": {
@@ -30,7 +30,7 @@
     "test-watch": "karma start --no-single-run --auto-watch",
     "build-dev": "npm run clean &&  tsc && webpack --mode=development",
     "build": "webpack",
-    "prebuild": "npm run clean && npm run lint && npm run test && tsc",
+    "prebuild": "npm run clean && npm run lint && npm run test && tsc -p tsconfig.json",
     "lint": "tslint -p tsconfig.json",
     "clean": "rm -rf dist",
     "prepublishOnly": "npm run build",

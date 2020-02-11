@@ -27,7 +27,8 @@ module.exports = function (config) {
       },
       compilerOptions: {
         lib: [
-          "es2015",
+          "es2017",
+          "es2018",
           "dom"
         ],
         esModuleInterop: true

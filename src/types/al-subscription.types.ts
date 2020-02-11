@@ -26,6 +26,68 @@ export interface AlEntitlementRecord
  */
 export class AlEntitlementCollection
 {
+    /**
+     * This static list of "known" entitlements is derived from actually interrogating production entitlements for all
+     * active accounts.  It will need to be updated with new entitlements periodically to prevent unnecessary warning messages.
+     */
+    public static KnownEntitlements = [
+        "Log Retention",
+        "Setup Fee",
+        "Shipping & Handling",
+        "TM & LM Bundle",
+        "Web Security Manager",
+        "active_watch",
+        "active_watch_premier",
+        "al_internal_user",
+        "assess",
+        "beta_navigation",
+        "cloud_defender",
+        "cloud_insight",
+        "detect",
+        "endpoints_enabled",
+        "exposures_enabled",
+        "legacy:azure_enabled",
+        "legacy:cnc_host_reverse_lookup",
+        "legacy:collect/log_review/aq",
+        "legacy:collect/reports/cloudtrail",
+        "legacy:collect/reports/wsm",
+        "legacy:customer_facing_incidents",
+        "legacy:dunkirk/available",
+        "legacy:external_scan",
+        "legacy:incidents/security/ids",
+        "legacy:incidents/security/log",
+        "legacy:incidents/security/pwaf",
+        "legacy:incidents_beta",
+        "legacy:internal_scan",
+        "legacy:iris_notifications",
+        "legacy:legacy_management",
+        "legacy:ng_branding",
+        "legacy:ngtm_enabled",
+        "legacy:notification_system",
+        "legacy:pci_scan",
+        "legacy:pwaf_enabled",
+        "legacy:restrict_hierarchy",
+        "legacy:s3_enabled",
+        "legacy:scan-dispute/v2",
+        "legacy:ssl_decryptor",
+        "legacy:suppress/security/ids",
+        "legacy:suppress/security/log",
+        "lmpro",
+        "log_data_retention",
+        "log_manager",
+        "log_review",
+        "managed_waf",
+        "new_log_search",
+        "phoenix_migrated",
+        "respond",
+        "response",
+        "scan_watch",
+        "threat_manager",
+        "tmpro",
+        "web_application_firewall",
+        "web_security_managed",
+        "web_security_manager"
+    ];
     protected collection:{[productId:string]:AlEntitlementRecord} = {};
     protected evaluationCache:{[expression:string]:boolean} = {};
 
@@ -124,6 +186,9 @@ export class AlEntitlementCollection
     public getProduct( productId:string ):AlEntitlementRecord {
         if ( this.collection.hasOwnProperty( productId ) ) {
             return this.collection[productId];
+        }
+        if ( ! AlEntitlementCollection.KnownEntitlements.includes( productId ) ) {
+            console.warn(`Warning: reference to unrecognized entitlement '${productId}' may indicate an erroneous entitlement condition.` );
         }
         return {
             productId: productId,
