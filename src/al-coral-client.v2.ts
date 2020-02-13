@@ -109,7 +109,7 @@ export interface AlCorrelationValidationResponseV2 {
 
 export class AlCoralClientInstanceV2 {
 
-    private serviceName = 'aecoralv2';
+    private serviceName = 'aecoral';
 
     /**
      *  Create correlation rule - notification only / incidents from correlation
