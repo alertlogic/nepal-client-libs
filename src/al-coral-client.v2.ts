@@ -47,20 +47,21 @@ export interface AlCorrelationRuleV2 {
         by: string
     } | null;
 }
+export interface Stats {
+    enabled: {
+        true: number;
+        false: number;
+    };
+    output: {
+        visibility: {
+            notification: number;
+            incident: number;
+        };
+    };
+}
 export interface AlCorrelationRulesResponseV2 {
     rules: AlCorrelationRuleV2[] | {[key: string]: AlCorrelationRuleV2[]};
-    stats?: {
-        enabled: {
-            true: number,
-            false: number
-        },
-        output: {
-            visibility: {
-                notification: number,
-                incident: number
-            }
-        }
-    };
+    stats?: Stats;
 }
 export interface AlIncidentSpecificationResponseV2 {
     severities: string[];
