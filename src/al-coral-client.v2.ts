@@ -109,7 +109,7 @@ export interface AlCorrelationValidationResponseV2 {
 
 export class AlCoralClientInstanceV2 {
 
-    private serviceName = 'aecoralv2';
+    private serviceName = 'aecoral';
 
     /**
      *  Create correlation rule - notification only / incidents from correlation
@@ -147,6 +147,7 @@ export class AlCoralClientInstanceV2 {
     async getCorrelationRule(accountId: string, correlationId: string): Promise<AlCorrelationRuleV2> {
         const correlation = await ALClient.get({
             service_name: this.serviceName,
+            version: 2,
             account_id:   accountId,
             path:         `/correlations/${correlationId}`,
         });
@@ -173,6 +174,7 @@ export class AlCoralClientInstanceV2 {
     async updateCorrelationRule(accountId: string, correlationId: string, correlation: AlCreateCorrelationRequestV2): Promise<AlCorrelationRuleV2> {
         const result = await ALClient.put({
             service_name: this.serviceName,
+            version: 2,
             account_id:   accountId,
             path:         `/correlations/${correlationId}`,
             data:         correlation
@@ -190,6 +192,7 @@ export class AlCoralClientInstanceV2 {
     async validateCorrelationPolicy(accountId: string, correlation: AlCreateCorrelationRequestV2) {
         const validation = await ALClient.post({
             service_name: this.serviceName,
+            version: 2,
             account_id:   accountId,
             path:         '/validations/correlations',
             data:         correlation
@@ -203,6 +206,7 @@ export class AlCoralClientInstanceV2 {
     async getIncidentSpecifications(): Promise<AlIncidentSpecificationResponseV2> {
         const result = await ALClient.get({
             service_name: this.serviceName,
+            version: 2,
             path:         '/incident_spec',
         });
         return result as AlIncidentSpecificationResponseV2;
