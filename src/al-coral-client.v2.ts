@@ -208,7 +208,7 @@ export class AlCoralClientInstanceV2 {
         const result = await ALClient.get({
             service_name: this.serviceName,
             version: 2,
-            path:         '/incident_spec',
+            path:         '/specifications/incident',
         });
         return result as AlIncidentSpecificationResponseV2;
     }
