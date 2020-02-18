@@ -84,6 +84,7 @@ export interface DashboardLayoutWidgetConfig {
 export interface DashboardMeta {
   layoutFormat?: string;
   tags?: string[];
+  uniqueRef?: string;
 }
 
 export interface DashboardLayoutConfig {
