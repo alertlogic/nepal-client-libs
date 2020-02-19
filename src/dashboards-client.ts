@@ -171,6 +171,7 @@ class DashboardsClient {
       version: this.version,
       path: `/user/dashboard_items/${dashboardItemId}`,
       params: requestQueryParams,
+      context_account_id: accountId,
     });
     return item as UserDashboardItem;
   }
