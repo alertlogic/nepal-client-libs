@@ -152,19 +152,20 @@ class DashboardsClient {
   /**
    * Creates a user dashboard item for the authenticated user and returns it
    */
-  async createOwnDashboardItem(reportRequest: DashboardRequest) {
+  async createOwnDashboardItem(accountId: string, reportRequest: DashboardRequest) {
     const dashboard = await this.alClient.post({
       service_name: this.serviceName,
       version: this.version,
       path: '/user/dashboard_items',
       data: reportRequest,
+      context_account_id: accountId,
     });
     return dashboard as UserDashboardItem;
   }
   /**
    * Get a dashboard item for the authenticated user.
    */
-  async getOwnDashboardItem(dashboardItemId: string, requestQueryParams: {resolve_shared_refs?: boolean} = {}) {
+  async getOwnDashboardItem(accountId: string, dashboardItemId: string, requestQueryParams: {resolve_shared_refs?: boolean} = {}) {
     const item = await this.alClient.get({
       service_name: this.serviceName,
       version: this.version,
@@ -189,23 +190,25 @@ class DashboardsClient {
   /**
    * Update an existing user dashboard item (of the authenticated user) and return it.
    */
-  async updateOwnDashboardItem(dashboardItemId: string, reportRequest: DashboardRequest) {
+  async updateOwnDashboardItem(accountId: string, dashboardItemId: string, reportRequest: DashboardRequest) {
     const dashboard = await this.alClient.set({
       service_name: this.serviceName,
       version: this.version,
       path: `/user/dashboard_items/${dashboardItemId}`,
       data: reportRequest,
+      context_account_id: accountId,
     });
     return dashboard as UserDashboardItem;
   }
   /**
    * Delete a dashboard item for the authenticated user.
    */
-  async deleteOwnDashboardItem(dashboardItemId: string) {
+  async deleteOwnDashboardItem(accountId: string, dashboardItemId: string) {
     const dashboard = await this.alClient.delete({
       service_name: this.serviceName,
       version: this.version,
       path: `/user/dashboard_items/${dashboardItemId}`,
+      context_account_id: accountId,
     });
     return dashboard;
   }
