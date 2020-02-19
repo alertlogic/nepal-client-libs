@@ -1,9 +1,9 @@
-import { AlChangeStamp, AIMSAuthentication, AIMSUser, AIMSAccount, AIMSSessionDescriptor } from '@al/client';
+import { AlChangeStamp } from '@al/client';
 
 /**
  * Reexport AIMS constructs that are defined in @al/session for convenience.
  */
-export { AlChangeStamp, AIMSAuthentication, AIMSUser, AIMSAccount, AIMSSessionDescriptor } from '@al/client';
+export { AIMSAccount, AIMSAuthentication, AIMSSessionDescriptor, AIMSUser, AlChangeStamp } from '@al/client';
 
 export interface AlHeraldAccountSubscriptionKeyPayload
 {
@@ -66,7 +66,9 @@ export interface AlHeraldOptionV2 {
 
 export interface AlHeraldSubscribersV2 {
     subscriber : string; // uuid
-    subscriber_type:  "user"|"integration";
+    subscriber_type:  "user" | "integration";
+    subscription_id: string;
+    id: string;
 }
 
 export interface AlHeraldAccountSubscriptionPayloadV2
@@ -375,7 +377,8 @@ export interface AlHeraldNotificationDataByAccountId {
 
 export interface AlHeraldSubscriptionsQueryV2
 {
-    class ?:string; // Class name
-    schedule_id ?:string; // schedule_id of subscriptions. When present, class=schedule is assumed
-    notification_type ?:string; // Notification type
+    class?: string; // Class name
+    schedule_id?: string; // schedule_id of subscriptions. When present, class=schedule is assumed
+    notification_type?: string; // Notification type
+    include_subscribers?: boolean;
 }
