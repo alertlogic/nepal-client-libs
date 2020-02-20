@@ -1,6 +1,6 @@
 {
   "name": "@al/herald",
-  "version": "1.0.12",
+  "version": "1.0.13",
   "license": "MIT",
   "description": "A lightweight client library for interacting with the Herald API",
   "author": {
