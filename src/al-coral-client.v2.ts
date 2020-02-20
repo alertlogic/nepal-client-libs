@@ -70,43 +70,6 @@ export interface AlIncidentSpecificationResponseV2 {
         value: string;
     }[];
 }
-export interface AlCorrelationValidationResponseV2 {
-    agg_select_params: string[];
-    artifact_name: string;
-    attacker_field: string;
-    elab_search: {
-        omitted: string;
-    };
-    enabled: boolean;
-    expression: {
-        omitted: string;
-    };
-    expression_window: string;
-    incident: AlIncidentDefinitionV2;
-    name: string;
-    nonagg_select_params: string[];
-    notification: {
-        filter: {
-            something: boolean;
-        };
-        name: string;
-    };
-    notification_keys: string[];
-    object_name: string;
-    object_summary: string;
-    observation_def: {
-        omitted: string;
-    };
-    original_expression: string;
-    rta: {
-        omitted: string;
-    };
-    trigger: {
-        omitted: string;
-    };
-    unique: string;
-    victim_field: string;
-}
 
 export class AlCoralClientInstanceV2 {
 
@@ -133,13 +96,13 @@ export class AlCoralClientInstanceV2 {
      *  Delete correlation rule
      */
     async removeCorrelationRule(accountId: string, correlationId: string) {
-        const correlation =  await ALClient.delete({
+        const response =  await ALClient.delete({
             service_name: this.serviceName,
             version: 2,
             account_id:   accountId,
             path:         `/correlations/${correlationId}`
         });
-        return correlation;
+        return response;
      }
 
     /**
@@ -191,14 +154,14 @@ export class AlCoralClientInstanceV2 {
      *  It tests the validity of an input or in a debugging capacity to see what content aecoral would generate for a given input.
      */
     async validateCorrelationPolicy(accountId: string, correlation: AlCreateCorrelationRequestV2) {
-        const validation = await ALClient.post({
+        const response = await ALClient.post({
             service_name: this.serviceName,
             version: 2,
             account_id:   accountId,
-            path:         '/validations/correlations',
+            path:         '/correlations/validate',
             data:         correlation
         });
-        return validation as AlCorrelationValidationResponseV2;
+        return response;
     }
 
     /**
