@@ -10,7 +10,8 @@ import {
     AlHeraldAccountSubscriptionV2,
     AlHeraldSubscriptionsQueryV2,
     AlHeraldAccountSubscriptionPayloadV2,
-    AlHeraldAccountSubscriptionResponseV2
+    AlHeraldAccountSubscriptionResponseV2,
+    AlHeraldUpdateSubscriptionPayloadV2
 } from './types/index';
 
 export class AlHeraldClientInstanceV2 extends AlHeraldClientInstance {
@@ -263,6 +264,30 @@ export class AlHeraldClientInstanceV2 extends AlHeraldClientInstance {
             data: subscription
         });
         return result as AlHeraldAccountSubscriptionResponseV2;
+    }
+
+    /***** Subscriptions V2 *****/
+    /**
+     * Update a subscription for an account
+     * POST
+     * /herald/v2/:account_id/subscriptions/:subscription_id
+     * @param accountId The AIMS Account ID
+     * @param subscriptionId id
+     * @param subscription payload
+     * @returns a promise with the data changed
+     *
+     * @remarks
+     * https://console.account.product.dev.alertlogic.com/users/api/herald/index.html#api-Subscriptions_v2-UpdateSubscription
+     */
+    async updateSubscription(accountId: string, subscriptionId: string, subscription: AlHeraldUpdateSubscriptionPayloadV2): Promise<AlHeraldUpdateSubscriptionPayloadV2> {
+        const result = await this.client.put({
+            service_name: this.serviceName,
+            version: this.serviceVersion,
+            account_id: accountId,
+            path: `/subscriptions/${subscriptionId}`,
+            data: subscription
+        });
+        return result as AlHeraldUpdateSubscriptionPayloadV2;
     }
 
     /**

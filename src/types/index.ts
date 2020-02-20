@@ -84,6 +84,15 @@ export interface AlHeraldAccountSubscriptionPayloadV2
     subscribers ?: AlHeraldSubscribersV2[];
 }
 
+export interface AlHeraldUpdateSubscriptionPayloadV2
+{
+    name ?: string;
+    notification_type ?: string;
+    active ?: boolean;
+    options ?: AlHeraldOptionV2; // "email_subject",  webhook_payload
+    filters ?: Object;
+}
+
 export interface AlHeraldAccountSubscriptionV2 extends AlHeraldAccountSubscriptionPayloadV2
 {
     id: string;
