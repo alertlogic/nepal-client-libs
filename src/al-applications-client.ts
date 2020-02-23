@@ -2,7 +2,7 @@
  * Applications API client
  */
 import { AlApiClient, AlDefaultClient, AIMSAccount } from '@al/client';
-import { AlApplication, AlRule, AlRuleForDeployment, AlRulePayload } from './types';
+import { AlApplication, AlRule, AlRuleForDeployment, AlRulePayload, AlApplicationConfigQuery } from './types';
 
 export class AlApplicationsClientInstance {
 
@@ -26,12 +26,13 @@ export class AlApplicationsClientInstance {
      *  @remarks
      *  https://console.product.dev.alertlogic.com/api/applications/#api-Applications-ListApplications
      */
-    async getAllApplication(accountId: string): Promise<AlApplication[]> {
+    async getAllApplication(accountId: string, queryParams?: AlApplicationConfigQuery): Promise<AlApplication[]> {
         const applicationList = await this.client.get({
             service_name: this.serviceName,
             version: this.serviceVersion,
             account_id: accountId,
             path: '/applications',
+            params: queryParams
         });
         return applicationList as AlApplication[];
     }

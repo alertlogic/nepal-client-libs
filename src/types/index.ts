@@ -62,8 +62,33 @@ interface AlBaseApplication {
     config?: AlApplicationConfig;
 }
 
+export interface AlOptionFormApplication {
+    label: string;
+    value: string;
+}
+
+export interface AlControlApplication {
+    updateNotAllowed: boolean;
+    type: string;
+    property: string;
+    label: string;
+    description: string;
+    defaultValue?: string|string[]|boolean;
+    validationPattern?: string;
+    optional?: boolean;
+    options?: AlOptionFormApplication[];
+}
+
+export interface AlFormApplication {
+    controls: AlControlApplication[];
+}
+
 export interface AlApplication extends AlBaseApplication {
     name: string;
+    enabled?: boolean;
+    attributes?: string[];
+    description?: string[];
+    form: AlFormApplication;
 }
 
 export interface AlRule extends AlBaseApplication {
@@ -81,4 +106,8 @@ export interface AlRulePayload {
     application_id?: string;
     config?: AlApplicationConfig;
     scope: AlApplicationFileName[];
+}
+
+export interface AlApplicationConfigQuery {
+    attributes?: string;
 }
