@@ -26,7 +26,8 @@ export class AlApplicationsClientInstance {
      *  @remarks
      *  https://console.product.dev.alertlogic.com/api/applications/#api-Applications-ListApplications
      */
-    async getAllApplication(accountId: string, queryParams?: AlApplicationConfigQuery): Promise<AlApplication[]> {
+    async getAllApplications(accountId: string): Promise<AlApplication[]> {
+
         const applicationList = await this.client.get({
             service_name: this.serviceName,
             version: this.serviceVersion,
