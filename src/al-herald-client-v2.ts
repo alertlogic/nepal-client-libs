@@ -335,4 +335,27 @@ export class AlHeraldClientInstanceV2 extends AlHeraldClientInstance {
         });
         return subscriptionKeys.subscriptions as AlHeraldAccountSubscriptionV2[];
     }
+
+    /**
+     * Delete multiple subscriptions by an array of id's
+     * POST
+     * /herald/v2/:account_id/subscriptions/batch/delete
+     *
+     * @param accountId The AIMS Account ID
+     * @param subscription ids
+     * @returns just the status code
+     *
+     * @remarks
+     * https://console.product.dev.alertlogic.com/api/herald/#api-Subscriptions_v2-BatchDeleteSubscription
+     */
+    async deleteSubscriptionsByIds(accountId:string, subscriptionIds: string[]) {
+        const result = await this.client.post({
+            service_name: this.serviceName,
+            version: this.serviceVersion,
+            account_id: accountId,
+            path: `/subscriptions/batch/delete`,
+            data: { ids: subscriptionIds }
+        });
+        return result;
+    }
 }

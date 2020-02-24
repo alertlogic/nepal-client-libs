@@ -53,7 +53,7 @@ describe('HERALD CLIENT V2', () => {
             });
 
             it('Should call the AlHeraldClientV2 instance\'s GET. with params', async () => {
-                const query = {class: 'a', schedule_id: 'b', notification_type: 'c'};
+                const query = {class: 'a', schedule_id: 'b', notification_type: 'c', include_subscribers: true};
                 await AlHeraldClientV2.getAllSubscriptionsByAccount(accountId, query);
                 const payload = stub.args[0][0];
                 expect( stub.callCount ).to.equal( 1 );
@@ -63,5 +63,17 @@ describe('HERALD CLIENT V2', () => {
             });
         });
 
+        describe('When delete subscriptions is called', () => {
+            afterEach(() => {
+                stub.restore();
+            });
+
+            it('Should call the AlHeraldClientV2 instance\'s POST.', async () => {
+                stub = sinon.stub(ALClient as any, 'axiosRequest').returns({ status: 204 });
+                await AlHeraldClientV2.deleteSubscriptionsByIds(accountId, ['1', '2']);
+                expect(stub.callCount).to.equal(1);
+                expect(stub.args[0][0].url).to.equal(`${apiBaseURL}/${service}/${version}/${accountId}/subscriptions/batch/delete`);
+            });
+        });
     });
 });
