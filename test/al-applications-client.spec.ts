@@ -259,7 +259,7 @@ describe('APPLICATION CLIENT', () => {
             });
             it('Should call the AlApplicationClient instance\'s GET to get the aplications.', async () => {
                 const accountId = "2";
-                const result = await AlApplicationsClient.getAllApplication(accountId);
+                const result = await AlApplicationsClient.getAllApplications(accountId);
                 const payload = stub.args[0][0];
 
                 expect(stub.callCount).to.equal(1);
