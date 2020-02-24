@@ -105,7 +105,8 @@ export interface AlRuleForDeployment extends AlRule {
 export interface AlRulePayload {
     application_id?: string;
     config?: AlApplicationConfig;
-    scope: AlApplicationFileName[];
+    scope?: AlApplicationFileName[];
+    parameters: any;
 }
 
 export interface AlApplicationConfigQuery {
