@@ -96,6 +96,7 @@ export interface AlRule extends AlBaseApplication {
     version: number;
     application_id: string;
     account_id: string;
+    parameters: any;
 }
 
 export interface AlRuleForDeployment extends AlRule {
