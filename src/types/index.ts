@@ -17,15 +17,37 @@ export interface AlApplicationMessageTimestamp {
     type?: "Automatic Timestamp" | "Parsed Timestamp";
 }
 
-export interface AlApplicationFileName {
-    type?: string;
-    name?: string;
-    value?: string;
+export interface AlApplicationAutomaticFilename {
+   type?: 'automatic';
+   pattern?: string;
+}
+
+export interface AlApplicationCounterFilename {
+    type?: 'counter';
+    pattern?: string;
+    format?: 'increasing' | 'decreasing';
+}
+
+export interface AlApplicationDatetimeFilename {
+    type?: 'datetime';
+    pattern?: string;
+    format: string;
 }
 
 export interface AlApplicationScope {
     type?: string;
     pattern?: string;
+}
+
+export interface AlAssetScopeItem {
+    type: 'deployment' | 'vpc' | 'subnet';
+    key: string;
+}
+
+export interface AlTagScopeItem {
+    type: 'tag';
+    name: string;
+    value: string;
 }
 
 export interface AlApplicationSyslog {
@@ -45,7 +67,7 @@ export interface AlApplicationFlatfile {
     path?: string;
     message_timestamp?: AlApplicationMessageTimestamp;
     message_split_spec?: AlApplicationMessageSplitSpec;
-    filename: AlApplicationFileName;
+    filename: AlApplicationDatetimeFilename | AlApplicationCounterFilename | AlApplicationAutomaticFilename;
 }
 
 export interface AlApplicationConfig {
@@ -92,11 +114,11 @@ export interface AlApplication extends AlBaseApplication {
 }
 
 export interface AlRule extends AlBaseApplication {
-    scope: AlApplicationFileName[];
+    scope: (AlAssetScopeItem | AlTagScopeItem)[];
     version: number;
     application_id: string;
     account_id: string;
-    parameters: any;
+    enabled?: boolean;
 }
 
 export interface AlRuleForDeployment extends AlRule {
@@ -104,10 +126,12 @@ export interface AlRuleForDeployment extends AlRule {
 }
 
 export interface AlRulePayload {
+    deployment_id?: string;
     application_id?: string;
+    path?: string;
     config?: AlApplicationConfig;
-    scope?: AlApplicationFileName[];
-    parameters: any;
+    scope: (AlAssetScopeItem | AlTagScopeItem)[];
+    enabled?: boolean;
 }
 
 export interface AlApplicationConfigQuery {
