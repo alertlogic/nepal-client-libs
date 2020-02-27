@@ -2,7 +2,7 @@
  * Applications API client
  */
 import { AlApiClient, AlDefaultClient, AIMSAccount } from '@al/client';
-import { AlApplication, AlRule, AlRuleForDeployment, AlRulePayload, AlApplicationConfigQuery } from './types';
+import { AlApplication, AlRule, AlRuleForDeployment, AlRulePayload, AlApplicationConfigQuery, AlDeployACollectorPayload, AlDeployACollector } from './types';
 
 export class AlApplicationsClientInstance {
 
@@ -177,4 +177,83 @@ export class AlApplicationsClientInstance {
         return rulesList as AlRuleForDeployment[];
     }
 
+    /**
+     * Deploys a collector with given parameters
+     * POST
+     * /applications/v1/:account_id/collectors
+     * curl -X POST https://api.product.dev.alertlogic.com/applications/v1/01000001/collectors -d
+     * {
+     *      "name": "okta",
+     *      "application_id": "16",
+     *      "parameters": {
+     *          "domain_url": "https://alertlogic.okta.com/",
+     *          "api_key": "api_key_123456",
+     *          "collection_start_ts": "56726151727"
+     *      }
+     * }
+     *
+     * @param accountId AIMS Account ID
+     * @param data The collector request body
+     * @returns a promise with the subscriptions
+     *
+     * @remarks
+     * https://console.product.dev.alertlogic.com/api/applications/index.html#api-Collectors-DeployCollector
+     */
+    async deployACollector(accountId: string, data: AlDeployACollectorPayload) : Promise<AlDeployACollector> {
+        const collector = await this.client.post({
+            service_name: this.serviceName,
+            version: this.serviceVersion,
+            account_id: accountId,
+            path: `/collectors`,
+            data: data
+        });
+
+        return collector as AlDeployACollector;
+    }
+
+    /**
+     * Deletes deployed collector by id
+     * DELETE
+     * /applications/v1/:account_id/collectors/:collector_id
+     *
+     * @param accountId The AIMS Account ID
+     * @param collectorId A v4 UUID generated when collector is deployed
+     * @returns just the status code
+     *
+     * @remarks
+     * https://api.product.dev.alertlogic.com/applications/v1/01000001/rules/B37CEE84-6D27-4D0F-943C-F23937587574
+     */
+    async deleteADeployedCollector(accountId: string, collectorId: string) {
+        const result = await this.client.delete({
+            service_name: this.serviceName,
+            version: this.serviceVersion,
+            account_id: accountId,
+            path: `/collectors/${collectorId}`
+        });
+        return result;
+    }
+
+    /**
+     * Updates an already deployed collector with given parameters
+     * PUT
+     * /applications/v1/:account_id/collectors/:collector_id
+     *
+     * @param accountId The AIMS Account ID
+     * @param collectorId A v4 UUID generated when collector is deployed
+     * @returns just the status code
+     *
+     * @remarks
+     * https://console.product.dev.alertlogic.com/api/applications/index.html#api-Collectors-UpdateDeployedCollector
+     */
+    async updateADeployedCollector(accountId: string, collectorId: string, data: AlDeployACollectorPayload) {
+        const result = await this.client.put({
+            service_name: this.serviceName,
+            version: this.serviceVersion,
+            account_id: accountId,
+            path: `/collectors/${collectorId}`,
+            data: data
+        });
+
+        return result;
+    }
 }
