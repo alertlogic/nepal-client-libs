@@ -1,6 +1,5 @@
-import { AlCargoClientInstance } from '../src/al-cargo-client';
 import { expect } from 'chai';
-import { describe, before } from 'mocha';
+import { describe } from 'mocha';
 import * as sinon from 'sinon';
 
 describe('AlCargoClient', () => {
