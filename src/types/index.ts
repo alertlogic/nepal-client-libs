@@ -119,7 +119,7 @@ export interface AlRule extends AlBaseApplication {
     application_id: string;
     account_id: string;
     enabled?: boolean;
-    parameters: any;
+    parameters?: {[i: string]: any};
 }
 
 export interface AlRuleForDeployment extends AlRule {
@@ -133,7 +133,7 @@ export interface AlRulePayload {
     config?: AlApplicationConfig;
     scope: (AlAssetScopeItem | AlTagScopeItem)[];
     enabled?: boolean;
-    parameters: any;
+    parameters?: {[i: string]: any};
 }
 
 export interface AlApplicationConfigQuery {
