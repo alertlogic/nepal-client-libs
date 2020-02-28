@@ -58,10 +58,10 @@ export class AlCargoClientInstanceV2 extends AlCargoClientInstance {
      */
     async getSchedule(accountId: string, scheduleId: string): Promise<ReportSchedule> {
         const result = await this.client.get({
-        service_name: this.serviceName,
-        version: this.serviceVersion,
-        account_id: accountId,
-        path: `/schedule/${scheduleId}`,
+            service_name: this.serviceName,
+            version: this.serviceVersion,
+            account_id: accountId,
+            path: `/schedule/${scheduleId}`,
         });
         return result as ReportSchedule;
     }
@@ -334,6 +334,54 @@ export class AlCargoClientInstanceV2 extends AlCargoClientInstance {
         });
 
         return result;
+    }
+
+    /**
+     * Delete multiple schedule records for given accountId and an array of schedule ids
+     * DELETE
+     * /cargo/v2/:account_id/schedule
+     * https://api.product.dev.alertlogic.com/cargo/v2/1/schedule?ids=27C13BFD-3953-1005-BD8A-0EB9B569AE5D,A63DD975-9DFB-1005-9763-6C400896AB14
+     *
+     * @param accountId The AIMS Account ID
+     * @param ids is an array with schedule id's
+     * @returns just the status code
+     *
+     * @remarks
+     * https://console.product.dev.alertlogic.com/api/cargo/#api-Schedules-BatchRemoveSchedules
+     *
+     */
+    async batchDeleteSchedules(accountId: string, ids: string[]) {
+        const strIds = ids.join(',');
+        return await this.client.delete({
+            service_name: this.serviceName,
+            version: this.serviceVersion,
+            account_id: accountId,
+            path: `/schedule?ids=${strIds}`
+        });
+    }
+
+    /**
+     * Delete multiple execution records for given accountId and an array of execution ids
+     * DELETE
+     * /cargo/v2/:account_id/execution_record
+     * https://api.product.dev.alertlogic.com/cargo/v2/1/execution_record?ids=27C13BFD-3953-1005-BD8A-0EB9B569AE5D,A63DD975-9DFB-1005-9763-6C400896AB14
+     *
+     * @param accountId The AIMS Account ID
+     * @param ids is an array with execution id's
+     * @returns just the status code
+     *
+     * @remarks
+     * https://console.product.dev.alertlogic.com/api/cargo/#api-Execution_Records-BatchRemoveExecutionRecords
+     *
+     */
+    async batchDeleteExecutionRecords(accountId: string, ids: string[]) {
+        const strIds = ids.join(',');
+        return await this.client.delete({
+            service_name: this.serviceName,
+            version: this.serviceVersion,
+            account_id: accountId,
+            path: `/execution_record?ids=${strIds}`
+        });
     }
 
 }

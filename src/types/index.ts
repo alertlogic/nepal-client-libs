@@ -1,3 +1,4 @@
+import { AlChangeStamp } from "@al/client";
 export interface TableauReportDefinition {
     site_id?: string;
     workbook_id?: string;
@@ -107,6 +108,8 @@ export interface ReportSchedule {
     is_active?: boolean;
     notify_behavior?: string;
     delete_empty_result?: boolean;
+    created?: AlChangeStamp
+    modified?: AlChangeStamp
 }
 
 export interface ReportSchedules {
