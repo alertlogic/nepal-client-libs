@@ -387,7 +387,7 @@ export interface AlHeraldNotificationDataByAccountId {
 export interface AlHeraldSubscriptionsQueryV2
 {
     class?: string; // Class name
-    schedule_id?: string; // schedule_id of subscriptions. When present, class=schedule is assumed
+    external_id?: string; // external_id of subscriptions. When present, class=schedule is assumed
     notification_type?: string; // Notification type
     include_subscribers?: boolean;
 }
