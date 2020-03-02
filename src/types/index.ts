@@ -14,6 +14,24 @@ export interface CargoReportTimeRange {
     minutes?: number;
 }
 
+export interface CargoReportWeeklySchedule {
+    day: string;// "monday",
+    hour: number;
+    minute: number;
+}
+
+export interface CargoReportDailySchedule {
+    hour: number;
+    minute: number;
+}
+
+export interface CargoReportMonthlySchedule {
+    day: number;
+    hour: number;
+    minute: number;
+}
+
+
 export interface SearchReportDefinition {
     saved_query_id: string;
     timerange?: CargoReportTimeRange;
@@ -101,9 +119,9 @@ export interface ReportSchedule {
     definition?: SearchReportDefinition|TableauReportDefinition;
     schedule?: {
         every_15_minutes?: CargoReportTimeRange;
-        daily?: CargoReportTimeRange;
-        weekly?: CargoReportTimeRange;
-        monthly?: CargoReportTimeRange;
+        daily?: CargoReportDailySchedule;
+        weekly?: CargoReportWeeklySchedule;
+        monthly?: CargoReportMonthlySchedule;
     };
     is_active?: boolean;
     notify_behavior?: string;
