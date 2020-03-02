@@ -60,7 +60,7 @@ export interface Stats {
     };
 }
 export interface AlCorrelationRulesResponseV2 {
-    rules: AlCorrelationRuleV2[] | {[key: string]: AlCorrelationRuleV2[]};
+    rules: AlCorrelationRuleV2[] | {[key: string]: AlCorrelationRuleV2[]}[];
     stats?: Stats;
 }
 export interface AlIncidentSpecificationResponseV2 {
