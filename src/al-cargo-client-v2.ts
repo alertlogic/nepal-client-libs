@@ -7,6 +7,7 @@ import {
     ReportExecutionRecord,
     ReportExecutionRecords,
     ReportSchedule,
+    ReportSchedulePayload,
     ReportSchedules,
     ExecutionRecord,
     ReportScheduleOnceRequest
@@ -32,7 +33,7 @@ export class AlCargoClientInstanceV2 extends AlCargoClientInstance {
      * @remarks
      * https://console.account.product.dev.alertlogic.com/users/api/cargo/index.html#api-Schedules-CreateSchedule
      */
-    async createSchedule( accountId: string, schedule:ReportSchedule) : Promise<string> {
+    async createSchedule( accountId: string, schedule:ReportSchedulePayload) : Promise<string> {
         const result = await this.client.post({
             service_name: this.serviceName,
             version: this.serviceVersion,
