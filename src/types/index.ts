@@ -15,7 +15,7 @@ export interface CargoReportTimeRange {
 }
 
 export interface CargoReportWeeklySchedule {
-    day: string;// "monday",
+    day: "monday"| "tuesday"| "wednesday"| "thursday"| "friday"| "saturday"| "sunday";
     hour: number;
     minute: number;
 }
@@ -112,8 +112,7 @@ export interface CargoScheduledReportListResponse {
     scheduled_reports: CargoReport[];
 }
 
-export interface ReportSchedule {
-    id?: string;
+export interface ReportSchedulePayload {
     name?: string;
     type?: string;
     definition?: SearchReportDefinition|TableauReportDefinition;
@@ -126,6 +125,10 @@ export interface ReportSchedule {
     is_active?: boolean;
     notify_behavior?: string;
     delete_empty_result?: boolean;
+}
+
+export interface ReportSchedule extends ReportSchedulePayload{
+    id: string;
     created?: AlChangeStamp;
     modified?: AlChangeStamp;
 }
