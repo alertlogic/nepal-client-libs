@@ -131,7 +131,7 @@ export interface AlRulePayload {
     application_id?: string;
     path?: string;
     config?: AlApplicationConfig;
-    scope: (AlAssetScopeItem | AlTagScopeItem)[];
+    scope?: (AlAssetScopeItem | AlTagScopeItem)[];
     enabled?: boolean;
     parameters?: {[i: string]: any};
 }
