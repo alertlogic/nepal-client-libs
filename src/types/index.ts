@@ -75,7 +75,7 @@ export interface AlHeraldAccountSubscriptionPayloadV2
 {
     name: string;
     class: string;
-    schedule_id ?: string; // Required when class is schedule
+    external_id ?: string; // Required when class is schedule
     notification_type: string;
     id?: string;
     active: boolean;
