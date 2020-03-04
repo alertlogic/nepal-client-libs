@@ -51,12 +51,12 @@ export class AlApplicationsClientInstance {
      * @remarks
      * https://console.product.dev.alertlogic.com/api/applications/#api-Rules-PostRules
      */
-    async addRule(accountId: string, deploymentId:string, data: AlRulePayload) : Promise<AlRule> {
+    async addRule(accountId: string, data: AlRulePayload, deploymentId:string = null) : Promise<AlRule> {
         const rules = await this.client.post({
             service_name: this.serviceName,
             version: this.serviceVersion,
             account_id: accountId,
-            path:  `/deployments/${deploymentId}/rules`,
+            path:  deploymentId? `/deployments/${deploymentId}/rules`: `/rules`,
             data: data
         });
 
