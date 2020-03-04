@@ -37,7 +37,7 @@ export class AlCargoClientInstance {
    * Get report for given account_id and report_id
    */
   async getReport(accountId: string, reportId: string) {
-    const result = await this.client.fetch({
+    const result = await this.client.get({
       service_name: this.serviceName,
       account_id: accountId,
       path: `/report/${reportId}`,
@@ -71,7 +71,7 @@ export class AlCargoClientInstance {
    * Get list of reports for given account_id
    */
   async listReports(accountId: string, queryParams: {report_type?: string} = {}) {
-    const reports = await this.client.fetch({
+    const reports = await this.client.get({
       service_name: this.serviceName,
       account_id: accountId,
       path: '/report',
@@ -117,7 +117,7 @@ export class AlCargoClientInstance {
    * Get scheduled report for given account_id and scheduled_report_id
    */
   async getScheduledReport(accountId: string, scheduleReportId: string) {
-    const report = await this.client.fetch({
+    const report = await this.client.get({
       service_name: this.serviceName,
       account_id: accountId,
       path: `/scheduled_report/${scheduleReportId}`,
@@ -128,7 +128,7 @@ export class AlCargoClientInstance {
    * Retrieve result data of scheduled report run for given account_id, scheduled_report_id and result_id
    */
   async getScheduledReportResult(accountId: string, scheduleReportId: string, resultId: string) {
-    const result = await this.client.fetch({
+    const result = await this.client.get({
       service_name: this.serviceName,
       account_id: accountId,
       path: `/scheduled_report/${scheduleReportId}/result/${resultId}`,
@@ -140,7 +140,7 @@ export class AlCargoClientInstance {
    * Archive will be formatted and compressed as tar.gz
    */
   async getScheduledReportResultArchive(accountId: string, scheduleReportId: string) {
-    const result = await this.client.fetch({
+    const result = await this.client.get({
       service_name: this.serviceName,
       account_id: accountId,
       path: `/scheduled_report/${scheduleReportId}/result`,
@@ -160,7 +160,7 @@ export class AlCargoClientInstance {
     if (queryParams) {
       requestArgs.params = queryParams;
     }
-    const result = await this.client.fetch(requestArgs);
+    const result = await this.client.get(requestArgs);
     return result as CargoScheduledReportListResponse;
   }
 }
