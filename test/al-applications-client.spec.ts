@@ -329,13 +329,14 @@ describe('APPLICATION CLIENT', () => {
             });
             it('Should call the AlApplicationsClient instance\'s POST.', async () => {
                 const accountId = "2";
+                const deploymentId = "7D5E66BE-98C6-40A2-8B09-5DC4C0FEE677";
                 const dataPayload = { "application_id": "3", "config": {"flatfile": {"path": "C:\\inetpub\\logs\\LogFiles\\W3SVC777"}}, "scope": [{"type": "tag", "name": "Application", "value": "IIS"}] } as AlRulePayload;
-                const result =  await AlApplicationsClient.addRule(accountId, dataPayload);
+                const result =  await AlApplicationsClient.addRule(accountId, deploymentId, dataPayload);
                 const payload = stub.args[0][0];
 
                 expect( stub.callCount ).to.equal(1);
                 expect( payload.method ).to.equal( "POST" );
-                expect( payload.url ).to.equal(`${apiBaseURL}/${service}/${version}/${accountId}/rules`);
+                expect( payload.url ).to.equal(`${apiBaseURL}/${service}/${version}/${accountId}/deployments/${deploymentId}/rules`);
                 expect( result ).to.equal( ruleMock );
                 expect( result.application_id ).to.equal('3');
                 expect( result.config.flatfile ).not.to.equal(undefined);
