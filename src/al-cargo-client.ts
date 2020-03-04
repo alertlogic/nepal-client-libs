@@ -9,6 +9,9 @@ import {
     ListScheduledReportsQueryParams,
     CargoReport,
     CargoScheduledReportListResponse,
+    CreateReportResponse,
+    CargoReportResponse,
+    CargoReportListResponse,
 } from './types';
 
 export class AlCargoClientInstance {
@@ -28,18 +31,18 @@ export class AlCargoClientInstance {
       path: '/report',
       data: reportRequest,
     });
-    return result.id;
+    return result as CreateReportResponse;
   }
   /**
    * Get report for given account_id and report_id
    */
   async getReport(accountId: string, reportId: string) {
-    const result = await this.client.get({
+    const result = await this.client.fetch({
       service_name: this.serviceName,
       account_id: accountId,
       path: `/report/${reportId}`,
     });
-    return result.report as CargoReport;
+    return result as CargoReportResponse;
   }
   /**
    * Update one or several properties of existing report for given account_id and report_id
@@ -67,14 +70,14 @@ export class AlCargoClientInstance {
   /**
    * Get list of reports for given account_id
    */
-  async listReports(accountId: string, queryParams: {report_type?: string} = {}):Promise<CargoReport[]> {
-    const result = await this.client.get({
+  async listReports(accountId: string, queryParams: {report_type?: string} = {}) {
+    const reports = await this.client.fetch({
       service_name: this.serviceName,
       account_id: accountId,
       path: '/report',
       params: queryParams,
     });
-    return result.reports as CargoReport[];
+    return reports as CargoReportListResponse;
   }
   /**
    * Scheduled report for given account_id
@@ -113,19 +116,19 @@ export class AlCargoClientInstance {
   /**
    * Get scheduled report for given account_id and scheduled_report_id
    */
-  async getScheduledReport(accountId: string, scheduleReportId: string):Promise<CargoReport> {
-    const result = await this.client.get({
+  async getScheduledReport(accountId: string, scheduleReportId: string) {
+    const report = await this.client.fetch({
       service_name: this.serviceName,
       account_id: accountId,
       path: `/scheduled_report/${scheduleReportId}`,
     });
-    return result.scheduled_report as CargoReport;
+    return report as CargoReport;
   }
   /**
    * Retrieve result data of scheduled report run for given account_id, scheduled_report_id and result_id
    */
   async getScheduledReportResult(accountId: string, scheduleReportId: string, resultId: string) {
-    const result = await this.client.get({
+    const result = await this.client.fetch({
       service_name: this.serviceName,
       account_id: accountId,
       path: `/scheduled_report/${scheduleReportId}/result/${resultId}`,
@@ -137,7 +140,7 @@ export class AlCargoClientInstance {
    * Archive will be formatted and compressed as tar.gz
    */
   async getScheduledReportResultArchive(accountId: string, scheduleReportId: string) {
-    const result = await this.client.get({
+    const result = await this.client.fetch({
       service_name: this.serviceName,
       account_id: accountId,
       path: `/scheduled_report/${scheduleReportId}/result`,
@@ -157,35 +160,7 @@ export class AlCargoClientInstance {
     if (queryParams) {
       requestArgs.params = queryParams;
     }
-    const result = await this.client.get(requestArgs);
+    const result = await this.client.fetch(requestArgs);
     return result as CargoScheduledReportListResponse;
-  }
-
-  async listAllScheduledReports( accountId: string, queryParams?:ListScheduledReportsQueryParams):Promise<CargoReport[]> {
-    let results:CargoReport[] = [];
-    let continuation;
-
-    let params: ListScheduledReportsQueryParams = {};
-    if( queryParams !== undefined ) {
-      params = queryParams;
-    }
-
-    while ( 1 ) {
-
-      if( continuation ) {
-        params.continuation = continuation;
-      }
-
-      let result = await this.listScheduledReports( accountId, params );
-      results = results.concat( result.scheduled_reports );
-
-      if ( result.continuation ) {
-        continuation = result.continuation;
-      } else {
-          //    No more data
-        break;
-      }
-    }
-    return results;
   }
 }
