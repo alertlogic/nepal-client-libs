@@ -62,6 +62,7 @@ export interface Stats {
 export interface AlCorrelationRulesResponseV2 {
     rules: AlCorrelationRuleV2[] | {[key: string]: AlCorrelationRuleV2[]}[];
     stats?: Stats;
+    total: number;
 }
 export interface AlIncidentSpecificationResponseV2 {
     severities: string[];
