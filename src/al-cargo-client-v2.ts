@@ -4,13 +4,13 @@
 import { ALClient, AlApiClient } from '@al/client';
 import { AlCargoClientInstance } from './al-cargo-client';
 import {
-    ReportExecutionRecord,
-    ReportExecutionRecords,
-    ReportSchedule,
-    ReportSchedulePayload,
-    ReportSchedules,
-    ExecutionRecord,
-    ReportScheduleOnceRequest
+    ReportExecutionRecordV2,
+    ReportExecutionRecordsV2,
+    ReportScheduleV2,
+    ReportSchedulePayloadV2,
+    ReportSchedulesV2,
+    ExecutionRecordV2,
+    ReportScheduleOnceRequestV2
 } from './types';
 
 export class AlCargoClientInstanceV2 extends AlCargoClientInstance {
@@ -33,7 +33,7 @@ export class AlCargoClientInstanceV2 extends AlCargoClientInstance {
      * @remarks
      * https://console.account.product.dev.alertlogic.com/users/api/cargo/index.html#api-Schedules-CreateSchedule
      */
-    async createSchedule( accountId: string, schedule:ReportSchedulePayload) : Promise<string> {
+    async createSchedule( accountId: string, schedule:ReportSchedulePayloadV2) : Promise<string> {
         const result = await this.client.post({
             service_name: this.serviceName,
             version: this.serviceVersion,
@@ -57,14 +57,14 @@ export class AlCargoClientInstanceV2 extends AlCargoClientInstance {
      *  @remarks
      *  https://console.account.product.dev.alertlogic.com/users/api/cargo/index.html#api-Schedules-GetSchedule
      */
-    async getSchedule(accountId: string, scheduleId: string): Promise<ReportSchedule> {
+    async getSchedule(accountId: string, scheduleId: string): Promise<ReportScheduleV2> {
         const result = await this.client.get({
             service_name: this.serviceName,
             version: this.serviceVersion,
             account_id: accountId,
             path: `/schedule/${scheduleId}`,
         });
-        return result as ReportSchedule;
+        return result as ReportScheduleV2;
     }
 
     /**
@@ -79,7 +79,7 @@ export class AlCargoClientInstanceV2 extends AlCargoClientInstance {
      *  @remarks
      *  https://console.account.product.dev.alertlogic.com/users/api/index.html#api-Schedules-ListSchedules
      */
-    async getAllSchedules(accountId: string, filterByType?:string ): Promise<ReportSchedules> {
+    async getAllSchedules(accountId: string, filterByType?:string ): Promise<ReportSchedulesV2> {
         const params:{type?:string}={};
         if(filterByType) {
             params.type = filterByType;
@@ -91,7 +91,7 @@ export class AlCargoClientInstanceV2 extends AlCargoClientInstance {
         path: `/schedule`,
         params: params
         });
-        return result as ReportSchedules;
+        return result as ReportSchedulesV2;
     }
 
     /**
@@ -130,7 +130,7 @@ export class AlCargoClientInstanceV2 extends AlCargoClientInstance {
      * @remarks
      * https://console.account.product.dev.alertlogic.com/users/api/cargo/index.html#api-Schedules-UpdateSchedule
      */
-    async updateSchedule( accountId: string, schedule:ReportSchedule) {
+    async updateSchedule( accountId: string, schedule:ReportScheduleV2) {
         const result = await this.client.post({
             service_name: this.serviceName,
             version: this.serviceVersion,
@@ -207,7 +207,7 @@ export class AlCargoClientInstanceV2 extends AlCargoClientInstance {
      *  @remarks
      *  https://console.account.product.dev.alertlogic.com/users/api/cargo/index.html#api-Execution_Records-CreateExecutionRecord
      */
-    async createExecutionRecord(accountId: string, payload: ExecutionRecord|ReportScheduleOnceRequest){
+    async createExecutionRecord(accountId: string, payload: ExecutionRecordV2 | ReportScheduleOnceRequestV2){
         const result = await this.client.post({
             service_name: this.serviceName,
             version: this.serviceVersion,
@@ -257,7 +257,7 @@ export class AlCargoClientInstanceV2 extends AlCargoClientInstance {
      *  @remarks
      *  https://console.account.product.dev.alertlogic.com/users/api/cargo/index.html#api-Execution_Records-GetExecutionRecordResult
      */
-    async getExecutionRecordResult(accountId: string, executionRecordId:string ): Promise<ReportExecutionRecord> {
+    async getExecutionRecordResult(accountId: string, executionRecordId:string ): Promise<ReportExecutionRecordV2> {
         const result = await this.client.get({
             service_name: this.serviceName,
             version: this.serviceVersion,
@@ -265,7 +265,7 @@ export class AlCargoClientInstanceV2 extends AlCargoClientInstance {
             path: `/execution_record/${executionRecordId}/result`
         });
 
-        return result as ReportExecutionRecord;
+        return result as ReportExecutionRecordV2;
     }
 
     /**
@@ -280,7 +280,7 @@ export class AlCargoClientInstanceV2 extends AlCargoClientInstance {
      *  @remarks
      *  https://console.account.product.dev.alertlogic.com/users/api/cargo/index.html#api-Execution_Records-GetExecutionRecord
      */
-    async getExecutionRecord(accountId: string, executionRecordId:string ): Promise<ReportExecutionRecord> {
+    async getExecutionRecord(accountId: string, executionRecordId:string ): Promise<ReportExecutionRecordV2> {
         const result = await this.client.get({
             service_name: this.serviceName,
             version: this.serviceVersion,
@@ -288,7 +288,7 @@ export class AlCargoClientInstanceV2 extends AlCargoClientInstance {
             path: `/execution_record/${executionRecordId}`
         });
 
-        return result as ReportExecutionRecord;
+        return result as ReportExecutionRecordV2;
     }
 
     /**
@@ -302,7 +302,7 @@ export class AlCargoClientInstanceV2 extends AlCargoClientInstance {
      *  @remarks
      *  https://console.account.product.dev.alertlogic.com/users/api/cargo/index.html#api-Execution_Records-ListExecutionRecords
      */
-    async getListExecutionRecords(accountId: string): Promise<ReportExecutionRecords> {
+    async getListExecutionRecords(accountId: string): Promise<ReportExecutionRecordsV2> {
         const result = await this.client.get({
             service_name: this.serviceName,
             version: this.serviceVersion,
@@ -310,7 +310,7 @@ export class AlCargoClientInstanceV2 extends AlCargoClientInstance {
             path: `/execution_record`
         });
 
-        return result as ReportExecutionRecords;
+        return result as ReportExecutionRecordsV2;
     }
 
     /**

@@ -18,7 +18,6 @@ export class AlCargoClientInstance {
   constructor( public client:AlApiClient = ALClient ) {
   }
 
-
   /**
    * Create report for given account_id
    */
