@@ -331,7 +331,7 @@ describe('APPLICATION CLIENT', () => {
                 const accountId = "2";
                 const deploymentId = "7D5E66BE-98C6-40A2-8B09-5DC4C0FEE677";
                 const dataPayload = { "application_id": "3", "config": {"flatfile": {"path": "C:\\inetpub\\logs\\LogFiles\\W3SVC777"}}, "scope": [{"type": "tag", "name": "Application", "value": "IIS"}] } as AlRulePayload;
-                const result =  await AlApplicationsClient.addRule(accountId, deploymentId, dataPayload);
+                const result =  await AlApplicationsClient.addRule(accountId, dataPayload, deploymentId);
                 const payload = stub.args[0][0];
 
                 expect( stub.callCount ).to.equal(1);
