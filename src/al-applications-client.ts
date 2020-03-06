@@ -99,12 +99,12 @@ export class AlApplicationsClientInstance {
      *  @remarks
      *  https://console.product.dev.alertlogic.com/api/applications/#api-Rules-ListRules
      */
-    async getAllRules(accountId: string, queryParams?: AlApplicationConfigQuery): Promise<AlRule[]> {
+    async getAllRules(accountId: string, queryParams?: AlApplicationConfigQuery, deploymentId:string = null): Promise<AlRule[]> {
         const rulesList = await this.client.get({
             service_name: this.serviceName,
             version: this.serviceVersion,
             account_id: accountId,
-            path: '/rules',
+            path: deploymentId? `/deployments/${deploymentId}/rules`: `/rules`,
             params: queryParams
         });
         return rulesList as AlRule[];
