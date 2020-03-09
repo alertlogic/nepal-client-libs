@@ -111,6 +111,7 @@ export interface AlApplication extends AlBaseApplication {
     attributes?: string[];
     description?: string[];
     form: AlFormApplication;
+    type?: string;
 }
 
 export interface AlRule extends AlBaseApplication {
