@@ -10,7 +10,8 @@ import {
     ReportSchedulePayloadV2,
     ReportSchedulesV2,
     ExecutionRecordV2,
-    ReportScheduleOnceRequestV2
+    ReportScheduleOnceRequestV2,
+    ExecutionRecordsQueryParamsV2
 } from './types';
 
 export class AlCargoClientInstanceV2 extends AlCargoClientInstance {
@@ -302,12 +303,13 @@ export class AlCargoClientInstanceV2 extends AlCargoClientInstance {
      *  @remarks
      *  https://console.account.product.dev.alertlogic.com/users/api/cargo/index.html#api-Execution_Records-ListExecutionRecords
      */
-    async getListExecutionRecords(accountId: string): Promise<ReportExecutionRecordsV2> {
+    async getListExecutionRecords(accountId: string, queryParams?: ExecutionRecordsQueryParamsV2): Promise<ReportExecutionRecordsV2> {
         const result = await this.client.get({
             service_name: this.serviceName,
             version: this.serviceVersion,
             account_id: accountId,
-            path: `/execution_record`
+            path: `/execution_record`,
+            params: queryParams
         });
 
         return result as ReportExecutionRecordsV2;

@@ -274,3 +274,11 @@ export interface ReportExecutionRecordsV2 {
     continuation: string;
     execution_records: ReportExecutionRecordV2[];
 }
+
+export interface ExecutionRecordsQueryParamsV2 {
+    limit?: number;
+    order? : 'asc'| 'desc';
+    schedule_id?: string;
+    type?: 'search'| 'tableau';
+    continuation?: string;
+}
