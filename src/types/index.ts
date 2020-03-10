@@ -14,7 +14,7 @@ export interface AlApplicationMessageSplitSpec {
 }
 
 export interface AlApplicationMessageTimestamp {
-    type?: "Automatic Timestamp" | "Parsed Timestamp";
+    type?: "automatic" | "datetime";
 }
 
 export interface AlApplicationAutomaticFilename {
@@ -128,6 +128,7 @@ export interface AlRuleForDeployment extends AlRule {
 }
 
 export interface AlRulePayload {
+    name?: string;
     deployment_id?: string;
     application_id?: string;
     path?: string;
