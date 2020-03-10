@@ -113,7 +113,7 @@ export interface TableauReportDefinitionV2 {
     view_id?: string;
     saved_view_id?: string;
     format?: string;
-    filter_values?: unknown;
+    filter_values?: {[key: string]: string[]};
 }
 
 export interface CargoReportTimeRangeV2 {
