@@ -145,23 +145,6 @@ export interface SearchReportDefinitionV2 {
     timerange?: CargoReportTimeRangeV2;
 }
 
-export interface CreateReportRequestV2 {
-    name: string;
-    type: string;
-    definition: SearchReportDefinitionV2 | TableauReportDefinitionV2;
-    schedule?: string;
-    is_active?: boolean;
-    per_accounts_id?: string[];
-}
-
-export interface ReportScheduleRequestV2 {
-    report_id: string;
-    scheduled_time?: string;
-    sub_results?: {
-        account_id: string;
-    }[];
-}
-
 export interface ExecutionRecordV2 {
     schedule_id: string;
     scheduled_time?: number;
@@ -174,50 +157,6 @@ export interface ReportScheduleOnceRequestV2 {
     per_account_ids?: string[];
     notify_behavior?: 'always'|'never'|'ifnotempty';
     delete_empty_result?: boolean;
-}
-
-export interface ListScheduledReportsQueryParamsV2 {
-    limit?: number;
-    order?: string;
-    report_id?: string;
-    report_type?: string;
-    continuation?: string;
-}
-
-export interface CargoReportV2 {
-    id: string;
-    name: string;
-    status?: 'scheduled' | 'running' | 'cancelled' | 'completed';
-    schedule?: string;
-    schedule_display_name?: string;
-    scheduled_time?: number;
-    create_time?: number;
-    type?: string;
-    definition?: SearchReportDefinitionV2 | TableauReportDefinitionV2;
-    subkey?: string;
-    sub_results?: [{
-        account_id: string;
-        status: 'ok' | 'error';
-        result_id: string;
-        is_reference: boolean;
-    }];
-    notify_behaviour?: string;
-    delete_empty_result?: boolean;
-    per_account_ids?: string[];
-    latest_schedule?: number;
-    is_active?: boolean;
-    report_id?: string;
-}
-
-export interface CargoScheduledReportResponseV2 {
-    account_id: string;
-    scheduled_report: CargoReportV2;
-}
-
-export interface CargoScheduledReportListResponseV2 {
-    account_id: string;
-    continuation: string;
-    scheduled_reports: CargoReportV2[];
 }
 
 export interface ReportSchedulePayloadV2 {
