@@ -68,7 +68,7 @@ export interface ScheduledReportV2 {
 
 export interface ScheduledReportListV2 {
   continuation: string;
-  scheduled_reports: ScheduledReportV2[];
+  schedules: ScheduledReportV2[];
 }
 
 export interface ReportArtifactV2 {
