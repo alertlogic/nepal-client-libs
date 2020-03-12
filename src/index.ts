@@ -3,6 +3,7 @@ import { AlCargoClientInstanceV2 } from './al-cargo-client-v2';
 import { AlGlobalizer } from '@al/common';
 
 export * from './types';
+export * from './utilities';
 export * from './al-cargo-client';
 export * from './al-cargo-client-v2';
 
