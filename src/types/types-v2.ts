@@ -54,10 +54,13 @@ export interface ExecutionRecordOnceRequestV2 {
   delete_empty_result?: boolean;
 }
 
-export interface ScheduledReportRequestV2 {
-  name?: string;
-  type?: string;
-  definition?: SearchReportDefinitionV2 | TableauReportDefinitionV2;
+export interface ScheduledReportV2 {
+  id?: string;
+  created?: AlChangeStamp;
+  modified?: AlChangeStamp;
+  name: string;
+  type: string;
+  definition: SearchReportDefinitionV2 | TableauReportDefinitionV2;
   schedule?: 'every_15_minutes' | {
     daily?: CargoReportDailyScheduleV2;
     weekly?: CargoReportWeeklyScheduleV2;
@@ -68,15 +71,9 @@ export interface ScheduledReportRequestV2 {
   delete_empty_result?: boolean;
 }
 
-export interface ScheduledReportResponseV2 extends ScheduledReportRequestV2 {
-  id: string;
-  created?: AlChangeStamp;
-  modified?: AlChangeStamp;
-}
-
 export interface ScheduledReportListV2 {
-  account_id: string;
-  schedules: ScheduledReportResponseV2[];
+  continuation: string;
+  scheduled_reports: ScheduledReportV2[];
 }
 
 export interface ReportArtifactV2 {
