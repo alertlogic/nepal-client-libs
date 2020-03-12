@@ -231,13 +231,14 @@ export class AlCargoClientInstanceV2 extends AlCargoClientInstance {
      *  @remarks
      *  https://console.account.product.dev.alertlogic.com/users/api/cargo/index.html#api-Execution_Records-GetExecutionRecordMultipleResult
      */
-    async getExecutionRecordResultsArchive(accountId: string, executionRecordIds: string ){
+    async getExecutionRecordResultsArchive(accountId: string, executionRecordIds: string ):Promise<unknown>{
         const result = await this.client.get({
             service_name: this.serviceName,
             version: this.serviceVersion,
             account_id: accountId,
             path: "/execution_record/archive",
-            params: {execution_record_ids: executionRecordIds}
+            params: {execution_record_ids: executionRecordIds},
+            response_type: 'arraybuffer'
         });
 
         return result;
@@ -253,19 +254,20 @@ export class AlCargoClientInstanceV2 extends AlCargoClientInstance {
      *
      *  @param accountId The AIMS Account ID
      *  @param executionRecordId The Execution Record ID
-     *  @returns a promise with the report execution record.
+     *  @returns a promise with the report execution blob.
      *  @remarks
      *  https://console.account.product.dev.alertlogic.com/users/api/cargo/index.html#api-Execution_Records-GetExecutionRecordResult
      */
-    async getExecutionRecordResult(accountId: string, executionRecordId:string ): Promise<ExecutionRecordV2> {
+    async getExecutionRecordResult(accountId: string, executionRecordId:string ):Promise<unknown> {
         const result = await this.client.get({
             service_name: this.serviceName,
             version: this.serviceVersion,
             account_id: accountId,
-            path: `/execution_record/${executionRecordId}/result`
+            path: `/execution_record/${executionRecordId}/result`,
+            response_type: 'arraybuffer',
         });
 
-        return result as ExecutionRecordV2;
+        return result;
     }
 
     /**
