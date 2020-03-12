@@ -40,11 +40,6 @@ export interface SearchReportDefinitionV2 {
   timerange?: CargoReportTimeRangeV2;
 }
 
-export interface ExecutionRecordV2 {
-  schedule_id: string;
-  scheduled_time?: number;
-}
-
 export interface ExecutionRecordOnceRequestV2 {
   name: string;
   type: 'search' | 'tableau';
@@ -81,13 +76,17 @@ export interface ReportArtifactV2 {
   is_rerference?: boolean;
 }
 
-export interface ReportExecutionRecordV2 {
-  id: string;
-  account_id?: string;
+export interface ExecutionRecordRequestV2 {
+  schedule_id: string;
+  scheduled_time?: number;
+}
+
+export interface ExecutionRecordV2 {
+  id?: string;
   schedule_id?: string;
   name?: string;
   status?: 'scheduled' | 'running' | 'cancelled' | 'completed' | 'failed';
-  type?: string;
+  type?: 'tableau' | 'search';
   definition?: SearchReportDefinitionV2 | TableauReportDefinitionV2;
   schedule?: 'every_15_minutes' | {
     daily?: CargoReportDailyScheduleV2;
@@ -103,10 +102,9 @@ export interface ReportExecutionRecordV2 {
   run_once?: boolean;
 }
 
-export interface ReportExecutionRecordsV2 {
-  account_id: string;
+export interface ExecutionRecordListV2 {
   continuation: string;
-  execution_records: ReportExecutionRecordV2[];
+  execution_records: ExecutionRecordV2[];
 }
 
 export interface ExecutionRecordsQueryParamsV2 {
