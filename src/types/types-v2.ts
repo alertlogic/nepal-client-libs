@@ -3,15 +3,6 @@
  */
 import { AlChangeStamp } from "@al/client";
 
-export interface TableauReportDefinitionV2 {
-  site_id?: string;
-  workbook_id?: string;
-  view_id?: string;
-  saved_view_id?: string;
-  format?: string;
-  filter_values?: { [key: string]: string[] };
-}
-
 export interface CargoReportTimeRangeV2 {
   days?: number;
   hours?: number;
@@ -35,6 +26,14 @@ export interface CargoReportMonthlyScheduleV2 {
   minute: number;
 }
 
+export interface TableauReportDefinitionV2 {
+  site_id?: string;
+  workbook_id?: string;
+  view_id?: string;
+  saved_view_id?: string;
+  format?: string;
+  filter_values?: { [key: string]: string[] };
+}
 
 export interface SearchReportDefinitionV2 {
   saved_query_id: string;
@@ -46,21 +45,20 @@ export interface ExecutionRecordV2 {
   scheduled_time?: number;
 }
 
-export interface ReportScheduleOnceRequestV2 {
+export interface ExecutionRecordOnceRequestV2 {
   name: string;
   type: 'search' | 'tableau';
   definition: SearchReportDefinitionV2 | TableauReportDefinitionV2;
-  per_account_ids?: string[];
+  schedule_id?: string;
   notify_behavior?: 'always' | 'never' | 'ifnotempty';
   delete_empty_result?: boolean;
 }
 
-export interface ReportSchedulePayloadV2 {
+export interface ScheduledReportRequestV2 {
   name?: string;
   type?: string;
   definition?: SearchReportDefinitionV2 | TableauReportDefinitionV2;
-  schedule?: {
-    every_15_minutes?: CargoReportTimeRangeV2;
+  schedule?: 'every_15_minutes' | {
     daily?: CargoReportDailyScheduleV2;
     weekly?: CargoReportWeeklyScheduleV2;
     monthly?: CargoReportMonthlyScheduleV2;
@@ -70,15 +68,15 @@ export interface ReportSchedulePayloadV2 {
   delete_empty_result?: boolean;
 }
 
-export interface ReportScheduleV2 extends ReportSchedulePayloadV2 {
+export interface ScheduledReportResponseV2 extends ScheduledReportRequestV2 {
   id: string;
   created?: AlChangeStamp;
   modified?: AlChangeStamp;
 }
 
-export interface ReportSchedulesV2 {
+export interface ScheduledReportListV2 {
   account_id: string;
-  schedules: ReportScheduleV2[];
+  schedules: ScheduledReportResponseV2[];
 }
 
 export interface ReportArtifactV2 {
@@ -94,7 +92,11 @@ export interface ReportExecutionRecordV2 {
   status?: 'scheduled' | 'running' | 'cancelled' | 'completed' | 'failed';
   type?: string;
   definition?: SearchReportDefinitionV2 | TableauReportDefinitionV2;
-  schedule?: ReportScheduleV2;
+  schedule?: 'every_15_minutes' | {
+    daily?: CargoReportDailyScheduleV2;
+    weekly?: CargoReportWeeklyScheduleV2;
+    monthly?: CargoReportMonthlyScheduleV2;
+  };
   scheduled_time?: number;
   subkey?: string;
   artifact_data?: ReportArtifactV2;
