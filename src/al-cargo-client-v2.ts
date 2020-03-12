@@ -302,7 +302,7 @@ export class AlCargoClientInstanceV2 extends AlCargoClientInstance {
      *  @remarks
      *  https://console.account.product.dev.alertlogic.com/users/api/cargo/index.html#api-Execution_Records-ListExecutionRecords
      */
-    async getListExecutionRecords(accountId: string, queryParams?: ExecutionRecordsQueryParamsV2): Promise<ReportExecutionRecordsV2> {
+    async getListExecutionRecords(accountId: string, queryParams?: ExecutionRecordsQueryParamsV2): Promise<ExecutionRecordListV2> {
         const result = await this.client.get({
             service_name: this.serviceName,
             version: this.serviceVersion,
