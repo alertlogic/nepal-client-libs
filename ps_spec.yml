@@ -1,0 +1,7 @@
+version: 1.0
+service_name: cargo-client
+
+import:
+    repo: alertlogic/nepal-client
+    branch: master
+    file: ps_spec.yml

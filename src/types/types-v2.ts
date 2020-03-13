@@ -113,4 +113,7 @@ export interface ExecutionRecordsQueryParamsV2 {
   schedule_id?: string;
   type?: 'search' | 'tableau';
   continuation?: string;
+  start_time?: number;
+  end_time?: number;
+  status?: "completed" | "running" | "failed" | "cancelled" | "scheduled";
 }
