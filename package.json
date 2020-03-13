@@ -34,7 +34,7 @@
     "test-watch": "karma start --no-single-run --auto-watch",
     "build-dev": "npm run clean &&  tsc && webpack --mode=development",
     "build": "webpack",
-    "prebuild": "npm run clean && npm run lint && npm run test && tsc",
+    "prebuild": "npm run clean && npm run lint && tsc",
     "lint": "tslint -p tsconfig.json",
     "clean": "rm -rf dist",
     "prepublishOnly": "npm run build",
