@@ -15,6 +15,7 @@ export interface AlApplicationMessageSplitSpec {
 
 export interface AlApplicationMessageTimestamp {
     type?: "automatic" | "datetime";
+    format?: string;
 }
 
 export interface AlApplicationAutomaticFilename {
