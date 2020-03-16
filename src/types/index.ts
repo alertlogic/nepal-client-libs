@@ -152,3 +152,4 @@ export interface AlDeployACollectorPayload {
 export interface AlDeployACollector {
     collector_id: string;
 }
+
