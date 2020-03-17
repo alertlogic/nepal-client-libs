@@ -116,4 +116,5 @@ export interface ExecutionRecordsQueryParamsV2 {
   start_time?: number;
   end_time?: number;
   status?: "completed" | "running" | "failed" | "cancelled" | "scheduled";
+  latest_only?: boolean;
 }
