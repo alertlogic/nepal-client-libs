@@ -280,7 +280,7 @@ export class AlHeraldClientInstanceV2 extends AlHeraldClientInstance {
      * https://console.account.product.dev.alertlogic.com/users/api/herald/index.html#api-Subscriptions_v2-UpdateSubscription
      */
     async updateSubscription(accountId: string, subscriptionId: string, subscription: AlHeraldUpdateSubscriptionPayloadV2): Promise<AlHeraldUpdateSubscriptionPayloadV2> {
-        const result = await this.client.put({
+        const result = await this.client.post({
             service_name: this.serviceName,
             version: this.serviceVersion,
             account_id: accountId,
