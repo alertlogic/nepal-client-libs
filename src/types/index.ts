@@ -9,8 +9,22 @@ export interface AlApplicationStream {
     name: string;
 }
 
-export interface AlApplicationMessageSplitSpec {
-    type?: "single_line";
+export interface AlApplicationMessageSplitSpecSingleLine {
+    type: "single_line";
+}
+
+export interface AlApplicationMessageSplitSpecCountMessage {
+    type: "fixed_lines_count";
+    value: number;
+}
+
+export interface AlApplicationMessageSplitSpecMultiline {
+    type: "multiline_pattern";
+    pattern: {
+        type: "string" | "regex";
+        value:string;
+    };
+    match_mode: "begins" | "contains" | "ends";
 }
 
 export interface AlApplicationMessageTimestamp {
@@ -67,7 +81,7 @@ export interface AlApplicationEventlog {
 export interface AlApplicationFlatfile {
     path?: string;
     message_timestamp?: AlApplicationMessageTimestamp;
-    message_split_spec?: AlApplicationMessageSplitSpec;
+    message_split_spec?: AlApplicationMessageSplitSpecSingleLine | AlApplicationMessageSplitSpecCountMessage | AlApplicationMessageSplitSpecMultiline;
     filename: AlApplicationDatetimeFilename | AlApplicationCounterFilename | AlApplicationAutomaticFilename;
 }
 
