@@ -97,6 +97,7 @@ export interface AlHeraldAccountSubscriptionV2 extends AlHeraldAccountSubscripti
 {
     id: string;
     account_id: string;
+    display_name?: string;
     created: AlChangeStamp;
     modified: AlChangeStamp;
     last_notification: number;
