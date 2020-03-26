@@ -30,8 +30,12 @@ export class AlTableauScheduledReport {
     this.reportDefinition.format = format;
   }
 
-  public getScheduledReport() {
+  public getScheduledReport() : ScheduledReportV2 {
     return this.schedule;
+  }
+
+  public getReportDefinition() : TableauReportDefinitionV2 {
+    return this.reportDefinition;
   }
 
 }
