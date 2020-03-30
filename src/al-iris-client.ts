@@ -422,7 +422,7 @@ export class AlIrisClientInstance {
         };
         transcribe( rawDictionary['class'], dictionary.classifications );
         transcribe( rawDictionary['detection_source'], dictionary.detectionSources );
-        transcribe( rawDictionary['threat_level'], dictionary.threatLevels );
+        transcribe( rawDictionary['threat_level'].reverse(), dictionary.threatLevels );
         return dictionary;
     }
 }
