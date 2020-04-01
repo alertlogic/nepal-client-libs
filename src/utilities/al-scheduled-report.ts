@@ -15,6 +15,7 @@ export class AlTableauScheduledReport {
     type: "tableau",
     definition: this.reportDefinition
   };
+  private scheduleFrequency:boolean | string[] = [];
 
   public setViewDefinition(siteId: string, worbookId: string, viewId: string) {
     this.reportDefinition.site_id = siteId;
@@ -30,12 +31,21 @@ export class AlTableauScheduledReport {
     this.reportDefinition.format = format;
   }
 
+
+  public setScheduleFrequency(scheduleFrequency: boolean | string[]) {
+    this.scheduleFrequency = scheduleFrequency;
+  }
+
   public getScheduledReport() : ScheduledReportV2 {
     return this.schedule;
   }
 
   public getReportDefinition() : TableauReportDefinitionV2 {
     return this.reportDefinition;
+  }
+
+  public getScheduleFrequency() {
+    return this.scheduleFrequency;
   }
 
 }
