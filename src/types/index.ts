@@ -69,7 +69,8 @@ export interface AlHeraldSubscribersV2 {
     subscriber_type:  "user" | "integration";
     subscription_id: string;
     id: string;
-}
+    action?: 'delete' | 'add';
+ }
 
 export interface AlHeraldAccountSubscriptionPayloadV2
 {

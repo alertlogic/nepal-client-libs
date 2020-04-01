@@ -11,7 +11,8 @@ import {
     AlHeraldSubscriptionsQueryV2,
     AlHeraldAccountSubscriptionPayloadV2,
     AlHeraldAccountSubscriptionResponseV2,
-    AlHeraldUpdateSubscriptionPayloadV2
+    AlHeraldUpdateSubscriptionPayloadV2,
+    AlHeraldSubscribersV2
 } from './types/index';
 
 export class AlHeraldClientInstanceV2 extends AlHeraldClientInstance {
@@ -357,5 +358,26 @@ export class AlHeraldClientInstanceV2 extends AlHeraldClientInstance {
             data: { ids: subscriptionIds }
         });
         return result;
+    }
+
+    /**
+     * Allows update multiple subcriptions (delete | add)
+     * POST
+     * /herald/v2/:account_id/subscriptions/:subscriptionId/subscribers/batch/update
+     *
+     * @param accountId The AIMS Account ID
+     * @param subscriptionId: string
+     * @param subscriptions: AlHeraldSubscribersV2[]
+     * @returns just the status code
+     *
+     */
+    async batchUpdateSubscriptions(accountId: string, subscriptionId:string, subscriptions: AlHeraldSubscribersV2[]) {
+        return await this.client.post({
+            service_name: this.serviceName,
+            version: this.serviceVersion,
+            account_id: accountId,
+            path: `/subscriptions/${subscriptionId}/subscribers/batch/update`,
+            data: { subscribers: subscriptions }
+        });
     }
 }
