@@ -14,8 +14,14 @@ module.exports = function (config) {
   
       reporters: ["dots", "karma-typescript", "mocha"],
   
-      browsers: ["ChromeHeadless"],
-  
+      browsers: ['ChromeHeadlessNoSandbox'],
+      customLaunchers: {
+        ChromeHeadlessNoSandbox: {
+          base: 'ChromeHeadless',
+          flags: ['--no-sandbox']
+        }
+      },
+
       karmaTypescriptConfig: {
         reports:
         {
