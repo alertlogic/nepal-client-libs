@@ -1,0 +1,7 @@
+version: 1.0
+service_name: tacoma-client
+
+import:
+    repo: alertlogic/nepal-common
+    branch: master
+    file: ps_spec.yml
