@@ -136,6 +136,7 @@ export interface AlRule extends AlBaseApplication {
     account_id: string;
     enabled?: boolean;
     parameters?: {[i: string]: any};
+    search_by?: {[i: string]: any}[];
 }
 
 export interface AlRuleForDeployment extends AlRule {
