@@ -16,7 +16,6 @@ afterEach(() => {
 let stub: sinon.SinonSpy;
 
 describe('APPLICATION CLIENT', () => {
-    const apiBaseURL = "https://api.cloudinsight.alertlogic.com";
     const service = "applications";
     const version = "v1";
 
@@ -245,7 +244,15 @@ describe('APPLICATION CLIENT', () => {
                 }
             }
         },
-        "application_id": "3"
+        "application_id": "3",
+        "search_by": [
+            {
+                "key1": "value1"
+            },
+            {
+                "key2": "value2"
+            }
+        ]
     };
 
     describe('List ', () => {
@@ -264,7 +271,7 @@ describe('APPLICATION CLIENT', () => {
 
                 expect(stub.callCount).to.equal(1);
                 expect(payload.method).to.equal("GET");
-                expect(payload.url).to.equal(`${apiBaseURL}/${service}/${version}/${accountId}/applications`);
+                expect(payload.url).to.contain(`/${service}/${version}/${accountId}/applications`);
                 expect(result).to.equal(applicationListMock);
                 expect(result.length).to.equal(3);
                 expect(result[0].config.syslog).not.to.equal(undefined);
@@ -287,7 +294,7 @@ describe('APPLICATION CLIENT', () => {
 
                 expect(stub.callCount).to.equal(1);
                 expect(payload.method).to.equal("GET");
-                expect(payload.url).to.equal(`${apiBaseURL}/${service}/${version}/${accountId}/rules`);
+                expect(payload.url).to.contain(`/${service}/${version}/${accountId}/rules`);
                 expect(result).to.equal(rulesListMock);
                 expect(result.length).to.equal(2);
                 expect(result[0].config.flatfile).not.to.equal(undefined);
@@ -309,7 +316,7 @@ describe('APPLICATION CLIENT', () => {
 
                 expect(stub.callCount).to.equal(1);
                 expect(payload.method).to.equal("GET");
-                expect(payload.url).to.equal(`${apiBaseURL}/${service}/${version}/${accountId}/deployments/1234567890/rules`);
+                expect(payload.url).to.contain(`/${service}/${version}/${accountId}/deployments/1234567890/rules`);
                 expect(result).to.equal(rulesListByDeploymentMock);
                 expect(result.length).to.equal(2);
                 expect(result[0].config.flatfile).not.to.equal(undefined);
@@ -336,7 +343,7 @@ describe('APPLICATION CLIENT', () => {
 
                 expect( stub.callCount ).to.equal(1);
                 expect( payload.method ).to.equal( "POST" );
-                expect( payload.url ).to.equal(`${apiBaseURL}/${service}/${version}/${accountId}/deployments/${deploymentId}/rules`);
+                expect( payload.url ).to.contain(`/${service}/${version}/${accountId}/deployments/${deploymentId}/rules`);
                 expect( result ).to.equal( ruleMock );
                 expect( result.application_id ).to.equal('3');
                 expect( result.config.flatfile ).not.to.equal(undefined);
@@ -361,7 +368,7 @@ describe('APPLICATION CLIENT', () => {
 
                 expect( stub.callCount ).to.equal(1);
                 expect( payload.method ).to.equal( "PUT" );
-                expect( payload.url ).to.equal(`${apiBaseURL}/${service}/${version}/${accountId}/rules/${ruleId}`);
+                expect( payload.url ).to.contain(`/${service}/${version}/${accountId}/rules/${ruleId}`);
                 expect( result ).to.equal( ruleMock );
                 expect( result.application_id ).to.equal('3');
                 expect( result.config.flatfile ).not.to.equal(undefined);
@@ -385,7 +392,7 @@ describe('APPLICATION CLIENT', () => {
 
                 expect( stub.callCount ).to.equal(1);
                 expect( payload.method ).to.equal( "DELETE" );
-                expect( payload.url ).to.equal(`${apiBaseURL}/${service}/${version}/${accountId}/rules/${ruleId}`);
+                expect( payload.url ).to.contain(`/${service}/${version}/${accountId}/rules/${ruleId}`);
             });
         });
 
@@ -405,7 +412,7 @@ describe('APPLICATION CLIENT', () => {
 
                 expect( stub.callCount ).to.equal(1);
                 expect( payload.method ).to.equal( "GET" );
-                expect( payload.url ).to.equal(`${apiBaseURL}/${ service }/${ version }/${ accountId }/rules/${ ruleId }`);
+                expect( payload.url ).to.contain(`/${ service }/${ version }/${ accountId }/rules/${ ruleId }`);
                 expect( result ).to.equal( ruleMock );
                 expect( result.application_id ).to.equal('3');
                 expect( result.config.flatfile ).not.to.equal(undefined);
