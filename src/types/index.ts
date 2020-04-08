@@ -61,7 +61,7 @@ export interface AlHeraldAccountSubscription
 export interface AlHeraldOptionV2 {
     email_subject ?: string;
     webhook_payload ?: string;
-    attachments ?: any;
+    include_attachments ?: boolean;
 }
 
 export interface AlHeraldSubscribersV2 {
