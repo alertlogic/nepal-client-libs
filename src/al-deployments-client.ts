@@ -1,20 +1,23 @@
 /**
  * Module to deal with available Deployments Public API endpoints
  */
-import { ALClient } from '@al/client';
+import { AlDefaultClient, AlApiClient } from '@al/client';
 import {
   DeploymentCreateBody,
   DeploymentUpdateBody,
   Deployment,
 } from './types';
 
-class DeploymentsClient {
+export class AlDeploymentsClientInstance {
 
-  private alClient = ALClient;
   private serviceName = 'deployments';
 
+  /* istanbul ignore next */
+  constructor(public client:AlApiClient = AlDefaultClient) {
+  }
+
   async createDeployment(accountId: string, deploymentRequest: DeploymentCreateBody) {
-    const createDeployment = await this.alClient.post({
+    const createDeployment = await this.client.post({
       service_name: this.serviceName,
       account_id: accountId,
       path: '/deployments',
@@ -24,7 +27,7 @@ class DeploymentsClient {
   }
 
   async updateDeployment(accountId: string, deploymentId: string, deploymentRequest: DeploymentUpdateBody) {
-    const updateDeployment = await this.alClient.set({
+    const updateDeployment = await this.client.set({
       service_name: this.serviceName,
       account_id: accountId,
       path: `/deployments/${deploymentId}`,
@@ -34,7 +37,7 @@ class DeploymentsClient {
   }
 
   async deleteDeployment(accountId: string, deploymentId: string) {
-    const deleteDeployment = await this.alClient.delete({
+    const deleteDeployment = await this.client.delete({
       service_name: this.serviceName,
       account_id: accountId,
       path: `/deployments/${deploymentId}`,
@@ -43,7 +46,7 @@ class DeploymentsClient {
   }
 
   async getDeployment(accountId: string, deploymentId: string) {
-    const deployment = await this.alClient.get({
+    const deployment = await this.client.get({
       service_name: this.serviceName,
       account_id: accountId,
       path: `/deployments/${deploymentId}`,
@@ -52,7 +55,7 @@ class DeploymentsClient {
   }
 
   async listDeployments(accountId: string) {
-    const deployments = await this.alClient.get({
+    const deployments = await this.client.get({
       service_name: this.serviceName,
       account_id: accountId,
       path: '/deployments',
@@ -60,5 +63,3 @@ class DeploymentsClient {
     return deployments as Deployment[];
   }
 }
-
-export const deploymentsClient =  new DeploymentsClient();

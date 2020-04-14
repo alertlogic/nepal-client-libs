@@ -1,7 +1,9 @@
-import { DeploymentsClient, DeploymentCreateBody } from '../src/index';
+import { AlDeploymentsClientInstance, DeploymentCreateBody } from '../src/index';
 import { expect, assert } from 'chai';
 import { describe } from 'mocha';
 import * as sinon from 'sinon';
+
+let deploymentsClient:AlDeploymentsClientInstance;
 
 const serviceName = 'deployments';
 const deploymentRequestBody: DeploymentCreateBody = {
@@ -11,6 +13,9 @@ const deploymentRequestBody: DeploymentCreateBody = {
 const accountId = '1234';
 const deploymentId = '56789';
 
+beforeEach(() => {
+  deploymentsClient = new AlDeploymentsClientInstance();
+});
 afterEach(() => {
   sinon.restore();
 });
@@ -20,7 +25,7 @@ describe('Deployments Client Test Suite', () => {
     let stub: sinon.SinonSpy;
 
     beforeEach(() => {
-      stub = sinon.stub(DeploymentsClient['alClient'], 'post');
+      stub = sinon.stub(deploymentsClient.client, 'post');
     });
 
     afterEach(() => {
@@ -28,7 +33,7 @@ describe('Deployments Client Test Suite', () => {
     });
 
     it('should should call post() on the ALClient instance to the deployments endpoint', async() => {
-      await DeploymentsClient.createDeployment(accountId, deploymentRequestBody);
+      await deploymentsClient.createDeployment(accountId, deploymentRequestBody);
       expect(stub.callCount).to.equal(1);
       const payload = {
         service_name: serviceName,
@@ -36,7 +41,6 @@ describe('Deployments Client Test Suite', () => {
         path: '/deployments',
         data: deploymentRequestBody,
       };
-
       assert.deepEqual(payload, stub.args[0][0]);
     });
   });
@@ -44,7 +48,7 @@ describe('Deployments Client Test Suite', () => {
     let stub: sinon.SinonSpy;
 
     beforeEach(() => {
-      stub = sinon.stub(DeploymentsClient['alClient'], 'set');
+      stub = sinon.stub(deploymentsClient.client, 'set');
     });
 
     afterEach(() => {
@@ -52,7 +56,7 @@ describe('Deployments Client Test Suite', () => {
     });
 
     it('should should call set() on the ALClient instance to the deployments endpoint', async() => {
-      await DeploymentsClient.updateDeployment(accountId, deploymentId, deploymentRequestBody);
+      await deploymentsClient.updateDeployment(accountId, deploymentId, deploymentRequestBody);
       expect(stub.callCount).to.equal(1);
       const payload = {
         service_name: serviceName,
@@ -60,7 +64,6 @@ describe('Deployments Client Test Suite', () => {
         path: '/deployments/56789',
         data: deploymentRequestBody,
       };
-
       assert.deepEqual(payload, stub.args[0][0]);
     });
   });
@@ -68,7 +71,7 @@ describe('Deployments Client Test Suite', () => {
     let stub: sinon.SinonSpy;
 
     beforeEach(() => {
-      stub = sinon.stub(DeploymentsClient['alClient'], 'delete');
+      stub = sinon.stub(deploymentsClient.client, 'delete');
     });
 
     afterEach(() => {
@@ -76,14 +79,13 @@ describe('Deployments Client Test Suite', () => {
     });
 
     it('should should call delete() on the ALClient instance to the deployments endpoint', async() => {
-      await DeploymentsClient.deleteDeployment(accountId, deploymentId);
+      await deploymentsClient.deleteDeployment(accountId, deploymentId);
       expect(stub.callCount).to.equal(1);
       const payload = {
         service_name: serviceName,
         account_id: accountId,
         path: '/deployments/56789',
       };
-
       assert.deepEqual(payload, stub.args[0][0]);
     });
   });
@@ -91,7 +93,7 @@ describe('Deployments Client Test Suite', () => {
     let stub: sinon.SinonSpy;
 
     beforeEach(() => {
-      stub = sinon.stub(DeploymentsClient['alClient'], 'get');
+      stub = sinon.stub(deploymentsClient.client, 'get');
     });
 
     afterEach(() => {
@@ -99,14 +101,13 @@ describe('Deployments Client Test Suite', () => {
     });
 
     it('should should call get() on the ALClient instance to the deployments endpoint', async() => {
-      await DeploymentsClient.getDeployment(accountId, deploymentId);
+      await deploymentsClient.getDeployment(accountId, deploymentId);
       expect(stub.callCount).to.equal(1);
       const payload = {
         service_name: serviceName,
         account_id: accountId,
         path: '/deployments/56789',
       };
-
       assert.deepEqual(payload, stub.args[0][0]);
     });
   });
@@ -114,7 +115,7 @@ describe('Deployments Client Test Suite', () => {
     let stub: sinon.SinonSpy;
 
     beforeEach(() => {
-      stub = sinon.stub(DeploymentsClient['alClient'], 'get');
+      stub = sinon.stub(deploymentsClient.client, 'get');
     });
 
     afterEach(() => {
@@ -122,14 +123,13 @@ describe('Deployments Client Test Suite', () => {
     });
 
     it('should should call get() on the ALClient instance to the deployments endpoint', async() => {
-      await DeploymentsClient.listDeployments(accountId);
+      await deploymentsClient.listDeployments(accountId);
       expect(stub.callCount).to.equal(1);
       const payload = {
         service_name: serviceName,
         account_id: accountId,
         path: '/deployments',
       };
-
       assert.deepEqual(payload, stub.args[0][0]);
     });
   });
