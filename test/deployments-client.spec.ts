@@ -41,7 +41,6 @@ describe('Deployments Client Test Suite', () => {
         path: '/deployments',
         data: deploymentRequestBody,
       };
-
       assert.deepEqual(payload, stub.args[0][0]);
     });
   });
@@ -65,7 +64,6 @@ describe('Deployments Client Test Suite', () => {
         path: '/deployments/56789',
         data: deploymentRequestBody,
       };
-
       assert.deepEqual(payload, stub.args[0][0]);
     });
   });
@@ -88,7 +86,6 @@ describe('Deployments Client Test Suite', () => {
         account_id: accountId,
         path: '/deployments/56789',
       };
-
       assert.deepEqual(payload, stub.args[0][0]);
     });
   });
@@ -111,7 +108,6 @@ describe('Deployments Client Test Suite', () => {
         account_id: accountId,
         path: '/deployments/56789',
       };
-
       assert.deepEqual(payload, stub.args[0][0]);
     });
   });
@@ -134,7 +130,6 @@ describe('Deployments Client Test Suite', () => {
         account_id: accountId,
         path: '/deployments',
       };
-
       assert.deepEqual(payload, stub.args[0][0]);
     });
   });
