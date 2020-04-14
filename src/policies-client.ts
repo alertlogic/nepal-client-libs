@@ -1,7 +1,7 @@
 /**
  * A client for interacting with the Alert Logic Policies Public API.
  */
-import { ALClient } from '@alertlogic/client';
+import { ALClient } from '@al/client';
 
 interface PolicyFeature {
   type: string;
@@ -12,6 +12,8 @@ export interface Policy {
   id: string;
   product_family: string;
   features: PolicyFeature[];
+  udr_type: string;
+  policy_rank: number;
 }
 
 class PoliciesClient {
@@ -28,7 +30,7 @@ class PoliciesClient {
       account_id: accountId,
       path: `/policies/${policyId}`,
     });
-    return policy;
+    return policy as Policy;
   }
   /**
    * Lists policies belonging to a particular account
@@ -39,7 +41,7 @@ class PoliciesClient {
       account_id: accountId,
       path: '/policies',
     });
-    return policies;
+    return policies as Policy[];
   }
 
 }
