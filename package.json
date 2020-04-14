@@ -1,6 +1,6 @@
 {
   "name": "@al/deployments",
-  "version": "0.1.4",
+  "version": "1.0.0",
   "license": "MIT",
   "description": "A client for interacting with the Alert Logic Deployments Public API",
   "author": {
@@ -56,7 +56,8 @@
     "webpack-node-externals": "^1.7.2"
   },
   "dependencies": {
-    "@al/client": "^1.1.9"
+    "@al/client": "^1.2.0",
+    "@al/common": "^1.2.17"
   },
   "files": [
     "dist"
