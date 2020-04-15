@@ -1,0 +1,19 @@
+{
+  "compilerOptions": {
+    "baseUrl": "",
+    "outDir": "./dist/commonjs",
+    "module": "commonjs",
+    "target": "ES2018",
+    "declaration": true,
+    "moduleResolution": "node",
+    "esModuleInterop": true,
+    "declarationDir": "./dist/typings/",
+    "lib": [
+      "es2019",
+      "dom"
+    ]
+  },
+  "files": [
+    "./src/index.ts"
+  ]
+}
