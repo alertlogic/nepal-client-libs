@@ -1,0 +1,70 @@
+{
+  "name": "@al/herald",
+  "version": "1.0.20",
+  "license": "MIT",
+  "description": "A lightweight client library for interacting with the Herald API",
+  "author": {
+    "name": "Gisler Garces",
+    "email": "ggarces@alertlogic.com"
+  },
+  "keywords": [
+    "Alert Logic",
+    "Client",
+    "Service"
+  ],
+  "maintainers": [
+    {
+      "name": "Gisler Garces",
+      "email": "ggarces@alertlogic.com"
+    },
+    {
+      "name": "Alert Logic NPM Team",
+      "email": "npm@alertlogic.com"
+    }
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/alertlogic/nepal-herald-client"
+  },
+  "main": "./dist/umd/index.js",
+  "module": "./dist/commonjs/index.js",
+  "types": "./dist/typings/index.d.ts",
+  "scripts": {
+    "test": "karma start",
+    "test-watch": "karma start --no-single-run --auto-watch",
+    "build-dev": "npm run clean &&  tsc && webpack --mode=development",
+    "build": "webpack",
+    "prebuild": "npm run clean && npm run lint && tsc",
+    "lint": "tslint -p tsconfig.json",
+    "clean": "rm -rf dist",
+    "prepublishOnly": "npm run build",
+    "interactive": "npm run build && node -i -e \"const HeraldClient = require('./dist/commonjs/index.js').AlHeraldClient;\"",
+    "interactive-dev": "npm run build-dev && node -i -e \"const HeraldClient = require('./dist/commonjs/index.js').AlHeraldClient;\""
+  },
+  "devDependencies": {
+    "@types/chai": "^4.1.7",
+    "@types/mocha": "^5.2.6",
+    "@types/sinon": "^7.0.11",
+    "chai": "^4.2.0",
+    "karma": "^4.0.1",
+    "karma-chrome-launcher": "^2.2.0",
+    "karma-cli": "^2.0.0",
+    "karma-mocha": "^1.3.0",
+    "karma-mocha-reporter": "^2.0.0",
+    "karma-typescript": "^4.0.0",
+    "mocha": "^6.1.3",
+    "sinon": "^7.3.1",
+    "tslint": "^5.20.0",
+    "tslint-config-airbnb": "^5.11.2",
+    "typescript": "^3.2.4",
+    "webpack": "^4.29.0",
+    "webpack-cli": "^3.2.1",
+    "webpack-node-externals": "^1.7.2"
+  },
+  "dependencies": {
+    "@al/client": "^1.1.9"
+  },
+  "files": [
+    "dist"
+  ]
+}
