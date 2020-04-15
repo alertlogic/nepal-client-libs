@@ -1,11 +1,27 @@
 /**
  * Module to deal with available Iris Public API endpoints
  */
-import { AlResponseValidationError } from '@al/common';
-import { AlApiClient, AlDefaultClient } from '@al/client';
-import { ConstantDefinition, IncidentQuery, IncidentQueryParams, IncidentSearchResponse, IncidentHistoryResponse,
-         IncidentBatchData, IncidentBatchUpdateResponse, IncidentNoteListResponse, IncidentStateChangeResponse, IncidentIdResponse,
-         IncidentSnooze, UndoDataDefinition, ConstantTuple, AlIncidentFilterDictionary } from './types';
+import {
+  AlApiClient,
+  AlDefaultClient,
+  AlResponseValidationError,
+} from '@al/core';
+import {
+  AlIncidentFilterDictionary,
+  ConstantDefinition,
+  ConstantTuple,
+  IncidentBatchData,
+  IncidentBatchUpdateResponse,
+  IncidentHistoryResponse,
+  IncidentIdResponse,
+  IncidentNoteListResponse,
+  IncidentQuery,
+  IncidentQueryParams,
+  IncidentSearchResponse,
+  IncidentSnooze,
+  IncidentStateChangeResponse,
+  UndoDataDefinition,
+} from './types';
 
 export class AlIrisClientInstance {
 

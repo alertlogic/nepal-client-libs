@@ -1,4 +1,4 @@
-import { AlGlobalizer } from '@al/common';
+import { AlGlobalizer } from '@al/core';
 import { AlIrisClientInstance } from './al-iris-client';
 
 /* tslint:disable:variable-name */
