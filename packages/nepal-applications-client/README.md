@@ -3,7 +3,7 @@
 
 A lightweight client library for interacting with the Aplications API.
 
-This library uses @al/client and axios as its HTTP provider interface.
+This library uses @al/core and axios as its HTTP provider interface.
 
 ## Disclaimer
 

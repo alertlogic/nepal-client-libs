@@ -1,8 +1,10 @@
 /**
  * Module to deal with available Correlations Public API endpoints
  */
-import { AlResponseValidationError } from '@al/common';
-import { ALClient } from '@al/client';
+import {
+  AlDefaultClient,
+  AlResponseValidationError,
+} from '@al/core';
 
 export interface AlCreateCorrelationRequestV2 {
     version?: number;
@@ -80,7 +82,7 @@ export class AlCoralClientInstanceV2 {
      *  Create correlation rule - notification only / incidents from correlation
      */
     async createCorrelationRule(accountId: string, correlationRequest: AlCreateCorrelationRequestV2):Promise<AlCorrelationRuleV2> {
-        const result = await ALClient.post({
+        const result = await AlDefaultClient.post({
             service_name: this.serviceName,
             version: 2,
             account_id:   accountId,
@@ -97,7 +99,7 @@ export class AlCoralClientInstanceV2 {
      *  Delete correlation rule
      */
     async removeCorrelationRule(accountId: string, correlationId: string) {
-        const response =  await ALClient.delete({
+        const response =  await AlDefaultClient.delete({
             service_name: this.serviceName,
             version: 2,
             account_id:   accountId,
@@ -110,7 +112,7 @@ export class AlCoralClientInstanceV2 {
      *  Get correlation rule by ID
      */
     async getCorrelationRule(accountId: string, correlationId: string): Promise<AlCorrelationRuleV2> {
-        const correlation = await ALClient.get({
+        const correlation = await AlDefaultClient.get({
             service_name: this.serviceName,
             version: 2,
             account_id:   accountId,
@@ -123,7 +125,7 @@ export class AlCoralClientInstanceV2 {
      *  Get all correlation rules
      */
     async getAllCorrelations(accountId: string, params = {}): Promise<AlCorrelationRulesResponseV2> {
-         const correlations = await ALClient.get({
+         const correlations = await AlDefaultClient.get({
              service_name: this.serviceName,
              version: 2,
              account_id:   accountId,
@@ -137,7 +139,7 @@ export class AlCoralClientInstanceV2 {
      *   Update correlation rule
      */
     async updateCorrelationRule(accountId: string, correlationId: string, correlation: AlCreateCorrelationRequestV2): Promise<AlCorrelationRuleV2> {
-        const result = await ALClient.put({
+        const result = await AlDefaultClient.put({
             service_name: this.serviceName,
             version: 2,
             account_id:   accountId,
@@ -155,7 +157,7 @@ export class AlCoralClientInstanceV2 {
      *  It tests the validity of an input or in a debugging capacity to see what content aecoral would generate for a given input.
      */
     async validateCorrelationPolicy(accountId: string, correlation: AlCreateCorrelationRequestV2) {
-        const response = await ALClient.post({
+        const response = await AlDefaultClient.post({
             service_name: this.serviceName,
             version: 2,
             account_id:   accountId,
@@ -169,7 +171,7 @@ export class AlCoralClientInstanceV2 {
      *  Get possible correlation incident severities and classifications.
      */
     async getIncidentSpecifications(): Promise<AlIncidentSpecificationResponseV2> {
-        const result = await ALClient.get({
+        const result = await AlDefaultClient.get({
             service_name: this.serviceName,
             version: 2,
             path:         '/specifications/incident',

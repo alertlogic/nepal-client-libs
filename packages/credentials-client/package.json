@@ -30,29 +30,20 @@
   "module": "./dist/commonjs/index.js",
   "types": "./dist/typings/index.d.ts",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "build-dev": "npm run clean &&  tsc && webpack --mode=development",
-    "build": "webpack",
-    "prebuild": "npm run clean && tsc",
+    "test": "echo \"Error: no test specified\"",
+    "build":"rollup -c ../../rollup.config.ts",
+    "prebuild": "npm run clean",
     "clean": "rm -rf dist",
     "prepublishOnly": "npm run build",
     "interactive": "node -i -e \"const CredentialsClient = require('./dist/commonjs/index.js').CredentialsClient;\""
-  },
-  "devDependencies": {
-    "peer-deps-externals-webpack-plugin": "^1.0.4",
-    "tslint": "^5.12.1",
-    "tslint-config-airbnb": "^5.11.1",
-    "typescript": "^3.2.4",
-    "webpack": "^4.29.0",
-    "webpack-cli": "^3.2.1"
-  },
-  "peerDependencies": {
-    "@al/client": "^0.12.0"
   },
   "files": [
     "dist"
   ],
   "dependencies": {
-    "@al/client": "^1.1.12"
+    "@al/core": "*"
+  },
+  "peerDependencies": {
+    "@al/core": "*"
   }
 }

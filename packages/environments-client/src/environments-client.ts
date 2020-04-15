@@ -1,7 +1,7 @@
 /**
  * A client for interacting with the Alert Logic Environments Public API.
  */
-import { ALClient } from '@al/client';
+import { AlDefaultClient } from '@al/core';
 
 export interface EnvironmentCreateArgs {
   type: string;
@@ -30,9 +30,9 @@ export interface EnvironmentStatusArgs {
 
 class EnvironmentsClient {
   /**
-   * Expose ALClient to Credentials client
+   * Expose AlDefaultClient to Credentials client
    */
-  private alClient = ALClient;
+  private alClient = AlDefaultClient;
 
   /**
    * Add an environment

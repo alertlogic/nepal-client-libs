@@ -1,9 +1,13 @@
-import { expect, assert } from 'chai';
-import { describe, before } from 'mocha';
+import {
+  AIMSClient,
+  AIMSOrganization,
+  AlDefaultClient,
+  AlLocation,
+  AlLocatorService,
+} from '@al/core';
+import { expect } from 'chai';
+import { describe } from 'mocha';
 import * as sinon from 'sinon';
-import { AlLocatorService, AlLocationContext, AlLocation } from '@al/common';
-import { ALClient } from '@al/client';
-import { AIMSClient, AIMSOrganization } from '@al/aims';
 import { AlEndpointsClientInstance } from '../src';
 
 describe('Endpoints API Client', () => {
@@ -34,9 +38,9 @@ describe('Endpoints API Client', () => {
 
     beforeEach(() => {
         AlLocatorService.setContext( { environment: "integration" } );
-        ALClient.reset()
+        AlDefaultClient.reset()
                 .setGlobalParameters( { noEndpointsResolution: true } );
-        requestStub = sinon.stub(ALClient as any, "axiosRequest")
+        requestStub = sinon.stub(AlDefaultClient as any, "axiosRequest")
                 .returns( Promise.resolve( { status: 200, data: 'Some result', config: {} } ) );
         getOrgStub = sinon.stub( AIMSClient, 'getAccountOrganization' )
                 .returns( Promise.resolve( organizationMock ) );

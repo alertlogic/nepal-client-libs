@@ -14,9 +14,21 @@ module.exports = function (config) {
 
     reporters: ["dots", "karma-typescript"],
 
-    browsers: ["ChromeHeadless"],
+    browsers       : ['ChromeHeadlessNoSandbox'],
+    customLaunchers: {
+      ChromeHeadlessNoSandbox: {
+        base : 'ChromeHeadless',
+        flags: ['--no-sandbox'],
+      },
+    },
 
     karmaTypescriptConfig: {
+      bundlerOptions: {
+        acornOptions: {
+          ecmaVersion: 8,
+        },
+      },
+      tsconfig: "tsconfig.spec.json",
       reports:
       {
         "html": {
@@ -25,14 +37,6 @@ module.exports = function (config) {
         },
         "text-summary": ""
       },
-      compilerOptions: {
-        lib: [
-          "es2017",
-          "es2018",
-          "dom"
-        ],
-        esModuleInterop: true
-      }
     },
 
     singleRun: true

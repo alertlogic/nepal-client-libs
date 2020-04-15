@@ -1,22 +1,25 @@
 /**
  * Cargo V2 Public API endpoints Implementation
  */
-import { ALClient, AlApiClient } from '@al/client';
+import {
+  AlApiClient,
+  AlDefaultClient,
+} from '@al/core';
 import { AlCargoClientInstance } from './al-cargo-client';
 import {
-    ScheduledReportV2,
-    ScheduledReportListV2,
-    ExecutionRecordRequestV2,
-    ExecutionRecordV2,
-    ExecutionRecordListV2,
-    ExecutionRecordOnceRequestV2,
-    ExecutionRecordsQueryParamsV2
+  ExecutionRecordListV2,
+  ExecutionRecordOnceRequestV2,
+  ExecutionRecordRequestV2,
+  ExecutionRecordsQueryParamsV2,
+  ExecutionRecordV2,
+  ScheduledReportListV2,
+  ScheduledReportV2,
 } from './types';
 
 export class AlCargoClientInstanceV2 extends AlCargoClientInstance {
     protected serviceVersion = 'v2';
 
-    constructor( public client:AlApiClient = ALClient ) {
+    constructor( public client:AlApiClient = AlDefaultClient ) {
         super(client);
     }
 

@@ -1,4 +1,4 @@
-import { AlGlobalizer } from '@al/common';
+import { AlGlobalizer } from '@al/core';
 import { AlTacomaClientInstance } from './al-tacoma-client';
 
 export * from './types';

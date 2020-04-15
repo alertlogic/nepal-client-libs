@@ -1,9 +1,9 @@
-import { AlChangeStamp } from '@al/client';
+import { AlChangeStamp } from '@al/core';
 
 /**
  * Reexport AIMS constructs that are defined in @al/session for convenience.
  */
-export { AlChangeStamp } from '@al/client';
+export { AlChangeStamp } from '@al/core';
 
 export interface AlApplicationStream {
     name: string;

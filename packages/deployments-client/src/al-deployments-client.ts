@@ -1,11 +1,14 @@
 /**
  * Module to deal with available Deployments Public API endpoints
  */
-import { AlDefaultClient, AlApiClient } from '@al/client';
 import {
+  AlApiClient,
+  AlDefaultClient,
+} from '@al/core';
+import {
+  Deployment,
   DeploymentCreateBody,
   DeploymentUpdateBody,
-  Deployment,
 } from './types';
 
 export class AlDeploymentsClientInstance {

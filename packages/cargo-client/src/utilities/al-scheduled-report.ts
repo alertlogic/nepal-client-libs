@@ -1,6 +1,6 @@
 import {
   ScheduledReportV2,
-  TableauReportDefinitionV2
+  TableauReportDefinitionV2,
 } from '../types';
 
 /**

@@ -1,5 +1,8 @@
-import { AlLocation } from '@al/common';
-import { ALClient, AlApiClient } from '@al/client';
+import {
+  AlApiClient,
+  AlDefaultClient,
+  AlLocation,
+} from '@al/core';
 import { AlEntitlementCollection } from './types';
 
 export class AlSubscriptionsClient {
@@ -8,7 +11,7 @@ export class AlSubscriptionsClient {
   private internalUser:boolean = false;
 
   constructor( client:AlApiClient = null ) {
-      this.alClient = client || ALClient;
+      this.alClient = client || AlDefaultClient;
   }
 
   /**

@@ -1,5 +1,5 @@
+import { AlGlobalizer } from '@al/core';
 import { AetherClientInstance } from './aether-client';
-import { AlGlobalizer } from '@al/common';
 
 export * from './aether-client';
 

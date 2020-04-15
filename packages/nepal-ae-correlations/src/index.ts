@@ -1,4 +1,4 @@
-import { AlGlobalizer } from '@al/common';
+import { AlGlobalizer } from '@al/core';
 import { AlCoralClientInstance } from './al-coral-client';
 import { AlCoralClientInstanceV2 } from './al-coral-client.v2';
 

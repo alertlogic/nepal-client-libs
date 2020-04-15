@@ -1,24 +1,28 @@
 /**
  * Module to deal with available Cargo Public API endpoints
  */
-import { ALClient, AlApiClient, APIRequestParams } from '@al/client';
 import {
-    CreateReportRequest,
-    ReportScheduleRequest,
-    ReportScheduleOnceRequest,
-    ListScheduledReportsQueryParams,
-    CargoReport,
-    CargoScheduledReportListResponse,
-    CreateReportResponse,
-    CargoReportResponse,
-    CargoReportListResponse,
+  AlApiClient,
+  AlDefaultClient,
+  APIRequestParams,
+} from '@al/core';
+import {
+  CargoReport,
+  CargoReportListResponse,
+  CargoReportResponse,
+  CargoScheduledReportListResponse,
+  CreateReportRequest,
+  CreateReportResponse,
+  ListScheduledReportsQueryParams,
+  ReportScheduleOnceRequest,
+  ReportScheduleRequest,
 } from './types';
 
 export class AlCargoClientInstance {
 
   protected serviceName = 'cargo';
 
-  constructor( public client:AlApiClient = ALClient ) {
+  constructor( public client:AlApiClient = AlDefaultClient ) {
   }
 
   /**

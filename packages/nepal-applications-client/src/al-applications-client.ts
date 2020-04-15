@@ -1,8 +1,19 @@
 /**
  * Applications API client
  */
-import { AlApiClient, AlDefaultClient, AIMSAccount } from '@al/client';
-import { AlApplication, AlRule, AlRuleForDeployment, AlRulePayload, AlApplicationConfigQuery, AlDeployACollectorPayload, AlDeployACollector } from './types';
+import {
+  AlApiClient,
+  AlDefaultClient,
+} from '@al/core';
+import {
+  AlApplication,
+  AlApplicationConfigQuery,
+  AlDeployACollector,
+  AlDeployACollectorPayload,
+  AlRule,
+  AlRuleForDeployment,
+  AlRulePayload,
+} from './types';
 
 export class AlApplicationsClientInstance {
 

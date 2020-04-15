@@ -1,11 +1,14 @@
-import { AlApplicationsClient, AlRulePayload } from '../src/index';
-import { ALClient } from '@al/client';
+import { AlDefaultClient } from '@al/core';
 import { expect } from 'chai';
 import { describe } from 'mocha';
 import * as sinon from 'sinon';
+import {
+  AlApplicationsClient,
+  AlRulePayload,
+} from '../src/index';
 
 beforeEach(() => {
-    ALClient.setGlobalParameters({ noEndpointsResolution: true });
+    AlDefaultClient.setGlobalParameters({ noEndpointsResolution: true });
 });
 
 afterEach(() => {
@@ -259,7 +262,7 @@ describe('APPLICATION CLIENT', () => {
         describe('When getting application list', () => {
 
             beforeEach(() => {
-                stub = sinon.stub(ALClient as any, 'axiosRequest').returns(Promise.resolve({ status: 200, data: applicationListMock }));
+                stub = sinon.stub(AlDefaultClient as any, 'axiosRequest').returns(Promise.resolve({ status: 200, data: applicationListMock }));
             });
             afterEach(() => {
                 stub.restore();
@@ -282,7 +285,7 @@ describe('APPLICATION CLIENT', () => {
 
         describe('When getting rules list', () => {
             beforeEach(() => {
-                stub = sinon.stub(ALClient as any, 'axiosRequest').returns(Promise.resolve({ status: 200, data: rulesListMock }));
+                stub = sinon.stub(AlDefaultClient as any, 'axiosRequest').returns(Promise.resolve({ status: 200, data: rulesListMock }));
             });
             afterEach(() => {
                 stub.restore();
@@ -304,7 +307,7 @@ describe('APPLICATION CLIENT', () => {
 
         describe('When getting rules list by deployment', () => {
             beforeEach(() => {
-                stub = sinon.stub(ALClient as any, 'axiosRequest').returns(Promise.resolve({ status: 200, data: rulesListByDeploymentMock }));
+                stub = sinon.stub(AlDefaultClient as any, 'axiosRequest').returns(Promise.resolve({ status: 200, data: rulesListByDeploymentMock }));
             });
             afterEach(() => {
                 stub.restore();
@@ -329,7 +332,7 @@ describe('APPLICATION CLIENT', () => {
         describe('When Add rule', () => {
 
             beforeEach(() => {
-                stub = sinon.stub(ALClient as any, 'axiosRequest').returns(Promise.resolve({status: 200, data: ruleMock}));
+                stub = sinon.stub(AlDefaultClient as any, 'axiosRequest').returns(Promise.resolve({status: 200, data: ruleMock}));
             });
             afterEach(() => {
                 stub.restore();
@@ -354,7 +357,7 @@ describe('APPLICATION CLIENT', () => {
         describe('When modify a rule', () => {
 
             beforeEach(() => {
-                stub = sinon.stub(ALClient as any, 'axiosRequest').returns(Promise.resolve({status: 200, data: ruleMock}));
+                stub = sinon.stub(AlDefaultClient as any, 'axiosRequest').returns(Promise.resolve({status: 200, data: ruleMock}));
             });
             afterEach(() => {
                 stub.restore();
@@ -379,7 +382,7 @@ describe('APPLICATION CLIENT', () => {
         describe('When delete a rule', () => {
 
             beforeEach(() => {
-                stub = sinon.stub(ALClient as any, 'axiosRequest').returns(Promise.resolve({status: 200}));
+                stub = sinon.stub(AlDefaultClient as any, 'axiosRequest').returns(Promise.resolve({status: 200}));
             });
             afterEach(() => {
                 stub.restore();
@@ -399,7 +402,7 @@ describe('APPLICATION CLIENT', () => {
         describe('When get rule', () => {
 
             beforeEach(() => {
-                stub = sinon.stub(ALClient as any, 'axiosRequest').returns(Promise.resolve({status: 200, data: ruleMock}));
+                stub = sinon.stub(AlDefaultClient as any, 'axiosRequest').returns(Promise.resolve({status: 200, data: ruleMock}));
             });
             afterEach(() => {
                 stub.restore();

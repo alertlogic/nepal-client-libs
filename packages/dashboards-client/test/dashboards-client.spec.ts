@@ -1,7 +1,15 @@
-import { DashboardsClient, DashboardRequest, DashboardGroup, SharedDashboardItem } from '../src/index';
-import { expect, assert } from 'chai';
+import {
+  assert,
+  expect,
+} from 'chai';
 import { describe } from 'mocha';
 import * as sinon from 'sinon';
+import {
+  DashboardGroup,
+  DashboardRequest,
+  DashboardsClient,
+  SharedDashboardItem,
+} from '../src/index';
 
 const serviceName = 'dashboards';
 const accountId = '12345';
@@ -40,7 +48,7 @@ describe('Dashboards Client Test Suite:', () => {
     afterEach(() => {
       stub.restore();
     });
-    it('should call post() on the ALClient instance to the deployments dashboard items endpoint with the correct payload', async() => {
+    it('should call post() on the AlDefaultClient instance to the deployments dashboard items endpoint with the correct payload', async() => {
       await DashboardsClient.createDeploymentDashboardItem(accountId, deploymentId, dashboardItemRequest);
       expect(stub.callCount).to.equal(1);
       const payload = {
@@ -61,7 +69,7 @@ describe('Dashboards Client Test Suite:', () => {
     afterEach(() => {
       stub.restore();
     });
-    it('should call get() on the ALClient instance to the deployments dashboard items endpoint with the correct payload', async() => {
+    it('should call get() on the AlDefaultClient instance to the deployments dashboard items endpoint with the correct payload', async() => {
       await DashboardsClient.getDeploymentDashboardItem(accountId, deploymentId, dashboardItemId);
       expect(stub.callCount).to.equal(1);
       const payload = {
@@ -81,7 +89,7 @@ describe('Dashboards Client Test Suite:', () => {
     afterEach(() => {
       stub.restore();
     });
-    it('should call set() on the ALClient instance to the deployments dashboard items endpoint with the correct payload', async() => {
+    it('should call set() on the AlDefaultClient instance to the deployments dashboard items endpoint with the correct payload', async() => {
       await DashboardsClient.updateDeploymentDashboardItem(accountId, deploymentId, dashboardItemId, dashboardItemRequest);
       expect(stub.callCount).to.equal(1);
       const payload = {
@@ -102,7 +110,7 @@ describe('Dashboards Client Test Suite:', () => {
     afterEach(() => {
       stub.restore();
     });
-    it('should call delete() on the ALClient instance to the deployments dashboard items endpoint', async() => {
+    it('should call delete() on the AlDefaultClient instance to the deployments dashboard items endpoint', async() => {
       await DashboardsClient.deleteDeploymentDashboardItem(accountId, deploymentId, dashboardItemId);
       expect(stub.callCount).to.equal(1);
       const payload = {
@@ -122,7 +130,7 @@ describe('Dashboards Client Test Suite:', () => {
     afterEach(() => {
       stub.restore();
     });
-    it('should call get() on the ALClient instance to the deployments dashboard items endpoint', async() => {
+    it('should call get() on the AlDefaultClient instance to the deployments dashboard items endpoint', async() => {
       await DashboardsClient.listDeploymentDashboardItems(accountId, deploymentId);
       expect(stub.callCount).to.equal(1);
       const payload = {
@@ -144,7 +152,7 @@ describe('Dashboards Client Test Suite:', () => {
     afterEach(() => {
       stub.restore();
     });
-    it('should call post() on the ALClient instance to the users dashboard items endpoint with the correct payload', async() => {
+    it('should call post() on the AlDefaultClient instance to the users dashboard items endpoint with the correct payload', async() => {
       await DashboardsClient.createUserDashboardItem(accountId, userId, dashboardItemRequest);
       expect(stub.callCount).to.equal(1);
       const payload = {
@@ -165,7 +173,7 @@ describe('Dashboards Client Test Suite:', () => {
     afterEach(() => {
       stub.restore();
     });
-    it('should call get() on the ALClient instance to the users dashboard items endpoint with the correct payload', async() => {
+    it('should call get() on the AlDefaultClient instance to the users dashboard items endpoint with the correct payload', async() => {
       await DashboardsClient.getUserDashboardItem(accountId, userId, dashboardItemId);
       expect(stub.callCount).to.equal(1);
       const payload = {
@@ -186,7 +194,7 @@ describe('Dashboards Client Test Suite:', () => {
     afterEach(() => {
       stub.restore();
     });
-    it('should call set() on the ALClient instance to the users dashboard items endpoint with the correct payload', async() => {
+    it('should call set() on the AlDefaultClient instance to the users dashboard items endpoint with the correct payload', async() => {
       await DashboardsClient.updateUserDashboardItem(accountId, userId, dashboardItemId, dashboardItemRequest);
       expect(stub.callCount).to.equal(1);
       const payload = {
@@ -207,7 +215,7 @@ describe('Dashboards Client Test Suite:', () => {
     afterEach(() => {
       stub.restore();
     });
-    it('should call delete() on the ALClient instance to the users dashboard items endpoint', async() => {
+    it('should call delete() on the AlDefaultClient instance to the users dashboard items endpoint', async() => {
       await DashboardsClient.deleteUserDashboardItem(accountId, userId, dashboardItemId);
       expect(stub.callCount).to.equal(1);
       const payload = {
@@ -227,7 +235,7 @@ describe('Dashboards Client Test Suite:', () => {
     afterEach(() => {
       stub.restore();
     });
-    it('should call get() on the ALClient instance to the users dashboard items endpoint', async() => {
+    it('should call get() on the AlDefaultClient instance to the users dashboard items endpoint', async() => {
       await DashboardsClient.listUserDashboardItems(accountId, userId);
       expect(stub.callCount).to.equal(1);
       const payload = {
@@ -250,7 +258,7 @@ describe('Dashboards Client Test Suite:', () => {
     afterEach(() => {
       stub.restore();
     });
-    it('should call post() on the ALClient instance to the users dashboard items endpoint with the correct payload', async() => {
+    it('should call post() on the AlDefaultClient instance to the users dashboard items endpoint with the correct payload', async() => {
       await DashboardsClient.createOwnDashboardItem(contextAccountId, dashboardItemRequest);
       expect(stub.callCount).to.equal(1);
       const payload = {
@@ -271,7 +279,7 @@ describe('Dashboards Client Test Suite:', () => {
     afterEach(() => {
       stub.restore();
     });
-    it('should call get() on the ALClient instance to the users dashboard items endpoint with the correct payload', async() => {
+    it('should call get() on the AlDefaultClient instance to the users dashboard items endpoint with the correct payload', async() => {
       await DashboardsClient.getOwnDashboardItem(contextAccountId, dashboardItemId);
       expect(stub.callCount).to.equal(1);
       const payload = {
@@ -292,7 +300,7 @@ describe('Dashboards Client Test Suite:', () => {
     afterEach(() => {
       stub.restore();
     });
-    it('should call set() on the ALClient instance to the users dashboard items endpoint with the correct payload', async() => {
+    it('should call set() on the AlDefaultClient instance to the users dashboard items endpoint with the correct payload', async() => {
       await DashboardsClient.updateOwnDashboardItem(contextAccountId, dashboardItemId, dashboardItemRequest);
       expect(stub.callCount).to.equal(1);
       const payload = {
@@ -313,7 +321,7 @@ describe('Dashboards Client Test Suite:', () => {
     afterEach(() => {
       stub.restore();
     });
-    it('should call delete() on the ALClient instance to the users dashboard items endpoint', async() => {
+    it('should call delete() on the AlDefaultClient instance to the users dashboard items endpoint', async() => {
       await DashboardsClient.deleteOwnDashboardItem(contextAccountId, dashboardItemId);
       expect(stub.callCount).to.equal(1);
       const payload = {
@@ -333,7 +341,7 @@ describe('Dashboards Client Test Suite:', () => {
     afterEach(() => {
       stub.restore();
     });
-    it('should call get() on the ALClient instance to the users dashboard items endpoint', async() => {
+    it('should call get() on the AlDefaultClient instance to the users dashboard items endpoint', async() => {
       const contextAccountId = '12345';
       await DashboardsClient.listOwnDashboardItems(contextAccountId);
       expect(stub.callCount).to.equal(1);
@@ -356,7 +364,7 @@ describe('Dashboards Client Test Suite:', () => {
     afterEach(() => {
       stub.restore();
     });
-    it('should call post() on the ALClient instance to the shared groups endpoint with the correct payload', async() => {
+    it('should call post() on the AlDefaultClient instance to the shared groups endpoint with the correct payload', async() => {
       await DashboardsClient.createDashboardGroup(accountId, dashboardGroup);
       expect(stub.callCount).to.equal(1);
       const payload = {
@@ -377,7 +385,7 @@ describe('Dashboards Client Test Suite:', () => {
     afterEach(() => {
       stub.restore();
     });
-    it('should call get() on the ALClient instance to the shared groups endpoint for the supplied group id', async() => {
+    it('should call get() on the AlDefaultClient instance to the shared groups endpoint for the supplied group id', async() => {
       await DashboardsClient.getDashboardGroup(accountId, dashboardGroupId);
       expect(stub.callCount).to.equal(1);
       const payload = {
@@ -398,7 +406,7 @@ describe('Dashboards Client Test Suite:', () => {
     afterEach(() => {
       stub.restore();
     });
-    it('should call get() on the ALClient instance to the shared groups endpoint with the correct payload', async() => {
+    it('should call get() on the AlDefaultClient instance to the shared groups endpoint with the correct payload', async() => {
       await DashboardsClient.listDashboardGroups(accountId);
       expect(stub.callCount).to.equal(1);
       const payload = {
@@ -419,7 +427,7 @@ describe('Dashboards Client Test Suite:', () => {
     afterEach(() => {
       stub.restore();
     });
-    it('should call set() on the ALClient instance to the shared groups endpoint with the correct payload', async() => {
+    it('should call set() on the AlDefaultClient instance to the shared groups endpoint with the correct payload', async() => {
       await DashboardsClient.updateDashboardGroup(accountId, dashboardGroupId, dashboardGroup);
       expect(stub.callCount).to.equal(1);
       const payload = {
@@ -440,7 +448,7 @@ describe('Dashboards Client Test Suite:', () => {
     afterEach(() => {
       stub.restore();
     });
-    it('should call delete() on the ALClient instance to the shared groups endpoint for the supplied groupd if', async() => {
+    it('should call delete() on the AlDefaultClient instance to the shared groups endpoint for the supplied groupd if', async() => {
       await DashboardsClient.deleteDashboardGroup(accountId, dashboardGroupId);
       expect(stub.callCount).to.equal(1);
       const payload = {
@@ -461,7 +469,7 @@ describe('Dashboards Client Test Suite:', () => {
     afterEach(() => {
       stub.restore();
     });
-    it('should call post() on the ALClient instance to the shared dashboard items endpoint with the correct payload', async() => {
+    it('should call post() on the AlDefaultClient instance to the shared dashboard items endpoint with the correct payload', async() => {
       await DashboardsClient.createSharedDashboardItem(accountId, sharedDashboardItem);
       expect(stub.callCount).to.equal(1);
       const payload = {
@@ -482,7 +490,7 @@ describe('Dashboards Client Test Suite:', () => {
     afterEach(() => {
       stub.restore();
     });
-    it('should call get() on the ALClient instance to the shared dashboard items endpoint for the supplied group id', async() => {
+    it('should call get() on the AlDefaultClient instance to the shared dashboard items endpoint for the supplied group id', async() => {
       await DashboardsClient.getSharedDashboardItem(accountId, sharedDashboardItemId);
       expect(stub.callCount).to.equal(1);
       const payload = {
@@ -502,7 +510,7 @@ describe('Dashboards Client Test Suite:', () => {
     afterEach(() => {
       stub.restore();
     });
-    it('should call get() on the ALClient instance to the shared dashboard items endpoint with the correct payload', async() => {
+    it('should call get() on the AlDefaultClient instance to the shared dashboard items endpoint with the correct payload', async() => {
       await DashboardsClient.listSharedDashboardItems(accountId);
       expect(stub.callCount).to.equal(1);
       const payload = {
@@ -523,7 +531,7 @@ describe('Dashboards Client Test Suite:', () => {
     afterEach(() => {
       stub.restore();
     });
-    it('should call set() on the ALClient instance to the shared dashboard items endpoint with the correct payload', async() => {
+    it('should call set() on the AlDefaultClient instance to the shared dashboard items endpoint with the correct payload', async() => {
       await DashboardsClient.updateSharedDashboardItem(accountId, sharedDashboardItemId, sharedDashboardItem);
       expect(stub.callCount).to.equal(1);
       const payload = {
@@ -544,7 +552,7 @@ describe('Dashboards Client Test Suite:', () => {
     afterEach(() => {
       stub.restore();
     });
-    it('should call delete() on the ALClient instance to the shared dashboard items endpoint for the supplied groupd if', async() => {
+    it('should call delete() on the AlDefaultClient instance to the shared dashboard items endpoint for the supplied groupd if', async() => {
       await DashboardsClient.deleteSharedDashboardItem(accountId, sharedDashboardItemId);
       expect(stub.callCount).to.equal(1);
       const payload = {

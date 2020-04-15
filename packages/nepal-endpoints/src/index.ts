@@ -1,4 +1,4 @@
-import { AlGlobalizer } from '@al/common';
+import { AlGlobalizer } from '@al/core';
 import { AlEndpointsClientInstance } from './al-endpoints-client';
 
 export { AlEndpointsClientInstance };

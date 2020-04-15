@@ -1,7 +1,10 @@
-import { SubscriptionsClient } from '../src/index';
-import { expect, assert } from 'chai';
+import {
+  assert,
+  expect,
+} from 'chai';
 import { describe } from 'mocha';
 import * as sinon from 'sinon';
+import { SubscriptionsClient } from '../src/index';
 
 const serviceName = 'subscriptions';
 const accountId = '12345';
@@ -20,7 +23,7 @@ describe('Subscriptions Client Test Suite:', () => {
       stub.restore();
     });
     //  Tautological tests are empty tests
-    xit('should call get() on the ALClient instance to the entitlements endpoint', async() => {
+    xit('should call get() on the AlDefaultClient instance to the entitlements endpoint', async() => {
       await SubscriptionsClient.getRawEntitlements(accountId, queryParams);
       expect(stub.callCount).to.equal(1);
       const payload = {
@@ -40,7 +43,7 @@ describe('Subscriptions Client Test Suite:', () => {
     afterEach(() => {
       stub.restore();
     });
-    xit('should call get() on the ALClient instance to the entitlements endpoint', async() => {
+    xit('should call get() on the AlDefaultClient instance to the entitlements endpoint', async() => {
       const productFamily = 'log_manager';
       await SubscriptionsClient.getAccountsByEntitlement(accountId, productFamily);
       expect(stub.callCount).to.equal(1);
@@ -60,7 +63,7 @@ describe('Subscriptions Client Test Suite:', () => {
     afterEach(() => {
       stub.restore();
     });
-    it('should call post() on the ALClient instance to the /subscription/aws endpoint with the subscription data', async() => {
+    it('should call post() on the AlDefaultClient instance to the /subscription/aws endpoint with the subscription data', async() => {
       const subscription = {
         product_code:'ebbgj0o0g5cwo4**********',
         aws_customer_identifier:'7vBT7cnzEYf',
@@ -85,7 +88,7 @@ describe('Subscriptions Client Test Suite:', () => {
     afterEach(() => {
       stub.restore();
     });
-    it('should call post() on the ALClient instance to the /subscription endpoint using the supplied entitements in the subscription data sent', async() => {
+    it('should call post() on the AlDefaultClient instance to the /subscription endpoint using the supplied entitements in the subscription data sent', async() => {
       const entitlements = [{
         product_family_code:'log_manager',
         status:'active',
@@ -114,7 +117,7 @@ describe('Subscriptions Client Test Suite:', () => {
     afterEach(() => {
       stub.restore();
     });
-    it('should call post() on the ALClient instance to the standard subscription endpoint', async() => {
+    it('should call post() on the AlDefaultClient instance to the standard subscription endpoint', async() => {
       await SubscriptionsClient.createStandardSubscription(accountId);
       expect(stub.callCount).to.equal(1);
       const payload = {
@@ -133,7 +136,7 @@ describe('Subscriptions Client Test Suite:', () => {
     afterEach(() => {
       stub.restore();
     });
-    it('should call get() on the ALClient instance to the subscription endpoint for the supplied subscription ID', async() => {
+    it('should call get() on the AlDefaultClient instance to the subscription endpoint for the supplied subscription ID', async() => {
       const subscriptionId = '123-ABC=-?!';
       await SubscriptionsClient.getSubscription(accountId, subscriptionId);
       expect(stub.callCount).to.equal(1);
@@ -153,7 +156,7 @@ describe('Subscriptions Client Test Suite:', () => {
     afterEach(() => {
       stub.restore();
     });
-    it('should call get() on the ALClient instance to the subscriptions endpoint for the supplied subscription ID', async() => {
+    it('should call get() on the AlDefaultClient instance to the subscriptions endpoint for the supplied subscription ID', async() => {
       await SubscriptionsClient.getSubscriptions(accountId);
       expect(stub.callCount).to.equal(1);
       const payload = {
@@ -172,7 +175,7 @@ describe('Subscriptions Client Test Suite:', () => {
     afterEach(() => {
       stub.restore();
     });
-    it('should call put() on the ALClient instance to the subscription/aws endpoint with the supplied subscription data', async() => {
+    it('should call put() on the AlDefaultClient instance to the subscription/aws endpoint with the supplied subscription data', async() => {
       const subscription = {
         product_code:'ebbgj0o0g5cwo4**********',
         status:'unsubscribe-success',

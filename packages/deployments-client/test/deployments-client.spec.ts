@@ -1,7 +1,13 @@
-import { AlDeploymentsClientInstance, DeploymentCreateBody } from '../src/index';
-import { expect, assert } from 'chai';
+import {
+  assert,
+  expect,
+} from 'chai';
 import { describe } from 'mocha';
 import * as sinon from 'sinon';
+import {
+  AlDeploymentsClientInstance,
+  DeploymentCreateBody,
+} from '../src/index';
 
 let deploymentsClient:AlDeploymentsClientInstance;
 
@@ -32,7 +38,7 @@ describe('Deployments Client Test Suite', () => {
       stub.restore();
     });
 
-    it('should should call post() on the ALClient instance to the deployments endpoint', async() => {
+    it('should should call post() on the AlDefaultClient instance to the deployments endpoint', async() => {
       await deploymentsClient.createDeployment(accountId, deploymentRequestBody);
       expect(stub.callCount).to.equal(1);
       const payload = {
@@ -55,7 +61,7 @@ describe('Deployments Client Test Suite', () => {
       stub.restore();
     });
 
-    it('should should call set() on the ALClient instance to the deployments endpoint', async() => {
+    it('should should call set() on the AlDefaultClient instance to the deployments endpoint', async() => {
       await deploymentsClient.updateDeployment(accountId, deploymentId, deploymentRequestBody);
       expect(stub.callCount).to.equal(1);
       const payload = {
@@ -78,7 +84,7 @@ describe('Deployments Client Test Suite', () => {
       stub.restore();
     });
 
-    it('should should call delete() on the ALClient instance to the deployments endpoint', async() => {
+    it('should should call delete() on the AlDefaultClient instance to the deployments endpoint', async() => {
       await deploymentsClient.deleteDeployment(accountId, deploymentId);
       expect(stub.callCount).to.equal(1);
       const payload = {
@@ -100,7 +106,7 @@ describe('Deployments Client Test Suite', () => {
       stub.restore();
     });
 
-    it('should should call get() on the ALClient instance to the deployments endpoint', async() => {
+    it('should should call get() on the AlDefaultClient instance to the deployments endpoint', async() => {
       await deploymentsClient.getDeployment(accountId, deploymentId);
       expect(stub.callCount).to.equal(1);
       const payload = {
@@ -122,7 +128,7 @@ describe('Deployments Client Test Suite', () => {
       stub.restore();
     });
 
-    it('should should call get() on the ALClient instance to the deployments endpoint', async() => {
+    it('should should call get() on the AlDefaultClient instance to the deployments endpoint', async() => {
       await deploymentsClient.listDeployments(accountId);
       expect(stub.callCount).to.equal(1);
       const payload = {

@@ -1,7 +1,7 @@
-import { AlPoliciesClientInstance } from '../src/index';
 import { expect } from 'chai';
 import { describe } from 'mocha';
 import * as sinon from 'sinon';
+import { AlPoliciesClientInstance } from '../src/index';
 
 let policiesClient:AlPoliciesClientInstance;
 
@@ -20,7 +20,7 @@ describe('Policies Client Test Suite:', () => {
     afterEach(() => {
       stub.restore();
     });
-    it('should call fetch() on the ALClient instance', async () => {
+    it('should call fetch() on the AlDefaultClient instance', async () => {
       await policiesClient.getPolicy('1234', '0987');
       expect(stub.callCount).to.equal(1);
     });
@@ -33,7 +33,7 @@ describe('Policies Client Test Suite:', () => {
     afterEach(() => {
       stub.restore();
     });
-    it('should call fetch() on the ALClient instance', async () => {
+    it('should call fetch() on the AlDefaultClient instance', async () => {
       await policiesClient.listPolicies('1234');
       expect(stub.callCount).to.equal(1);
     });

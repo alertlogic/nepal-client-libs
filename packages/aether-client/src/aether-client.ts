@@ -1,7 +1,10 @@
 /**
  * Module to deal with available Ticket Master Public API endpoints
  */
-import { AlApiClient, ALClient } from '@al/client';
+import {
+  AlApiClient,
+  AlDefaultClient,
+} from '@al/core';
 
 export interface AetherResult {
     id?: string;
@@ -48,7 +51,7 @@ export interface AetherSearchResponse {
 export class AetherClientInstance {
     private serviceName = 'aether';
 
-    public constructor(public client: AlApiClient = ALClient) {
+    public constructor(public client: AlApiClient = AlDefaultClient) {
     }
 
     /**

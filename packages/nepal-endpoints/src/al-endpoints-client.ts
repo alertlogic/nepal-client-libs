@@ -1,7 +1,16 @@
-import { AlLocation } from '@al/common';
-import { AIMSClient, AIMSOrganization } from '@al/aims';
-import { ALClient } from '@al/client';
-import { AlEndpointsGroupedIncidents, AlEEPMappingDictionary, AlEndpointDetail, AlEndpointsSummaryData, AlEndpointsAgentVersionInfo } from './types';
+import {
+  AIMSClient,
+  AIMSOrganization,
+  AlDefaultClient,
+  AlLocation,
+} from '@al/core';
+import {
+  AlEEPMappingDictionary,
+  AlEndpointDetail,
+  AlEndpointsAgentVersionInfo,
+  AlEndpointsGroupedIncidents,
+  AlEndpointsSummaryData,
+} from './types';
 
 export class AlEndpointsClientInstance {
 
@@ -34,7 +43,7 @@ export class AlEndpointsClientInstance {
             version: 'v1',
             path: `organizations/${organizationId}/all_agent_versions`,
         };
-        const agentVersions = await ALClient.get( requestDescriptor );
+        const agentVersions = await AlDefaultClient.get( requestDescriptor );
         return agentVersions as AlEndpointsAgentVersionInfo;
     }
 
@@ -45,7 +54,7 @@ export class AlEndpointsClientInstance {
             version: 'v1',
             path: `mappings`,
         };
-        const mappingDictionary = await ALClient.get( requestDescriptor );
+        const mappingDictionary = await AlDefaultClient.get( requestDescriptor );
         return mappingDictionary as AlEEPMappingDictionary;
     }
 
@@ -60,7 +69,7 @@ export class AlEndpointsClientInstance {
                 includeFailsafe: false
             }
         };
-        return await ALClient.get( requestDescriptor ) as AlEndpointsGroupedIncidents;
+        return await AlDefaultClient.get( requestDescriptor ) as AlEndpointsGroupedIncidents;
     }
 
     public async getEndpointDetails( accountId:string ):Promise<AlEndpointDetail[]> {
@@ -71,7 +80,7 @@ export class AlEndpointsClientInstance {
             version: 'v1',
             path: `endpoints/organization/${organizationId}`
         };
-        const endpointDetails = await ALClient.get( requestDescriptor );
+        const endpointDetails = await AlDefaultClient.get( requestDescriptor );
         return endpointDetails;
     }
 
@@ -83,7 +92,7 @@ export class AlEndpointsClientInstance {
             version: 'v1',
             path: `/summary/${organizationId}`
         };
-        const summary = await ALClient.get( requestDescriptor );
+        const summary = await AlDefaultClient.get( requestDescriptor );
         return summary;
     }
 }

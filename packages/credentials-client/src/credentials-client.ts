@@ -1,5 +1,4 @@
-
-import { ALClient } from '@al/client';
+import { AlDefaultClient } from '@al/core';
 
 export interface AssetScanCredentials {
   name: string;
@@ -12,7 +11,7 @@ export interface AssetScanCredentials {
 
 class CredentialsClient {
 
-  private alClient = ALClient;
+  private alClient = AlDefaultClient;
 
   /**
    * Delete scan credentials for an asset

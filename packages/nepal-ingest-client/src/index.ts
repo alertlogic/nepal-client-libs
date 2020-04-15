@@ -1,4 +1,4 @@
-import { AlGlobalizer } from '@al/common';
+import { AlGlobalizer } from '@al/core';
 import { AlIngestClientInstance } from './al-ingest-client';
 
 export * from './al-ingest-client';

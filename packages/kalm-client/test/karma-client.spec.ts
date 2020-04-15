@@ -1,7 +1,10 @@
-import { KalmClient, StorageDescriptor, StorageDescriptorColumn} from '../src/index';
-import { expect, assert } from 'chai';
+import {
+  assert,
+  expect,
+} from 'chai';
 import { describe } from 'mocha';
 import * as sinon from 'sinon';
+import { KalmClient } from '../src/index';
 
 const serviceName = 'kalm';
 const accountID = 1234;
@@ -24,7 +27,7 @@ describe('Kalm Client Test Suite', () => {
       stub.restore();
     });
 
-    it ('should should call get() on the ALClient instance to the kalm catalog tables items endpoint for all tables', async() => {
+    it ('should should call get() on the AlDefaultClient instance to the kalm catalog tables items endpoint for all tables', async() => {
       await KalmClient.listCatalogTables();
       expect(stub.callCount).to.equal(1);
       const payload = {
@@ -36,7 +39,7 @@ describe('Kalm Client Test Suite', () => {
       assert.deepEqual(payload, stub.args[0][0]);
     });
 
-    it ('should should call get() on the ALClient instance to the kalm catalog tables items endpoint for a single table', async() => {
+    it ('should should call get() on the AlDefaultClient instance to the kalm catalog tables items endpoint for a single table', async() => {
       await KalmClient.getCatalogTable('test');
       expect(stub.callCount).to.equal(1);
       const payload = {
@@ -48,7 +51,7 @@ describe('Kalm Client Test Suite', () => {
       assert.deepEqual(payload, stub.args[0][0]);
     });
 
-    it ('should should call get() on the ALClient instance to the startSimpleQuery end point', async() => {
+    it ('should should call get() on the AlDefaultClient instance to the startSimpleQuery end point', async() => {
       await KalmClient.startSimpleQuery(accountId, 'test');
       expect(stub.callCount).to.equal(1);
       const payload = {

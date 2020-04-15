@@ -1,11 +1,11 @@
-import { AlHeraldClientV2 } from '../src/index';
-import { ALClient } from '@al/client';
+import { AlDefaultClient } from '@al/core';
 import { expect } from 'chai';
 import { describe } from 'mocha';
 import * as sinon from 'sinon';
+import { AlHeraldClientV2 } from '../src/index';
 
 beforeEach(() => {
-    ALClient.setGlobalParameters( { noEndpointsResolution: true } );
+    AlDefaultClient.setGlobalParameters( { noEndpointsResolution: true } );
 } );
 
 afterEach(() => {
@@ -41,7 +41,7 @@ describe('HERALD CLIENT V2', () => {
         describe('When fetching all subscription', () => {
 
             beforeEach(() => {
-                stub = sinon.stub(ALClient as any, 'axiosRequest').returns(Promise.resolve({status: 200, data: subscriptionsListV2}));
+                stub = sinon.stub(AlDefaultClient as any, 'axiosRequest').returns(Promise.resolve({status: 200, data: subscriptionsListV2}));
             });
             afterEach(() => {
                 stub.restore();
@@ -69,7 +69,7 @@ describe('HERALD CLIENT V2', () => {
             });
 
             it('Should call the AlHeraldClientV2 instance\'s POST.', async () => {
-                stub = sinon.stub(ALClient as any, 'axiosRequest').returns({ status: 204 });
+                stub = sinon.stub(AlDefaultClient as any, 'axiosRequest').returns({ status: 204 });
                 await AlHeraldClientV2.deleteSubscriptionsByIds(accountId, ['1', '2']);
                 expect(stub.callCount).to.equal(1);
                 expect(stub.args[0][0].url).to.equal(`${apiBaseURL}/${service}/${version}/${accountId}/subscriptions/batch/delete`);

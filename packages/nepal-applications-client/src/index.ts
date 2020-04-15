@@ -1,4 +1,4 @@
-import { AlGlobalizer } from '@al/common';
+import { AlGlobalizer } from '@al/core';
 import { AlApplicationsClientInstance } from './al-applications-client';
 
 export * from './al-applications-client';

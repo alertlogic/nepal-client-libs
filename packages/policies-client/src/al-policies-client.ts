@@ -1,7 +1,10 @@
 /**
  * A client for interacting with the Alert Logic Policies Public API.
  */
-import { AlApiClient, AlDefaultClient } from '@al/core';
+import {
+  AlApiClient,
+  AlDefaultClient,
+} from '@al/core';
 
 interface PolicyFeature {
   type: string;

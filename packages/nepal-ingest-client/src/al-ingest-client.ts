@@ -1,15 +1,14 @@
 /**
  * Module to deal with available Ingest Public API endpoints
  */
-import { AlResponseValidationError } from '@al/common';
-import { ALClient } from '@al/client';
+import { AlDefaultClient } from '@al/core';
 
 export interface AlDataType {
     name: string;
 }
 
 export interface AlDataTypeDocField {
-    description: string; 
+    description: string;
     type?: string;
     fields?: { [key: string]: AlDataTypeDocField };
 }
@@ -18,7 +17,7 @@ export interface AlDataTypeDoc {
     name: string;
     description: string;
     fields: { [key: string]: AlDataTypeDocField };
-} 
+}
 
 export interface AlDataTypeProperty {
     [key: string]: string | number | string[] | number[] | AlDataTypeProperty[] | AlDataTypeProperty;
@@ -33,7 +32,7 @@ export interface AlDataTypeAttributesResponse {
     packet?: AlDataTypeProperty;
     packet_versions?: string[];
     searchable?: boolean;
-} 
+}
 export interface AlDataTypeAttributesParameters {
     type?: string;
     attributes?: string;
@@ -48,7 +47,7 @@ export class AlIngestClientInstance {
      *  Get list of data types
      */
     async getDataTypes(): Promise<AlDataType[]> {
-        const dataType = await ALClient.get({
+        const dataType = await AlDefaultClient.get({
             service_name: this.serviceName,
             path:         `/types`,
         });
@@ -59,7 +58,7 @@ export class AlIngestClientInstance {
      *  Get list of data types
      */
     async getDataTypeAttributes(dataType: string, params: AlDataTypeAttributesParameters): Promise<AlDataTypeAttributesResponse> {
-        const attributes = await ALClient.get({
+        const attributes = await AlDefaultClient.get({
             service_name: this.serviceName,
             path:         `/type/${dataType}`,
             params: params

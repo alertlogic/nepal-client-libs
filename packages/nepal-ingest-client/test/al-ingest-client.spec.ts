@@ -1,14 +1,13 @@
-import { AlIngestClientInstance } from '../src/index';
-import { AlLocatorService, AlLocation } from '@al/common';
-import { ALClient } from '@al/client';
+import { AlDefaultClient } from '@al/core';
 import { expect } from 'chai';
-import { describe, before } from 'mocha';
+import { describe } from 'mocha';
 import * as sinon from 'sinon';
+import { AlIngestClientInstance } from '../src/index';
 
 let ingestClient:AlIngestClientInstance;
 
 beforeEach(() => {
-    ALClient.setGlobalParameters( { noEndpointsResolution: true } );
+    AlDefaultClient.setGlobalParameters( { noEndpointsResolution: true } );
     ingestClient = new AlIngestClientInstance();
 } );
 

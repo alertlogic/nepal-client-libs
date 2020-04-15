@@ -1,8 +1,16 @@
 /**
  * Module to deal with available Tacoma Public API endpoints
  */
-import { AlApiClient, AlDefaultClient } from '@al/client';
-import { AlTacomaView, AlTacomaWorkbook, AlTacomaSite, AlSavedView, AlTacomaViewDictionary } from './types';
+import {
+  AlApiClient,
+  AlDefaultClient,
+} from '@al/core';
+import {
+  AlSavedView,
+  AlTacomaSite,
+  AlTacomaView,
+  AlTacomaViewDictionary,
+} from './types';
 
 export class AlTacomaClientInstance
 {

@@ -1,22 +1,21 @@
 /**
  * Module to deal with available Assets Query Public API endpoints
  */
-import { ALClient } from '@al/client';
+import { AlDefaultClient } from '@al/core';
 import {
-  HealthResponse,
-  HealthSummaryResponse,
-  FindAssetsRequest,
-  TagsSummaryResponse,
-  TopologyResponse,
-  ExposuresDeploymentSummary,
-  ExposuresSummary,
   ExposureQueryParams,
   ExposuresQueryResponse,
+  ExposuresSummary,
+  FindAssetsRequest,
+  HealthResponse,
+  HealthSummaryResponse,
+  TagsSummaryResponse,
+  TopologyResponse,
 } from './types';
 
 class AssetsQueryClient {
 
-  private alClient = ALClient;
+  private alClient = AlDefaultClient;
 
   /**
    * Get Collection Health

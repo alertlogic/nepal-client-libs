@@ -1,9 +1,9 @@
-import { AlChangeStamp } from '@al/client';
+import { AlChangeStamp } from '@al/core';
 
 /**
  * Reexport AIMS constructs that are defined in @al/session for convenience.
  */
-export { AIMSAccount, AIMSAuthentication, AIMSSessionDescriptor, AIMSUser, AlChangeStamp } from '@al/client';
+export { AIMSAccount, AIMSAuthentication, AIMSSessionDescriptor, AIMSUser, AlChangeStamp } from '@al/core';
 
 export interface AlHeraldAccountSubscriptionKeyPayload
 {

@@ -1,6 +1,6 @@
+import { AlGlobalizer } from '@al/core';
 import { AlCargoClientInstance } from './al-cargo-client';
 import { AlCargoClientInstanceV2 } from './al-cargo-client-v2';
-import { AlGlobalizer } from '@al/common';
 
 export * from './types';
 export * from './utilities';

@@ -1,4 +1,4 @@
-import { AlGlobalizer } from '@al/common';
+import { AlGlobalizer } from '@al/core';
 import { AlDeploymentsClientInstance } from './al-deployments-client';
 
 /* tslint:disable:variable-name */

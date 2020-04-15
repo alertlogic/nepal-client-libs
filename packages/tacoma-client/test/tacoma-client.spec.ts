@@ -1,7 +1,7 @@
-import { ALTacoma, AlTacomaClientInstance } from '../src/index';
-import { expect, assert } from 'chai';
-import { describe, before } from 'mocha';
+import { expect } from 'chai';
+import { describe } from 'mocha';
 import * as sinon from 'sinon';
+import { ALTacoma } from '../src/index';
 
 const serviceName = 'tacoma';
 
@@ -22,7 +22,7 @@ describe('Tacoma Client Test Suite:', () => {
     afterEach(() => {
       stub.restore();
     });
-    it('should call fetch() on the ALClient instance', async() => {
+    it('should call fetch() on the AlDefaultClient instance', async() => {
       await ALTacoma.exportSavedViewReport('1234', '7890', '5678');
       expect(stub.callCount).to.equal(1);
     });
@@ -35,7 +35,7 @@ describe('Tacoma Client Test Suite:', () => {
     afterEach(() => {
       stub.restore();
     });
-    it('should call fetch() on the ALClient instance', async() => {
+    it('should call fetch() on the AlDefaultClient instance', async() => {
       await ALTacoma.getSavedView('1234', '7890', '5678');
       expect(stub.callCount).to.equal(1);
     });
@@ -48,7 +48,7 @@ describe('Tacoma Client Test Suite:', () => {
     afterEach(() => {
       stub.restore();
     });
-    it('should call fetch() on the ALClient instance', async() => {
+    it('should call fetch() on the AlDefaultClient instance', async() => {
       await ALTacoma.exportViewReport('1234', '7890', '5678', '0987');
       expect(stub.callCount).to.equal(1);
     });
@@ -61,7 +61,7 @@ describe('Tacoma Client Test Suite:', () => {
     afterEach(() => {
       stub.restore();
     });
-    it('should call fetch() on the ALClient instance', async() => {
+    it('should call fetch() on the AlDefaultClient instance', async() => {
       await ALTacoma.getView('1234', '7890', '5678', '0987');
       expect(stub.callCount).to.equal(1);
     });
@@ -74,7 +74,7 @@ describe('Tacoma Client Test Suite:', () => {
     afterEach(() => {
       stub.restore();
     });
-    it('should call fetch() on the ALClient instance', async() => {
+    it('should call fetch() on the AlDefaultClient instance', async() => {
       await ALTacoma.exportWorkbookReport('1234', '7890', '5678', 'pdf');
       expect(stub.callCount).to.equal(1);
     });
@@ -87,7 +87,7 @@ describe('Tacoma Client Test Suite:', () => {
     afterEach(() => {
       stub.restore();
     });
-    it('should call fetch() on the ALClient instance', async() => {
+    it('should call fetch() on the AlDefaultClient instance', async() => {
       await ALTacoma.getWorkbookPreview('1234', '7890', '5678');
       expect(stub.callCount).to.equal(1);
     });
@@ -100,7 +100,7 @@ describe('Tacoma Client Test Suite:', () => {
     afterEach(() => {
       stub.restore();
     });
-    it('should call fetch() on the ALClient instance', async() => {
+    it('should call fetch() on the AlDefaultClient instance', async() => {
       await ALTacoma.getWorkbook('1234', {filter_subscriptions: 'true'});
       expect(stub.callCount).to.equal(1);
     });

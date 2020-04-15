@@ -1,7 +1,7 @@
 /**
  * Cargo API V2
  */
-import { AlChangeStamp } from "@al/client";
+import { AlChangeStamp } from "@al/core";
 
 export interface CargoReportTimeRangeV2 {
   days?: number;

@@ -1,4 +1,4 @@
-import { AlGlobalizer } from '@al/common';
+import { AlGlobalizer } from '@al/core';
 import { AlHeraldClientInstance } from './al-herald-client';
 import { AlHeraldClientInstanceV2 } from './al-herald-client-v2';
 

@@ -1,12 +1,15 @@
-import { AlCoralClient } from '../src/index';
-import { AlLocatorService, AlLocation } from '@al/common';
-import { ALClient } from '@al/client';
+import {
+  AlDefaultClient,
+  AlLocatorService,
+} from '@al/core';
 import { expect } from 'chai';
-import { describe, before } from 'mocha';
+import { describe } from 'mocha';
 import * as sinon from 'sinon';
+import { AlCoralClient } from '../src/index';
 
 beforeEach(() => {
-    ALClient.setGlobalParameters( { noEndpointsResolution: true } );
+  AlLocatorService.setContext( { environment: "production" } );
+  AlDefaultClient.setGlobalParameters( { noEndpointsResolution: true } );
 } );
 
 afterEach(() => {
@@ -44,12 +47,12 @@ describe('AECORAL CLIENT', () => {
 
     describe('When creating a notification-only correlation rule', () => {
         beforeEach(() => {
-            stub = sinon.stub(ALClient as any, 'axiosRequest').returns(Promise.resolve({ status: 200, data: { correlation_rule_id: "12345678" }}));
+            stub = sinon.stub(AlDefaultClient as any, 'axiosRequest').returns(Promise.resolve({ status: 200, data: { correlation_rule_id: "12345678" }}));
         });
         afterEach(() => {
             stub.restore();
         });
-        it('Should call the ALClient instance\'s POST.', async () => {
+        it('Should call the AlDefaultClient instance\'s POST.', async () => {
             await AlCoralClient.createCorrelationRule('2',testReq);
             expect(stub.callCount).to.equal(1);
             expect(stub.args[0][0].url).to.equal("https://api.cloudinsight.alertlogic.com/aecoral/v1/2/correlations");
@@ -57,12 +60,12 @@ describe('AECORAL CLIENT', () => {
     });
     describe('When fetching incident specifications', () => {
         beforeEach(() => {
-            stub = sinon.stub(ALClient as any, 'axiosRequest').returns(Promise.resolve({ status: 200, data: { correlation_rule_id: "12345678" }}));
+            stub = sinon.stub(AlDefaultClient as any, 'axiosRequest').returns(Promise.resolve({ status: 200, data: { correlation_rule_id: "12345678" }}));
         });
         afterEach(() => {
             stub.restore();
         });
-        it('Should call the ALClient instance\'s FETCH.', async () => {
+        it('Should call the AlDefaultClient instance\'s FETCH.', async () => {
             await AlCoralClient.getIncidentSpecifications();
             expect(stub.callCount).to.equal(1);
             expect(stub.args[0][0].url).to.equal("https://api.cloudinsight.alertlogic.com/aecoral/v1/incident_spec");
@@ -70,12 +73,12 @@ describe('AECORAL CLIENT', () => {
     });
     describe('When removing a correlation rule', () => {
         beforeEach(() => {
-            stub = sinon.stub(ALClient as any, 'axiosRequest').returns(Promise.resolve({status: 200, data: {}}));
+            stub = sinon.stub(AlDefaultClient as any, 'axiosRequest').returns(Promise.resolve({status: 200, data: {}}));
         });
         afterEach(() => {
             stub.restore();
         });
-        it('Should call the ALClient instance\'s DELETE.', async () => {
+        it('Should call the AlDefaultClient instance\'s DELETE.', async () => {
             await AlCoralClient.removeCorrelationRule('2', '12345678');
             expect(stub.callCount).to.equal(1);
             expect(stub.args[0][0].url).to.equal("https://api.cloudinsight.alertlogic.com/aecoral/v1/2/correlations/12345678");
@@ -83,12 +86,12 @@ describe('AECORAL CLIENT', () => {
     });
     describe('When fetching a particular correlation rule', () => {
         beforeEach(() => {
-            stub = sinon.stub(ALClient as any, 'axiosRequest').returns(Promise.resolve({status: 200, data: correlation_example}));
+            stub = sinon.stub(AlDefaultClient as any, 'axiosRequest').returns(Promise.resolve({status: 200, data: correlation_example}));
         });
         afterEach(() => {
             stub.restore();
         });
-        it('Should call the ALClient instance\'s GET.', async () => {
+        it('Should call the AlDefaultClient instance\'s GET.', async () => {
             await AlCoralClient.getCorrelationRule('2', '12345678');
             expect(stub.callCount).to.equal(1);
             expect(stub.args[0][0].url).to.equal("https://api.cloudinsight.alertlogic.com/aecoral/v1/2/correlations/12345678");
@@ -96,12 +99,12 @@ describe('AECORAL CLIENT', () => {
     });
     describe('When fetching all correlation rules', () => {
         beforeEach(() => {
-            stub = sinon.stub(ALClient as any, 'axiosRequest').returns(Promise.resolve({status: 200, data: correlations}));
+            stub = sinon.stub(AlDefaultClient as any, 'axiosRequest').returns(Promise.resolve({status: 200, data: correlations}));
         });
         afterEach(() => {
             stub.restore();
         });
-        it('Should call the ALClient instance\'s GET.', async () => {
+        it('Should call the AlDefaultClient instance\'s GET.', async () => {
             await AlCoralClient.getAllCorrelations('2');
             expect(stub.callCount).to.equal(1);
             expect(stub.args[0][0].url).to.equal("https://api.cloudinsight.alertlogic.com/aecoral/v1/2/correlations");
@@ -109,12 +112,12 @@ describe('AECORAL CLIENT', () => {
     });
     describe('When updating a correlation rule', () => {
         beforeEach(() => {
-            stub = sinon.stub(ALClient as any, 'axiosRequest').returns(Promise.resolve({status: 200, data: {correlation_rule_id: "12345678"}}));
+            stub = sinon.stub(AlDefaultClient as any, 'axiosRequest').returns(Promise.resolve({status: 200, data: {correlation_rule_id: "12345678"}}));
         });
         afterEach(() => {
             stub.restore();
         });
-        it('Should call the ALClient instance\'s PUT.', async () => {
+        it('Should call the AlDefaultClient instance\'s PUT.', async () => {
             await AlCoralClient.updateCorrelationRule('2', '12345678', correlation_example);
             expect(stub.callCount).to.equal(1);
             expect(stub.args[0][0].url).to.equal("https://api.cloudinsight.alertlogic.com/aecoral/v1/2/correlations/12345678");

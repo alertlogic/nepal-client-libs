@@ -1,18 +1,21 @@
 /**
  * Herald API client v2
  */
-import { AlApiClient, AlDefaultClient } from '@al/client';
+import {
+  AlApiClient,
+  AlDefaultClient,
+} from '@al/core';
 import { AlHeraldClientInstance } from './al-herald-client';
 import {
-    ALHeraldSubscriber,
-    AlHeraldNotificationType,
-    AlHeraldNotificationV2,
-    AlHeraldAccountSubscriptionV2,
-    AlHeraldSubscriptionsQueryV2,
-    AlHeraldAccountSubscriptionPayloadV2,
-    AlHeraldAccountSubscriptionResponseV2,
-    AlHeraldUpdateSubscriptionPayloadV2,
-    AlHeraldSubscribersV2
+  AlHeraldAccountSubscriptionPayloadV2,
+  AlHeraldAccountSubscriptionResponseV2,
+  AlHeraldAccountSubscriptionV2,
+  AlHeraldNotificationType,
+  AlHeraldNotificationV2,
+  ALHeraldSubscriber,
+  AlHeraldSubscribersV2,
+  AlHeraldSubscriptionsQueryV2,
+  AlHeraldUpdateSubscriptionPayloadV2,
 } from './types/index';
 
 export class AlHeraldClientInstanceV2 extends AlHeraldClientInstance {

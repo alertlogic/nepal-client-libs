@@ -1,7 +1,7 @@
-import { AlIrisClientInstance } from '../src/index';
-import { expect, assert } from 'chai';
-import { describe, before } from 'mocha';
+import { expect } from 'chai';
+import { describe } from 'mocha';
 import * as sinon from 'sinon';
+import { AlIrisClientInstance } from '../src/index';
 
 const serviceName = 'iris';
 let irisClient:AlIrisClientInstance;
@@ -21,7 +21,7 @@ describe('Iris Client Test Suite:', () => {
     afterEach(() => {
       stub.restore();
     });
-    it('should call fetch() on the ALClient instance', async () => {
+    it('should call fetch() on the AlDefaultClient instance', async () => {
       await irisClient.getElaborations('1234', '0987');
       expect(stub.callCount).to.equal(1);
     });
@@ -34,7 +34,7 @@ describe('Iris Client Test Suite:', () => {
     afterEach(() => {
       stub.restore();
     });
-    it('should call post() on the ALClient instance', async () => {
+    it('should call post() on the AlDefaultClient instance', async () => {
       await irisClient.dslTranslate({ query_string: ['LIKE foo', 'LIKE bar'] });
       expect(stub.callCount).to.equal(1);
     });
@@ -47,7 +47,7 @@ describe('Iris Client Test Suite:', () => {
     afterEach(() => {
       stub.restore();
     });
-    it('should call fetch() on the ALClient instance', async () => {
+    it('should call fetch() on the AlDefaultClient instance', async () => {
       await irisClient.getConstants();
       expect(stub.callCount).to.equal(1);
     });
@@ -60,7 +60,7 @@ describe('Iris Client Test Suite:', () => {
     afterEach(() => {
       stub.restore();
     });
-    it('should call post() on the ALClient instance', async () => {
+    it('should call post() on the AlDefaultClient instance', async () => {
       await irisClient.searchTranslate({ search_request: ['LIKE foo', 'LIKE bar'] });
       expect(stub.callCount).to.equal(1);
     });
@@ -73,7 +73,7 @@ describe('Iris Client Test Suite:', () => {
     afterEach(() => {
       stub.restore();
     });
-    it('should call fetch() on the ALClient instance', async () => {
+    it('should call fetch() on the AlDefaultClient instance', async () => {
       await irisClient.getAssociatedElaborations('1234', '0987');
       expect(stub.callCount).to.equal(1);
     });
@@ -86,7 +86,7 @@ describe('Iris Client Test Suite:', () => {
     afterEach(() => {
       stub.restore();
     });
-    it('should call fetch() on the ALClient instance', async () => {
+    it('should call fetch() on the AlDefaultClient instance', async () => {
       await irisClient.getAttatchedElaborations('1234', '0987');
       expect(stub.callCount).to.equal(1);
     });
@@ -100,7 +100,7 @@ describe('Iris Client Test Suite:', () => {
       stub.restore();
     });
     const testQuery = { query: { select: ['* FROM foo'], where: { between: 'exists' }, order_by: ['stuff, ASC'], limit: 10 } };
-    it('should call post() on the ALClient instance', async () => {
+    it('should call post() on the AlDefaultClient instance', async () => {
       await irisClient.incidentSearch('1234', testQuery);
       expect(stub.callCount).to.equal(1);
     });
@@ -113,7 +113,7 @@ describe('Iris Client Test Suite:', () => {
     afterEach(() => {
       stub.restore();
     });
-    it('should call fetch() on the ALClient instance', async () => {
+    it('should call fetch() on the AlDefaultClient instance', async () => {
       await irisClient.getIncidentById('1234', '0987');
       expect(stub.callCount).to.equal(1);
     });
@@ -126,7 +126,7 @@ describe('Iris Client Test Suite:', () => {
     afterEach(() => {
       stub.restore();
     });
-    it('should call fetch() on the ALClient instance', async () => {
+    it('should call fetch() on the AlDefaultClient instance', async () => {
       await irisClient.getIncidentHistory('1234', '0987');
       expect(stub.callCount).to.equal(1);
     });
@@ -139,7 +139,7 @@ describe('Iris Client Test Suite:', () => {
     afterEach(() => {
       stub.restore();
     });
-    it('should call post() on the ALClient instance', async () => {
+    it('should call post() on the AlDefaultClient instance', async () => {
       await irisClient.getAggregationsForFields('1234', {});
       expect(stub.callCount).to.equal(1);
     });
@@ -152,7 +152,7 @@ describe('Iris Client Test Suite:', () => {
     afterEach(() => {
       stub.restore();
     });
-    it('should call set() on the ALClient instance', async () => {
+    it('should call set() on the AlDefaultClient instance', async () => {
       await irisClient.updateNote('1234', '0987', '4567', { note: 'This is a note' });
       expect(stub.callCount).to.equal(1);
     });
@@ -165,7 +165,7 @@ describe('Iris Client Test Suite:', () => {
     afterEach(() => {
       stub.restore();
     });
-    it('should call post() on the ALClient instance', async () => {
+    it('should call post() on the AlDefaultClient instance', async () => {
       await irisClient.incidentStatusBatchUpdate('1234', { operation: 'Update', reason_code: 'Because', notes: 'This is a note', incidents: ['0987'] });
       expect(stub.callCount).to.equal(1);
     });
@@ -178,7 +178,7 @@ describe('Iris Client Test Suite:', () => {
     afterEach(() => {
       stub.restore();
     });
-    it('should call fetch() on the ALClient instance', async () => {
+    it('should call fetch() on the AlDefaultClient instance', async () => {
       await irisClient.getIncidentNoteList('1234', '0987');
       expect(stub.callCount).to.equal(1);
     });
@@ -191,7 +191,7 @@ describe('Iris Client Test Suite:', () => {
     afterEach(() => {
       stub.restore();
     });
-    it('should call post() on the ALClient instance', async () => {
+    it('should call post() on the AlDefaultClient instance', async () => {
       await irisClient.newIncidentNote('1234', '0987', { note: 'This is a note' });
       expect(stub.callCount).to.equal(1);
     });
@@ -204,7 +204,7 @@ describe('Iris Client Test Suite:', () => {
     afterEach(() => {
       stub.restore();
     });
-    it('should call post() on the ALClient instance', async () => {
+    it('should call post() on the AlDefaultClient instance', async () => {
       await irisClient.incidentFeedbackBatchUpdate('1234', { operation: 'Update', reason_code: 'Because', notes: 'This is a note', incidents: ['0987'] });
       expect(stub.callCount).to.equal(1);
     });
@@ -217,7 +217,7 @@ describe('Iris Client Test Suite:', () => {
     afterEach(() => {
       stub.restore();
     });
-    it('should call post() on the ALClient instance', async () => {
+    it('should call post() on the AlDefaultClient instance', async () => {
       await irisClient.closeIncident('1234', '0987', { reason_code: 'Because', notes: 'This is a note' });
       expect(stub.callCount).to.equal(1);
     });
@@ -230,7 +230,7 @@ describe('Iris Client Test Suite:', () => {
     afterEach(() => {
       stub.restore();
     });
-    it('should call post() on the ALClient instance', async () => {
+    it('should call post() on the AlDefaultClient instance', async () => {
       await irisClient.reopenIncident('1234', '0987', { notes: 'This is a note' });
       expect(stub.callCount).to.equal(1);
     });
@@ -243,7 +243,7 @@ describe('Iris Client Test Suite:', () => {
     afterEach(() => {
       stub.restore();
     });
-    it('should call fetch() on the ALClient instance', async () => {
+    it('should call fetch() on the AlDefaultClient instance', async () => {
       await irisClient.getIncidentId('1234', '0987');
       expect(stub.callCount).to.equal(1);
     });
@@ -256,7 +256,7 @@ describe('Iris Client Test Suite:', () => {
     afterEach(() => {
       stub.restore();
     });
-    it('should call post() on the ALClient instance', async () => {
+    it('should call post() on the AlDefaultClient instance', async () => {
       await irisClient.snoozeIncidents('1234', { period_ms: 1, reason_code: 'Because', notes: 'This is my note.', incidents: ['0987'] });
       expect(stub.callCount).to.equal(1);
     });
@@ -269,7 +269,7 @@ describe('Iris Client Test Suite:', () => {
     afterEach(() => {
       stub.restore();
     });
-    it('should call post() on the ALClient instance', async () => {
+    it('should call post() on the AlDefaultClient instance', async () => {
       await irisClient.snoozeIncident('1234', '0987', { period_ms: 1, reason_code: 'Because', notes: 'This is my note.' });
       expect(stub.callCount).to.equal(1);
     });
@@ -282,7 +282,7 @@ describe('Iris Client Test Suite:', () => {
     afterEach(() => {
       stub.restore();
     });
-    it('should call post() on the ALClient instance', async () => {
+    it('should call post() on the AlDefaultClient instance', async () => {
       await irisClient.incidentUndoByToken('1234', { performed_by: 'Barry', total_updated: 1, update_time: 1 });
       expect(stub.callCount).to.equal(1);
     });

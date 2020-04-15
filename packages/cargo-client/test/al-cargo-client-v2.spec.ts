@@ -1,8 +1,18 @@
-import { ALCargoV2, ExecutionRecordsQueryParamsV2 }  from '../src/index';
-import { ALClient } from '@al/client';
+import {
+  AlDefaultClient,
+  AlLocatorService,
+} from '@al/core';
 import { expect } from 'chai';
 import { describe } from 'mocha';
-import { SinonSpy, restore, stub } from 'sinon';
+import {
+  restore,
+  SinonSpy,
+  stub,
+} from 'sinon';
+import {
+  ALCargoV2,
+  ExecutionRecordsQueryParamsV2,
+} from '../src/index';
 
 describe('CARGO CLIENT V2', () => {
     let spy: SinonSpy;
@@ -14,13 +24,16 @@ describe('CARGO CLIENT V2', () => {
     const cargoURL = `${config.apiBaseURL}/${config.service}/${config.version}`;
     const accountId = '2';
 
-    beforeEach(() => ALClient.setGlobalParameters({noEndpointsResolution: true}));
+    beforeEach(() => {
+      AlLocatorService.setContext( { environment: "production" } );
+      return AlDefaultClient.setGlobalParameters({ noEndpointsResolution: true });
+    });
     afterEach(() => restore());
 
     describe('Schedules', () => {
         describe('When batch delete is called', () => {
             beforeEach(() => {
-                spy = stub(ALClient as any, 'axiosRequest').returns(Promise.resolve({status: 204}));
+                spy = stub(AlDefaultClient as any, 'axiosRequest').returns(Promise.resolve({status: 204}));
             });
 
             it('Should call the batchDeleteSchedules (DELETE).', async () => {
@@ -78,7 +91,7 @@ describe('CARGO CLIENT V2', () => {
             };
 
             beforeEach(() => {
-                spy = stub(ALClient as any, 'axiosRequest').returns(Promise.resolve({status: 200, data: records }));
+                spy = stub(AlDefaultClient as any, 'axiosRequest').returns(Promise.resolve({status: 200, data: records }));
             });
             afterEach(() => {
                 spy.restore();
@@ -102,7 +115,7 @@ describe('CARGO CLIENT V2', () => {
 
         describe('When batch delete is called', () => {
             beforeEach(() => {
-                spy = stub(ALClient as any, 'axiosRequest').returns(Promise.resolve({status: 204}));
+                spy = stub(AlDefaultClient as any, 'axiosRequest').returns(Promise.resolve({status: 204}));
             });
 
             it('Should call the batchDeleteExecutionRecords (DELETE).', async () => {

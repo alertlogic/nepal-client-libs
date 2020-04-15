@@ -1,24 +1,24 @@
 /**
  * Module to deal with available Dashboards Public API endpoints
  */
-import { ALClient } from '@al/client';
+import { AlDefaultClient } from '@al/core';
 import {
-  DashboardRequest,
-  DeploymentDashboardItem,
-  DashboardItemsRequestQueryParams,
-  DashboardItemsListResponse,
-  UserDashboardItem,
   DashboardGroup,
-  DashboardRequestParams,
-  SharedDashboardItem,
   DashboardGroupsRequestParams,
   DashboardGroupsResponse,
+  DashboardItemsListResponse,
+  DashboardItemsRequestQueryParams,
+  DashboardRequest,
+  DashboardRequestParams,
+  DeploymentDashboardItem,
+  SharedDashboardItem,
   SharedDashboardItemsRequestQueryParams,
+  UserDashboardItem,
 } from './types';
 
 class DashboardsClient {
 
-  private alClient = ALClient;
+  private alClient = AlDefaultClient;
   private serviceName = 'dashboards';
   private version = 'v2';
 

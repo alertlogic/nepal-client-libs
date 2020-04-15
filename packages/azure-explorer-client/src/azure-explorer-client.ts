@@ -1,7 +1,7 @@
 /**
  * Module to deal with available Azure Explorer Public API endpoints
  */
-import { ALClient } from '@al/client';
+import { AlDefaultClient } from '@al/core';
 
 export interface AzureExplorerValidationParams {
   subscription_id?: string;
@@ -22,7 +22,7 @@ interface AzureExplorerCredential {
 
 class AzureExplorerClient {
 
-  private alClient = ALClient;
+  private alClient = AlDefaultClient;
   private serviceName = 'azure_explorer';
 
   async validateExistingCredentials(accountId: string, environmentId: string) {

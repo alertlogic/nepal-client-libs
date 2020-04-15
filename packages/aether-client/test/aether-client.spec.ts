@@ -1,7 +1,7 @@
-import { AetherClient } from '../src/index';
-import { expect, assert } from 'chai';
-import { describe, before } from 'mocha';
+import { expect } from 'chai';
+import { describe } from 'mocha';
 import * as sinon from 'sinon';
+import { AetherClient } from '../src/index';
 
 const serviceName = 'aether';
 
@@ -17,7 +17,7 @@ describe('Aether Client Test Suite:', () => {
     afterEach(() => {
       stub.restore();
     });
-    it('should call fetch() on the ALClient instance', async() => {
+    it('should call fetch() on the AlDefaultClient instance', async() => {
       await AetherClient.search('bob');
       expect(stub.callCount).to.equal(1);
     });

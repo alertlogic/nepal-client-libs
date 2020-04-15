@@ -1,6 +1,6 @@
-import { AlEntitlementCollection, AlEntitlementRecord } from '../src/types';
-import { expect, assert } from 'chai';
+import { expect } from 'chai';
 import { describe } from 'mocha';
+import { AlEntitlementCollection } from '../src/types';
 
 describe( 'AlEntitlementCollection', () => {
 

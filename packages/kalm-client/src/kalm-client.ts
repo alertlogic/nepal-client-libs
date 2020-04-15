@@ -1,7 +1,7 @@
 /*
 * Module to deal with available Kalm Public API endpoints
 */
-import { ALClient } from '@al/client';
+import { AlDefaultClient } from '@al/core';
 import { StorageDescriptor } from './types';
 
 interface SimpleQueryAdditionalParams {
@@ -11,7 +11,7 @@ interface SimpleQueryAdditionalParams {
 }
 
 class KalmClient {
-  private alClient = ALClient;
+  private alClient = AlDefaultClient;
   private serviceName = 'kalm';
   private version = 'v1';
 
