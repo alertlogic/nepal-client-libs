@@ -2,7 +2,6 @@
   "name": "@al/endpoints",
   "version": "1.2.2",
   "description": "An API Client for the Alert Logic EEP product backend.",
-  "main": "./dist/umd/index.js",
   "scripts": {
     "test": "karma start",
     "test-watch": "karma start --no-single-run --auto-watch",
@@ -20,12 +19,9 @@
     "name": "Alert Logic NPM Team",
     "email": "npm@alertlogic.com"
   },
-  "module": "./dist/commonjs/index.js",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/alertlogic/nepal-endpoints"
-  },
-  "types": "./dist/typings/index.d.ts",
+  "main": "./dist/index.cjs.js",
+  "types": "./dist/index.d.ts",
+  "module": "./dist/index.esm.js",
   "license": "MIT",
   "dependencies": {
     "@al/core": "*"

@@ -1,9 +1,10 @@
 {
-  "name": "root",
+  "name": "nepal-client-libs",
   "private": true,
   "main": "./dist/umd/index.js",
   "module": "./dist/commonjs/index.js",
   "types": "./dist/typings/index.d.ts",
+  "repository": "github:alertlogic/nepal-client-libs",
   "scripts": {
     "test": "lerna run test",
     "test-watch": "karma start --no-single-run --auto-watch",

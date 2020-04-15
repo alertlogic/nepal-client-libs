@@ -18,13 +18,10 @@
       "email": "npm@alertlogic.com"
     }
   ],
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/alertlogic/azure-explorer-client"
-  },
-  "main": "./dist/umd/index.js",
-  "module": "./dist/commonjs/index.js",
-  "types": "./dist/typings/index.d.ts",
+  "repository": "github:alertlogic/nepal-client-libs",
+  "main": "./dist/index.cjs.js",
+  "types": "./dist/index.d.ts",
+  "module": "./dist/index.esm.js",
   "scripts": {
     "test": "echo \"Error: no test specified\"",
     "build": "rollup -c ../../rollup.config.ts",

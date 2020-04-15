@@ -18,10 +18,7 @@
       "email": "npm@alertlogic.com"
     }
   ],
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/alertlogic/policies-client"
-  },
+  "repository": "github:alertlogic/nepal-client-libs",
   "main": "./dist/index.cjs.js",
   "types": "./dist/index.d.ts",
   "module": "./dist/index.esm.js",

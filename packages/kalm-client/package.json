@@ -18,10 +18,7 @@
       "email": "npm@alertlogic.com"
     }
   ],
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/alertlogic/kalm-client"
-  },
+  "repository": "github:alertlogic/nepal-client-libs",
   "main": "./dist/umd/index.js",
   "module": "./dist/commonjs/index.js",
   "types": "./dist/typings/index.d.ts",
