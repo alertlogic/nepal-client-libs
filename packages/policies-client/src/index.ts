@@ -1,4 +1,4 @@
-import { AlGlobalizer } from '@al/common';
+import { AlGlobalizer } from '@al/core';
 import { AlPoliciesClientInstance } from './al-policies-client';
 
 /* tslint:disable:variable-name */

@@ -16,7 +16,8 @@
     "interactive": "npm run build && node -i -e \"const IRISClient = require('./dist/commonjs/index.js').IRISClient;\""
   },
   "dependencies": {
-    "@al/core": "0.0.5"
+    "@al/core": "0.0.5",
+    "rollup": "^2.6.1"
   },
   "devDependencies": {
     "@types/chai": "^4.1.7",
@@ -30,6 +31,7 @@
     "karma-typescript": "^5.0.2",
     "lerna": "^3.20.2",
     "mocha": "^6.1.3",
+    "rollup-plugin-typescript2": "^0.27.0",
     "sinon": "^9.0.2",
     "tslint": "^5.12.1",
     "tslint-config-airbnb": "^5.11.1",

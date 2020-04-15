@@ -1,8 +1,7 @@
 {
   "compilerOptions": {
-    "baseUrl": "",
+    "baseUrl": "./",
     "outDir": "./dist/commonjs",
-    "module": "commonjs",
     "target": "ES2018",
     "declaration": true,
     "moduleResolution": "node",
@@ -11,9 +10,17 @@
     "lib": [
       "es2019",
       "dom"
-    ]
-  },
-  "files": [
-    "./src/index.ts"
-  ]
+    ],
+    "allowSyntheticDefaultImports"    : true,
+    "emitDecoratorMetadata"           : true,
+    "experimentalDecorators"          : true,
+    "forceConsistentCasingInFileNames": true,
+    "importHelpers"                   : true,
+    "module"                          : "es2015",
+    "noImplicitAny"                   : false,
+    "noUnusedLocals"                  : false,
+    "sourceMap"                       : true,
+    "strict"                          : true,
+    "strictNullChecks"                : false
+  }
 }

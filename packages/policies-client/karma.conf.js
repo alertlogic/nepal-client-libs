@@ -23,6 +23,12 @@ module.exports = function (config) {
     },
 
     karmaTypescriptConfig: {
+      bundlerOptions: {
+        acornOptions: {
+          ecmaVersion: 8,
+        },
+      },
+      tsconfig: "tsconfig.spec.json",
       reports:
       {
         "html": {
@@ -31,11 +37,6 @@ module.exports = function (config) {
         },
         "text-summary": ""
       },
-      compilerOptions: {
-        lib: [
-          "es2015"
-        ]
-      }
     },
 
     singleRun: true
