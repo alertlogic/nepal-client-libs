@@ -54,6 +54,7 @@ stages:
                 npm install
                 node_modules/lerna/cli.js info
 
+                git diff
                 node_modules/lerna/cli.js publish from-package --dist-tag core-beta
 
             - echo done
