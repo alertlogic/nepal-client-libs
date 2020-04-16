@@ -1,11 +1,11 @@
 {
   "name": "@al/endpoints",
-  "version": "1.2.2",
+  "version": "2.0.0",
   "description": "An API Client for the Alert Logic EEP product backend.",
   "scripts": {
     "test": "karma start",
     "test-watch": "karma start --no-single-run --auto-watch",
-    "build":"rollup -c ../../rollup.config.ts",
+    "build": "rollup -c ../../rollup.config.ts",
     "prebuild": "npm run clean && npm run lint",
     "lint": "tslint -p tsconfig.json",
     "clean": "rm -rf dist",
