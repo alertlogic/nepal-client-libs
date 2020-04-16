@@ -37,10 +37,10 @@
     "interactive": "node -i -e \"const DashboardsClient = require('./dist/commonjs/index.js').DashboardsClient;\""
   },
   "dependencies": {
-    "@al/core": "*"
+    "@al/core": "^1.0.0"
   },
   "peerDependencies": {
-    "@al/core": "*"
+    "@al/core": "^1.0.0"
   },
   "files": [
     "dist"

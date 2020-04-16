@@ -33,7 +33,7 @@
     "interactive": "node -i -e \"const PoliciesClient = require('./dist/commonjs/index.js').PoliciesClient;\""
   },
   "dependencies": {
-    "@al/core": "*"
+    "@al/core": "^1.0.0"
   },
   "files": [
     "dist"

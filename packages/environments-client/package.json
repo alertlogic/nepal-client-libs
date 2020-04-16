@@ -35,10 +35,10 @@
     "interactive": "node -i -e \"const EnvironmentsClient = require('./dist/commonjs/index.js').EnvironmentsClient;\""
   },
   "dependencies": {
-    "@al/core": "*"
+    "@al/core": "^1.0.0"
   },
   "peerDependencies": {
-    "@al/core": "*"
+    "@al/core": "^1.0.0"
   },
   "files": [
     "dist"

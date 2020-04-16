@@ -37,10 +37,10 @@
     "interactive": "npm run build && node -i -e \"const AssetsQueryClient = require('./dist/commonjs/index.js').AssetsQueryClient;\""
   },
   "dependencies": {
-    "@al/core": "*"
+    "@al/core": "^1.0.0"
   },
   "peerDependencies": {
-    "@al/core": "*"
+    "@al/core": "^1.0.0"
   },
   "files": [
     "dist"

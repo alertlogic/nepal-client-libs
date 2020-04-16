@@ -41,9 +41,9 @@
     "dist"
   ],
   "dependencies": {
-    "@al/core": "*"
+    "@al/core": "^1.0.0"
   },
   "peerDependencies": {
-    "@al/core": "*"
+    "@al/core": "^1.0.0"
   }
 }

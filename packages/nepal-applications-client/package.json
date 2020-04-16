@@ -34,10 +34,10 @@
     "interactive-dev": "npm run build-dev && node -i -e \"const applicationsClient = require('./dist/commonjs/index.js').AlApplicationsClient;\""
   },
   "dependencies": {
-    "@al/core": "*"
+    "@al/core": "^1.0.0"
   },
   "peerDependencies": {
-    "@al/core": "*"
+    "@al/core": "^1.0.0"
   },
   "files": [
     "dist"
