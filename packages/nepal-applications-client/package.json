@@ -1,6 +1,6 @@
 {
   "name": "@al/applications",
-  "version": "0.0.17",
+  "version": "1.0.0",
   "license": "MIT",
   "description": "A lightweight client library for interacting with the applications API",
   "author": {
@@ -25,7 +25,7 @@
   "scripts": {
     "test": "karma start",
     "test-watch": "karma start --no-single-run --auto-watch",
-    "build":"rollup -c ../../rollup.config.ts",
+    "build": "rollup -c ../../rollup.config.ts",
     "prebuild": "npm run clean && npm run lint",
     "lint": "tslint -p tsconfig.json",
     "clean": "rm -rf dist",

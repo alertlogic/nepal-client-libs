@@ -1,6 +1,6 @@
 {
   "name": "@al/environments",
-  "version": "1.1.0",
+  "version": "2.0.0",
   "license": "MIT",
   "description": "A client for interacting with the Alert Logic Environments Public API.",
   "author": {
@@ -28,7 +28,7 @@
   "module": "./dist/index.esm.js",
   "scripts": {
     "test": "echo \"Error: no test specified\"",
-    "build":"rollup -c ../../rollup.config.ts",
+    "build": "rollup -c ../../rollup.config.ts",
     "prebuild": "npm run clean",
     "clean": "rm -rf dist",
     "prepublishOnly": "npm run build",
