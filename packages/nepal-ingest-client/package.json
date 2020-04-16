@@ -1,6 +1,6 @@
 {
   "name": "@al/ingest",
-  "version": "2.0.1",
+  "version": "2.0.2",
   "license": "MIT",
   "description": "A NodeJS Enterprise Package for Alert Logic (NEPAL) client for the ingest service",
   "author": {
