@@ -228,7 +228,9 @@ class AssetsQueryClient {
    * PUT
    * /remediations/v1/:account_id/deployments/:deployment_id/remediations
    * "https://api.cloudinsight.alertlogic.com/remediations/v1/10000001/deployments/347203EF-134C-1005-8499-1289DB15AB31/remediations"
-   * -d '{"operation": "dispose_remediations", "reason": "Acceptable Risk", "comment": "This risk is acceptable", "expires": 0, "remediation_items": ["/al/15000001:814C2911-09BB-1005-9916-7831C1BAC182/remediation-item/0536575B914C32C8A5D28415D02E4545"]}
+   * -d '{"operation": "dispose_remediations", "reason": "Acceptable Risk",
+   * "comment": "This risk is acceptable", "expires": 0,
+   * "remediation_items": ["/al/15000001:814C2911-09BB-1005-9916-7831C1BAC182/remediation-item/0536575B914C32C8A5D28415D02E4545"]}
    */
   async disposeRemediations(accountId: string, deploymentId: string, remediationData: {operation: string, reason: string, comment: string, expires: number, remediation_items: string[]}) {
     const remediations = await this.alClient.set({
