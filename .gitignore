@@ -26,3 +26,6 @@ packages/*/coverage
 packages/*/dist
 
 package-lock.json
+
+#needed to use hub in the pipeline
+bin

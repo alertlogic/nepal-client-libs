@@ -42,6 +42,8 @@ stages:
                     exit 1
                 fi
 
+                # needed for lerna, it wont publish if the files are changed
+                git update-index --assume-unchanged .npmrc
                 echo //registry.npmjs.org/:_authToken="$NPM_TOKEN" >> .npmrc
                 npm whoami
 
