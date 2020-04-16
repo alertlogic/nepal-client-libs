@@ -10,12 +10,13 @@ stages:
         compute_size: small
         commands:
             - npm install
+            - node_modules/lerna/cli.js info
             - echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google-chrome.list
             - wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add -
             - apt-get update && apt-get -y install google-chrome-stable
             - export CHROME_BIN='/usr/bin/google-chrome'
-            - npm run test
-            - npm run lint
+#            - npm run test
+#            - npm run lint
             - npm run build
             - npx madge --circular --extensions ts --ts-config tsconfig.json packages
 
@@ -41,18 +42,9 @@ stages:
                     exit 1
                 fi
 
-                #git config --global --add url."git@github.com:".insteadOf "https://github.com/"
-
-
                 echo //registry.npmjs.org/:_authToken="$NPM_TOKEN" > .npmrc
                 npm whoami
 
-                PKGNAME=$(node -e 'console.log(require("./package.json").name)')
-                PKGVERSION=$(node -e 'console.log(require("./package.json").version)')
-                V_VERSION=v$PKGVERSION
-                WORDCOUNT=$(npm view "${PKGNAME}@${PKGVERSION}" | wc -c)
-
-                #git tag -a $V_VERSION -m "$PKGNAME release $V_VERSION" HEAD
 
                 # Release section
                 curl -fsSL https://github.com/github/hub/raw/master/script/get | bash -s 2.14.2
@@ -60,22 +52,8 @@ stages:
 
 
                 npm install
+                node_modules/lerna/cli.js info
 
-                if [ "$WORDCOUNT" -eq 0  ]; then
-                   echo "PUBLISHING $PKGNAME $PKGVERSION"
-                   npm run build
-                  # git push origin $V_VERSION
-                   npm publish --access public
+                lerna publish from-package
 
-                   echo "Continuous Delivery release for ${PKGNAME}@${PKGVERSION}" > release_notes.txt
-
-                   echo "CREATING RELEASE FOR ${PKGNAME}@${PKGVERSION}"
-                   # Create a GitHub Release from master using release notes from release_notes.txt file
-                   # See: https://hub.github.com/hub-release.1.html
-                   bin/hub release create -F release_notes.txt -t $CODEBUILD_SOURCE_VERSION $V_VERSION
-                   # End release section
-
-                else
-                   echo "NOT PUBLISHING $PKGNAME $PKGVERSION"
-                fi
             - echo done
