@@ -7,7 +7,7 @@ stages:
         when:
             - pull_request
         image: node:13
-        compute_size: small
+        compute_size: large
         commands:
             - npm install
             - node_modules/lerna/cli.js info
@@ -25,7 +25,7 @@ stages:
         when:
             - push: ['master']
         image: node:13
-        compute_size: small
+        compute_size: large
         commands:
             - echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google-chrome.list
             - wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add -

@@ -340,6 +340,33 @@ export class AlHeraldClientInstanceV2 extends AlHeraldClientInstance {
         return subscriptionKeys.subscriptions as AlHeraldAccountSubscriptionV2[];
     }
 
+
+    /**
+     * Get a subscription for an account and subscription id
+     * GET
+     * /herald/v2/:account_id/subscriptions/:subscription_id
+     * "https://api.global-integration.product.dev.alertlogic.com/herald/v2/:accountId/subscriptions"
+     *
+     * @param accountId The AIMS Account ID
+     * @param subscriptionId The subscription Id
+     * @param query params include_subscribers true or false
+     * @returns a promise with the subscriptions
+     *
+     * @remarks
+     * https://console.account.product.dev.alertlogic.com/users/api/herald/index.html#api-Subscriptions_v2-ListSubscriptionsById
+     */
+    async getSubscriptionByAccountAndSubscriptionId(accountId: string, subscriptionId: string, queryParams?: {include_subscribers:boolean} ): Promise<AlHeraldAccountSubscriptionV2> {
+
+        const subscriptionKeys = await this.client.get({
+            service_name: this.serviceName,
+            version: this.serviceVersion,
+            account_id: accountId,
+            path: `/subscriptions/${subscriptionId}`,
+            params: queryParams
+        });
+        return subscriptionKeys as AlHeraldAccountSubscriptionV2;
+    }
+
     /**
      * Delete multiple subscriptions by an array of id's
      * POST
