@@ -55,6 +55,6 @@ stages:
                 node_modules/lerna/cli.js info
 
                 git diff
-                node_modules/lerna/cli.js publish from-package --dist-tag core-beta --no-git-reset
+                node_modules/lerna/cli.js publish from-package --dist-tag core-beta --no-git-reset --no-git-tag-version --yes
 
             - echo done
