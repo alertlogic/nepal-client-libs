@@ -1,28 +1,28 @@
-import typescript from 'rollup-plugin-typescript2';
-import pkg from './packages/iris-client/package.json';
+import rollupPluginTypescript2 from 'rollup-plugin-typescript2';
+import packageJson from './packages/iris-client/package.json';
 // import {terser} from "rollup-plugin-terser";
 
 export default {
     input: 'src/index.ts', // our source file
     output: [
         {
-            file: pkg.main,
+            file: packageJson.main,
             format: "cjs",
-            sourcemap:true,
+            sourcemap: true,
         },
         {
-            file: pkg.module,
+            file: packageJson.module,
             format: 'es',
-            sourcemap:true,
+            sourcemap: true,
         },
     ],
     external: [
-        ...Object.keys(pkg.dependencies || {})
+        ...Object.keys(packageJson.dependencies || {}),
     ],
     plugins: [
-        typescript({
+        rollupPluginTypescript2({
             typescript: require('typescript'),
         }),
         // terser() // minifies generated bundles
-    ]
+    ],
 };

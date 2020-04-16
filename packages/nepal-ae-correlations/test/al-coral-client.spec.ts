@@ -35,7 +35,7 @@ describe('AECORAL CLIENT', () => {
             description: "Some *markdown* text maybe..."
         }
     };
-    const correlation_example = {
+    const correlationExample = {
         attacker_field: null,
         enabled: true,
         expression: "SELECT INTERVAL(time_recv, 300) AS interval, parsed.json.eventName AS event, parsed.json.userIdentity.accountId AS account, parsed.json.awsRegion AS region, COUNT(message) AS count FROM logmsgs GROUP BY interval, event, account, region WHERE time_recv BETWEEN 1451606400 AND 1451609400 AND parsed.rule_id = '808DDACC-8310-4AE9-BFA7-BFB66E18275E' HAVING count >= 5",
@@ -43,7 +43,7 @@ describe('AECORAL CLIENT', () => {
         name: "Admin Failed Login 3",
         victim_field: "account"
     };
-    const correlations = [correlation_example];
+    const correlations = [correlationExample];
 
     describe('When creating a notification-only correlation rule', () => {
         beforeEach(() => {
@@ -86,7 +86,7 @@ describe('AECORAL CLIENT', () => {
     });
     describe('When fetching a particular correlation rule', () => {
         beforeEach(() => {
-            stub = sinon.stub(AlDefaultClient as any, 'axiosRequest').returns(Promise.resolve({status: 200, data: correlation_example}));
+            stub = sinon.stub(AlDefaultClient as any, 'axiosRequest').returns(Promise.resolve({status: 200, data: correlationExample}));
         });
         afterEach(() => {
             stub.restore();
@@ -118,7 +118,7 @@ describe('AECORAL CLIENT', () => {
             stub.restore();
         });
         it('Should call the AlDefaultClient instance\'s PUT.', async () => {
-            await AlCoralClient.updateCorrelationRule('2', '12345678', correlation_example);
+            await AlCoralClient.updateCorrelationRule('2', '12345678', correlationExample);
             expect(stub.callCount).to.equal(1);
             expect(stub.args[0][0].url).to.equal("https://api.cloudinsight.alertlogic.com/aecoral/v1/2/correlations/12345678");
         });
