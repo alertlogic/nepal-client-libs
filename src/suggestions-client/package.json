@@ -1,0 +1,56 @@
+{
+  "name": "@al/suggestions",
+  "version": "0.3.3",
+  "license": "MIT",
+  "description": "A client for interacting with the Alert Logic Suggestions API",
+  "author": {
+    "name": "Barry Skidmore",
+    "email": "bskidmore@alertlogic.com"
+  },
+  "keywords": [
+    "Alert Logic",
+    "Client",
+    "Service"
+  ],
+  "maintainers": [
+    {
+      "name": "Barry Skidmore",
+      "email": "bskidmore@alertlogic.com"
+    },
+    {
+      "name": "Alert Logic NPM Team",
+      "email": "npm@alertlogic.com"
+    }
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/alertlogic/suggestions-client"
+  },
+  "main": "./dist/umd/index.js",
+  "module": "./dist/commonjs/index.js",
+  "types": "./dist/typings/index.d.ts",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build-dev": "npm run clean &&  tsc && webpack --mode=development",
+    "build": "webpack",
+    "prebuild": "npm run clean && npm run lint && tsc",
+    "lint": "tslint -p tsconfig.json",
+    "clean": "rm -rf dist",
+    "prepublishOnly": "npm run build",
+    "interactive": "node -i -e \"const SuggestionsClient = require('./dist/commonjs/index.js').SuggestionsClient;\""
+  },
+  "devDependencies": {
+    "peer-deps-externals-webpack-plugin": "^1.0.4",
+    "tslint": "^5.12.1",
+    "tslint-config-airbnb": "^5.11.1",
+    "typescript": "^3.2.4",
+    "webpack": "^4.29.0",
+    "webpack-cli": "^3.2.1"
+  },
+  "peerDependencies": {
+    "@al/client": "^0.13.0"
+  },
+  "files": [
+    "dist"
+  ]
+}
