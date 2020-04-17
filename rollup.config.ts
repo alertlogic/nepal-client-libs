@@ -8,6 +8,7 @@ const external = [
 
 export default [
     {
+        external,
         input: 'src/index.ts', // our source file
         output: [
             {
@@ -21,7 +22,6 @@ export default [
                 sourcemap: true,
             },
         ],
-        external,
         plugins: [
             rollupPluginTypescript2({
                 typescript: require('typescript'),
@@ -35,6 +35,7 @@ export default [
     // have to taget es5 right now because angular7 uses es5, revist in angular9
     // todo: revist when angular 9
     {
+        external,
         input: 'src/index.ts', // our source file
         output: [
             {
@@ -43,7 +44,6 @@ export default [
                 sourcemap: true,
             },
         ],
-        external,
         plugins: [
             rollupPluginTypescript2({
                 typescript: require('typescript'),
