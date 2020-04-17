@@ -14,6 +14,7 @@ export interface AlTacomaView {
     saved_views?:   AlSavedView[];
     subscriptions:  string[];
     filter_names?:  string[];
+    schedule_frequency?: string[];
 }
 
 export interface AlTacomaWorkbook {
