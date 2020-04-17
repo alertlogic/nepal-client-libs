@@ -12,6 +12,7 @@ import { AlEndpointsClientInstance } from '../src';
 
 describe('Endpoints API Client', () => {
     let requestStub:sinon.SinonSpy;
+    let getServiceEndpointsStub: sinon.SinonSpy;
     let getOrgStub:sinon.SinonSpy;
     let apiBaseURL: string;
     let globalBaseURL: string;
@@ -42,6 +43,8 @@ describe('Endpoints API Client', () => {
                 .setGlobalParameters( { noEndpointsResolution: true } );
         requestStub = sinon.stub(AlDefaultClient as any, "axiosRequest")
                 .returns( Promise.resolve( { status: 200, data: 'Some result', config: {} } ) );
+        getServiceEndpointsStub = sinon.stub(AlDefaultClient, 'getServiceEndpoints')
+                .returns( Promise.resolve( { } ) );
         getOrgStub = sinon.stub( AIMSClient, 'getAccountOrganization' )
                 .returns( Promise.resolve( organizationMock ) );
         apiBaseURL = AlLocatorService.resolveURL( AlLocation.InsightAPI );
@@ -50,6 +53,7 @@ describe('Endpoints API Client', () => {
     });
     afterEach(() => {
         requestStub.restore();
+        getServiceEndpointsStub.restore();
         getOrgStub.restore();
     });
     describe('dereferencing an account to an organization', () => {
@@ -74,7 +78,7 @@ describe('Endpoints API Client', () => {
     } );
     describe(".getMappingDictionary()", () => {
         it("should produce a well formed request", async () => {
-            await endpointsClient.getMappingDictionary();
+            await endpointsClient.getMappingDictionary( accountIdMock );
             expect( requestStub.callCount ).to.equal( 1 );
             expect( requestStub.args[0][0].url ).to.equal( `${endpointsApiURL}/api/v1/mappings` );
         } );
