@@ -1,5 +1,5 @@
 import rollupPluginTypescript2 from 'rollup-plugin-typescript2';
-import packageJson from './package.json';
+const packageJson = require(`${process.env.PWD}/package.json`);
 
 
 const external = [
