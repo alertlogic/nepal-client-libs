@@ -21,7 +21,8 @@
   "repository": "github:alertlogic/nepal-client-libs",
   "main": "./dist/index.cjs.js",
   "types": "./dist/index.d.ts",
-  "module": "./dist/index.esm.js",
+  "module": "./dist/index.esm5.js",
+  "es2015": "./dist/index.esm2015.js",
   "scripts": {
     "test": "karma start",
     "test-watch": "karma start --no-single-run --auto-watch",
@@ -33,7 +34,7 @@
     "interactive": "node -i -e \"const PoliciesClient = require('./dist/commonjs/index.js').PoliciesClient;\""
   },
   "dependencies": {
-    "@al/core": "^1.0.0"
+    "@al/core": "^1.0.2"
   },
   "files": [
     "dist"
