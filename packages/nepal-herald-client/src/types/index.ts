@@ -319,6 +319,7 @@ export interface AlHeraldNotificationType {
     name: string;
     default_template: string;
     templates: string[];
+    default_email_subject: string;
 }
 
 export interface AlHeraldNotificationV2 extends AlHeraldNotificationPayload
