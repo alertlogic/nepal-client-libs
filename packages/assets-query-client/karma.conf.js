@@ -32,10 +32,15 @@ module.exports = function (config) {
       reports:
       {
         "html": {
-          "directory": "coverage",
+          "directory": "./../../coverage/assets-query-client",
           "subdirectory": "report"
         },
-        "text-summary": ""
+        "text-summary": "",
+        "json-summary": {
+          "directory": "./../../coverage/assets-query-client",
+          "subdirectory": "summary",
+          "filename": "json-summary.json"
+        }
       },
     },
 

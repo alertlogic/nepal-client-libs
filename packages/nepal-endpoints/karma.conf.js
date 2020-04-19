@@ -32,10 +32,15 @@ module.exports = function (config) {
       reports:
       {
         "html": {
-          "directory": "coverage",
+          "directory": "./../../coverage/nepal-endpoints",
           "subdirectory": "report"
         },
-        "text-summary": ""
+        "text-summary": "",
+        "json-summary": {
+          "directory": "./../../coverage/nepal-endpoints",
+          "subdirectory": "summary",
+          "filename": "json-summary.json"
+        }
       },
     },
 
