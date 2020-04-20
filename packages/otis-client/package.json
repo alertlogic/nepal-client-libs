@@ -1,0 +1,56 @@
+{
+  "name": "@al/otis",
+  "version": "0.1.0",
+  "license": "MIT",
+  "description": "A client for interacting with the Alert Logic OTIS Public API",
+  "author": {
+    "name": "Alert Logic UI Team",
+    "email": "ui@alertlogic.com"
+  },
+  "keywords": [
+    "Alert Logic",
+    "Client",
+    "Service"
+  ],
+  "maintainers": [
+    {
+      "name": "Alert Logic UI Team",
+      "email": "ui@alertlogic.com"
+    },
+    {
+      "name": "Alert Logic NPM Team",
+      "email": "npm@alertlogic.com"
+    }
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/alertlogic/otis-client"
+  },
+  "main": "./dist/umd/index.js",
+  "module": "./dist/commonjs/index.js",
+  "types": "./dist/typings/index.d.ts",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build-dev": "npm run clean &&  tsc && webpack --mode=development",
+    "build": "webpack",
+    "prebuild": "npm run clean && npm run lint && tsc",
+    "lint": "tslint -p tsconfig.json",
+    "clean": "rm -rf dist",
+    "prepublishOnly": "npm run build",
+    "interactive": "node -i -e \"const OTISClient = require('./dist/commonjs/index.js').OTISClient;\""
+  },
+  "devDependencies": {
+    "peer-deps-externals-webpack-plugin": "^1.0.4",
+    "tslint": "^5.12.1",
+    "tslint-config-airbnb": "^5.11.1",
+    "typescript": "^3.2.4",
+    "webpack": "^4.29.0",
+    "webpack-cli": "^3.2.1"
+  },
+  "peerDependencies": {
+    "@al/client": "^0.12.0"
+  },
+  "files": [
+    "dist"
+  ]
+}
