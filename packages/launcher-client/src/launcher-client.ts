@@ -1,7 +1,7 @@
 /**
  * Module to deal with available Launcher Public API endpoints
  */
-import { ALClient } from '@al/client';
+import { ALClient } from '@al/core';
 
 export interface ScopeStatus {
   status?: string;

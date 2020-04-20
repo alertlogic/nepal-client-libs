@@ -1,7 +1,7 @@
 import { AlChangeStamp } from '@al/core';
 
 /**
- * Reexport AIMS constructs that are defined in @al/session for convenience.
+ * Reexport AIMS constructs that are defined in @al/core for convenience.
  */
 export { AlChangeStamp } from '@al/core';
 

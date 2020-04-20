@@ -3,7 +3,7 @@
 
 A client for working with the Album Alert Logic API.
 
-This library uses @al/client as its HTTP provider interface.
+This library uses @al/core as its HTTP provider interface.
 
 ## Disclaimer
 
