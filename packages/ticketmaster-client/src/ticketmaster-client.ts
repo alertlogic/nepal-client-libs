@@ -1,7 +1,7 @@
 /**
  * Module to deal with available Ticket Master Public API endpoints
  */
-import { ALClient } from '@al/client';
+import { ALClient } from '@al/common';
 
 export interface AgentTicket {
   id?: string;

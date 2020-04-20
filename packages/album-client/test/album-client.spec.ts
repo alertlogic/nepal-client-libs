@@ -1,9 +1,7 @@
-import { AlbumClient } from '../src/index';
-import { expect, assert } from 'chai';
-import { describe, before } from 'mocha';
+import { expect } from 'chai';
+import { describe } from 'mocha';
 import * as sinon from 'sinon';
-
-const serviceName = 'album';
+import { AlbumClient } from '../src/index';
 
 afterEach(() => {
   sinon.restore();
@@ -61,5 +59,5 @@ describe('Album Client Test Suite:', () => {
       expect(stub.callCount).to.equal(1);
     });
   });
-    
+
 });

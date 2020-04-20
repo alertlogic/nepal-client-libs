@@ -1,7 +1,7 @@
 /**
  * A client for interacting with the Alert Logic OTIS Public API.
  */
-import { ALClient } from '@alertlogic/client';
+import { ALClient } from '@al/core';
 
 interface TuningOption {
   id: string;
