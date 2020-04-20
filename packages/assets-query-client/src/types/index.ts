@@ -1,7 +1,7 @@
 export interface HealthResponse {
   assets?: any;
-  filters?: any;
-  list?: any;
+  filters: any;
+  list: any[];
 }
 export interface HealthCoverage {
   protected?: number;
