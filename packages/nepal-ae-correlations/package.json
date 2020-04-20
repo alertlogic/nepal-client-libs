@@ -38,10 +38,10 @@
     "interactive": "npm run build && node -i -e \"const CoralClient = require('./dist/commonjs/index.js').CoralClient;\""
   },
   "dependencies": {
-    "@al/core": "^1.0.4"
+    "@al/core": "^1.0.5"
   },
   "peerDependencies": {
-    "@al/core": "^1.0.4"
+    "@al/core": "^1.0.5"
   },
   "files": [
     "dist"
