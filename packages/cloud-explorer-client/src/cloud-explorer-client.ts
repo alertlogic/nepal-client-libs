@@ -67,7 +67,14 @@ class CloudExplorerClient {
    * service_name: ec2, iam, rds, route53, s3
    * resource_id: subnet, vpc, host
    */
-  async initiateDiscovery(accountId: string, environmentId: string, serviceName?: string, resourceType?: string, resourceId?: string, queryParams?: {region?: string, filter?: string, sync?: boolean}) {
+  async initiateDiscovery(
+      accountId: string,
+      environmentId: string,
+      serviceName?: string,
+      resourceType?: string,
+      resourceId?: string,
+      queryParams?: { region?: string, filter?: string, sync?: boolean },
+  ) {
     const discovery = await this.alClient.post({
       account_id: accountId,
       service_name: this.serviceName,

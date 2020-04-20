@@ -1,16 +1,19 @@
 /**
  * Module to deal with available Assets Query Public API endpoints
  */
-import { AlDefaultClient, AlApiClient } from '@al/core';
 import {
-  ExposureQueryParams,
-  ExposuresQueryResponse,
-  ExposuresSummary,
-  FindAssetsRequest,
-  HealthResponse,
-  HealthSummaryResponse,
-  TagsSummaryResponse,
-  TopologyResponse,
+    AlApiClient,
+    AlDefaultClient,
+} from '@al/core';
+import {
+    ExposureQueryParams,
+    ExposuresQueryResponse,
+    ExposuresSummary,
+    FindAssetsRequest,
+    HealthResponse,
+    HealthSummaryResponse,
+    TagsSummaryResponse,
+    TopologyResponse,
 } from './types';
 
 export class AlAssetsQueryClientInstance {
@@ -90,7 +93,10 @@ export class AlAssetsQueryClientInstance {
    * /assets_query/v1/:account_id/details
    * "https://api.cloudinsight.alertlogic.com/assets_query/v1/12345678/details?type=host&key=id:i-0fa67ce21528409bc&deployment=aws:1234567890®ion=id:us-east-2"
    */
-  async getAssetDetails(accountId: string,  queryParams?: {type?: string, key?: string, deployment?: string, region?: string, appliance_uuid?: string, ip_address?: string, port?: string, host_uuid?: string}) {
+  async getAssetDetails(
+      accountId: string,
+      queryParams?: { type?: string, key?: string, deployment?: string, region?: string, appliance_uuid?: string, ip_address?: string, port?: string, host_uuid?: string },
+  ) {
     const assets = await this.client.get({
       account_id: accountId,
       service_name: 'assets_query',
@@ -283,9 +289,16 @@ export class AlAssetsQueryClientInstance {
    * PUT
    * /remediations/v1/:account_id/deployments/:deployment_id/remediations
    * "https://api.cloudinsight.alertlogic.com/remediations/v1/10000001/deployments/347203EF-134C-1005-8499-1289DB15AB31/remediations"
-   * -d '{"operation": "plan_remediations", "filters": ["stuff"], "user_id": "0987", "remediations": ["/al/15000001:814C2911-09BB-1005-9916-7831C1BAC182/remediation-item/0536575B914C32C8A5D28415D02E4545"]}
+   * -d '{"operation": "plan_remediations",
+   *      "filters": ["stuff"],
+   *      "user_id": "0987",
+   *      "remediations": ["/al/15000001:814C2911-09BB-1005-9916-7831C1BAC182/remediation-item/0536575B914C32C8A5D28415D02E4545"]}
    */
-  async planRemediations(accountId: string, deploymentId: string, remediationData: {operation: string, filters: string[], user_id: string, remediations: string[]}) {
+  async planRemediations(
+      accountId: string,
+      deploymentId: string,
+      remediationData: { operation: string, filters: string[], user_id: string, remediations: string[] },
+  ) {
     const remediations = await this.client.set({
       account_id: accountId,
       service_name: 'remediations',

@@ -3,8 +3,8 @@ import { expect } from 'chai';
 import { describe } from 'mocha';
 import * as sinon from 'sinon';
 import {
-  AlApplicationsClient,
-  AlRulePayload,
+    AlApplicationsClient,
+    AlRulePayload,
 } from '../src/index';
 
 beforeEach(() => {
@@ -340,7 +340,11 @@ describe('APPLICATION CLIENT', () => {
             it('Should call the AlApplicationsClient instance\'s POST.', async () => {
                 const accountId = "2";
                 const deploymentId = "7D5E66BE-98C6-40A2-8B09-5DC4C0FEE677";
-                const dataPayload = { "application_id": "3", "config": {"flatfile": {"path": "C:\\inetpub\\logs\\LogFiles\\W3SVC777"}}, "scope": [{"type": "tag", "name": "Application", "value": "IIS"}] } as AlRulePayload;
+                const dataPayload = {
+                    "application_id": "3",
+                    "config": { "flatfile": { "path": "C:\\inetpub\\logs\\LogFiles\\W3SVC777" } },
+                    "scope": [{ "type": "tag", "name": "Application", "value": "IIS" }],
+                } as AlRulePayload;
                 const result =  await AlApplicationsClient.addRule(accountId, dataPayload, deploymentId);
                 const payload = stub.args[0][0];
 
@@ -357,7 +361,8 @@ describe('APPLICATION CLIENT', () => {
         describe('When modify a rule', () => {
 
             beforeEach(() => {
-                stub = sinon.stub(AlDefaultClient as any, 'axiosRequest').returns(Promise.resolve({status: 200, data: ruleMock}));
+                stub = sinon.stub(AlDefaultClient as any, 'axiosRequest')
+                    .returns(Promise.resolve({ status: 200, data: ruleMock }));
             });
             afterEach(() => {
                 stub.restore();
@@ -365,7 +370,11 @@ describe('APPLICATION CLIENT', () => {
             it('Should call the AlApplicationsClient instance\'s PUT.', async () => {
                 const accountId = "2";
                 const ruleId = "BD30F3F3-5D12-421A-B806-C65155C40CE1";
-                const dataPayload = { "application_id": "3", "config": {"flatfile": {"path": "C:\\inetpub\\logs\\LogFiles\\W3SVC777"}}, "scope": [{"type": "tag", "name": "Application", "value": "IIS"}] } as AlRulePayload;
+                const dataPayload = {
+                    "application_id": "3",
+                    "config": { "flatfile": { "path": "C:\\inetpub\\logs\\LogFiles\\W3SVC777" } },
+                    "scope": [{ "type": "tag", "name": "Application", "value": "IIS" }],
+                } as AlRulePayload;
                 const result =  await AlApplicationsClient.updateRule(accountId, ruleId, dataPayload);
                 const payload = stub.args[0][0];
 

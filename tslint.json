@@ -4,7 +4,7 @@
     "no-irregular-whitespace": true,
     "align": [ true, "statements", "members", "elements" ],
     "max-line-length": {
-      "options": [240]
+      "options": [200]
     },
     "ter-indent": false,
     "ter-arrow-parens": false,
