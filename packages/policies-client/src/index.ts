@@ -5,3 +5,4 @@ import { AlPoliciesClientInstance } from './al-policies-client';
 export const AlPoliciesClient = AlGlobalizer.instantiate('al.policies', () => new AlPoliciesClientInstance());
 
 export { AlPoliciesClientInstance } from './al-policies-client';
+export * from './types';
