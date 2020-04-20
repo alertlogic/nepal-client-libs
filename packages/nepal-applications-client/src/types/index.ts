@@ -21,7 +21,7 @@ export interface AlApplicationMessageSplitSpecCountMessage {
 export interface AlApplicationMessageSplitSpecMultiline {
     type: "multiline_pattern";
     pattern: {
-        type: "string" | "regex";
+        type: "string" | "regex";
         value:string;
     };
     match_mode: "begins" | "contains" | "ends";
@@ -81,7 +81,7 @@ export interface AlApplicationEventlog {
 export interface AlApplicationFlatfile {
     path?: string;
     message_timestamp?: AlApplicationMessageTimestamp;
-    message_split_spec?: AlApplicationMessageSplitSpecSingleLine | AlApplicationMessageSplitSpecCountMessage | AlApplicationMessageSplitSpecMultiline;
+    message_split_spec?: AlApplicationMessageSplitSpecSingleLine | AlApplicationMessageSplitSpecCountMessage | AlApplicationMessageSplitSpecMultiline;
     filename: AlApplicationDatetimeFilename | AlApplicationCounterFilename | AlApplicationAutomaticFilename;
 }
 

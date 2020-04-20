@@ -33,7 +33,7 @@
     "build-dev": "npm run clean &&  tsc && webpack --mode=development",
     "build": "rollup -c ../../rollup.config.ts",
     "prebuild": "npm run clean && npm run lint && npm run test && tsc",
-    "lint": "tslint -p tsconfig.json",
+    "lint": "tslint -p tsconfig.json -c ../../tslint.json",
     "clean": "rm -rf dist",
     "prepublishOnly": "npm run build",
     "interactive": "npm run build && node -i -e \"const LauncherClient = require('./dist/commonjs/index.js').LauncherClient;\""

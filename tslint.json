@@ -1,6 +1,7 @@
 {
   "extends": "tslint-config-airbnb",
   "rules": {
+    "no-irregular-whitespace": true,
     "align": [ true, "statements", "members", "elements" ],
     "max-line-length": {
       "options": [240]

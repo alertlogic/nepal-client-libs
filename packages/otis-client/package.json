@@ -35,7 +35,7 @@
     "build-dev": "npm run clean &&  tsc && webpack --mode=development",
     "build": "rollup -c ../../rollup.config.ts",
     "prebuild": "npm run clean && npm run lint && tsc",
-    "lint": "tslint -p tsconfig.json",
+    "lint": "tslint -p tsconfig.json -c ../../tslint.json",
     "clean": "rm -rf dist",
     "prepublishOnly": "npm run build",
     "interactive": "node -i -e \"const OTISClient = require('./dist/commonjs/index.js').OTISClient;\""

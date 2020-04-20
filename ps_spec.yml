@@ -16,7 +16,7 @@ stages:
             - apt-get update && apt-get -y install google-chrome-stable
             - export CHROME_BIN='/usr/bin/google-chrome'
 #            - npm run test
-#            - npm run lint
+            - npm run lint
             - npm run build
             - npx madge --circular --extensions ts --ts-config tsconfig.json packages
 

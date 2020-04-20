@@ -75,5 +75,5 @@ describe('Cloud Explorer Client Test Suite:', () => {
       expect(stub.callCount).to.equal(1);
     });
   });
-    
+
 });
