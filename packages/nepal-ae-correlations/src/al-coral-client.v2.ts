@@ -13,7 +13,6 @@ export interface AlCreateCorrelationRequestV2 {
     name: string;
     attacker: string;
     victim: string;
-    timeframe: string;
     unique?: string;
     output?: AlIncidentDefinitionV2;
 }
