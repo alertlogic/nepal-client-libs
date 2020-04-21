@@ -4,8 +4,8 @@
   "license": "MIT",
   "description": "A client for interacting with the Alert Logic Azure Explorer Public API",
   "author": {
-    "name": "Barry Skidmore",
-    "email": "bskidmore@alertlogic.com"
+    "name": "Alert Logic UI Team",
+    "email": "ui@alertlogic.com"
   },
   "keywords": [
     "Alert Logic",
@@ -27,7 +27,7 @@
     "test": "echo \"Error: no test specified\"",
     "build": "rollup -c ../../rollup.config.ts",
     "prebuild": "npm run clean && npm run lint",
-    "lint": "tslint -p tsconfig.json",
+    "lint": "tslint -p tsconfig.json -c ../../tslint.json",
     "clean": "rm -rf dist",
     "prepublishOnly": "npm run build",
     "interactive": "node -i -e \"const AzureExplorerClient = require('./dist/commonjs/index.js').AzureExplorerClient;\""

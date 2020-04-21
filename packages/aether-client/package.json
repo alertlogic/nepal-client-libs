@@ -4,8 +4,8 @@
   "license": "MIT",
   "description": "A client for interacting with the Alert Logic Aether Public API",
   "author": {
-    "name": "Barry Skidmore",
-    "email": "bskidmore@alertlogic.com"
+    "name": "Alert Logic UI Team",
+    "email": "ui@alertlogic.com"
   },
   "keywords": [
     "Alert Logic",
@@ -14,8 +14,8 @@
   ],
   "maintainers": [
     {
-      "name": "Barry Skidmore",
-      "email": "bskidmore@alertlogic.com"
+      "name": "Alert Logic UI Team",
+      "email": "ui@alertlogic.com"
     },
     {
       "name": "Alert Logic NPM Team",
@@ -32,7 +32,7 @@
     "test-watch": "karma start --no-single-run --auto-watch",
     "build": "rollup -c ../../rollup.config.ts",
     "prebuild": "npm run clean && npm run lint && npm run test",
-    "lint": "tslint -p tsconfig.json",
+    "lint": "tslint -p tsconfig.json -c ../../tslint.json",
     "clean": "rm -rf dist",
     "prepublishOnly": "npm run build",
     "interactive": "npm run build && node -i -e \"const AetherClient = require('./dist/commonjs/index.js').AetherClient;\""

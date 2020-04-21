@@ -52,7 +52,7 @@ export interface AlCorrelationValidationResponse {
     agg_select_params:    string[];
     artifact_name:        string;
     attacker_field:       string;
-    elab_search:          { omitted: string };
+    elab_search:          { omitted: string };
     enabled:              boolean;
     expression:           { omitted: string };
     expression_window:    string;

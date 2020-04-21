@@ -2,36 +2,36 @@
  * Herald API client
  */
 import {
-  AIMSAccount,
-  AlApiClient,
-  AlDefaultClient,
+    AIMSAccount,
+    AlApiClient,
+    AlDefaultClient,
 } from '@al/core';
 import {
-  AlHeraldAccountByFeatureQuery,
-  AlHeraldAccountSubscription,
-  AlHeraldAccountSubscriptionKey,
-  AlHeraldAccountSubscriptionKeyPayload,
-  AlHeraldIntegration,
-  AlHeraldIntegrationPayload,
-  AlHeraldIntegrationTypes,
-  AlHeraldNotification,
-  AlHeraldNotificationByAccountId,
-  AlHeraldNotificationIncidentByIncidentId,
-  AlHeraldNotificationList,
-  AlHeraldNotificationPayload,
-  AlHeraldNotificationQuery,
-  AlHeraldSubscriptionKey,
-  AlHeraldSubscriptionKeyPayload,
-  AlHeraldSubscriptionKeyQuery,
-  AlHeraldSubscriptionKeysByFeatureQuery,
-  AlHeraldSubscriptionRecord,
-  AlHeraldSubscriptionsKeyByAccountRecord,
-  AlHeraldSubscriptionsKeyByAccountsRecord,
-  AlHeraldTemplateMap,
-  AlHeraldTemplateMapPayload,
-  AlHeraldTestTemplatePayload,
-  AlHeraldTestWebhookPayload,
-  AlHeraldTestWebhookResponse,
+    AlHeraldAccountByFeatureQuery,
+    AlHeraldAccountSubscription,
+    AlHeraldAccountSubscriptionKey,
+    AlHeraldAccountSubscriptionKeyPayload,
+    AlHeraldIntegration,
+    AlHeraldIntegrationPayload,
+    AlHeraldIntegrationTypes,
+    AlHeraldNotification,
+    AlHeraldNotificationByAccountId,
+    AlHeraldNotificationIncidentByIncidentId,
+    AlHeraldNotificationList,
+    AlHeraldNotificationPayload,
+    AlHeraldNotificationQuery,
+    AlHeraldSubscriptionKey,
+    AlHeraldSubscriptionKeyPayload,
+    AlHeraldSubscriptionKeyQuery,
+    AlHeraldSubscriptionKeysByFeatureQuery,
+    AlHeraldSubscriptionRecord,
+    AlHeraldSubscriptionsKeyByAccountRecord,
+    AlHeraldSubscriptionsKeyByAccountsRecord,
+    AlHeraldTemplateMap,
+    AlHeraldTemplateMapPayload,
+    AlHeraldTestTemplatePayload,
+    AlHeraldTestWebhookPayload,
+    AlHeraldTestWebhookResponse,
 } from './types';
 
 export class AlHeraldClientInstance {
@@ -359,7 +359,11 @@ Header"
      * @remarks
      * https://console.account.product.dev.alertlogic.com/users/api/herald/index.html#api-Subscriptions-UpdateIntegrationsSubscriptionsForAccountsList
      */
-    async updateIntegrationSubscriptionForAccountsList(integrationId: string, feature: string, accounts: AlHeraldSubscriptionsKeyByAccountRecord[]) : Promise<AlHeraldSubscriptionsKeyByAccountRecord[]> {
+    async updateIntegrationSubscriptionForAccountsList(
+        integrationId: string,
+        feature: string,
+        accounts: AlHeraldSubscriptionsKeyByAccountRecord[],
+    ): Promise<AlHeraldSubscriptionsKeyByAccountRecord[]> {
         const subscriptions = await this.client.post({
             service_name: this.serviceName,
             version: this.serviceVersion,
