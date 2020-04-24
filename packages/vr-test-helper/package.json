@@ -1,0 +1,28 @@
+{
+  "name": "@al/vr-test-helper",
+  "version": "1.0.0",
+  "description": "",
+  "main": "./dist/index.cjs.js",
+  "types": "./dist/index.d.ts",
+  "module": "./dist/index.esm5.js",
+  "es2015": "./dist/index.esm2015.js",  "scripts": {
+    "test": "echo 'no tests here'",
+    "build": "rollup -c ../../rollup.config.ts",
+    "prebuild": "npm run clean && npm run lint && npm run test && tsc",
+    "lint": "tslint -p tsconfig.json -c ../../tslint.json",
+    "clean": "rm -rf dist",
+    "prepublishOnly": "npm run build"
+  },
+  "peerDependencies": {
+    "protractor": "^5.4.4"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "pixelmatch": "^5.2.0",
+    "pngjs": "^5.0.0"
+  },
+  "devDependencies": {
+    "protractor": "^5.4.4"
+  }
+}
