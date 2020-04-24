@@ -7,7 +7,6 @@
     "prebuild": "npm run clean",
     "lint": "tslint -p tsconfig.json -c tslint.json",
     "clean": "lerna run clean",
-    "prepublishOnly": "npm run build",
     "interactive": "npm run build && node -i -e \"const IRISClient = require('./dist/commonjs/index.js').IRISClient;\""
   },
   "dependencies": {
