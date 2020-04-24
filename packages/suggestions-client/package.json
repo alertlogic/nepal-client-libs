@@ -27,7 +27,7 @@
     "test": "echo \"Error: no test specified\"",
     "build-dev": "npm run clean &&  tsc && webpack --mode=development",
     "build": "rollup -c ../../rollup.config.ts",
-    "prebuild": "npm run clean && npm run lint && tsc",
+    "prebuild": "npm run clean && npm run lint ",
     "lint": "tslint -p tsconfig.json -c ../../tslint.json",
     "clean": "rm -rf dist",
     "prepublishOnly": "npm run build",
