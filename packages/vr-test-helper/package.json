@@ -1,7 +1,28 @@
 {
   "name": "@al/vr-test-helper",
   "version": "1.0.0",
-  "description": "",
+  "license": "MIT",
+  "description": "Helpers for visual regression tests",
+  "author": {
+    "name": "ui team",
+    "email": "ui@alertlogic.com"
+  },
+  "keywords": [
+    "Alert Logic",
+    "Client",
+    "Service"
+  ],
+  "maintainers": [
+    {
+      "name": "ui team",
+      "email": "ui@alertlogic.com"
+    },
+    {
+      "name": "Alert Logic NPM Team",
+      "email": "npm@alertlogic.com"
+    }
+  ],
+  "repository": "github:alertlogic/nepal-client-libs",
   "main": "./dist/index.cjs.js",
   "types": "./dist/index.d.ts",
   "module": "./dist/index.esm5.js",
@@ -17,8 +38,6 @@
   "peerDependencies": {
     "protractor": "^5.4.4"
   },
-  "author": "",
-  "license": "ISC",
   "dependencies": {
     "pixelmatch": "^5.2.0",
     "pngjs": "^5.0.0",
