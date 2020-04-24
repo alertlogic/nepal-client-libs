@@ -5,7 +5,8 @@
   "main": "./dist/index.cjs.js",
   "types": "./dist/index.d.ts",
   "module": "./dist/index.esm5.js",
-  "es2015": "./dist/index.esm2015.js",  "scripts": {
+  "es2015": "./dist/index.esm2015.js",
+  "scripts": {
     "test": "echo 'no tests here'",
     "build": "rollup -c ../../rollup.config.ts",
     "prebuild": "npm run clean && npm run lint && npm run test && tsc",
@@ -20,9 +21,7 @@
   "license": "ISC",
   "dependencies": {
     "pixelmatch": "^5.2.0",
-    "pngjs": "^5.0.0"
-  },
-  "devDependencies": {
+    "pngjs": "^5.0.0",
     "protractor": "^5.4.4"
   }
 }
