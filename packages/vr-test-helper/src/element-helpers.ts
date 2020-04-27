@@ -64,13 +64,15 @@ export function waitForClass(element, className) {
 /**
  * Wait for the presence of an element
  * @param element
+ * @param message
  */
-export function waitForElementPresence(element: ElementFinder) {
+export function waitForElementPresence(element: ElementFinder, message?: string) {
     const until = ExpectedConditions;
+    message = message ? message : `Not able to find element, taking more than ${WAIT_MAX_TIME}ms`;
     browser.wait(
         until.presenceOf(element),
         WAIT_MAX_TIME,
-        `Not able to find element, taking more than ${WAIT_MAX_TIME}ms`,
+        message,
     );
 }
 
