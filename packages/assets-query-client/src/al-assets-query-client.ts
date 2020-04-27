@@ -29,7 +29,7 @@ export class AlAssetsQueryClientInstance {
    * "https://api.cloudinsight.alertlogic.com/remediations/v1/10000001/health/agent"
    * asset_type: agent, appliance, network, vpc
    */
-  async getHealth(accountId: string, assetType: string, queryParams?: {scope?: boolean, filter: string[]}) {
+  async getHealth(accountId: string, assetType: string, queryParams?: {scope?: boolean, filter?: string[]}) {
     const health = await this.client.get({
       account_id: accountId,
       service_name: 'remediations',
@@ -45,7 +45,7 @@ export class AlAssetsQueryClientInstance {
    * /remediations/v1/:account_id/health/summary
    * "https://api.cloudinsight.alertlogic.com/remediations/v1/10000001/health/summary"
    */
-  async getHealthSummary(accountId: string,  queryParams?: {scope?: boolean, filter: string}) {
+  async getHealthSummary(accountId: string,  queryParams?: {scope?: boolean, filter?: string[]}) {
     const health = await this.client.get({
       account_id: accountId,
       service_name: 'remediations',
