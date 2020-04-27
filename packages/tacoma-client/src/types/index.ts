@@ -15,6 +15,7 @@ export interface AlTacomaView {
     subscriptions:  string[];
     filter_names?:  string[];
     schedule_frequency?: string[];
+    parent_account_only?: boolean;
 }
 
 export interface AlTacomaWorkbook {
