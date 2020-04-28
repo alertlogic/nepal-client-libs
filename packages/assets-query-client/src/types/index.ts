@@ -1,3 +1,5 @@
+export * from './asset-type-dictionary.class';
+
 export interface HealthResponse {
   assets?: any;
   filters: any;
