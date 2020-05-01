@@ -32,10 +32,15 @@ module.exports = function (config) {
       reports:
       {
         "html": {
-          "directory": "coverage",
+          "directory": "./../../coverage/subscriptions-client",
           "subdirectory": "report"
         },
-        "text-summary": ""
+        "text-summary": "",
+        "json-summary": {
+          "directory": "./../../coverage/subscriptions-client",
+          "subdirectory": "summary",
+          "filename": "json-summary.json"
+        }
       },
     },
 

@@ -6,6 +6,8 @@ stages:
         name: PR Test
         when:
             - pull_request
+            - pull_request:
+                trigger_phrase: test it
         image: node:13
         compute_size: large
         commands:
@@ -13,12 +15,48 @@ stages:
             - node_modules/lerna/cli.js info
             - echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google-chrome.list
             - wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add -
-            - apt-get update && apt-get -y install google-chrome-stable
+            - apt-get update && apt-get -y install google-chrome-stable jq
             - export CHROME_BIN='/usr/bin/google-chrome'
-#            - npm run test
             - npm run lint
-            - npm run build
+            - npm run test
             - npx madge --circular --extensions ts --ts-config tsconfig.json packages
+            - |
+                ls
+                #code coverage section
+                COVERAGE_DIRECTORY=./coverage/*
+                echo "### Unit Test Coverage Report\n\n" > comments.txt
+                for folder in $COVERAGE_DIRECTORY; do   
+                    project="$(basename $folder)"
+                    if [ -d "$folder" ]; then
+                        COVERGAE_JSON_SUMMARY_FILE=$folder/summary/json-summary.json 
+                        if [ -f $COVERGAE_JSON_SUMMARY_FILE ]; then
+                            echo "#### **$project**" >> comments.txt
+                            echo "<dl>" >> comments.txt
+                            for k in $(jq  -r '.total | keys | .[]' $COVERGAE_JSON_SUMMARY_FILE); do
+                                if [ "$k" != "linesCovered" ]; then
+                                    total=$(jq -r ".total.$k.total" $COVERGAE_JSON_SUMMARY_FILE)
+                                    covered=$(jq -r ".total.$k.covered" $COVERGAE_JSON_SUMMARY_FILE)
+                                    pct=$(jq -r ".total.$k.pct" $COVERGAE_JSON_SUMMARY_FILE)
+                                    echo "<dt>$k</dt><dd>$pct% $covered/$total</dd>" >> comments.txt
+                                fi
+                            done
+                            echo "</dl>\n\n" >> comments.txt
+                        else
+                            echo "⚠️ **WARNING** - coverage json data not found. Add **json-summary** to .karmaTypescriptConfig.reports in **karma.conf.js** \n\n ---" >> comments.txt
+                        fi
+                        echo "\n\n ---" >> comments.txt
+                    else 
+                        echo "⚠️ **WARNING** - coverage html report for **$project** not found. Add **html** to .karmaTypescriptConfig.reports in **karma.conf.js** \n\n ---" >> comments.txt
+                    fi
+                done
+                #end code coverage section
+
+                curl -fsSL https://github.com/github/hub/raw/master/script/get | bash -s 2.14.2
+                GITHUB_TOKEN=$ALPS_GH_TOKEN
+
+                #comments api call
+                bin/hub api repos/alertlogic/$ALPS_REPO_NAME/issues/$ALPS_PR_NUMBER/comments --field body=@comments.txt
+            - echo done
 
     -
         name: Master Push - Publish
