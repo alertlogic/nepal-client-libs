@@ -442,7 +442,7 @@ export class AlIrisClientInstance {
         return dictionary;
     }
     /**
-     * Returns the open incidents number related with the correlation id
+     * Returns the open incidents number related to the correlation id
      */
     async getOpenIncidentsByCorrelationId(accountId: string, correlationId: string): Promise<number> {
         return this.client.get({
