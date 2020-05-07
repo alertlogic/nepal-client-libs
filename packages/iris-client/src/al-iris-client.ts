@@ -441,4 +441,15 @@ export class AlIrisClientInstance {
         transcribe( rawDictionary['threat_level'].reverse(), dictionary.threatLevels );
         return dictionary;
     }
+    /**
+     * Returns the open incidents number related with the correlation id
+     */
+    async getOpenIncidentsByCorrelationId(accountId: string, correlationId: string): Promise<number> {
+        return this.client.get({
+            account_id: accountId,
+            service_name: this.serviceName,
+            version: 'v3',
+            path: `/correlation_count/${correlationId}`,
+        });
+    }
 }
