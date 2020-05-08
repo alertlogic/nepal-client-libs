@@ -22,6 +22,26 @@ stages:
             - npx madge --circular --extensions ts --ts-config tsconfig.json packages
             - |
                 ls
+
+                curl -fsSL https://github.com/github/hub/raw/master/script/get | bash -s 2.14.2
+                GITHUB_TOKEN=$ALPS_GH_TOKEN
+
+                #verify duplicate
+                PACKAGES_DIRECTORY=./packages/*
+                PACKAGES_ARRAY=()
+                for folder in $PACKAGES_DIRECTORY; do
+                    PACKAGES_ARRAY=("${PACKAGES_ARRAY[@]}" "$(node -p -e "require('./$folder/package.json').name")")
+                done
+                UNIQUE_NUM=$(printf '%s\n' "${PACKAGES_ARRAY[@]}"|awk '!($0 in seen){seen[$0];c++} END {print c}')
+                HAS_DUPLICATES=$(( UNIQUE_NUM != ${#PACKAGES_ARRAY[*]} ))
+
+                if [ $HAS_DUPLICATES ]; then
+                    echo $(printf '%s\n' "${PACKAGES_ARRAY[@]}"|awk '!($0 in seen){seen[$0];next} 1') > comments.txt
+                    #comments api call
+                    bin/hub api repos/alertlogic/$ALPS_REPO_NAME/issues/$ALPS_PR_NUMBER/comments --field body=@comments.txt
+                    exit 1
+                fi
+
                 #code coverage section
                 COVERAGE_DIRECTORY=./coverage/*
                 echo "### Unit Test Coverage Report\n\n" > comments.txt
@@ -50,9 +70,6 @@ stages:
                     fi
                 done
                 #end code coverage section
-
-                curl -fsSL https://github.com/github/hub/raw/master/script/get | bash -s 2.14.2
-                GITHUB_TOKEN=$ALPS_GH_TOKEN
 
                 #comments api call
                 bin/hub api repos/alertlogic/$ALPS_REPO_NAME/issues/$ALPS_PR_NUMBER/comments --field body=@comments.txt
