@@ -15,11 +15,11 @@
 import { expect } from 'chai';
 import { describe } from 'mocha';
 import { ElaborationEvent } from "../src/types/elaboration-event.class";
-import rawMock from "./evidence-raw-data.json";
+import evidenceRawDataJson from "./evidence-raw-data.json";
 
 describe('ElaborationEvent', () => {
 
-    const snortInfo_default = {
+    const snortInfoDefault = {
         al_id: 0,
         dest_ip: "None",
         dest_port: "None",
@@ -45,7 +45,7 @@ describe('ElaborationEvent', () => {
             value: "",
         }]);
         expect(elaborationEvent.ip_proxy_client).to.equal("");
-        expect(elaborationEvent.snortInfo).to.eql(snortInfo_default);
+        expect(elaborationEvent.snortInfo).to.eql(snortInfoDefault);
     });
 
     it('SHOULD has the properties without initial values', () => {
@@ -66,21 +66,21 @@ describe('ElaborationEvent', () => {
 
     describe('WHEN raw HAS the properties', () => {
         it('when deserialize method is called should create an ElaborationEvent with the properties in raw parameter', () => {
-            const elaborationEvent = ElaborationEvent.deserialize(rawMock);
-            expect(elaborationEvent.dst).to.equal(rawMock.dst);
-            expect(elaborationEvent.application_payload).to.equal(rawMock.application_payload);
-            expect(elaborationEvent.appliance).to.equal(rawMock.__appliance_name);
-            expect(elaborationEvent.event_id).to.equal(rawMock.event_id);
-            expect(elaborationEvent.payload).to.equal(rawMock.payload);
-            expect(elaborationEvent.gzipDecode).to.equal(rawMock.__gzipDecode);
-            expect(elaborationEvent.protocol_decodes).to.equal(rawMock.protocol_decodes);
-            expect(elaborationEvent.sig_id).to.equal(rawMock.sig_id);
-            expect(elaborationEvent.src).to.equal(rawMock.src);
-            expect(elaborationEvent.ts).to.equal(rawMock.ts);
-            expect(elaborationEvent.snortInfo).to.equal(rawMock.__snortInfo);
-            expect(elaborationEvent.protoFacets).to.equal(rawMock.__protoFacets);
-            expect(elaborationEvent.ip_proxy).to.equal(rawMock.ip_proxy);
-            expect(elaborationEvent.ip_proxy_client).to.equal(rawMock.ip_proxy_client);
+            const elaborationEvent = ElaborationEvent.deserialize(evidenceRawDataJson);
+            expect(elaborationEvent.dst).to.equal(evidenceRawDataJson.dst);
+            expect(elaborationEvent.application_payload).to.equal(evidenceRawDataJson.application_payload);
+            expect(elaborationEvent.appliance).to.equal(evidenceRawDataJson.__appliance_name);
+            expect(elaborationEvent.event_id).to.equal(evidenceRawDataJson.event_id);
+            expect(elaborationEvent.payload).to.equal(evidenceRawDataJson.payload);
+            expect(elaborationEvent.gzipDecode).to.equal(evidenceRawDataJson.__gzipDecode);
+            expect(elaborationEvent.protocol_decodes).to.equal(evidenceRawDataJson.protocol_decodes);
+            expect(elaborationEvent.sig_id).to.equal(evidenceRawDataJson.sig_id);
+            expect(elaborationEvent.src).to.equal(evidenceRawDataJson.src);
+            expect(elaborationEvent.ts).to.equal(evidenceRawDataJson.ts);
+            expect(elaborationEvent.snortInfo).to.equal(evidenceRawDataJson.__snortInfo);
+            expect(elaborationEvent.protoFacets).to.equal(evidenceRawDataJson.__protoFacets);
+            expect(elaborationEvent.ip_proxy).to.equal(evidenceRawDataJson.ip_proxy);
+            expect(elaborationEvent.ip_proxy_client).to.equal(evidenceRawDataJson.ip_proxy_client);
         });
     });
 
