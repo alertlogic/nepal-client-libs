@@ -1,6 +1,6 @@
 {
-  "name": "@al/ticketmaster",
-  "version": "1.0.0",
+  "name": "@al/ticket",
+  "version": "1.0.1",
   "license": "MIT",
   "description": "A client for interacting with the Alert Logic Ticket Master Public API",
   "author": {
