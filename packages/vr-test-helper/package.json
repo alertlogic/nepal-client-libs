@@ -43,5 +43,8 @@
     "pixelmatch": "^5.2.0",
     "pngjs": "^5.0.0",
     "protractor": "^5.4.4"
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }
