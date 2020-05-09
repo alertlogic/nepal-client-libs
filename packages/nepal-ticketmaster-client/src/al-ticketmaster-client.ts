@@ -2,7 +2,7 @@
  * Module to deal with available Correlations Public API endpoints
  */
 import {
-  AlDefaultClient
+  AlDefaultClient, AlApiClient
 } from '@al/core';
 
 export interface AlTicketMasterResponse {
@@ -11,7 +11,12 @@ export interface AlTicketMasterResponse {
 
 export class AlTicketMasterClientInstance {
 
+    protected client:AlApiClient;
     private serviceName = 'ticketmaster';
+
+    constructor(client:AlApiClient = null) {
+        this.client = client || AlDefaultClient;
+    }
 
     /**
      * Function to get the ticket
@@ -21,7 +26,7 @@ export class AlTicketMasterClientInstance {
      * @returns Observable
      */
     async getTicket(accountId: string): Promise<AlTicketMasterResponse> {
-        const ticket = await AlDefaultClient.post({
+        const ticket = await this.client.post({
             service_name: this.serviceName,
             account_id: accountId,
             path: 'ticket',

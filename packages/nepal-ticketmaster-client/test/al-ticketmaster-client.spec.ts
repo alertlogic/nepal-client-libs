@@ -1,10 +1,15 @@
-import { AlDefaultClient } from '@al/core';
+
+import {
+    AlDefaultClient,
+    AlLocatorService,
+  } from '@al/core';
 import { expect } from 'chai';
 import { describe } from 'mocha';
 import * as sinon from 'sinon';
 import { AlTicketMasterClient } from '../src/index';
 
 beforeEach(() => {
+    AlLocatorService.setContext( { environment: "production" } );
     AlDefaultClient.setGlobalParameters( { noEndpointsResolution: true } );
 } );
 
@@ -23,15 +28,9 @@ describe('Ticket Master client', () => {
     const ticket = {ticket: 'qwert'};
 
     describe('When delete subscriptions is called', () => {
-        beforeEach(() => {
-            stub = sinon.stub(AlDefaultClient as any, 'axiosRequest').returns(Promise.resolve({status: 200, data: ticket}));
-        });
-        afterEach(() => {
-            stub.restore();
-        });
 
-        it('Should call the AlHeraldClientV2 instance\'s POST.', async () => {
-            stub = sinon.stub(AlDefaultClient as any, 'axiosRequest').returns({ status: 204 });
+        it('Should call the Ticket Master instance\'s POST.', async () => {
+            stub = sinon.stub(AlDefaultClient as any, 'axiosRequest').returns(Promise.resolve({status: 200, data: ticket}));
             await AlTicketMasterClient.getTicket(accountId);
             expect(stub.callCount).to.equal(1);
             expect(stub.args[0][0].url).to.equal(`${apiBaseURL}/${service}/${version}/${accountId}/ticket`);
