@@ -1,16 +1,16 @@
 {
-  "name": "@al/credentials",
-  "version": "2.0.3",
+  "name": "@al/ticket",
+  "version": "1.0.1",
   "license": "MIT",
-  "description": "A client for interacting with the Alert Logic Credentials Public API.",
+  "description": "A client for interacting with the Alert Logic Ticket Master Public API",
   "author": {
     "name": "Alert Logic UI Team",
     "email": "ui@alertlogic.com"
   },
   "keywords": [
     "Alert Logic",
-    "Credentials",
-    "Client"
+    "Client",
+    "Service"
   ],
   "maintainers": [
     {
@@ -22,28 +22,34 @@
       "email": "npm@alertlogic.com"
     }
   ],
-  "repository": "github:alertlogic/nepal-client-libs",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/alertlogic/ticketmaster-client"
+  },
   "main": "./dist/index.cjs.js",
   "types": "./dist/index.d.ts",
   "module": "./dist/index.esm5.js",
   "es2015": "./dist/index.esm2015.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\"",
+    "test": "karma start",
+    "test-watch": "karma start --no-single-run --auto-watch",
+    "build-dev": "npm run clean &&  tsc && webpack --mode=development",
     "build": "rollup -c ../../rollup.config.ts",
-    "prebuild": "npm run clean",
+    "prebuild": "npm run clean && npm run lint && npm run test ",
+    "lint": "tslint -p tsconfig.json -c ../../tslint.json",
     "clean": "rm -rf dist",
     "prepublishOnly": "npm run build",
-    "interactive": "node -i -e \"const CredentialsClient = require('./dist/commonjs/index.js').CredentialsClient;\""
+    "interactive": "npm run build && node -i -e \"const TMClient = require('./dist/commonjs/index.js').TMClient;\""
   },
-  "files": [
-    "dist"
-  ],
   "dependencies": {
     "@al/core": "^1.0.2"
   },
   "peerDependencies": {
     "@al/core": "^1.0.2"
   },
+  "files": [
+    "dist"
+  ],
   "publishConfig": {
     "access": "public"
   }
