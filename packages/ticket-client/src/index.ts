@@ -1,1 +1,1 @@
-export { tmClient as TMClient } from './ticketmaster-client';
+export { tmClient as TMClient } from './ticket-client';
