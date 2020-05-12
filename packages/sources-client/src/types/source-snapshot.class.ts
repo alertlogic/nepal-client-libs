@@ -1,4 +1,4 @@
-import { EnvironmentSource } from '.';
+import { EnvironmentSource } from './types';
 
 export interface ScopeDescriptor {
     key?: string;
