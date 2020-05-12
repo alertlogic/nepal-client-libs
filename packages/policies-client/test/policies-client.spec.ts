@@ -12,7 +12,7 @@ afterEach(() => {
   sinon.restore();
 });
 describe('Policies Client Test Suite:', () => {
-  describe('when fetching a single policy', () => {
+  describe('when getting a single policy', () => {
     let stub: sinon.SinonSpy;
     beforeEach(() => {
       stub = sinon.stub(policiesClient['client'], 'get');
@@ -20,7 +20,7 @@ describe('Policies Client Test Suite:', () => {
     afterEach(() => {
       stub.restore();
     });
-    it('should call fetch() on the AlDefaultClient instance', async () => {
+    it('should call get() on the AlDefaultClient instance', async () => {
       await policiesClient.getPolicy('1234', '0987');
       expect(stub.callCount).to.equal(1);
     });
@@ -33,7 +33,7 @@ describe('Policies Client Test Suite:', () => {
     afterEach(() => {
       stub.restore();
     });
-    it('should call fetch() on the AlDefaultClient instance', async () => {
+    it('should call get() on the AlDefaultClient instance', async () => {
       await policiesClient.listPolicies('1234');
       expect(stub.callCount).to.equal(1);
     });

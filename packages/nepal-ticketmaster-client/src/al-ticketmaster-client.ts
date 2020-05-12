@@ -26,11 +26,10 @@ export class AlTicketMasterClientInstance {
      * @returns Observable
      */
     async getTicket(accountId: string): Promise<AlTicketMasterResponse> {
-        const ticket = await this.client.post({
+        return this.client.post<any>({
             service_name: this.serviceName,
             account_id: accountId,
             path: 'ticket',
         });
-        return ticket;
      }
 }

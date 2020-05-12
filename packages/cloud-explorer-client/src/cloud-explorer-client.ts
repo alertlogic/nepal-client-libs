@@ -27,7 +27,7 @@ export interface CredentialData {
 
 class CloudExplorerClient {
 
-  private alClient = ALClient;
+  private client = ALClient;
   private serviceName = 'cloud_explorer';
 
   /**
@@ -37,11 +37,10 @@ class CloudExplorerClient {
    * "https://api.cloudinsight.alertlogic.com/cloud_explorer/v1/supported_regions"
    */
   async getSupportedRegions() {
-    const regions = await this.alClient.fetch({
+    return this.client.get<SupportedRegionsResponse>({
       service_name: this.serviceName,
       path: '/supported_regions',
     });
-    return regions as SupportedRegionsResponse;
   }
 
   /**
@@ -52,11 +51,10 @@ class CloudExplorerClient {
    * iam, iam_defender, x_account_ct, none
    */
   async getRolePolicy(ruleSet: string) {
-    const rolePolicy = await this.alClient.fetch({
+    return this.client.get<RolePolicyResponse>({
       service_name: this.serviceName,
       path: `/policy/${ruleSet}`,
     });
-    return rolePolicy as RolePolicyResponse;
   }
 
   /**
@@ -75,13 +73,12 @@ class CloudExplorerClient {
       resourceId?: string,
       queryParams?: { region?: string, filter?: string, sync?: boolean },
   ) {
-    const discovery = await this.alClient.post({
+    return this.client.post<any>({
       account_id: accountId,
       service_name: this.serviceName,
       path: `/environments/${environmentId}/discover/${serviceName}/${resourceType}/${resourceId}`,
       params: queryParams,
     });
-    return discovery;
   }
 
   /**
@@ -93,13 +90,12 @@ class CloudExplorerClient {
    * -d {"credential": {"name": "Ozone", "iam_role": {"arn": "arn:aws:iam::123456789016:role/outcomes_role", "external_id": "0000-0001", }, "type": "iam_role"} }
    */
   async validateExternalCredentials(credentialData: CredentialData, queryParams?: {rule_set?: string}) {
-    const validate = await this.alClient.post({
+    return this.client.post<any>({
       service_name: this.serviceName,
       path: '/validate_credentials',
       params: queryParams,
       data: credentialData,
     });
-    return validate;
   }
 
   /**
@@ -109,12 +105,11 @@ class CloudExplorerClient {
    * "/cloud_explorer/v1/:account_id/environments/:environment_id/validate_credentials"
    */
   async validateStoredCredentials(accountId: string, environmentId: string) {
-    const validate = await this.alClient.post({
+    return this.client.post<any>({
       account_id: accountId,
       service_name: this.serviceName,
       path: `/environments/${environmentId}/validate_credentials`,
     });
-    return validate;
   }
 
 }

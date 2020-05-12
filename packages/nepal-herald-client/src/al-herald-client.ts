@@ -171,13 +171,12 @@ export class AlHeraldClientInstance {
      * https://console.account.product.dev.alertlogic.com/users/api/herald/index.html#api-Subscriptions-GetIntegrationSubscriptionsInAccount
      */
     async getIntegrationSubscriptions(accountId: string, integrationId: string): Promise<AlHeraldSubscriptionsKeyByAccountRecord> {
-        const subscriptions = await this.client.get({
+        return this.client.get<AlHeraldSubscriptionsKeyByAccountRecord>({
             service_name: this.serviceName,
             version: this.serviceVersion,
             account_id: accountId,
             path: `/integrations/${integrationId}/subscriptions`,
         });
-        return subscriptions as AlHeraldSubscriptionsKeyByAccountRecord;
     }
 
     /**
@@ -192,13 +191,12 @@ export class AlHeraldClientInstance {
      * @return a promise with the subscriptions
      */
     async getIntegrationSubscriptionsByFeature(accountId: string, integrationId: string, feature: string): Promise<AlHeraldSubscriptionsKeyByAccountRecord> {
-        const subscriptions = await this.client.get({
+        return this.client.get<AlHeraldSubscriptionsKeyByAccountRecord>({
             service_name: this.serviceName,
             version: this.serviceVersion,
             account_id: accountId,
             path: `/integrations/${integrationId}/subscriptions/${feature}`,
         });
-        return subscriptions as AlHeraldSubscriptionsKeyByAccountRecord;
     }
 
     /**
@@ -211,13 +209,12 @@ export class AlHeraldClientInstance {
      * @return a promise with the subscriptions
      */
     async getUserSubscriptions(accountId: string, userId: string): Promise<AlHeraldSubscriptionsKeyByAccountRecord> {
-        const subscriptions = await this.client.get({
+        return this.client.get<AlHeraldSubscriptionsKeyByAccountRecord>({
             service_name: this.serviceName,
             version: this.serviceVersion,
             account_id: accountId,
             path: `/users/${userId}/subscriptions`,
         });
-        return subscriptions as AlHeraldSubscriptionsKeyByAccountRecord;
     }
 
     /**
@@ -235,13 +232,12 @@ export class AlHeraldClientInstance {
      * https://console.account.product.dev.alertlogic.com/users/api/herald/index.html#api-Subscriptions-GetUserSubscriptionsInAccountFeature
      */
     async getUserSubscriptionsByFeature(accountId: string, userId: string, feature: string): Promise<AlHeraldSubscriptionsKeyByAccountRecord> {
-        const subscriptions = await this.client.get({
+        return this.client.get<AlHeraldSubscriptionsKeyByAccountRecord>({
             service_name: this.serviceName,
             version: this.serviceVersion,
             account_id: accountId,
             path: `/users/${userId}/subscriptions/${feature}`,
         });
-        return subscriptions as AlHeraldSubscriptionsKeyByAccountRecord;
     }
 
     /**
@@ -258,14 +254,13 @@ export class AlHeraldClientInstance {
      * https://console.account.product.dev.alertlogic.com/users/api/herald/index.html#api-Subscriptions-SetUserSubscriptionsForAccountFeature
      */
     async setUserSubscriptions(accountId: string, userId: string, feature: string, payload: AlHeraldSubscriptionRecord[]): Promise<AlHeraldSubscriptionsKeyByAccountsRecord> {
-        const subscriptions = await this.client.put({
+        return this.client.put<AlHeraldSubscriptionsKeyByAccountsRecord>({
             service_name: this.serviceName,
             version: this.serviceVersion,
             account_id: accountId,
             path: `/users/${userId}/subscriptions/${feature}`,
             data: { "subscriptions" : payload }
         });
-        return subscriptions as AlHeraldSubscriptionsKeyByAccountsRecord;
     }
 
     /**
@@ -283,13 +278,13 @@ export class AlHeraldClientInstance {
      * https://console.account.product.dev.alertlogic.com/users/api/herald/index.html#api-Subscriptions-UnsetUserSubscriptionsForAccountFeature
      */
     async unsetUserSubscriptionsByFeature(accountId: string, userId: string, feature: string) {
-        const userSubscriptionDelete = await this.client.delete({
+        return this.client.delete<any>({
             service_name: this.serviceName,
             version: this.serviceVersion,
             account_id: accountId,
             path: `/users/${userId}/subscriptions/${feature}`
         });
-        return userSubscriptionDelete;
+
     }
 
     /**
@@ -308,13 +303,13 @@ Header"
      * https://console.account.product.dev.alertlogic.com/users/api/herald/index.html#api-Subscriptions-UnsetIntegrationsSubscriptionsForAccountFeature
      */
     async unsetIntegrationsSubscriptionsByFeature(accountId: string, integrationId: string, feature: string) {
-        const integrationsSubscriptionDelete = await this.client.delete({
+        return this.client.delete<any>({
             service_name: this.serviceName,
             version: this.serviceVersion,
             account_id: accountId,
             path: `/integrations/${integrationId}/subscriptions/${feature}`
         });
-        return integrationsSubscriptionDelete;
+
     }
 
     /**
@@ -334,15 +329,13 @@ Header"
      * https://console.account.product.dev.alertlogic.com/users/api/herald/index.html#api-Subscriptions-SetIntegrationsSubscriptionsForAccountFeatureSubkey
      */
     async updateIntegrationSubscription(accountId: string, integrationId: string, feature: string, subkey: string, subscribed: boolean) : Promise<AlHeraldSubscriptionsKeyByAccountRecord> {
-        const subscriptions = await this.client.put({
+        return this.client.put<AlHeraldSubscriptionsKeyByAccountRecord>({
             service_name: this.serviceName,
             version: this.serviceVersion,
             account_id: accountId,
             path: `/integrations/${integrationId}/subscriptions/${feature}/${subkey}`,
             data: { "subscribed": subscribed }
         });
-
-        return subscriptions as AlHeraldSubscriptionsKeyByAccountRecord;
     }
 
     /**
@@ -364,14 +357,13 @@ Header"
         feature: string,
         accounts: AlHeraldSubscriptionsKeyByAccountRecord[],
     ): Promise<AlHeraldSubscriptionsKeyByAccountRecord[]> {
-        const subscriptions = await this.client.post({
+        return this.client.post<AlHeraldSubscriptionsKeyByAccountRecord[]>({
             service_name: this.serviceName,
             version: this.serviceVersion,
             path: `/integrations/${integrationId}/subscriptions/${feature}`,
             data: { "accounts": accounts }
         });
 
-        return subscriptions as AlHeraldSubscriptionsKeyByAccountRecord[];
     }
 
     /**
@@ -391,15 +383,13 @@ Header"
      * https://console.account.product.dev.alertlogic.com/users/api/herald/index.html#api-Subscriptions-SetUserSubscriptionsForAccountFeatureSubkey
      */
     async updateUserSubscription(accountId: string, userId: string, feature: string, subkey: string, subscribed: boolean) : Promise<AlHeraldSubscriptionsKeyByAccountRecord> {
-        const subscriptions = await this.client.put({
+        return this.client.put<AlHeraldSubscriptionsKeyByAccountRecord>({
             service_name: this.serviceName,
             version: this.serviceVersion,
             account_id: accountId,
             path: `/users/${userId}/subscriptions/${feature}/${subkey}`,
             data: { "subscribed": subscribed }
         });
-
-        return subscriptions as AlHeraldSubscriptionsKeyByAccountRecord;
     }
 
     /**
@@ -417,14 +407,13 @@ Header"
      * https://console.account.product.dev.alertlogic.com/users/api/herald/index.html#api-Subscriptions-UpdateUserSubscriptionsForAccountsList
      */
     async updateUserSubscriptionForAccountsList(userId: string, feature: string, accounts: AlHeraldSubscriptionsKeyByAccountRecord[]) : Promise<AlHeraldSubscriptionsKeyByAccountRecord[]> {
-        const subscriptions = await this.client.post({
+        return this.client.post<AlHeraldSubscriptionsKeyByAccountRecord[]>({
             service_name: this.serviceName,
             version: this.serviceVersion,
             path: `/users/${userId}/subscriptions/${feature}`,
             data: { "accounts": accounts }
         });
 
-        return subscriptions as AlHeraldSubscriptionsKeyByAccountRecord[];
     }
 
     /**
@@ -442,14 +431,13 @@ Header"
      * https://console.account.product.dev.alertlogic.com/users/api/herald/index.html#api-Subscriptions-UpdateUserSubscriptionsForAccountsList
      */
     async setUserSubscriptionForAccountsList(userId: string, feature: string, accounts: AlHeraldSubscriptionsKeyByAccountRecord[]) : Promise<AlHeraldSubscriptionsKeyByAccountRecord[]> {
-        const subscriptions = await this.client.put({
+        return this.client.put<AlHeraldSubscriptionsKeyByAccountRecord[]>({
             service_name: this.serviceName,
             version: this.serviceVersion,
             path: `/users/${userId}/subscriptions/${feature}`,
             data: { "accounts": accounts }
         });
 
-        return subscriptions as AlHeraldSubscriptionsKeyByAccountRecord[];
     }
 
     /**** Integrations ***/
@@ -467,14 +455,13 @@ Header"
      * @remarks https://console.account.product.dev.alertlogic.com/users/api/herald/index.html#api-Integrations-CreateAccountIntegration
      */
     async createIntegration(accountId: string, type: string, payload: AlHeraldIntegrationPayload): Promise<AlHeraldIntegration> {
-        const accountIntegration = await this.client.post({
+        return this.client.post<AlHeraldIntegration>({
             service_name: this.serviceName,
             version: this.serviceVersion,
             account_id: accountId,
             path: `/integrations/${type}`,
             data: payload
         });
-        return accountIntegration as AlHeraldIntegration;
     }
 
     /**
@@ -491,13 +478,13 @@ Header"
      * https://console.account.product.dev.alertlogic.com/users/api/herald/index.html#api-Integrations-DeleteAccountIntegrations
      */
     async deleteIntegration(accountId: string, integrationId: string) {
-        const accountIntegrationDelete = await this.client.delete({
+        return this.client.delete<any>({
             service_name: this.serviceName,
             version: this.serviceVersion,
             account_id: accountId,
             path: `/integrations/${integrationId}`
         });
-        return accountIntegrationDelete;
+
     }
 
     /**
@@ -514,13 +501,12 @@ Header"
      * https://console.account.product.dev.alertlogic.com/users/api/herald/index.html#api-Integrations-GetAccountIntegrations
      */
     async getIntegrationById(accountId: string, integrationId: string): Promise<AlHeraldIntegration> {
-        const accountIntegration = await this.client.get({
+        return this.client.get<AlHeraldIntegration>({
             service_name: this.serviceName,
             version: this.serviceVersion,
             account_id: accountId,
             path: `/integrations/${integrationId}`
         });
-        return accountIntegration as AlHeraldIntegration;
     }
 
     /**
@@ -579,15 +565,13 @@ Header"
      * https://console.account.product.dev.alertlogic.com/users/api/herald/index.html#api-Integrations-UpdateAccountIntegration
      */
     async updateIntegration(accountId: string, integrationId: string, payload: AlHeraldIntegrationPayload) : Promise<AlHeraldIntegration> {
-        const integrationUpdate = await this.client.put({
+        return this.client.put<AlHeraldIntegration>({
             service_name: this.serviceName,
             version: this.serviceVersion,
             account_id: accountId,
             path: `/integrations/${integrationId}`,
             data: payload
         });
-
-        return integrationUpdate as AlHeraldIntegration;
     }
 
     /**** Notifications ***/
@@ -603,12 +587,11 @@ Header"
      * https://console.account.product.dev.alertlogic.com/users/api/herald/index.html#api-Notifications-GetANotification
      */
     async getNotificationsById(notificationId: string): Promise<AlHeraldNotification>{
-        const notification = await this.client.get({
+        return this.client.get<AlHeraldNotification>({
             service_name: this.serviceName,
             version: this.serviceVersion,
             path: `/notifications/${notificationId}`
         });
-        return notification as AlHeraldNotification;
     }
 
     /**
@@ -625,14 +608,13 @@ Header"
      * https://console.account.product.dev.alertlogic.com/users/api/herald/index.html#api-Notifications-GetANotificationByAccountId
      */
     async getNotificationsByAccountId(accountId: string, queryParams: AlHeraldNotificationQuery): Promise<AlHeraldNotificationList> {
-        const notification = await this.client.get({
+        return this.client.get<AlHeraldNotificationList>({
             service_name: this.serviceName,
             version: this.serviceVersion,
             account_id: accountId,
             path: '/notifications',
             params: queryParams
         });
-        return notification as AlHeraldNotificationList;
     }
 
     /**
@@ -649,13 +631,12 @@ Header"
      * https://console.account.product.dev.alertlogic.com/users/api/herald/index.html#api-Notifications-GetANotificationByAccountIdAndNotificationId
      */
     async getNotificationsByIdAndByAccountId(accountId: string, notificationId: string): Promise<AlHeraldNotification> {
-        const notification = await this.client.get({
+        return this.client.get<AlHeraldNotification>({
             service_name: this.serviceName,
             version: this.serviceVersion,
             account_id: accountId,
             path: `/notifications/id/${notificationId}`
         });
-        return notification as AlHeraldNotification;
     }
 
     /**
@@ -746,14 +727,13 @@ Header"
      * https://console.account.product.dev.alertlogic.com/users/api/herald/index.html#api-Notifications-SendANotification
      */
     async sendNotification(accountId: string, payload: AlHeraldNotificationPayload): Promise<AlHeraldNotification> {
-        const notification = await this.client.post({
+        return this.client.post<AlHeraldNotification>({
             service_name: this.serviceName,
             version: this.serviceVersion,
             account_id: accountId,
             path: '/notifications',
             data: payload
         });
-        return notification as AlHeraldNotification;
     }
 
     /**
@@ -768,14 +748,13 @@ Header"
      * https://console.account.product.dev.alertlogic.com/users/api/herald/index.html#api-Notifications-GetANotificationByAccountId
      */
     async getNotificationByAccountId(accountId: string, queryParams: AlHeraldNotificationQuery): Promise<AlHeraldNotificationByAccountId> {
-        const notification = await this.client.post({
+        return this.client.post<AlHeraldNotificationByAccountId>({
             service_name: this.serviceName,
             version: this.serviceVersion,
             account_id: accountId,
             path: '/notifications',
             params: queryParams
         });
-        return notification as AlHeraldNotificationByAccountId;
     }
 
     /**
@@ -793,15 +772,13 @@ Header"
      * https://console.account.product.dev.alertlogic.com/users/api/herald/index.html#api-Notifications-UpdateANotification
      */
     async updateNotification(accountId: string, notificationId: string, payload: {status:string}) : Promise<AlHeraldNotification> {
-        const notificationUpdate = await this.client.put({
+        return this.client.put<AlHeraldNotification>({
             service_name: this.serviceName,
             version: this.serviceVersion,
             account_id: accountId,
             path: `/notifications/${notificationId}`,
             data: payload
         });
-
-        return notificationUpdate as AlHeraldNotification;
     }
     /***** Subscribers */
 
@@ -865,14 +842,13 @@ Header"
      * https://console.account.product.dev.alertlogic.com/users/api/herald/index.html#api-Subscription_Keys-CreateAccountSubscriptionKey
      */
     async createAccountSubscriptionKey(accountId: string, payload: AlHeraldAccountSubscriptionKeyPayload): Promise<AlHeraldAccountSubscriptionKey> {
-        const subscription = await this.client.post({
+        return this.client.post<AlHeraldAccountSubscriptionKey>({
             service_name: this.serviceName,
             version: this.serviceVersion,
             path: '/subscription_keys',
             account_id: accountId,
             data: payload
         });
-        return subscription as AlHeraldAccountSubscriptionKey;
     }
 
     /**
@@ -886,13 +862,12 @@ Header"
      * https://console.account.product.dev.alertlogic.com/users/api/herald/index.html#api-Subscription_Keys-CreateSubscriptionKey
      */
     async createSubscriptionKey(payload: AlHeraldSubscriptionKeyPayload): Promise<AlHeraldSubscriptionKey> {
-        const subscription = await this.client.post({
+        return this.client.post<AlHeraldSubscriptionKey>({
             service_name: this.serviceName,
             version: this.serviceVersion,
             path: '/subscription_keys',
             data: payload
         });
-        return subscription as AlHeraldSubscriptionKey;
     }
 
     /**
@@ -910,13 +885,13 @@ Header"
      * https://console.account.product.dev.alertlogic.com/users/api/herald/index.html#api-Subscription_Keys-DeleteAccountSubscriptionKey
      */
     async deleteAccountSubscriptionKey(accountId: string, feature: string, subkey: string) {
-        const subscriptionDelete = await this.client.delete({
+        return this.client.delete<any>({
             service_name: this.serviceName,
             version: this.serviceVersion,
             account_id: accountId,
             path: `/subscription_keys/${feature}/${subkey}`
         });
-        return subscriptionDelete;
+
     }
 
     /**
@@ -932,12 +907,11 @@ Header"
      * https://console.account.product.dev.alertlogic.com/users/api/herald/index.html#api-Subscription_Keys-GetSubscriptionKeybyFeatureSubKey
      */
     async getSubscriptionKey(feature: string, subkey: string): Promise<AlHeraldSubscriptionKey> {
-        const subscription = await this.client.get({
+        return this.client.get<AlHeraldSubscriptionKey>({
             service_name: this.serviceName,
             version: this.serviceVersion,
             path: `/subscription_keys/${feature}/${subkey}`
         });
-        return subscription as AlHeraldSubscriptionKey;
     }
 
     /**
@@ -976,15 +950,13 @@ Header"
      * https://console.account.product.dev.alertlogic.com/users/api/herald/index.html#api-Subscription_Keys-UpdateAccountSubscriptionKey
      */
     async updateAccountSubscriptionKey(accountId: string, feature: string, subkey:string, payload:AlHeraldIntegrationTypes) : Promise<AlHeraldAccountSubscriptionKey> {
-        const subscriptionUpdated = await this.client.put({
+        return this.client.put<AlHeraldAccountSubscriptionKey>({
             service_name: this.serviceName,
             version: this.serviceVersion,
             account_id: accountId,
             path: `/subscription_keys/${feature}/${subkey}`,
             data: payload
         });
-
-        return subscriptionUpdated as AlHeraldAccountSubscriptionKey;
     }
 
     /**
@@ -1001,14 +973,12 @@ Header"
      * https://console.account.product.dev.alertlogic.com/users/api/herald/index.html#api-Subscription_Keys-UpdateAccountSubscriptionKey
      */
     async updateSubscriptionKey(feature: string, subkey:string, payload:AlHeraldIntegrationTypes) : Promise<AlHeraldSubscriptionKey> {
-        const subscriptionUpdated = await this.client.put({
+        return this.client.put<AlHeraldSubscriptionKey>({
             service_name: this.serviceName,
             version: this.serviceVersion,
             path: `/subscription_keys/${feature}/${subkey}`,
             data: payload
         });
-
-        return subscriptionUpdated as AlHeraldSubscriptionKey;
     }
 
     /***** Template mappings */
@@ -1025,13 +995,12 @@ Header"
      * https://console.account.product.dev.alertlogic.com/users/api/herald/index.html#api-Template_Mappings-CreateTemplateMapping
      */
     async createTemplateMapping(payload: AlHeraldTemplateMapPayload): Promise<AlHeraldTemplateMap> {
-        const template = await this.client.post({
+        return this.client.post<AlHeraldTemplateMap>({
             service_name: this.serviceName,
             version: this.serviceVersion,
             path: '/template_mappings',
             data: payload
         });
-        return template as AlHeraldTemplateMap;
     }
 
     /**
@@ -1049,14 +1018,12 @@ Header"
      * https://console.account.product.dev.alertlogic.com/users/api/herald/index.html#api-Template_Mappings-UpdateTemplateMapping
      */
     async updateTemplateMapping(feature: string, subkeyPart: string, payload: {template_name:string}) : Promise<AlHeraldTemplateMap> {
-        const template = await this.client.put({
+        return this.client.put<AlHeraldTemplateMap>({
             service_name: this.serviceName,
             version: this.serviceVersion,
             path: `/template_mappings/${feature}/${subkeyPart}`,
             data: payload
         });
-
-        return template as AlHeraldTemplateMap;
     }
 
     /***** Test endpoints */

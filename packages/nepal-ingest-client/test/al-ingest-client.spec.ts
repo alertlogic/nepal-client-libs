@@ -17,7 +17,7 @@ afterEach(() => {
 
 describe('AlIngestClientInstance', () => {
     describe('When creating a notification-only correlation rule', () => {
-        it('should instantiate', async () => {
+        it('should instantiate', () => {
             expect( ingestClient ).not.to.equal( null );
         });
     });
