@@ -54,14 +54,14 @@ describe('Deployments Client Test Suite', () => {
     let stub: sinon.SinonSpy;
 
     beforeEach(() => {
-      stub = sinon.stub(deploymentsClient.client, 'set');
+      stub = sinon.stub(deploymentsClient.client, 'put');
     });
 
     afterEach(() => {
       stub.restore();
     });
 
-    it('should should call set() on the AlDefaultClient instance to the deployments endpoint', async() => {
+    it('should should call put() on the AlDefaultClient instance to the deployments endpoint', async() => {
       await deploymentsClient.updateDeployment(accountId, deploymentId, deploymentRequestBody);
       expect(stub.callCount).to.equal(1);
       const payload = {

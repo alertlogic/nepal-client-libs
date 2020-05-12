@@ -41,10 +41,10 @@
     "interactive": "node -i -e \"const OTISClient = require('./dist/commonjs/index.js').OTISClient;\""
   },
   "dependencies": {
-    "@al/core": "^1.0.2"
+    "@al/core": "^1.0.12"
   },
   "peerDependencies": {
-    "@al/core": "^1.0.2"
+    "@al/core": "^1.0.12"
   },
   "files": [
     "dist"

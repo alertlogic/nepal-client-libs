@@ -1,6 +1,6 @@
 {
   "name": "@al/ticketmaster",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "license": "MIT",
   "description": "A lightweight client library for interacting with the Herald API",
   "author": {
@@ -37,10 +37,10 @@
     "prepublishOnly": "npm run build"
   },
   "dependencies": {
-    "@al/core": "^1.0.2"
+    "@al/core": "^1.0.12"
   },
   "peerDependencies": {
-    "@al/core": "^1.0.2"
+    "@al/core": "^1.0.12"
   },
   "files": [
     "dist"

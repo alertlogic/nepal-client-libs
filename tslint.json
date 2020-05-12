@@ -1,6 +1,8 @@
 {
   "extends": "tslint-config-airbnb",
   "rules": {
+    "prefer-array-literal": [true, { "allow-type-parameters": true }],
+    "no-async-without-await": true,
     "no-irregular-whitespace": true,
     "align": [ true, "statements", "members", "elements" ],
     "max-line-length": {

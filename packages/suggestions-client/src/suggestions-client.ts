@@ -28,32 +28,32 @@ import {
 
 class SuggestionsClient {
 
-    private alClient = ALClient;
+    private client = ALClient;
     private serviceName = 'suggestions';
 
     /**
      * Create a saved query for the given account ID
      */
     async createSavedQuery(accountId: string, savedQueryParams: CreateSavedQueryParams) {
-        const create = await this.alClient.post({
+        return this.client.post<SavedQuery>({
             service_name: this.serviceName,
             account_id: accountId,
             path: '/queries',
             data: savedQueryParams,
         });
-        return create as SavedQuery;
+
     }
 
     /**
      * Get a saved query by account ID and query ID
      */
     async getQuery(accountId: string, queryId: string) {
-        const query = await this.alClient.get({
+        return this.client.get<SavedQuery>({
             service_name: this.serviceName,
             account_id: accountId,
             path: `/queries/${queryId}`,
         });
-        return query as SavedQuery;
+
     }
 
     /**
@@ -66,7 +66,7 @@ class SuggestionsClient {
             path: '/queries',
             params: queryParams,
         };
-        return await this.alClient.get(fetchRequestParams)
+        return await this.client.get(fetchRequestParams)
             .then((response: FetchQueriesResponse) => response.queries);
     }
 
@@ -74,20 +74,20 @@ class SuggestionsClient {
      * Update the saved query with the given ID. All body parameters are optional, but at least one should be given.
      */
     async updateQuery(accountId: string, queryId: string, queryUpdate: UpdateSavedQueryParams) {
-        const query = await this.alClient.post({
+        return this.client.post<SavedQuery>({
             service_name: this.serviceName,
             account_id: accountId,
             path: `/queries/${queryId}`,
             data: queryUpdate,
         });
-        return query as SavedQuery;
+
     }
 
     /**
      * Delete the saved query with the given ID.
      */
     deleteQuery(accountId: string, queryId: string): Promise<unknown> {
-        return this.alClient.delete({
+        return this.client.delete({
             service_name: this.serviceName,
             account_id: accountId,
             path: `/queries/${queryId}`,
@@ -107,7 +107,7 @@ class SuggestionsClient {
         if (queryParams) {
             fetchRequestParams.params = queryParams;
         }
-        const categories = await this.alClient.get(fetchRequestParams);
+        const categories = await this.client.get(fetchRequestParams);
         return categories as SearchCategory[];
     }
 
@@ -123,7 +123,7 @@ class SuggestionsClient {
         if (queryParams) {
             fetchRequestParams.params = queryParams;
         }
-        const rule = await this.alClient.get(fetchRequestParams);
+        const rule = await this.client.get(fetchRequestParams);
         return rule as SearchRule;
     }
 
@@ -140,7 +140,7 @@ class SuggestionsClient {
         if (queryParams) {
             fetchRequestParams.params = queryParams;
         }
-        return this.alClient.get(fetchRequestParams)
+        return this.client.get(fetchRequestParams)
             .then((response: SearchRulesResponse) => response.rules);
     }
 
@@ -157,7 +157,7 @@ class SuggestionsClient {
         if (queryParams) {
             fetchRequestParams.params = queryParams;
         }
-        const tokens = await this.alClient.get(fetchRequestParams);
+        const tokens = await this.client.get(fetchRequestParams);
         return tokens as SearchToken[];
     }
 
@@ -165,7 +165,7 @@ class SuggestionsClient {
      * This hints suggestions to preload and index the data sets for the given account_id. If the data for this account is already in the cache, nothing is done
      */
     precache(accountId: string) {
-        return this.alClient.get({
+        return this.client.get({
             service_name: this.serviceName,
             account_id: accountId,
             path: '/precache',
@@ -176,13 +176,13 @@ class SuggestionsClient {
      * Provides suggestions for the search filters of all displayable fields (depending on how it is called).
      */
     async suggest(accountId: string, dataType: string = 'logmsgs', requestParams: SuggestionsRequestParams) {
-        const suggest = await this.alClient.post({
+        return this.client.post<SuggestSearchResponse>({
             service_name: this.serviceName,
             account_id: accountId,
             path: `/suggest/${dataType}`,
             data: requestParams,
         });
-        return suggest as SuggestSearchResponse;
+
     }
 
     /**
@@ -190,13 +190,13 @@ class SuggestionsClient {
      * Additionally, this performs syntactic and semantic validation of the query
      */
     async describe(accountId: string, dataType: string = 'logmsgs', searchRequest: DescribeSearchRequest) {
-        const describe = await this.alClient.post({
+        return this.client.post<DescribeSearchResponse>({
             service_name: this.serviceName,
             account_id: accountId,
             path: `/describe/${dataType}`,
             data: searchRequest,
         });
-        return describe as DescribeSearchResponse;
+
     }
 
     /**
@@ -206,13 +206,13 @@ class SuggestionsClient {
      * Specifically, JSON body of the request to the search API is returned in the search_request key of the response.
      */
     async translate(accountId: string, dataType: string = 'logmsgs', searchRequest: TranslateSearchRequest) {
-        const describe = await this.alClient.post({
+        return this.client.post<TranslateSearchResponse>({
             service_name: this.serviceName,
             account_id: accountId,
             path: `/translate/${dataType}`,
             data: searchRequest,
         });
-        return describe as TranslateSearchResponse;
+
     }
 
     /**
@@ -220,7 +220,7 @@ class SuggestionsClient {
      * This behavior can be disabled by setting include_managing_account_templates to false, in which case the response will exclusively contain templates for the account_id given in the URL.
      */
     getSearchTemplates(accountId: string, queryParams: { type?: string } = {}): Promise<SearchTemplatesResponse> {
-        return this.alClient.get({
+        return this.client.get({
             service_name: this.serviceName,
             account_id: accountId,
             path: '/templates',
@@ -232,7 +232,7 @@ class SuggestionsClient {
      * Get a search template by account ID and template ID.
      */
     getSearchTemplate(accountId: string, templateId: string): Promise<SearchTemplate> {
-        return this.alClient.get({
+        return this.client.get({
             service_name: this.serviceName,
             account_id: accountId,
             path: `/templates/${templateId}`,
@@ -243,7 +243,7 @@ class SuggestionsClient {
      * Create a search template for the given account ID.
      */
     createSearchTemplate(accountId: string, template: SearchTemplate): Promise<SearchTemplate> {
-        return this.alClient.post({
+        return this.client.post({
             service_name: this.serviceName,
             account_id: accountId,
             path: '/templates',
@@ -255,7 +255,7 @@ class SuggestionsClient {
      * Update the search template with the given ID. All body parameters are optional, but at least one should be given.
      */
     async updateSearchTemplate(accountId: string, templateId: string, template: SearchTemplate): Promise<any> {
-        return this.alClient.set({
+        return this.client.put({
             service_name: this.serviceName,
             account_id: accountId,
             path: `/templates/${templateId}`,
@@ -269,7 +269,7 @@ class SuggestionsClient {
      * Attempting to delete a search template set to "deleted": false will result in a 400 Bad Request error.
      */
     async deleteSearchTemplate(accountId: string, templateId: string): Promise<unknown> {
-        return await this.alClient.delete({
+        return await this.client.delete({
             service_name: this.serviceName,
             account_id: accountId,
             path: `/templates/${templateId}`,
@@ -285,7 +285,7 @@ class SuggestionsClient {
         groupId: string,
         queryParams: FetchGroupsQueryParams = {},
     ): Promise<SavedGroup> {
-        return this.alClient.get({
+        return this.client.get({
             service_name: this.serviceName,
             account_id: accountId,
             path: `/groups/${objectType}/${groupId}`,
@@ -301,7 +301,7 @@ class SuggestionsClient {
         objectType: 'queries' | 'templates',
         queryParams: FetchGroupsQueryParams = {},
     ): Promise<{ groups: SavedGroup[]; templates?: SearchTemplate[]; queries?: SavedQuery[] }> {
-        return this.alClient.get({
+        return this.client.get({
             service_name: this.serviceName,
             account_id: accountId,
             path: `/groups/${objectType}`,
@@ -315,7 +315,7 @@ class SuggestionsClient {
      * A group can be parented to another group of the same type to create nested groups, and objects (queries or templates) can be associated to groups by setting their group_id property
      */
     async createGroup(accountId: string, objectType: 'queries' | 'templates', group: SavedGroup): Promise<SavedGroup> {
-        return this.alClient.post({
+        return this.client.post({
             service_name: this.serviceName,
             account_id: accountId,
             path: `/groups/${objectType}`,
@@ -333,7 +333,7 @@ class SuggestionsClient {
         groupId: string,
         group: SavedGroup,
     ): Promise<any> {
-        return await this.alClient.put({
+        return await this.client.put({
             service_name: this.serviceName,
             account_id: accountId,
             path: `/groups/${objectType}/${groupId}`,
@@ -347,7 +347,7 @@ class SuggestionsClient {
      * If a group is permanently deleted, all child groups and all associated objects (templates or saved queries) will be permanently deleted as well.
      */
     async deleteGroup(accountId: string, objectType: 'queries' | 'templates', groupId: string): Promise<unknown> {
-        return this.alClient.delete({
+        return this.client.delete({
             service_name: this.serviceName,
             account_id: accountId,
             path: `/groups/${objectType}/${groupId}`,

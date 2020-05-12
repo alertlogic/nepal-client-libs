@@ -17,7 +17,7 @@ describe('Subscriptions Client Test Suite:', () => {
   describe('when retrieving entitlements for a given account', () => {
     let stub: sinon.SinonSpy;
     beforeEach(() => {
-      stub = sinon.stub(SubscriptionsClient['alClient'], 'get');
+      stub = sinon.stub(SubscriptionsClient['client'], 'get');
     });
     afterEach(() => {
       stub.restore();
@@ -38,7 +38,7 @@ describe('Subscriptions Client Test Suite:', () => {
   describe('when retrieving accounts for a given enitlement', () => {
     let stub: sinon.SinonSpy;
     beforeEach(() => {
-      stub = sinon.stub(SubscriptionsClient['alClient'], 'get');
+      stub = sinon.stub(SubscriptionsClient['client'], 'get');
     });
     afterEach(() => {
       stub.restore();
@@ -58,7 +58,7 @@ describe('Subscriptions Client Test Suite:', () => {
   describe('when creating an AWS subscription', () => {
     let stub: sinon.SinonSpy;
     beforeEach(() => {
-      stub = sinon.stub(SubscriptionsClient['alClient'], 'post');
+      stub = sinon.stub(SubscriptionsClient['client'], 'post');
     });
     afterEach(() => {
       stub.restore();
@@ -83,7 +83,7 @@ describe('Subscriptions Client Test Suite:', () => {
   describe('when creating a full subscription', () => {
     let stub: sinon.SinonSpy;
     beforeEach(() => {
-      stub = sinon.stub(SubscriptionsClient['alClient'], 'post');
+      stub = sinon.stub(SubscriptionsClient['client'], 'post');
     });
     afterEach(() => {
       stub.restore();
@@ -112,7 +112,7 @@ describe('Subscriptions Client Test Suite:', () => {
   describe('when creating a standard subscription', () => {
     let stub: sinon.SinonSpy;
     beforeEach(() => {
-      stub = sinon.stub(SubscriptionsClient['alClient'], 'post');
+      stub = sinon.stub(SubscriptionsClient['client'], 'post');
     });
     afterEach(() => {
       stub.restore();
@@ -131,7 +131,7 @@ describe('Subscriptions Client Test Suite:', () => {
   describe('when retrieving a single subscription', () => {
     let stub: sinon.SinonSpy;
     beforeEach(() => {
-      stub = sinon.stub(SubscriptionsClient['alClient'], 'get');
+      stub = sinon.stub(SubscriptionsClient['client'], 'get');
     });
     afterEach(() => {
       stub.restore();
@@ -151,7 +151,7 @@ describe('Subscriptions Client Test Suite:', () => {
   describe('when retrieving all subscriptions', () => {
     let stub: sinon.SinonSpy;
     beforeEach(() => {
-      stub = sinon.stub(SubscriptionsClient['alClient'], 'get');
+      stub = sinon.stub(SubscriptionsClient['client'], 'get');
     });
     afterEach(() => {
       stub.restore();
@@ -170,7 +170,7 @@ describe('Subscriptions Client Test Suite:', () => {
   describe('when retrieving all subscriptions', () => {
     let stub: sinon.SinonSpy;
     beforeEach(() => {
-      stub = sinon.stub(SubscriptionsClient['alClient'], 'put');
+      stub = sinon.stub(SubscriptionsClient['client'], 'put');
     });
     afterEach(() => {
       stub.restore();

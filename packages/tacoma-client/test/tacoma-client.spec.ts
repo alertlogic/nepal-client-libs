@@ -17,12 +17,12 @@ describe('Tacoma Client Test Suite:', () => {
   xdescribe('when exporting saved views', () => {
     let stub: sinon.SinonSpy;
     beforeEach(() => {
-      stub = sinon.stub(ALTacoma['alClient'], 'fetch');
+      stub = sinon.stub(ALTacoma['client'], 'get');
     });
     afterEach(() => {
       stub.restore();
     });
-    it('should call fetch() on the AlDefaultClient instance', async() => {
+    it('should call get() on the AlDefaultClient instance', async() => {
       await ALTacoma.exportSavedViewReport('1234', '7890', '5678');
       expect(stub.callCount).to.equal(1);
     });
@@ -30,12 +30,12 @@ describe('Tacoma Client Test Suite:', () => {
   xdescribe('when getting saved views', () => {
     let stub: sinon.SinonSpy;
     beforeEach(() => {
-      stub = sinon.stub(ALTacoma['alClient'], 'fetch');
+      stub = sinon.stub(ALTacoma['client'], 'get');
     });
     afterEach(() => {
       stub.restore();
     });
-    it('should call fetch() on the AlDefaultClient instance', async() => {
+    it('should call get() on the AlDefaultClient instance', async() => {
       await ALTacoma.getSavedView('1234', '7890', '5678');
       expect(stub.callCount).to.equal(1);
     });
@@ -43,12 +43,12 @@ describe('Tacoma Client Test Suite:', () => {
   xdescribe('when exporting views', () => {
     let stub: sinon.SinonSpy;
     beforeEach(() => {
-      stub = sinon.stub(ALTacoma['alClient'], 'fetch');
+      stub = sinon.stub(ALTacoma['client'], 'get');
     });
     afterEach(() => {
       stub.restore();
     });
-    it('should call fetch() on the AlDefaultClient instance', async() => {
+    it('should call get() on the AlDefaultClient instance', async() => {
       await ALTacoma.exportViewReport('1234', '7890', '5678', '0987');
       expect(stub.callCount).to.equal(1);
     });
@@ -56,12 +56,12 @@ describe('Tacoma Client Test Suite:', () => {
   xdescribe('when getting views', () => {
     let stub: sinon.SinonSpy;
     beforeEach(() => {
-      stub = sinon.stub(ALTacoma['alClient'], 'fetch');
+      stub = sinon.stub(ALTacoma['client'], 'get');
     });
     afterEach(() => {
       stub.restore();
     });
-    it('should call fetch() on the AlDefaultClient instance', async() => {
+    it('should call get() on the AlDefaultClient instance', async() => {
       await ALTacoma.getView('1234', '7890', '5678', '0987');
       expect(stub.callCount).to.equal(1);
     });
@@ -69,12 +69,12 @@ describe('Tacoma Client Test Suite:', () => {
   xdescribe('when exporting workbooks', () => {
     let stub: sinon.SinonSpy;
     beforeEach(() => {
-      stub = sinon.stub(ALTacoma['alClient'], 'fetch');
+      stub = sinon.stub(ALTacoma['client'], 'get');
     });
     afterEach(() => {
       stub.restore();
     });
-    it('should call fetch() on the AlDefaultClient instance', async() => {
+    it('should call get() on the AlDefaultClient instance', async() => {
       await ALTacoma.exportWorkbookReport('1234', '7890', '5678', 'pdf');
       expect(stub.callCount).to.equal(1);
     });
@@ -82,12 +82,12 @@ describe('Tacoma Client Test Suite:', () => {
   xdescribe('when getting workbook preview', () => {
     let stub: sinon.SinonSpy;
     beforeEach(() => {
-      stub = sinon.stub(ALTacoma['alClient'], 'fetch');
+      stub = sinon.stub(ALTacoma['client'], 'get');
     });
     afterEach(() => {
       stub.restore();
     });
-    it('should call fetch() on the AlDefaultClient instance', async() => {
+    it('should call get() on the AlDefaultClient instance', async() => {
       await ALTacoma.getWorkbookPreview('1234', '7890', '5678');
       expect(stub.callCount).to.equal(1);
     });
@@ -95,12 +95,12 @@ describe('Tacoma Client Test Suite:', () => {
   xdescribe('when getting workbook', () => {
     let stub: sinon.SinonSpy;
     beforeEach(() => {
-      stub = sinon.stub(ALTacoma['alClient'], 'fetch');
+      stub = sinon.stub(ALTacoma['client'], 'get');
     });
     afterEach(() => {
       stub.restore();
     });
-    it('should call fetch() on the AlDefaultClient instance', async() => {
+    it('should call get() on the AlDefaultClient instance', async() => {
       await ALTacoma.getWorkbook('1234', {filter_subscriptions: 'true'});
       expect(stub.callCount).to.equal(1);
     });

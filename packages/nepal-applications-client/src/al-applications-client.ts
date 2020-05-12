@@ -39,14 +39,13 @@ export class AlApplicationsClientInstance {
      */
     async getAllApplications(accountId: string, queryParams?: AlApplicationConfigQuery): Promise<AlApplication[]> {
 
-        const applicationList = await this.client.get({
+        return this.client.get<AlApplication[]>({
             service_name: this.serviceName,
             version: this.serviceVersion,
             account_id: accountId,
             path: '/applications',
             params: queryParams
         });
-        return applicationList as AlApplication[];
     }
 
     /**
@@ -63,15 +62,13 @@ export class AlApplicationsClientInstance {
      * https://console.product.dev.alertlogic.com/api/applications/#api-Rules-PostRules
      */
     async addRule(accountId: string, data: AlRulePayload, deploymentId:string = null) : Promise<AlRule> {
-        const rules = await this.client.post({
+        return this.client.post<AlRule>({
             service_name: this.serviceName,
             version: this.serviceVersion,
             account_id: accountId,
             path:  deploymentId? `/deployments/${deploymentId}/rules`: `/rules`,
             data: data
         });
-
-        return rules as AlRule;
     }
 
     /**
@@ -88,14 +85,12 @@ export class AlApplicationsClientInstance {
      * https://console.product.dev.alertlogic.com/api/applications/#api-Rules-GetRule
      */
     async getRule(accountId: string, ruleId: string) : Promise<AlRule> {
-        const rule = await this.client.get({
+        return this.client.get<AlRule>({
             service_name: this.serviceName,
             version: this.serviceVersion,
             account_id: accountId,
             path: `/rules/${ ruleId }`
         });
-
-        return rule as AlRule;
     }
 
     /**
@@ -111,14 +106,13 @@ export class AlApplicationsClientInstance {
      *  https://console.product.dev.alertlogic.com/api/applications/#api-Rules-ListRules
      */
     async getAllRules(accountId: string, queryParams?: AlApplicationConfigQuery, deploymentId:string = null): Promise<AlRule[]> {
-        const rulesList = await this.client.get({
+        return this.client.get<AlRule[]>({
             service_name: this.serviceName,
             version: this.serviceVersion,
             account_id: accountId,
             path: deploymentId? `/deployments/${deploymentId}/rules`: `/rules`,
             params: queryParams
         });
-        return rulesList as AlRule[];
     }
 
     /**
@@ -134,13 +128,12 @@ export class AlApplicationsClientInstance {
      * https://api.product.dev.alertlogic.com/applications/v1/01000001/rules/B37CEE84-6D27-4D0F-943C-F23937587574
      */
     async deleteRule(accountId: string, ruleId: string) {
-        const result = await this.client.delete({
+        return this.client.delete<any>({
             service_name: this.serviceName,
             version: this.serviceVersion,
             account_id: accountId,
             path: `/rules/${ruleId}`
         });
-        return result;
     }
 
     /**
@@ -156,7 +149,7 @@ export class AlApplicationsClientInstance {
      * https://api.product.dev.alertlogic.com/applications/v1/01000001/rules/BD30F3F3-5D12-421A-B806-C65155C40CE1
      */
     async updateRule(accountId: string, ruleId: string, payload: AlRulePayload) : Promise<AlRule> {
-        const subscriptions = await this.client.put({
+        return this.client.put<AlRule>({
             service_name: this.serviceName,
             version: this.serviceVersion,
             account_id: accountId,
@@ -164,7 +157,7 @@ export class AlApplicationsClientInstance {
             data: payload
         });
 
-        return subscriptions as AlRule;
+
     }
 
     /**
@@ -180,13 +173,12 @@ export class AlApplicationsClientInstance {
      *  https://console.product.dev.alertlogic.com/api/applications/#api-Rules-ListRulesDepl
      */
     async getAllRulesByDeployment(accountId: string, deploymentId: string): Promise<AlRuleForDeployment[]> {
-        const rulesList = await this.client.get({
+        return this.client.get<AlRuleForDeployment[]>({
             service_name: this.serviceName,
             version: this.serviceVersion,
             account_id: accountId,
             path: `/deployments/${ deploymentId }/rules`,
         });
-        return rulesList as AlRuleForDeployment[];
     }
 
     /**
@@ -212,15 +204,13 @@ export class AlApplicationsClientInstance {
      * https://console.product.dev.alertlogic.com/api/applications/index.html#api-Collectors-DeployCollector
      */
     async deployACollector(accountId: string, data: AlDeployACollectorPayload) : Promise<AlDeployACollector> {
-        const collector = await this.client.post({
+        return this.client.post<AlDeployACollector>({
             service_name: this.serviceName,
             version: this.serviceVersion,
             account_id: accountId,
             path: `/collectors`,
             data: data
         });
-
-        return collector as AlDeployACollector;
     }
 
     /**
@@ -236,13 +226,12 @@ export class AlApplicationsClientInstance {
      * https://api.product.dev.alertlogic.com/applications/v1/01000001/rules/B37CEE84-6D27-4D0F-943C-F23937587574
      */
     async deleteADeployedCollector(accountId: string, collectorId: string) {
-        const result = await this.client.delete({
+        return this.client.delete<any>({
             service_name: this.serviceName,
             version: this.serviceVersion,
             account_id: accountId,
             path: `/collectors/${collectorId}`
         });
-        return result;
     }
 
     /**
@@ -258,14 +247,12 @@ export class AlApplicationsClientInstance {
      * https://console.product.dev.alertlogic.com/api/applications/index.html#api-Collectors-UpdateDeployedCollector
      */
     async updateADeployedCollector(accountId: string, collectorId: string, data: AlDeployACollectorPayload) {
-        const result = await this.client.put({
+        return this.client.put<any>({
             service_name: this.serviceName,
             version: this.serviceVersion,
             account_id: accountId,
             path: `/collectors/${collectorId}`,
             data: data
         });
-
-        return result;
     }
 }

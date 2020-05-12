@@ -32,7 +32,7 @@ class EnvironmentsClient {
   /**
    * Expose AlDefaultClient to Credentials client
    */
-  private alClient = AlDefaultClient;
+  private client = AlDefaultClient;
 
   /**
    * Add an environment
@@ -47,12 +47,11 @@ class EnvironmentsClient {
    *      "scan":false}'
    */
   async addEnvironment(accountId: string, environment: EnvironmentCreateArgs) {
-    const added = await this.alClient.post({
+    return this.client.post<any>({
       service_name: 'environments',
       account_id: accountId,
       data: environment,
     });
-    return added;
   }
 
   /**
@@ -62,12 +61,11 @@ class EnvironmentsClient {
    * "https://api.cloudinsight.alertlogic.com/environments/v1/01000001/B37CEE84-6D27-4D0F-943C-F23937587574"
    */
   async deleteEnvironment(accountId: string, environmentId: string) {
-    const deleted = await this.alClient.delete({
+    return this.client.delete<any>({
       service_name: 'environments',
       account_id: accountId,
       path: `/${environmentId}`,
     });
-    return deleted;
   }
 
   /**
@@ -77,13 +75,12 @@ class EnvironmentsClient {
    * "https://api.cloudinsight.alertlogic.com/environments/v1/01000001/582C62B4-9D1D-4F1C-9117-BE4198198861"
    */
   async getEnvironment(accountId: string, environmentId: string, queryParams: any) {
-    const environment = await this.alClient.fetch({
+    return this.client.get<any>({
       service_name: 'environments',
       account_id: accountId,
       path: `/${environmentId}`,
       params: queryParams,
     });
-    return environment;
   }
 
   /**
@@ -93,13 +90,12 @@ class EnvironmentsClient {
    * "https://api.cloudinsight.alertlogic.com/environments/v1/accounts"
    */
   async getAccounts(accountId: string, queryParams: any) {
-    const accounts = await this.alClient.fetch({
+    return this.client.get<any>({
       service_name: 'environments',
       account_id: accountId,
       path: '/accounts',
       params: queryParams,
     });
-    return accounts;
   }
 
   /**
@@ -109,11 +105,10 @@ class EnvironmentsClient {
    * "https://api.cloudinsight.alertlogic.com/environments/v1/01000001"
    */
   async getEnvironments(accountId: string) {
-    const accounts = await this.alClient.fetch({
+    return this.client.get<any>({
       service_name: 'environments',
       account_id: accountId,
     });
-    return accounts;
   }
 
   /**
@@ -135,13 +130,12 @@ class EnvironmentsClient {
    *      "enabled":true}'
    */
   async updateEnvironment(accountId: string, environmentId: string, environment: EnvironmentUpdateArgs) {
-    const updated = await this.alClient.post({
+    return this.client.post<any>({
       service_name: 'environments',
       account_id: accountId,
       path: `/${environmentId}`,
       data: environment,
     });
-    return updated;
   }
 
   /**
@@ -152,13 +146,12 @@ class EnvironmentsClient {
    * -d '{"status":"ok", "timestamp": 1471277293, "details":"status is ok now"}'
    */
   async updateEnvironmentStatus(accountId: string, environmentId: string, status: EnvironmentStatusArgs) {
-    const updated = await this.alClient.set({
+    return this.client.put<any>({
       service_name: 'environments',
       account_id: accountId,
       path: `/${environmentId}/status`,
       data: status,
     });
-    return updated;
   }
 }
 

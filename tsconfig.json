@@ -22,5 +22,11 @@
     "sourceMap"                       : true,
     "strict"                          : true,
     "strictNullChecks"                : false
-  }
+  },
+  "include": [
+    "packages/**/*.ts"
+  ],
+  "exclude": [
+    "packages/**/test/**/*.ts"
+  ]
 }

@@ -15,7 +15,7 @@ describe('Ticket Master Client Test Suite:', () => {
     describe('when creating an agent ticket', () => {
         let stub: sinon.SinonSpy;
         beforeEach(() => {
-            stub = sinon.stub(TMClient['alClient'], 'post');
+            stub = sinon.stub(TMClient['client'], 'post');
         });
         afterEach(() => {
             stub.restore();
@@ -75,7 +75,7 @@ describe('Ticket Master Client Test Suite:', () => {
     describe('when creating a ticket', () => {
         let stub: sinon.SinonSpy;
         beforeEach(() => {
-            stub = sinon.stub(TMClient['alClient'], 'post');
+            stub = sinon.stub(TMClient['client'], 'post');
         });
         afterEach(() => {
             stub.restore();
@@ -92,12 +92,12 @@ describe('Ticket Master Client Test Suite:', () => {
     describe('when getting a ticket', () => {
         let stub: sinon.SinonSpy;
         beforeEach(() => {
-            stub = sinon.stub(TMClient['alClient'], 'fetch');
+            stub = sinon.stub(TMClient['client'], 'get');
         });
         afterEach(() => {
             stub.restore();
         });
-        it('should call fetch() on the ALClient instance', async () => {
+        it('should call get() on the ALClient instance', async () => {
             const accountId = '1234';
             const ticketId = '7890';
             await TMClient.getTicket(accountId, ticketId);
@@ -107,12 +107,12 @@ describe('Ticket Master Client Test Suite:', () => {
     describe('when getting a list of ticket comments', () => {
         let stub: sinon.SinonSpy;
         beforeEach(() => {
-            stub = sinon.stub(TMClient['alClient'], 'fetch');
+            stub = sinon.stub(TMClient['client'], 'get');
         });
         afterEach(() => {
             stub.restore();
         });
-        it('should call fetch() on the ALClient instance', async () => {
+        it('should call get() on the ALClient instance', async () => {
             const accountId = '1234';
             const ticketId = '7890';
             const queryParams = { next_page: '1', since: '1234', sort_by: 'abc', sort_order: 'desc' };
@@ -123,12 +123,12 @@ describe('Ticket Master Client Test Suite:', () => {
     describe('when getting a list of tickets', () => {
         let stub: sinon.SinonSpy;
         beforeEach(() => {
-            stub = sinon.stub(TMClient['alClient'], 'fetch');
+            stub = sinon.stub(TMClient['client'], 'get');
         });
         afterEach(() => {
             stub.restore();
         });
-        it('should call fetch() on the ALClient instance', async () => {
+        it('should call get() on the ALClient instance', async () => {
             const accountId = '1234';
             const queryParams = { next_page: '1', status: '1234', sort_by: 'abc', sort_order: 'desc' };
             await TMClient.getTickets(accountId, queryParams);
@@ -138,12 +138,12 @@ describe('Ticket Master Client Test Suite:', () => {
     describe('when updating a ticket', () => {
         let stub: sinon.SinonSpy;
         beforeEach(() => {
-            stub = sinon.stub(TMClient['alClient'], 'set');
+            stub = sinon.stub(TMClient['client'], 'put');
         });
         afterEach(() => {
             stub.restore();
         });
-        it('should call set() on the ALClient instance', async () => {
+        it('should call put() on the ALClient instance', async () => {
             const accountId = '1234';
             const ticketId = '7890';
             const comment = 'This is a comment';
@@ -155,7 +155,7 @@ describe('Ticket Master Client Test Suite:', () => {
     describe('when registering a callback', () => {
         let stub: sinon.SinonSpy;
         beforeEach(() => {
-            stub = sinon.stub(TMClient['alClient'], 'post');
+            stub = sinon.stub(TMClient['client'], 'post');
         });
         afterEach(() => {
             stub.restore();
@@ -170,7 +170,7 @@ describe('Ticket Master Client Test Suite:', () => {
     describe('when registering kineses', () => {
         let stub: sinon.SinonSpy;
         beforeEach(() => {
-            stub = sinon.stub(TMClient['alClient'], 'post');
+            stub = sinon.stub(TMClient['client'], 'post');
         });
         afterEach(() => {
             stub.restore();

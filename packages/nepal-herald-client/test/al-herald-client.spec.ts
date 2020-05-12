@@ -197,7 +197,7 @@ describe('HERALD CLIENT', () => {
     };
 
     describe('Subscriptions ', () => {
-        describe('When fetching all subscription keys', () => {
+        describe('When getting all subscription keys', () => {
 
             beforeEach(() => {
                 stub = sinon.stub(AlDefaultClient as any, 'axiosRequest').returns(Promise.resolve({status: 200, data: subscriptionkeysMock}));
@@ -212,7 +212,7 @@ describe('HERALD CLIENT', () => {
             });
         });
 
-        describe('When fetching all account subscriptions by feature', () => {
+        describe('When getting all account subscriptions by feature', () => {
 
             beforeEach(() => {
                 stub = sinon.stub(AlDefaultClient as any, 'axiosRequest').returns(Promise.resolve({status: 200, data: subscriptionAccountMock}));
@@ -229,7 +229,7 @@ describe('HERALD CLIENT', () => {
             });
         });
 
-        describe('When fetching all integration subscriptions by feature', () => {
+        describe('When getting all integration subscriptions by feature', () => {
 
             beforeEach(() => {
                 stub = sinon.stub(AlDefaultClient as any, 'axiosRequest').returns(Promise.resolve({status: 200, data: { "accounts": subscriptionIntegrationAccountMock }}));
@@ -246,7 +246,7 @@ describe('HERALD CLIENT', () => {
             });
         });
 
-        describe('When fetching all user subscriptions', () => {
+        describe('When getting all user subscriptions', () => {
 
             beforeEach(() => {
                 stub = sinon.stub(AlDefaultClient as any, 'axiosRequest').returns(Promise.resolve({status: 200, data: { "accounts": subscriptionIntegrationAccountMock }}));
@@ -262,7 +262,7 @@ describe('HERALD CLIENT', () => {
             });
         });
 
-        describe('When fetching all user subscriptions by feature', () => {
+        describe('When getting all user subscriptions by feature', () => {
 
             beforeEach(() => {
                 stub = sinon.stub(AlDefaultClient as any, 'axiosRequest').returns(Promise.resolve({status: 200, data: { "accounts": subscriptionIntegrationAccountMock }}));
@@ -279,7 +279,7 @@ describe('HERALD CLIENT', () => {
             });
         });
 
-        describe('When fetching all integration subscriptions', () => {
+        describe('When getting all integration subscriptions', () => {
 
             beforeEach(() => {
                 stub = sinon.stub(AlDefaultClient as any, 'axiosRequest').returns(Promise.resolve({status: 200, data: { "accounts": subscriptionIntegrationAccountMock }}));
@@ -296,7 +296,7 @@ describe('HERALD CLIENT', () => {
             });
         });
 
-        describe('When fetching all integration subscriptions by feature', () => {
+        describe('When getting all integration subscriptions by feature', () => {
 
             beforeEach(() => {
                 stub = sinon.stub(AlDefaultClient as any, 'axiosRequest').returns(Promise.resolve({status: 200, data: { "accounts": subscriptionIntegrationAccountMock }}));
@@ -314,7 +314,7 @@ describe('HERALD CLIENT', () => {
             });
         });
 
-        describe('When fetching all user subscriptions', () => {
+        describe('When getting all user subscriptions', () => {
 
             beforeEach(() => {
                 stub = sinon.stub(AlDefaultClient as any, 'axiosRequest').returns(Promise.resolve({status: 200, data: { "accounts": subscriptionIntegrationAccountMock }}));
@@ -331,7 +331,7 @@ describe('HERALD CLIENT', () => {
             });
         });
 
-        describe('When fetching all user subscriptions by feature', () => {
+        describe('When getting all user subscriptions by feature', () => {
 
             beforeEach(() => {
                 stub = sinon.stub(AlDefaultClient as any, 'axiosRequest').returns(Promise.resolve({status: 200, data: { "accounts": subscriptionIntegrationAccountMock }}));
@@ -349,7 +349,7 @@ describe('HERALD CLIENT', () => {
             });
         });
 
-        describe('When fetching integration subscriptions', () => {
+        describe('When getting integration subscriptions', () => {
 
             beforeEach(() => {
                 stub = sinon.stub(AlDefaultClient as any, 'axiosRequest').returns(Promise.resolve({status: 200, data: subscriptionIntegrationAccountMock}));
@@ -367,7 +367,7 @@ describe('HERALD CLIENT', () => {
             });
         });
 
-        describe('When fetching integration subscriptions by feature', () => {
+        describe('When getting integration subscriptions by feature', () => {
 
             beforeEach(() => {
                 stub = sinon.stub(AlDefaultClient as any, 'axiosRequest').returns(Promise.resolve({status: 200, data: subscriptionIntegrationAccountMock}));
@@ -385,7 +385,7 @@ describe('HERALD CLIENT', () => {
             });
         });
 
-        describe('When fetching all user subscriptions', () => {
+        describe('When getting all user subscriptions', () => {
 
             beforeEach(() => {
                 stub = sinon.stub(AlDefaultClient as any, 'axiosRequest').returns(Promise.resolve({status: 200, data: subscriptionIntegrationAccountMock}));
@@ -402,7 +402,7 @@ describe('HERALD CLIENT', () => {
             });
         });
 
-        describe('When fetching all user subscriptions by feature', () => {
+        describe('When getting all user subscriptions by feature', () => {
 
             beforeEach(() => {
                 stub = sinon.stub(AlDefaultClient as any, 'axiosRequest').returns(Promise.resolve({status: 200, data: subscriptionIntegrationAccountMock}));

@@ -20,7 +20,7 @@ describe('Kalm Client Test Suite', () => {
     let stub: sinon.SinonSpy;
 
     beforeEach(() => {
-      stub = sinon.stub(KalmClient['alClient'], 'get');
+      stub = sinon.stub(KalmClient['client'], 'get');
     });
 
     afterEach(() => {

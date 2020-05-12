@@ -11,7 +11,7 @@ export interface AssetScanCredentials {
 
 class CredentialsClient {
 
-  private alClient = AlDefaultClient;
+  private client = AlDefaultClient;
 
   /**
    * Delete scan credentials for an asset
@@ -24,12 +24,11 @@ class CredentialsClient {
                           assetType: string,
                           credentialType: string,
                           assetKey: string) {
-    const deleted = await this.alClient.delete({
+    return this.client.delete<any>({
       service_name: 'credentials',
       account_id: accountId,
       path: `/${environmentId}/${assetType}/scan/${credentialType}/${assetKey}`,
     });
-    return deleted;
   }
 
   /**
@@ -41,12 +40,11 @@ class CredentialsClient {
   async getHostCredentials(accountId: string,
                            environmentId: string,
                            assetKey: string) {
-    const credentials = await this.alClient.fetch({
+    return this.client.get<any>({
       service_name: 'credentials',
       account_id: accountId,
       path: `/${environmentId}/host/scan/${assetKey}`,
     });
-    return credentials;
   }
 
   /**
@@ -57,12 +55,11 @@ class CredentialsClient {
    */
   async getAllHostCredentials(accountId: string,
                               environmentId: string) {
-    const credentials = await this.alClient.fetch({
+    return this.client.get<any>({
       service_name: 'credentials',
       account_id: accountId,
       path: `/${environmentId}/host/scan`,
     });
-    return credentials;
   }
 
   /**
@@ -77,13 +74,12 @@ class CredentialsClient {
                         assetType: string,
                         assetKey: string,
                         credential: AssetScanCredentials) {
-    const stored = await this.alClient.set({
+    return this.client.put<any>({
       service_name: 'credentials',
       account_id: accountId,
       path: `/${environmentId}/${assetType}/scan/${assetKey}`,
       data: credential,
     });
-    return stored;
   }
 
   /**
@@ -95,14 +91,13 @@ class CredentialsClient {
    */
   async createCredential(accountId: string,
                          credential: string) {
-    const created = await this.alClient.post({
+    return this.client.post<any>({
       service_name: 'credentials',
       account_id: accountId,
       path: '/credentials',
       version: 'v2',
       data: credential,
     });
-    return created;
   }
 
   /**
@@ -113,13 +108,12 @@ class CredentialsClient {
    */
   async deleteCredential(accountId: string,
                          credentialId: string) {
-    const deleted = await this.alClient.delete({
+    return this.client.delete<any>({
       service_name: 'credentials',
       account_id: accountId,
       path: `/credentials/${credentialId}`,
       version: 'v2',
     });
-    return deleted;
   }
 
   /**
@@ -130,13 +124,12 @@ class CredentialsClient {
    */
   async getCredentialById(accountId: string,
                           credentialId: string) {
-    const credential = await this.alClient.fetch({
+    return this.client.get<any>({
       service_name: 'credentials',
       account_id: accountId,
       path: `/credentials/${credentialId}`,
       version: 'v2',
     });
-    return credential;
   }
 
   /**
@@ -146,13 +139,12 @@ class CredentialsClient {
    * "https://api.cloudinsight.alertlogic.com/credentials/v2/01000001/credentials"
    */
   async listCredentials(accountId: string) {
-    const credentials = await this.alClient.fetch({
+    return this.client.get<any>({
       service_name: 'credentials',
       account_id: accountId,
       path: '/credentials/',
       version: 'v2',
     });
-    return credentials;
   }
 }
 

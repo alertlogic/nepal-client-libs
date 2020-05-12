@@ -41,14 +41,13 @@ export class AlHeraldClientInstanceV2 extends AlHeraldClientInstance {
      * https://console.account.product.dev.alertlogic.com/users/api/herald/index.html#api-Subscribers_v2-AddSubscriber
      */
     async addSubscriberToSubscription(accountId: string, subscriptionId:string, subscriber: ALHeraldSubscriber): Promise<ALHeraldSubscriber> {
-        const result = await this.client.post({
+        return this.client.post<ALHeraldSubscriber>({
             service_name: this.serviceName,
             version: this.serviceVersion,
             account_id: accountId,
             path: `/subscriptions/${subscriptionId}/subscribers`,
             data: subscriber
         });
-        return result as ALHeraldSubscriber;
     }
 
     /**
@@ -109,13 +108,12 @@ export class AlHeraldClientInstanceV2 extends AlHeraldClientInstance {
      * https://console.account.product.dev.alertlogic.com/users/api/herald/index.html#api-NotificationTypes-CreateNotificationType
      */
     async createNotificationType(notificationTypePayload: AlHeraldNotificationType): Promise<AlHeraldNotificationType> {
-        const result = await this.client.post({
+        return this.client.post<AlHeraldNotificationType>({
             service_name: this.serviceName,
             version: this.serviceVersion,
             path: '/notification_types',
             data: notificationTypePayload
         });
-        return result as AlHeraldNotificationType;
     }
 
     /**
@@ -170,14 +168,12 @@ export class AlHeraldClientInstanceV2 extends AlHeraldClientInstance {
      * https://console.account.product.dev.alertlogic.com/users/api/herald/index.html#api-NotificationTypes-UpdateNotificationType
      */
     async updateNotificationType(notificationType: string, payload: AlHeraldNotificationType) : Promise<AlHeraldNotificationType> {
-        const subscriptions = await this.client.put({
+        return this.client.put<AlHeraldNotificationType>({
             service_name: this.serviceName,
             version: this.serviceVersion,
             path: `/notification_types/${notificationType}`,
             data: payload
         });
-
-        return subscriptions as AlHeraldNotificationType;
     }
 
     /***** Notifications V2 *****/
@@ -195,13 +191,12 @@ export class AlHeraldClientInstanceV2 extends AlHeraldClientInstance {
      * https://console.account.product.dev.alertlogic.com/users/api/herald/index.html#api-Notifications-GetANotificationByAccountIdAndNotificationId
      */
     async getNotificationByAccountIdAndNotificationId(accountId: string, notificationId: string): Promise<AlHeraldNotificationV2> {
-        const accountIntegration = await this.client.get({
+        return this.client.get<AlHeraldNotificationV2>({
             service_name: this.serviceName,
             version: this.serviceVersion,
             account_id: accountId,
             path: `/notifications/${notificationId}`
         });
-        return accountIntegration as AlHeraldNotificationV2;
     }
 
     /**
@@ -216,12 +211,11 @@ export class AlHeraldClientInstanceV2 extends AlHeraldClientInstance {
      * https://console.account.product.dev.alertlogic.com/users/api/herald/index.html#api-Notifications-GetANotification
      */
     async getNotification(notificationId: string): Promise<AlHeraldNotificationV2> {
-        const notification = await this.client.get({
+        return this.client.get<AlHeraldNotificationV2>({
             service_name: this.serviceName,
             version: this.serviceVersion,
             path: `/notifications/${notificationId}`
         });
-        return notification as AlHeraldNotificationV2;
     }
 
     /**
@@ -237,14 +231,13 @@ export class AlHeraldClientInstanceV2 extends AlHeraldClientInstance {
      * https://console.account.product.dev.alertlogic.com/users/api/herald/index.html#api-Notifications-SendANotification
      */
     async sendNotificationV2(accountId: string, payload: AlHeraldNotificationV2): Promise<AlHeraldNotificationV2> {
-        const notification = await this.client.post({
+        return this.client.post<AlHeraldNotificationV2>({
             service_name: this.serviceName,
             version: this.serviceVersion,
             account_id: accountId,
             path: '/notifications',
             data: payload
         });
-        return notification as AlHeraldNotificationV2;
     }
 
     /***** Subscriptions V2 *****/
@@ -260,14 +253,13 @@ export class AlHeraldClientInstanceV2 extends AlHeraldClientInstance {
      * https://console.account.product.dev.alertlogic.com/users/api/herald/index.html#api-Subscriptions_v2-CreateSubscription
      */
     async createSubscription(accountId: string, subscription: AlHeraldAccountSubscriptionPayloadV2): Promise<AlHeraldAccountSubscriptionResponseV2> {
-        const result = await this.client.post({
+        return this.client.post<AlHeraldAccountSubscriptionResponseV2>({
             service_name: this.serviceName,
             version: this.serviceVersion,
             account_id: accountId,
             path: '/subscriptions',
             data: subscription
         });
-        return result as AlHeraldAccountSubscriptionResponseV2;
     }
 
     /***** Subscriptions V2 *****/
@@ -284,14 +276,13 @@ export class AlHeraldClientInstanceV2 extends AlHeraldClientInstance {
      * https://console.account.product.dev.alertlogic.com/users/api/herald/index.html#api-Subscriptions_v2-UpdateSubscription
      */
     async updateSubscription(accountId: string, subscriptionId: string, subscription: AlHeraldUpdateSubscriptionPayloadV2): Promise<AlHeraldUpdateSubscriptionPayloadV2> {
-        const result = await this.client.post({
+        return this.client.post<AlHeraldUpdateSubscriptionPayloadV2>({
             service_name: this.serviceName,
             version: this.serviceVersion,
             account_id: accountId,
             path: `/subscriptions/${subscriptionId}`,
             data: subscription
         });
-        return result as AlHeraldUpdateSubscriptionPayloadV2;
     }
 
     /**
@@ -357,14 +348,13 @@ export class AlHeraldClientInstanceV2 extends AlHeraldClientInstance {
      */
     async getSubscriptionByAccountAndSubscriptionId(accountId: string, subscriptionId: string, queryParams?: {include_subscribers:boolean} ): Promise<AlHeraldAccountSubscriptionV2> {
 
-        const subscriptionKeys = await this.client.get({
+        return this.client.get<AlHeraldAccountSubscriptionV2>({
             service_name: this.serviceName,
             version: this.serviceVersion,
             account_id: accountId,
             path: `/subscriptions/${subscriptionId}`,
             params: queryParams
         });
-        return subscriptionKeys as AlHeraldAccountSubscriptionV2;
     }
 
     /**
