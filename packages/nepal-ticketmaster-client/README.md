@@ -15,8 +15,8 @@ Until the release of version 1.0.0 all current minor version increments may be b
 
 ## Usage
 
-      var CoralClient = require('@al/aecoral').CoralClient; //commonjs - e.g. node
-      import { CoralClient } from '@al/aecoral'; //ES2015 - e.g. Angular, TS projects
+      var AlTicketMasterClient = require('@al/ticketmaster').AlTicketMasterClient; //commonjs - e.g. node
+      import { AlTicketMasterClient } from "@al/ticketmaster"; //ES2015 - e.g. Angular, TS projects
 
 ## Interactive
 
