@@ -72,12 +72,12 @@ export class AetherClientInstance {
             .replace(`&facet=`, `&`)
             .replace(`&parser=`, `&q.parser=`);
 
-        const results = await this.client.post({
+        return this.client.post<AetherSearchResponse>({
             service_name: this.serviceName,
             path: '/exposures/2013-01-01/search',
             version: null,
             data: `${queryParams}`
         });
-        return results as AetherSearchResponse;
+
     }
 }

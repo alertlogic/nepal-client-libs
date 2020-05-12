@@ -171,12 +171,12 @@ describe('Assets Query Client Test Suite:', () => {
   describe('when completing remediation items', () => {
     let stub: sinon.SinonSpy;
     beforeEach(() => {
-      stub = sinon.stub(assetsQueryClient.client, 'set');
+      stub = sinon.stub(assetsQueryClient.client, 'put');
     });
     afterEach(() => {
       stub.restore();
     });
-    it('should call set() on the AlDefaultClient instance', async () => {
+    it('should call put() on the AlDefaultClient instance', async () => {
       await assetsQueryClient.completeRemediations('1234', '0987', { operation: 'complete_remediations', remediation_items: ['4567', '7654'] });
       expect(stub.callCount).to.equal(1);
     });
@@ -184,12 +184,12 @@ describe('Assets Query Client Test Suite:', () => {
   describe('when disposing remediation items', () => {
     let stub: sinon.SinonSpy;
     beforeEach(() => {
-      stub = sinon.stub(assetsQueryClient.client, 'set');
+      stub = sinon.stub(assetsQueryClient.client, 'put');
     });
     afterEach(() => {
       stub.restore();
     });
-    it('should call set() on the AlDefaultClient instance', async () => {
+    it('should call put() on the AlDefaultClient instance', async () => {
       await assetsQueryClient.disposeRemediations('1234', '0987', { operation: 'dispose_remediations', reason: 'because', comment: 'testing', expires: 1234, remediation_items: ['4567', '7654'] });
       expect(stub.callCount).to.equal(1);
     });
@@ -197,12 +197,12 @@ describe('Assets Query Client Test Suite:', () => {
   describe('when planning remediations', () => {
     let stub: sinon.SinonSpy;
     beforeEach(() => {
-      stub = sinon.stub(assetsQueryClient.client, 'set');
+      stub = sinon.stub(assetsQueryClient.client, 'put');
     });
     afterEach(() => {
       stub.restore();
     });
-    it('should call set() on the AlDefaultClient instance', async () => {
+    it('should call put() on the AlDefaultClient instance', async () => {
       await assetsQueryClient.planRemediations('1234', '0987', { operation: 'plan_remediations', filters: ['because'], user_id: '0987', remediations: ['4567', '7654'] });
       expect(stub.callCount).to.equal(1);
     });
@@ -210,12 +210,12 @@ describe('Assets Query Client Test Suite:', () => {
   describe('when uncompleteing remediations', () => {
     let stub: sinon.SinonSpy;
     beforeEach(() => {
-      stub = sinon.stub(assetsQueryClient.client, 'set');
+      stub = sinon.stub(assetsQueryClient.client, 'put');
     });
     afterEach(() => {
       stub.restore();
     });
-    it('should call set() on the AlDefaultClient instance', async () => {
+    it('should call put() on the AlDefaultClient instance', async () => {
       await assetsQueryClient.uncompleteRemediations('1234', '0987', { operation: 'uncomplete_remediations', remediation_items: ['4567', '7654'] });
       expect(stub.callCount).to.equal(1);
     });
@@ -223,12 +223,12 @@ describe('Assets Query Client Test Suite:', () => {
   describe('when undisposing remediations', () => {
     let stub: sinon.SinonSpy;
     beforeEach(() => {
-      stub = sinon.stub(assetsQueryClient.client, 'set');
+      stub = sinon.stub(assetsQueryClient.client, 'put');
     });
     afterEach(() => {
       stub.restore();
     });
-    it('should call set() on the AlDefaultClient instance', async () => {
+    it('should call put() on the AlDefaultClient instance', async () => {
       await assetsQueryClient.undisposeRemediations('1234', '0987', { operation: 'uncomplete_remediations', remediation_items: ['4567', '7654'] });
       expect(stub.callCount).to.equal(1);
     });

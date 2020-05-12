@@ -25,10 +25,10 @@
   "es2015": "./dist/index.esm2015.js",
   "license": "MIT",
   "dependencies": {
-    "@al/core": "^1.0.2"
+    "@al/core": "^1.0.12"
   },
   "peerDependencies": {
-    "@al/core": "^1.0.2"
+    "@al/core": "^1.0.12"
   },
   "files": [
     "dist"

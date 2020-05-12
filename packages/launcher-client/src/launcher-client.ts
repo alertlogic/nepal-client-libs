@@ -83,7 +83,7 @@ export interface VPCInfo {
 
 class LauncherClient {
 
-  private alClient = ALClient;
+  private client = ALClient;
   private serviceName = 'launcher';
 
   /**
@@ -93,12 +93,11 @@ class LauncherClient {
    * "https://api.cloudinsight.alertlogic.com/launcher/v1/00000000/environments/7573E365-0B2A-1005-B049-7831C1BE64D2"
    */
   async getDeploymentStatus(accountId: string, environmentId: string) {
-    const status = await this.alClient.fetch({
+    return this.client.get<DeploymentStatus>({
       account_id: accountId,
       service_name: this.serviceName,
       path: `/environments/${environmentId}`,
     });
-    return status as DeploymentStatus;
   }
 
   /**
@@ -108,11 +107,10 @@ class LauncherClient {
    * "https://api.cloudinsight.alertlogic.com/launcher/v1/amis/scan"
    */
   async getRegionMap() {
-    const amiMap = await this.alClient.fetch({
+    return this.client.get<AmiMap>({
       service_name: this.serviceName,
       path: '/amis/scan',
     });
-    return amiMap as AmiMap;
   }
 
   /**
@@ -122,11 +120,10 @@ class LauncherClient {
    * "https://api.cloudinsight.alertlogic.com/launcher/v1/deployment/a94b48fbcdce82b031d40f2e00df498cd50b1720"
    */
   async getProvisioningDocument(deploymentToken: string) {
-    const provisioning = await this.alClient.fetch({
+    return this.client.get<any>({
       service_name: this.serviceName,
       path: `/deployment/${deploymentToken}`,
     });
-    return provisioning;
   }
 
   /**
@@ -136,12 +133,11 @@ class LauncherClient {
    * "https://api.cloudinsight.alertlogic.com/launcher/v1/00000000/resources"
    */
   async getAccountAssetList(accountId: string) {
-    const resources = await this.alClient.fetch({
+    return this.client.get<AccountEnvironmentAssetsResponse>({
       account_id: accountId,
       service_name: this.serviceName,
       path: '/resources',
     });
-    return resources as AccountEnvironmentAssetsResponse;
   }
 
   /**
@@ -151,12 +147,11 @@ class LauncherClient {
    * "https://api.cloudinsight.alertlogic.com/launcher/v1/00000000/1086B0A8-A0D6-4CCC-B8C3-78AA82826606/resources"
    */
   async getEnvironmentAssetList(accountId: string, environmentId: string) {
-    const resources = await this.alClient.fetch({
+    return this.client.get<EnvironmentAssets>({
       account_id: accountId,
       service_name: this.serviceName,
       path: `/${environmentId}/resources`,
     });
-    return resources as EnvironmentAssets;
   }
 
 }

@@ -42,10 +42,10 @@
     "interactive": "npm run build && node -i -e \"const TMClient = require('./dist/commonjs/index.js').TMClient;\""
   },
   "dependencies": {
-    "@al/core": "^1.0.2"
+    "@al/core": "^1.0.12"
   },
   "peerDependencies": {
-    "@al/core": "^1.0.2"
+    "@al/core": "^1.0.12"
   },
   "files": [
     "dist"

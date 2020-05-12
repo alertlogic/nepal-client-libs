@@ -58,7 +58,7 @@ describe('AECORAL CLIENT', () => {
             expect(stub.args[0][0].url).to.equal("https://api.cloudinsight.alertlogic.com/aecoral/v1/2/correlations");
         });
     });
-    describe('When fetching incident specifications', () => {
+    describe('When getting incident specifications', () => {
         beforeEach(() => {
             stub = sinon.stub(AlDefaultClient as any, 'axiosRequest').returns(Promise.resolve({ status: 200, data: { correlation_rule_id: "12345678" }}));
         });
@@ -84,7 +84,7 @@ describe('AECORAL CLIENT', () => {
             expect(stub.args[0][0].url).to.equal("https://api.cloudinsight.alertlogic.com/aecoral/v1/2/correlations/12345678");
         });
     });
-    describe('When fetching a particular correlation rule', () => {
+    describe('When getting a particular correlation rule', () => {
         beforeEach(() => {
             stub = sinon.stub(AlDefaultClient as any, 'axiosRequest').returns(Promise.resolve({status: 200, data: correlationExample}));
         });
@@ -97,7 +97,7 @@ describe('AECORAL CLIENT', () => {
             expect(stub.args[0][0].url).to.equal("https://api.cloudinsight.alertlogic.com/aecoral/v1/2/correlations/12345678");
         });
     });
-    describe('When fetching all correlation rules', () => {
+    describe('When getting all correlation rules', () => {
         beforeEach(() => {
             stub = sinon.stub(AlDefaultClient as any, 'axiosRequest').returns(Promise.resolve({status: 200, data: correlations}));
         });

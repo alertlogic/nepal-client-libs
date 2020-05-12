@@ -7,20 +7,21 @@ import {
   AlResponseValidationError,
 } from '@al/core';
 import {
-  AlIncidentFilterDictionary,
-  ConstantDefinition,
-  ConstantTuple,
-  IncidentBatchData,
-  IncidentBatchUpdateResponse,
-  IncidentHistoryResponse,
-  IncidentIdResponse,
-  IncidentNoteListResponse,
-  IncidentQuery,
-  IncidentQueryParams,
-  IncidentSearchResponse,
-  IncidentSnooze,
-  IncidentStateChangeResponse,
-  UndoDataDefinition,
+    AlIncidentFilterDictionary,
+    ConstantDefinition,
+    ConstantTuple,
+    IncidentBatchData,
+    IncidentBatchUpdateResponse,
+    IncidentHistoryResponse,
+    IncidentIdResponse,
+    IncidentNoteListResponse,
+    IncidentQuery,
+    IncidentQueryParams,
+    IncidentSearchResponse,
+    IncidentSnooze,
+    IncidentStateChangeResponse,
+    MetaDataDictionary,
+    UndoDataDefinition,
 } from './types';
 
 export class AlIrisClientInstance {
@@ -38,14 +39,13 @@ export class AlIrisClientInstance {
     * "https://api.cloudinsight.alertlogic.com/iris/v2/100/f00b0abab/elaborations/assets"
     */
     async getElaborations(accountId: string, incidentId: string, returnValue?: string) {
-        const elaborations = await this.client.get({
+        return this.client.get<any>({
             service_name: this.serviceName,
             account_id: accountId,
             version: 'v2',
             path: `/${incidentId}/elaborations/assets`,
             params: returnValue,
         });
-        return elaborations;
     }
 
     /**
@@ -56,13 +56,12 @@ export class AlIrisClientInstance {
     * -d '{"query_string": ["LIKE(Unauthorized),incident.threatRating>High"]}'
     */
     async dslTranslate(queryParams: {query_string: string[]}) {
-        const translate = await this.client.post({
+        return this.client.post<any>({
             service_name: this.serviceName,
             version: 'v2',
             path: '/incidents/dsl-translate',
             params: queryParams,
         });
-        return translate;
     }
 
     /**
@@ -72,12 +71,11 @@ export class AlIrisClientInstance {
     * "https://api.cloudinsight.alertlogic.com/iris/v2/incidents/helpers"
     */
     async getConstants() {
-        const constants = await this.client.get({
+        return this.client.get<ConstantDefinition>({
             service_name: this.serviceName,
             version: 'v2',
             path: '/incidents/helpers',
         });
-        return constants as ConstantDefinition;
     }
 
     /**
@@ -88,13 +86,12 @@ export class AlIrisClientInstance {
     * -d '{"search_request": {...}}'
     */
     async searchTranslate(queryParams: {search_request: any}) {
-        const translate = await this.client.post({
+        return this.client.post<any>({
             service_name: this.serviceName,
             version: 'v2',
             path: '/incidents/translate',
             params: queryParams,
         });
-        return translate;
     }
 
     /**
@@ -104,14 +101,13 @@ export class AlIrisClientInstance {
     * "https://api.cloudinsight.alertlogic.com/iris/v2/100/f00b0abab/elaborations/associated"
     */
     async getAssociatedElaborations(accountId: string, incidentId: string, returnValue?: string) {
-        const elaborations = await this.client.get({
+        return this.client.get<any>({
             account_id: accountId,
             service_name: this.serviceName,
             version: 'v2',
             path: `/${incidentId}/elaborations/associated`,
             params: returnValue,
         });
-        return elaborations;
     }
 
     /**
@@ -121,14 +117,13 @@ export class AlIrisClientInstance {
     * "https://api.cloudinsight.alertlogic.com/iris/v2/100/f00b0abab/elaborations/attached"
     */
     async getAttatchedElaborations(accountId: string, incidentId: string, returnValue?: string) {
-        const elaborations = await this.client.get({
+        return this.client.get<any>({
             account_id: accountId,
             service_name: this.serviceName,
             version: 'v2',
             path: `/${incidentId}/elaborations/attached`,
             params: returnValue,
         });
-        return elaborations;
     }
 
     /**
@@ -138,7 +133,7 @@ export class AlIrisClientInstance {
     * "https://api.cloudinsight.alertlogic.com/iris/v2/incidents/translate"
     */
     async incidentSearch(accountId: string, queryData: IncidentQuery, queryParams?: IncidentQueryParams) {
-        const results = await this.client.post({
+        return this.client.post<IncidentSearchResponse>({
             account_id: accountId,
             service_name: this.serviceName,
             version: 'v2',
@@ -146,7 +141,6 @@ export class AlIrisClientInstance {
             params: queryParams,
             data: queryData,
         });
-        return results as IncidentSearchResponse;
     }
 
     /**
@@ -156,14 +150,13 @@ export class AlIrisClientInstance {
     * "https://api.cloudinsight.alertlogic.com/iris/v2/100/f00b0abab/incident/fetch"
     */
     async getIncidentById(accountId: string, incidentId: string, returnValue?: string) {
-        const incident = await this.client.get({
+        return this.client.get<any>({
             account_id: accountId,
             service_name: this.serviceName,
             version: 'v2',
             path: `/${incidentId}/incident/fetch`,
             params: returnValue,
         });
-        return incident;
     }
 
     /**
@@ -173,13 +166,12 @@ export class AlIrisClientInstance {
     * "https://api.cloudinsight.alertlogic.com/iris/v2/100/ascads/incident/log"
     */
     async getIncidentHistory(accountId: string, incidentId: string) {
-        const incident = await this.client.get({
+        return this.client.get<IncidentHistoryResponse[]>({
             account_id: accountId,
             service_name: this.serviceName,
             version: 'v2',
             path: `${incidentId}/ascads/incident/log`,
         });
-        return incident as IncidentHistoryResponse[];
     }
 
     /**
@@ -189,7 +181,7 @@ export class AlIrisClientInstance {
     * "https://api.cloudinsight.alertlogic.com/iris/v2/2/incident/aggregations?size=0"
     */
     async getAggregationsForFields(accountId: string, filterExpression: any, queryParams?: {multi?: boolean, size?: number, metadata?: boolean, raw_totals?: boolean}) {
-        const aggregations = await this.client.post({
+        return this.client.post<any>({
             account_id: accountId,
             service_name: this.serviceName,
             version: 'v2',
@@ -197,7 +189,6 @@ export class AlIrisClientInstance {
             params: queryParams,
             data: filterExpression,
         });
-        return aggregations;
     }
 
     /**
@@ -208,14 +199,13 @@ export class AlIrisClientInstance {
     * -d {"note": "This is a note" }
     */
     async updateNote(accountId: string, incidentId: string, noteId: string, noteData: {note: string}) {
-        const note = await this.client.put({
+        return this.client.put<any>({
             account_id: accountId,
             service_name: this.serviceName,
             version: 'v2',
             path: `/${incidentId}/incident/note/${noteId}`,
             data: noteData,
         });
-        return note;
     }
 
     /**
@@ -226,14 +216,13 @@ export class AlIrisClientInstance {
     * -d '{ "operation": "open", "reason_code": "further_action", "notes": "whatever customer thinks is useful!", "incidents": ["e811af1c88c16a4f"] }'
     */
     async incidentStatusBatchUpdate(accountId: string, batchData: IncidentBatchData) {
-        const note = await this.client.post({
+        return this.client.post<IncidentBatchUpdateResponse>({
             account_id: accountId,
             service_name: this.serviceName,
             version: 'v2',
             path: '/incident/status',
             data: batchData,
         });
-        return note as IncidentBatchUpdateResponse;
     }
 
     /**
@@ -243,13 +232,12 @@ export class AlIrisClientInstance {
     * "https://api.cloudinsight.alertlogic.com/iris/v2/1234/e7119f0d76d29879/incident/note"
     */
     async getIncidentNoteList(accountId: string, incidentId: string) {
-        const notes = await this.client.get({
+        return this.client.get<IncidentNoteListResponse>({
             account_id: accountId,
             service_name: this.serviceName,
             version: 'v2',
             path: `${incidentId}/incident/note`,
         });
-        return notes as IncidentNoteListResponse;
     }
 
     /**
@@ -260,14 +248,13 @@ export class AlIrisClientInstance {
     * -d {"note": "This is a note" }
     */
     async newIncidentNote(accountId: string, incidentId: string, noteData: {note: string}) {
-        const note = await this.client.post({
+        return this.client.post<any>({
             account_id: accountId,
             service_name: this.serviceName,
             version: 'v2',
             path: `/${incidentId}/incident/note`,
             data: noteData,
         });
-        return note;
     }
 
     /**
@@ -278,14 +265,13 @@ export class AlIrisClientInstance {
     * -d '{ "operation": "open", "reason_code": "further_action", "notes": "whatever customer thinks is useful!", "incidents": ["e811af1c88c16a4f"] }'
     */
     async incidentFeedbackBatchUpdate(accountId: string, batchData: IncidentBatchData) {
-        const note = await this.client.post({
+        return this.client.post<IncidentBatchUpdateResponse>({
             account_id: accountId,
             service_name: this.serviceName,
             version: 'v2',
             path: '/incident/feedback',
             data: batchData,
         });
-        return note as IncidentBatchUpdateResponse;
     }
 
     /**
@@ -296,14 +282,13 @@ export class AlIrisClientInstance {
     * -d '{ "reason_code": "further_action",  "notes": "We are done with this" }'
     */
     async closeIncident(accountId: string, incidentId: string, closeData: {reason_code: string, notes: string}) {
-        const note = await this.client.post({
+        return this.client.post<IncidentStateChangeResponse>({
             account_id: accountId,
             service_name: this.serviceName,
             version: 'v2',
             path: `/${incidentId}/incident/close`,
             data: closeData,
         });
-        return note as IncidentStateChangeResponse;
     }
 
     /**
@@ -314,14 +299,13 @@ export class AlIrisClientInstance {
     * -d '{ "notes": "Need to check this out again" }'
     */
     async reopenIncident(accountId: string, incidentId: string, reopenData: {notes: string}) {
-        const note = await this.client.post({
+        return this.client.post<IncidentStateChangeResponse>({
             account_id: accountId,
             service_name: this.serviceName,
             version: 'v2',
             path: `/${incidentId}/incident/reopen`,
             data: reopenData,
         });
-        return note as IncidentStateChangeResponse;
     }
 
     /**
@@ -331,13 +315,12 @@ export class AlIrisClientInstance {
     * "https://api.cloudinsight.alertlogic.com/iris/v2/19651/incident/friendly/asv3s2"
     */
     async getIncidentId(accountId: string, shortIncidentId: string) {
-        const id = await this.client.get({
+        return this.client.get<IncidentIdResponse>({
             account_id: accountId,
             service_name: this.serviceName,
             version: 'v2',
             path: `/incident/friendly/${shortIncidentId}`,
         });
-        return id as IncidentIdResponse;
     }
 
     /**
@@ -348,14 +331,13 @@ export class AlIrisClientInstance {
     * -d '{ "period_ms": 1, "reason_code": "tomorrow", "notes": "Snoozed until Bob fixes this", "incidents": ["e811af1c88c16a4f"] }'
     */
     async snoozeIncidents(accountId: string, snoozeData: {period_ms: number, reason_code: string, notes: string, incidents: string[]}) {
-        const snooze = await this.client.post({
+        return this.client.post<IncidentBatchUpdateResponse>({
             account_id: accountId,
             service_name: this.serviceName,
             version: 'v2',
             path: '/incident/snooze',
             data: snoozeData,
         });
-        return snooze as IncidentBatchUpdateResponse;
     }
 
     /**
@@ -365,15 +347,14 @@ export class AlIrisClientInstance {
     * "https://api.cloudinsight.alertlogic.com/iris/v2/19651/2d3424342/incident/snooze"
     * -d '{ "period_ms": 1, "reason_code": "tomorrow", "notes": "Snoozed until Bob fixes this" }'
     */
-    async snoozeIncident(accountId: string, incidentId: string, snoozeData: {period_ms: number, reason_code: string, notes: string}) {
-        const snooze = await this.client.post({
+    snoozeIncident(accountId: string, incidentId: string, snoozeData: {period_ms: number, reason_code: string, notes: string}) {
+        return this.client.post<IncidentSnooze>({
             account_id: accountId,
             service_name: this.serviceName,
             version: 'v2',
             path: `/${incidentId}/incident/snooze`,
             data: snoozeData,
         });
-        return snooze as IncidentSnooze;
     }
 
     /**
@@ -390,15 +371,14 @@ export class AlIrisClientInstance {
     * "reason_code":"next_week", "snooze_by":"John Diaz <jdiaz@alertlogic.com>", "snoozed":true } }, \
     * "message":"Updated: snooze_status", "property":"snooze_status" } }}'
     */
-    async incidentUndoByToken(accountId: string, undoData: UndoDataDefinition) {
-        const undo = await this.client.post({
+    incidentUndoByToken(accountId: string, undoData: UndoDataDefinition): Promise<ConstantTuple[]> {
+       return this.client.post<ConstantTuple[]>({
             account_id: accountId,
             service_name: this.serviceName,
             version: 'v2',
             path: '/incident/undo',
             data: undoData,
         });
-        return undo as ConstantTuple[];
     }
 
     /**
@@ -444,12 +424,20 @@ export class AlIrisClientInstance {
     /**
      * Returns the open incidents number related to the correlation id
      */
-    async getOpenIncidentsByCorrelationId(accountId: string, correlationId: string): Promise<number> {
-        return this.client.get({
+    getOpenIncidentsByCorrelationId(accountId: string, correlationId: string): Promise<number> {
+        return this.client.get<number>({
             account_id: accountId,
             service_name: this.serviceName,
             version: 'v3',
             path: `/correlation_count/${correlationId}`,
+        });
+    }
+
+    getMetadataDictionary(): Promise<MetaDataDictionary> {
+        return this.client.get<MetaDataDictionary>({
+            service_name: this.serviceName,
+            version: 'v3',
+            path:'metadata-constants'
         });
     }
 }
