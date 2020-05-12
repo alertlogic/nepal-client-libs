@@ -23,47 +23,41 @@ stages:
             - |
                 ls
 
-                generate_report () {
+                #code coverage section
+                COVERAGE_DIRECTORY=./coverage/*
+                echo "### Unit Test Coverage Report\n\n" > comments.txt
+                echo "| Lib | Branches | Functions | Lines | Statements |" >> comments.txt
+                echo "|:---|---|---|---|---|" >> comments.txt
 
-                    #code coverage section
-                    COVERAGE_DIRECTORY=./coverage/*
-                    echo "### Unit Test Coverage Report\n\n" > comments.txt
-                    echo "| Lib | Branches | Functions | Lines | Statements |" >> comments.txt
-                    echo "|---|---|---|---|---|" >> comments.txt
-
-                    for folder in $COVERAGE_DIRECTORY; do   
-                        project="$(basename $folder)"
-                        if [ -d "$folder" ]; then
-                            COVERGAE_JSON_SUMMARY_FILE=$folder/summary/json-summary.json 
-                            if [ -f $COVERGAE_JSON_SUMMARY_FILE ]; then
-                                echo -n "| $project |" >> comments.txt
-                                for k in $(jq  -r '.total | keys | .[]' $COVERGAE_JSON_SUMMARY_FILE); do
-                                    if [ "$k" != "linesCovered" ]; then
-                                        total=$(jq -r ".total.$k.total" $COVERGAE_JSON_SUMMARY_FILE)
-                                        covered=$(jq -r ".total.$k.covered" $COVERGAE_JSON_SUMMARY_FILE)
-                                        pct=$(jq -r ".total.$k.pct" $COVERGAE_JSON_SUMMARY_FILE)
-                                        echo -n " $pct% $covered/$total |" >> comments.txt
-                                    fi
-                                done
-                                echo "" >> comments.txt
-                            else
-                                echo "| $project | N/A | N/A | N/A | N/A |" >> comments.txt
-                            fi
+                for folder in $COVERAGE_DIRECTORY; do   
+                    project="$(basename $folder)"
+                    if [ -d "$folder" ]; then
+                        COVERGAE_JSON_SUMMARY_FILE=$folder/summary/json-summary.json 
+                        if [ -f $COVERGAE_JSON_SUMMARY_FILE ]; then
+                            echo -n "| $project |" >> comments.txt
+                            for k in $(jq  -r '.total | keys | .[]' $COVERGAE_JSON_SUMMARY_FILE); do
+                                if [ "$k" != "linesCovered" ]; then
+                                    total=$(jq -r ".total.$k.total" $COVERGAE_JSON_SUMMARY_FILE)
+                                    covered=$(jq -r ".total.$k.covered" $COVERGAE_JSON_SUMMARY_FILE)
+                                    pct=$(jq -r ".total.$k.pct" $COVERGAE_JSON_SUMMARY_FILE)
+                                    echo -n " $pct% $covered/$total |" >> comments.txt
+                                fi
+                            done
+                            echo "" >> comments.txt
                         else
                             echo "| $project | N/A | N/A | N/A | N/A |" >> comments.txt
                         fi
-                    done
-                    #end code coverage section
+                    else
+                        echo "| *$project* | N/A | N/A | N/A | N/A |" >> comments.txt
+                    fi
+                done
+                #end code coverage section
 
-                    curl -fsSL https://github.com/github/hub/raw/master/script/get | bash -s 2.14.2
-                    GITHUB_TOKEN=$ALPS_GH_TOKEN
+                curl -fsSL https://github.com/github/hub/raw/master/script/get | bash -s 2.14.2
+                GITHUB_TOKEN=$ALPS_GH_TOKEN
 
-                    #comments api call
-                    bin/hub api repos/alertlogic/$ALPS_REPO_NAME/issues/$ALPS_PR_NUMBER/comments --field body=@comments.txt
-                }
-
-                generate_report
-
+                #comments api call
+                bin/hub api repos/alertlogic/$ALPS_REPO_NAME/issues/$ALPS_PR_NUMBER/comments --field body=@comments.txt
                 
             - echo done
 
