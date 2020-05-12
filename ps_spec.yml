@@ -34,7 +34,7 @@ stages:
                     if [ -d "$folder" ]; then
                         COVERGAE_JSON_SUMMARY_FILE=$folder/summary/json-summary.json 
                         if [ -f $COVERGAE_JSON_SUMMARY_FILE ]; then
-                            echo -n "| $project |" >> comments.txt
+                            echo -n "| *$project* |" >> comments.txt
                             for k in $(jq  -r '.total | keys | .[]' $COVERGAE_JSON_SUMMARY_FILE); do
                                 if [ "$k" != "linesCovered" ]; then
                                     total=$(jq -r ".total.$k.total" $COVERGAE_JSON_SUMMARY_FILE)
@@ -45,7 +45,7 @@ stages:
                             done
                             echo "" >> comments.txt
                         else
-                            echo "| $project | N/A | N/A | N/A | N/A |" >> comments.txt
+                            echo "| *$project* | N/A | N/A | N/A | N/A |" >> comments.txt
                         fi
                     else
                         echo "| *$project* | N/A | N/A | N/A | N/A |" >> comments.txt
