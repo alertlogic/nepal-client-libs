@@ -4,11 +4,8 @@ import {
 } from '@al/core';
 import {
     AlFimConfiguration,
-    AlFimConfigurationPayload
+    fimPathType
 } from './types';
-
-// Private type
-export type fimPathType = 'monitored_paths' | 'excluded_paths';
 
 export class AlFimClientInstance {
     protected client: AlApiClient;
@@ -65,7 +62,7 @@ export class AlFimClientInstance {
     async createConfiguration(pathType: fimPathType,
                               accountId: string,
                               deploymentId: string,
-                              payload: AlFimConfigurationPayload): Promise<AlFimConfiguration> {
+                              payload: AlFimConfiguration): Promise<AlFimConfiguration> {
         return (await this.client.post({
             service_name: this.serviceName,
             version: this.serviceVersion,
@@ -86,7 +83,7 @@ export class AlFimClientInstance {
                               accountId: string,
                               deploymentId: string,
                               configurationId: string,
-                              payload: AlFimConfigurationPayload): Promise<AlFimConfiguration> {
+                              payload: AlFimConfiguration): Promise<AlFimConfiguration> {
         return (await this.client.put({
             service_name: this.serviceName,
             version: this.serviceVersion,

@@ -4,7 +4,6 @@ import { describe } from 'mocha';
 import * as sinon from 'sinon';
 import {
     AlFimClient,
-    AlFimConfigurationPayload,
     AlFimConfiguration
 } from '../src/index';
 
@@ -38,7 +37,7 @@ describe("FIM Configuration Client", () => {
             at: 1588323600,
             at_iso: "2020-05-01T09:00:00Z"
         }
-    } as AlFimConfigurationPayload;
+    } as AlFimConfiguration;
 
     const rawFimConfig = {
         id: "FFFFFFFF-FFFF-FFFF-FFFF-FFFFFFFFFFFF",
