@@ -1,22 +1,18 @@
 {
-  "name": "@al/credentials",
-  "version": "2.0.4",
+  "name": "@al/scheduler",
+  "version": "1.0.0",
   "license": "MIT",
-  "description": "A client for interacting with the Alert Logic Credentials Public API.",
+  "description": "A client for interacting with the Alert Logic Scheduler Public API",
   "author": {
     "name": "Alert Logic UI Team",
     "email": "ui@alertlogic.com"
   },
   "keywords": [
     "Alert Logic",
-    "Credentials",
-    "Client"
+    "Client",
+    "Service"
   ],
   "maintainers": [
-    {
-      "name": "Alert Logic UI Team",
-      "email": "ui@alertlogic.com"
-    },
     {
       "name": "Alert Logic NPM Team",
       "email": "npm@alertlogic.com"
@@ -35,17 +31,17 @@
     "lint": "tslint -p tsconfig.json -c ../../tslint.json",
     "clean": "rm -rf dist",
     "prepublishOnly": "npm run build",
-    "interactive": "node -i -e \"const CredentialsClient = require('./dist/commonjs/index.js').CredentialsClient;\""
+    "interactive": "npm run build && node -i -e \"const AlSchedulerClient = require('./dist/commonjs/index.js').AlSchedulerClient;\""
+  },
+  "dependencies": {
+    "@al/core": "^1.0.2"
+  },
+  "peerDependencies": {
+    "@al/core": "^1.0.2"
   },
   "files": [
     "dist"
   ],
-  "dependencies": {
-    "@al/core": "^1.0.12"
-  },
-  "peerDependencies": {
-    "@al/core": "^1.0.12"
-  },
   "publishConfig": {
     "access": "public"
   }
