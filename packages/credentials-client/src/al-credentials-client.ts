@@ -142,12 +142,11 @@ export class AlCredentialsClientInstance {
      * "https://api.cloudinsight.alertlogic.com/credentials/v2/01000001/credentials"
      */
     async listCredentials(accountId: string) {
-        const credentials = await this.client.fetch({
+        return this.client.get<AlCredential[]>({
             service_name: this.serviceName,
             account_id: accountId,
             path: '/credentials/',
             version: 'v2',
         });
-        return credentials as AlCredential[];
     }
 }
