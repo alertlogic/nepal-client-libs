@@ -43,12 +43,11 @@ export class AlCredentialsClientInstance {
     async getHostScanCredentials(accountId: string,
         environmentId: string,
         assetKey: string) {
-        const credentials = await this.client.fetch({
+        return this.client.get<AlScanCredentialsHost>({
             service_name: this.serviceName,
             account_id: accountId,
             path: `/${environmentId}/host/scan/${assetKey}`,
         });
-        return credentials as AlScanCredentialsHost;
     }
 
     /**
