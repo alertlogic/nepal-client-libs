@@ -95,14 +95,13 @@ export class AlCredentialsClientInstance {
      */
     async createCredential(accountId: string,
         credential: AlCredential) {
-        const created = await this.client.post({
+        return this.client.post({
             service_name: this.serviceName,
             account_id: accountId,
             path: '/credentials',
             version: 'v2',
             data: credential,
         });
-        return created;
     }
 
     /**
