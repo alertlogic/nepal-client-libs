@@ -27,12 +27,11 @@ export class AlCredentialsClientInstance {
         assetType: string,
         credentialType: string,
         assetKey: string) {
-        const deleted = await this.client.delete({
+        return this.client.delete({
             service_name: this.serviceName,
             account_id: accountId,
             path: `/${environmentId}/${assetType}/scan/${credentialType}/${assetKey}`,
         });
-        return deleted;
     }
 
     /**
