@@ -54,11 +54,12 @@ export class AlDeploymentsClientInstance {
 
   }
 
-  async listDeployments(accountId: string) {
+  async listDeployments(accountId: string, filters?: string[]) {
     return this.client.get<Deployment[]>({
       service_name: this.serviceName,
       account_id: accountId,
       path: '/deployments',
+      params: filters
     });
   }
 }
