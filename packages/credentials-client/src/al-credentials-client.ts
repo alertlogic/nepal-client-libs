@@ -78,13 +78,12 @@ export class AlCredentialsClientInstance {
         assetType: string,
         assetKey: string,
         credential: AlAssetScanCredentials) {
-        const stored = await this.client.put({
+        return this.client.put({
             service_name: this.serviceName,
             account_id: accountId,
             path: `/${environmentId}/${assetType}/scan/${assetKey}`,
             data: credential,
         });
-        return stored;
     }
 
     /**
