@@ -1,5 +1,7 @@
-import { AssetDescriptor, AssetIteratorCallback, NodeIteratorCallback } from '.';
 import { PhoenixTopologySnapshot } from './phoenix-topology-snapshot.class';
+import { AssetDescriptor } from './asset-descriptor.class';
+
+type AssetIteratorCallback = (asset: AssetDescriptor) => boolean;
 
 export class TopologySnapshot {
     public static extraAssetTypes = ['load-balancer', 'image', 'sg', 'container', 'tag'];
