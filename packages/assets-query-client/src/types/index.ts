@@ -1,4 +1,4 @@
-export * from './asset-type-dictionary.class';
+export * from './assets';
 
 export interface HealthResponse {
   assets?: any;
@@ -85,7 +85,7 @@ export interface ExposuresDeploymentSummary {
 }
 export interface ExposureQueryParams {
   details?: boolean;
-  filter?: string;
+  filter?: string | string[];
   group?: 'exposure' | 'remediation' | 'asset';
   include_exposures?: boolean;
   include_filters?: boolean;
