@@ -112,13 +112,12 @@ export class AlCredentialsClientInstance {
      */
     async deleteCredential(accountId: string,
         credentialId: string) {
-        const deleted = await this.client.delete({
+        return this.client.delete({
             service_name: this.serviceName,
             account_id: accountId,
             path: `/credentials/${credentialId}`,
             version: 'v2',
         });
-        return deleted;
     }
 
     /**
