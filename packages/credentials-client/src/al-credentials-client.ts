@@ -127,13 +127,12 @@ export class AlCredentialsClientInstance {
      */
     async getCredentialById(accountId: string,
         credentialId: string) {
-        const credential = await this.client.fetch({
+        return this.client.get<AlCredential>({
             service_name: this.serviceName,
             account_id: accountId,
             path: `/credentials/${credentialId}`,
             version: 'v2',
         });
-        return credential as AlCredential;
     }
 
     /**
