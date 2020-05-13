@@ -1,5 +1,7 @@
-import { TopologyNode, NodeIteratorCallback } from '.';
 import { SourceScope } from '@al/sources';
+import { TopologyNode } from './topology-node.class';
+
+type NodeIteratorCallback = (asset: TopologyNode) => boolean;
 
 export class PhoenixTopologySnapshot {
     public static extraAssetTypes = ['load-balancer', 'image', 'sg', 'container', 'tag'];

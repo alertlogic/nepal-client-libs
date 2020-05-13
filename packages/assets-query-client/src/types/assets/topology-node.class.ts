@@ -1,5 +1,6 @@
-import { NodeIteratorCallback } from '.';
 import { AssetDescriptor } from './asset-descriptor.class';
+
+type NodeIteratorCallback = ( asset: TopologyNode) => boolean;
 
 export class TopologyNode extends AssetDescriptor {
     public children: TopologyNode[] = [];

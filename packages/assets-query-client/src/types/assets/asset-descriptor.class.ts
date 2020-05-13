@@ -1,4 +1,4 @@
-import { AssetIteratorCallback } from '.';
+type AssetIteratorCallback = (asset: AssetDescriptor) => boolean;
 
 export class AssetDescriptor {
     public type: string = null;
