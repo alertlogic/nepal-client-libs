@@ -30,10 +30,10 @@ stages:
                 echo "| Lib | Branches | Functions | Lines | Statements |" >> comments.txt
                 echo "|:---|---|---|---|---|" >> comments.txt
 
-                for folder in $COVERAGE_DIRECTORY; do   
+                for folder in $COVERAGE_DIRECTORY; do
                     project="$(basename $folder)"
                     if [ -d "$folder" ]; then
-                        COVERGAE_JSON_SUMMARY_FILE=$folder/summary/json-summary.json 
+                        COVERGAE_JSON_SUMMARY_FILE=$folder/summary/json-summary.json
                         if [ -f $COVERGAE_JSON_SUMMARY_FILE ]; then
                             echo -n "| *$project* |" >> comments.txt
                             for k in $(jq  -r '.total | keys | .[]' $COVERGAE_JSON_SUMMARY_FILE); do
@@ -59,7 +59,7 @@ stages:
 
                 #comments api call
                 bin/hub api repos/alertlogic/$ALPS_REPO_NAME/issues/$ALPS_PR_NUMBER/comments --field body=@comments.txt
-                
+
             - echo done
 
     -
@@ -101,6 +101,6 @@ stages:
                 npm run build
 
                 git diff
-                node_modules/lerna/cli.js publish from-package --no-git-reset --no-git-tag-version --tag experimental --yes
+                node_modules/lerna/cli.js publish from-package --no-git-reset --no-git-tag-version --dist-tag experimental --yes
 
             - echo done
