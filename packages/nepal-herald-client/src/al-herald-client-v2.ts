@@ -16,6 +16,8 @@ import {
   AlHeraldSubscribersV2,
   AlHeraldSubscriptionsQueryV2,
   AlHeraldUpdateSubscriptionPayloadV2,
+  AlHeraldTestWebhookPayload,
+  AlHeraldTestWebhookResponse,
 } from './types/index';
 
 export class AlHeraldClientInstanceV2 extends AlHeraldClientInstance {
@@ -399,5 +401,29 @@ export class AlHeraldClientInstanceV2 extends AlHeraldClientInstance {
             path: `/subscriptions/${subscriptionId}/subscribers/batch/update`,
             data: { subscribers: subscriptions }
         });
+    }
+
+
+     /**
+     * Test a webhook
+     * POST
+     * /herald/v2/:account_id/webhook/test
+     *
+     * @param accountId The AIMS Account ID
+     * @param payload with the template name, http method and data
+     * @returns a promise with the response
+     *
+     * @remarks
+     * https://console.account.product.dev.alertlogic.com/users/api/herald/index.html#api-Test_Endpoints-Webhook_test
+     */
+    async testWebhookV2(accountId: string, payload: AlHeraldTestWebhookPayload): Promise<AlHeraldTestWebhookResponse> {
+        const result = await this.client.post({
+            service_name: this.serviceName,
+            version: this.serviceVersion,
+            account_id: accountId,
+            path: '/webhook/test',
+            data: payload
+        });
+        return result.response as AlHeraldTestWebhookResponse;
     }
 }

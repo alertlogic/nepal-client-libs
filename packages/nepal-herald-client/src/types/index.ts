@@ -121,18 +121,16 @@ export interface AlHeraldSubscriptionsKeyByAccountsRecord
 export interface AlHeraldIntegrationPayload{
     name: string;
     target_url: string;
+    headers?: object;
 }
 
-export interface AlHeraldIntegration
+export interface AlHeraldIntegration extends AlHeraldIntegrationPayload
 {
-    id: string;
-    account_id: string;
-    target_url: string;
-    name: string;
-    type: string;
-    headers?: object;
-    created: AlChangeStamp;
-    modified: AlChangeStamp;
+    id?: string;
+    account_id?: string;
+    type?: string;
+    created?: AlChangeStamp;
+    modified?: AlChangeStamp;
 }
 
 export interface AlHeraldIntegrationTypes
@@ -295,6 +293,7 @@ export interface AlHeraldTestWebhookPayload
     url: string;
     method: string;
     data: unknown;
+    headers?: unknown;
 }
 
 export interface AlHeraldTestWebhookResponse
