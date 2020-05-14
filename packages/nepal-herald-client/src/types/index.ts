@@ -120,8 +120,9 @@ export interface AlHeraldSubscriptionsKeyByAccountsRecord
 
 export interface AlHeraldIntegrationPayload{
     name: string;
-    target_url: string;
+    target_url?: string;
     headers?: object;
+    email?: string;
 }
 
 export interface AlHeraldIntegration extends AlHeraldIntegrationPayload
@@ -292,8 +293,14 @@ export interface AlHeraldTestWebhookPayload
 {
     url: string;
     method: string;
-    data: unknown;
+    data?: unknown;
     headers?: unknown;
+}
+
+export interface AlHeraldTestEmailPayload
+{
+    data?: unknown;
+    email: string;
 }
 
 export interface AlHeraldTestWebhookResponse
