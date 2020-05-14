@@ -64,9 +64,7 @@ stages:
     -
         name: Master Push - Publish
         when:
-            - pull_request
-            - pull_request:
-                trigger_phrase: manualpublish
+            - push: ['experimental']
         image: node:13
         compute_size: large
         commands:
