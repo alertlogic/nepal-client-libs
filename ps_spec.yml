@@ -64,7 +64,9 @@ stages:
     -
         name: Master Push - Publish
         when:
-            - push: ['master']
+            - pull_request
+            - pull_request:
+                trigger_phrase: manualpublish
         image: node:13
         compute_size: large
         commands:
@@ -100,6 +102,6 @@ stages:
                 npm run build
 
                 git diff
-                node_modules/lerna/cli.js publish from-package --no-git-reset --no-git-tag-version --yes
+                node_modules/lerna/cli.js publish from-package --no-git-reset --no-git-tag-version --tag experimental --yes
 
             - echo done

@@ -1,6 +1,6 @@
 {
   "name": "@al/aether",
-  "version": "2.0.3",
+  "version": "2.0.3-experimental.1",
   "license": "MIT",
   "description": "A client for interacting with the Alert Logic Aether Public API",
   "author": {
@@ -38,10 +38,10 @@
     "interactive": "npm run build && node -i -e \"const AetherClient = require('./dist/commonjs/index.js').AetherClient;\""
   },
   "dependencies": {
-    "@al/core": "^1.0.12"
+    "@al/core": "experimental"
   },
   "peerDependencies": {
-    "@al/core": "^1.0.12"
+    "@al/core": "experimental"
   },
   "files": [
     "dist"

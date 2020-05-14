@@ -1,6 +1,6 @@
 {
   "name": "@al/otis",
-  "version": "1.0.0",
+  "version": "1.0.0-experimental.1",
   "license": "MIT",
   "description": "A client for interacting with the Alert Logic OTIS Public API",
   "author": {
@@ -41,10 +41,10 @@
     "interactive": "node -i -e \"const OTISClient = require('./dist/commonjs/index.js').OTISClient;\""
   },
   "dependencies": {
-    "@al/core": "^1.0.12"
+    "@al/core": "experimental"
   },
   "peerDependencies": {
-    "@al/core": "^1.0.12"
+    "@al/core": "experimental"
   },
   "files": [
     "dist"

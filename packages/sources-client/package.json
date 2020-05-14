@@ -1,6 +1,6 @@
 {
   "name": "@al/sources",
-  "version": "1.0.0",
+  "version": "1.0.0-experimental.1",
   "license": "MIT",
   "description": "A client for interacting with the Alert Logic Sources Public API",
   "author": {

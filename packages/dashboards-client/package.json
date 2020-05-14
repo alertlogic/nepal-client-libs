@@ -1,6 +1,6 @@
 {
   "name": "@al/dashboards",
-  "version": "2.0.3",
+  "version": "2.0.3-experimental.1",
   "license": "MIT",
   "description": "A client for interacting with the Alert Logic Dashboards Public API",
   "author": {
@@ -38,10 +38,10 @@
     "interactive": "node -i -e \"const DashboardsClient = require('./dist/commonjs/index.js').DashboardsClient;\""
   },
   "dependencies": {
-    "@al/core": "^1.0.12"
+    "@al/core": "experimental"
   },
   "peerDependencies": {
-    "@al/core": "^1.0.12"
+    "@al/core": "experimental"
   },
   "files": [
     "dist"

@@ -1,6 +1,6 @@
 {
   "name": "@al/policies",
-  "version": "2.0.4",
+  "version": "2.0.4-experimental.1",
   "license": "MIT",
   "description": "A client for interacting with the Alert Logic Policies Public API",
   "author": {
@@ -34,7 +34,7 @@
     "interactive": "node -i -e \"const PoliciesClient = require('./dist/commonjs/index.js').PoliciesClient;\""
   },
   "dependencies": {
-    "@al/core": "^1.0.12"
+    "@al/core": "experimental"
   },
   "files": [
     "dist"

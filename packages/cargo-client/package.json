@@ -1,6 +1,6 @@
 {
   "name": "@al/cargo",
-  "version": "2.0.3",
+  "version": "2.0.3-experimental.1",
   "license": "MIT",
   "description": "A client for interacting with the Alert Logic Cargo Public API",
   "author": {
@@ -38,10 +38,10 @@
     "interactive": "npm run build && node -i -e \"const CargoClient = require('./dist/commonjs/index.js').CargoClient;\""
   },
   "dependencies": {
-    "@al/core": "^1.0.12"
+    "@al/core": "experimental"
   },
   "peerDependencies": {
-    "@al/core": "^1.0.12"
+    "@al/core": "experimental"
   },
   "files": [
     "dist"
