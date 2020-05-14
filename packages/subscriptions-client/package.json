@@ -1,6 +1,6 @@
 {
   "name": "@al/subscriptions",
-  "version": "2.0.3",
+  "version": "2.0.3-experimental.1",
   "license": "MIT",
   "description": "A client for interacting with the Alert Logic Subscriptions Public API",
   "author": {
@@ -34,10 +34,10 @@
     "interactive": "node -i -e \"const SubscriptionsClient = require('./dist/commonjs/index.js').SubscriptionsClient;\""
   },
   "dependencies": {
-    "@al/core": "^1.0.12"
+    "@al/core": "experimental"
   },
   "peerDependencies": {
-    "@al/core": "^1.0.12"
+    "@al/core": "experimental"
   },
   "files": [
     "dist"

@@ -1,6 +1,6 @@
 {
   "name": "@al/assets-query",
-  "version": "2.0.7",
+  "version": "2.0.7-experimental.1",
   "license": "MIT",
   "description": "A client for interacting with the Alert Logic Assets Query Public API",
   "author": {
@@ -38,12 +38,12 @@
     "interactive": "npm run build && node -i -e \"const AssetsQueryClient = require('./dist/commonjs/index.js').AssetsQueryClient;\""
   },
   "dependencies": {
-    "@al/core": "^1.0.12",
-    "@al/sources": "^1.0.0"
+    "@al/core": "experimental",
+    "@al/sources": "*"
   },
   "peerDependencies": {
-    "@al/core": "^1.0.12",
-    "@al/sources": "^1.0.0"
+    "@al/core": "experimental",
+    "@al/sources": "experimental"
   },
   "files": [
     "dist"

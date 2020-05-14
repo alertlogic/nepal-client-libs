@@ -1,6 +1,6 @@
 {
   "name": "@al/environments",
-  "version": "2.0.3",
+  "version": "2.0.3-experimental.1",
   "license": "MIT",
   "description": "A client for interacting with the Alert Logic Environments Public API.",
   "author": {
@@ -36,10 +36,10 @@
     "interactive": "node -i -e \"const EnvironmentsClient = require('./dist/commonjs/index.js').EnvironmentsClient;\""
   },
   "dependencies": {
-    "@al/core": "^1.0.12"
+    "@al/core": "experimental"
   },
   "peerDependencies": {
-    "@al/core": "^1.0.12"
+    "@al/core": "experimental"
   },
   "files": [
     "dist"

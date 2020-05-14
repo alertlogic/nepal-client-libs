@@ -1,6 +1,6 @@
 {
   "name": "@al/herald",
-  "version": "2.0.6",
+  "version": "2.0.6-experimental.1",
   "license": "MIT",
   "description": "A lightweight client library for interacting with the Herald API",
   "author": {
@@ -39,10 +39,10 @@
     "interactive-dev": "npm run build-dev && node -i -e \"const HeraldClient = require('./dist/commonjs/index.js').AlHeraldClient;\""
   },
   "dependencies": {
-    "@al/core": "^1.0.12"
+    "@al/core": "experimental"
   },
   "peerDependencies": {
-    "@al/core": "^1.0.12"
+    "@al/core": "experimental"
   },
   "files": [
     "dist"

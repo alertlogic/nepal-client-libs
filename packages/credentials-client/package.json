@@ -1,6 +1,6 @@
 {
   "name": "@al/credentials",
-  "version": "2.0.4",
+  "version": "2.0.4-experimental.1",
   "license": "MIT",
   "description": "A client for interacting with the Alert Logic Credentials Public API.",
   "author": {
@@ -41,10 +41,10 @@
     "dist"
   ],
   "dependencies": {
-    "@al/core": "^1.0.12"
+    "@al/core": "experimental"
   },
   "peerDependencies": {
-    "@al/core": "^1.0.12"
+    "@al/core": "experimental"
   },
   "publishConfig": {
     "access": "public"

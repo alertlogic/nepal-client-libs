@@ -1,6 +1,6 @@
 {
   "name": "@al/azure-explorer",
-  "version": "2.0.3",
+  "version": "2.0.3-experimental.1",
   "license": "MIT",
   "description": "A client for interacting with the Alert Logic Azure Explorer Public API",
   "author": {
@@ -33,10 +33,10 @@
     "interactive": "node -i -e \"const AzureExplorerClient = require('./dist/commonjs/index.js').AzureExplorerClient;\""
   },
   "dependencies": {
-    "@al/core": "^1.0.12"
+    "@al/core": "experimental"
   },
   "peerDependencies": {
-    "@al/core": "^1.0.12"
+    "@al/core": "experimental"
   },
   "files": [
     "dist"

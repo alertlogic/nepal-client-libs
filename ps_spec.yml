@@ -17,6 +17,7 @@ stages:
             - wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add -
             - apt-get update && apt-get -y install google-chrome-stable jq
             - export CHROME_BIN='/usr/bin/google-chrome'
+            - node_modules/lerna/cli.js bootstrap --no-ci
             - npm run lint
             - npm run test
             - npx madge --circular --extensions ts --ts-config tsconfig.json packages
@@ -64,7 +65,7 @@ stages:
     -
         name: Master Push - Publish
         when:
-            - push: ['master']
+            - push: ['experimental']
         image: node:13
         compute_size: large
         commands:
@@ -96,10 +97,10 @@ stages:
 
                 npm install
                 node_modules/lerna/cli.js info
-
+                node_modules/lerna/cli.js bootstrap --no-ci
                 npm run build
 
                 git diff
-                node_modules/lerna/cli.js publish from-package --no-git-reset --no-git-tag-version --yes
+                node_modules/lerna/cli.js publish from-package --no-git-reset --no-git-tag-version --tag experimental --yes
 
             - echo done

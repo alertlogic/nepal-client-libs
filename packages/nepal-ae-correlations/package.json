@@ -1,6 +1,6 @@
 {
   "name": "@al/aecoral",
-  "version": "2.0.4",
+  "version": "2.0.4-experimental.1",
   "license": "MIT",
   "description": "A client for interacting with the Alert Logic Analytics Engine Correlations Public API",
   "author": {
@@ -38,10 +38,10 @@
     "interactive": "npm run build && node -i -e \"const CoralClient = require('./dist/commonjs/index.js').CoralClient;\""
   },
   "dependencies": {
-    "@al/core": "^1.0.12"
+    "@al/core": "experimental"
   },
   "peerDependencies": {
-    "@al/core": "^1.0.12"
+    "@al/core": "experimental"
   },
   "files": [
     "dist"

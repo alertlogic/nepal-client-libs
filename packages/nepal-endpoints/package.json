@@ -1,6 +1,6 @@
 {
   "name": "@al/endpoints",
-  "version": "2.0.4",
+  "version": "2.0.4-experimental.1",
   "description": "An API Client for the Alert Logic EEP product backend.",
   "scripts": {
     "test": "karma start",
@@ -25,10 +25,10 @@
   "es2015": "./dist/index.esm2015.js",
   "license": "MIT",
   "dependencies": {
-    "@al/core": "^1.0.12"
+    "@al/core": "experimental"
   },
   "peerDependencies": {
-    "@al/core": "^1.0.12"
+    "@al/core": "experimental"
   },
   "files": [
     "dist"

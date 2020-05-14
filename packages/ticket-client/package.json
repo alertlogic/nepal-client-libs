@@ -1,6 +1,6 @@
 {
   "name": "@al/ticket",
-  "version": "1.0.1",
+  "version": "1.0.1-experimental.1",
   "license": "MIT",
   "description": "A client for interacting with the Alert Logic Ticket Master Public API",
   "author": {
@@ -42,10 +42,10 @@
     "interactive": "npm run build && node -i -e \"const TMClient = require('./dist/commonjs/index.js').TMClient;\""
   },
   "dependencies": {
-    "@al/core": "^1.0.12"
+    "@al/core": "experimental"
   },
   "peerDependencies": {
-    "@al/core": "^1.0.12"
+    "@al/core": "experimental"
   },
   "files": [
     "dist"
