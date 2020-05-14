@@ -64,7 +64,7 @@ export interface KinesisResponse {
 
 class TMClient {
 
-  private alClient = ALClient;
+  private client = ALClient;
   private serviceName = 'tickets';
 
   /**
@@ -80,7 +80,7 @@ class TMClient {
                           kbaStatus?: string, category?: string, resolutionCall?: string, issueType?: string,
                           experience?: string, securityClearance?: string, origin?: string, product?: string,
                           mainProduct?: string) {
-    const ticket = await this.alClient.post({
+    const ticket = await this.client.post({
       service_name: this.serviceName,
       path: '/agents',
       data: `{
@@ -120,7 +120,7 @@ class TMClient {
    * -d '{"subject":"Problem Subject", "comment":"Problem description", "partner_ticket_id":"32844660"}'
    */
   async createTicket(accountId: string, subject: string, comment: string, partnerTicketId: string) {
-    const ticket = await this.alClient.post({
+    const ticket = await this.client.post({
       service_name: this.serviceName,
       account_id: accountId,
       path: '/tickets',
@@ -140,12 +140,11 @@ class TMClient {
    * "https://api.global.alertlogic.com/tickets/v1/01000001/tickets/4481"
    */
   async getTicket(accountId: string, ticketId: string) {
-    const ticket = await this.alClient.fetch({
+    return this.client.get<Ticket>({
       service_name: this.serviceName,
       account_id: accountId,
       path: `/tickets/${ticketId}`,
     });
-    return ticket as Ticket;
   }
 
   /**
@@ -155,13 +154,13 @@ class TMClient {
    * "https://api.global.alertlogic.com/tickets/v1/01000001/tickets/4481/comments"
    */
   async getTicketComments(accountId: string, ticketId: string, queryParams?: {next_page?: string, since?: string, sort_by?: string, sort_order?: string}) {
-    const comments = await this.alClient.fetch({
+    return this.client.get<TicketComments>({
       service_name: this.serviceName,
       account_id: accountId,
       path: `/tickets/${ticketId}/comments`,
       params: queryParams,
     });
-    return comments as TicketComments;
+
   }
 
   /**
@@ -171,13 +170,13 @@ class TMClient {
    * "https://api.global.alertlogic.com/tickets/v1/01000001/tickets?status=pending"
    */
   async getTickets(accountId: string, queryParams?: {next_page?: string, status?: string, sort_by?: string, sort_order?: string}) {
-    const tickets = await this.alClient.fetch({
+    return this.client.get<TicketsResponse>({
       service_name: this.serviceName,
       account_id: accountId,
       path: '/tickets',
       params: queryParams,
     });
-    return tickets as TicketsResponse;
+
   }
 
   /**
@@ -188,7 +187,7 @@ class TMClient {
    * -d '{"comment":"additional ticket comment"}'
    */
   async updateTicket(accountId: string, ticketId: string, comment?: string, partnerTicketId?: string) {
-    const update = await this.alClient.set({
+    const update = await this.client.put({
       service_name: this.serviceName,
       account_id: accountId,
       path: `/tickets/${ticketId}`,
@@ -205,7 +204,7 @@ class TMClient {
    * -d '{"url":"https://www.example.com/callback"}'
    */
   async registerCallback(accountId: string, url: string) {
-    const callbacks = await this.alClient.post({
+    const callbacks = await this.client.post({
       service_name: this.serviceName,
       account_id: accountId,
       path: '/tickets/callback',
@@ -224,7 +223,7 @@ class TMClient {
    * -d '{"stream_name":"exampleStreamName", "tributary_id":"8F0A29FD-4D28-428C-8CC2-7A68CB64FEB3"}'
    */
   async registerKinesis(accountId: string, streamName: string, tributaryId?: string) {
-    const kinesis = await this.alClient.post({
+    const kinesis = await this.client.post({
       service_name: this.serviceName,
       account_id: accountId,
       path: '/tickets/kinesis',

@@ -12,25 +12,25 @@ describe('Cloud Explorer Client Test Suite:', () => {
   describe('when supported regions', () => {
     let stub: sinon.SinonSpy;
     beforeEach(() => {
-      stub = sinon.stub(CloudExplorerClient['alClient'], 'fetch');
+      stub = sinon.stub(CloudExplorerClient['client'], 'get');
     });
     afterEach(() => {
       stub.restore();
     });
-    it('should call fetch() on the ALClient instance', async() => {
+    it('should call get() on the ALClient instance', async() => {
       await CloudExplorerClient.getSupportedRegions();
       expect(stub.callCount).to.equal(1);
     });
   });
-  describe('when fetching third-party role policy', () => {
+  describe('when getting third-party role policy', () => {
     let stub: sinon.SinonSpy;
     beforeEach(() => {
-      stub = sinon.stub(CloudExplorerClient['alClient'], 'fetch');
+      stub = sinon.stub(CloudExplorerClient['client'], 'get');
     });
     afterEach(() => {
       stub.restore();
     });
-    it('should call fetch() on the ALClient instance', async() => {
+    it('should call get() on the ALClient instance', async() => {
       await CloudExplorerClient.getRolePolicy('iam');
       expect(stub.callCount).to.equal(1);
     });
@@ -38,7 +38,7 @@ describe('Cloud Explorer Client Test Suite:', () => {
   describe('when initiating discovery', () => {
     let stub: sinon.SinonSpy;
     beforeEach(() => {
-      stub = sinon.stub(CloudExplorerClient['alClient'], 'post');
+      stub = sinon.stub(CloudExplorerClient['client'], 'post');
     });
     afterEach(() => {
       stub.restore();
@@ -51,7 +51,7 @@ describe('Cloud Explorer Client Test Suite:', () => {
   describe('when validating external credentials', () => {
     let stub: sinon.SinonSpy;
     beforeEach(() => {
-      stub = sinon.stub(CloudExplorerClient['alClient'], 'post');
+      stub = sinon.stub(CloudExplorerClient['client'], 'post');
     });
     afterEach(() => {
       stub.restore();
@@ -65,7 +65,7 @@ describe('Cloud Explorer Client Test Suite:', () => {
   describe('when validating stored credentials', () => {
     let stub: sinon.SinonSpy;
     beforeEach(() => {
-      stub = sinon.stub(CloudExplorerClient['alClient'], 'post');
+      stub = sinon.stub(CloudExplorerClient['client'], 'post');
     });
     afterEach(() => {
       stub.restore();

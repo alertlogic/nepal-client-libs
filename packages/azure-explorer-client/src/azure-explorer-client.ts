@@ -22,26 +22,24 @@ interface AzureExplorerCredential {
 
 class AzureExplorerClient {
 
-  private alClient = AlDefaultClient;
+  private client = AlDefaultClient;
   private serviceName = 'azure_explorer';
 
   async validateExistingCredentials(accountId: string, environmentId: string) {
-    const validate = await this.alClient.post({
+    return this.client.post<any>({
       service_name: this.serviceName,
       account_id: accountId,
       path: `/environments/${environmentId}/validate_credentials`,
     });
-    return validate;
   }
 
   async validateExternalCredentials(accountId: string, validationParams: AzureExplorerValidationParams) {
-    const validate = await this.alClient.post({
+    return this.client.post<any>({
       service_name: this.serviceName,
       account_id: accountId,
       path: 'validate_credentials',
       data: validationParams,
     });
-    return validate;
   }
 }
 

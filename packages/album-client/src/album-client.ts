@@ -25,7 +25,7 @@ export interface AlbumSharesResponse {
 
 class AlbumClient {
 
-  private alClient = ALClient;
+  private client = ALClient;
   private serviceName = 'album';
 
   /**
@@ -35,12 +35,12 @@ class AlbumClient {
    * "https://api.cloudinsight.alertlogic.com/album/v1/images?type=aws"
    */
   async getImages(queryParams?: {type?: string, product?: string}) {
-    const images = await this.alClient.fetch({
+    return this.client.get<AlbumImagesResponse>({
       service_name: this.serviceName,
       path: '/images',
       params: queryParams,
     });
-    return images as AlbumImagesResponse;
+
   }
 
   /**
@@ -50,12 +50,12 @@ class AlbumClient {
    * "https://api.cloudinsight.alertlogic.com/album/v1/images/ami-1234567/shares?type=aws"
    */
   async getShares(amiId: string, queryParams?: {type?: string, type_id?: string}) {
-    const images = await this.alClient.fetch({
+    return this.client.get<AlbumSharesResponse>({
       service_name: this.serviceName,
       path: `/images/${amiId}/shares`,
       params: queryParams,
     });
-    return images as AlbumSharesResponse;
+
   }
 
   /**
@@ -65,11 +65,10 @@ class AlbumClient {
    * "https://api.cloudinsight.alertlogic.com/album/v1/shares/aws/123456789012"
    */
   async shareImage(type: string, typeId: string) {
-    const share = await this.alClient.set({
+    return this.client.put<any>({
       service_name: this.serviceName,
       path: `/shares/${type}/${typeId}`,
     });
-    return share;
   }
 
   /**
@@ -79,11 +78,10 @@ class AlbumClient {
    * "https://api.cloudinsight.alertlogic.com/album/v1/shares/aws/123456789012"
    */
   async unshareImage(type: string, typeId: string) {
-    const share = await this.alClient.delete({
+    return this.client.delete<any>({
       service_name: this.serviceName,
       path: `/shares/${type}/${typeId}`,
     });
-    return share;
   }
 
 }

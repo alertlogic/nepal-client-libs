@@ -54,14 +54,14 @@ describe('Deployments Client Test Suite', () => {
     let stub: sinon.SinonSpy;
 
     beforeEach(() => {
-      stub = sinon.stub(deploymentsClient.client, 'set');
+      stub = sinon.stub(deploymentsClient.client, 'put');
     });
 
     afterEach(() => {
       stub.restore();
     });
 
-    it('should should call set() on the AlDefaultClient instance to the deployments endpoint', async() => {
+    it('should should call put() on the AlDefaultClient instance to the deployments endpoint', async() => {
       await deploymentsClient.updateDeployment(accountId, deploymentId, deploymentRequestBody);
       expect(stub.callCount).to.equal(1);
       const payload = {
@@ -129,12 +129,13 @@ describe('Deployments Client Test Suite', () => {
     });
 
     it('should should call get() on the AlDefaultClient instance to the deployments endpoint', async() => {
-      await deploymentsClient.listDeployments(accountId);
+      await deploymentsClient.listDeployments(accountId, ['foo=bar']);
       expect(stub.callCount).to.equal(1);
       const payload = {
         service_name: serviceName,
         account_id: accountId,
         path: '/deployments',
+        params: ['foo=bar']
       };
       assert.deepEqual(payload, stub.args[0][0]);
     });

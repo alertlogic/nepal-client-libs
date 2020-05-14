@@ -43,7 +43,7 @@ describe('Dashboards Client Test Suite:', () => {
   describe('when creating a deployment dashboard item', () => {
     let stub: sinon.SinonSpy;
     beforeEach(() => {
-      stub = sinon.stub(DashboardsClient['alClient'], 'post');
+      stub = sinon.stub(DashboardsClient['client'], 'post');
     });
     afterEach(() => {
       stub.restore();
@@ -64,7 +64,7 @@ describe('Dashboards Client Test Suite:', () => {
   describe('when retrieving a single dashboard item for a given deployment', () => {
     let stub: sinon.SinonSpy;
     beforeEach(() => {
-      stub = sinon.stub(DashboardsClient['alClient'], 'get');
+      stub = sinon.stub(DashboardsClient['client'], 'get');
     });
     afterEach(() => {
       stub.restore();
@@ -84,12 +84,12 @@ describe('Dashboards Client Test Suite:', () => {
   describe('when updating a dashboard item for a given deployment', () => {
     let stub: sinon.SinonSpy;
     beforeEach(() => {
-      stub = sinon.stub(DashboardsClient['alClient'], 'set');
+      stub = sinon.stub(DashboardsClient['client'], 'put');
     });
     afterEach(() => {
       stub.restore();
     });
-    it('should call set() on the AlDefaultClient instance to the deployments dashboard items endpoint with the correct payload', async() => {
+    it('should call put() on the AlDefaultClient instance to the deployments dashboard items endpoint with the correct payload', async() => {
       await DashboardsClient.updateDeploymentDashboardItem(accountId, deploymentId, dashboardItemId, dashboardItemRequest);
       expect(stub.callCount).to.equal(1);
       const payload = {
@@ -105,7 +105,7 @@ describe('Dashboards Client Test Suite:', () => {
   describe('when deleting a dashboard item for a given deployment', () => {
     let stub: sinon.SinonSpy;
     beforeEach(() => {
-      stub = sinon.stub(DashboardsClient['alClient'], 'delete');
+      stub = sinon.stub(DashboardsClient['client'], 'delete');
     });
     afterEach(() => {
       stub.restore();
@@ -125,7 +125,7 @@ describe('Dashboards Client Test Suite:', () => {
   describe('when retreiving all dashboard items for a given deployment', () => {
     let stub: sinon.SinonSpy;
     beforeEach(() => {
-      stub = sinon.stub(DashboardsClient['alClient'], 'get');
+      stub = sinon.stub(DashboardsClient['client'], 'get');
     });
     afterEach(() => {
       stub.restore();
@@ -147,7 +147,7 @@ describe('Dashboards Client Test Suite:', () => {
   describe('when creating a user dashboard item', () => {
     let stub: sinon.SinonSpy;
     beforeEach(() => {
-      stub = sinon.stub(DashboardsClient['alClient'], 'post');
+      stub = sinon.stub(DashboardsClient['client'], 'post');
     });
     afterEach(() => {
       stub.restore();
@@ -168,7 +168,7 @@ describe('Dashboards Client Test Suite:', () => {
   describe('when retrieving a single dashboard item for a given user', () => {
     let stub: sinon.SinonSpy;
     beforeEach(() => {
-      stub = sinon.stub(DashboardsClient['alClient'], 'get');
+      stub = sinon.stub(DashboardsClient['client'], 'get');
     });
     afterEach(() => {
       stub.restore();
@@ -189,12 +189,12 @@ describe('Dashboards Client Test Suite:', () => {
   describe('when updating a dashboard item for a given user', () => {
     let stub: sinon.SinonSpy;
     beforeEach(() => {
-      stub = sinon.stub(DashboardsClient['alClient'], 'set');
+      stub = sinon.stub(DashboardsClient['client'], 'put');
     });
     afterEach(() => {
       stub.restore();
     });
-    it('should call set() on the AlDefaultClient instance to the users dashboard items endpoint with the correct payload', async() => {
+    it('should call put() on the AlDefaultClient instance to the users dashboard items endpoint with the correct payload', async() => {
       await DashboardsClient.updateUserDashboardItem(accountId, userId, dashboardItemId, dashboardItemRequest);
       expect(stub.callCount).to.equal(1);
       const payload = {
@@ -210,7 +210,7 @@ describe('Dashboards Client Test Suite:', () => {
   describe('when deleting a dashboard item for a given user', () => {
     let stub: sinon.SinonSpy;
     beforeEach(() => {
-      stub = sinon.stub(DashboardsClient['alClient'], 'delete');
+      stub = sinon.stub(DashboardsClient['client'], 'delete');
     });
     afterEach(() => {
       stub.restore();
@@ -230,7 +230,7 @@ describe('Dashboards Client Test Suite:', () => {
   describe('when retreiving all dashboard items for a given user', () => {
     let stub: sinon.SinonSpy;
     beforeEach(() => {
-      stub = sinon.stub(DashboardsClient['alClient'], 'get');
+      stub = sinon.stub(DashboardsClient['client'], 'get');
     });
     afterEach(() => {
       stub.restore();
@@ -253,7 +253,7 @@ describe('Dashboards Client Test Suite:', () => {
     let stub: sinon.SinonSpy;
 
     beforeEach(() => {
-      stub = sinon.stub(DashboardsClient['alClient'], 'post');
+      stub = sinon.stub(DashboardsClient['client'], 'post');
     });
     afterEach(() => {
       stub.restore();
@@ -274,7 +274,7 @@ describe('Dashboards Client Test Suite:', () => {
   describe('when retrieving a single dashboard item for the currently authenticated user', () => {
     let stub: sinon.SinonSpy;
     beforeEach(() => {
-      stub = sinon.stub(DashboardsClient['alClient'], 'get');
+      stub = sinon.stub(DashboardsClient['client'], 'get');
     });
     afterEach(() => {
       stub.restore();
@@ -295,12 +295,12 @@ describe('Dashboards Client Test Suite:', () => {
   describe('when updating a dashboard item for the currently authentciated user', () => {
     let stub: sinon.SinonSpy;
     beforeEach(() => {
-      stub = sinon.stub(DashboardsClient['alClient'], 'set');
+      stub = sinon.stub(DashboardsClient['client'], 'put');
     });
     afterEach(() => {
       stub.restore();
     });
-    it('should call set() on the AlDefaultClient instance to the users dashboard items endpoint with the correct payload', async() => {
+    it('should call put() on the AlDefaultClient instance to the users dashboard items endpoint with the correct payload', async() => {
       await DashboardsClient.updateOwnDashboardItem(contextAccountId, dashboardItemId, dashboardItemRequest);
       expect(stub.callCount).to.equal(1);
       const payload = {
@@ -316,7 +316,7 @@ describe('Dashboards Client Test Suite:', () => {
   describe('when deleting a dashboard item for the currently authenticated user', () => {
     let stub: sinon.SinonSpy;
     beforeEach(() => {
-      stub = sinon.stub(DashboardsClient['alClient'], 'delete');
+      stub = sinon.stub(DashboardsClient['client'], 'delete');
     });
     afterEach(() => {
       stub.restore();
@@ -336,7 +336,7 @@ describe('Dashboards Client Test Suite:', () => {
   describe('when retreiving all dashboard items for the currently authenticated user', () => {
     let stub: sinon.SinonSpy;
     beforeEach(() => {
-      stub = sinon.stub(DashboardsClient['alClient'], 'get');
+      stub = sinon.stub(DashboardsClient['client'], 'get');
     });
     afterEach(() => {
       stub.restore();
@@ -359,7 +359,7 @@ describe('Dashboards Client Test Suite:', () => {
   describe('when creating a dashboard group', () => {
     let stub: sinon.SinonSpy;
     beforeEach(() => {
-      stub = sinon.stub(DashboardsClient['alClient'], 'post');
+      stub = sinon.stub(DashboardsClient['client'], 'post');
     });
     afterEach(() => {
       stub.restore();
@@ -380,7 +380,7 @@ describe('Dashboards Client Test Suite:', () => {
   describe('when retrieving a dashboard group', () => {
     let stub: sinon.SinonSpy;
     beforeEach(() => {
-      stub = sinon.stub(DashboardsClient['alClient'], 'get');
+      stub = sinon.stub(DashboardsClient['client'], 'get');
     });
     afterEach(() => {
       stub.restore();
@@ -401,7 +401,7 @@ describe('Dashboards Client Test Suite:', () => {
   describe('when retrieving a list of dashboard groups', () => {
     let stub: sinon.SinonSpy;
     beforeEach(() => {
-      stub = sinon.stub(DashboardsClient['alClient'], 'get');
+      stub = sinon.stub(DashboardsClient['client'], 'get');
     });
     afterEach(() => {
       stub.restore();
@@ -422,12 +422,12 @@ describe('Dashboards Client Test Suite:', () => {
   describe('when updating a dashboard group', () => {
     let stub: sinon.SinonSpy;
     beforeEach(() => {
-      stub = sinon.stub(DashboardsClient['alClient'], 'set');
+      stub = sinon.stub(DashboardsClient['client'], 'put');
     });
     afterEach(() => {
       stub.restore();
     });
-    it('should call set() on the AlDefaultClient instance to the shared groups endpoint with the correct payload', async() => {
+    it('should call put() on the AlDefaultClient instance to the shared groups endpoint with the correct payload', async() => {
       await DashboardsClient.updateDashboardGroup(accountId, dashboardGroupId, dashboardGroup);
       expect(stub.callCount).to.equal(1);
       const payload = {
@@ -443,7 +443,7 @@ describe('Dashboards Client Test Suite:', () => {
   describe('when deleting a dashboard group', () => {
     let stub: sinon.SinonSpy;
     beforeEach(() => {
-      stub = sinon.stub(DashboardsClient['alClient'], 'delete');
+      stub = sinon.stub(DashboardsClient['client'], 'delete');
     });
     afterEach(() => {
       stub.restore();
@@ -464,7 +464,7 @@ describe('Dashboards Client Test Suite:', () => {
   describe('when creating a shared dashboard item', () => {
     let stub: sinon.SinonSpy;
     beforeEach(() => {
-      stub = sinon.stub(DashboardsClient['alClient'], 'post');
+      stub = sinon.stub(DashboardsClient['client'], 'post');
     });
     afterEach(() => {
       stub.restore();
@@ -485,7 +485,7 @@ describe('Dashboards Client Test Suite:', () => {
   describe('when retrieving a shared dashboard item', () => {
     let stub: sinon.SinonSpy;
     beforeEach(() => {
-      stub = sinon.stub(DashboardsClient['alClient'], 'get');
+      stub = sinon.stub(DashboardsClient['client'], 'get');
     });
     afterEach(() => {
       stub.restore();
@@ -505,7 +505,7 @@ describe('Dashboards Client Test Suite:', () => {
   describe('when retrieving a list of shared dashboard items', () => {
     let stub: sinon.SinonSpy;
     beforeEach(() => {
-      stub = sinon.stub(DashboardsClient['alClient'], 'get');
+      stub = sinon.stub(DashboardsClient['client'], 'get');
     });
     afterEach(() => {
       stub.restore();
@@ -526,12 +526,12 @@ describe('Dashboards Client Test Suite:', () => {
   describe('when updating a shared dashboard item', () => {
     let stub: sinon.SinonSpy;
     beforeEach(() => {
-      stub = sinon.stub(DashboardsClient['alClient'], 'set');
+      stub = sinon.stub(DashboardsClient['client'], 'put');
     });
     afterEach(() => {
       stub.restore();
     });
-    it('should call set() on the AlDefaultClient instance to the shared dashboard items endpoint with the correct payload', async() => {
+    it('should call put() on the AlDefaultClient instance to the shared dashboard items endpoint with the correct payload', async() => {
       await DashboardsClient.updateSharedDashboardItem(accountId, sharedDashboardItemId, sharedDashboardItem);
       expect(stub.callCount).to.equal(1);
       const payload = {
@@ -547,7 +547,7 @@ describe('Dashboards Client Test Suite:', () => {
   describe('when deleting a shared dashbaord item', () => {
     let stub: sinon.SinonSpy;
     beforeEach(() => {
-      stub = sinon.stub(DashboardsClient['alClient'], 'delete');
+      stub = sinon.stub(DashboardsClient['client'], 'delete');
     });
     afterEach(() => {
       stub.restore();

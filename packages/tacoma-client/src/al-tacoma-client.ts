@@ -25,13 +25,12 @@ export class AlTacomaClientInstance
      *  GET /tacoma/v1/:account_id/sites/:site_id/saved_views/:saved_view_id/export
      */
     async exportSavedViewReport(accountId: string, siteId: string, savedViewId: string, fileFormat?: string) {
-        const report = await this.client.get({
+        return this.client.get<any>({
             account_id: accountId,
             service_name: this.serviceName,
             path: `/sites/${siteId}/saved_views/${savedViewId}/export`,
             params: { format: fileFormat },
         });
-        return report;
     }
 
     /**
@@ -40,12 +39,12 @@ export class AlTacomaClientInstance
      *  "https://api.cloudinsight.alertlogic.com/tacoma/v1/2/sites/9d59802f-7b4a-4d0c-87c5-2ed303fc300b/saved_views/a90b2529-ea3f-4e8b-917b-3793ac905c34"
      */
     async getSavedView(accountId: string, siteId: string, savedViewId: string):Promise<AlSavedView> {
-        const view = await this.client.get({
+        return this.client.get<AlSavedView>({
             account_id: accountId,
             service_name: this.serviceName,
             path: `/sites/${siteId}/saved_views/${savedViewId}`,
         });
-        return view as AlSavedView;
+
     }
 
     /**
@@ -53,12 +52,11 @@ export class AlTacomaClientInstance
      *  GET /tacoma/v1/:account_id/sites/:site_id/workbooks/:workbook_id/views/:view_id/export
      */
     async exportViewReport(accountId: string, siteId: string, workBookId: string, viewId: string) {
-        const report = await this.client.get({
+        return this.client.get<any>({
             account_id: accountId,
             service_name: this.serviceName,
             path: `/sites/${siteId}/workbooks/${workBookId}/views/${viewId}/export`,
         });
-        return report;
     }
 
     /**
@@ -79,12 +77,11 @@ export class AlTacomaClientInstance
      *  GET /tacoma/v1/:account_id/sites/:site_id/workbooks/:workbook_id/export
      */
     async exportWorkbookReport(accountId: string, siteId: string, workBookId: string, format?: string, anyQueryParameter?: string) {
-        const report = await this.client.get({
+        return this.client.get<any>({
             account_id: accountId,
             service_name: this.serviceName,
             path: `/sites/${siteId}/workbooks/${workBookId}/export?${anyQueryParameter}`,
         });
-        return report;
     }
 
     /**
@@ -92,12 +89,11 @@ export class AlTacomaClientInstance
      *  GET /tacoma/v1/:account_id/sites/:site_id/workbooks/:workbook_id/preview
      */
     async getWorkbookPreview(accountId: string, siteId: string, workBookId: string) {
-        const workbook = await this.client.get({
+        return this.client.get<any>({
             account_id: accountId,
             service_name: this.serviceName,
             path: `/sites/${siteId}/workbooks/${workBookId}/preview`,
         });
-        return workbook;
     }
 
     /**

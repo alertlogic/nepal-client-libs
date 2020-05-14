@@ -17,7 +17,7 @@ describe('Aether Client Test Suite:', () => {
     afterEach(() => {
       stub.restore();
     });
-    it('should call fetch() on the AlDefaultClient instance', async() => {
+    it('should call get() on the AlDefaultClient instance', async() => {
       await AetherClient.search('bob');
       expect(stub.callCount).to.equal(1);
     });

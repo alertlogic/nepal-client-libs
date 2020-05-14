@@ -38,7 +38,7 @@ describe('HERALD CLIENT V2', () => {
     };
 
     describe('Subscriptions ', () => {
-        describe('When fetching all subscription', () => {
+        describe('When getting all subscription', () => {
 
             beforeEach(() => {
                 stub = sinon.stub(AlDefaultClient as any, 'axiosRequest').returns(Promise.resolve({status: 200, data: subscriptionsListV2}));

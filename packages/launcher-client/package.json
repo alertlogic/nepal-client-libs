@@ -39,12 +39,15 @@
     "interactive": "npm run build && node -i -e \"const LauncherClient = require('./dist/commonjs/index.js').LauncherClient;\""
   },
   "dependencies": {
-    "@al/core": "^1.0.2"
+    "@al/core": "^1.0.12"
   },
   "peerDependencies": {
-    "@al/core": "^1.0.2"
+    "@al/core": "^1.0.12"
   },
   "files": [
     "dist"
-  ]
+  ],
+  "publishConfig": {
+    "access": "public"
+  }
 }

@@ -38,12 +38,15 @@
     "interactive": "node -i -e \"const DashboardsClient = require('./dist/commonjs/index.js').DashboardsClient;\""
   },
   "dependencies": {
-    "@al/core": "^1.0.2"
+    "@al/core": "^1.0.12"
   },
   "peerDependencies": {
-    "@al/core": "^1.0.2"
+    "@al/core": "^1.0.12"
   },
   "files": [
     "dist"
-  ]
+  ],
+  "publishConfig": {
+    "access": "public"
+  }
 }

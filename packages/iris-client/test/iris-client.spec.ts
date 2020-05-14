@@ -13,7 +13,7 @@ afterEach(() => {
   sinon.restore();
 });
 describe('Iris Client Test Suite:', () => {
-  describe('when fetching elaborations', () => {
+  describe('when getting elaborations', () => {
     let stub: sinon.SinonSpy;
     beforeEach(() => {
       stub = sinon.stub(irisClient['client'], 'get');
@@ -21,7 +21,7 @@ describe('Iris Client Test Suite:', () => {
     afterEach(() => {
       stub.restore();
     });
-    it('should call fetch() on the AlDefaultClient instance', async () => {
+    it('should call get() on the AlDefaultClient instance', async () => {
       await irisClient.getElaborations('1234', '0987');
       expect(stub.callCount).to.equal(1);
     });
@@ -47,7 +47,7 @@ describe('Iris Client Test Suite:', () => {
     afterEach(() => {
       stub.restore();
     });
-    it('should call fetch() on the AlDefaultClient instance', async () => {
+    it('should call get() on the AlDefaultClient instance', async () => {
       await irisClient.getConstants();
       expect(stub.callCount).to.equal(1);
     });
@@ -73,7 +73,7 @@ describe('Iris Client Test Suite:', () => {
     afterEach(() => {
       stub.restore();
     });
-    it('should call fetch() on the AlDefaultClient instance', async () => {
+    it('should call get() on the AlDefaultClient instance', async () => {
       await irisClient.getAssociatedElaborations('1234', '0987');
       expect(stub.callCount).to.equal(1);
     });
@@ -86,7 +86,7 @@ describe('Iris Client Test Suite:', () => {
     afterEach(() => {
       stub.restore();
     });
-    it('should call fetch() on the AlDefaultClient instance', async () => {
+    it('should call get() on the AlDefaultClient instance', async () => {
       await irisClient.getAttatchedElaborations('1234', '0987');
       expect(stub.callCount).to.equal(1);
     });
@@ -113,7 +113,7 @@ describe('Iris Client Test Suite:', () => {
     afterEach(() => {
       stub.restore();
     });
-    it('should call fetch() on the AlDefaultClient instance', async () => {
+    it('should call get() on the AlDefaultClient instance', async () => {
       await irisClient.getIncidentById('1234', '0987');
       expect(stub.callCount).to.equal(1);
     });
@@ -126,7 +126,7 @@ describe('Iris Client Test Suite:', () => {
     afterEach(() => {
       stub.restore();
     });
-    it('should call fetch() on the AlDefaultClient instance', async () => {
+    it('should call get() on the AlDefaultClient instance', async () => {
       await irisClient.getIncidentHistory('1234', '0987');
       expect(stub.callCount).to.equal(1);
     });
@@ -152,7 +152,7 @@ describe('Iris Client Test Suite:', () => {
     afterEach(() => {
       stub.restore();
     });
-    it('should call set() on the AlDefaultClient instance', async () => {
+    it('should call put() on the AlDefaultClient instance', async () => {
       await irisClient.updateNote('1234', '0987', '4567', { note: 'This is a note' });
       expect(stub.callCount).to.equal(1);
     });
@@ -178,7 +178,7 @@ describe('Iris Client Test Suite:', () => {
     afterEach(() => {
       stub.restore();
     });
-    it('should call fetch() on the AlDefaultClient instance', async () => {
+    it('should call get() on the AlDefaultClient instance', async () => {
       await irisClient.getIncidentNoteList('1234', '0987');
       expect(stub.callCount).to.equal(1);
     });
@@ -243,7 +243,7 @@ describe('Iris Client Test Suite:', () => {
     afterEach(() => {
       stub.restore();
     });
-    it('should call fetch() on the AlDefaultClient instance', async () => {
+    it('should call get() on the AlDefaultClient instance', async () => {
       await irisClient.getIncidentId('1234', '0987');
       expect(stub.callCount).to.equal(1);
     });

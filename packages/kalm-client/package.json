@@ -34,12 +34,15 @@
     "interactive": "node -i -e \"const KalmClient = require('./dist/commonjs/index.js').KalmClient;\""
   },
   "dependencies": {
-    "@al/core": "^1.0.2"
+    "@al/core": "^1.0.12"
   },
   "peerDependencies": {
-    "@al/core": "^1.0.2"
+    "@al/core": "^1.0.12"
   },
   "files": [
     "dist"
-  ]
+  ],
+  "publishConfig": {
+    "access": "public"
+  }
 }

@@ -39,12 +39,15 @@
     "interactive-dev": "npm run build-dev && node -i -e \"const HeraldClient = require('./dist/commonjs/index.js').AlHeraldClient;\""
   },
   "dependencies": {
-    "@al/core": "^1.0.2"
+    "@al/core": "^1.0.12"
   },
   "peerDependencies": {
-    "@al/core": "^1.0.2"
+    "@al/core": "^1.0.12"
   },
   "files": [
     "dist"
-  ]
+  ],
+  "publishConfig": {
+    "access": "public"
+  }
 }

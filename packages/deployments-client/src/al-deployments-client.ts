@@ -20,49 +20,46 @@ export class AlDeploymentsClientInstance {
   }
 
   async createDeployment(accountId: string, deploymentRequest: DeploymentCreateBody) {
-    const createDeployment = await this.client.post({
+    return this.client.post<Deployment>({
       service_name: this.serviceName,
       account_id: accountId,
       path: '/deployments',
       data: deploymentRequest,
     });
-    return createDeployment as Deployment;
   }
 
   async updateDeployment(accountId: string, deploymentId: string, deploymentRequest: DeploymentUpdateBody) {
-    const updateDeployment = await this.client.set({
+    return this.client.put<Deployment>({
       service_name: this.serviceName,
       account_id: accountId,
       path: `/deployments/${deploymentId}`,
       data: deploymentRequest,
     });
-    return updateDeployment as Deployment;
   }
 
   async deleteDeployment(accountId: string, deploymentId: string) {
-    const deleteDeployment = await this.client.delete({
+    return this.client.delete<any>({
       service_name: this.serviceName,
       account_id: accountId,
       path: `/deployments/${deploymentId}`,
     });
-    return deleteDeployment;
   }
 
   async getDeployment(accountId: string, deploymentId: string) {
-    const deployment = await this.client.get({
+    return this.client.get<Deployment>({
       service_name: this.serviceName,
       account_id: accountId,
       path: `/deployments/${deploymentId}`,
     });
-    return deployment as Deployment;
+
   }
 
-  async listDeployments(accountId: string) {
-    const deployments = await this.client.get({
+  async listDeployments(accountId: string, filters?: string[]) {
+    return this.client.get<Deployment[]>({
       service_name: this.serviceName,
       account_id: accountId,
       path: '/deployments',
+      params: filters
     });
-    return deployments as Deployment[];
   }
 }

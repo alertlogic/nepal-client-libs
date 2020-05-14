@@ -32,50 +32,48 @@ interface ResolveOptionsRequestParams {
 
 class OTISClient {
 
-  private alClient = ALClient;
+  private client = ALClient;
   private serviceName = 'otis';
   /**
    * Create Option
    */
   async createOption(accountId: string, optionRequest: OptionRequestParams) {
-    const option = await this.alClient.post({
+    return this.client.post<any>({
       service_name: this.serviceName,
       account_id: accountId,
       path: '/options',
       version: 'v3',
       data: optionRequest,
     });
-    return option;
   }
   /**
    * Get Option
    */
   async getOption(accountId: string, optionId: string) {
-    const option = await this.alClient.fetch({
+    return this.client.get<TuningOption>({
       service_name: this.serviceName,
       account_id: accountId,
       path: `/options/${optionId}`,
       version: 'v3',
     });
-    return option as TuningOption;
+
   }
   /**
    * Delete Option
    */
   async deleteOption(accountId: string, optionId: string) {
-    const option = await this.alClient.delete({
+    return this.client.delete<any>({
       service_name: this.serviceName,
       account_id: accountId,
       path: `/options/${optionId}`,
       version: 'v3',
     });
-    return option;
   }
   /**
    * Update Option Value
    */
   async updateOptionValue(accountId: string, optionId: string, value: string) {
-    const option = await this.alClient.set({
+    return this.client.put<any>({
       service_name: this.serviceName,
       account_id: accountId,
       path: `/options/${optionId}`,
@@ -84,20 +82,18 @@ class OTISClient {
         value,
       },
     });
-    return option;
   }
   /**
    * Resolve Option Values
    */
   async resolveOptionValues(accountId: string, resolveOptionsRequestParams: ResolveOptionsRequestParams) {
-    const optionValues = await this.alClient.post({
+    return this.client.post<any>({
       service_name: this.serviceName,
       account_id: accountId,
       path: '/options/resolve',
       version: 'v3',
       data: resolveOptionsRequestParams,
     });
-    return optionValues;
   }
 }
 
