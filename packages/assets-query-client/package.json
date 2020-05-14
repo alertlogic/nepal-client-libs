@@ -39,7 +39,7 @@
   },
   "dependencies": {
     "@al/core": "experimental",
-    "@al/sources": "experimental"
+    "@al/sources": "*"
   },
   "peerDependencies": {
     "@al/core": "experimental",
