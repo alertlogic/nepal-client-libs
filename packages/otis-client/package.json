@@ -1,6 +1,6 @@
 {
   "name": "@al/otis",
-  "version": "1.0.0-experimental.1",
+  "version": "1.1.0-experimental.0",
   "license": "MIT",
   "description": "A client for interacting with the Alert Logic OTIS Public API",
   "author": {

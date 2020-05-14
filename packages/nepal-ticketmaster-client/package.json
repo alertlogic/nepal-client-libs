@@ -1,6 +1,6 @@
 {
   "name": "@al/ticketmaster",
-  "version": "1.0.2-experimental.1",
+  "version": "1.1.0-experimental.0",
   "license": "MIT",
   "description": "A lightweight client library for interacting with the Herald API",
   "author": {

@@ -1,6 +1,6 @@
 {
   "name": "@al/environments",
-  "version": "2.0.3-experimental.1",
+  "version": "2.1.0-experimental.0",
   "license": "MIT",
   "description": "A client for interacting with the Alert Logic Environments Public API.",
   "author": {
