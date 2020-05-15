@@ -150,7 +150,8 @@ export interface DescribeSearchResponse {
   search_request: {
     field_descriptors: SuggestedFieldDescriptor[];
   };
-  errors: DescribeSearchError[];
+  errors?: DescribeSearchError[];
+  selected_fields?: string[]|{field: string, label: string}[];
 }
 
 export interface DescribeSearchRequest {
