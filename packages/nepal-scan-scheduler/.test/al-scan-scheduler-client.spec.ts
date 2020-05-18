@@ -19,16 +19,16 @@ afterEach(() => {
 // Global spy.
 let stub: sinon.SinonSpy;
 
-describe('SCHEDULER CLIENT', () => {
+describe('SCAN SCHEDULER CLIENT', () => {
     const scheduleExample = {
         type: "testType",
-        name: "Test Schedule",
+        name: "Test Scan Schedule",
         active: true,
         default: true
     };
     const schedules = [scheduleExample];
 
-    describe('When creating a notification-only schedule rule', () => {
+    describe('When creating scan schedule', () => {
         beforeEach(() => {
             stub = sinon.stub(AlDefaultClient as any, 'axiosRequest').returns(Promise.resolve({ status: 200, data: { schedule_rule_id: "12345678" }}));
         });
@@ -41,7 +41,7 @@ describe('SCHEDULER CLIENT', () => {
             expect(stub.args[0][0].url).to.equal("https://api.cloudinsight.alertlogic.com/scheduler/v1/2/schedules");
         });
     });
-    describe('When removing a schedule rule', () => {
+    describe('When removing a scan schedule', () => {
         beforeEach(() => {
             stub = sinon.stub(AlDefaultClient as any, 'axiosRequest').returns(Promise.resolve({status: 200, data: {}}));
         });
@@ -54,7 +54,7 @@ describe('SCHEDULER CLIENT', () => {
             expect(stub.args[0][0].url).to.equal("https://api.cloudinsight.alertlogic.com/scheduler/v1/2/schedules/12345678");
         });
     });
-    describe('When fetching a particular schedule rule', () => {
+    describe('When fetching a particular scan schedule', () => {
         beforeEach(() => {
             stub = sinon.stub(AlDefaultClient as any, 'axiosRequest').returns(Promise.resolve({status: 200, data: scheduleExample}));
         });
@@ -67,7 +67,7 @@ describe('SCHEDULER CLIENT', () => {
             expect(stub.args[0][0].url).to.equal("https://api.cloudinsight.alertlogic.com/scheduler/v1/2/schedules/12345678");
         });
     });
-    describe('When fetching all schedule rules', () => {
+    describe('When fetching all scan schedules', () => {
         beforeEach(() => {
             stub = sinon.stub(AlDefaultClient as any, 'axiosRequest').returns(Promise.resolve({status: 200, data: schedules}));
         });
@@ -80,7 +80,7 @@ describe('SCHEDULER CLIENT', () => {
             expect(stub.args[0][0].url).to.equal("https://api.cloudinsight.alertlogic.com/scheduler/v1/2/schedules");
         });
     });
-    describe('When updating a schedule rule', () => {
+    describe('When updating a scan schedule', () => {
         beforeEach(() => {
             stub = sinon.stub(AlDefaultClient as any, 'axiosRequest').returns(Promise.resolve({status: 200, data: {schedule_rule_id: "12345678"}}));
         });

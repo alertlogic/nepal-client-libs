@@ -1,4 +1,4 @@
-  @al/scheduler
+  @al/scan-scheduler
 =========
 
 A client for interacting with the Alert Logic Scan Scheduler Public API.

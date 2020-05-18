@@ -6,14 +6,14 @@ import {
   AlResponseValidationError,
 } from '@al/core';
 
-export interface AlScheduleV2 {
+export interface AlScanScheduleV2 {
     type: string;
     name: string;
     active: boolean;
     default: boolean;
 }
 
-export interface AlScheduleResponseV2 extends AlScheduleV2 {
+export interface AlScanScheduleResponseV2 extends AlScanScheduleV2 {
     created?: {
         at: number,
         by: string
@@ -33,8 +33,8 @@ export interface AlScheduleSummaryResponseV2 {
     total_assets: number;
 }
 
-export interface AlSchedulesResponseV2 {
-    schedules: AlScheduleResponseV2[] | {[key: string]: AlScheduleResponseV2[]}[];
+export interface AlScanSchedulesResponseV2 {
+    schedules: AlScanScheduleResponseV2[] | {[key: string]: AlScanScheduleResponseV2[]}[];
     stats?: Stats;
     total: number;
 }
@@ -45,84 +45,84 @@ export interface Stats {
     };
 }
 
-export class AlSchedulerClientInstanceV2 {
+export class AlScanSchedulerClientInstanceV2 {
 
     private serviceName = 'scheduler';
 
     /**
-     *  Create schedule
+     *  Create scan schedule
      */
-    async createSchedule(accountId: string, schedule: AlScheduleV2): Promise<AlScheduleResponseV2> {
+    async createScanSchedule(accountId: string, deploymentId: string, schedule: AlScanScheduleV2): Promise<AlScanScheduleResponseV2> {
         const result = await AlDefaultClient.post({
             service_name: this.serviceName,
             version: 2,
             account_id:   accountId,
-            path:         '/schedules',
+            path:         `/${deploymentId}/schedules`,
             data:         schedule,
         });
         if ( ! result.hasOwnProperty("id" ) ) {
             throw new AlResponseValidationError(`Service returned unexpected result; missing 'id' property.` );
         }
-        return result as AlScheduleResponseV2;
+        return result as AlScanScheduleResponseV2;
     }
 
     /**
-     *  Delete schedule
+     *  Delete scan schedule
      */
-    async removeSchedule(accountId: string, scheduleId: string) {
+    async removeScanSchedule(accountId: string, deploymentId: string, scheduleId: string) {
         const response =  await AlDefaultClient.delete({
             service_name: this.serviceName,
             version: 2,
             account_id:   accountId,
-            path:         `/schedules/${scheduleId}`
+            path:         `/${deploymentId}/schedules/${scheduleId}`
         });
         return response;
     }
 
     /**
-     *  Get schedule by ID
+     *  Get scan schedule by ID
      */
-    async getSchedule(accountId: string, scheduleId: string): Promise<AlScheduleResponseV2> {
+    async getScanSchedule(accountId: string, deploymentId: string, scheduleId: string): Promise<AlScanScheduleResponseV2> {
         const schedule = await AlDefaultClient.get({
             service_name: this.serviceName,
             version: 2,
             account_id:   accountId,
-            path:         `/schedules/${scheduleId}`,
+            path:         `/${deploymentId}/schedules/${scheduleId}`,
         });
-        return schedule as AlScheduleResponseV2;
+        return schedule as AlScanScheduleResponseV2;
     }
 
     /**
-     *  Get schedule summary by ID
+     *  Get scan schedule summary by ID
      */
-    async getScheduleSummary(accountId: string, scheduleId: string): Promise<AlScheduleSummaryResponseV2> {
+    async getScanScheduleSummary(accountId: string, deploymentId: string, scheduleId: string): Promise<AlScheduleSummaryResponseV2> {
         const schedule = await AlDefaultClient.get({
             service_name: this.serviceName,
             version: 2,
             account_id:   accountId,
-            path:         `/schedules/${scheduleId}/summary`,
+            path:         `/${deploymentId}/schedules/${scheduleId}/summary`,
         });
         return schedule as AlScheduleSummaryResponseV2;
     }
 
     /**
-     *  Get all schedules
+     *  Get list of scan schedules
      */
-    async getAllSchedules(accountId: string, params = {}): Promise<AlSchedulesResponseV2> {
+    async getAllScanSchedules(accountId: string, deploymentId: string, params = {}): Promise<AlScanSchedulesResponseV2> {
          const schedules = await AlDefaultClient.get({
              service_name: this.serviceName,
              version: 2,
              account_id:   accountId,
-             path:         '/schedules',
+             path:         `/${deploymentId}/schedules`,
              params:       params
          });
-         return schedules as AlSchedulesResponseV2;
+         return schedules as AlScanSchedulesResponseV2;
     }
 
     /**
      *   Update schedule
      */
-    async updateSchedule(accountId: string, scheduleId: string, schedule: AlScheduleV2): Promise<AlScheduleResponseV2> {
+    async updateScanSchedule(accountId: string, deploymentId: string, scheduleId: string, schedule: AlScanScheduleV2): Promise<AlScanScheduleResponseV2> {
         const result = await AlDefaultClient.put({
             service_name: this.serviceName,
             version: 2,
@@ -134,6 +134,6 @@ export class AlSchedulerClientInstanceV2 {
         if (!result.hasOwnProperty("id")) {
             throw new AlResponseValidationError(`Service returned unexpected result; missing 'id' property.`);
         }
-        return result as AlScheduleResponseV2;
+        return result as AlScanScheduleResponseV2;
     }
 }
