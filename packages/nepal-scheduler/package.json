@@ -1,0 +1,50 @@
+{
+  "name": "@al/scheduler",
+  "version": "1.0.0",
+  "license": "MIT",
+  "description": "A client for interacting with the Alert Logic Scan Scheduler Public API",
+  "author": {
+    "name": "Jorge Mario Valencia",
+    "email": "jmvalencia@alertlogic.com"
+  },
+  "keywords": [
+    "Alert Logic",
+    "Scheduler",
+    "Client",
+    "Service"
+  ],
+  "maintainers": [
+    {
+      "name": "Jorge Mario Valencia",
+      "email": "jmvalencia@alertlogic.com"
+    },
+    {
+      "name": "Alert Logic NPM Team",
+      "email": "npm@alertlogic.com"
+    }
+  ],
+  "repository": "github:alertlogic/nepal-client-libs",
+  "main": "./dist/index.cjs.js",
+  "types": "./dist/index.d.ts",
+  "module": "./dist/index.esm5.js",
+  "es2015": "./dist/index.esm2015.js",
+  "scripts": {
+    "test": "karma start",
+    "test-watch": "karma start --no-single-run --auto-watch",
+    "build": "rollup -c ../../rollup.config.ts",
+    "prebuild": "npm run clean && npm run lint && npm run test",
+    "lint": "tslint -p tsconfig.json",
+    "clean": "rm -rf dist",
+    "prepublishOnly": "npm run build",
+    "interactive": "npm run build && node -i -e \"const SchedulerClient = require('./dist/commonjs/index.js').SchedulerClient;\""
+  },
+  "dependencies": {
+    "@al/core": "^1.0.5"
+  },
+  "peerDependencies": {
+    "@al/core": "^1.0.5"
+  },
+  "files": [
+    "dist"
+  ]
+}
