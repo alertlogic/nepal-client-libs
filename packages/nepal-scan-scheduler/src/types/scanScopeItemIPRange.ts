@@ -1,8 +1,8 @@
 import { ScanScopeItem } from './scanScopeItem';
 
 export interface ScanScopeItemIPRange extends ScanScopeItem {
-    fromIp: string;
-    toIp: string;
+    from_ip: string;
+    to_ip: string;
     type?: ScanScopeItemIPRange.TypeEnum;
 }
 export namespace ScanScopeItemIPRange {

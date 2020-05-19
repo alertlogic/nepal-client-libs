@@ -27,7 +27,7 @@ export interface Schedule {
      *               Used primarily to find active hosts in networks that are in the scope of protection of the deployment.
      *               Primary target are assets of network or vpc type.
      */
-    typeOfScan?: Schedule.TypeOfScanEnum;
+    type_of_scan?: Schedule.TypeOfScanEnum;
     /**
      * Specifies the SLA period of how frequently consecutive scans should target individual targets within the deployment.
      * Depending on characteristicts of the workload or its compliance and security requirements,
@@ -39,7 +39,7 @@ export interface Schedule {
      * (e.g. daily over weekly) will be respected for both schedules and union of `scan_windows` will be considered
      * as time periods when scans will be allowed to occur.
      */
-    scanFrequency?: Schedule.ScanFrequencyEnum;
+    scan_frequency?: Schedule.ScanFrequencyEnum;
     /**
      * Specifies the time periods when the Scan Schedule should be active.
      * Please note there are four types of `scan_windows`, defined as following models:
@@ -49,12 +49,12 @@ export interface Schedule {
      * - `ScanWindowContinuousPeriodMonthly`
      * For details please refer to the documentation of the above models.
      */
-    scanWindows?: Array<ScanWindowSelectedDaysOfWeek | ScanWindowSelectedDaysOfMonth | ScanWindowContinuousPeriodWeekly | ScanWindowContinuousPeriodMonthly>;
+    scan_windows?: Array<ScanWindowSelectedDaysOfWeek | ScanWindowSelectedDaysOfMonth | ScanWindowContinuousPeriodWeekly | ScanWindowContinuousPeriodMonthly>;
     /**
      * Specifies what assets are considered to be scanned within designated periods defined by `scan_windows` parameter,
      * setting the SLA as specified by `scan_frequency` parameter.
      */
-    scanScope?: ScanScope;
+    scan_scope?: ScanScope;
 }
 export namespace Schedule {
     export type TypeOfScanEnum = 'vulnerability' | 'external' | 'discovery';

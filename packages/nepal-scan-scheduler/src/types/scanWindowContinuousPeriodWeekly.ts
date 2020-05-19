@@ -10,19 +10,19 @@ export interface ScanWindowContinuousPeriodWeekly extends ScanWindow {
     /**
      * Day of week when continuous scanning window commences (`1 - 7`, where `1` is Monday and `7` is Sunday)
      */
-    startDay: number;
+    start_day: number;
     /**
      * Time of day when continuous scanning window commences (24h format)
      */
-    startTime: string;
+    start_time: string;
     /**
      * Day of week when continuous scanning window ends (`1 - 7`, where `1` is Monday and `7` is Sunday)
      */
-    endDay: number;
+    end_day: number;
     /**
      * Time of day when continuous scanning window ends (24h format)
      */
-    endTime: string;
+    end_time: string;
 }
 export namespace ScanWindowContinuousPeriodWeekly {
     export type TypeEnum = 'weekly_period';

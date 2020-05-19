@@ -11,22 +11,22 @@ export interface ScanWindowContinuousPeriodMonthly extends ScanWindow {
      * E.g. a scan set to run on the \"30th\" will run February 28th. For API consumer's convenience `31`
      * will ALWAYS be considered as the  END_OF_MONTH wildcard.
      */
-    startDay: number;
+    start_day: number;
     /**
      * Time of day when continuous scanning window commences (24h format)
      */
-    startTime: string;
+    start_time: string;
     /**
      * Day of month when continuous scanning window ends (`1 - 31`)
      * If selected day is not applicable to the month, the nearest date will be used instead.
      * E.g. a scan set to run on the \"30th\" will run February 28th. For API consumer's convenience `31`
      * will ALWAYS be considered as the  END_OF_MONTH wildcard.
      */
-    endDay: number;
+    end_day: number;
     /**
      * Time of day when continuous scanning window ends (24h)
      */
-    endTime: string;
+    end_time: string;
 }
 export namespace ScanWindowContinuousPeriodMonthly {
     export type TypeEnum = 'monthly_period';

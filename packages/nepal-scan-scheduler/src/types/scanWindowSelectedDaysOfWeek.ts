@@ -10,15 +10,15 @@ export interface ScanWindowSelectedDaysOfWeek extends ScanWindow {
     /**
      * Time of day when recurring scanning window commences (24h format)
      */
-    startTime: string;
+    start_time: string;
     /**
      * Time of day when recurring scanning window ends (24h format)
      */
-    endTime: string;
+    end_time: string;
     /**
      * Days of week when recurring scanning window should be active (`1 - 7`, where `1` is Monday and `7` is Sunday)
      */
-    daysOfWeek: Array<number>;
+    days_of_week: Array<number>;
 }
 export namespace ScanWindowSelectedDaysOfWeek {
     export type TypeEnum = 'days_of_week';

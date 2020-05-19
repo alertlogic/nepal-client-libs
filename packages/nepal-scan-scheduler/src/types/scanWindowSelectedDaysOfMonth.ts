@@ -10,18 +10,18 @@ export interface ScanWindowSelectedDaysOfMonth extends ScanWindow {
     /**
      * Time of day when recurring scanning window commences (24h format)
      */
-    startTime: string;
+    start_time: string;
     /**
      * Time of day when recurring scanning window ends (24h format)
      */
-    endTime: string;
+    end_time: string;
     /**
      * Days of month when recurring scanning window should be active (`1 - 31`).
      * If selected day is not applicable to the month, the nearest date will be used instead.
      * E.g. a scan set to run on the \"30th\" will run February 28th. For API consumer's convenience `31`
      * will ALWAYS be considered as the  END_OF_MONTH wildcard.
      */
-    daysOfMonth: Array<number>;
+    days_of_month: Array<number>;
 }
 export namespace ScanWindowSelectedDaysOfMonth {
     export type TypeEnum = 'days_of_month';
