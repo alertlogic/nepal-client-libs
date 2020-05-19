@@ -1,6 +1,6 @@
 {
   "name": "@al/assets-query",
-  "version": "2.1.0-experimental.0",
+  "version": "2.1.0-experimental.1",
   "license": "MIT",
   "description": "A client for interacting with the Alert Logic Assets Query Public API",
   "author": {
@@ -39,7 +39,7 @@
   },
   "dependencies": {
     "@al/core": "experimental",
-    "@al/sources": "*"
+    "@al/sources": "experimental"
   },
   "peerDependencies": {
     "@al/core": "experimental",
