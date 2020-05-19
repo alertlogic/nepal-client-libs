@@ -13,10 +13,27 @@ import { ScanWindow } from './scanWindow';
 
 /**
  * Scan window for selected days of week, with daily start and end times.
+ * Effectively the window will be active every day according to `days_of_week` list,
+ * between specified times `start_time` and `end_time`.
  */
 export interface ScanWindowSelectedDaysOfWeek extends ScanWindow {
-    type: ScanWindow.TypeEnum;
+    type: ScanWindowSelectedDaysOfWeek.TypeEnum;
+    /**
+     * Time of day when recurring scanning window commences (24h format)
+     */
     startTime: string;
+    /**
+     * Time of day when recurring scanning window ends (24h format)
+     */
     endTime: string;
+    /**
+     * Days of week when recurring scanning window should be active (`1 - 7`, where `1` is Monday and `7` is Sunday)
+     */
     daysOfWeek: Array<number>;
+}
+export namespace ScanWindowSelectedDaysOfWeek {
+    export type TypeEnum = 'days_of_week';
+    export const typeEnum = {
+        Week: 'days_of_week' as TypeEnum
+    };
 }

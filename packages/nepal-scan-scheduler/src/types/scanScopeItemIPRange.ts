@@ -11,13 +11,14 @@
  */
 import { ScanScopeItem } from './scanScopeItem';
 
-export interface ScanScopeItemAsset extends ScanScopeItem {
-    key: string;
-    type: ScanScopeItemAsset.TypeEnum;
+export interface ScanScopeItemIPRange extends ScanScopeItem {
+    fromIp: string;
+    toIp: string;
+    type?: ScanScopeItemIPRange.TypeEnum;
 }
-export namespace ScanScopeItemAsset {
-    export type TypeEnum = 'asset';
+export namespace ScanScopeItemIPRange {
+    export type TypeEnum = 'ip_range';
     export const typeEnum = {
-        Asset: 'asset' as TypeEnum
+        Range: 'ip_range' as TypeEnum
     };
 }

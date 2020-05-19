@@ -12,12 +12,32 @@
 import { ScanWindow } from './scanWindow';
 
 /**
- * Scan window for continuous period between two days of week, with start time/day and end time/day.
+ * Scan window for continuous period between two days of week.
+ * Effectively the window will allow scans to occur continuously
+ * between `start_day`/`start_time` and `end_day`/`end_time`.
  */
 export interface ScanWindowContinuousPeriodWeekly extends ScanWindow {
-    type: ScanWindow.TypeEnum;
-    startTime: string;
-    endTime: string;
+    type: ScanWindowContinuousPeriodWeekly.TypeEnum;
+    /**
+     * Day of week when continuous scanning window commences (`1 - 7`, where `1` is Monday and `7` is Sunday)
+     */
     startDay: number;
+    /**
+     * Time of day when continuous scanning window commences (24h format)
+     */
+    startTime: string;
+    /**
+     * Day of week when continuous scanning window ends (`1 - 7`, where `1` is Monday and `7` is Sunday)
+     */
     endDay: number;
+    /**
+     * Time of day when continuous scanning window ends (24h format)
+     */
+    endTime: string;
+}
+export namespace ScanWindowContinuousPeriodWeekly {
+    export type TypeEnum = 'weekly_period';
+    export const typeEnum = {
+        Period: 'weekly_period' as TypeEnum
+    };
 }
