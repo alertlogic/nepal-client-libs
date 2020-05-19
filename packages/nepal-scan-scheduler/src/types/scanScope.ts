@@ -13,7 +13,7 @@ import { ScanScopeItemAsset } from './scanScopeItemAsset';
 import { ScanScopeItemCIDR } from './scanScopeItemCIDR';
 import { ScanScopeItemTag } from './scanScopeItemTag';
 
-export interface ScanScope { 
+export interface ScanScope {
     includeFutureAssets?: boolean;
     include?: Array<ScanScopeItemAsset | ScanScopeItemCIDR | ScanScopeItemTag>;
     exclude?: Array<ScanScopeItemAsset | ScanScopeItemCIDR | ScanScopeItemTag>;

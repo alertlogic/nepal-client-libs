@@ -11,7 +11,7 @@
  */
 import { ScanScopeItem } from './scanScopeItem';
 
-export interface ScanScopeItemTag extends ScanScopeItem { 
+export interface ScanScopeItemTag extends ScanScopeItem {
     key?: string;
     value?: string;
     type?: string;

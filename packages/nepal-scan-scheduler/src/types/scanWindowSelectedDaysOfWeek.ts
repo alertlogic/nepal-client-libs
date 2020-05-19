@@ -14,7 +14,7 @@ import { ScanWindow } from './scanWindow';
 /**
  * Scan window for selected days of week, with daily start and end times.
  */
-export interface ScanWindowSelectedDaysOfWeek extends ScanWindow { 
+export interface ScanWindowSelectedDaysOfWeek extends ScanWindow {
     type: string;
     startTime: string;
     endTime: string;

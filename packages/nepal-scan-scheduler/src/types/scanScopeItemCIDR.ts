@@ -11,7 +11,7 @@
  */
 import { ScanScopeItem } from './scanScopeItem';
 
-export interface ScanScopeItemCIDR extends ScanScopeItem { 
+export interface ScanScopeItemCIDR extends ScanScopeItem {
     value: string;
     type?: string;
 }

@@ -18,7 +18,7 @@ import { ScanWindowSelectedDaysOfWeek } from './scanWindowSelectedDaysOfWeek';
 /**
  * Scan Schedule definition.
  */
-export interface Schedule { 
+export interface Schedule {
     readonly id?: string;
     name?: string;
     enabled?: boolean;
@@ -29,13 +29,13 @@ export interface Schedule {
 }
 export namespace Schedule {
     export type TypeOfScanEnum = 'vulnerability' | 'external' | 'discovery';
-    export const TypeOfScanEnum = {
+    export const typeOfScanEnum = {
         Vulnerability: 'vulnerability' as TypeOfScanEnum,
         External: 'external' as TypeOfScanEnum,
         Discovery: 'discovery' as TypeOfScanEnum
     };
     export type ScanFrequencyEnum = 'automatic' | 'daily' | 'weekly' | 'monthly';
-    export const ScanFrequencyEnum = {
+    export const scanFrequencyEnum = {
         Automatic: 'automatic' as ScanFrequencyEnum,
         Daily: 'daily' as ScanFrequencyEnum,
         Weekly: 'weekly' as ScanFrequencyEnum,

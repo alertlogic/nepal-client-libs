@@ -14,7 +14,7 @@ import { ScanWindow } from './scanWindow';
 /**
  * Scan window for continuous period between two days of month, with start time/day and end time/day.
  */
-export interface ScanWindowContinuousPeriodMonthly extends ScanWindow { 
+export interface ScanWindowContinuousPeriodMonthly extends ScanWindow {
     type: string;
     startDay: number;
     startTime: string;
