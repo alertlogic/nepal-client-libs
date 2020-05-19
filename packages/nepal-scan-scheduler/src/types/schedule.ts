@@ -49,7 +49,7 @@ export interface Schedule {
      * - `ScanWindowContinuousPeriodMonthly`
      * For details please refer to the documentation of the above models.
      */
-    scan_windows?: Array<ScanWindowSelectedDaysOfWeek | ScanWindowSelectedDaysOfMonth | ScanWindowContinuousPeriodWeekly | ScanWindowContinuousPeriodMonthly>;
+    scan_windows?: (ScanWindowSelectedDaysOfWeek | ScanWindowSelectedDaysOfMonth | ScanWindowContinuousPeriodWeekly | ScanWindowContinuousPeriodMonthly)[];
     /**
      * Specifies what assets are considered to be scanned within designated periods defined by `scan_windows` parameter,
      * setting the SLA as specified by `scan_frequency` parameter.

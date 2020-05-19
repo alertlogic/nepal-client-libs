@@ -24,5 +24,5 @@ export interface ScanScope {
      * Values specified in `include` array will not be taken into account.
      */
     include_all_assets?: boolean;
-    include?: Array<ScanScopeItemAsset | ScanScopeItemCIDR | ScanScopeItemIPRange | ScanScopeItemTag>;
+    include?: (ScanScopeItemAsset | ScanScopeItemCIDR | ScanScopeItemIPRange | ScanScopeItemTag)[];
 }

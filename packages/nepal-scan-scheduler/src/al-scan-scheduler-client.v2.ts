@@ -18,7 +18,7 @@ export class AlScanSchedulerClientInstanceV2 {
     /**
      *  Lists scan schedules that belong to a particular deployment
      */
-    async getScanSchedulesList(accountId: string, deploymentId: string, params = {}): Promise<Array<Schedule>> {
+    async getScanSchedulesList(accountId: string, deploymentId: string, params = {}): Promise<Schedule[]> {
          const schedules = await AlDefaultClient.get({
              service_name: this.serviceName,
              version:      2,

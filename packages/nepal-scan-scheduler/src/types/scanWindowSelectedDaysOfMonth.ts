@@ -21,7 +21,7 @@ export interface ScanWindowSelectedDaysOfMonth extends ScanWindow {
      * E.g. a scan set to run on the \"30th\" will run February 28th. For API consumer's convenience `31`
      * will ALWAYS be considered as the  END_OF_MONTH wildcard.
      */
-    days_of_month: Array<number>;
+    days_of_month: number[];
 }
 export namespace ScanWindowSelectedDaysOfMonth {
     export type TypeEnum = 'days_of_month';
