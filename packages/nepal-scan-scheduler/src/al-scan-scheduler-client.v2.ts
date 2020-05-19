@@ -21,7 +21,7 @@ export class AlScanSchedulerClientInstanceV2 {
     async getScanSchedulesList(accountId: string, deploymentId: string, params = {}): Promise<Array<Schedule>> {
          const schedules = await AlDefaultClient.get({
              service_name: this.serviceName,
-             version: 2,
+             version:      2,
              account_id:   accountId,
              path:         `/${deploymentId}/schedules`,
              params:       params
@@ -35,7 +35,7 @@ export class AlScanSchedulerClientInstanceV2 {
     async createScanSchedule(accountId: string, deploymentId: string, schedule: Schedule): Promise<Schedule> {
         const result = await AlDefaultClient.post({
             service_name: this.serviceName,
-            version: 2,
+            version:      2,
             account_id:   accountId,
             path:         `/${deploymentId}/schedules`,
             data:         schedule,
@@ -52,7 +52,7 @@ export class AlScanSchedulerClientInstanceV2 {
     async getScanSchedule(accountId: string, deploymentId: string, scheduleId: string): Promise<Schedule> {
         const schedule = await AlDefaultClient.get({
             service_name: this.serviceName,
-            version: 2,
+            version:      2,
             account_id:   accountId,
             path:         `/${deploymentId}/schedules/${scheduleId}`,
         });
@@ -65,7 +65,7 @@ export class AlScanSchedulerClientInstanceV2 {
     async removeScanSchedule(accountId: string, deploymentId: string, scheduleId: string) {
         const response =  await AlDefaultClient.delete({
             service_name: this.serviceName,
-            version: 2,
+            version:      2,
             account_id:   accountId,
             path:         `/${deploymentId}/schedules/${scheduleId}`
         });
@@ -78,7 +78,7 @@ export class AlScanSchedulerClientInstanceV2 {
     async updateScanSchedule(accountId: string, deploymentId: string, scheduleId: string, schedule: Schedule): Promise<Schedule> {
         const result = await AlDefaultClient.put({
             service_name: this.serviceName,
-            version: 2,
+            version:      2,
             account_id:   accountId,
             path:         `/${deploymentId}/schedules/${scheduleId}`,
             data:         schedule
@@ -93,12 +93,13 @@ export class AlScanSchedulerClientInstanceV2 {
     /**
      *  Get scan schedule summary by ID
      */
-    async getScanScheduleSummary(accountId: string, deploymentId: string, scheduleId: string): Promise<ScheduleSummary> {
+    async getScanScheduleSummary(accountId: string, deploymentId: string, scheduleId: string, params = {}): Promise<ScheduleSummary> {
         const scheduleSummary = await AlDefaultClient.get({
             service_name: this.serviceName,
-            version: 2,
+            version:      2,
             account_id:   accountId,
             path:         `/${deploymentId}/schedules/${scheduleId}/summary`,
+            params:       params
         });
         return scheduleSummary;
     }
