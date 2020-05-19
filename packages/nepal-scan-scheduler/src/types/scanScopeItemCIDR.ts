@@ -13,5 +13,5 @@ import { ScanScopeItem } from './scanScopeItem';
 
 export interface ScanScopeItemCIDR extends ScanScopeItem {
     value: string;
-    type?: string;
+    type?: ScanScopeItem.TypeEnum;
 }

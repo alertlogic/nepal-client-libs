@@ -13,5 +13,5 @@ import { ScanScopeItem } from './scanScopeItem';
 
 export interface ScanScopeItemAsset extends ScanScopeItem {
     key: string;
-    type: string;
+    type: ScanScopeItem.TypeEnum;
 }

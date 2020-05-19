@@ -15,7 +15,7 @@ import { ScanWindow } from './scanWindow';
  * Scan window for continuous period between two days of week, with start time/day and end time/day.
  */
 export interface ScanWindowContinuousPeriodWeekly extends ScanWindow {
-    type: string;
+    type: ScanWindow.TypeEnum;
     startTime: string;
     endTime: string;
     startDay: number;
