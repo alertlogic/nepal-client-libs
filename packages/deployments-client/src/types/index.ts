@@ -1,16 +1,17 @@
 type DeploymentMonitoringConfiguration = {
-  enabled: boolean;
-  ct_install_region: string;
+  enabled?: boolean;
+  ct_install_region?: string;
 };
 
 type CloudDefenderProductIntegrationSettings = {
   enabled: boolean;
-  location_id: string;
+  location_id?: string; // mandatory if enabled = true
 };
 
 type DeploymentStatus = {
   status: 'new' | 'ok' | 'warning' | 'error';
   message?: string;
+  timestamp?: number;
 };
 
 interface IncludedAsset {
@@ -26,25 +27,34 @@ interface ExcludedAsset {
   key : string;
 }
 
-export interface DeploymentCreateBody {
-  name: string;
-  platform: {
-    type: 'aws' | 'azure' | 'datacenter';
-    id?: string;
-    monitor?: DeploymentMonitoringConfiguration
-    default?: boolean;
-  };
+
+export interface PlatformCommonBody {
+  id?: string;
+  monitor?: DeploymentMonitoringConfiguration;
+  default?: boolean;
+}
+
+export interface DeploymentPlatformType  extends PlatformCommonBody{
+  type?: 'aws' | 'azure' | 'datacenter' | 'all';
+}
+
+export interface DeploymentCommonBody {
   mode?: 'manual' | 'readonly' | 'automatic' | 'guided' | 'none';
   enabled?: boolean;
   discover?: boolean;
   scan?: boolean;
+  cloud_defender?: CloudDefenderProductIntegrationSettings;
+  credentials?: DeploymentCredentials[];
+  version?: number;
+}
+
+export interface DeploymentCreateBody extends DeploymentCommonBody{
+  name: string;
+  platform: DeploymentPlatformType;
   scope?: {
     include: IncludedAsset[];
     exclude?: ExcludedAsset[];
   };
-  cloud_defender?: CloudDefenderProductIntegrationSettings;
-  credentials?: DeploymentCredentials[];
-  version?: string;
 }
 
 interface DeploymentCredentials {
@@ -53,8 +63,14 @@ interface DeploymentCredentials {
   version?: string;
 }
 
-export interface DeploymentUpdateBody extends DeploymentCreateBody {
+export interface DeploymentUpdateBody extends DeploymentCommonBody {
+  name?: string;
+  platform?: DeploymentPlatformType;
   status?: DeploymentStatus;
+  scope?: {
+    include?: IncludedAsset[];
+    exclude?: ExcludedAsset[];
+  };
 }
 
 interface UserTimeStamp {
@@ -67,15 +83,7 @@ export interface Deployment {
   account_id?: string;
   version?: number;
   name?: string;
-  platform?: {
-    type?: 'aws' | 'azure' | 'datacenter';
-    id?: string;
-    monitor?: {
-      enabled?: boolean;
-      ct_install_region?: string;
-    },
-    default?: boolean
-  };
+  platform?: DeploymentPlatformType;
   mode?: 'manual' | 'readonly' | 'automatic'| 'guided' | 'none';
   enabled?: boolean;
   discover?: boolean;
