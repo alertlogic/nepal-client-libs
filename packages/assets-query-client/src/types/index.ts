@@ -145,6 +145,7 @@ export interface ExposuresQueryFilter {
     threat_level?: number;
     threatiness?: number;
     type?: string;
+    vinstances_count?: number;
 }
 export interface ExposureQueryResults {
     rows?: number;
