@@ -19,14 +19,13 @@ export class AlScanSchedulerClientInstanceV2 {
      *  Lists scan schedules that belong to a particular deployment
      */
     async getScanSchedulesList(accountId: string, deploymentId: string, params = {}): Promise<Schedule[]> {
-         const schedules = await AlDefaultClient.get({
+         return AlDefaultClient.get({
              service_name: this.serviceName,
              version:      2,
              account_id:   accountId,
              path:         `/${deploymentId}/schedules`,
              params:       params
          });
-         return schedules;
     }
 
     /**
@@ -50,26 +49,24 @@ export class AlScanSchedulerClientInstanceV2 {
      *  Returns the scan schedule definition for a given id
      */
     async getScanSchedule(accountId: string, deploymentId: string, scheduleId: string): Promise<Schedule> {
-        const schedule = await AlDefaultClient.get({
+        return AlDefaultClient.get({
             service_name: this.serviceName,
             version:      2,
             account_id:   accountId,
             path:         `/${deploymentId}/schedules/${scheduleId}`,
         });
-        return schedule;
     }
 
     /**
      *  Deletes Selected Schedule
      */
     async removeScanSchedule(accountId: string, deploymentId: string, scheduleId: string) {
-        const response =  await AlDefaultClient.delete({
+        return AlDefaultClient.delete({
             service_name: this.serviceName,
             version:      2,
             account_id:   accountId,
             path:         `/${deploymentId}/schedules/${scheduleId}`
         });
-        return response;
     }
 
     /**
@@ -94,13 +91,12 @@ export class AlScanSchedulerClientInstanceV2 {
      *  Get scan schedule summary by ID
      */
     async getScanScheduleSummary(accountId: string, deploymentId: string, scheduleId: string, params = {}): Promise<ScheduleSummary> {
-        const scheduleSummary = await AlDefaultClient.get({
+        return AlDefaultClient.get({
             service_name: this.serviceName,
             version:      2,
             account_id:   accountId,
             path:         `/${deploymentId}/schedules/${scheduleId}/summary`,
             params:       params
         });
-        return scheduleSummary;
     }
 }
