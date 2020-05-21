@@ -47,6 +47,8 @@ export interface EnvironmentSource {
         created?: UserTimeStamp;
         modified?: UserTimeStamp;
         enabled?: boolean;
+        host?: {[key:string]: string }
+        status?: {[key:string]: string };
     };
 }
 
