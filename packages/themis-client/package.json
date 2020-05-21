@@ -1,6 +1,6 @@
 {
   "name": "@al/themis",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "license": "MIT",
   "description": "A client for interacting with the Alert Logic Themis Public API",
   "author": {
@@ -22,35 +22,31 @@
       "email": "npm@alertlogic.com"
     }
   ],
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/alertlogic/themis-client"
-  },
-  "main": "./dist/umd/index.js",
-  "module": "./dist/commonjs/index.js",
-  "types": "./dist/typings/index.d.ts",
+  "repository": "github:alertlogic/nepal-client-libs",
+  "main": "./dist/index.cjs.js",
+  "types": "./dist/index.d.ts",
+  "module": "./dist/index.esm5.js",
+  "es2015": "./dist/index.esm2015.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "echo \"Error: no test specified\"",
+    "test-watch": "karma start --no-single-run --auto-watch",
     "build-dev": "npm run clean &&  tsc && webpack --mode=development",
-    "build": "webpack",
-    "prebuild": "npm run clean && npm run lint && tsc",
-    "lint": "tslint -p tsconfig.json",
+    "build": "rollup -c ../../rollup.config.ts",
+    "prebuild": "npm run clean && npm run lint && npm run test",
+    "lint": "tslint -p tsconfig.json -c ../../tslint.json",
     "clean": "rm -rf dist",
-    "prepublishOnly": "npm run build",
-    "interactive": "node -i -e \"const ThemisClient = require('./dist/commonjs/index.js').ThemisClient;\""
+    "prepublishOnly": "npm run build"
   },
-  "devDependencies": {
-    "peer-deps-externals-webpack-plugin": "^1.0.4",
-    "tslint": "^5.12.1",
-    "tslint-config-airbnb": "^5.11.1",
-    "typescript": "^3.2.4",
-    "webpack": "^4.29.0",
-    "webpack-cli": "^3.2.1"
+  "dependencies": {
+    "@al/core": "^1.0.12"
   },
   "peerDependencies": {
-    "@al/client": "^0.13.0"
+    "@al/core": "^1.0.12"
   },
   "files": [
     "dist"
-  ]
+  ],
+  "publishConfig": {
+    "access": "public"
+  }
 }
