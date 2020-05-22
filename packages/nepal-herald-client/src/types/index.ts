@@ -118,18 +118,35 @@ export interface AlHeraldSubscriptionsKeyByAccountsRecord
     subscriptions: AlHeraldSubscriptionRecord[];
 }
 
-export interface AlHeraldIntegrationPayload{
+export interface AlHeraldIntegrationBasePayload{
+    name: string;
+    type?: string;
+}
+
+export interface AlHeraldIntegrationWebhookPayload extends AlHeraldIntegrationBasePayload{
     name: string;
     target_url?: string;
     headers?: object;
+}
+
+export interface AlHeraldIntegrationEmailPayload extends AlHeraldIntegrationBasePayload{
+    name: string;
     email?: string;
 }
 
-export interface AlHeraldIntegration extends AlHeraldIntegrationPayload
+export interface AlHeraldIntegrationJiraPayload extends AlHeraldIntegrationBasePayload{
+    name: string;
+    username?: string;
+    api_token?: string;
+    reporter_id?: string;
+    webhook_uri?: string;
+    project_id?: string;
+}
+
+export interface AlHeraldIntegration extends AlHeraldIntegrationWebhookPayload, AlHeraldIntegrationEmailPayload, AlHeraldIntegrationJiraPayload
 {
     id?: string;
     account_id?: string;
-    type?: string;
     created?: AlChangeStamp;
     modified?: AlChangeStamp;
 }
@@ -299,7 +316,6 @@ export interface AlHeraldTestWebhookPayload
 
 export interface AlHeraldTestEmailPayload
 {
-    data?: unknown;
     email: string;
 }
 
@@ -307,6 +323,15 @@ export interface AlHeraldTestWebhookResponse
 {
     rawbody: string;
     code: number;
+}
+
+export interface AlHeraldTestJiraPayload
+{
+    username: string;
+    api_token: string;
+    reporter_id: string;
+    webhook_uri: string;
+    project_id: string;
 }
 
 export interface AlHeraldTestTemplatePayload{
