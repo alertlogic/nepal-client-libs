@@ -1,7 +1,7 @@
 /**
  * Describes who and when modified the parent object.
  */
-export interface AuditObject {
+export interface AlAuditObject {
     at?: Date;
     by?: string;
 }

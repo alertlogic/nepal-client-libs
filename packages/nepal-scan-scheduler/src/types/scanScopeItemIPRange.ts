@@ -1,11 +1,11 @@
-import { ScanScopeItem } from './scanScopeItem';
+import { AlScanScopeItem } from './scanScopeItem';
 
-export interface ScanScopeItemIPRange extends ScanScopeItem {
+export interface AlScanScopeItemIPRange extends AlScanScopeItem {
     from_ip: string;
     to_ip: string;
-    type?: ScanScopeItemIPRange.TypeEnum;
+    type?: AlScanScopeItemIPRange.TypeEnum;
 }
-export namespace ScanScopeItemIPRange {
+export namespace AlScanScopeItemIPRange {
     export type TypeEnum = 'ip_range';
     export const typeEnum = {
         Range: 'ip_range' as TypeEnum

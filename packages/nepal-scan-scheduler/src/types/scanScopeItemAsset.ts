@@ -1,6 +1,6 @@
-import { ScanScopeItem } from './scanScopeItem';
+import { AlScanScopeItem } from './scanScopeItem';
 
-export interface ScanScopeItemAsset extends ScanScopeItem {
+export interface AlScanScopeItemAsset extends AlScanScopeItem {
     /**
      * Specifies the type of the asset added to the scan scope.
      * Following asset types are supported:
@@ -11,11 +11,11 @@ export interface ScanScopeItemAsset extends ScanScopeItem {
      * - `subnet`
      * - `host`
      */
-    asset_type?: ScanScopeItemAsset.AssetTypeEnum;
+    asset_type?: AlScanScopeItemAsset.AssetTypeEnum;
     key: string;
-    type: ScanScopeItemAsset.TypeEnum;
+    type: AlScanScopeItemAsset.TypeEnum;
 }
-export namespace ScanScopeItemAsset {
+export namespace AlScanScopeItemAsset {
     export type AssetTypeEnum = 'deployment' | 'region' | 'network' | 'vpc' | 'subnet' | 'host';
     export const assetTypeEnum = {
         Deployment: 'deployment' as AssetTypeEnum,

@@ -1,10 +1,10 @@
-import { ScanWindow } from './scanWindow';
+import { AlScanWindow } from './scanWindow';
 
 /**
  * Scan window for continuous period between two days of month, with start time/day and end time/day.
  */
-export interface ScanWindowContinuousPeriodMonthly extends ScanWindow {
-    type: ScanWindowContinuousPeriodMonthly.TypeEnum;
+export interface AlScanWindowContinuousPeriodMonthly extends AlScanWindow {
+    type: AlScanWindowContinuousPeriodMonthly.TypeEnum;
     /**
      * Day of month when continuous scanning window commences (`1 - 31`).
      * If selected day is not applicable to the month, the nearest date will be used instead.
@@ -28,7 +28,7 @@ export interface ScanWindowContinuousPeriodMonthly extends ScanWindow {
      */
     end_time: string;
 }
-export namespace ScanWindowContinuousPeriodMonthly {
+export namespace AlScanWindowContinuousPeriodMonthly {
     export type TypeEnum = 'monthly_period';
     export const typeEnum = {
         Period: 'monthly_period' as TypeEnum

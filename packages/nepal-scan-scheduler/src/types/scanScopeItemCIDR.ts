@@ -1,10 +1,10 @@
-import { ScanScopeItem } from './scanScopeItem';
+import { AlScanScopeItem } from './scanScopeItem';
 
-export interface ScanScopeItemCIDR extends ScanScopeItem {
+export interface AlScanScopeItemCIDR extends AlScanScopeItem {
     value: string;
-    type?: ScanScopeItemCIDR.TypeEnum;
+    type?: AlScanScopeItemCIDR.TypeEnum;
 }
-export namespace ScanScopeItemCIDR {
+export namespace AlScanScopeItemCIDR {
     export type TypeEnum = 'cidr';
     export const typeEnum = {
         Cidr: 'cidr' as TypeEnum
