@@ -4,4 +4,4 @@ import { AlScanSchedulerClientInstanceV2 } from './al-scan-scheduler-client.v2';
 export * from './al-scan-scheduler-client.v2';
 export * from './types/models';
 /* tslint:disable:variable-name */
-export const AlScanSchedulerClient = AlGlobalizer.instantiate( "AlScanSchedulerClient", () => new AlScanSchedulerClientInstanceV2() );
+export const AlScanSchedulerClientV2 = AlGlobalizer.instantiate( "AlScanSchedulerClientV2", () => new AlScanSchedulerClientInstanceV2() );

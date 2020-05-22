@@ -4,10 +4,10 @@
  * concrete asset i.e. `deployment`, `network`, `subnet`, `host`, or can be an abstract asset
  * qualificator such as `IP` range, `CIDR` range or a `tag`.
  */
-export interface ScanScopeItem {
-    type?: ScanScopeItem.TypeEnum;
+export interface AlScanScopeItem {
+    type?: AlScanScopeItem.TypeEnum;
 }
-export namespace ScanScopeItem {
+export namespace AlScanScopeItem {
     export type TypeEnum = 'asset' | 'cidr' | 'ip_range' | 'tag';
     export const typeEnum = {
         Asset: 'asset' as TypeEnum,

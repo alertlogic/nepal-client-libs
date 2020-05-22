@@ -1,7 +1,7 @@
 /**
  * Provides a summary of outcomes for a given schedule `id`. For instance what is the scope of the schedule, its status, and SLA.
  */
-export interface ScheduleSummary {
+export interface AlScanScheduleSummary {
     /**
      * The total number of scannable hosts that are in the scope of a given schedule.
      */
@@ -22,9 +22,9 @@ export interface ScheduleSummary {
      * Timestamp describing the next planned scan execution within the scope of  the schedule.
      */
     next_scan_date?: Date;
-    status?: ScheduleSummary.StatusEnum;
+    status?: AlScanScheduleSummary.StatusEnum;
 }
-export namespace ScheduleSummary {
+export namespace AlScanScheduleSummary {
     export type StatusEnum = 'disabled' | 'idle' | 'in_progress';
     export const statusEnum = {
         Disabled: 'disabled' as StatusEnum,

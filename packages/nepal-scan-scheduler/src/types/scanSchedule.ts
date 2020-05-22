@@ -1,14 +1,14 @@
-import { AuditObject } from './auditObject';
-import { ScanScope } from './scanScope';
-import { ScanWindowContinuousPeriodMonthly } from './scanWindowContinuousPeriodMonthly';
-import { ScanWindowContinuousPeriodWeekly } from './scanWindowContinuousPeriodWeekly';
-import { ScanWindowSelectedDaysOfMonth } from './scanWindowSelectedDaysOfMonth';
-import { ScanWindowSelectedDaysOfWeek } from './scanWindowSelectedDaysOfWeek';
+import { AlAuditObject } from './auditObject';
+import { AlScanScope } from './scanScope';
+import { AlScanWindowContinuousPeriodMonthly } from './scanWindowContinuousPeriodMonthly';
+import { AlScanWindowContinuousPeriodWeekly } from './scanWindowContinuousPeriodWeekly';
+import { AlScanWindowSelectedDaysOfMonth } from './scanWindowSelectedDaysOfMonth';
+import { AlScanWindowSelectedDaysOfWeek } from './scanWindowSelectedDaysOfWeek';
 
 /**
  * Scan Schedule definition.
  */
-export interface Schedule {
+export interface AlScanSchedule {
     readonly id?: string;
     name?: string;
     /**
@@ -28,7 +28,7 @@ export interface Schedule {
      *               Used primarily to find active hosts in networks that are in the scope of protection of the deployment.
      *               Primary target are assets of network or vpc type.
      */
-    type_of_scan?: Schedule.TypeOfScanEnum;
+    type_of_scan?: AlScanSchedule.TypeOfScanEnum;
     /**
      * Specifies the SLA period of how frequently consecutive scans should target individual targets within the deployment.
      * Depending on characteristicts of the workload or its compliance and security requirements,
@@ -40,7 +40,7 @@ export interface Schedule {
      * (e.g. daily over weekly) will be respected for both schedules and union of `scan_windows` will be considered
      * as time periods when scans will be allowed to occur.
      */
-    scan_frequency?: Schedule.ScanFrequencyEnum;
+    scan_frequency?: AlScanSchedule.ScanFrequencyEnum;
     /**
      * Specifies the time periods when the Scan Schedule should be active.
      * Please note there are four types of `scan_windows`, defined as following models:
@@ -50,16 +50,16 @@ export interface Schedule {
      * - `ScanWindowContinuousPeriodMonthly`
      * For details please refer to the documentation of the above models.
      */
-    scan_windows?: (ScanWindowSelectedDaysOfWeek | ScanWindowSelectedDaysOfMonth | ScanWindowContinuousPeriodWeekly | ScanWindowContinuousPeriodMonthly)[];
+    scan_windows?: (AlScanWindowSelectedDaysOfWeek | AlScanWindowSelectedDaysOfMonth | AlScanWindowContinuousPeriodWeekly | AlScanWindowContinuousPeriodMonthly)[];
     /**
      * Specifies what assets are considered to be scanned within designated periods defined by `scan_windows` parameter,
      * setting the SLA as specified by `scan_frequency` parameter.
      */
-    scan_scope?: ScanScope;
-    created?: AuditObject;
-    modified?: AuditObject;
+    scan_scope?: AlScanScope;
+    created?: AlAuditObject;
+    modified?: AlAuditObject;
 }
-export namespace Schedule {
+export namespace AlScanSchedule {
     export type TypeOfScanEnum = 'vulnerability' | 'external' | 'discovery';
     export const typeOfScanEnum = {
         Vulnerability: 'vulnerability' as TypeOfScanEnum,

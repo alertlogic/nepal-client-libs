@@ -7,8 +7,8 @@ import {
 } from '@al/core';
 
 import {
-    Schedule,
-    ScheduleSummary
+    AlScanSchedule,
+    AlScanScheduleSummary
 } from './types/models';
 
 export class AlScanSchedulerClientInstanceV2 {
@@ -18,7 +18,7 @@ export class AlScanSchedulerClientInstanceV2 {
     /**
      *  Lists scan schedules that belong to a particular deployment
      */
-    async getScanSchedulesList(accountId: string, deploymentId: string, params = {}): Promise<Schedule[]> {
+    async getScanSchedulesList(accountId: string, deploymentId: string, params = {}): Promise<AlScanSchedule[]> {
          return AlDefaultClient.get({
              service_name: this.serviceName,
              version:      2,
@@ -31,7 +31,7 @@ export class AlScanSchedulerClientInstanceV2 {
     /**
      *  Create new Scan Schedule for a given deployment
      */
-    async createScanSchedule(accountId: string, deploymentId: string, schedule: Schedule): Promise<Schedule> {
+    async createScanSchedule(accountId: string, deploymentId: string, schedule: AlScanSchedule): Promise<AlScanSchedule> {
         const result = await AlDefaultClient.post({
             service_name: this.serviceName,
             version:      2,
@@ -48,7 +48,7 @@ export class AlScanSchedulerClientInstanceV2 {
     /**
      *  Returns the scan schedule definition for a given id
      */
-    async getScanSchedule(accountId: string, deploymentId: string, scheduleId: string): Promise<Schedule> {
+    async getScanSchedule(accountId: string, deploymentId: string, scheduleId: string): Promise<AlScanSchedule> {
         return AlDefaultClient.get({
             service_name: this.serviceName,
             version:      2,
@@ -72,7 +72,7 @@ export class AlScanSchedulerClientInstanceV2 {
     /**
      *   Updates a selected scan schedule
      */
-    async updateScanSchedule(accountId: string, deploymentId: string, scheduleId: string, schedule: Schedule): Promise<Schedule> {
+    async updateScanSchedule(accountId: string, deploymentId: string, scheduleId: string, schedule: AlScanSchedule): Promise<AlScanSchedule> {
         const result = await AlDefaultClient.put({
             service_name: this.serviceName,
             version:      2,
@@ -90,7 +90,7 @@ export class AlScanSchedulerClientInstanceV2 {
     /**
      *  Get scan schedule summary by ID
      */
-    async getScanScheduleSummary(accountId: string, deploymentId: string, scheduleId: string, params = {}): Promise<ScheduleSummary> {
+    async getScanScheduleSummary(accountId: string, deploymentId: string, scheduleId: string, params = {}): Promise<AlScanScheduleSummary> {
         return AlDefaultClient.get({
             service_name: this.serviceName,
             version:      2,

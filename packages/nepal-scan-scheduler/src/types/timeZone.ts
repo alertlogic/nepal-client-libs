@@ -1,5 +1,5 @@
 /**
  * Time zone object. TBD
  */
-export interface TimeZone {
+export interface AlTimeZone {
 }

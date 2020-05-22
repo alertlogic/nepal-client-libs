@@ -1,12 +1,12 @@
-import { ScanWindow } from './scanWindow';
+import { AlScanWindow } from './scanWindow';
 
 /**
  * Scan window for selected days of month, with daily start and end times.
  * Effectively the window will be active every day according to `days_of_month` list,
  * between specified times `start_time` and `end_time`.
  */
-export interface ScanWindowSelectedDaysOfMonth extends ScanWindow {
-    type: ScanWindowSelectedDaysOfMonth.TypeEnum;
+export interface AlScanWindowSelectedDaysOfMonth extends AlScanWindow {
+    type: AlScanWindowSelectedDaysOfMonth.TypeEnum;
     /**
      * Time of day when recurring scanning window commences (24h format)
      */
@@ -23,7 +23,7 @@ export interface ScanWindowSelectedDaysOfMonth extends ScanWindow {
      */
     days_of_month: number[];
 }
-export namespace ScanWindowSelectedDaysOfMonth {
+export namespace AlScanWindowSelectedDaysOfMonth {
     export type TypeEnum = 'days_of_month';
     export const typeEnum = {
         Month: 'days_of_month' as TypeEnum

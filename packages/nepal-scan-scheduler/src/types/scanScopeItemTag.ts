@@ -1,11 +1,11 @@
-import { ScanScopeItem } from './scanScopeItem';
+import { AlScanScopeItem } from './scanScopeItem';
 
-export interface ScanScopeItemTag extends ScanScopeItem {
+export interface AlScanScopeItemTag extends AlScanScopeItem {
     key?: string;
     value?: string;
-    type?: ScanScopeItemTag.TypeEnum;
+    type?: AlScanScopeItemTag.TypeEnum;
 }
-export namespace ScanScopeItemTag {
+export namespace AlScanScopeItemTag {
     export type TypeEnum = 'tag';
     export const typeEnum = {
         Tag: 'tag' as TypeEnum
