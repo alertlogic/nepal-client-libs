@@ -19,6 +19,7 @@ import {
   AlHeraldTestWebhookPayload,
   AlHeraldTestWebhookResponse,
   AlHeraldTestEmailPayload,
+  AlHeraldTestJiraPayload,
 } from './types/index';
 
 export class AlHeraldClientInstanceV2 extends AlHeraldClientInstance {
@@ -418,7 +419,10 @@ export class AlHeraldClientInstanceV2 extends AlHeraldClientInstance {
      * @remarks
      * https://console.account.product.dev.alertlogic.com/users/api/herald/index.html#api-Test_Endpoints-Webhook_test
      */
-    async testIntegration(accountId: string, integrationType:string, payload: AlHeraldTestWebhookPayload | AlHeraldTestEmailPayload): Promise<AlHeraldTestWebhookResponse> {
+    async testIntegration(accountId: string,
+            integrationType:string,
+            payload: AlHeraldTestWebhookPayload | AlHeraldTestEmailPayload | AlHeraldTestJiraPayload
+        ): Promise<AlHeraldTestWebhookResponse> {
         return this.client.post<AlHeraldTestWebhookResponse>({
             service_name: this.serviceName,
             version: this.serviceVersion,
