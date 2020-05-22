@@ -1,3 +1,4 @@
+export * from './auditObject';
 export * from './scanScope';
 export * from './scanScopeItem';
 export * from './scanScopeItemAsset';
