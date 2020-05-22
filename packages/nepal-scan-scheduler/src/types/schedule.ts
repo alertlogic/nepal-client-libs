@@ -1,3 +1,4 @@
+import { AuditObject } from './auditObject';
 import { ScanScope } from './scanScope';
 import { ScanWindowContinuousPeriodMonthly } from './scanWindowContinuousPeriodMonthly';
 import { ScanWindowContinuousPeriodWeekly } from './scanWindowContinuousPeriodWeekly';
@@ -55,6 +56,8 @@ export interface Schedule {
      * setting the SLA as specified by `scan_frequency` parameter.
      */
     scan_scope?: ScanScope;
+    created?: AuditObject;
+    modified?: AuditObject;
 }
 export namespace Schedule {
     export type TypeOfScanEnum = 'vulnerability' | 'external' | 'discovery';
