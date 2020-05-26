@@ -255,7 +255,7 @@ class SuggestionsClient {
      * Update the search template with the given ID. All body parameters are optional, but at least one should be given.
      */
     async updateSearchTemplate(accountId: string, templateId: string, template: SearchTemplate): Promise<any> {
-        return this.client.put({
+        return this.client.post({
             service_name: this.serviceName,
             account_id: accountId,
             path: `/templates/${templateId}`,
@@ -333,7 +333,7 @@ class SuggestionsClient {
         groupId: string,
         group: SavedGroup,
     ): Promise<any> {
-        return await this.client.put({
+        return await this.client.post({
             service_name: this.serviceName,
             account_id: accountId,
             path: `/groups/${objectType}/${groupId}`,

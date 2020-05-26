@@ -6,9 +6,11 @@ export interface CreateSavedQueryParams {
 }
 
 export interface UpdateSavedQueryParams {
+  data_type?: string;
   group_id?: string;
   name?: string;
   search_request?: any;
+  deleted?: boolean;
 }
 
 export interface SavedQuery {
@@ -19,7 +21,7 @@ export interface SavedQuery {
   description?: string;
   data_type:string;
   search_request: any;
-  deleted: boolean;
+  deleted?: boolean;
 }
 
 export interface FetchQueriesResponse {
@@ -184,7 +186,7 @@ export interface SearchTemplate {
   description?: string;
   group_id?: string;
   search_request?: any;
-  deleted: boolean;
+  deleted?: boolean;
   created?: UserTimeStamp;
   modified?: UserTimeStamp;
 }
