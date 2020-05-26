@@ -8,7 +8,12 @@ import {
 
 import {
     AlScanSchedule,
-    AlScanScheduleSummary
+    AlScanScheduleSummary,
+    AlScanScopeItemAsset,
+    AlIPValidationResult,
+    AlScanScopeItemIPRange,
+    AlScanScopeItemCIDR,
+    AlTimeZone
 } from './types/models';
 
 export class AlScanSchedulerClientInstanceV2 {
@@ -98,5 +103,44 @@ export class AlScanSchedulerClientInstanceV2 {
             path:         `/${deploymentId}/schedules/${scheduleId}/summary`,
             params:       params
         });
+    }
+
+    /**
+     *  Expedites scan for all the scannable targets that are descendants of a given
+     *  level of the topology (for example all hosts belonging to a given subnet)
+     */
+    async scanNow(accountId: string, deploymentId: string, scanScopeItem: AlScanScopeItemAsset) {
+        return AlDefaultClient.put({
+            service_name: this.serviceName,
+            version:      2,
+            account_id:   accountId,
+            path:         `/${deploymentId}/scan`,
+            data:         scanScopeItem
+        });
+    }
+
+    /**
+     *  Validates a list of supplied IP Addresses, checking for their correctness.
+     *  This API always returns 200 OK status and provides the results of validation using two arrays with respective status (valid/invalid).
+     *  IP Addresses that are present in the valid list can be subsequently used as applicable ScanScopeItems.
+     */
+    async validateIp(ips: (AlScanScopeItemIPRange|AlScanScopeItemCIDR)[]): Promise<AlIPValidationResult> {
+        return AlDefaultClient.post({
+            service_name: this.serviceName,
+            version:      2,
+            path:         `/ip_validator`,
+            data:         ips
+        });
+    }
+
+    /**
+     *  Lists supported timezones that can be used in ScanWindow definition
+     */
+    async getTimeZonesList(): Promise<AlTimeZone[]> {
+         return AlDefaultClient.get({
+             service_name: this.serviceName,
+             version:      2,
+             path:         `/timezones`
+         });
     }
 }
