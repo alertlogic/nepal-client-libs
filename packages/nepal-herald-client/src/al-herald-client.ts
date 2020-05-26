@@ -12,7 +12,9 @@ import {
     AlHeraldAccountSubscriptionKey,
     AlHeraldAccountSubscriptionKeyPayload,
     AlHeraldIntegration,
-    AlHeraldIntegrationPayload,
+    AlHeraldIntegrationWebhookPayload,
+    AlHeraldIntegrationEmailPayload,
+    AlHeraldIntegrationJiraPayload,
     AlHeraldIntegrationTypes,
     AlHeraldNotification,
     AlHeraldNotificationByAccountId,
@@ -454,7 +456,10 @@ Header"
      *
      * @remarks https://console.account.product.dev.alertlogic.com/users/api/herald/index.html#api-Integrations-CreateAccountIntegration
      */
-    async createIntegration(accountId: string, type: string, payload: AlHeraldIntegrationPayload): Promise<AlHeraldIntegration> {
+    async createIntegration(accountId: string,
+            type: string,
+            payload: AlHeraldIntegrationWebhookPayload | AlHeraldIntegrationEmailPayload | AlHeraldIntegrationJiraPayload
+        ): Promise<AlHeraldIntegration> {
         return this.client.post<AlHeraldIntegration>({
             service_name: this.serviceName,
             version: this.serviceVersion,
@@ -564,7 +569,10 @@ Header"
      * @remarks
      * https://console.account.product.dev.alertlogic.com/users/api/herald/index.html#api-Integrations-UpdateAccountIntegration
      */
-    async updateIntegration(accountId: string, integrationId: string, payload: AlHeraldIntegrationPayload) : Promise<AlHeraldIntegration> {
+    async updateIntegration(accountId: string,
+            integrationId: string,
+            payload: AlHeraldIntegrationWebhookPayload | AlHeraldIntegrationEmailPayload | AlHeraldIntegrationJiraPayload
+        ) : Promise<AlHeraldIntegration> {
         return this.client.put<AlHeraldIntegration>({
             service_name: this.serviceName,
             version: this.serviceVersion,

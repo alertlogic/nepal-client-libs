@@ -1,8 +1,8 @@
 {
-  "name": "@al/assets-query",
-  "version": "2.0.9",
+  "name": "@al/themis",
+  "version": "1.0.0",
   "license": "MIT",
-  "description": "A client for interacting with the Alert Logic Assets Query Public API",
+  "description": "A client for interacting with the Alert Logic Themis Public API",
   "author": {
     "name": "Alert Logic UI Team",
     "email": "ui@alertlogic.com"
@@ -28,22 +28,20 @@
   "module": "./dist/index.esm5.js",
   "es2015": "./dist/index.esm2015.js",
   "scripts": {
-    "test": "karma start",
+    "test": "echo \"Error: no test specified\"",
     "test-watch": "karma start --no-single-run --auto-watch",
+    "build-dev": "npm run clean &&  tsc && webpack --mode=development",
     "build": "rollup -c ../../rollup.config.ts",
     "prebuild": "npm run clean && npm run lint && npm run test",
     "lint": "tslint -p tsconfig.json -c ../../tslint.json",
     "clean": "rm -rf dist",
-    "prepublishOnly": "npm run build",
-    "interactive": "npm run build && node -i -e \"const AssetsQueryClient = require('./dist/commonjs/index.js').AssetsQueryClient;\""
+    "prepublishOnly": "npm run build"
   },
   "dependencies": {
-    "@al/core": "^1.0.12",
-    "@al/sources": "^1.0.0"
+    "@al/core": "^1.0.12"
   },
   "peerDependencies": {
-    "@al/core": "^1.0.12",
-    "@al/sources": "^1.0.0"
+    "@al/core": "^1.0.12"
   },
   "files": [
     "dist"

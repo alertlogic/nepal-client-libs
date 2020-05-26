@@ -94,9 +94,11 @@ export interface AlApplicationConfig {
 interface AlBaseApplication {
     id: string;
     name: string;
+    type?: string;
     created: AlChangeStamp;
     modified: AlChangeStamp;
     config?: AlApplicationConfig;
+    attributes?: string[];
 }
 
 export interface AlOptionFormApplication {
@@ -123,10 +125,8 @@ export interface AlFormApplication {
 export interface AlApplication extends AlBaseApplication {
     name: string;
     enabled?: boolean;
-    attributes?: string[];
     description?: string[];
     form: AlFormApplication;
-    type?: string;
 }
 
 export interface AlRule extends AlBaseApplication {
