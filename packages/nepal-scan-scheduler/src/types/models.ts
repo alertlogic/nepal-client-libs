@@ -1,4 +1,5 @@
 export * from './auditObject';
+export * from './iPValidationResult';
 export * from './scanScope';
 export * from './scanScopeItem';
 export * from './scanScopeItemAsset';
