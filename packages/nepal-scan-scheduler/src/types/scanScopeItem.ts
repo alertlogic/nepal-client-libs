@@ -8,10 +8,11 @@ export interface AlScanScopeItem {
     type?: AlScanScopeItem.TypeEnum;
 }
 export namespace AlScanScopeItem {
-    export type TypeEnum = 'asset' | 'cidr' | 'ip_range' | 'tag';
+    export type TypeEnum = 'asset' | 'cidr' | 'ip_address' | 'ip_range' | 'tag';
     export const typeEnum = {
         Asset: 'asset' as TypeEnum,
         Cidr: 'cidr' as TypeEnum,
+        IpAddress: 'ip_address' as TypeEnum,
         IpRange: 'ip_range' as TypeEnum,
         Tag: 'tag' as TypeEnum
     };
