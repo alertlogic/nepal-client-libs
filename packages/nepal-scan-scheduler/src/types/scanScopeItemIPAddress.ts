@@ -1,6 +1,6 @@
 import { AlScanScopeItem } from './scanScopeItem';
 
-export interface AlScanScopeItemIPAddress extends AlScanScopeItem { 
+export interface AlScanScopeItemIPAddress extends AlScanScopeItem {
     value: string;
     type?: AlScanScopeItemIPAddress.TypeEnum;
 }
