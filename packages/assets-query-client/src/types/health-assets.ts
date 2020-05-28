@@ -52,6 +52,7 @@ export interface HealthAssetHost {
     health_level?: number;
     instance_id?: string;
     instance_name?: string;
+    instance_type?: string;
     ip_address?: string;
     key?: string;
     name?: string;
@@ -63,6 +64,11 @@ export interface HealthAssetHost {
     public_ip_addresses?: string[];
     public_ipv4_addresses?: string[];
     public_ipv6_addresses?: string[];
+    last_scan_time?: number;
+    launch_time?:number;
+    architecture?: string;
+    availability_zone?: string;
+    state?: string;
     tags?:  {
         [key: string]: string;
     };
