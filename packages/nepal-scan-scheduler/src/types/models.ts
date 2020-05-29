@@ -4,6 +4,7 @@ export * from './scanScope';
 export * from './scanScopeItem';
 export * from './scanScopeItemAsset';
 export * from './scanScopeItemCIDR';
+export * from './scanScopeItemIPAddress';
 export * from './scanScopeItemIPRange';
 export * from './scanScopeItemTag';
 export * from './scanWindow';
