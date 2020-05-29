@@ -63,6 +63,10 @@ export interface HealthSummaryResponse {
         coverage?: HealthCoverage;
         health?: HealthScores;
     };
+    collectors?: {
+        coverage?: HealthCoverage;
+        health?: HealthScores;
+    };
 }
 export interface FindAssetParams {
     uuid: string;
