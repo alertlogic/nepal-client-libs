@@ -15,6 +15,8 @@ export interface HealthAssetVPC {
     unhealthiness?: number;
     vpc_id?: string;
     vpc_name?: string;
+    created_on?: number;
+    modified_on?: number;
 }
 
 export interface HealthAssetRemediation {
@@ -52,6 +54,7 @@ export interface HealthAssetHost {
     health_level?: number;
     instance_id?: string;
     instance_name?: string;
+    instance_type?: string;
     ip_address?: string;
     key?: string;
     name?: string;
@@ -63,6 +66,11 @@ export interface HealthAssetHost {
     public_ip_addresses?: string[];
     public_ipv4_addresses?: string[];
     public_ipv6_addresses?: string[];
+    last_scan_time?: number;
+    launch_time?:number;
+    architecture?: string;
+    availability_zone?: string;
+    state?: string;
     tags?:  {
         [key: string]: string;
     };
@@ -70,6 +78,8 @@ export interface HealthAssetHost {
     threatiness?: number;
     type?: string;
     unhealthiness?: number;
+    created_on?: number;
+    modified_on?: number;
 }
 
 export interface HealthAssetAgent {
@@ -140,6 +150,8 @@ export interface HealthAssetAppliance {
     threat_level?: number;
     threatiness?: number;
     type?: string;
+    created_on?: number;
+    modified_on?: number;
 }
 
 export interface HealthAssetDeployment {
