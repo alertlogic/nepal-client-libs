@@ -15,6 +15,8 @@ export interface HealthAssetVPC {
     unhealthiness?: number;
     vpc_id?: string;
     vpc_name?: string;
+    created_on?: number;
+    modified_on?: number;
 }
 
 export interface HealthAssetRemediation {
@@ -76,6 +78,8 @@ export interface HealthAssetHost {
     threatiness?: number;
     type?: string;
     unhealthiness?: number;
+    created_on?: number;
+    modified_on?: number;
 }
 
 export interface HealthAssetAgent {
@@ -146,6 +150,8 @@ export interface HealthAssetAppliance {
     threat_level?: number;
     threatiness?: number;
     type?: string;
+    created_on?: number;
+    modified_on?: number;
 }
 
 export interface HealthAssetDeployment {
