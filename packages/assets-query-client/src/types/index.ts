@@ -6,7 +6,8 @@ import {
     HealthAssetAppliance,
     HealthAssetAgent,
     HealthListItem,
-    HealthResponseFilters
+    HealthResponseFilters,
+    HealthAssetCollector
 } from './health-assets';
 
 export * from './assets';
@@ -33,7 +34,8 @@ export interface HealthResponse {
                        HealthAssetDeployment |
                        HealthAssetAppliance |
                        HealthAssetAgent |
-                       HealthAssetHost
+                       HealthAssetHost |
+                       HealthAssetCollector
     };
     filters?: HealthResponseFilters;
     list?: HealthListItem[];

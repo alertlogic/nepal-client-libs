@@ -154,6 +154,28 @@ export interface HealthAssetAppliance {
     modified_on?: number;
 }
 
+export interface HealthAssetCollector {
+    name?: string;
+    key?: string;
+    type?: string;
+    created_on?: number;
+    modified_on?: number;
+    
+    collector_uuid?: string;
+    collector_type?: string;
+    collector_datatype?: string;
+    collector_platform?: string;
+    collector_platform_id?: string;
+    collector_region?: string;
+    collector_name?: string;
+    collector_fullname?: string;
+    application?: string;
+    application_id?: string;
+    native_id?: string;
+    status?: string;
+    status_updated?: string;
+}
+
 export interface HealthAssetDeployment {
     account_id?: string;
     created_on?: number;
