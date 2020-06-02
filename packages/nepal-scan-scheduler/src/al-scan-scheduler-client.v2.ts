@@ -108,14 +108,18 @@ export class AlScanSchedulerClientInstanceV2 {
     /**
      *  Expedites scan for all the scannable targets that are descendants of a given
      *  level of the topology (for example all hosts belonging to a given subnet)
+     *
+     *  @force param: Allows to override the exclusion rules applied to selected targets.
+     *                Otherwise exclusion rules take precedence over expedited scan.
      */
-    async scanNow(accountId: string, deploymentId: string, scanScopeItem: AlScanScopeItemAsset) {
+    async scanNow(accountId: string, deploymentId: string, scanScopeItem: AlScanScopeItemAsset, params: {force: boolean} = {force: false}) {
         return AlDefaultClient.put({
             service_name: this.serviceName,
             version:      2,
             account_id:   accountId,
             path:         `/${deploymentId}/scan`,
-            data:         scanScopeItem
+            data:         scanScopeItem,
+            params: params
         });
     }
 

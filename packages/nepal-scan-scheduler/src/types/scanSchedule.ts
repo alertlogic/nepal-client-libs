@@ -30,6 +30,14 @@ export interface AlScanSchedule {
      */
     type_of_scan?: AlScanSchedule.TypeOfScanEnum;
     /**
+     * Name of the timezone that should be used for the ScanSchedule object.
+     * The list of all supported timezones can be obtained with `/scheduler/v2/timezones` API.
+     * Accepted values are derived from `Timezone.tz_name` field.
+     * Please note Daylight Saving Time will be observed and applied automatically, depending on a specified value.
+     * This field is optional with `null` value defaulting to `UTC` time zone.
+     */
+    timezone?: string;
+    /**
      * Specifies the SLA period of how frequently consecutive scans should target individual targets within the deployment.
      * Depending on characteristicts of the workload or its compliance and security requirements,
      * different targets (e.g. hosts, external ip addresses, networks) of a certain scanning scope
