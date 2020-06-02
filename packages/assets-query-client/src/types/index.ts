@@ -134,6 +134,8 @@ export interface ExposureQueryParams {
     sort?: string;
     limit?: number;
     scope?: boolean;
+    concluded?: boolean;
+    disposed?: boolean;
 }
 export interface ExposuresQueryResponse {
     summary?: {
