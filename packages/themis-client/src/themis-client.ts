@@ -7,7 +7,7 @@ import {
 } from '@al/core';
 
 export interface ThemisRoleDocument {
-  type?: 'ci_full' | 'cd_full' | 'ci_x_account_ct' | 'ci_readonly' | 'ci_essentials';
+  type?: 'ci_full' | 'cd_full' | 'ci_x_account_ct' | 'ci_readonly' | 'ci_essentials' | 'ci_manual';
   platform_type?: 'aws' | 'azure';
   policy_document?: any;
   external_id?: string;
@@ -22,7 +22,7 @@ export interface ThemisRoleDocument {
 
 export interface AWSRole {
   platform_type: 'aws';
-  role_type: 'ci_full' | 'cd_full' | 'ci_x_account_ct' | 'ci_readonly' | 'ci_essentials';
+  role_type: 'ci_full' | 'cd_full' | 'ci_x_account_ct' | 'ci_readonly' | 'ci_essentials' | 'ci_manual';
   role_version?: string;
   arn?: string;
   external_id?: string;
@@ -44,13 +44,14 @@ class ThemisClient {
 
   async getRole(
       accountId: string,
-      roleType: 'ci_full' | 'cd_full' | 'ci_x_account_ct' | 'ci_readonly' | 'ci_essentials',
-      platformType: 'aws' | 'azure'
+      platformType: 'aws' | 'azure',
+      roleType: 'ci_full' | 'cd_full' | 'ci_x_account_ct' | 'ci_readonly' | 'ci_essentials' | 'ci_manual',
+      roleVersion: string
   ) {
       const role = await this.client.fetch({
           service_name: this.serviceName,
           account_id: accountId,
-          path: `/roles/${platformType}/${roleType}/latest`,
+          path: `/roles/${platformType}/${roleType}/${roleVersion}`,
       });
       return role as ThemisRoleDocument;
   }
