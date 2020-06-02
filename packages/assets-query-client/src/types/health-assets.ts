@@ -160,7 +160,7 @@ export interface HealthAssetCollector {
     type?: string;
     created_on?: number;
     modified_on?: number;
-    
+
     collector_uuid?: string;
     collector_type?: string;
     collector_datatype?: string;

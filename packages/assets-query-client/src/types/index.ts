@@ -24,6 +24,7 @@ export {
     HealthAssetHealthLevel,
     HealthAssetProtectionPolicy,
     HealthAssetCategory,
+    HealthAssetCollector,
     HealthResponseFilters
 } from './health-assets';
 
