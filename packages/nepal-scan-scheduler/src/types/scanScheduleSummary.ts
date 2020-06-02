@@ -25,10 +25,11 @@ export interface AlScanScheduleSummary {
     status?: AlScanScheduleSummary.StatusEnum;
 }
 export namespace AlScanScheduleSummary {
-    export type StatusEnum = 'disabled' | 'idle' | 'in_progress';
+    export type StatusEnum = 'disabled' | 'idle' | 'in_progress' | 'stopped';
     export const statusEnum = {
         Disabled: 'disabled' as StatusEnum,
         Idle: 'idle' as StatusEnum,
-        InProgress: 'in_progress' as StatusEnum
+        InProgress: 'in_progress' as StatusEnum,
+        Stopped: 'stopped' as StatusEnum
     };
 }
