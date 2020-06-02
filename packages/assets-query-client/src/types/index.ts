@@ -6,7 +6,8 @@ import {
     HealthAssetAppliance,
     HealthAssetAgent,
     HealthListItem,
-    HealthResponseFilters
+    HealthResponseFilters,
+    HealthAssetCollector
 } from './health-assets';
 
 export * from './assets';
@@ -23,6 +24,7 @@ export {
     HealthAssetHealthLevel,
     HealthAssetProtectionPolicy,
     HealthAssetCategory,
+    HealthAssetCollector,
     HealthResponseFilters
 } from './health-assets';
 
@@ -33,7 +35,8 @@ export interface HealthResponse {
                        HealthAssetDeployment |
                        HealthAssetAppliance |
                        HealthAssetAgent |
-                       HealthAssetHost
+                       HealthAssetHost |
+                       HealthAssetCollector
     };
     filters?: HealthResponseFilters;
     list?: HealthListItem[];
@@ -131,6 +134,8 @@ export interface ExposureQueryParams {
     sort?: string;
     limit?: number;
     scope?: boolean;
+    concluded?: boolean;
+    disposed?: boolean;
 }
 export interface ExposuresQueryResponse {
     summary?: {
