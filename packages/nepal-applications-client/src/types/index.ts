@@ -135,6 +135,7 @@ export interface AlRule extends AlBaseApplication {
     application_id: string;
     account_id: string;
     enabled?: boolean;
+    default?: boolean;
     parameters?: {[i: string]: any};
     search_by?: {[i: string]: any}[];
 }
