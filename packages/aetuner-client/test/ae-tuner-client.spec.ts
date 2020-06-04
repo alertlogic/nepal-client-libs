@@ -12,7 +12,7 @@ beforeEach( () => {
 afterEach(() => {
   sinon.restore();
 });
-describe('Iris Client Test Suite:', () => {
+describe('AE Tuner Client Test Suite:', () => {
   describe('when getting elaborations', () => {
     let stub: sinon.SinonSpy;
     beforeEach(() => {
