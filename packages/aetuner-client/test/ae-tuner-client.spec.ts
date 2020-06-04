@@ -3,7 +3,7 @@ import { describe } from 'mocha';
 import * as sinon from 'sinon';
 import { AlAETunerClientInstance } from '../src/index';
 
-const serviceName = 'iris';
+const serviceName = 'aetuner';
 let aeTunerClient:AlAETunerClientInstance;
 
 beforeEach( () => {
