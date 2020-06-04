@@ -34,7 +34,7 @@
     "interactive": "npm run build && node -i -e \"const AETunerClient = require('./dist/commonjs/index.js').AETunerClient;\""
   },
   "dependencies": {
-    "@al/core": "git+ssh://git@github.com:ktjensen/nepal-core.git"
+    "@al/core": "^1.0.12"
   },
   "files": [
     "dist"

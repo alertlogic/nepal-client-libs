@@ -5,6 +5,12 @@ import {
     AlApiClient,
     AlDefaultClient,
 } from '@al/core';
+import {
+    AnalyticHandlingUpdateObject,
+    AnalyticInfo,
+    AnalyticUpdateObject,
+    HandlingSettings
+} from "./types/al-ae-tuner-client.type";
 
 export class AlAETunerClientInstance {
 
@@ -13,12 +19,157 @@ export class AlAETunerClientInstance {
     constructor(public client: AlApiClient = AlDefaultClient) {
     }
 
-    async getIncidents( accountId: string ) {
+    /**
+     * List Analytics for a given account
+     * @param accountId
+     * @param datatype Data type used for analytics generation. If this parameter omitted, analytics for all data types are returned.
+     * @param output What to include in the response.
+     */
+    async getAnalytics(accountId: string, datatype?: string, output?: string) {
         return this.client.get<any>({
             service_name: this.serviceName,
             account_id: accountId,
             version: 'v1',
             path: `/analytics`,
+            params: {
+                datatype,
+                output
+            }
+        });
+    }
+
+    /**
+     * Returns an analytic for a specific customer
+     * @param accountId
+     * @param analytic Analytic Fully Qualified Name
+     */
+    async getAnalytic(accountId: string, analytic: string):Promise<AnalyticInfo> {
+        return this.client.get<any>({
+            service_name: this.serviceName,
+            account_id: accountId,
+            version: 'v1',
+            path: `/analytics/${analytic}`
+        });
+    }
+
+    /**
+     * Update an analytic
+     * @param accountId
+     * @param update
+     * @param analytic Analytic Fully Qualified Name
+     */
+    async updateAnalytic(accountId: string, update: AnalyticUpdateObject, analytic: string):Promise<'Ok'> {
+        return this.client.post<any>({
+            service_name: this.serviceName,
+            account_id: accountId,
+            version: 'v1',
+            path: `/analytics/${analytic}`,
+            params: update
+        });
+    }
+
+    /**
+     * List all incident types for a specific customer
+     * @param accountId
+     */
+    async listIncidentTypes(accountId: string):Promise<Array<string>> {
+        return this.client.get<any>({
+            service_name: this.serviceName,
+            account_id: accountId,
+            version: 'v1',
+            path: `/incident_types`
+        });
+    }
+
+    /**
+     * Return incident type for a specific customer by it's name
+     * @param accountId
+     * @param incidentType Incident Type Fully Qualified Name
+     */
+    async getIncidentType(accountId: string, incidentType: string) {
+        return this.client.get<any>({
+            service_name: this.serviceName,
+            account_id: accountId,
+            version: 'v1',
+            path: `/incident_types/${incidentType}`
+        });
+    }
+
+    /**
+     *
+     * @param accountId
+     * @param update
+     * @param incidentType Incident Type Fully Qualified Name
+     */
+    async updateIncidentType(accountId, update: AnalyticUpdateObject, incidentType: string):Promise<'OK'> {
+        return this.client.post<any>({
+            service_name: this.serviceName,
+            account_id: accountId,
+            version: 'v1',
+            path: `/incident_types/${incidentType}`,
+            params: update
+        });
+    }
+
+
+    /**
+     * Returns a list of all incident handling settings for a given customer
+     * @param accountId
+     */
+    async listIncidentHandling(accountId: string):Promise<Array<HandlingSettings[]>> {
+        return this.client.get<any>({
+            service_name: this.serviceName,
+            account_id: accountId,
+            version: 'v1',
+            path: `/incident_handling`
+        });
+    }
+
+    /**
+     * Return incident type handling setting
+     * @param accountId
+     * @param incidentType Incident Type Fully Qualified Name
+     */
+    async getIncidentHandling(accountId: string, incidentType: string):Promise<HandlingSettings> {
+        return this.client.get<any>({
+            service_name: this.serviceName,
+            account_id: accountId,
+            version: 'v1',
+            path: `/incident_handling/${incidentType}`
+        });
+    }
+
+    /**
+     * Set Incident Type handling setting
+     * @param accountId
+     * @param update
+     * @param incidentType Incident Type Fully Qualified Name
+     *
+     * @returns Object with a `stored` key and a UUID value.
+     */
+    async updateIncidentHandling(accountId: string, update: AnalyticHandlingUpdateObject, incidentType: string):Promise<{stored: string}> {
+        return this.client.post<any>({
+            service_name: this.serviceName,
+            account_id: accountId,
+            version: 'v1',
+            path: `/incident_handling/${incidentType}`,
+            params: update
+        });
+    }
+
+    /**
+     * Delete Incident Handling setting
+     * @param accountId
+     * @param reason
+     * @param incidentType Incident Type Fully Qualified Name
+     */
+    async deleteIncidentHandling( accountId: string, reason: string, incidentType: string):Promise<{stored: string}> {
+        return this.client.post<any>({
+            service_name: this.serviceName,
+            account_id: accountId,
+            version: 'v1',
+            path: `/incident_handling/${incidentType}`,
+            params: { reason }
         });
     }
 
