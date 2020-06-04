@@ -22,7 +22,7 @@ describe('Iris Client Test Suite:', () => {
       stub.restore();
     });
     it('should call get() on the AlDefaultClient instance', async () => {
-      await aeTunerClient.getIncidents('1234');
+      await aeTunerClient.getAnalytics('1234');
       expect(stub.callCount).to.equal(1);
     });
   });
