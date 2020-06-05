@@ -167,6 +167,7 @@ export interface ExposureQueryResultItem {
     cve?: string;
     cvss_score?: number;
     cvss_vector?: string;
+    deployment_id?: string;
     deployment_ids?: string[];
     external?: boolean;
     name?: string;
