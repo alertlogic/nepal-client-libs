@@ -13,6 +13,7 @@ import { AlScanScopeItemAsset } from './scanScopeItemAsset';
 import { AlScanScopeItemCIDR } from './scanScopeItemCIDR';
 import { AlScanScopeItemIPRange } from './scanScopeItemIPRange';
 import { AlScanScopeItemTag } from './scanScopeItemTag';
+import { AlScanScopeItemIPAddress } from './scanScopeItemIPAddress';
 
 /**
  * Specifies what assets are considered to be scanned within designated periods defined by
@@ -24,5 +25,5 @@ export interface AlScanScope {
      * Values specified in `include` array will not be taken into account.
      */
     include_all_assets?: boolean;
-    include?: (AlScanScopeItemAsset | AlScanScopeItemCIDR | AlScanScopeItemIPRange | AlScanScopeItemTag)[];
+    include?: (AlScanScopeItemAsset | AlScanScopeItemCIDR | AlScanScopeItemIPRange | AlScanScopeItemTag | AlScanScopeItemIPAddress)[];
 }
