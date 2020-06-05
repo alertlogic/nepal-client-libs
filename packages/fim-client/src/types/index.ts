@@ -22,6 +22,7 @@ export interface AlFimAsset {
 }
 
 export interface AlFimConfiguration {
+    id: string;
     type: fimConfigType;
     base: string;
     pattern?: string;
@@ -33,6 +34,7 @@ export interface AlFimConfiguration {
     scope?: AlFimAsset[];
     created?: AlFimChangeStamp;
     modified?: AlFimChangeStamp;
+    system?: boolean;
 }
 
 
