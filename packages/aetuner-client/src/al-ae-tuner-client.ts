@@ -8,8 +8,10 @@ import {
 import {
     AnalyticHandlingUpdateObject,
     AnalyticInfo,
+    AnalyticListReturn,
     AnalyticUpdateObject,
-    HandlingSettings
+    HandlingSettings,
+    IncidentTypeInfo
 } from "./types/al-ae-tuner-client.type";
 
 export class AlAETunerClientInstance {
@@ -25,8 +27,8 @@ export class AlAETunerClientInstance {
      * @param datatype Data type used for analytics generation. If this parameter omitted, analytics for all data types are returned.
      * @param output What to include in the response.
      */
-    async getAnalytics(accountId: string, datatype?: string, output?: string) {
-        return this.client.get<any>({
+    async getAnalytics(accountId: string, datatype?: string, output?: string):Promise<AnalyticListReturn> {
+        return this.client.get<AnalyticListReturn>({
             service_name: this.serviceName,
             account_id: accountId,
             version: 'v1',
@@ -44,7 +46,7 @@ export class AlAETunerClientInstance {
      * @param analytic Analytic Fully Qualified Name
      */
     async getAnalytic(accountId: string, analytic: string):Promise<AnalyticInfo> {
-        return this.client.get<any>({
+        return this.client.get<AnalyticInfo>({
             service_name: this.serviceName,
             account_id: accountId,
             version: 'v1',
@@ -58,8 +60,8 @@ export class AlAETunerClientInstance {
      * @param update
      * @param analytic Analytic Fully Qualified Name
      */
-    async updateAnalytic(accountId: string, update: AnalyticUpdateObject, analytic: string):Promise<'Ok'> {
-        return this.client.post<any>({
+    async updateAnalytic(accountId: string, update: AnalyticUpdateObject, analytic: string):Promise<unknown> {
+        return this.client.post<unknown>({
             service_name: this.serviceName,
             account_id: accountId,
             version: 'v1',
@@ -72,8 +74,8 @@ export class AlAETunerClientInstance {
      * List all incident types for a specific customer
      * @param accountId
      */
-    async listIncidentTypes(accountId: string):Promise<Array<string>> {
-        return this.client.get<any>({
+    async listIncidentTypes(accountId: string):Promise<string[]> {
+        return this.client.get<string[]>({
             service_name: this.serviceName,
             account_id: accountId,
             version: 'v1',
@@ -86,8 +88,8 @@ export class AlAETunerClientInstance {
      * @param accountId
      * @param incidentType Incident Type Fully Qualified Name
      */
-    async getIncidentType(accountId: string, incidentType: string) {
-        return this.client.get<any>({
+    async getIncidentType(accountId: string, incidentType: string):Promise<IncidentTypeInfo> {
+        return this.client.get<IncidentTypeInfo>({
             service_name: this.serviceName,
             account_id: accountId,
             version: 'v1',
@@ -101,8 +103,8 @@ export class AlAETunerClientInstance {
      * @param update
      * @param incidentType Incident Type Fully Qualified Name
      */
-    async updateIncidentType(accountId, update: AnalyticUpdateObject, incidentType: string):Promise<'OK'> {
-        return this.client.post<any>({
+    async updateIncidentType(accountId, update: AnalyticUpdateObject, incidentType: string):Promise<unknown> {
+        return this.client.post<unknown>({
             service_name: this.serviceName,
             account_id: accountId,
             version: 'v1',
@@ -116,8 +118,8 @@ export class AlAETunerClientInstance {
      * Returns a list of all incident handling settings for a given customer
      * @param accountId
      */
-    async listIncidentHandling(accountId: string):Promise<Array<HandlingSettings[]>> {
-        return this.client.get<any>({
+    async listIncidentHandling(accountId: string):Promise<HandlingSettings[]> {
+        return this.client.get<HandlingSettings[]>({
             service_name: this.serviceName,
             account_id: accountId,
             version: 'v1',
@@ -131,7 +133,7 @@ export class AlAETunerClientInstance {
      * @param incidentType Incident Type Fully Qualified Name
      */
     async getIncidentHandling(accountId: string, incidentType: string):Promise<HandlingSettings> {
-        return this.client.get<any>({
+        return this.client.get<HandlingSettings>({
             service_name: this.serviceName,
             account_id: accountId,
             version: 'v1',
@@ -148,7 +150,7 @@ export class AlAETunerClientInstance {
      * @returns Object with a `stored` key and a UUID value.
      */
     async updateIncidentHandling(accountId: string, update: AnalyticHandlingUpdateObject, incidentType: string):Promise<{stored: string}> {
-        return this.client.post<any>({
+        return this.client.post<{stored: string}>({
             service_name: this.serviceName,
             account_id: accountId,
             version: 'v1',
@@ -164,7 +166,7 @@ export class AlAETunerClientInstance {
      * @param incidentType Incident Type Fully Qualified Name
      */
     async deleteIncidentHandling( accountId: string, reason: string, incidentType: string):Promise<{stored: string}> {
-        return this.client.post<any>({
+        return this.client.post<{stored: string}>({
             service_name: this.serviceName,
             account_id: accountId,
             version: 'v1',

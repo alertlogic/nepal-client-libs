@@ -51,3 +51,9 @@ export interface HandlingSettings {
     settings?: string[];
     path?: string;
 }
+
+export interface AnalyticListReturn {
+    logmsgs: string[];
+    telemetry: string[];
+    observations: string[];
+}
