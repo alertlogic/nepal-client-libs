@@ -2,7 +2,7 @@
   "name": "@al/aetuner",
   "version": "1.0.0",
   "license": "MIT",
-  "description": "A client for interacting with the Alert Logic Iris Public API",
+  "description": "A client for interacting with the Alert Logic AE Tuner Public API",
   "author": {
     "name": "Alert Logic UI Team",
     "email": "ui@alertlogic.com"

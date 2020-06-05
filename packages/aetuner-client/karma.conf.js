@@ -32,12 +32,12 @@ module.exports = function (config) {
       reports:
       {
         "html": {
-          "directory": "./../../coverage/iris-client",
+          "directory": "./../../coverage/aetuner-client",
           "subdirectory": "report"
         },
         "text-summary": "",
         "json-summary": {
-          "directory": "./../../coverage/iris-client",
+          "directory": "./../../coverage/aetuner-client",
           "subdirectory": "summary",
           "filename": "json-summary.json"
         }
