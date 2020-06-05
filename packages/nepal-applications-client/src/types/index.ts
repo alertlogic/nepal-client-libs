@@ -152,6 +152,7 @@ export interface AlRulePayload {
     config?: AlApplicationConfig;
     scope?: (AlAssetScopeItem | AlTagScopeItem)[];
     enabled?: boolean;
+    default?: boolean;
     parameters?: {[i: string]: any};
 }
 
