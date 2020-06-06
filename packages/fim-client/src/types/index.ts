@@ -37,6 +37,13 @@ export interface AlFimConfiguration {
     system?: boolean;
 }
 
+export function getFullPath(config: AlFimConfiguration): string {
+    if (config.type === "nix_dir") {
+        return `${config.base}/${config.pattern}`;
+    }
+    return `${config.base}\\${config.pattern}`;
+}
+
 
 
 
