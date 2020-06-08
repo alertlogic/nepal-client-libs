@@ -6,7 +6,7 @@ export interface IncidentTypeInfo {
     incident_handling?:{
         settings?: string[];
         path?: string;
-    }
+    };
 }
 
 export interface AnalyticInfo {
@@ -39,9 +39,14 @@ export interface AnalyticUpdateObject {
 }
 
 /**
- * `auto_soc_close` - is only relevant to incident being shown to SOC or not, no other behaviour or values are affected. If True, will bypass the SOC and become available in the Customer Console.
- * `auto_escalate` - is only relevant to whether the customer receives an email notification or not, no other behaviour or values are affected. If an incident is escalated, and becomes soc-closed, a notification will be generated with the escalations flag set to True.
- * `auto_customer_close` - is only relevant to whether the customer sees the incident as “Closed” in the Customer Console or not, no other behaviour or values are affected. If True, the incident will only show in the Customer Console under the 'Closed' filter.
+ * `auto_soc_close` - is only relevant to incident being shown to SOC or not, no other behaviour or values are affected.
+ *                      If True, will bypass the SOC and become available in the Customer Console.
+ * `auto_escalate` - is only relevant to whether the customer receives an email notification or not, no other behaviour
+ *                      or values are affected. If an incident is escalated, and becomes soc-closed, a notification will
+ *                      be generated with the escalations flag set to True.
+ * `auto_customer_close` - is only relevant to whether the customer sees the incident as “Closed” in the Customer
+ *                      Console or not, no other behaviour or values are affected. If True, the incident will only show
+ *                      in the Customer Console under the 'Closed' filter.
  */
 export interface AnalyticHandlingUpdateObject extends AnalyticUpdateObject {
     setting: 'auto_soc_close' | 'auto_escalate' | 'auto_customer_close';
