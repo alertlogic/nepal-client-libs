@@ -3,7 +3,7 @@ export interface AlIntergationDictionary {
     singular: string;
     plural:string;
 }
-export class AlHeraldIntergationDictionary {
+export class AlHeraldIntegrationDictionary {
     public static types: { [type: string]: AlIntergationDictionary } = {
         webhook:{
             singular: 'Webhook',
