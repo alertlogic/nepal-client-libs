@@ -1,11 +1,11 @@
 {
-  "name": "@al/herald",
-  "version": "2.0.10",
+  "name": "@al/aetuner",
+  "version": "1.0.0",
   "license": "MIT",
-  "description": "A lightweight client library for interacting with the Herald API",
+  "description": "A client for interacting with the Alert Logic AE Tuner Public API",
   "author": {
-    "name": "Gisler Garces",
-    "email": "ggarces@alertlogic.com"
+    "name": "Alert Logic UI Team",
+    "email": "ui@alertlogic.com"
   },
   "keywords": [
     "Alert Logic",
@@ -14,12 +14,8 @@
   ],
   "maintainers": [
     {
-      "name": "Gisler Garces",
-      "email": "ggarces@alertlogic.com"
-    },
-    {
-      "name": "Alert Logic NPM Team",
-      "email": "npm@alertlogic.com"
+      "name": "Alert Logic UI Team",
+      "email": "ui@alertlogic.com"
     }
   ],
   "repository": "github:alertlogic/nepal-client-libs",
@@ -31,17 +27,13 @@
     "test": "karma start",
     "test-watch": "karma start --no-single-run --auto-watch",
     "build": "rollup -c ../../rollup.config.ts",
-    "prebuild": "npm run clean && npm run lint",
+    "prebuild": "npm run clean && npm run lint && npm run test",
     "lint": "tslint -p tsconfig.json -c ../../tslint.json",
     "clean": "rm -rf dist",
     "prepublishOnly": "npm run build",
-    "interactive": "npm run build && node -i -e \"const HeraldClient = require('./dist/commonjs/index.js').AlHeraldClient;\"",
-    "interactive-dev": "npm run build-dev && node -i -e \"const HeraldClient = require('./dist/commonjs/index.js').AlHeraldClient;\""
+    "interactive": "npm run build && node -i -e \"const AETunerClient = require('./dist/commonjs/index.js').AETunerClient;\""
   },
   "dependencies": {
-    "@al/core": "^1.0.12"
-  },
-  "peerDependencies": {
     "@al/core": "^1.0.12"
   },
   "files": [
