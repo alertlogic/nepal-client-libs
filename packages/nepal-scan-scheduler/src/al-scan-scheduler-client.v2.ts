@@ -106,24 +106,6 @@ export class AlScanSchedulerClientInstanceV2 {
     }
 
     /**
-     *  Expedites scan for all the scannable targets that are descendants of a given
-     *  level of the topology (for example all hosts belonging to a given subnet)
-     *
-     *  @force param: Allows to override the exclusion rules applied to selected targets.
-     *                Otherwise exclusion rules take precedence over expedited scan.
-     */
-    async scanNow(accountId: string, deploymentId: string, scanScopeItem: AlScanScopeItemAsset, params: {force: boolean} = {force: false}) {
-        return AlDefaultClient.put({
-            service_name: this.serviceName,
-            version:      2,
-            account_id:   accountId,
-            path:         `/${deploymentId}/scan`,
-            data:         scanScopeItem,
-            params: params
-        });
-    }
-
-    /**
      *  Validates a list of supplied IP Addresses, checking for their correctness.
      *  This API always returns 200 OK status and provides the results of validation using two arrays with respective status (valid/invalid).
      *  IP Addresses that are present in the valid list can be subsequently used as applicable ScanScopeItems.
@@ -147,5 +129,57 @@ export class AlScanSchedulerClientInstanceV2 {
              version:      2,
              path:         `/timezones`
          });
+    }
+
+    /**
+     *  Expedites scan for all the scannable targets that are descendants of a given
+     *  level of the topology (for example all hosts belonging to a given subnet)
+     *
+     *  @force param: Allows to override the exclusion rules applied to selected targets.
+     *                Otherwise exclusion rules take precedence over expedited scan.
+     */
+    async scanNow(accountId: string, deploymentId: string, scanScopeItem: AlScanScopeItemAsset, params: {force: boolean} = {force: false}) {
+        return AlDefaultClient.put({
+            service_name: this.serviceName,
+            version:      2,
+            account_id:   accountId,
+            path:         `/${deploymentId}/scan`,
+            data:         scanScopeItem,
+            params: params
+        });
+    }
+
+    /**
+     * Stops scans for selected list of assets
+     * All scan jobs currently running against targets that are within the scope defined by the ScanScopeItem object, will be terminated.
+     * Targets will not be re-enqueued until the next scan SLA period defined by scan_frequency parameter of a schedule that contains each of the targets.
+     * @param accountId
+     * @param deploymentId
+     */
+    async stopScanAssets(accountId: string, deploymentId: string, scanScopeItem: AlScanScopeItemAsset) {
+        return AlDefaultClient.put({
+            service_name: this.serviceName,
+            version:      2,
+            account_id:   accountId,
+            path:         `/${deploymentId}/stop`,
+            data:         scanScopeItem
+        });
+    }
+
+    /**
+     * Stops a selected scan schedule
+     * All scan jobs currently running against targets that are within the scope defined by the selected schedule, will be terminated.
+     * Targets will not be re-enqueued until the next scan SLA period defined by scan_frequency parameter of the schedule.
+     * @param accountId
+     * @param deploymentId
+     * @param scanScheduleId
+     */
+    async stopScanSchedule(accountId: string, deploymentId: string, scanScheduleId: string) {
+        return AlDefaultClient.put({
+            service_name: this.serviceName,
+            version:      2,
+            account_id:   accountId,
+            path:         `/${deploymentId}/schedules/${scanScheduleId}/stop`
+        });
     }
 }
