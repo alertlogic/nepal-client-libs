@@ -22,6 +22,7 @@ export interface HealthAssetVPC {
 export interface HealthAssetRemediation {
     account_id?: string;
     appliance_name?: string;
+    remediation_id?: string;
     created_on?: number;
     declared?: boolean;
     deleted_on?: number;

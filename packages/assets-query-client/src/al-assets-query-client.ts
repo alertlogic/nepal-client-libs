@@ -324,4 +324,22 @@ export class AlAssetsQueryClientInstance {
       params: queryParams,
     });
   }
+
+
+  /**
+   * Remediations Conclude API
+   * PUT
+   * /assets_query/v2/:account_id/remediations
+   * "https://api.cloudinsight.alertlogic.com/assets_query/v2/10000001/remediations"
+   *  -d '{"operation": "conclude_remediations", "remediation_ids": ["ids_upgrade_hardware"], "deployment_ids":["0A2DC25F-5B5A-4A93-9413-1A8D6F87489E"], filters:[]}
+   */
+  async concludeRemediations(accountId: string, remediationData: { deployment_ids: string[], operation: string, filters: string[], remediation_ids: string[] }) {
+        return this.client.put<any>({
+            account_id: accountId,
+            service_name: 'assets_query',
+            path: 'remediations',
+            version: 'v2',
+            data: remediationData,
+        });
+  }
 }
