@@ -12,6 +12,17 @@ export interface AlScanSchedule {
     readonly id?: string;
     name?: string;
     /**
+     * Each new deployment will have a default scan schedule created for each type of scan, where applicable.
+     * The parameter specifies whether the schedule is default or not.
+     * A default schedule:
+     *  - includes all targets in the scope
+     *  - can't be deleted
+     *  - can be disabled (except from `discovery` type of scan)
+     *  - can be modified as far as scan scope, scan windows and frequencies are concerned
+     *  - note a default schedule for the `discovery` scan type always includes all the assets in its scope
+     */
+    readonly default?: boolean;
+    /**
      * Specifies whether the schedule is active or not.
      */
     enabled?: boolean;
