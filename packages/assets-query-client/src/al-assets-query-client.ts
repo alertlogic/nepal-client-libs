@@ -14,6 +14,7 @@ import {
     HealthSummaryResponse,
     TagsSummaryResponse,
     TopologyResponse,
+    CollectionHealthQueryParams,
 } from './types';
 
 export class AlAssetsQueryClientInstance {
@@ -29,7 +30,7 @@ export class AlAssetsQueryClientInstance {
    * "https://api.cloudinsight.alertlogic.com/remediations/v1/10000001/health/agent"
    * asset_type: agent, appliance, network, vpc
    */
-  async getHealth(accountId: string, assetType: string, queryParams?: {scope?: boolean, filter?: string[]}) {
+  async getHealth(accountId: string, assetType: string, queryParams?: CollectionHealthQueryParams) {
     return this.client.get<HealthResponse>({
       account_id: accountId,
       service_name: 'remediations',
