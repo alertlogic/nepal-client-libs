@@ -237,3 +237,9 @@ export interface ExposureVInstanceTarget {
     threatiness?: number;
     type?: string;
 }
+export interface CollectionHealthQueryParams {
+    scope?: boolean;
+    filter?: string[];
+    disposed?: 'true' | 'false' | 'all';
+    concluded?: 'true' | 'false' | 'all';
+}
