@@ -38,10 +38,11 @@ export interface AlFimConfiguration {
 }
 
 export function getFullPath(config: AlFimConfiguration): string {
+    const suffix: string = config.pattern ? config.pattern : "";
     if (config.type === "nix_dir") {
-        return `${config.base}/${config.pattern}`;
+        return `${config.base}/${suffix}`;
     }
-    return `${config.base}\\${config.pattern}`;
+    return `${config.base}\\${suffix}`;
 }
 
 
