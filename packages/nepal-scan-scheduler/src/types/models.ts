@@ -12,6 +12,7 @@ export * from './scanWindowContinuousPeriodMonthly';
 export * from './scanWindowContinuousPeriodWeekly';
 export * from './scanWindowSelectedDaysOfMonth';
 export * from './scanWindowSelectedDaysOfWeek';
+export * from './scanWindowSpecificDate';
 export * from './scanSchedule';
 export * from './scanScheduleSummary';
 export * from './timeZone';

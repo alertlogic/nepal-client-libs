@@ -7,7 +7,7 @@ export interface AlScanWindow {
     type?: AlScanWindow.TypeEnum;
 }
 export namespace AlScanWindow {
-    export type TypeEnum = 'days_of_week' | 'days_of_month' | 'weekly_period' | 'monthly_period';
+    export type TypeEnum = 'days_of_week' | 'days_of_month' | 'weekly_period' | 'monthly_period' | 'specific_date';
     export const typeEnum = {
         DaysOfWeek: 'days_of_week' as TypeEnum,
         DaysOfMonth: 'days_of_month' as TypeEnum,
