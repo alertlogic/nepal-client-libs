@@ -21,6 +21,7 @@ import {
     IncidentSnooze,
     IncidentStateChangeResponse,
     MetaDataDictionary,
+    AlObservation,
     UndoDataDefinition,
 } from './types';
 
@@ -549,6 +550,24 @@ export class AlIrisClientInstance {
             path: `incident/dsl-translate?aliases=${aliases}`,
             data: { query_string: query },
         });
+    }
+
+    public getFacts(accountId:string, incidentId:string, observationId:string): Promise<unknown> {
+        return this.client.get<unknown>({
+            service_name: this.serviceName,
+            version: 'v3',
+            account_id: accountId,
+            path: `${incidentId}/facts/${observationId}`,
+        });
+    }
+
+    public getNestedEvidences (accountId:string, incidentId:string): Promise<AlObservation[]> {
+        return this.client.get<any[]>({
+            service_name: this.serviceName,
+            version: 'v3',
+            account_id: accountId,
+            path: `nested/${incidentId}`,
+        }).then(obs => obs.map(ob => AlObservation.import(ob)));
     }
 
 }
