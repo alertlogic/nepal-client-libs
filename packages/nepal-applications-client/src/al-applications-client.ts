@@ -110,7 +110,7 @@ export class AlApplicationsClientInstance {
             service_name: this.serviceName,
             version: this.serviceVersion,
             account_id: accountId,
-            path: deploymentId? `/deployments/${deploymentId}/rules`: `/rules`,
+            path: deploymentId? `/deployments/${deploymentId}/rules` : `/rules`,
             params: queryParams
         });
     }
@@ -143,21 +143,20 @@ export class AlApplicationsClientInstance {
      *
      * @param notificationType The notification type as string
      * @param payload Notification type object
+     * @param deploymentId deployment id (optional)
      * @returns a promise with the notification type that was updated
      *
      * @remarks
      * https://api.product.dev.alertlogic.com/applications/v1/01000001/rules/BD30F3F3-5D12-421A-B806-C65155C40CE1
      */
-    async updateRule(accountId: string, ruleId: string, payload: AlRulePayload) : Promise<AlRule> {
+    async updateRule(accountId: string, ruleId: string, payload: AlRulePayload, deploymentId:string = null) : Promise<AlRule> {
         return this.client.put<AlRule>({
             service_name: this.serviceName,
             version: this.serviceVersion,
             account_id: accountId,
-            path: `/rules/${ruleId}`,
+            path: deploymentId ? `/deployments/${deploymentId}/rules/${ruleId}` : `/rules/${ruleId}`,
             data: payload
         });
-
-
     }
 
     /**
