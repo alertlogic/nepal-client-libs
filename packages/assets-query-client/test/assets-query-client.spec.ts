@@ -190,7 +190,7 @@ describe('Assets Query Client Test Suite:', () => {
       stub.restore();
     });
     it('should call put() on the AlDefaultClient instance', async () => {
-      await assetsQueryClient.disposeRemediations('1234', '0987', { operation: 'dispose_remediations', reason: 'because', comment: 'testing', expires: 1234, remediation_items: ['4567', '7654'] });
+      await assetsQueryClient.disposeRemediations('1234', { reason: 'because', comment: 'testing', expires: 1234, remediation_ids: ['4567', '7654'], filters:[]});
       expect(stub.callCount).to.equal(1);
     });
   });
