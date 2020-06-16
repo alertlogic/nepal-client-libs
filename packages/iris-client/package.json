@@ -1,6 +1,6 @@
 {
   "name": "@al/iris",
-  "version": "2.0.5",
+  "version": "2.0.6",
   "license": "MIT",
   "description": "A client for interacting with the Alert Logic Iris Public API",
   "author": {
