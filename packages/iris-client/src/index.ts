@@ -6,5 +6,4 @@ import { AlIrisClientInstance } from './al-iris-client';
 export const AlIrisClient = AlGlobalizer.instantiate( "al.iris", () => new AlIrisClientInstance() );
 
 export { AlIrisClientInstance } from './al-iris-client';
-export * from './types/observation';
 export * from './types';

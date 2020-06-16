@@ -1,5 +1,5 @@
 
-export class Observation {
+export class AlObservation {
     evidenceType: string = 'observation';
     accountId:       number;
     aggregations:    unknown[];
@@ -27,8 +27,8 @@ export class Observation {
     // tslint:disable-next-line:variable-name
     __description:   string;
 
-    static import(raw:any): Observation {
-        const ob:Observation = Object.assign(new Observation(), raw);
+    static import(raw:any): AlObservation {
+        const ob:AlObservation = Object.assign(new AlObservation(), raw);
         ob.accountId = raw.account_id;
         ob.customerName = raw.customer_name;
         ob.startTs = raw.start_ts;
@@ -76,4 +76,4 @@ export interface ObservationScope {
 }
 
 // Observation wasnt being exported in the js code for some reason
-const ignoreMe = new Observation();
+const ignoreMe = new AlObservation();

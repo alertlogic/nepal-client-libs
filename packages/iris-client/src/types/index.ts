@@ -1,4 +1,5 @@
 export * from './old-types';
+export * from './al-observation';
 
 export interface AlIncidentFilterDictionary {
   classifications:{[classification:string]:{

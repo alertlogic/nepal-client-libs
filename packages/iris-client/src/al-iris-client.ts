@@ -23,7 +23,7 @@ import {
     MetaDataDictionary,
     UndoDataDefinition,
 } from './types';
-import { Observation } from "./types/observation";
+import { AlObservation } from "./types/alObservation";
 
 export class AlIrisClientInstance {
 
@@ -561,13 +561,13 @@ export class AlIrisClientInstance {
         });
     }
 
-    public getNestedEvidences (accountId:string, incidentId:string): Promise<Observation[]> {
+    public getNestedEvidences (accountId:string, incidentId:string): Promise<AlObservation[]> {
         return this.client.get<any[]>({
             service_name: this.serviceName,
             version: 'v3',
             account_id: accountId,
             path: `nested/${incidentId}`,
-        }).then(obs => obs.map(ob => Observation.import(ob)));
+        }).then(obs => obs.map(ob => AlObservation.import(ob)));
     }
 
 }
