@@ -21,9 +21,9 @@ import {
     IncidentSnooze,
     IncidentStateChangeResponse,
     MetaDataDictionary,
+    AlObservation,
     UndoDataDefinition,
 } from './types';
-import { AlObservation } from "./types/alObservation";
 
 export class AlIrisClientInstance {
 
