@@ -45,6 +45,27 @@ export function getFullPath(config: AlFimConfiguration): string {
     return `${config.base}\\${suffix}`;
 }
 
+export function getBaseAndPattern(filePath:string,
+                                 configType: fimConfigType): {pattern: string, base: string} {
+    let pattern = '';
+    let base = '';
+    let separator = '';
+    if (configType !== 'nix_dir') {
+        if (RegExp(/\\\\/).test(filePath)) {
+            separator = "\\\\";
+        } else {
+            separator = "\\";
+        }
+    } else {
+        separator = "/";
+    }
+    const splittedPath: string[] = filePath.split(separator);
+    pattern = splittedPath.slice(-1)[0];
+    base = splittedPath.slice(0, -1).join(separator);
+    return { pattern, base };
+}
+
+
 
 
 
