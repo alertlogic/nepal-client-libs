@@ -1,21 +1,26 @@
 {
-  "name": "@al/applications",
-  "version": "1.0.7",
+  "name": "@al/integrations",
+  "version": "0.0.1",
   "license": "MIT",
-  "description": "A lightweight client library for interacting with the applications API",
+  "description": "A lightweight client library for interacting with the Integrations API",
   "author": {
-    "name": "Alert Logic UI Team",
-    "email": "ui@alertlogic.com"
+    "name": "Maryit Sanchez",
+    "email": "msanchez@alertlogic.com"
   },
   "keywords": [
     "Alert Logic",
     "Client",
-    "Service"
+    "Service",
+    "Integrations"
   ],
   "maintainers": [
     {
-      "name": "Alert Logic UI Team",
-      "email": "ui@alertlogic.com"
+      "name": "Maryit Sanchez",
+      "email": "msanchez@alertlogic.com"
+    },
+    {
+      "name": "Alert Logic NPM Team",
+      "email": "npm@alertlogic.com"
     }
   ],
   "repository": "github:alertlogic/nepal-client-libs",
@@ -30,9 +35,7 @@
     "prebuild": "npm run clean && npm run lint",
     "lint": "tslint -p tsconfig.json -c ../../tslint.json",
     "clean": "rm -rf dist",
-    "prepublishOnly": "npm run build",
-    "interactive": "npm run build && node -i -e \"const applicationsClient = require('./dist/commonjs/index.js').AlApplicationsClient;\"",
-    "interactive-dev": "npm run build-dev && node -i -e \"const applicationsClient = require('./dist/commonjs/index.js').AlApplicationsClient;\""
+    "prepublishOnly": "npm run build"
   },
   "dependencies": {
     "@al/core": "^1.0.12"
