@@ -4,6 +4,7 @@ import { AlScanWindowContinuousPeriodMonthly } from './scanWindowContinuousPerio
 import { AlScanWindowContinuousPeriodWeekly } from './scanWindowContinuousPeriodWeekly';
 import { AlScanWindowSelectedDaysOfMonth } from './scanWindowSelectedDaysOfMonth';
 import { AlScanWindowSelectedDaysOfWeek } from './scanWindowSelectedDaysOfWeek';
+import { AlScanWindowSpecificDate } from './scanWindowSpecificDate';
 
 /**
  * Scan Schedule definition.
@@ -69,7 +70,7 @@ export interface AlScanSchedule {
      * - `ScanWindowContinuousPeriodMonthly`
      * For details please refer to the documentation of the above models.
      */
-    scan_windows?: (AlScanWindowSelectedDaysOfWeek | AlScanWindowSelectedDaysOfMonth | AlScanWindowContinuousPeriodWeekly | AlScanWindowContinuousPeriodMonthly)[];
+    scan_windows?: (AlScanWindowSelectedDaysOfWeek | AlScanWindowSelectedDaysOfMonth | AlScanWindowContinuousPeriodWeekly | AlScanWindowContinuousPeriodMonthly | AlScanWindowSpecificDate)[];
     /**
      * Specifies what assets are considered to be scanned within designated periods defined by `scan_windows` parameter,
      * setting the SLA as specified by `scan_frequency` parameter.
@@ -85,7 +86,7 @@ export namespace AlScanSchedule {
         External: 'external' as TypeOfScanEnum,
         Discovery: 'discovery' as TypeOfScanEnum
     };
-    export type ScanFrequencyEnum = 'automatic' | 'daily' | 'weekly' | 'monthly';
+    export type ScanFrequencyEnum = 'automatic' | 'daily' | 'weekly' | 'monthly' | 'once';
     export const scanFrequencyEnum = {
         Automatic: 'automatic' as ScanFrequencyEnum,
         Daily: 'daily' as ScanFrequencyEnum,
