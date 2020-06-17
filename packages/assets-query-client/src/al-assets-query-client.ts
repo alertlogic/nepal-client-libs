@@ -223,18 +223,22 @@ export class AlAssetsQueryClientInstance {
   /**
    * Dispose Remediations
    * PUT
-   * /remediations/v1/:account_id/deployments/:deployment_id/remediations
-   * "https://api.cloudinsight.alertlogic.com/remediations/v1/10000001/deployments/347203EF-134C-1005-8499-1289DB15AB31/remediations"
+   * /assets_query/v2/:account_id/remediations
+   * "https://api.cloudinsight.alertlogic.com/assets_query/v2/10000001/remediations"
    * -d '{"operation": "dispose_remediations", "reason": "Acceptable Risk",
    * "comment": "This risk is acceptable", "expires": 0,
-   * "remediation_items": ["/al/15000001:814C2911-09BB-1005-9916-7831C1BAC182/remediation-item/0536575B914C32C8A5D28415D02E4545"]}
+   * "remediation_ids": ["ids_upgrade_hardware"], "deployment_ids":["0A2DC25F-5B5A-4A93-9413-1A8D6F87489E"], filters:[]}'
    */
-  async disposeRemediations(accountId: string, deploymentId: string, remediationData: {operation: string, reason: string, comment: string, expires: number, remediation_items: string[]}) {
+  async disposeRemediations(accountId: string, remediationData: { deployment_ids?: string[], filters: string[], vulnerability_ids?: string[], remediation_ids?: string[], reason: string,
+                                                                  comment: string, expires?: number}) {
+    let baseRemediationData = { operation: 'dispose_remediations' };
+    Object.assign(baseRemediationData, remediationData);
     return this.client.put<any>({
-      account_id: accountId,
-      service_name: 'remediations',
-      path: `/deployments/${deploymentId}/remediations`,
-      data: remediationData,
+        account_id: accountId,
+        service_name: 'assets_query',
+        path: 'remediations',
+        version: 'v2',
+        data: baseRemediationData,
     });
   }
 
@@ -334,13 +338,16 @@ export class AlAssetsQueryClientInstance {
    * "https://api.cloudinsight.alertlogic.com/assets_query/v2/10000001/remediations"
    *  -d '{"operation": "conclude_remediations", "remediation_ids": ["ids_upgrade_hardware"], "deployment_ids":["0A2DC25F-5B5A-4A93-9413-1A8D6F87489E"], filters:[]}
    */
-  async concludeRemediations(accountId: string, remediationData: { deployment_ids: string[], operation: string, filters: string[], remediation_ids: string[] }) {
-        return this.client.put<any>({
+  async concludeRemediations(accountId: string, remediationData: { deployment_ids?: string[], filters: string[], vulnerability_ids?: string[], remediation_ids?: string[] }) {
+    let baseRemediationData = { operation: 'conclude_remediations' };
+    Object.assign(baseRemediationData, remediationData);
+    return this.client.put<any>({
             account_id: accountId,
             service_name: 'assets_query',
             path: 'remediations',
             version: 'v2',
-            data: remediationData,
+            data: baseRemediationData,
         });
   }
+
 }
