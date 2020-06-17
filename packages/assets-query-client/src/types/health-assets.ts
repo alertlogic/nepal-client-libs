@@ -255,6 +255,7 @@ export interface HealthListItem {
     protection_policy_id?:  string;
     remediations?: string[];
     remediations_filters?: string[];
+    exposures_by_remediation?: {[remediationKey: string]: string[]};
     unhealthiness?: number;
     vpc?: string;
 }
@@ -265,4 +266,21 @@ export interface HealthResponseFilters {
         health_level?: number;
         healthiness?: number;
     };
+}
+
+export interface HealthAssetExposure {
+    account_id?: string;
+    categories?: string[];
+    created_on: number;
+    cvss_score: number;
+    cvss_vector: string;
+    external: boolean;
+    name: string;
+    remediation_id: string;
+    severity: string;
+    threat_score: number;
+    threat_vector: string;
+    threatiness: number;
+    type: string;
+    vulnerability_id: string;
 }

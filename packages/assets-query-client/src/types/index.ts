@@ -25,7 +25,8 @@ export {
     HealthAssetProtectionPolicy,
     HealthAssetCategory,
     HealthAssetCollector,
-    HealthResponseFilters
+    HealthResponseFilters,
+    HealthAssetExposure
 } from './health-assets';
 
 export interface HealthResponse {
