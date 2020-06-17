@@ -55,11 +55,11 @@ export class AlIntegrationsClientInstance {
      *  @remarks
      *
      * */
-    async getIntegrationTypeByName() {
+    async getIntegrationTypeByName(name:string) {
         return this.client.get<AlIntegrationTypeDetail>({
             version: this.serviceVersion,
             service_stack: this.serviceStack,
-            path: '/integration_types'
+            path: `/integration_types/${name}`
         });
     }
 
