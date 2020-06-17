@@ -21,7 +21,6 @@ let stub: sinon.SinonSpy;
 
 describe('INTEGRATIONS CLIENT', () => {
     const apiBaseURL = "https://integrations.mdr.global.alertlogic.com";
-    const service = "integrations";
     const version = "v1";
 
     const integrationsMock = [
@@ -60,7 +59,7 @@ describe('INTEGRATIONS CLIENT', () => {
                 const payload = stub.args[0][0];
                 expect( stub.callCount ).to.equal( 1 );
                 expect( payload.method ).to.equal( "GET" );
-                expect( payload.url ).to.equal( `${apiBaseURL}/${service}/${version}/integration_types` );
+                expect( payload.url ).to.equal( `${apiBaseURL}/${version}/integration_types` );
                 expect( result ).to.equal( integrationsMock );
             });
         });
