@@ -255,6 +255,7 @@ export interface HealthListItem {
     protection_policy_id?:  string;
     remediations?: string[];
     remediations_filters?: string[];
+    exposures_by_remediation?: {[remediationKey: string]: string[]};
     unhealthiness?: number;
     vpc?: string;
 }
