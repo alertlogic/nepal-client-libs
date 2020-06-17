@@ -170,3 +170,8 @@ export interface AlDeployACollector {
     collector_id: string;
 }
 
+export interface AlApplicationAttribute {
+    name: string;
+    id: string;
+}
+
