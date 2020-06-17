@@ -56,8 +56,5 @@ export interface AlIntegrationServiceNowSchema extends AlIntegrationBaseSchema {
 }
 
 // TODO review how this is going to be returned
-export interface AlIntegrationConnection {
-    ServiceNowWebhookConnection?: AlIntegrationServiceNowSchema;
-    EmailIntegration?: AlIntegrationEmailSchema;
-    WebhookConnection?: AlIntegrationWebhookSchema;
+export interface AlIntegrationConnection extends AlIntegrationServiceNowSchema, AlIntegrationEmailSchema, AlIntegrationWebhookSchema {
 }
