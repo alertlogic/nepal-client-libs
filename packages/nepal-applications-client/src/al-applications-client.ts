@@ -13,6 +13,7 @@ import {
   AlRule,
   AlRuleForDeployment,
   AlRulePayload,
+  AlApplicationAttribute,
 } from './types';
 
 export class AlApplicationsClientInstance {
@@ -252,6 +253,28 @@ export class AlApplicationsClientInstance {
             account_id: accountId,
             path: `/collectors/${collectorId}`,
             data: data
+        });
+    }
+
+    /**
+     * Return the attributes list
+     * GET
+     * /applications/v1/:account_id/attributes
+     * "https://api.product.dev.alertlogic.com/applications/v1/01000001/attributes"
+     *
+     *  @param accountId AIMS Account ID
+     *  @returns a promise with the attributes list
+     *
+     *  @remarks
+     *  https://console.product.dev.alertlogic.com/api/applications
+     */
+    async getAllAttributes(accountId: string): Promise<Array<AlApplicationAttribute>> {
+
+        return this.client.get<Array<AlApplicationAttribute>>({
+            service_name: this.serviceName,
+            version: this.serviceVersion,
+            account_id: accountId,
+            path: '/attributes'
         });
     }
 }
