@@ -6,3 +6,4 @@ import { AlAETunerClientInstance } from './al-ae-tuner-client';
 export const AlAETunerClient = AlGlobalizer.instantiate( "al.aetuner", () => new AlAETunerClientInstance() );
 
 export { AlAETunerClientInstance } from './al-ae-tuner-client';
+export * from './types';
