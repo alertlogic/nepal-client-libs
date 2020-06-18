@@ -1,6 +1,6 @@
 {
   "name": "@al/fim",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "license": "MIT",
   "description": "A lightweight client library for interacting with the fim configuration API",
   "author": {

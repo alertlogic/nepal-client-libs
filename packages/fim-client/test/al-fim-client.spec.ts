@@ -4,7 +4,8 @@ import { describe } from 'mocha';
 import * as sinon from 'sinon';
 import {
     AlFimClient,
-    AlFimConfiguration
+    AlFimConfiguration,
+    getBaseAndPattern
 } from '../src/index';
 
 
@@ -138,6 +139,28 @@ describe("FIM Configuration Client", () => {
             expect( rawPayload.method ).to.equal( "GET" );
             expect( rawPayload.url ).to.contain(`/deployments/${deploymentId}/excluded_paths/${configId}`);
             expect( result ).to.equal( rawFimConfig as AlFimConfiguration );
+        });
+    });
+
+
+    describe("WHEN calculating the base path and the pattern from the full path", () => {
+        it("SHOULD split the full path after encountering the wildcard", () => {
+            const fullPath = "/var/log/nginx/*log";
+            const actual = getBaseAndPattern(fullPath, 'nix_dir');
+            expect(actual.base).to.equal("/var/log/nginx/");
+            expect(actual.pattern).to.equal("*log");
+        });
+        it("SHOULD split the full path by using the last path separator", () => {
+            let fullPath = "/var/log/nginx/error.log";
+            let actual = getBaseAndPattern(fullPath, 'nix_dir');
+            expect(actual.base).to.equal("/var/log/nginx/");
+            expect(actual.pattern).to.equal("error.log");
+
+            fullPath = "c:\\var\\log\\nginx\\error.log";
+            actual = getBaseAndPattern(fullPath, 'win_dir');
+            expect(actual.base).to.equal("c:\\var\\log\\nginx\\");
+            expect(actual.pattern).to.equal("error.log");
+
         });
     });
 });
