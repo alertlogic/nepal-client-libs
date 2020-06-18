@@ -38,11 +38,17 @@ export interface AlFimConfiguration {
 }
 
 export function getFullPath(config: AlFimConfiguration): string {
-    const suffix: string = config.pattern ? config.pattern : "";
-    if (config.type === "nix_dir") {
-        return `${config.base}/${suffix}`;
+    try {
+        const suffix: string = config.pattern ? config.pattern : "";
+        const separator: string =  config.type === 'nix_dir' ? "/" : "\\";
+        if (config.base.slice(-1) === separator) {
+            return `${config.base}${suffix}`;
+        }
+        return `${config.base}${separator}${suffix}`;
+    } catch (error) {
+        console.error("getFullPath -> unexpected error ", error);
+        return '';
     }
-    return `${config.base}\\${suffix}`;
 }
 
 export function getBaseAndPattern(filePath: string,
