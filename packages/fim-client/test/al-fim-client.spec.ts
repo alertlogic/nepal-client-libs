@@ -4,7 +4,9 @@ import { describe } from 'mocha';
 import * as sinon from 'sinon';
 import {
     AlFimClient,
-    AlFimConfiguration
+    AlFimConfiguration,
+    getBaseAndPattern,
+    getFullPath
 } from '../src/index';
 
 
@@ -138,6 +140,55 @@ describe("FIM Configuration Client", () => {
             expect( rawPayload.method ).to.equal( "GET" );
             expect( rawPayload.url ).to.contain(`/deployments/${deploymentId}/excluded_paths/${configId}`);
             expect( result ).to.equal( rawFimConfig as AlFimConfiguration );
+        });
+    });
+
+
+    describe("WHEN calculating the base path and the pattern from the full path", () => {
+        it("SHOULD split the full path after encountering the wildcard", () => {
+            const fullPath = "/var/log/nginx/*log";
+            const actual = getBaseAndPattern(fullPath, 'nix_dir');
+            expect(actual.base).to.equal("/var/log/nginx/");
+            expect(actual.pattern).to.equal("*log");
+        });
+        it("SHOULD split the full path by using the last path separator", () => {
+            let fullPath = "/var/log/nginx/error.log";
+            let actual = getBaseAndPattern(fullPath, 'nix_dir');
+            expect(actual.base).to.equal("/var/log/nginx/");
+            expect(actual.pattern).to.equal("error.log");
+
+            fullPath = "c:\\var\\log\\nginx\\error.log";
+            actual = getBaseAndPattern(fullPath, 'win_dir');
+            expect(actual.base).to.equal("c:\\var\\log\\nginx\\");
+            expect(actual.pattern).to.equal("error.log");
+
+        });
+    });
+
+    describe("WHEN calculating the full path from the base and pattern properties of fim config object", () => {
+        it("SHOULD work for nix and windows configurations", () => {
+            const config = rawFimConfig as AlFimConfiguration;
+            config.type = 'nix_dir';
+            config.base = "/var/log/";
+            config.pattern = "*.log";
+            let actual: string = getFullPath(config);
+            expect(actual).to.equal("/var/log/*.log");
+
+            config.base = "/var/log";
+            actual = getFullPath(config);
+            expect(actual).to.equal("/var/log/*.log");
+
+            config.type = 'win_dir';
+
+            config.base = "c:\\path\\to\\logs\\";
+            config.pattern = "*.log";
+            actual = getFullPath(config);
+            expect(actual).to.equal("c:\\path\\to\\logs\\*.log");
+
+            config.base = "c:\\path\\to\\logs";
+            actual = getFullPath(config);
+            expect(actual).to.equal("c:\\path\\to\\logs\\*.log");
+
         });
     });
 });

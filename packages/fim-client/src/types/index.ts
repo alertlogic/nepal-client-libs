@@ -38,12 +38,51 @@ export interface AlFimConfiguration {
 }
 
 export function getFullPath(config: AlFimConfiguration): string {
-    const suffix: string = config.pattern ? config.pattern : "";
-    if (config.type === "nix_dir") {
-        return `${config.base}/${suffix}`;
+    try {
+        const suffix: string = config.pattern ? config.pattern : "";
+        const separator: string =  config.type === 'nix_dir' ? "/" : "\\";
+        if (config.base.slice(-1) === separator) {
+            return `${config.base}${suffix}`;
+        }
+        return `${config.base}${separator}${suffix}`;
+    } catch (error) {
+        console.error("getFullPath -> unexpected error ", error);
+        return '';
     }
-    return `${config.base}\\${suffix}`;
 }
+
+export function getBaseAndPattern(filePath: string,
+    configType: fimConfigType): { pattern: string, base: string } {
+    let pattern = '';
+    let base = '';
+    try {
+        const wildCardIndex: number = filePath ? filePath.split('').findIndex(c => c === '*') : -1;
+        if (wildCardIndex > -1) {
+            pattern = filePath.slice(wildCardIndex);
+            base = filePath.substring(0, wildCardIndex);
+        } else {
+            let separator = '';
+            if (configType !== 'nix_dir') {
+                if (RegExp(/\\\\/).test(filePath)) {
+                    separator = "\\\\";
+                } else {
+                    separator = "\\";
+                }
+            } else {
+                separator = "/";
+            }
+            const splittedPath: string[] = filePath.split(separator);
+            pattern = splittedPath.slice(-1)[0];
+            base = splittedPath.slice(0, -1).join(separator) + separator;
+        }
+    } catch (error) {
+        console.error("getBaseAndPattern -> unexpected error ", error);
+        pattern = '';
+        base = '';
+    }
+    return { pattern, base };
+}
+
 
 
 
