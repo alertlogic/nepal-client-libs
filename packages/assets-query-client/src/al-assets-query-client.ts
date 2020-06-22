@@ -15,6 +15,8 @@ import {
     TagsSummaryResponse,
     TopologyResponse,
     CollectionHealthQueryParams,
+    RemediationItemsQueryParams,
+    RemediationItemsQueryResponse,
 } from './types';
 
 export class AlAssetsQueryClientInstance {
@@ -348,6 +350,22 @@ export class AlAssetsQueryClientInstance {
             version: 'v2',
             data: baseRemediationData,
         });
+  }
+
+  /**
+   * Query Remediation Items
+   * GET
+   * /assets_query/v2/:account_id/remediation-items
+   * "https://api.cloudinsight.alertlogic.com/assets_query/v2/10000001/remediation-items"
+   */
+  async queryRemediationItems(accountId: string, queryParams?: RemediationItemsQueryParams) {
+    return this.client.get<RemediationItemsQueryResponse>({
+      account_id: accountId,
+      service_name: 'assets_query',
+      path: 'remediation-items',
+      version: 'v2',
+      params: queryParams,
+    });
   }
 
 }

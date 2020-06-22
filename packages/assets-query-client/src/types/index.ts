@@ -244,3 +244,82 @@ export interface CollectionHealthQueryParams {
     disposed?: 'true' | 'false' | 'all';
     concluded?: 'true' | 'false' | 'all';
 }
+export interface RemediationItemsQueryParams {
+    deployment_ids?: string;
+    remediation_item_ids?: string;
+    state?: string;
+    filter?: string | string[];
+    include_exposures?: boolean;
+    include_filters?: boolean;
+    details?: boolean;
+}
+export interface RemediationItemsQueryResponse {
+    filters?: string[];
+    'remediation-items'?: RemediationItemsQueryResult;
+    summary?: {
+        severities?: ThreatSummary;
+    };
+
+}
+export interface RemediationItemAsset {
+    account_id?: number;
+    asset_count?: number;
+    created_on?: number;
+    deployment_id?: string;
+    exposures?: {
+        account_id?: number;
+        asset_count?: number;
+        categories?: string[];
+        created_on?: number;
+        cvss_score?: number;
+        cvss_vector?: string;
+        external?: boolean
+        modified_on?: number;
+        name?: string;
+        remediation_id?: string;
+        severity?: string;
+        tags: any
+        threat_level?: number;
+        threat_score?: number;
+        threat_vector?: string;
+        threatiness?: number;
+        vinstances?: any
+        vinstances_count?: number;
+        vulnerability_id?: string;
+    }[];
+    exposures_count?: number;
+    filters?: string[];
+    item_id?: string;
+    key?: string;
+    modified_on?: number;
+    reason?: string;
+    remediation?: {
+        account_id?: number;
+        categories?: string[];
+        created_on?: number;
+        deployment_id?: string;
+        key?: string;
+        modified_on?: number;
+        name?: string;
+        remediation_id?: string;
+        tags: any
+        target_asset_type?: string;
+        threat_level?: number;
+        threatiness?: number;
+        type?: string;
+    };
+    remediation_id?: string;
+    severities?: ThreatSummary;
+    state?: string;
+    tags?: any;
+    threat_level?: number;
+    threatiness?: number;
+    type?: string;
+    user_id?: string;
+    vinstances_count?: number;
+}
+
+export interface RemediationItemsQueryResult {
+    assets?: RemediationItemAsset[];
+    rows?: number;
+}
