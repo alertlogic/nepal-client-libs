@@ -38,11 +38,11 @@ export interface AlFimConfiguration {
 }
 
 export interface AlFimConfigurationSummaryReport {
-    monitored_paths: AlFimCongigurationReportTypes;
-    excluded_paths: AlFimCongigurationReportTypes;
+    monitored_paths: AlFimConfigurationReportTypes;
+    excluded_paths: AlFimConfigurationReportTypes;
 }
 
-export interface AlFimCongigurationReportTypes {
+export interface AlFimConfigurationReportTypes {
     win_reg: AlFimCountReport;
     win_dir: AlFimCountReport;
     nix_dir: AlFimCountReport;
