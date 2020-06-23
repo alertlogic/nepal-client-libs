@@ -4,7 +4,8 @@ import {
 } from '@al/core';
 import {
     AlFimConfiguration,
-    fimPathType
+    fimPathType,
+    AlFimConfigurationSummaryReport
 } from './types';
 
 export class AlFimClientInstance {
@@ -110,6 +111,21 @@ export class AlFimClientInstance {
             account_id: accountId,
             path: `/deployments/${deploymentId}/${pathType}/${configurationId}`,
         });
+    }
+
+
+    /**
+    *  Gets the configuration summary report
+    *  @remarks
+    *  https://console.account.product.dev.alertlogic.com/users/api/fim_config/index.html#api-Reports-GetSummary
+    */
+    async getConfigurationsSummary(accountId: string): Promise<AlFimConfigurationSummaryReport> {
+        return (await this.client.get({
+            service_name: this.serviceName,
+            version: this.serviceVersion,
+            account_id: accountId,
+            path: '/reports/summary',
+        }) as AlFimConfigurationSummaryReport);
     }
 
 }

@@ -6,7 +6,8 @@ import {
     AlFimClient,
     AlFimConfiguration,
     getBaseAndPattern,
-    getFullPath
+    getFullPath,
+    AlFimConfigurationSummaryReport
 } from '../src/index';
 
 
@@ -49,6 +50,37 @@ describe("FIM Configuration Client", () => {
         type: "nix_dir",
         base: "/directory"
     };
+
+    const rawFimSummaryReport: AlFimConfigurationSummaryReport = {
+        "monitored_paths": {
+            "win_reg": {
+                "total_num": 23,
+                "num_enabled": 23
+            },
+            "win_dir": {
+                "total_num": 9,
+                "num_enabled": 9
+            },
+            "nix_dir": {
+                "total_num": 10,
+                "num_enabled": 10
+            }
+        },
+        "excluded_paths": {
+            "win_reg": {
+                "total_num": 0,
+                "num_enabled": 0
+            },
+            "win_dir": {
+                "total_num": 0,
+                "num_enabled": 0
+            },
+            "nix_dir": {
+                "total_num": 0,
+                "num_enabled": 0
+            }
+        }
+    }
 
     describe("WHEN creating/updating fim_config object", () => {
         beforeEach(() => {
@@ -189,6 +221,28 @@ describe("FIM Configuration Client", () => {
             actual = getFullPath(config);
             expect(actual).to.equal("c:\\path\\to\\logs\\*.log");
 
+        });
+    });
+
+    describe("WHEN fetching a configurations summary report", ()=>{
+        beforeEach(() => {
+            stub = sinon
+                    .stub(AlDefaultClient as any, 'axiosRequest')
+                    .returns(Promise.resolve({status: 200, data: rawFimSummaryReport}));
+        });
+        afterEach(() => {
+            stub.restore();
+        });
+
+        it("Should call the AlFimClient instance\'s GET.", async () => {
+            const accountId = "12345678";
+            const result: AlFimConfigurationSummaryReport = await AlFimClient
+                                .getConfigurationsSummary(accountId);
+            const rawPayload = stub.args[0][0];
+            expect( stub.callCount ).to.equal(1);
+            expect( rawPayload.method ).to.equal( "GET" );
+            expect( rawPayload.url ).to.contain('/reports/summary');
+            expect( result ).to.equal( rawFimSummaryReport as AlFimConfigurationSummaryReport );
         });
     });
 });

@@ -37,6 +37,22 @@ export interface AlFimConfiguration {
     system?: boolean;
 }
 
+export interface AlFimConfigurationSummaryReport {
+    monitored_paths: AlFimCongigurationReportTypes;
+    excluded_paths: AlFimCongigurationReportTypes;
+}
+
+export interface AlFimCongigurationReportTypes {
+    win_reg: AlFimCountReport;
+    win_dir: AlFimCountReport;
+    nix_dir: AlFimCountReport;
+}
+
+export interface AlFimCountReport {
+    total_num: number;
+    num_enabled: number;
+}
+
 export function getFullPath(config: AlFimConfiguration): string {
     try {
         const suffix: string = config.pattern ? config.pattern : "";
