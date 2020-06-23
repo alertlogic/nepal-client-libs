@@ -262,31 +262,12 @@ export interface RemediationItemsQueryResponse {
 
 }
 export interface RemediationItemAsset {
-    account_id?: number;
+    account_id?: string;
     asset_count?: number;
     created_on?: number;
     deployment_id?: string;
-    exposures?: {
-        account_id?: number;
-        asset_count?: number;
-        categories?: string[];
-        created_on?: number;
-        cvss_score?: number;
-        cvss_vector?: string;
-        external?: boolean
-        modified_on?: number;
-        name?: string;
-        remediation_id?: string;
-        severity?: string;
-        tags: any
-        threat_level?: number;
-        threat_score?: number;
-        threat_vector?: string;
-        threatiness?: number;
-        vinstances?: any
-        vinstances_count?: number;
-        vulnerability_id?: string;
-    }[];
+    comment?: string;
+    exposures?: ExposureQueryResultItem[];
     exposures_count?: number;
     filters?: string[];
     item_id?: string;
