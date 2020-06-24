@@ -262,17 +262,17 @@ export class AlAssetsQueryClientInstance {
 
   /**
    * Undispose Remediations
-   * PUT
-   * /remediations/v1/:account_id/deployments/:deployment_id/remediations
-   * "https://api.cloudinsight.alertlogic.com/remediations/v1/10000001/deployments/347203EF-134C-1005-8499-1289DB15AB31/remediations"
-   * -d '{"operation": "undispose_remediations", "remediation_itemss": ["/al/15000001:814C2911-09BB-1005-9916-7831C1BAC182/remediation-item/0536575B914C32C8A5D28415D02E4545"]}
+   * DELETE
+   * /remediations/v1/:account_id/remediations
+   * https://api.cloudinsight.alertlogic.com/remediations/v1/12345678/remediations?remediation_item_ids=0536575B914C32C8A5D28415D02E4545"
    */
-  async undisposeRemediations(accountId: string, deploymentId: string, remediationData: {operation: string, remediation_items: string[]}) {
-    return this.client.put<any>({
+  async undisposeRemediations(accountId: string, queryParams?: {deployment_ids?: string, remediation_item_ids?: string}) {
+    return this.client.delete<any>({
       account_id: accountId,
-      service_name: 'remediations',
-      path: `/deployments/${deploymentId}/remediations`,
-      data: remediationData,
+      service_name: 'assets_query',
+      path: '/remediations',
+      params: queryParams,
+      version: 'v2'
     });
   }
 

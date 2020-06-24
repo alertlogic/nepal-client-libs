@@ -223,13 +223,13 @@ describe('Assets Query Client Test Suite:', () => {
   describe('when undisposing remediations', () => {
     let stub: sinon.SinonSpy;
     beforeEach(() => {
-      stub = sinon.stub(assetsQueryClient.client, 'put');
+      stub = sinon.stub(assetsQueryClient.client, 'delete');
     });
     afterEach(() => {
       stub.restore();
     });
     it('should call put() on the AlDefaultClient instance', async () => {
-      await assetsQueryClient.undisposeRemediations('1234', '0987', { operation: 'uncomplete_remediations', remediation_items: ['4567', '7654'] });
+      await assetsQueryClient.undisposeRemediations('1234', { remediation_item_ids: '4567' });
       expect(stub.callCount).to.equal(1);
     });
   });
