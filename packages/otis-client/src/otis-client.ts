@@ -37,6 +37,7 @@ class OTISClient {
 
   private client = ALClient;
   private serviceName = 'otis';
+  private version = 'v3';
   /**
    * Create Option
    */
@@ -45,7 +46,7 @@ class OTISClient {
       service_name: this.serviceName,
       account_id: accountId,
       path: '/options',
-      version: 'v3',
+      version: this.version,
       data: optionRequest,
     });
   }
@@ -57,7 +58,20 @@ class OTISClient {
       service_name: this.serviceName,
       account_id: accountId,
       path: `/options/${optionId}`,
-      version: 'v3',
+      version: this.version,
+    });
+
+  }
+  /**
+   * List Options
+   */
+  async listOptions(accountId: string, params?: {[key:string]: string}) {
+    return this.client.get<TuningOption[]>({
+      service_name: this.serviceName,
+      account_id: accountId,
+      path: `/options/`,
+      version: this.version,
+      params: params
     });
 
   }
@@ -69,7 +83,7 @@ class OTISClient {
       service_name: this.serviceName,
       account_id: accountId,
       path: `/options/${optionId}`,
-      version: 'v3',
+      version: this.version,
     });
   }
   /**
@@ -80,7 +94,7 @@ class OTISClient {
       service_name: this.serviceName,
       account_id: accountId,
       path: `/options/${optionId}`,
-      version: 'v3',
+      version: this.version,
       data: {
         value,
       },
@@ -94,7 +108,7 @@ class OTISClient {
       service_name: this.serviceName,
       account_id: accountId,
       path: '/options/resolve',
-      version: 'v3',
+      version: this.version,
       data: resolveOptionsRequestParams,
     });
   }
