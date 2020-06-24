@@ -17,11 +17,11 @@ export interface AlScanWindowSpecificDate extends AlScanWindow {
     /**
      * Specific date (`dd.mm.yyyy` format) when scan window ends.
      */
-    end_date: string;
+    end_date: string | null;
     /**
      * Time of day when continuous scanning window ends (24h format, `HH:MM`)
      */
-    end_time: string;
+    end_time: string | null;
 }
 export namespace AlScanWindowSpecificDate {
     export type TypeEnum = 'specific_date';
