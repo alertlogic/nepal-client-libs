@@ -65,7 +65,7 @@ class OTISClient {
   /**
    * List Options
    */
-  async listOptions(accountId: string, params?: {[key:string]: string}) {
+  async listOptions(accountId: string, params?: {[key:string]: string|string[]}) {
     return this.client.get<TuningOption[]>({
       service_name: this.serviceName,
       account_id: accountId,
