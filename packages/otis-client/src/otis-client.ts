@@ -3,28 +3,31 @@
  */
 import { ALClient } from '@al/core';
 
-interface TuningOption {
+export interface TuningOption {
   id: string;
   name: string;
   scope?: {
     deployment_id?: string;
+    region_key?: string;
     vpc_key?: string;
   };
   value: string;
 }
 
-interface OptionRequestParams {
+export interface OptionRequestParams {
   name: string;
   scope?: {
     deployment_id?: string;
+    region_key?: string;
     vpc_key?: string;
   };
   value: string;
 }
 
-interface ResolveOptionsRequestParams {
+export interface ResolveOptionsRequestParams {
   scope: {
     deployment_id?: string;
+    region_key?: string;
     vpc_key?: string;
   };
   names: string[];

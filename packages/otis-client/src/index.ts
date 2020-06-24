@@ -1,1 +1,6 @@
-export { otisClient as OTISClient } from './otis-client';
+export {
+    otisClient as OTISClient,
+    TuningOption,
+    OptionRequestParams,
+    ResolveOptionsRequestParams
+} from './otis-client';
