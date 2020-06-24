@@ -17,6 +17,8 @@ import {
     CollectionHealthQueryParams,
     RemediationItemsQueryParams,
     RemediationItemsQueryResponse,
+    AssetsQueryParams,
+    AssetQueryGeneralResponse,
 } from './types';
 
 export class AlAssetsQueryClientInstance {
@@ -110,8 +112,8 @@ export class AlAssetsQueryClientInstance {
    * /assets_query/v1/:account_id/assets
    * "https://api.cloudinsight.alertlogic.com/assets_query/v1/01000001/assets"
    */
-  async getAccountAssets(accountId: string, queryParams?: any) {
-    return this.client.get<any>({
+  async getAccountAssets(accountId: string, queryParams?: AssetsQueryParams) {
+    return this.client.get<AssetQueryGeneralResponse>({
       account_id: accountId,
       service_name: 'assets_query',
       path: '/assets',
@@ -125,8 +127,8 @@ export class AlAssetsQueryClientInstance {
    * /assets_query/v1/:account_id/deployments/:deployment_id/assets
    * "https://api.cloudinsight.alertlogic.com/assets_query/v1/01000001/deployments/1C0EFEC8-7DBE-480D-A025-ECC13DE30AD5/assets"
    */
-  async getDeploymentAssets(accountId: string, deploymentId: string, queryParams?: any) {
-    return this.client.get<any>({
+  async getDeploymentAssets(accountId: string, deploymentId: string, queryParams?: AssetsQueryParams) {
+    return this.client.get<AssetQueryGeneralResponse>({
       account_id: accountId,
       service_name: 'assets_query',
       path: `/deployments/${deploymentId}/assets`,

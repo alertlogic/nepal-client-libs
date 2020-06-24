@@ -304,3 +304,46 @@ export interface RemediationItemsQueryResult {
     assets?: RemediationItemAsset[];
     rows?: number;
 }
+
+export interface AssetsQueryParams {
+    asset_types?: string;
+    return_types?: string;
+    query_format?: string;
+    return_count?: boolean;
+    reduce?: boolean;
+    qfields?: string;
+    [key: string]: any;
+}
+
+export interface AssetQueryGeneralResponse {
+    assets: AssetQueryResultItem[];
+    rows: number;
+}
+
+export interface AssetQueryResultItem {
+    account_id?: string;
+    created_on?: number;
+    declared?: boolean;
+    deleted_on?: number;
+    deployment_id?: string;
+    group_id?: string;
+    group_name?: string;
+    in_scope?: boolean;
+    key?: string;
+    modified_on?: number;
+    name?: string;
+    native_type?: string;
+    path?: string[];
+    scope_aws_group_description?: string;
+    scope_aws_group_id?: string;
+    scope_aws_group_name?: string;
+    scope_aws_native_id?: string;
+    scope_aws_vpc_id?: string;
+    tag_keys?: {[key:string]:string};
+    tags?: {[key:string]:string};
+    threat_level?: number;
+    threatiness?: number;
+    type?: string;
+    version?: number;
+}
+
