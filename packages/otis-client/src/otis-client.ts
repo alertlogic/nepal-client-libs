@@ -11,7 +11,7 @@ export interface TuningOption {
     region_key?: string;
     vpc_key?: string;
   };
-  value: string;
+  value: string|number|{[key:string]: unknown};
 }
 
 export interface OptionRequestParams {
@@ -21,7 +21,7 @@ export interface OptionRequestParams {
     region_key?: string;
     vpc_key?: string;
   };
-  value: string;
+  value: string|number|{[key:string]: unknown};
 }
 
 export interface ResolveOptionsRequestParams {

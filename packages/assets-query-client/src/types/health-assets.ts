@@ -246,18 +246,27 @@ export interface HealthAssetCategory {
 
 export interface HealthListItem {
     agent?: string;
-    appliance?:  string;
-    asset_count?:  number;
+    appliance?: string;
+    asset_count?: number;
     collector?: string;
     deployment?: string;
+    exposures?: HealthListItemExposure[];
+    exposures_by_remediation?: {
+        [remediationKey: string]: string[];
+    };
+    exposures_count?: number;
     health_level?: number;
     host?: string;
-    protection_policy_id?:  string;
+    protection_policy_id?: string;
+    region?: string;
     remediations?: string[];
     remediations_filters?: string[];
-    exposures_by_remediation?: {[remediationKey: string]: string[]};
     unhealthiness?: number;
     vpc?: string;
+}
+export interface HealthListItemExposure {
+    asset_count?: number;
+    exposure?: string;
 }
 
 export interface HealthResponseFilters {
