@@ -12,16 +12,21 @@ export interface AlIntegrationType {
     category: string;
 }
 
-export interface AlIntegrationTypeDetail {
-    schema: Object;
+export interface AlIntegrationTypeDetail extends AlIntegrationType{
+    schema?: Object;
+    dry_run_message?: string;
     form: {
         controls: AlDynamicFormControlElement[];
+    };
+    payload_templates?: {
+        [key: string]: {default : string };
     };
 }
 
 export interface AlIntegrationPayloadSchema {
-    conversion_type: 'default' | 'jq';
-    template: Object;
+    payload_conversion_type: 'default' | 'jq';
+    payload_template: string;
+    payload_type: AlIntegrationPayloadTypes;
 }
 
 export interface AlIntegrationBaseSchema {
@@ -35,24 +40,20 @@ export interface AlIntegrationBaseSchema {
 
 export type AlIntegrationPayloadTypes = 'incident' | 'observation' | 'scheduled_report';
 
-export interface AlIntegrationWebhookSchema extends AlIntegrationBaseSchema {
+export interface AlIntegrationWebhookSchema extends AlIntegrationBaseSchema, AlIntegrationPayloadSchema {
     target_url: string;
-    authorization: Object; // TODO
-    headers: Object; // TODO
-    payload_info: AlIntegrationPayloadSchema;
-    payload_type: AlIntegrationPayloadTypes;
+    auth_header?: string;
+    headers?: string;
 }
 
 export interface AlIntegrationEmailSchema extends AlIntegrationBaseSchema {
     email: string;
 }
 
-export interface AlIntegrationServiceNowSchema extends AlIntegrationBaseSchema {
+export interface AlIntegrationServiceNowSchema extends AlIntegrationBaseSchema, AlIntegrationPayloadSchema {
     target_url: string;
-    authorization: Object; // TODO
-    headers: Object; // TODO
-    payload_info: AlIntegrationPayloadSchema;
-    payload_type: AlIntegrationPayloadTypes;
+    auth_header?: string;
+    headers?: string;
 }
 
 // TODO review how this is going to be returned
