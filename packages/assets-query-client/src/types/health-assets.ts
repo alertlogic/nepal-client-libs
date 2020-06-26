@@ -5,6 +5,7 @@ export interface HealthAssetVPC {
     health_level?: number;
     key?: string;
     name?: string;
+    state?: string;
     network_uuid?: string;
     tags?: {
         [key: string]: string;
