@@ -3,17 +3,21 @@
  */
 export interface AlScanScheduleSummary {
     /**
-     * The total number of scannable hosts that are in the scope of a given schedule.
+     * The total number of scannable assets that are in the scope of a given schedule.
      */
-    hosts_number?: number;
+    assets_number?: number;
     /**
-     * Number of hosts that have met the SLA specified by `scan_frequency` parameter.
+     * Number of assets that have met the SLA specified by `scan_frequency` parameter.
      */
-    hosts_in_sla?: number;
+    assets_in_sla?: number;
     /**
-     * Number of hosts that are excluded and are not counted into the SLA specified by `scan_frequency` parameter. parameter.
+     * Number of assets that are excluded and are not counted into the SLA specified by `scan_frequency` parameter.
      */
-    hosts_excluded?: number;
+    assets_excluded?: number;
+    /**
+     * Number of assets that are due to be scanned within the scope of the schedule to meet its SLA.
+     */
+    assets_to_scan?: number;
     /**
      * Timestamp of the last successful scan executed within the scope of  the schedule.
      */
