@@ -294,3 +294,45 @@ export interface HealthAssetExposure {
     type: string;
     vulnerability_id: string;
 }
+
+export interface HealthAssetRegion {
+    account_id?: string;
+    created_on?: number;
+    modified_on?: number;
+    key?:string;
+    deployment_id?:string;
+    name?: string;
+    region_name?:string;
+    type?: string;
+    threat_level?: number;
+    threatiness?: number;
+}
+
+export interface HealthAssetSubnet {
+    account_id?: string;
+    created_on?: number;
+    modified_on?: number;
+    key?:string;
+    deployment_id?:string;
+    name?: string;
+    subnet_id?:string;
+    subnet_name?:string;
+    subnet_uuid?:string;
+    cidr_block?:string;
+    type?: string;
+    threat_level?: number;
+    threatiness?: number;
+    state?:string;
+}
+
+export interface HealthAssetImage{
+    account_id?: string;
+    created_on?: number;
+    deployment_id?: string;
+    key?:string;
+    modified_on?: number;
+    threat_level?: number;
+    threatiness?: number;
+    type?: string;
+}
+
