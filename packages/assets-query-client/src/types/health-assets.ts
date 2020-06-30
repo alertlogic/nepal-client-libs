@@ -264,6 +264,8 @@ export interface HealthListItem {
     remediations_filters?: string[];
     unhealthiness?: number;
     vpc?: string;
+    subnet?: string;
+    image?: string;
 }
 export interface HealthListItemExposure {
     asset_count?: number;
