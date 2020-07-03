@@ -1,4 +1,6 @@
 export { suggestionsClient as SuggestionsClient } from './suggestions-client';
+export { SuggestionsClientV2 } from './suggestions-client-v2';
+export * from './types';
 export {
   CreateSavedQueryParams,
   UpdateSavedQueryParams,
