@@ -10,6 +10,7 @@ export interface AlIntegrationType {
     display_name: string;
     description: string;
     category: string;
+    icon: string;
 }
 
 export interface AlIntegrationTypeDetail extends AlIntegrationType{
