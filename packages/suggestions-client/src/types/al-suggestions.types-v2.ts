@@ -23,3 +23,21 @@ export interface AlSuggestionsTemplateResponseV2 {
         by: string;
     };
 }
+
+export interface AlCreateSavedQueryParamsV2 {
+    group_id: string;
+    name: string;
+    data_type: string;
+    search_request: any;
+}
+
+export interface AlSavedQueryV2 {
+    id: string;
+    account_id: string;
+    group_id: string;
+    name: string;
+    description?: string;
+    data_type: string;
+    search_request: any;
+    deleted?: boolean;
+}
