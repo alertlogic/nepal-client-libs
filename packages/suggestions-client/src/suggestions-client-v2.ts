@@ -7,6 +7,7 @@ import {
     GetTemplatesQueryParams,
     AlSuggestionsTemplatesListResponseV2
 } from './types';
+import { CreateSavedQueryParams, SavedQuery } from './suggestions-service.types';
 
 
 export class SuggestionsClientV2 {
@@ -23,9 +24,9 @@ export class SuggestionsClientV2 {
      * Get Templates
      * GET
      * /suggestions/v2/:account_id/templates
-     * "https://api.product.dev.alertlogic.com/suggestions/v2/01000001/templates"
+     * @remarks "https://api.product.dev.alertlogic.com/suggestions/v2/01000001/templates"
      */
-    getTemplates( accountId:string, params:GetTemplatesQueryParams = null ):Promise<AlSuggestionsTemplatesListResponseV2> {
+    async getTemplates( accountId:string, params:GetTemplatesQueryParams = null ):Promise<AlSuggestionsTemplatesListResponseV2> {
         return this.client.get<AlSuggestionsTemplatesListResponseV2>({
             service_name: this.serviceName,
             version: this.serviceVersion,
@@ -33,5 +34,19 @@ export class SuggestionsClientV2 {
             path: '/templates',
             params: params,
         });
+    }
+
+
+    /**
+     * Create a saved query for the given account ID
+     */
+    async createSavedQuery(accountId: string, savedQueryParams: CreateSavedQueryParams) {
+        return this.client.post<SavedQuery>({
+            service_name: this.serviceName,
+            account_id: accountId,
+            path: '/queries',
+            data: savedQueryParams,
+        });
+
     }
 }
