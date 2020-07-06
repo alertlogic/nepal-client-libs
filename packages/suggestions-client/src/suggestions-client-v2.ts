@@ -26,7 +26,7 @@ export class SuggestionsClientV2 {
      * /suggestions/v2/:account_id/templates
      * @remarks "https://api.product.dev.alertlogic.com/suggestions/v2/01000001/templates"
      */
-    async getTemplates( accountId:string, params:GetTemplatesQueryParams = null ):Promise<AlSuggestionsTemplatesListResponseV2> {
+    getTemplates( accountId:string, params:GetTemplatesQueryParams = null ):Promise<AlSuggestionsTemplatesListResponseV2> {
         return this.client.get<AlSuggestionsTemplatesListResponseV2>({
             service_name: this.serviceName,
             version: this.serviceVersion,
@@ -40,12 +40,24 @@ export class SuggestionsClientV2 {
     /**
      * Create a saved query for the given account ID
      */
-    async createSavedQuery(accountId: string, savedQueryParams: CreateSavedQueryParams) {
+    createSavedQuery(accountId: string, savedQueryParams: CreateSavedQueryParams) {
         return this.client.post<SavedQuery>({
             service_name: this.serviceName,
             account_id: accountId,
             path: '/queries',
             data: savedQueryParams,
+        });
+
+    }
+
+     /**
+     * Get a saved query by account ID and query ID
+     */
+    getQuery(accountId: string, queryId: string) {
+        return this.client.get<SavedQuery>({
+            service_name: this.serviceName,
+            account_id: accountId,
+            path: `/queries/${queryId}`,
         });
 
     }
