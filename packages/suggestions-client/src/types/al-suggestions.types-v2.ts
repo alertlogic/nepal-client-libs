@@ -5,11 +5,6 @@
  *  @copyright Alert Logic, Inc 2020
  */
 
-export interface GetTemplatesQueryParams {
-    deleted: boolean;
-    data_type: string;
-}
-
 export interface AlSuggestionsTemplateResponseV2 {
     id: string;
     account_id: string;
@@ -29,7 +24,20 @@ export interface AlSuggestionsTemplateResponseV2 {
     };
 }
 
-export interface AlSuggestionsTemplatesListResponseV2 {
-    templates: AlSuggestionsTemplateResponseV2[];
+export interface AlCreateSavedQueryParamsV2 {
+    group_id: string;
+    name: string;
+    data_type: string;
+    search_request: any;
 }
 
+export interface AlSavedQueryV2 {
+    id: string;
+    account_id: string;
+    group_id: string;
+    name: string;
+    description?: string;
+    data_type: string;
+    search_request: any;
+    deleted?: boolean;
+}
