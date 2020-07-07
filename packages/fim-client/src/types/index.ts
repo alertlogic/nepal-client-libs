@@ -61,7 +61,7 @@ export const windowsDirectoryRegex: RegExp = new RegExp(/^(?:[a-zA-Z]\:)(?:\\.+)
 
 export function getFullPath(config: AlFimConfiguration): string {
     try {
-        const suffix: string = config.pattern ? config.pattern : "*";
+        const suffix: string = config.pattern ? config.pattern : "**";
         const separator: string = config.type === 'nix_dir' ? "/" : "\\";
         if (config.base.slice(-1) === separator) {
             return `${config.base}${suffix}`;
