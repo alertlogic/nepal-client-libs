@@ -9,7 +9,7 @@ import {
     AlSavedQueryV2
 } from './types';
 
-export class AlSuggestionsClientV2 {
+export class AlSuggestionsClientInstanceV2 {
 
     private client: AlApiClient;
     private serviceVersion = 'v2';
