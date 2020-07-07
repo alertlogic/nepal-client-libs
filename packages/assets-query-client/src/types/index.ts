@@ -251,15 +251,21 @@ export interface RemediationItemsQueryParams {
     filter?: string | string[];
     include_exposures?: boolean;
     include_filters?: boolean;
+    detailed_filters?: boolean;
     details?: boolean;
 }
 export interface RemediationItemsQueryResponse {
-    filters?: string[];
+    filters?: string[] | RemediationItemsFilter[];
     'remediation-items'?: RemediationItemsQueryResult;
     summary?: {
         severities?: ThreatSummary;
     };
-
+}
+export interface RemediationItemsFilter {
+    type: string;
+    name: string;
+    key: string;
+    count: number;
 }
 export interface RemediationItemAsset {
     account_id?: string;
