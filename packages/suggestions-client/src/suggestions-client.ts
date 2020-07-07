@@ -24,9 +24,9 @@ import {
     TranslateSearchRequest,
     TranslateSearchResponse,
     UpdateSavedQueryParams,
-} from './suggestions-service.types';
+} from './types/al-suggestions.types-v1';
 
-class SuggestionsClient {
+export class AlSuggestionsClientInstanceV1 {
 
     private client = ALClient;
     private serviceName = 'suggestions';
@@ -354,5 +354,3 @@ class SuggestionsClient {
         });
     }
 }
-
-export const suggestionsClient = new SuggestionsClient();
