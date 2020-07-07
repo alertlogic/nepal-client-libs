@@ -49,4 +49,16 @@ export class AlSuggestionsClientV2 {
         });
 
     }
+
+    /**
+     * Get a saved query by account ID and query ID
+     */
+    getQuery(accountId: string, queryId: string) {
+        return this.client.get<AlSavedQueryV2>({
+            service_name: this.serviceName,
+            account_id: accountId,
+            path: `/queries/${queryId}`,
+        });
+
+    }
 }
