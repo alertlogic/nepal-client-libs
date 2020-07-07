@@ -1,5 +1,12 @@
+import { AlGlobalizer } from '@al/core';
+import { AlSuggestionsClientInstanceV2 } from './suggestions-client-v2';
+
+/* tslint:disable:variable-name */
+export const AlSuggestionsClientV2 = AlGlobalizer.instantiate( "AlSuggestionsClientV2", () => new AlSuggestionsClientInstanceV2() );
 export { suggestionsClient as SuggestionsClient } from './suggestions-client';
-export { AlSuggestionsClientV2 } from './suggestions-client-v2';
+/* tslint:enable:variable-name */
+
+export * from './suggestions-client-v2';
 export * from './types';
 export {
   CreateSavedQueryParams,
