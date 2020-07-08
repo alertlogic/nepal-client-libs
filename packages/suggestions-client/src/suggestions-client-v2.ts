@@ -1,7 +1,6 @@
 import {
     AlApiClient,
     AlDefaultClient,
-    AlLocation,
 } from '@al/core';
 import {
     AlSuggestionsTemplateResponseV2,
@@ -11,9 +10,9 @@ import {
 
 export class AlSuggestionsClientInstanceV2 {
 
-    private client: AlApiClient;
-    private serviceVersion = 'v2';
-    private serviceName = 'suggestions';
+    protected client: AlApiClient;
+    protected serviceVersion = 'v2';
+    protected serviceName = 'suggestions';
 
     constructor(client: AlApiClient = null) {
         this.client = client || AlDefaultClient;
@@ -36,13 +35,16 @@ export class AlSuggestionsClientInstanceV2 {
         return result.templates as AlSuggestionsTemplateResponseV2[];
     }
 
-
     /**
-     * Create a saved query for the given account ID
+     * Create a Saved Query
+     * POST
+     * /suggestions/v2/:account_id/search
+     * @remarks "https://console.account.product.dev.alertlogic.com/users/api/suggestions/index.html#api-Queries-CreateQuery"
      */
     createSavedQuery(accountId: string, savedQueryParams: AlCreateSavedQueryParamsV2) {
         return this.client.post<AlSavedQueryV2>({
             service_name: this.serviceName,
+            version: this.serviceVersion,
             account_id: accountId,
             path: '/queries',
             data: savedQueryParams,
@@ -51,11 +53,15 @@ export class AlSuggestionsClientInstanceV2 {
     }
 
     /**
-     * Get a saved query by account ID and query ID
+     * Get a Saved Query
+     * GET
+     * /suggestions/v2/:account_id/queries/:id
+     * @remarks "https://console.account.product.dev.alertlogic.com/users/api/suggestions/index.html#api-Queries-GetQuery"
      */
     getQuery(accountId: string, queryId: string) {
         return this.client.get<AlSavedQueryV2>({
             service_name: this.serviceName,
+            version: this.serviceVersion,
             account_id: accountId,
             path: `/queries/${queryId}`,
         });
