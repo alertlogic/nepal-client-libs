@@ -24,7 +24,7 @@ export class AlSuggestionsClientInstanceV2 {
      * /suggestions/v2/:account_id/templates
      * @remarks "https://api.product.dev.alertlogic.com/suggestions/v2/01000001/templates"
      */
-    async getTemplates( accountId:string, params?:{ deleted?:boolean,data_type?:string } ):Promise<AlSuggestionsTemplateResponseV2[]> {
+    async getQueryTemplates( accountId:string, params?:{ deleted?:boolean,data_type?:string } ):Promise<AlSuggestionsTemplateResponseV2[]> {
         const result = await this.client.get({
             service_name: this.serviceName,
             version: this.serviceVersion,
@@ -49,7 +49,6 @@ export class AlSuggestionsClientInstanceV2 {
             path: '/queries',
             data: savedQueryParams,
         });
-
     }
 
     /**
@@ -58,13 +57,12 @@ export class AlSuggestionsClientInstanceV2 {
      * /suggestions/v2/:account_id/queries/:id
      * @remarks "https://console.account.product.dev.alertlogic.com/users/api/suggestions/index.html#api-Queries-GetQuery"
      */
-    getQuery(accountId: string, queryId: string) {
+    getSavedQuery(accountId: string, queryId: string) {
         return this.client.get<AlSavedQueryV2>({
             service_name: this.serviceName,
             version: this.serviceVersion,
             account_id: accountId,
             path: `/queries/${queryId}`,
         });
-
     }
 }
