@@ -1,9 +1,5 @@
-  @al/suggestions
+  Repository with all the AL NEPAL Clients
 =========
-
-A client for working with the Cargo Alert Logic API.
-
-This library uses @al/cargo as its HTTP provider interface.
 
 ## Disclaimer
 
@@ -11,12 +7,12 @@ Until the release of version 1.0.0 all current minor version increments may be b
 
 ## Installation
 
-      npm install @al/suggestions --save
+      npm install @al/package --save
 
 ## Usage
 
-      var SuggestionsClient = require('@al/suggestions').SuggestionsClient; //commonjs - e.g. node
-      import { SuggestionsClient } from '@al/suggestions'; //ES2015 - e.g. Angular, TS projects
+      var AlClient = require('@al/package').AlClient; //commonjs - e.g. node
+      import { AlClient } from '@al/package'; //ES2015 - e.g. Angular, TS projects
 
 ## Interactive
 
@@ -45,3 +41,7 @@ To generate a development build
     npm run build-dev
 
 Builds will be be generated into a `dist` folder and will contain commonjs and umd bundles that will be consumed depending on the module system in whichever environment you are using.
+
+To gererate build for a specific package, use the command:
+
+    PATH=$(cd ../.. && npm bin):$PATH npm run build
