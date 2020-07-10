@@ -59,7 +59,7 @@ describe('HERALD CLIENT V2', () => {
                 expect( stub.callCount ).to.equal( 1 );
                 expect( payload.method ).to.equal( "GET" );
                 expect( payload.url ).to.equal( `${apiBaseURL}/${service}/${version}/${accountId}/subscriptions` );
-                expect( payload.params ).to.equal( query );
+                expect( payload.params ).to.deep.equal( query );
             });
         });
 
