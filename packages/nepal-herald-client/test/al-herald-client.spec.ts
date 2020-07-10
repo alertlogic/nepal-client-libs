@@ -606,7 +606,7 @@ describe('HERALD CLIENT', () => {
                 expect( stub.callCount ).to.equal( 1 );
                 expect( payload.method ).to.equal( "GET" );
                 expect( payload.url ).to.equal( `${apiBaseURL}/${service}/${version}/${accountId}/integrations/${integrationId}` );
-                expect( result ).to.equal( integrationsMock.integrations[0] );
+                expect( result ).to.deep.equal( integrationsMock.integrations[0] );
             });
         });
 
@@ -627,7 +627,7 @@ describe('HERALD CLIENT', () => {
                 expect( stub.callCount ).to.equal( 1 );
                 expect( payload.method ).to.equal( "GET" );
                 expect( payload.url ).to.equal( `${apiBaseURL}/${service}/${version}/${accountId}/integrations` );
-                expect( result ).to.equal( integrationsMock.integrations );
+                expect( result ).to.deep.equal( integrationsMock.integrations );
             });
         });
 
@@ -651,7 +651,7 @@ describe('HERALD CLIENT', () => {
                 expect( stub.callCount ).to.equal( 1 );
                 expect( payload.method ).to.equal( "PUT" );
                 expect( payload.url ).to.equal( `${apiBaseURL}/${service}/${version}/${accountId}/integrations/${integrationId}` );
-                expect( result ).to.equal( integrationsMock.integrations[0] );
+                expect( result ).to.deep.equal( integrationsMock.integrations[0] );
             });
         });
 
@@ -669,7 +669,7 @@ describe('HERALD CLIENT', () => {
                 expect( stub.callCount ).to.equal( 1 );
                 expect( payload.method ).to.equal( "GET" );
                 expect( payload.url ).to.equal( `${apiBaseURL}/${service}/${version}/integration_types` );
-                expect( result ).to.equal( integrationTypesMock.integration_types );
+                expect( result ).to.deep.equal( integrationTypesMock.integration_types );
             });
         });
 
@@ -726,7 +726,7 @@ describe('HERALD CLIENT', () => {
                 expect( stub.callCount ).to.equal( 1 );
                 expect( payload.method ).to.equal( "GET" );
                 expect( payload.url ).to.equal( `${apiBaseURL}/${service}/${version}/${accountId}/notifications` );
-                expect( payload.params ).to.equal( query );
+                expect( payload.params ).to.deep.equal( query );
             });
         });
 
@@ -849,7 +849,7 @@ describe('HERALD CLIENT', () => {
                 expect( stub.callCount ).to.equal( 1 );
                 expect( payload.method ).to.equal( "GET" );
                 expect( payload.url ).to.equal( `${apiBaseURL}/${service}/${version}/${accountId}/subscribers/${feature}/${subkey}` );
-                expect( result ).to.equal( accountsMock );
+                expect( result ).to.deep.equal( accountsMock );
             });
         });
 
@@ -868,7 +868,7 @@ describe('HERALD CLIENT', () => {
                 expect( stub.callCount ).to.equal( 1 );
                 expect( payload.method ).to.equal( "GET" );
                 expect( payload.url ).to.equal( `${apiBaseURL}/${service}/${version}/${accountId}/subscribers/account_ids/${feature}/${subkey}` );
-                expect( result ).to.equal( accountsIdMock );
+                expect( result ).to.deep.equal( accountsIdMock );
             });
         });
     });
@@ -964,8 +964,8 @@ describe('HERALD CLIENT', () => {
                 expect( stub.callCount ).to.equal( 1 );
                 expect( payload.method ).to.equal( "GET" );
                 expect( payload.url ).to.equal( `${apiBaseURL}/${service}/${version}/subscription_keys` );
-                expect( payload.params ).to.equal( params );
-                expect( result ).to.equal( subscriptionkeysMock.subscription_keys );
+                expect( payload.params ).to.deep.equal( params );
+                expect( result ).to.deep.equal( subscriptionkeysMock.subscription_keys );
             });
         });
 
@@ -984,8 +984,8 @@ describe('HERALD CLIENT', () => {
                 expect( stub.callCount ).to.equal( 1 );
                 expect( payload.method ).to.equal( "GET" );
                 expect( payload.url ).to.equal( `${apiBaseURL}/${service}/${version}/subscription_keys/${payloadRequest.feature}` );
-                expect( payload.params ).to.equal( params );
-                expect( result ).to.equal( subscriptionkeysMock.subscription_keys );
+                expect( payload.params ).to.deep.equal( params );
+                expect( result ).to.deep.equal( subscriptionkeysMock.subscription_keys );
             });
         });
 
@@ -1006,7 +1006,7 @@ describe('HERALD CLIENT', () => {
                 expect( stub.callCount ).to.equal( 1 );
                 expect( payload.method ).to.equal( "PUT" );
                 expect( payload.url ).to.equal( `${apiBaseURL}/${service}/${version}/${accountId}/subscription_keys/${payloadRequest.feature}/${payloadRequest.subkey}` );
-                expect( result ).to.equal( subscriptionkeysMock.subscription_keys[0] );
+                expect( result ).to.deep.equal( subscriptionkeysMock.subscription_keys[0] );
             });
         });
 
@@ -1027,7 +1027,7 @@ describe('HERALD CLIENT', () => {
                 expect( stub.callCount ).to.equal( 1 );
                 expect( payload.method ).to.equal( "PUT" );
                 expect( payload.url ).to.equal( `${apiBaseURL}/${service}/${version}/subscription_keys/${payloadRequest.feature}/${payloadRequest.subkey}` );
-                expect( result ).to.equal( subscriptionkeysMock.subscription_keys[0] );
+                expect( result ).to.deep.equal( subscriptionkeysMock.subscription_keys[0] );
             });
         });
     });

@@ -109,7 +109,7 @@ describe('CARGO CLIENT V2', () => {
                 expect( spy.callCount ).to.equal( 1 );
                 expect( payload.method ).to.equal( "GET" );
                 expect( payload.url ).to.equal( `${cargoURL}/${accountId}/execution_record` );
-                expect( payload.params ).to.equal( query );
+                expect( payload.params ).to.deep.equal( query );
             });
         });
 
