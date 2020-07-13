@@ -2,8 +2,9 @@
  * Module to deal with available Correlations Public API endpoints
  */
 import {
-  AlDefaultClient,
-  AlResponseValidationError,
+    AlDefaultClient,
+    AlResponseValidationError,
+    AlLocation,
 } from '@al/core';
 
 export interface AlCreateCorrelationRequestV2 {
@@ -43,7 +44,7 @@ export interface AlCorrelationRuleV2 {
         at: number,
         by: string
     } | null;
-    triggered?:  {
+    triggered?: {
         at: number,
         by: string
     } | null;
@@ -61,7 +62,7 @@ export interface Stats {
     };
 }
 export interface AlCorrelationRulesResponseV2 {
-    rules: AlCorrelationRuleV2[] | {[key: string]: AlCorrelationRuleV2[]}[];
+    rules: AlCorrelationRuleV2[] | { [key: string]: AlCorrelationRuleV2[] }[];
     stats?: Stats;
     total: number;
 }
@@ -80,16 +81,17 @@ export class AlCoralClientInstanceV2 {
     /**
      *  Create correlation rule - notification only / incidents from correlation
      */
-    async createCorrelationRule(accountId: string, correlationRequest: AlCreateCorrelationRequestV2):Promise<AlCorrelationRuleV2> {
+    async createCorrelationRule(accountId: string, correlationRequest: AlCreateCorrelationRequestV2): Promise<AlCorrelationRuleV2> {
         const result = await AlDefaultClient.post({
+            service_stack: AlLocation.InsightAPI,
             service_name: this.serviceName,
             version: 2,
-            account_id:   accountId,
-            path:         '/correlations',
-            data:         correlationRequest,
+            account_id: accountId,
+            path: '/correlations',
+            data: correlationRequest,
         });
-        if ( ! result.hasOwnProperty("id" ) ) {
-            throw new AlResponseValidationError(`Service returned unexpected result; missing 'id' property.` );
+        if (!result.hasOwnProperty("id")) {
+            throw new AlResponseValidationError(`Service returned unexpected result; missing 'id' property.`);
         }
         return result as AlCorrelationRuleV2;
     }
@@ -98,70 +100,75 @@ export class AlCoralClientInstanceV2 {
      *  Delete correlation rule
      */
     async removeCorrelationRule(accountId: string, correlationId: string) {
-        const response =  await AlDefaultClient.delete({
+        const response = await AlDefaultClient.delete({
+            service_stack: AlLocation.InsightAPI,
             service_name: this.serviceName,
             version: 2,
-            account_id:   accountId,
-            path:         `/correlations/${correlationId}`
+            account_id: accountId,
+            path: `/correlations/${correlationId}`
         });
         return response;
-     }
+    }
 
     /**
      *  Get correlation rule by ID
      */
     async getCorrelationRule(accountId: string, correlationId: string): Promise<AlCorrelationRuleV2> {
         const correlation = await AlDefaultClient.get({
+            service_stack: AlLocation.InsightAPI,
             service_name: this.serviceName,
             version: 2,
-            account_id:   accountId,
-            path:         `/correlations/${correlationId}`,
+            account_id: accountId,
+            path: `/correlations/${correlationId}`,
         });
         return correlation as AlCorrelationRuleV2;
-     }
+    }
 
     /**
      *  Get all correlation rules
      */
     async getAllCorrelations(accountId: string, params = {}): Promise<AlCorrelationRulesResponseV2> {
-         const correlations = await AlDefaultClient.get({
-             service_name: this.serviceName,
-             version: 2,
-             account_id:   accountId,
-             path:         '/correlations',
-             params:       params
-         });
-         return correlations as AlCorrelationRulesResponseV2;
-     }
+        const correlations = await AlDefaultClient.get({
+            service_stack: AlLocation.InsightAPI,
+            service_name: this.serviceName,
+            version: 2,
+            account_id: accountId,
+            path: '/correlations',
+            params: params
+        });
+        return correlations as AlCorrelationRulesResponseV2;
+    }
 
     /**
      *   Update correlation rule
      */
     async updateCorrelationRule(accountId: string, correlationId: string, correlation: AlCreateCorrelationRequestV2): Promise<AlCorrelationRuleV2> {
         const result = await AlDefaultClient.put({
+            service_stack: AlLocation.InsightAPI,
             service_name: this.serviceName,
             version: 2,
-            account_id:   accountId,
-            path:         `/correlations/${correlationId}`,
-            data:         correlation
+            account_id: accountId,
+            path: `/correlations/${correlationId}`,
+            data: correlation
         });
 
         if (!result.hasOwnProperty("id")) {
             throw new AlResponseValidationError(`Service returned unexpected result; missing 'id' property.`);
         }
         return result as AlCorrelationRuleV2;
-     }
+    }
 
     /**
      *  It tests the validity of an input or in a debugging capacity to see what content aecoral would generate for a given input.
      */
     async validateCorrelationPolicy(accountId: string, correlation: AlCreateCorrelationRequestV2) {
         const response = await AlDefaultClient.post({
+            service_stack: AlLocation.InsightAPI,
             service_name: this.serviceName,
             version: 2,
-            account_id:   accountId,
-            path:         '/correlations/validate',
-            data:         correlation
+            account_id: accountId,
+            path: '/correlations/validate',
+            data: correlation
         });
         return response;
     }
@@ -171,9 +178,10 @@ export class AlCoralClientInstanceV2 {
      */
     async getIncidentSpecifications(): Promise<AlIncidentSpecificationResponseV2> {
         const result = await AlDefaultClient.get({
+            service_stack: AlLocation.InsightAPI,
             service_name: this.serviceName,
             version: 2,
-            path:         '/specifications/incident',
+            path: '/specifications/incident',
         });
         return result as AlIncidentSpecificationResponseV2;
     }
