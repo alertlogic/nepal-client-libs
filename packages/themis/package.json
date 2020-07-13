@@ -1,6 +1,6 @@
 {
   "name": "@al/themis",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "license": "MIT",
   "description": "A client for interacting with the Alert Logic Themis Public API",
   "author": {

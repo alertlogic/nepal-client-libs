@@ -4,6 +4,7 @@
 import {
   AlDefaultClient,
   AlResponseValidationError,
+  AlLocation,
 } from '@al/core';
 
 import {
@@ -24,13 +25,14 @@ export class AlScanSchedulerClientInstanceV2 {
      *  Lists scan schedules that belong to a particular deployment
      */
     async getScanSchedulesList(accountId: string, deploymentId: string, params = {}): Promise<AlScanSchedule[]> {
-         return AlDefaultClient.get({
-             service_name: this.serviceName,
-             version:      2,
-             account_id:   accountId,
-             path:         `/${deploymentId}/schedules`,
-             params:       params
-         });
+        return AlDefaultClient.get({
+            service_stack: AlLocation.InsightAPI,
+            service_name: this.serviceName,
+            version:      2,
+            account_id:   accountId,
+            path:         `/${deploymentId}/schedules`,
+            params:       params
+        });
     }
 
     /**
@@ -38,6 +40,7 @@ export class AlScanSchedulerClientInstanceV2 {
      */
     async createScanSchedule(accountId: string, deploymentId: string, schedule: AlScanSchedule): Promise<AlScanSchedule> {
         const result = await AlDefaultClient.post({
+            service_stack: AlLocation.InsightAPI,
             service_name: this.serviceName,
             version:      2,
             account_id:   accountId,
@@ -55,6 +58,7 @@ export class AlScanSchedulerClientInstanceV2 {
      */
     async getScanSchedule(accountId: string, deploymentId: string, scheduleId: string): Promise<AlScanSchedule> {
         return AlDefaultClient.get({
+            service_stack: AlLocation.InsightAPI,
             service_name: this.serviceName,
             version:      2,
             account_id:   accountId,
@@ -67,6 +71,7 @@ export class AlScanSchedulerClientInstanceV2 {
      */
     async removeScanSchedule(accountId: string, deploymentId: string, scheduleId: string) {
         return AlDefaultClient.delete({
+            service_stack: AlLocation.InsightAPI,
             service_name: this.serviceName,
             version:      2,
             account_id:   accountId,
@@ -79,6 +84,7 @@ export class AlScanSchedulerClientInstanceV2 {
      */
     async updateScanSchedule(accountId: string, deploymentId: string, scheduleId: string, schedule: AlScanSchedule): Promise<AlScanSchedule> {
         const result = await AlDefaultClient.put({
+            service_stack: AlLocation.InsightAPI,
             service_name: this.serviceName,
             version:      2,
             account_id:   accountId,
@@ -97,6 +103,7 @@ export class AlScanSchedulerClientInstanceV2 {
      */
     async getScanScheduleSummary(accountId: string, deploymentId: string, scheduleId: string, params = {}): Promise<AlScanScheduleSummary> {
         return AlDefaultClient.get({
+            service_stack: AlLocation.InsightAPI,
             service_name: this.serviceName,
             version:      2,
             account_id:   accountId,
@@ -112,6 +119,7 @@ export class AlScanSchedulerClientInstanceV2 {
      */
     async validateIp(accountId: string, deploymentId: string, ips: string[]): Promise<AlIPValidationResult> {
         return AlDefaultClient.post({
+            service_stack: AlLocation.InsightAPI,
             service_name: this.serviceName,
             version:      2,
             account_id:   accountId,
@@ -124,11 +132,12 @@ export class AlScanSchedulerClientInstanceV2 {
      *  Lists supported timezones that can be used in ScanWindow definition
      */
     async getTimeZonesList(): Promise<AlTimeZone[]> {
-         return AlDefaultClient.get({
-             service_name: this.serviceName,
-             version:      2,
-             path:         `/timezones`
-         });
+        return AlDefaultClient.get({
+            service_stack: AlLocation.InsightAPI,
+            service_name: this.serviceName,
+            version:      2,
+            path:         `/timezones`
+        });
     }
 
     /**
@@ -140,6 +149,7 @@ export class AlScanSchedulerClientInstanceV2 {
      */
     async scanNow(accountId: string, deploymentId: string, scanScopeItem: AlScanScopeItemAsset, params: {force: boolean} = {force: false}) {
         return AlDefaultClient.put({
+            service_stack: AlLocation.InsightAPI,
             service_name: this.serviceName,
             version:      2,
             account_id:   accountId,
@@ -158,6 +168,7 @@ export class AlScanSchedulerClientInstanceV2 {
      */
     async stopScanAssets(accountId: string, deploymentId: string, scanScopeItem: AlScanScopeItemAsset) {
         return AlDefaultClient.put({
+            service_stack: AlLocation.InsightAPI,
             service_name: this.serviceName,
             version:      2,
             account_id:   accountId,
@@ -176,6 +187,7 @@ export class AlScanSchedulerClientInstanceV2 {
      */
     async stopScanSchedule(accountId: string, deploymentId: string, scanScheduleId: string) {
         return AlDefaultClient.put({
+            service_stack: AlLocation.InsightAPI,
             service_name: this.serviceName,
             version:      2,
             account_id:   accountId,

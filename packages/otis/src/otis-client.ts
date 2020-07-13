@@ -1,7 +1,7 @@
 /**
  * A client for interacting with the Alert Logic OTIS Public API.
  */
-import { ALClient } from '@al/core';
+import { ALClient, AlLocation } from '@al/core';
 
 export interface TuningOption {
   id: string;
@@ -43,6 +43,7 @@ class OTISClient {
    */
   async createOption(accountId: string, optionRequest: OptionRequestParams) {
     return this.client.post<any>({
+      service_stack: AlLocation.InsightAPI,
       service_name: this.serviceName,
       account_id: accountId,
       path: '/options',
@@ -55,6 +56,7 @@ class OTISClient {
    */
   async getOption(accountId: string, optionId: string) {
     return this.client.get<TuningOption>({
+      service_stack: AlLocation.InsightAPI,
       service_name: this.serviceName,
       account_id: accountId,
       path: `/options/${optionId}`,
@@ -67,6 +69,7 @@ class OTISClient {
    */
   async listOptions(accountId: string, params?: {[key:string]: string|string[]}) {
     return this.client.get<TuningOption[]>({
+      service_stack: AlLocation.InsightAPI,
       service_name: this.serviceName,
       account_id: accountId,
       path: `/options/`,
@@ -80,6 +83,7 @@ class OTISClient {
    */
   async deleteOption(accountId: string, optionId: string) {
     return this.client.delete<any>({
+      service_stack: AlLocation.InsightAPI,
       service_name: this.serviceName,
       account_id: accountId,
       path: `/options/${optionId}`,
@@ -91,6 +95,7 @@ class OTISClient {
    */
   async updateOptionValue(accountId: string, optionId: string, value: string) {
     return this.client.put<any>({
+      service_stack: AlLocation.InsightAPI,
       service_name: this.serviceName,
       account_id: accountId,
       path: `/options/${optionId}`,
@@ -105,6 +110,7 @@ class OTISClient {
    */
   async resolveOptionValues(accountId: string, resolveOptionsRequestParams: ResolveOptionsRequestParams) {
     return this.client.post<any>({
+      service_stack: AlLocation.InsightAPI,
       service_name: this.serviceName,
       account_id: accountId,
       path: '/options/resolve',

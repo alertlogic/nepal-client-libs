@@ -4,12 +4,13 @@
 import {
   AlApiClient,
   AlDefaultClient,
+  AlLocation,
 } from '@al/core';
 
 import { Policy } from './types';
 
 export class AlPoliciesClientInstance {
-
+  protected serviceVersion = 'v1';
   private serviceName = 'policies';
 
   /* istanbul ignore next */
@@ -21,8 +22,10 @@ export class AlPoliciesClientInstance {
    */
   async getPolicy(accountId: string, policyId: string) {
     return this.client.get<Policy>({
+      service_stack: AlLocation.InsightAPI,
       service_name: this.serviceName,
       account_id: accountId,
+      version: this.serviceVersion,
       path: `/policies/${policyId}`,
     });
   }
@@ -31,8 +34,10 @@ export class AlPoliciesClientInstance {
    */
   async listPolicies(accountId: string) {
     return this.client.get<Policy[]>({
+      service_stack: AlLocation.InsightAPI,
       service_name: this.serviceName,
       account_id: accountId,
+      version: this.serviceVersion,
       path: '/policies',
     });
   }
