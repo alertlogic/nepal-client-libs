@@ -1,6 +1,7 @@
 import {
     AlApiClient,
     AlDefaultClient,
+    AlLocation,
 } from '@al/core';
 import {
     AlFimConfiguration,
@@ -27,6 +28,7 @@ export class AlFimClientInstance {
                                accountId: string,
                                deploymentId: string): Promise<AlFimConfiguration[]> {
         return (await this.client.get({
+            service_stack: AlLocation.InsightAPI,
             service_name: this.serviceName,
             version: this.serviceVersion,
             account_id: accountId,
@@ -46,6 +48,7 @@ export class AlFimClientInstance {
                            deploymentId: string,
                            configurationId: string): Promise<AlFimConfiguration> {
         return (await this.client.get({
+            service_stack: AlLocation.InsightAPI,
             service_name: this.serviceName,
             version: this.serviceVersion,
             account_id: accountId,
@@ -65,6 +68,7 @@ export class AlFimClientInstance {
                               deploymentId: string,
                               payload: AlFimConfiguration): Promise<AlFimConfiguration> {
         return (await this.client.post({
+            service_stack: AlLocation.InsightAPI,
             service_name: this.serviceName,
             version: this.serviceVersion,
             account_id: accountId,
@@ -86,6 +90,7 @@ export class AlFimClientInstance {
                               configurationId: string,
                               payload: AlFimConfiguration): Promise<AlFimConfiguration> {
         return (await this.client.put({
+            service_stack: AlLocation.InsightAPI,
             service_name: this.serviceName,
             version: this.serviceVersion,
             account_id: accountId,
@@ -106,6 +111,7 @@ export class AlFimClientInstance {
                               deploymentId: string,
                               configurationId: string): Promise<void> {
         await this.client.delete({
+            service_stack: AlLocation.InsightAPI,
             service_name: this.serviceName,
             version: this.serviceVersion,
             account_id: accountId,
@@ -121,6 +127,7 @@ export class AlFimClientInstance {
     */
     async getConfigurationsSummary(accountId: string): Promise<AlFimConfigurationSummaryReport> {
         return (await this.client.get({
+            service_stack: AlLocation.InsightAPI,
             service_name: this.serviceName,
             version: this.serviceVersion,
             account_id: accountId,

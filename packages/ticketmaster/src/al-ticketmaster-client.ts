@@ -29,6 +29,7 @@ export class AlTicketMasterClientInstance {
         return this.client.post<any>({
             service_stack: AlLocation.InsightAPI,
             service_name: this.serviceName,
+            version: 'v1',
             account_id: accountId,
             path: 'ticket',
         });

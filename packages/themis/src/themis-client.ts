@@ -4,6 +4,7 @@
 import {
   AlApiClient,
   AlDefaultClient,
+  AlLocation,
 } from '@al/core';
 
 export interface ThemisRoleDocument {
@@ -49,6 +50,8 @@ class ThemisClient {
       roleVersion: string
   ) {
       const role = await this.client.fetch({
+          service_stack: AlLocation.InsightAPI,
+          version: 'v1',
           service_name: this.serviceName,
           account_id: accountId,
           path: `/roles/${platformType}/${roleType}/${roleVersion}`,
@@ -58,6 +61,8 @@ class ThemisClient {
 
   async getRoles(accountId: string) {
       const roles = await this.client.fetch({
+          service_stack: AlLocation.InsightAPI,
+          version: 'v1',
           service_name: this.serviceName,
           account_id: accountId,
           path: '/roles',
@@ -67,6 +72,8 @@ class ThemisClient {
 
   async validateRoleCredentials(accountId: string, awsRole: AWSRole) {
       const validate = await this.client.post({
+          service_stack: AlLocation.InsightAPI,
+          version: 'v1',
           service_name: this.serviceName,
           account_id: accountId,
           path: `/validate/${awsRole.platform_type}/${awsRole.role_type}`,
