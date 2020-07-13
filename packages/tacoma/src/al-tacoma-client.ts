@@ -4,6 +4,7 @@
 import {
   AlApiClient,
   AlDefaultClient,
+  AlLocation,
 } from '@al/core';
 import {
   AlSavedView,
@@ -26,6 +27,7 @@ export class AlTacomaClientInstance
      */
     async exportSavedViewReport(accountId: string, siteId: string, savedViewId: string, fileFormat?: string) {
         return this.client.get<any>({
+            service_stack: AlLocation.InsightAPI,
             account_id: accountId,
             service_name: this.serviceName,
             path: `/sites/${siteId}/saved_views/${savedViewId}/export`,
@@ -40,6 +42,7 @@ export class AlTacomaClientInstance
      */
     async getSavedView(accountId: string, siteId: string, savedViewId: string):Promise<AlSavedView> {
         return this.client.get<AlSavedView>({
+            service_stack: AlLocation.InsightAPI,
             account_id: accountId,
             service_name: this.serviceName,
             path: `/sites/${siteId}/saved_views/${savedViewId}`,
@@ -53,6 +56,7 @@ export class AlTacomaClientInstance
      */
     async exportViewReport(accountId: string, siteId: string, workBookId: string, viewId: string) {
         return this.client.get<any>({
+            service_stack: AlLocation.InsightAPI,
             account_id: accountId,
             service_name: this.serviceName,
             path: `/sites/${siteId}/workbooks/${workBookId}/views/${viewId}/export`,
@@ -65,6 +69,7 @@ export class AlTacomaClientInstance
      */
     async getView(accountId: string, siteId: string, workBookId: string, viewId: string):Promise<AlTacomaView> {
         const result = await this.client.get({
+            service_stack: AlLocation.InsightAPI,
             account_id: accountId,
             service_name: this.serviceName,
             path: `/sites/${siteId}/workbooks/${workBookId}/views/${viewId}`,
@@ -78,6 +83,7 @@ export class AlTacomaClientInstance
      */
     async exportWorkbookReport(accountId: string, siteId: string, workBookId: string, format?: string, anyQueryParameter?: string) {
         return this.client.get<any>({
+            service_stack: AlLocation.InsightAPI,
             account_id: accountId,
             service_name: this.serviceName,
             path: `/sites/${siteId}/workbooks/${workBookId}/export?${anyQueryParameter}`,
@@ -90,6 +96,7 @@ export class AlTacomaClientInstance
      */
     async getWorkbookPreview(accountId: string, siteId: string, workBookId: string) {
         return this.client.get<any>({
+            service_stack: AlLocation.InsightAPI,
             account_id: accountId,
             service_name: this.serviceName,
             path: `/sites/${siteId}/workbooks/${workBookId}/preview`,
@@ -107,6 +114,7 @@ export class AlTacomaClientInstance
                          queryParams?:{filter_subscriptions?: string, sub_menu?: string}
                        ):Promise<AlTacomaSite[]> {
         const result = await this.client.get({
+            service_stack: AlLocation.InsightAPI,
             account_id: accountId,
             service_name: this.serviceName,
             version: 'v1',

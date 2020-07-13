@@ -2,31 +2,32 @@
  * Herald API client v2
  */
 import {
-  AlApiClient,
-  AlDefaultClient,
+    AlApiClient,
+    AlDefaultClient,
+    AlLocation,
 } from '@al/core';
 import { AlHeraldClientInstance } from './al-herald-client';
 import {
-  AlHeraldAccountSubscriptionPayloadV2,
-  AlHeraldAccountSubscriptionResponseV2,
-  AlHeraldAccountSubscriptionV2,
-  AlHeraldNotificationType,
-  AlHeraldNotificationV2,
-  ALHeraldSubscriber,
-  AlHeraldSubscribersV2,
-  AlHeraldSubscriptionsQueryV2,
-  AlHeraldUpdateSubscriptionPayloadV2,
-  AlHeraldTestWebhookPayload,
-  AlHeraldTestWebhookResponse,
-  AlHeraldTestEmailPayload,
-  AlHeraldTestJiraPayload,
+    AlHeraldAccountSubscriptionPayloadV2,
+    AlHeraldAccountSubscriptionResponseV2,
+    AlHeraldAccountSubscriptionV2,
+    AlHeraldNotificationType,
+    AlHeraldNotificationV2,
+    ALHeraldSubscriber,
+    AlHeraldSubscribersV2,
+    AlHeraldSubscriptionsQueryV2,
+    AlHeraldUpdateSubscriptionPayloadV2,
+    AlHeraldTestWebhookPayload,
+    AlHeraldTestWebhookResponse,
+    AlHeraldTestEmailPayload,
+    AlHeraldTestJiraPayload,
 } from './types/index';
 
 export class AlHeraldClientInstanceV2 extends AlHeraldClientInstance {
 
     protected serviceVersion = 'v2';
 
-    super(client:AlApiClient = null ) {
+    super(client: AlApiClient = null) {
         this.client = client || AlDefaultClient;
     }
 
@@ -44,8 +45,9 @@ export class AlHeraldClientInstanceV2 extends AlHeraldClientInstance {
      * @remarks
      * https://console.account.product.dev.alertlogic.com/users/api/herald/index.html#api-Subscribers_v2-AddSubscriber
      */
-    async addSubscriberToSubscription(accountId: string, subscriptionId:string, subscriber: ALHeraldSubscriber): Promise<ALHeraldSubscriber> {
+    async addSubscriberToSubscription(accountId: string, subscriptionId: string, subscriber: ALHeraldSubscriber): Promise<ALHeraldSubscriber> {
         return this.client.post<ALHeraldSubscriber>({
+            service_stack: AlLocation.InsightAPI,
             service_name: this.serviceName,
             version: this.serviceVersion,
             account_id: accountId,
@@ -65,8 +67,9 @@ export class AlHeraldClientInstanceV2 extends AlHeraldClientInstance {
      * @remarks
      * https://console.account.product.dev.alertlogic.com/users/api/herald/index.html#api-Subscribers_v2-ListSubscribers
      */
-    async listAllSubscribers(accountId: string, subscriptionId:string): Promise<ALHeraldSubscriber[]> {
+    async listAllSubscribers(accountId: string, subscriptionId: string): Promise<ALHeraldSubscriber[]> {
         const result = await this.client.get({
+            service_stack: AlLocation.InsightAPI,
             service_name: this.serviceName,
             version: this.serviceVersion,
             account_id: accountId,
@@ -90,6 +93,7 @@ export class AlHeraldClientInstanceV2 extends AlHeraldClientInstance {
      */
     async unsubscribeFromSubscriptionType(accountId: string, subscriptionId: string, subscriberType: string) {
         const result = await this.client.delete({
+            service_stack: AlLocation.InsightAPI,
             service_name: this.serviceName,
             version: this.serviceVersion,
             account_id: accountId,
@@ -113,6 +117,7 @@ export class AlHeraldClientInstanceV2 extends AlHeraldClientInstance {
      */
     async createNotificationType(notificationTypePayload: AlHeraldNotificationType): Promise<AlHeraldNotificationType> {
         return this.client.post<AlHeraldNotificationType>({
+            service_stack: AlLocation.InsightAPI,
             service_name: this.serviceName,
             version: this.serviceVersion,
             path: '/notification_types',
@@ -133,6 +138,7 @@ export class AlHeraldClientInstanceV2 extends AlHeraldClientInstance {
      */
     async deleteNotificationType(notificationType: string) {
         const result = await this.client.delete({
+            service_stack: AlLocation.InsightAPI,
             service_name: this.serviceName,
             version: this.serviceVersion,
             path: `/notification_types/${notificationType}`
@@ -152,6 +158,7 @@ export class AlHeraldClientInstanceV2 extends AlHeraldClientInstance {
      */
     async getAllNotificationTypes(): Promise<AlHeraldNotificationType[]> {
         const result = await this.client.get({
+            service_stack: AlLocation.InsightAPI,
             service_name: this.serviceName,
             version: this.serviceVersion,
             path: '/notification_types'
@@ -171,8 +178,9 @@ export class AlHeraldClientInstanceV2 extends AlHeraldClientInstance {
      * @remarks
      * https://console.account.product.dev.alertlogic.com/users/api/herald/index.html#api-NotificationTypes-UpdateNotificationType
      */
-    async updateNotificationType(notificationType: string, payload: AlHeraldNotificationType) : Promise<AlHeraldNotificationType> {
+    async updateNotificationType(notificationType: string, payload: AlHeraldNotificationType): Promise<AlHeraldNotificationType> {
         return this.client.put<AlHeraldNotificationType>({
+            service_stack: AlLocation.InsightAPI,
             service_name: this.serviceName,
             version: this.serviceVersion,
             path: `/notification_types/${notificationType}`,
@@ -196,6 +204,7 @@ export class AlHeraldClientInstanceV2 extends AlHeraldClientInstance {
      */
     async getNotificationByAccountIdAndNotificationId(accountId: string, notificationId: string): Promise<AlHeraldNotificationV2> {
         return this.client.get<AlHeraldNotificationV2>({
+            service_stack: AlLocation.InsightAPI,
             service_name: this.serviceName,
             version: this.serviceVersion,
             account_id: accountId,
@@ -216,6 +225,7 @@ export class AlHeraldClientInstanceV2 extends AlHeraldClientInstance {
      */
     async getNotification(notificationId: string): Promise<AlHeraldNotificationV2> {
         return this.client.get<AlHeraldNotificationV2>({
+            service_stack: AlLocation.InsightAPI,
             service_name: this.serviceName,
             version: this.serviceVersion,
             path: `/notifications/${notificationId}`
@@ -236,6 +246,7 @@ export class AlHeraldClientInstanceV2 extends AlHeraldClientInstance {
      */
     async sendNotificationV2(accountId: string, payload: AlHeraldNotificationV2): Promise<AlHeraldNotificationV2> {
         return this.client.post<AlHeraldNotificationV2>({
+            service_stack: AlLocation.InsightAPI,
             service_name: this.serviceName,
             version: this.serviceVersion,
             account_id: accountId,
@@ -258,6 +269,7 @@ export class AlHeraldClientInstanceV2 extends AlHeraldClientInstance {
      */
     async createSubscription(accountId: string, subscription: AlHeraldAccountSubscriptionPayloadV2): Promise<AlHeraldAccountSubscriptionResponseV2> {
         return this.client.post<AlHeraldAccountSubscriptionResponseV2>({
+            service_stack: AlLocation.InsightAPI,
             service_name: this.serviceName,
             version: this.serviceVersion,
             account_id: accountId,
@@ -281,6 +293,7 @@ export class AlHeraldClientInstanceV2 extends AlHeraldClientInstance {
      */
     async updateSubscription(accountId: string, subscriptionId: string, subscription: AlHeraldUpdateSubscriptionPayloadV2): Promise<AlHeraldUpdateSubscriptionPayloadV2> {
         return this.client.post<AlHeraldUpdateSubscriptionPayloadV2>({
+            service_stack: AlLocation.InsightAPI,
             service_name: this.serviceName,
             version: this.serviceVersion,
             account_id: accountId,
@@ -301,8 +314,9 @@ export class AlHeraldClientInstanceV2 extends AlHeraldClientInstance {
      * @remarks
      * https://console.account.product.dev.alertlogic.com/users/api/herald/index.html#api-Subscriptions_v2-DeleteSubscription
      */
-    async deleteSubscriptionById(accountId:string, subscriptionId: string) {
+    async deleteSubscriptionById(accountId: string, subscriptionId: string) {
         const result = await this.client.delete({
+            service_stack: AlLocation.InsightAPI,
             service_name: this.serviceName,
             version: this.serviceVersion,
             account_id: accountId,
@@ -323,9 +337,10 @@ export class AlHeraldClientInstanceV2 extends AlHeraldClientInstance {
      * @remarks
      * https://console.account.product.dev.alertlogic.com/users/api/herald/index.html#api-Subscriptions_v2-ListSubscriptions
      */
-    async getAllSubscriptionsByAccount(accountId: string, queryParams?: AlHeraldSubscriptionsQueryV2 ): Promise<AlHeraldAccountSubscriptionV2[]> {
+    async getAllSubscriptionsByAccount(accountId: string, queryParams?: AlHeraldSubscriptionsQueryV2): Promise<AlHeraldAccountSubscriptionV2[]> {
 
         const subscriptionKeys = await this.client.get({
+            service_stack: AlLocation.InsightAPI,
             service_name: this.serviceName,
             version: this.serviceVersion,
             account_id: accountId,
@@ -350,9 +365,10 @@ export class AlHeraldClientInstanceV2 extends AlHeraldClientInstance {
      * @remarks
      * https://console.account.product.dev.alertlogic.com/users/api/herald/index.html#api-Subscriptions_v2-ListSubscriptionsById
      */
-    async getSubscriptionByAccountAndSubscriptionId(accountId: string, subscriptionId: string, queryParams?: {include_subscribers:boolean} ): Promise<AlHeraldAccountSubscriptionV2> {
+    async getSubscriptionByAccountAndSubscriptionId(accountId: string, subscriptionId: string, queryParams?: { include_subscribers: boolean }): Promise<AlHeraldAccountSubscriptionV2> {
 
         return this.client.get<AlHeraldAccountSubscriptionV2>({
+            service_stack: AlLocation.InsightAPI,
             service_name: this.serviceName,
             version: this.serviceVersion,
             account_id: accountId,
@@ -373,8 +389,9 @@ export class AlHeraldClientInstanceV2 extends AlHeraldClientInstance {
      * @remarks
      * https://console.product.dev.alertlogic.com/api/herald/#api-Subscriptions_v2-BatchDeleteSubscription
      */
-    async deleteSubscriptionsByIds(accountId:string, subscriptionIds: string[]) {
+    async deleteSubscriptionsByIds(accountId: string, subscriptionIds: string[]) {
         const result = await this.client.post({
+            service_stack: AlLocation.InsightAPI,
             service_name: this.serviceName,
             version: this.serviceVersion,
             account_id: accountId,
@@ -395,8 +412,9 @@ export class AlHeraldClientInstanceV2 extends AlHeraldClientInstance {
      * @returns just the status code
      *
      */
-    async batchUpdateSubscriptions(accountId: string, subscriptionId:string, subscriptions: AlHeraldSubscribersV2[]) {
+    async batchUpdateSubscriptions(accountId: string, subscriptionId: string, subscriptions: AlHeraldSubscribersV2[]) {
         return await this.client.post({
+            service_stack: AlLocation.InsightAPI,
             service_name: this.serviceName,
             version: this.serviceVersion,
             account_id: accountId,
@@ -406,24 +424,25 @@ export class AlHeraldClientInstanceV2 extends AlHeraldClientInstance {
     }
 
 
-     /**
-     * Test a webhook
-     * POST
-     * /herald/v2/:account_id/webhook/test
-     *
-     * @param accountId The AIMS Account ID
-     * @param integrationType email webhook
-     * @param payload with the template name, http method and data
-     * @returns a promise with the response
-     *
-     * @remarks
-     * https://console.account.product.dev.alertlogic.com/users/api/herald/index.html#api-Test_Endpoints-Webhook_test
-     */
+    /**
+    * Test a webhook
+    * POST
+    * /herald/v2/:account_id/webhook/test
+    *
+    * @param accountId The AIMS Account ID
+    * @param integrationType email webhook
+    * @param payload with the template name, http method and data
+    * @returns a promise with the response
+    *
+    * @remarks
+    * https://console.account.product.dev.alertlogic.com/users/api/herald/index.html#api-Test_Endpoints-Webhook_test
+    */
     async testIntegration(accountId: string,
-            integrationType:string,
-            payload: AlHeraldTestWebhookPayload | AlHeraldTestEmailPayload | AlHeraldTestJiraPayload
-        ): Promise<AlHeraldTestWebhookResponse> {
+        integrationType: string,
+        payload: AlHeraldTestWebhookPayload | AlHeraldTestEmailPayload | AlHeraldTestJiraPayload
+    ): Promise<AlHeraldTestWebhookResponse> {
         return this.client.post<AlHeraldTestWebhookResponse>({
+            service_stack: AlLocation.InsightAPI,
             service_name: this.serviceName,
             version: this.serviceVersion,
             account_id: accountId,

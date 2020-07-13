@@ -5,6 +5,7 @@ import {
     AlApiClient,
     AlDefaultClient,
     APIRequestParams,
+    AlLocation,
 } from '@al/core';
 import {
     EvidenceParams,
@@ -60,6 +61,7 @@ export class AlRetinaClientInstance {
         );
         return this.client.post({
             data,
+            service_stack: AlLocation.InsightAPI,
             version: 'v3',
             service_name: this.serviceName,
             account_id: accountId,
@@ -101,6 +103,7 @@ export class AlRetinaClientInstance {
 
             return this.client.post({
                 data,
+                service_stack: AlLocation.InsightAPI,
                 version: 'v3',
                 service_name: this.serviceName,
                 account_id: accountId,
@@ -132,6 +135,7 @@ export class AlRetinaClientInstance {
         const data: RetinaBody = this.getElaborationAggregationFilter(null, elaborationsExcluded);
         return this.client.post({
             data,
+            service_stack: AlLocation.InsightAPI,
             version: 'v3',
             service_name: this.serviceName,
             account_id: accountId,
@@ -154,6 +158,7 @@ export class AlRetinaClientInstance {
         const data = this.getElaborationAggregationFilter(elaborationsIncluded, null);
         return this.client.post({
             data,
+            service_stack: AlLocation.InsightAPI,
             version: 'v3',
             service_name: this.serviceName,
             account_id: accountId,
@@ -423,6 +428,7 @@ export class AlRetinaClientInstance {
     ): Promise<ElaborationEvent | ElaborationLog | ElaborationGuardDuty> {
         return this.client.get(
             {
+                service_stack: AlLocation.InsightAPI,
                 version: 'v3',
                 service_name: this.serviceName,
                 account_id: accountId,
@@ -468,6 +474,7 @@ export class AlRetinaClientInstance {
         return this.client.post(
             {
                 data,
+                service_stack: AlLocation.InsightAPI,
                 version: 'v3',
                 service_name: this.serviceName,
                 account_id: accountId,
@@ -496,6 +503,7 @@ export class AlRetinaClientInstance {
         return this.client.post(
             {
                 data,
+                service_stack: AlLocation.InsightAPI,
                 version: 'v3',
                 service_name: this.serviceName,
                 account_id: accountId,
@@ -512,6 +520,7 @@ export class AlRetinaClientInstance {
     public downloadAttachment(accountId: string, incidentId: string, messageId: string): Promise<string> {
         return this.client.get(
             {
+                service_stack: AlLocation.InsightAPI,
                 service_name: this.serviceName,
                 account_id: accountId,
                 version: 'v3',

@@ -5,6 +5,7 @@ import {
     AIMSAccount,
     AlApiClient,
     AlDefaultClient,
+    AlLocation,
 } from '@al/core';
 import {
     AlHeraldAccountByFeatureQuery,
@@ -38,11 +39,11 @@ import {
 
 export class AlHeraldClientInstance {
 
-    protected client:AlApiClient;
+    protected client: AlApiClient;
     protected serviceName = 'herald';
     protected serviceVersion = 'v1';
 
-    constructor(client:AlApiClient = null) {
+    constructor(client: AlApiClient = null) {
         this.client = client || AlDefaultClient;
     }
 
@@ -59,8 +60,9 @@ export class AlHeraldClientInstance {
      *  @remarks
      *  https://console.account.product.dev.alertlogic.com/users/api/herald/index.html#api-Subscription_Keys-GetSubscriptionKey
      */
-    async getAllSubscriptionKeys(queryParams?:AlHeraldSubscriptionKeyQuery): Promise<AlHeraldSubscriptionKey[]> {
+    async getAllSubscriptionKeys(queryParams?: AlHeraldSubscriptionKeyQuery): Promise<AlHeraldSubscriptionKey[]> {
         const subscriptionKeys = await this.client.get({
+            service_stack: AlLocation.InsightAPI,
             service_name: this.serviceName,
             version: this.serviceVersion,
             path: '/subscription_keys',
@@ -83,8 +85,9 @@ export class AlHeraldClientInstance {
      * @remarks
      * https://console.account.product.dev.alertlogic.com/users/api/herald/index.html#api-Subscriptions-GetAccountSubscriptionsByFeature
      */
-    async getAllAccountSubscriptionByFeature(accountId: string, feature: string, queryParams?:AlHeraldAccountByFeatureQuery): Promise<AlHeraldAccountSubscription[]> {
+    async getAllAccountSubscriptionByFeature(accountId: string, feature: string, queryParams?: AlHeraldAccountByFeatureQuery): Promise<AlHeraldAccountSubscription[]> {
         const subscriptions = await this.client.get({
+            service_stack: AlLocation.InsightAPI,
             service_name: this.serviceName,
             version: this.serviceVersion,
             account_id: accountId,
@@ -109,6 +112,7 @@ export class AlHeraldClientInstance {
      */
     async getAllIntegrationSubscriptionsByFeature(integrationId: string, feature: string): Promise<AlHeraldSubscriptionsKeyByAccountRecord[]> {
         const integrations = await this.client.get({
+            service_stack: AlLocation.InsightAPI,
             service_name: this.serviceName,
             version: this.serviceVersion,
             path: `/integrations/${integrationId}/subscriptions/${feature}`
@@ -130,6 +134,7 @@ export class AlHeraldClientInstance {
      */
     async getAllUserSubscriptions(userId: string): Promise<AlHeraldSubscriptionsKeyByAccountRecord[]> {
         const subscriptions = await this.client.get({
+            service_stack: AlLocation.InsightAPI,
             service_name: this.serviceName,
             version: this.serviceVersion,
             path: `/users/${userId}/subscriptions`,
@@ -152,6 +157,7 @@ export class AlHeraldClientInstance {
      */
     async getAllUserSubscriptionsByFeature(userId: string, feature: string): Promise<AlHeraldSubscriptionsKeyByAccountRecord[]> {
         const subscriptions = await this.client.get({
+            service_stack: AlLocation.InsightAPI,
             service_name: this.serviceName,
             version: this.serviceVersion,
             path: `/users/${userId}/subscriptions/${feature}`,
@@ -174,6 +180,7 @@ export class AlHeraldClientInstance {
      */
     async getIntegrationSubscriptions(accountId: string, integrationId: string): Promise<AlHeraldSubscriptionsKeyByAccountRecord> {
         return this.client.get<AlHeraldSubscriptionsKeyByAccountRecord>({
+            service_stack: AlLocation.InsightAPI,
             service_name: this.serviceName,
             version: this.serviceVersion,
             account_id: accountId,
@@ -194,6 +201,7 @@ export class AlHeraldClientInstance {
      */
     async getIntegrationSubscriptionsByFeature(accountId: string, integrationId: string, feature: string): Promise<AlHeraldSubscriptionsKeyByAccountRecord> {
         return this.client.get<AlHeraldSubscriptionsKeyByAccountRecord>({
+            service_stack: AlLocation.InsightAPI,
             service_name: this.serviceName,
             version: this.serviceVersion,
             account_id: accountId,
@@ -212,6 +220,7 @@ export class AlHeraldClientInstance {
      */
     async getUserSubscriptions(accountId: string, userId: string): Promise<AlHeraldSubscriptionsKeyByAccountRecord> {
         return this.client.get<AlHeraldSubscriptionsKeyByAccountRecord>({
+            service_stack: AlLocation.InsightAPI,
             service_name: this.serviceName,
             version: this.serviceVersion,
             account_id: accountId,
@@ -235,6 +244,7 @@ export class AlHeraldClientInstance {
      */
     async getUserSubscriptionsByFeature(accountId: string, userId: string, feature: string): Promise<AlHeraldSubscriptionsKeyByAccountRecord> {
         return this.client.get<AlHeraldSubscriptionsKeyByAccountRecord>({
+            service_stack: AlLocation.InsightAPI,
             service_name: this.serviceName,
             version: this.serviceVersion,
             account_id: accountId,
@@ -257,11 +267,12 @@ export class AlHeraldClientInstance {
      */
     async setUserSubscriptions(accountId: string, userId: string, feature: string, payload: AlHeraldSubscriptionRecord[]): Promise<AlHeraldSubscriptionsKeyByAccountsRecord> {
         return this.client.put<AlHeraldSubscriptionsKeyByAccountsRecord>({
+            service_stack: AlLocation.InsightAPI,
             service_name: this.serviceName,
             version: this.serviceVersion,
             account_id: accountId,
             path: `/users/${userId}/subscriptions/${feature}`,
-            data: { "subscriptions" : payload }
+            data: { "subscriptions": payload }
         });
     }
 
@@ -281,6 +292,7 @@ export class AlHeraldClientInstance {
      */
     async unsetUserSubscriptionsByFeature(accountId: string, userId: string, feature: string) {
         return this.client.delete<any>({
+            service_stack: AlLocation.InsightAPI,
             service_name: this.serviceName,
             version: this.serviceVersion,
             account_id: accountId,
@@ -306,6 +318,7 @@ Header"
      */
     async unsetIntegrationsSubscriptionsByFeature(accountId: string, integrationId: string, feature: string) {
         return this.client.delete<any>({
+            service_stack: AlLocation.InsightAPI,
             service_name: this.serviceName,
             version: this.serviceVersion,
             account_id: accountId,
@@ -330,8 +343,9 @@ Header"
      * @remarks
      * https://console.account.product.dev.alertlogic.com/users/api/herald/index.html#api-Subscriptions-SetIntegrationsSubscriptionsForAccountFeatureSubkey
      */
-    async updateIntegrationSubscription(accountId: string, integrationId: string, feature: string, subkey: string, subscribed: boolean) : Promise<AlHeraldSubscriptionsKeyByAccountRecord> {
+    async updateIntegrationSubscription(accountId: string, integrationId: string, feature: string, subkey: string, subscribed: boolean): Promise<AlHeraldSubscriptionsKeyByAccountRecord> {
         return this.client.put<AlHeraldSubscriptionsKeyByAccountRecord>({
+            service_stack: AlLocation.InsightAPI,
             service_name: this.serviceName,
             version: this.serviceVersion,
             account_id: accountId,
@@ -360,6 +374,7 @@ Header"
         accounts: AlHeraldSubscriptionsKeyByAccountRecord[],
     ): Promise<AlHeraldSubscriptionsKeyByAccountRecord[]> {
         return this.client.post<AlHeraldSubscriptionsKeyByAccountRecord[]>({
+            service_stack: AlLocation.InsightAPI,
             service_name: this.serviceName,
             version: this.serviceVersion,
             path: `/integrations/${integrationId}/subscriptions/${feature}`,
@@ -384,8 +399,9 @@ Header"
      * @remarks
      * https://console.account.product.dev.alertlogic.com/users/api/herald/index.html#api-Subscriptions-SetUserSubscriptionsForAccountFeatureSubkey
      */
-    async updateUserSubscription(accountId: string, userId: string, feature: string, subkey: string, subscribed: boolean) : Promise<AlHeraldSubscriptionsKeyByAccountRecord> {
+    async updateUserSubscription(accountId: string, userId: string, feature: string, subkey: string, subscribed: boolean): Promise<AlHeraldSubscriptionsKeyByAccountRecord> {
         return this.client.put<AlHeraldSubscriptionsKeyByAccountRecord>({
+            service_stack: AlLocation.InsightAPI,
             service_name: this.serviceName,
             version: this.serviceVersion,
             account_id: accountId,
@@ -408,8 +424,9 @@ Header"
      * @remarks
      * https://console.account.product.dev.alertlogic.com/users/api/herald/index.html#api-Subscriptions-UpdateUserSubscriptionsForAccountsList
      */
-    async updateUserSubscriptionForAccountsList(userId: string, feature: string, accounts: AlHeraldSubscriptionsKeyByAccountRecord[]) : Promise<AlHeraldSubscriptionsKeyByAccountRecord[]> {
+    async updateUserSubscriptionForAccountsList(userId: string, feature: string, accounts: AlHeraldSubscriptionsKeyByAccountRecord[]): Promise<AlHeraldSubscriptionsKeyByAccountRecord[]> {
         return this.client.post<AlHeraldSubscriptionsKeyByAccountRecord[]>({
+            service_stack: AlLocation.InsightAPI,
             service_name: this.serviceName,
             version: this.serviceVersion,
             path: `/users/${userId}/subscriptions/${feature}`,
@@ -432,8 +449,9 @@ Header"
      * @remarks
      * https://console.account.product.dev.alertlogic.com/users/api/herald/index.html#api-Subscriptions-UpdateUserSubscriptionsForAccountsList
      */
-    async setUserSubscriptionForAccountsList(userId: string, feature: string, accounts: AlHeraldSubscriptionsKeyByAccountRecord[]) : Promise<AlHeraldSubscriptionsKeyByAccountRecord[]> {
+    async setUserSubscriptionForAccountsList(userId: string, feature: string, accounts: AlHeraldSubscriptionsKeyByAccountRecord[]): Promise<AlHeraldSubscriptionsKeyByAccountRecord[]> {
         return this.client.put<AlHeraldSubscriptionsKeyByAccountRecord[]>({
+            service_stack: AlLocation.InsightAPI,
             service_name: this.serviceName,
             version: this.serviceVersion,
             path: `/users/${userId}/subscriptions/${feature}`,
@@ -457,10 +475,11 @@ Header"
      * @remarks https://console.account.product.dev.alertlogic.com/users/api/herald/index.html#api-Integrations-CreateAccountIntegration
      */
     async createIntegration(accountId: string,
-            type: string,
-            payload: AlHeraldIntegrationWebhookPayload | AlHeraldIntegrationEmailPayload | AlHeraldIntegrationJiraPayload
-        ): Promise<AlHeraldIntegration> {
+        type: string,
+        payload: AlHeraldIntegrationWebhookPayload | AlHeraldIntegrationEmailPayload | AlHeraldIntegrationJiraPayload
+    ): Promise<AlHeraldIntegration> {
         return this.client.post<AlHeraldIntegration>({
+            service_stack: AlLocation.InsightAPI,
             service_name: this.serviceName,
             version: this.serviceVersion,
             account_id: accountId,
@@ -484,6 +503,7 @@ Header"
      */
     async deleteIntegration(accountId: string, integrationId: string) {
         return this.client.delete<any>({
+            service_stack: AlLocation.InsightAPI,
             service_name: this.serviceName,
             version: this.serviceVersion,
             account_id: accountId,
@@ -507,6 +527,7 @@ Header"
      */
     async getIntegrationById(accountId: string, integrationId: string): Promise<AlHeraldIntegration> {
         return this.client.get<AlHeraldIntegration>({
+            service_stack: AlLocation.InsightAPI,
             service_name: this.serviceName,
             version: this.serviceVersion,
             account_id: accountId,
@@ -528,6 +549,7 @@ Header"
      */
     async getIntegrationsByAccount(accountId: string): Promise<AlHeraldIntegration[]> {
         const accountIntegrations = await this.client.get({
+            service_stack: AlLocation.InsightAPI,
             service_name: this.serviceName,
             version: this.serviceVersion,
             account_id: accountId,
@@ -548,6 +570,7 @@ Header"
      */
     async getIntegrationTypes(): Promise<AlHeraldIntegrationTypes[]> {
         const integrationTypes = await this.client.get({
+            service_stack: AlLocation.InsightAPI,
             service_name: this.serviceName,
             version: this.serviceVersion,
             path: '/integration_types'
@@ -570,10 +593,11 @@ Header"
      * https://console.account.product.dev.alertlogic.com/users/api/herald/index.html#api-Integrations-UpdateAccountIntegration
      */
     async updateIntegration(accountId: string,
-            integrationId: string,
-            payload: AlHeraldIntegrationWebhookPayload | AlHeraldIntegrationEmailPayload | AlHeraldIntegrationJiraPayload
-        ) : Promise<AlHeraldIntegration> {
+        integrationId: string,
+        payload: AlHeraldIntegrationWebhookPayload | AlHeraldIntegrationEmailPayload | AlHeraldIntegrationJiraPayload
+    ): Promise<AlHeraldIntegration> {
         return this.client.put<AlHeraldIntegration>({
+            service_stack: AlLocation.InsightAPI,
             service_name: this.serviceName,
             version: this.serviceVersion,
             account_id: accountId,
@@ -594,8 +618,9 @@ Header"
      * @remarks
      * https://console.account.product.dev.alertlogic.com/users/api/herald/index.html#api-Notifications-GetANotification
      */
-    async getNotificationsById(notificationId: string): Promise<AlHeraldNotification>{
+    async getNotificationsById(notificationId: string): Promise<AlHeraldNotification> {
         return this.client.get<AlHeraldNotification>({
+            service_stack: AlLocation.InsightAPI,
             service_name: this.serviceName,
             version: this.serviceVersion,
             path: `/notifications/${notificationId}`
@@ -617,6 +642,7 @@ Header"
      */
     async getNotificationsByAccountId(accountId: string, queryParams: AlHeraldNotificationQuery): Promise<AlHeraldNotificationList> {
         return this.client.get<AlHeraldNotificationList>({
+            service_stack: AlLocation.InsightAPI,
             service_name: this.serviceName,
             version: this.serviceVersion,
             account_id: accountId,
@@ -640,6 +666,7 @@ Header"
      */
     async getNotificationsByIdAndByAccountId(accountId: string, notificationId: string): Promise<AlHeraldNotification> {
         return this.client.get<AlHeraldNotification>({
+            service_stack: AlLocation.InsightAPI,
             service_name: this.serviceName,
             version: this.serviceVersion,
             account_id: accountId,
@@ -662,6 +689,7 @@ Header"
      */
     async getSentNotificationsByIncidentId(accountId: string, incidentId: string): Promise<AlHeraldNotificationIncidentByIncidentId[]> {
         const notification = await this.client.get({
+            service_stack: AlLocation.InsightAPI,
             service_name: this.serviceName,
             version: this.serviceVersion,
             account_id: accountId,
@@ -686,6 +714,7 @@ Header"
      */
     async getNotificationsByFeature(accountId: string, feature: string, queryParams: AlHeraldNotificationQuery): Promise<AlHeraldNotificationList> {
         const notification = await this.client.get({
+            service_stack: AlLocation.InsightAPI,
             service_name: this.serviceName,
             version: this.serviceVersion,
             account_id: accountId,
@@ -713,6 +742,7 @@ Header"
      */
     async getNotificationsByFeatureBySubscription(accountId: string, feature: string, subkey: string, queryParams: AlHeraldNotificationQuery): Promise<AlHeraldNotificationList> {
         const notification = await this.client.get({
+            service_stack: AlLocation.InsightAPI,
             service_name: this.serviceName,
             version: this.serviceVersion,
             account_id: accountId,
@@ -736,6 +766,7 @@ Header"
      */
     async sendNotification(accountId: string, payload: AlHeraldNotificationPayload): Promise<AlHeraldNotification> {
         return this.client.post<AlHeraldNotification>({
+            service_stack: AlLocation.InsightAPI,
             service_name: this.serviceName,
             version: this.serviceVersion,
             account_id: accountId,
@@ -757,6 +788,7 @@ Header"
      */
     async getNotificationByAccountId(accountId: string, queryParams: AlHeraldNotificationQuery): Promise<AlHeraldNotificationByAccountId> {
         return this.client.post<AlHeraldNotificationByAccountId>({
+            service_stack: AlLocation.InsightAPI,
             service_name: this.serviceName,
             version: this.serviceVersion,
             account_id: accountId,
@@ -779,8 +811,9 @@ Header"
      * @remarks
      * https://console.account.product.dev.alertlogic.com/users/api/herald/index.html#api-Notifications-UpdateANotification
      */
-    async updateNotification(accountId: string, notificationId: string, payload: {status:string}) : Promise<AlHeraldNotification> {
+    async updateNotification(accountId: string, notificationId: string, payload: { status: string }): Promise<AlHeraldNotification> {
         return this.client.put<AlHeraldNotification>({
+            service_stack: AlLocation.InsightAPI,
             service_name: this.serviceName,
             version: this.serviceVersion,
             account_id: accountId,
@@ -805,6 +838,7 @@ Header"
      */
     async getSubscriberIds(accountId: string, feature: string, subkey: string): Promise<string[]> {
         const accounts = await this.client.get({
+            service_stack: AlLocation.InsightAPI,
             service_name: this.serviceName,
             version: this.serviceVersion,
             account_id: accountId,
@@ -828,6 +862,7 @@ Header"
      */
     async getSubscribers(accountId: string, feature: string, subkey: string): Promise<AIMSAccount[]> {
         const accounts = await this.client.get({
+            service_stack: AlLocation.InsightAPI,
             service_name: this.serviceName,
             version: this.serviceVersion,
             account_id: accountId,
@@ -851,6 +886,7 @@ Header"
      */
     async createAccountSubscriptionKey(accountId: string, payload: AlHeraldAccountSubscriptionKeyPayload): Promise<AlHeraldAccountSubscriptionKey> {
         return this.client.post<AlHeraldAccountSubscriptionKey>({
+            service_stack: AlLocation.InsightAPI,
             service_name: this.serviceName,
             version: this.serviceVersion,
             path: '/subscription_keys',
@@ -871,6 +907,7 @@ Header"
      */
     async createSubscriptionKey(payload: AlHeraldSubscriptionKeyPayload): Promise<AlHeraldSubscriptionKey> {
         return this.client.post<AlHeraldSubscriptionKey>({
+            service_stack: AlLocation.InsightAPI,
             service_name: this.serviceName,
             version: this.serviceVersion,
             path: '/subscription_keys',
@@ -894,6 +931,7 @@ Header"
      */
     async deleteAccountSubscriptionKey(accountId: string, feature: string, subkey: string) {
         return this.client.delete<any>({
+            service_stack: AlLocation.InsightAPI,
             service_name: this.serviceName,
             version: this.serviceVersion,
             account_id: accountId,
@@ -916,6 +954,7 @@ Header"
      */
     async getSubscriptionKey(feature: string, subkey: string): Promise<AlHeraldSubscriptionKey> {
         return this.client.get<AlHeraldSubscriptionKey>({
+            service_stack: AlLocation.InsightAPI,
             service_name: this.serviceName,
             version: this.serviceVersion,
             path: `/subscription_keys/${feature}/${subkey}`
@@ -933,8 +972,9 @@ Header"
      *
      * @remarks
      */
-    async getSubscriptionKeysByFeature(feature: string, queryParams?:AlHeraldSubscriptionKeysByFeatureQuery): Promise<AlHeraldSubscriptionKey[]> {
+    async getSubscriptionKeysByFeature(feature: string, queryParams?: AlHeraldSubscriptionKeysByFeatureQuery): Promise<AlHeraldSubscriptionKey[]> {
         const subscriptions = await this.client.get({
+            service_stack: AlLocation.InsightAPI,
             service_name: this.serviceName,
             version: this.serviceVersion,
             path: `/subscription_keys/${feature}`,
@@ -957,8 +997,9 @@ Header"
      * @remarks
      * https://console.account.product.dev.alertlogic.com/users/api/herald/index.html#api-Subscription_Keys-UpdateAccountSubscriptionKey
      */
-    async updateAccountSubscriptionKey(accountId: string, feature: string, subkey:string, payload:AlHeraldIntegrationTypes) : Promise<AlHeraldAccountSubscriptionKey> {
+    async updateAccountSubscriptionKey(accountId: string, feature: string, subkey: string, payload: AlHeraldIntegrationTypes): Promise<AlHeraldAccountSubscriptionKey> {
         return this.client.put<AlHeraldAccountSubscriptionKey>({
+            service_stack: AlLocation.InsightAPI,
             service_name: this.serviceName,
             version: this.serviceVersion,
             account_id: accountId,
@@ -980,8 +1021,9 @@ Header"
      * @remarks
      * https://console.account.product.dev.alertlogic.com/users/api/herald/index.html#api-Subscription_Keys-UpdateAccountSubscriptionKey
      */
-    async updateSubscriptionKey(feature: string, subkey:string, payload:AlHeraldIntegrationTypes) : Promise<AlHeraldSubscriptionKey> {
+    async updateSubscriptionKey(feature: string, subkey: string, payload: AlHeraldIntegrationTypes): Promise<AlHeraldSubscriptionKey> {
         return this.client.put<AlHeraldSubscriptionKey>({
+            service_stack: AlLocation.InsightAPI,
             service_name: this.serviceName,
             version: this.serviceVersion,
             path: `/subscription_keys/${feature}/${subkey}`,
@@ -1004,6 +1046,7 @@ Header"
      */
     async createTemplateMapping(payload: AlHeraldTemplateMapPayload): Promise<AlHeraldTemplateMap> {
         return this.client.post<AlHeraldTemplateMap>({
+            service_stack: AlLocation.InsightAPI,
             service_name: this.serviceName,
             version: this.serviceVersion,
             path: '/template_mappings',
@@ -1025,8 +1068,9 @@ Header"
      * @remarks
      * https://console.account.product.dev.alertlogic.com/users/api/herald/index.html#api-Template_Mappings-UpdateTemplateMapping
      */
-    async updateTemplateMapping(feature: string, subkeyPart: string, payload: {template_name:string}) : Promise<AlHeraldTemplateMap> {
+    async updateTemplateMapping(feature: string, subkeyPart: string, payload: { template_name: string }): Promise<AlHeraldTemplateMap> {
         return this.client.put<AlHeraldTemplateMap>({
+            service_stack: AlLocation.InsightAPI,
             service_name: this.serviceName,
             version: this.serviceVersion,
             path: `/template_mappings/${feature}/${subkeyPart}`,
@@ -1048,6 +1092,7 @@ Header"
      */
     async testTemplate(payload: AlHeraldTestTemplatePayload): Promise<string> {
         const response = await this.client.post({
+            service_stack: AlLocation.InsightAPI,
             service_name: this.serviceName,
             version: this.serviceVersion,
             path: '/template/test',
@@ -1069,6 +1114,7 @@ Header"
      */
     async testWebhook(payload: AlHeraldTestWebhookPayload): Promise<AlHeraldTestWebhookResponse> {
         const response = await this.client.post({
+            service_stack: AlLocation.InsightAPI,
             service_name: this.serviceName,
             version: this.serviceVersion,
             path: '/webhook/test',
