@@ -5,6 +5,21 @@
  *  @copyright Alert Logic, Inc 2020
  */
 
+export interface AlCreateQueryTemplateV2 {
+    group_id: string;
+    name: string;
+    description: string;
+    search_request: string;
+}
+
+export interface AlUpdateQueryTemplateV2 {
+    group_id?: string;
+    name?: string;
+    description?: string;
+    search_request?: string;
+    deleted?: boolean;
+}
+
 export interface AlSuggestionsTemplateResponseV2 {
     id: string;
     account_id: string;
@@ -27,8 +42,16 @@ export interface AlSuggestionsTemplateResponseV2 {
 export interface AlCreateSavedQueryParamsV2 {
     group_id: string;
     name: string;
-    data_type: string;
-    search_request: any;
+    description?: string;
+    search_request: string;
+}
+
+export interface AlUpdateSavedQueryParamsV2 {
+    group_id?: string;
+    name?: string;
+    description?: string;
+    search_request?: string;
+    deleted?: boolean;
 }
 
 export interface AlSavedQueryV2 {
@@ -38,6 +61,14 @@ export interface AlSavedQueryV2 {
     name: string;
     description?: string;
     data_type: string;
-    search_request: any;
+    search_request: string;
     deleted?: boolean;
+    created: {
+        at: number;
+        by: string;
+    };
+    modified: {
+        at: number;
+        by: string;
+    };
 }
