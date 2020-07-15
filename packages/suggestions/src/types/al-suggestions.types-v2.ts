@@ -6,14 +6,14 @@
  */
 
 export interface AlCreateQueryTemplateV2 {
-    group_id: string;
+    group_id: string | null;
     name: string;
     description: string;
     search_request: string;
 }
 
 export interface AlUpdateQueryTemplateV2 {
-    group_id?: string;
+    group_id?: string | null;
     name?: string;
     description?: string;
     search_request?: string;
@@ -23,7 +23,7 @@ export interface AlUpdateQueryTemplateV2 {
 export interface AlSuggestionsTemplateResponseV2 {
     id: string;
     account_id: string;
-    group_id: string;
+    group_id: string | null;
     name: string;
     description?: string;
     data_type: string;
@@ -40,14 +40,14 @@ export interface AlSuggestionsTemplateResponseV2 {
 }
 
 export interface AlCreateSavedQueryParamsV2 {
-    group_id: string;
+    group_id: string | null;
     name: string;
     description?: string;
     search_request: string;
 }
 
 export interface AlUpdateSavedQueryParamsV2 {
-    group_id?: string;
+    group_id?: string | null;
     name?: string;
     description?: string;
     search_request?: string;
@@ -57,7 +57,7 @@ export interface AlUpdateSavedQueryParamsV2 {
 export interface AlSavedQueryV2 {
     id: string;
     account_id: string;
-    group_id: string;
+    group_id: string | null;
     name: string;
     description?: string;
     data_type: string;
