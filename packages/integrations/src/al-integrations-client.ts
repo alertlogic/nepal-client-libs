@@ -10,9 +10,6 @@ import {
     AlIntegrationType,
     AlIntegrationTypeDetail,
     AlIntegrationConnection,
-    AlIntegrationServiceNowSchema,
-    AlIntegrationEmailSchema,
-    AlIntegrationWebhookSchema
 } from './types';
 
 export class AlIntegrationsClientInstance {
@@ -116,7 +113,7 @@ export class AlIntegrationsClientInstance {
      * @remarks
      */
     async createConnection(accountId: string,
-        payload: AlIntegrationServiceNowSchema | AlIntegrationEmailSchema | AlIntegrationWebhookSchema,
+        payload: AlIntegrationConnection,
         dryRun: boolean): Promise<AlIntegrationConnection> {
         return this.client.post<AlIntegrationConnection>({
             version: this.serviceVersion,
@@ -145,7 +142,7 @@ export class AlIntegrationsClientInstance {
      */
     async updateConnection(accountId: string,
         connectionId: string,
-        payload: AlIntegrationServiceNowSchema | AlIntegrationEmailSchema | AlIntegrationWebhookSchema,
+        payload: AlIntegrationConnection,
         dryRun: boolean = false): Promise<AlIntegrationConnection> {
 
         return this.client.put<AlIntegrationConnection>({

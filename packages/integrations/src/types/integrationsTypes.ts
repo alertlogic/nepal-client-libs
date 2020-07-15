@@ -25,9 +25,9 @@ export interface AlIntegrationTypeDetail extends AlIntegrationType{
 }
 
 export interface AlIntegrationPayloadSchema {
-    payload_conversion_type: 'default' | 'jq';
-    payload_template: string;
-    payload_type: AlIntegrationPayloadTypes;
+    payload_conversion_type?: 'default' | 'jq';
+    payload_template?: string;
+    payload_type?: 'incident' | 'observation' | 'scheduled_report';
 }
 
 export interface AlIntegrationBaseSchema {
@@ -39,24 +39,10 @@ export interface AlIntegrationBaseSchema {
     type: string;
 }
 
-export type AlIntegrationPayloadTypes = 'incident' | 'observation' | 'scheduled_report';
-
-export interface AlIntegrationWebhookSchema extends AlIntegrationBaseSchema, AlIntegrationPayloadSchema {
-    target_url: string;
+export interface AlIntegrationConnection extends AlIntegrationBaseSchema, AlIntegrationPayloadSchema {
+    target_url?: string;
     auth_header?: string;
     headers?: string;
-}
-
-export interface AlIntegrationEmailSchema extends AlIntegrationBaseSchema {
-    email: string;
-}
-
-export interface AlIntegrationServiceNowSchema extends AlIntegrationBaseSchema, AlIntegrationPayloadSchema {
-    target_url: string;
-    auth_header?: string;
-    headers?: string;
-}
-
-// TODO review how this is going to be returned
-export interface AlIntegrationConnection extends AlIntegrationServiceNowSchema, AlIntegrationEmailSchema, AlIntegrationWebhookSchema {
+    email?: string;
+    [key: string]: string | AlChangeStamp;
 }
