@@ -42,7 +42,7 @@ export interface SearchReportDefinitionV2 {
 
 export interface ExecutionRecordOnceRequestV2 {
   name: string;
-  type: 'search' | 'tableau';
+  type: 'search' | 'tableau' | 'search_v2';
   definition: SearchReportDefinitionV2 | TableauReportDefinitionV2;
   schedule_id?: string;
   notify_behavior?: 'always' | 'never' | 'ifnotempty';
@@ -86,7 +86,7 @@ export interface ExecutionRecordV2 {
   schedule_id?: string;
   name?: string;
   status?: 'scheduled' | 'running' | 'cancelled' | 'completed' | 'failed';
-  type?: 'tableau' | 'search';
+  type?: 'tableau' | 'search' | 'search_v2';
   definition?: SearchReportDefinitionV2 | TableauReportDefinitionV2;
   schedule?: 'every_15_minutes' | {
     daily?: CargoReportDailyScheduleV2;
@@ -111,7 +111,7 @@ export interface ExecutionRecordsQueryParamsV2 {
   limit?: number;
   order?: 'asc' | 'desc';
   schedule_id?: string;
-  type?: 'search' | 'tableau';
+  type?: 'search' | 'tableau' | 'search_v2';
   continuation?: string;
   start_time?: number;
   end_time?: number;
