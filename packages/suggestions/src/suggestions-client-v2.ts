@@ -1,6 +1,7 @@
 import {
     AlApiClient,
     AlDefaultClient,
+    AlLocation,
 } from '@al/core';
 import {
     AlCreateQueryTemplateV2,
@@ -29,6 +30,7 @@ export class AlSuggestionsClientInstanceV2 {
      */
     createQueryTemplate(accountId: string, queryTemplate: AlCreateQueryTemplateV2): Promise<AlSuggestionsTemplateResponseV2> {
         return this.client.post<AlSuggestionsTemplateResponseV2>({
+            service_stack: AlLocation.InsightAPI,
             service_name: this.serviceName,
             version: this.serviceVersion,
             account_id: accountId,
@@ -45,6 +47,7 @@ export class AlSuggestionsClientInstanceV2 {
      */
     deleteQueryTemplate(accountId: string, queryId: string) {
         return this.client.delete({
+            service_stack: AlLocation.InsightAPI,
             service_name: this.serviceName,
             version: this.serviceVersion,
             account_id: accountId,
@@ -60,6 +63,7 @@ export class AlSuggestionsClientInstanceV2 {
      */
     async getQueryTemplates(accountId:string, params?:{ deleted?:boolean,data_type?:string }):Promise<AlSuggestionsTemplateResponseV2[]> {
         const result = await this.client.get({
+            service_stack: AlLocation.InsightAPI,
             service_name: this.serviceName,
             version: this.serviceVersion,
             account_id: accountId,
@@ -77,6 +81,7 @@ export class AlSuggestionsClientInstanceV2 {
      */
     getQueryTemplate(accountId:string, params?:{ deleted?:boolean,data_type?:string }):Promise<AlSuggestionsTemplateResponseV2> {
         return this.client.get<AlSuggestionsTemplateResponseV2>({
+            service_stack: AlLocation.InsightAPI,
             service_name: this.serviceName,
             version: this.serviceVersion,
             account_id: accountId,
@@ -93,6 +98,7 @@ export class AlSuggestionsClientInstanceV2 {
      */
     updateQueryTemplate(accountId: string, queryId: string, queryTemplate: AlUpdateQueryTemplateV2): Promise<AlSuggestionsTemplateResponseV2> {
         return this.client.post<AlSuggestionsTemplateResponseV2>({
+            service_stack: AlLocation.InsightAPI,
             service_name: this.serviceName,
             version: this.serviceVersion,
             account_id: accountId,
@@ -109,6 +115,7 @@ export class AlSuggestionsClientInstanceV2 {
      */
     createSavedQuery(accountId: string, savedQueryParams: AlCreateSavedQueryParamsV2): Promise<AlSavedQueryV2> {
         return this.client.post<AlSavedQueryV2>({
+            service_stack: AlLocation.InsightAPI,
             service_name: this.serviceName,
             version: this.serviceVersion,
             account_id: accountId,
@@ -125,6 +132,7 @@ export class AlSuggestionsClientInstanceV2 {
      */
     deleteSavedQuery(accountId: string, queryId: string) {
         return this.client.delete({
+            service_stack: AlLocation.InsightAPI,
             service_name: this.serviceName,
             version: this.serviceVersion,
             account_id: accountId,
@@ -140,6 +148,7 @@ export class AlSuggestionsClientInstanceV2 {
      */
     getSavedQuery(accountId: string, queryId: string): Promise<AlSavedQueryV2> {
         return this.client.get<AlSavedQueryV2>({
+            service_stack: AlLocation.InsightAPI,
             service_name: this.serviceName,
             version: this.serviceVersion,
             account_id: accountId,
@@ -155,6 +164,7 @@ export class AlSuggestionsClientInstanceV2 {
      */
     async getSavedQueries(accountId: string): Promise<AlSavedQueryV2[]> {
         const result = await this.client.get({
+            service_stack: AlLocation.InsightAPI,
             service_name: this.serviceName,
             version: this.serviceVersion,
             account_id: accountId,
@@ -172,6 +182,7 @@ export class AlSuggestionsClientInstanceV2 {
      */
     updateSavedQuery(accountId: string, queryId: string, savedQueryParams: AlUpdateSavedQueryParamsV2): Promise<AlSavedQueryV2> {
         return this.client.post<AlSavedQueryV2>({
+            service_stack: AlLocation.InsightAPI,
             service_name: this.serviceName,
             version: this.serviceVersion,
             account_id: accountId,
