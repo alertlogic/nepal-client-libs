@@ -4,6 +4,7 @@
 import {
     ALClient,
     APIRequestParams,
+    AlLocation,
 } from '@al/core';
 import {
     CreateSavedQueryParams,
@@ -36,6 +37,7 @@ export class AlSuggestionsClientInstanceV1 {
      */
     async createSavedQuery(accountId: string, savedQueryParams: CreateSavedQueryParams) {
         return this.client.post<SavedQuery>({
+            service_stack: AlLocation.InsightAPI,
             service_name: this.serviceName,
             account_id: accountId,
             path: '/queries',
@@ -49,6 +51,7 @@ export class AlSuggestionsClientInstanceV1 {
      */
     async getQuery(accountId: string, queryId: string) {
         return this.client.get<SavedQuery>({
+            service_stack: AlLocation.InsightAPI,
             service_name: this.serviceName,
             account_id: accountId,
             path: `/queries/${queryId}`,
@@ -61,6 +64,7 @@ export class AlSuggestionsClientInstanceV1 {
      */
     async getQueries(accountId: string, queryParams: { data_type?: string } = {}) {
         const fetchRequestParams: APIRequestParams = {
+            service_stack: AlLocation.InsightAPI,
             service_name: this.serviceName,
             account_id: accountId,
             path: '/queries',
@@ -75,6 +79,7 @@ export class AlSuggestionsClientInstanceV1 {
      */
     async updateQuery(accountId: string, queryId: string, queryUpdate: UpdateSavedQueryParams) {
         return this.client.post<SavedQuery>({
+            service_stack: AlLocation.InsightAPI,
             service_name: this.serviceName,
             account_id: accountId,
             path: `/queries/${queryId}`,
@@ -88,6 +93,7 @@ export class AlSuggestionsClientInstanceV1 {
      */
     deleteQuery(accountId: string, queryId: string): Promise<unknown> {
         return this.client.delete({
+            service_stack: AlLocation.InsightAPI,
             service_name: this.serviceName,
             account_id: accountId,
             path: `/queries/${queryId}`,
@@ -100,6 +106,7 @@ export class AlSuggestionsClientInstanceV1 {
      */
     async getCategories(accountId: string, queryParams?: { ids: string[] }) {
         const fetchRequestParams: APIRequestParams = {
+            service_stack: AlLocation.InsightAPI,
             service_name: this.serviceName,
             account_id: accountId,
             path: '/categories',
@@ -116,6 +123,7 @@ export class AlSuggestionsClientInstanceV1 {
      */
     async getRule(accountId: string, ruleId: string, queryParams?: { include_categories: string }) {
         const fetchRequestParams: APIRequestParams = {
+            service_stack: AlLocation.InsightAPI,
             service_name: this.serviceName,
             account_id: accountId,
             path: `/rules/${ruleId}`,
@@ -133,6 +141,7 @@ export class AlSuggestionsClientInstanceV1 {
      */
     getRules(accountId: string, queryParams?: { ids?: string, include_categories?: boolean }): Promise<SearchRule[]> {
         const fetchRequestParams: APIRequestParams = {
+            service_stack: AlLocation.InsightAPI,
             service_name: this.serviceName,
             account_id: accountId,
             path: '/rules',
@@ -150,6 +159,7 @@ export class AlSuggestionsClientInstanceV1 {
      */
     async getTokens(accountId: string, queryParams?: { ids?: string }) {
         const fetchRequestParams: APIRequestParams = {
+            service_stack: AlLocation.InsightAPI,
             service_name: this.serviceName,
             account_id: accountId,
             path: '/tokens',
@@ -166,6 +176,7 @@ export class AlSuggestionsClientInstanceV1 {
      */
     precache(accountId: string) {
         return this.client.get({
+            service_stack: AlLocation.InsightAPI,
             service_name: this.serviceName,
             account_id: accountId,
             path: '/precache',
@@ -177,6 +188,7 @@ export class AlSuggestionsClientInstanceV1 {
      */
     async suggest(accountId: string, dataType: string = 'logmsgs', requestParams: SuggestionsRequestParams) {
         return this.client.post<SuggestSearchResponse>({
+            service_stack: AlLocation.InsightAPI,
             service_name: this.serviceName,
             account_id: accountId,
             path: `/suggest/${dataType}`,
@@ -191,6 +203,7 @@ export class AlSuggestionsClientInstanceV1 {
      */
     async describe(accountId: string, dataType: string = 'logmsgs', searchRequest: DescribeSearchRequest) {
         return this.client.post<DescribeSearchResponse>({
+            service_stack: AlLocation.InsightAPI,
             service_name: this.serviceName,
             account_id: accountId,
             path: `/describe/${dataType}`,
@@ -207,6 +220,7 @@ export class AlSuggestionsClientInstanceV1 {
      */
     async translate(accountId: string, dataType: string = 'logmsgs', searchRequest: TranslateSearchRequest) {
         return this.client.post<TranslateSearchResponse>({
+            service_stack: AlLocation.InsightAPI,
             service_name: this.serviceName,
             account_id: accountId,
             path: `/translate/${dataType}`,
@@ -221,6 +235,7 @@ export class AlSuggestionsClientInstanceV1 {
      */
     getSearchTemplates(accountId: string, queryParams: { type?: string } = {}): Promise<SearchTemplatesResponse> {
         return this.client.get({
+            service_stack: AlLocation.InsightAPI,
             service_name: this.serviceName,
             account_id: accountId,
             path: '/templates',
@@ -233,6 +248,7 @@ export class AlSuggestionsClientInstanceV1 {
      */
     getSearchTemplate(accountId: string, templateId: string): Promise<SearchTemplate> {
         return this.client.get({
+            service_stack: AlLocation.InsightAPI,
             service_name: this.serviceName,
             account_id: accountId,
             path: `/templates/${templateId}`,
@@ -244,6 +260,7 @@ export class AlSuggestionsClientInstanceV1 {
      */
     createSearchTemplate(accountId: string, template: SearchTemplate): Promise<SearchTemplate> {
         return this.client.post({
+            service_stack: AlLocation.InsightAPI,
             service_name: this.serviceName,
             account_id: accountId,
             path: '/templates',
@@ -256,6 +273,7 @@ export class AlSuggestionsClientInstanceV1 {
      */
     async updateSearchTemplate(accountId: string, templateId: string, template: SearchTemplate): Promise<any> {
         return this.client.post({
+            service_stack: AlLocation.InsightAPI,
             service_name: this.serviceName,
             account_id: accountId,
             path: `/templates/${templateId}`,
@@ -270,6 +288,7 @@ export class AlSuggestionsClientInstanceV1 {
      */
     async deleteSearchTemplate(accountId: string, templateId: string): Promise<unknown> {
         return await this.client.delete({
+            service_stack: AlLocation.InsightAPI,
             service_name: this.serviceName,
             account_id: accountId,
             path: `/templates/${templateId}`,
@@ -286,6 +305,7 @@ export class AlSuggestionsClientInstanceV1 {
         queryParams: FetchGroupsQueryParams = {},
     ): Promise<SavedGroup> {
         return this.client.get({
+            service_stack: AlLocation.InsightAPI,
             service_name: this.serviceName,
             account_id: accountId,
             path: `/groups/${objectType}/${groupId}`,
@@ -302,6 +322,7 @@ export class AlSuggestionsClientInstanceV1 {
         queryParams: FetchGroupsQueryParams = {},
     ): Promise<{ groups: SavedGroup[]; templates?: SearchTemplate[]; queries?: SavedQuery[] }> {
         return this.client.get({
+            service_stack: AlLocation.InsightAPI,
             service_name: this.serviceName,
             account_id: accountId,
             path: `/groups/${objectType}`,
@@ -316,6 +337,7 @@ export class AlSuggestionsClientInstanceV1 {
      */
     async createGroup(accountId: string, objectType: 'queries' | 'templates', group: SavedGroup): Promise<SavedGroup> {
         return this.client.post({
+            service_stack: AlLocation.InsightAPI,
             service_name: this.serviceName,
             account_id: accountId,
             path: `/groups/${objectType}`,
@@ -334,6 +356,7 @@ export class AlSuggestionsClientInstanceV1 {
         group: SavedGroup,
     ): Promise<any> {
         return await this.client.post({
+            service_stack: AlLocation.InsightAPI,
             service_name: this.serviceName,
             account_id: accountId,
             path: `/groups/${objectType}/${groupId}`,
@@ -348,6 +371,7 @@ export class AlSuggestionsClientInstanceV1 {
      */
     async deleteGroup(accountId: string, objectType: 'queries' | 'templates', groupId: string): Promise<unknown> {
         return this.client.delete({
+            service_stack: AlLocation.InsightAPI,
             service_name: this.serviceName,
             account_id: accountId,
             path: `/groups/${objectType}/${groupId}`,

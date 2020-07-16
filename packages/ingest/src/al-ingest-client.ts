@@ -1,7 +1,7 @@
 /**
  * Module to deal with available Ingest Public API endpoints
  */
-import { AlDefaultClient } from '@al/core';
+import { AlDefaultClient, AlLocation } from '@al/core';
 
 export interface AlDataType {
     name: string;
@@ -48,6 +48,7 @@ export class AlIngestClientInstance {
      */
     async getDataTypes(): Promise<AlDataType[]> {
         const dataType = await AlDefaultClient.get({
+            service_stack: AlLocation.InsightAPI,
             service_name: this.serviceName,
             path:         `/types`,
         });
@@ -59,6 +60,7 @@ export class AlIngestClientInstance {
      */
     async getDataTypeAttributes(dataType: string, params: AlDataTypeAttributesParameters): Promise<AlDataTypeAttributesResponse> {
         const attributes = await AlDefaultClient.get({
+            service_stack: AlLocation.InsightAPI,
             service_name: this.serviceName,
             path:         `/type/${dataType}`,
             params: params
