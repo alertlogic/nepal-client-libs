@@ -71,11 +71,12 @@ export class AlIntegrationsClientInstance {
      *  @remarks
      *
      * */
-    async getConnections(accountId: string) {
+    async getConnections(accountId: string, params?: {include_sample_payload: boolean}) {
         return this.client.get<AlIntegrationConnection[]>({
             version: this.serviceVersion,
             service_stack: this.serviceStack,
             account_id: accountId,
+            params: params,
             path: `/connections`
         });
     }
