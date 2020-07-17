@@ -24,25 +24,35 @@ export interface AlIntegrationTypeDetail extends AlIntegrationType{
     };
 }
 
-export interface AlIntegrationPayloadSchema {
-    payload_conversion_type?: 'default' | 'jq';
-    payload_template?: string;
-    payload_type?: 'incident' | 'observation' | 'scheduled_report';
+export interface AlIntegrationSample{
+    content:"string";
+    title:"string";
 }
 
-export interface AlIntegrationBaseSchema {
+export interface AlIntegrationConnection {
+    // Common
     id?: string;
     description?: string;
     created?: AlChangeStamp;
     modified?: AlChangeStamp;
     name: string;
     type: string;
-}
 
-export interface AlIntegrationConnection extends AlIntegrationBaseSchema, AlIntegrationPayloadSchema {
+    // Payload fields
+    payload_conversion_type?: 'default' | 'jq';
+    payload_template?: string;
+    payload_type?: 'incident' | 'observation' | 'scheduled_report';
+
+    // Integration fields
     target_url?: string;
     auth_header?: string;
     headers?: string;
     email?: string;
-    [key: string]: string | AlChangeStamp;
+
+    // for notifications samples
+    sample_payload?:AlIntegrationSample[];
+
+    // for everything else
+    [key: string]: string | AlChangeStamp | AlIntegrationSample[] | undefined;
+
 }
