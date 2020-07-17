@@ -71,9 +71,18 @@ export interface ScheduledReportListV2 {
   schedules: ScheduledReportV2[];
 }
 
+export interface ReportAttachment {
+    name: string;
+    url: string;
+}
+
 export interface ReportArtifactV2 {
   result_id?: string;
-  is_rerference?: boolean;
+  is_reference?: boolean;
+  create_time?: number;
+  metadata?: {[key:string]: unknown};
+  result_count?: number;
+  attachments?: ReportAttachment[];
 }
 
 export interface ExecutionRecordRequestV2 {
