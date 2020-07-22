@@ -22,6 +22,9 @@ export interface AlIntegrationTypeDetail extends AlIntegrationType{
     payload_templates?: {
         [key: string]: {default : string };
     };
+    subject_templates?: {
+        [key: string]: {default : string };
+    };
 }
 
 export interface AlIntegrationSample{
