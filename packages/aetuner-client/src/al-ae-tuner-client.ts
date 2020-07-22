@@ -28,15 +28,19 @@ export class AlAETunerClientInstance {
      * @param output What to include in the response.
      */
     async getAnalytics(accountId: string, datatype?: string, output?: string):Promise<AnalyticListReturn> {
+        let params: { datatype?: string, output?: string } = {};
+        if (datatype) {
+            params.datatype = datatype;
+        }
+        if (output) {
+            params.output = output;
+        }
         return this.client.get<AnalyticListReturn>({
             service_name: this.serviceName,
             account_id: accountId,
             version: 'v1',
             path: `/analytics`,
-            params: {
-                datatype,
-                output
-            }
+            params,
         });
     }
 
