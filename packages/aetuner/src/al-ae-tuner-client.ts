@@ -35,11 +35,11 @@ export class AlAETunerClientInstance {
             params.output = output;
         }
         return this.client.get<AnalyticListReturn>({
+            params,
             service_stack: AlLocation.AETunerAPI,
             account_id: accountId,
             version: 'v1',
             path: `/analytics`,
-            params,
         });
     }
 
