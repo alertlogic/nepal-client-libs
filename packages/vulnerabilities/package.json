@@ -1,0 +1,45 @@
+{
+  "name": "@al/vulnerabilities",
+  "version": "1.0.1",
+  "license": "MIT",
+  "description": "A client for interacting with the Alert Logic Vulnerabilities Public API",
+  "author": {
+    "name": "Alert Logic NPM Team",
+    "email": "npm@alertlogic.com"
+  },
+  "keywords": [
+    "Alert Logic",
+    "Client",
+    "Service"
+  ],
+  "maintainers": [
+    {
+      "name": "Alert Logic NPM Team",
+      "email": "npm@alertlogic.com"
+    }
+  ],
+  "repository": "github:alertlogic/nepal-client-libs",
+  "main": "./dist/index.cjs.js",
+  "types": "./dist/index.d.ts",
+  "module": "./dist/index.esm5.js",
+  "es2015": "./dist/index.esm2015.js",
+  "scripts": {
+    "test": "karma start",
+    "test-watch": "karma start --no-single-run --auto-watch",
+    "build": "rollup -c ../../rollup.config.ts",
+    "prebuild": "npm run clean && npm run lint && npm run test",
+    "lint": "tslint -p tsconfig.json -c ../../tslint.json",
+    "clean": "rm -rf dist",
+    "prepublishOnly": "npm run build",
+    "interactive": "node -i -e \"const VulnerabilitiesClient = require('./dist/commonjs/index.js').VulnerabilitiesClient;\""
+  },
+  "dependencies": {
+    "@al/core": "^1.0.12"
+  },
+  "files": [
+    "dist"
+  ],
+  "publishConfig": {
+    "access": "public"
+  }
+}
