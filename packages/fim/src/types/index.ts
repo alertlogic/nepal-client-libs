@@ -53,20 +53,20 @@ export interface AlFimCountReport {
     num_enabled: number;
 }
 
-export const nixRegex: RegExp = new RegExp(/^(?:\/.+)*\/(.*\.?.+?)$/);
+export const nixRegex: RegExp = new RegExp(/^(?:\/[^\*\|\?]+)*\/([^\*\|\?]*\.?[^\*\|\?]+?)$/);
 
 export const windowsRegistryRegex: RegExp = new RegExp(/^((?:.*)\\)(.*)$/);
 
-export const windowsDirectoryRegex: RegExp = new RegExp(/^(?:[a-zA-Z]\:)(?:\\.+)*\\(.*\.?.+?)$/);
+export const windowsDirectoryRegex: RegExp = new RegExp(/^(?:[a-zA-Z]\:)(?:\\[^\*\?\|]*)*\\?([^\*\?\|]*\.?[^\*\?\|]*?)$/);
 
 export function getFullPath(config: AlFimConfiguration): string {
     try {
         const suffix: string = config.pattern ? config.pattern : "";
         const separator: string = config.type === 'nix_dir' ? "/" : "\\";
         if (config.base.slice(-1) === separator) {
-            return `${config.base}${suffix}`;
+            return suffix === '*' || suffix === '**' ? `${config.base}`:`${config.base}${suffix}`;
         }
-        return `${config.base}${separator}${suffix}`;
+        return suffix === '*' || suffix === '**' ? `${config.base}${separator}`: `${config.base}${separator}${suffix}`;
     } catch (error) {
         console.error("getFullPath -> unexpected error ", error);
         return '';
