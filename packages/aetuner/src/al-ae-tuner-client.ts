@@ -4,6 +4,7 @@
 import {
     AlApiClient,
     AlDefaultClient,
+    AlLocation,
 } from '@al/core';
 import {
     AnalyticHandlingUpdateObject,
@@ -12,11 +13,9 @@ import {
     AnalyticUpdateObject,
     HandlingSettings,
     IncidentTypeInfo
-} from "./types/al-ae-tuner-client.type";
+} from "./types";
 
 export class AlAETunerClientInstance {
-
-    private serviceName = 'aetuner';
 
     constructor(public client: AlApiClient = AlDefaultClient) {
     }
@@ -28,15 +27,19 @@ export class AlAETunerClientInstance {
      * @param output What to include in the response.
      */
     async getAnalytics(accountId: string, datatype?: string, output?: string):Promise<AnalyticListReturn> {
+        let params: { datatype?: string, output?: string } = {};
+        if (datatype) {
+            params.datatype = datatype;
+        }
+        if (output) {
+            params.output = output;
+        }
         return this.client.get<AnalyticListReturn>({
-            service_name: this.serviceName,
+            params,
+            service_stack: AlLocation.AETunerAPI,
             account_id: accountId,
             version: 'v1',
             path: `/analytics`,
-            params: {
-                datatype,
-                output
-            }
         });
     }
 
@@ -47,7 +50,7 @@ export class AlAETunerClientInstance {
      */
     async getAnalytic(accountId: string, analytic: string):Promise<AnalyticInfo> {
         return this.client.get<AnalyticInfo>({
-            service_name: this.serviceName,
+            service_stack: AlLocation.AETunerAPI,
             account_id: accountId,
             version: 'v1',
             path: `/analytics/${analytic}`
@@ -62,7 +65,7 @@ export class AlAETunerClientInstance {
      */
     async updateAnalytic(accountId: string, update: AnalyticUpdateObject, analytic: string):Promise<unknown> {
         return this.client.post<unknown>({
-            service_name: this.serviceName,
+            service_stack: AlLocation.AETunerAPI,
             account_id: accountId,
             version: 'v1',
             path: `/analytics/${analytic}`,
@@ -76,7 +79,7 @@ export class AlAETunerClientInstance {
      */
     async listIncidentTypes(accountId: string):Promise<string[]> {
         return this.client.get<string[]>({
-            service_name: this.serviceName,
+            service_stack: AlLocation.AETunerAPI,
             account_id: accountId,
             version: 'v1',
             path: `/incident_types`
@@ -90,7 +93,7 @@ export class AlAETunerClientInstance {
      */
     async getIncidentType(accountId: string, incidentType: string):Promise<IncidentTypeInfo> {
         return this.client.get<IncidentTypeInfo>({
-            service_name: this.serviceName,
+            service_stack: AlLocation.AETunerAPI,
             account_id: accountId,
             version: 'v1',
             path: `/incident_types/${incidentType}`
@@ -105,7 +108,7 @@ export class AlAETunerClientInstance {
      */
     async updateIncidentType(accountId, update: AnalyticUpdateObject, incidentType: string):Promise<unknown> {
         return this.client.post<unknown>({
-            service_name: this.serviceName,
+            service_stack: AlLocation.AETunerAPI,
             account_id: accountId,
             version: 'v1',
             path: `/incident_types/${incidentType}`,
@@ -120,7 +123,7 @@ export class AlAETunerClientInstance {
      */
     async listIncidentHandling(accountId: string):Promise<HandlingSettings[]> {
         return this.client.get<HandlingSettings[]>({
-            service_name: this.serviceName,
+            service_stack: AlLocation.AETunerAPI,
             account_id: accountId,
             version: 'v1',
             path: `/incident_handling`
@@ -134,7 +137,7 @@ export class AlAETunerClientInstance {
      */
     async getIncidentHandling(accountId: string, incidentType: string):Promise<HandlingSettings> {
         return this.client.get<HandlingSettings>({
-            service_name: this.serviceName,
+            service_stack: AlLocation.AETunerAPI,
             account_id: accountId,
             version: 'v1',
             path: `/incident_handling/${incidentType}`
@@ -151,7 +154,7 @@ export class AlAETunerClientInstance {
      */
     async updateIncidentHandling(accountId: string, update: AnalyticHandlingUpdateObject, incidentType: string):Promise<{stored: string}> {
         return this.client.post<{stored: string}>({
-            service_name: this.serviceName,
+            service_stack: AlLocation.AETunerAPI,
             account_id: accountId,
             version: 'v1',
             path: `/incident_handling/${incidentType}`,
@@ -167,7 +170,7 @@ export class AlAETunerClientInstance {
      */
     async deleteIncidentHandling( accountId: string, reason: string, incidentType: string):Promise<{stored: string}> {
         return this.client.post<{stored: string}>({
-            service_name: this.serviceName,
+            service_stack: AlLocation.AETunerAPI,
             account_id: accountId,
             version: 'v1',
             path: `/incident_handling/${incidentType}`,
