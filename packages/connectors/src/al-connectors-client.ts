@@ -12,7 +12,7 @@ import {
     AlIntegrationConnection,
 } from './types';
 
-export class AlIntegrationsClientInstance {
+export class AlConnectorsClientInstance {
 
     protected client: AlApiClient;
     protected serviceVersion = 'v1';

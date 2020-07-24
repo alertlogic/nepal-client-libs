@@ -1,9 +1,9 @@
-@al/integrations
+@al/connectors
 =========
 
 A lightweight client library for interacting with the Integrations API.
 
-This library uses @al/integrations as its HTTP provider interface.
+This library uses @al/connectors as its HTTP provider interface.
 
 ## Disclaimer
 
@@ -11,12 +11,12 @@ Until the release of version 1.0.0 all current minor version increments may be b
 
 ## Installation
 
-      npm install @al/integrations --save
+      npm install @al/connectors --save
 
 ## Usage
 
-      var IntegrationsClient = require('@al/integrations').IntegrationsClient; //commonjs - e.g. node
-      import { IntegrationsClient } from '@al/integrations'; //ES2015 - e.g. Angular, TS projects
+      var ConnectorsClient = require('@al/connectors').ConnectorsClient; //commonjs - e.g. node
+      import { ConnectorsClient } from '@al/connectors'; //ES2015 - e.g. Angular, TS projects
 
 ## Interactive
 
