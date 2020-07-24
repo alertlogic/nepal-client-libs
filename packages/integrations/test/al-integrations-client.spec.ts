@@ -19,8 +19,8 @@ afterEach(() => {
 // Global spy.
 let stub: sinon.SinonSpy;
 
-describe('INTEGRATIONS CLIENT', () => {
-    const apiBaseURL = "https://integrations.mdr.global.alertlogic.com";
+describe('CONNECTORS CLIENT', () => {
+    const apiBaseURL = "https://connectors.mdr.global.alertlogic.com";
     const version = "v1";
 
     const integrationsMock = [
@@ -44,7 +44,7 @@ describe('INTEGRATIONS CLIENT', () => {
         }
     ];
 
-    describe('Integrations ', () => {
+    describe('Connectors', () => {
         describe('When get types', () => {
 
             beforeEach(() => {
