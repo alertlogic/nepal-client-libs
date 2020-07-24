@@ -5,7 +5,7 @@ import {
 import { expect } from 'chai';
 import { describe } from 'mocha';
 import * as sinon from 'sinon';
-import { AlIntegrationsClient } from '../src/index';
+import { AlConnectorsClient } from '../src/index';
 
 beforeEach(() => {
   AlLocatorService.setContext( { environment: "production" } );
@@ -55,7 +55,7 @@ describe('CONNECTORS CLIENT', () => {
             });
             it('Should call the client instance\'s GET.', async () => {
                 const params = { showAll : true };
-                const result = await AlIntegrationsClient.getIntegrationTypes();
+                const result = await AlConnectorsClient.getIntegrationTypes();
                 const payload = stub.args[0][0];
                 expect( stub.callCount ).to.equal( 1 );
                 expect( payload.method ).to.equal( "GET" );

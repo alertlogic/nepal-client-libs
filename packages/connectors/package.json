@@ -1,5 +1,5 @@
 {
-  "name": "@al/integrations",
+  "name": "@al/connectors",
   "version": "0.0.9",
   "license": "MIT",
   "description": "A lightweight client library for interacting with the Integrations API",
