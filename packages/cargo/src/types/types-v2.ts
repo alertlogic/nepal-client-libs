@@ -54,7 +54,7 @@ export interface ScheduledReportV2 {
   created?: AlChangeStamp;
   modified?: AlChangeStamp;
   name: string;
-  type: string;
+  type?: string;
   definition: SearchReportDefinitionV2 | TableauReportDefinitionV2;
   schedule?: 'every_15_minutes' | {
     daily?: CargoReportDailyScheduleV2;
