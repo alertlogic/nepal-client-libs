@@ -96,6 +96,7 @@ export class AlEndpointsClientInstance {
             requestDescriptor.path = path;
         } else {
             requestDescriptor.url = `${esbServiceBaseUrl}/api/v1/${path}`;
+            requestDescriptor.aimsAuthHeader = true;
         }
         return requestDescriptor;
     }
