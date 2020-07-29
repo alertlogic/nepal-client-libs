@@ -603,4 +603,39 @@ export class AlIrisClientInstance {
         }).then(obs => obs.map(ob => AlObservation.import(ob)));
     }
 
+    public getTestIncidentById(accountId: string, incidentId: string): Promise<unknown> {
+        return this.client.get<unknown>({
+            service_stack: AlLocation.InsightAPI,
+            account_id: accountId,
+            service_name: this.serviceName,
+            version: 'v3',
+            path: `/test/${incidentId}/get_test_incident`,
+        });
+    }
+
+    public getTestIncidentAssetsRaw(accountId: string, incidentId: string): Promise<unknown> {
+        return this.client.get<unknown>({
+            service_stack: AlLocation.InsightAPI,
+            account_id: accountId,
+            service_name: this.serviceName,
+            version: 'v3',
+            path: `test/${incidentId}/assets`,
+        }).then(data => {
+            if (data && data['returnVals'] && data['returnVals'].length > 0) {
+                return data['returnVals'][0];
+            }
+            return {};
+        });
+    }
+
+    public getTestIncidentHistory(accountId: string, incidentId: string): Promise<IncidentHistoryResponse[]> {
+        return this.client.get<IncidentHistoryResponse[]>({
+            service_stack: AlLocation.InsightAPI,
+            account_id: accountId,
+            service_name: this.serviceName,
+            version: 'v3',
+            path: `test/${incidentId}/history`,
+        });
+    }
+
 }
