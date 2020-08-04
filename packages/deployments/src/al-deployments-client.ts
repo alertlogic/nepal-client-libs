@@ -4,6 +4,7 @@
 import {
   AlApiClient,
   AlDefaultClient,
+  AlLocation,
 } from '@al/core';
 import {
   Deployment,
@@ -14,6 +15,7 @@ import {
 export class AlDeploymentsClientInstance {
 
   private serviceName = 'deployments';
+  private serviceVersion = 'v1';
 
   /* istanbul ignore next */
   constructor(public client:AlApiClient = AlDefaultClient) {
@@ -21,6 +23,8 @@ export class AlDeploymentsClientInstance {
 
   async createDeployment(accountId: string, deploymentRequest: DeploymentCreateBody) {
     return this.client.post<Deployment>({
+      service_stack: AlLocation.InsightAPI,
+      version: this.serviceVersion,
       service_name: this.serviceName,
       account_id: accountId,
       path: '/deployments',
@@ -30,6 +34,8 @@ export class AlDeploymentsClientInstance {
 
   async updateDeployment(accountId: string, deploymentId: string, deploymentRequest: DeploymentUpdateBody) {
     return this.client.put<Deployment>({
+      service_stack: AlLocation.InsightAPI,
+      version: this.serviceVersion,
       service_name: this.serviceName,
       account_id: accountId,
       path: `/deployments/${deploymentId}`,
@@ -39,6 +45,8 @@ export class AlDeploymentsClientInstance {
 
   async deleteDeployment(accountId: string, deploymentId: string) {
     return this.client.delete<any>({
+      service_stack: AlLocation.InsightAPI,
+      version: this.serviceVersion,
       service_name: this.serviceName,
       account_id: accountId,
       path: `/deployments/${deploymentId}`,
@@ -47,6 +55,8 @@ export class AlDeploymentsClientInstance {
 
   async getDeployment(accountId: string, deploymentId: string) {
     return this.client.get<Deployment>({
+      service_stack: AlLocation.InsightAPI,
+      version: this.serviceVersion,
       service_name: this.serviceName,
       account_id: accountId,
       path: `/deployments/${deploymentId}`,
@@ -56,6 +66,8 @@ export class AlDeploymentsClientInstance {
 
   async listDeployments(accountId: string, filters?: string[]) {
     return this.client.get<Deployment[]>({
+      service_stack: AlLocation.InsightAPI,
+      version: this.serviceVersion,
       service_name: this.serviceName,
       account_id: accountId,
       path: '/deployments',

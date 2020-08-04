@@ -8,6 +8,7 @@ import {
   AlDeploymentsClientInstance,
   DeploymentCreateBody,
 } from '../src/index';
+import { AlLocation } from '@al/core';
 
 let deploymentsClient:AlDeploymentsClientInstance;
 
@@ -18,6 +19,7 @@ const deploymentRequestBody: DeploymentCreateBody = {
 };
 const accountId = '1234';
 const deploymentId = '56789';
+const serviceVersion = 'v1';
 
 beforeEach(() => {
   deploymentsClient = new AlDeploymentsClientInstance();
@@ -42,6 +44,8 @@ describe('Deployments Client Test Suite', () => {
       await deploymentsClient.createDeployment(accountId, deploymentRequestBody);
       expect(stub.callCount).to.equal(1);
       const payload = {
+        service_stack: AlLocation.InsightAPI,
+        version: serviceVersion,
         service_name: serviceName,
         account_id: accountId,
         path: '/deployments',
@@ -65,6 +69,8 @@ describe('Deployments Client Test Suite', () => {
       await deploymentsClient.updateDeployment(accountId, deploymentId, deploymentRequestBody);
       expect(stub.callCount).to.equal(1);
       const payload = {
+        service_stack: AlLocation.InsightAPI,
+        version: serviceVersion,
         service_name: serviceName,
         account_id: accountId,
         path: '/deployments/56789',
@@ -88,6 +94,8 @@ describe('Deployments Client Test Suite', () => {
       await deploymentsClient.deleteDeployment(accountId, deploymentId);
       expect(stub.callCount).to.equal(1);
       const payload = {
+        service_stack: AlLocation.InsightAPI,
+        version: serviceVersion,
         service_name: serviceName,
         account_id: accountId,
         path: '/deployments/56789',
@@ -110,6 +118,8 @@ describe('Deployments Client Test Suite', () => {
       await deploymentsClient.getDeployment(accountId, deploymentId);
       expect(stub.callCount).to.equal(1);
       const payload = {
+        service_stack: AlLocation.InsightAPI,
+        version: serviceVersion,
         service_name: serviceName,
         account_id: accountId,
         path: '/deployments/56789',
@@ -132,6 +142,8 @@ describe('Deployments Client Test Suite', () => {
       await deploymentsClient.listDeployments(accountId, ['foo=bar']);
       expect(stub.callCount).to.equal(1);
       const payload = {
+        service_stack: AlLocation.InsightAPI,
+        version: serviceVersion,
         service_name: serviceName,
         account_id: accountId,
         path: '/deployments',
