@@ -91,6 +91,11 @@ export interface DashboardMeta {
 export interface DashboardLayoutConfig {
   index?: number;
   refreshRate?: number;
+  refreshSource?:{
+    service: string;
+    args?: any;
+    method: string;
+  };
   meta?: DashboardMeta;
   widgets: DashboardLayoutWidgetConfig[];
 }
