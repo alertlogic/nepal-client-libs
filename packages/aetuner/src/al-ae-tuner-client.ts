@@ -69,7 +69,7 @@ export class AlAETunerClientInstance {
             account_id: accountId,
             version: 'v1',
             path: `/analytics/${analytic}`,
-            params: update
+            data: update
         });
     }
 
