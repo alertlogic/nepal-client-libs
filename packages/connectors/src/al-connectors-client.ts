@@ -10,6 +10,7 @@ import {
     AlIntegrationType,
     AlIntegrationTypeDetail,
     AlIntegrationConnection,
+    AlConnectorsPayloadTypes
 } from './types';
 
 export class AlConnectorsClientInstance {
@@ -179,4 +180,20 @@ export class AlConnectorsClientInstance {
         return result;
     }
 
+    /**
+     * Returns list of payload types
+     * GET
+     * /v1/payload_types
+     * https://integrations.mdr.global.alertlogic.com
+     *
+     *  @remarks
+     *
+     * */
+    async getPayloadTypes() {
+        return this.client.get<AlConnectorsPayloadTypes>({
+            version: this.serviceVersion,
+            service_stack: this.serviceStack,
+            path: '/payload_types'
+        });
+    }
 }
