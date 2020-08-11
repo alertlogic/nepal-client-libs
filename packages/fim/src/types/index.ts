@@ -53,7 +53,7 @@ export interface AlFimCountReport {
     num_enabled: number;
 }
 
-export const nixRegex: RegExp = new RegExp(/^(?:\/[^\*\|\?]+)*\/([^\*\|\?]*\.?[^\*\|\?]+?)$/);
+export const nixRegex: RegExp = new RegExp(/^(?:\/[^\*\|\?]+)*\/([^\*\|\?]*\.?[^\*\|\?]+?)?$/);
 
 export const windowsRegistryRegex: RegExp = new RegExp(/^((?:.*)\\)(.*)$/);
 
