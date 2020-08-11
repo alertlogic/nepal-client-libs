@@ -4,6 +4,7 @@
 import {
   AlApiClient,
   AlDefaultClient,
+  AlLocation
 } from '@al/core';
 import {
   AlApplication,
@@ -41,6 +42,7 @@ export class AlApplicationsClientInstance {
     async getAllApplications(accountId: string, queryParams?: AlApplicationConfigQuery): Promise<AlApplication[]> {
 
         return this.client.get<AlApplication[]>({
+            service_stack: AlLocation.InsightAPI,
             service_name: this.serviceName,
             version: this.serviceVersion,
             account_id: accountId,
@@ -64,6 +66,7 @@ export class AlApplicationsClientInstance {
      */
     async addRule(accountId: string, data: AlRulePayload, deploymentId:string = null) : Promise<AlRule> {
         return this.client.post<AlRule>({
+            service_stack: AlLocation.InsightAPI,
             service_name: this.serviceName,
             version: this.serviceVersion,
             account_id: accountId,
@@ -87,6 +90,7 @@ export class AlApplicationsClientInstance {
      */
     async getRule(accountId: string, ruleId: string) : Promise<AlRule> {
         return this.client.get<AlRule>({
+            service_stack: AlLocation.InsightAPI,
             service_name: this.serviceName,
             version: this.serviceVersion,
             account_id: accountId,
@@ -108,6 +112,7 @@ export class AlApplicationsClientInstance {
      */
     async getAllRules(accountId: string, queryParams?: AlApplicationConfigQuery, deploymentId:string = null): Promise<AlRule[]> {
         return this.client.get<AlRule[]>({
+            service_stack: AlLocation.InsightAPI,
             service_name: this.serviceName,
             version: this.serviceVersion,
             account_id: accountId,
@@ -130,6 +135,7 @@ export class AlApplicationsClientInstance {
      */
     async deleteRule(accountId: string, ruleId: string) {
         return this.client.delete<any>({
+            service_stack: AlLocation.InsightAPI,
             service_name: this.serviceName,
             version: this.serviceVersion,
             account_id: accountId,
@@ -152,6 +158,7 @@ export class AlApplicationsClientInstance {
      */
     async updateRule(accountId: string, ruleId: string, payload: AlRulePayload, deploymentId:string = null) : Promise<AlRule> {
         return this.client.put<AlRule>({
+            service_stack: AlLocation.InsightAPI,
             service_name: this.serviceName,
             version: this.serviceVersion,
             account_id: accountId,
@@ -174,6 +181,7 @@ export class AlApplicationsClientInstance {
      */
     async getAllRulesByDeployment(accountId: string, deploymentId: string): Promise<AlRuleForDeployment[]> {
         return this.client.get<AlRuleForDeployment[]>({
+            service_stack: AlLocation.InsightAPI,
             service_name: this.serviceName,
             version: this.serviceVersion,
             account_id: accountId,
@@ -205,6 +213,7 @@ export class AlApplicationsClientInstance {
      */
     async deployACollector(accountId: string, data: AlDeployACollectorPayload) : Promise<AlDeployACollector> {
         return this.client.post<AlDeployACollector>({
+            service_stack: AlLocation.InsightAPI,
             service_name: this.serviceName,
             version: this.serviceVersion,
             account_id: accountId,
@@ -227,6 +236,7 @@ export class AlApplicationsClientInstance {
      */
     async deleteADeployedCollector(accountId: string, collectorId: string) {
         return this.client.delete<any>({
+            service_stack: AlLocation.InsightAPI,
             service_name: this.serviceName,
             version: this.serviceVersion,
             account_id: accountId,
@@ -248,6 +258,7 @@ export class AlApplicationsClientInstance {
      */
     async updateADeployedCollector(accountId: string, collectorId: string, data: AlDeployACollectorPayload) {
         return this.client.put<any>({
+            service_stack: AlLocation.InsightAPI,
             service_name: this.serviceName,
             version: this.serviceVersion,
             account_id: accountId,
@@ -271,6 +282,7 @@ export class AlApplicationsClientInstance {
     async getAllAttributes(accountId: string): Promise<Array<AlApplicationAttribute>> {
 
         return this.client.get<Array<AlApplicationAttribute>>({
+            service_stack: AlLocation.InsightAPI,
             service_name: this.serviceName,
             version: this.serviceVersion,
             account_id: accountId,

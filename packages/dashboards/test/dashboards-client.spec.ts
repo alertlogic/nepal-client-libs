@@ -10,6 +10,7 @@ import {
   DashboardsClient,
   SharedDashboardItem,
 } from '../src/index';
+import { AlLocation } from '@al/core';
 
 const serviceName = 'dashboards';
 const accountId = '12345';
@@ -52,6 +53,7 @@ describe('Dashboards Client Test Suite:', () => {
       await DashboardsClient.createDeploymentDashboardItem(accountId, deploymentId, dashboardItemRequest);
       expect(stub.callCount).to.equal(1);
       const payload = {
+        service_stack: AlLocation.InsightAPI,
         service_name: serviceName,
         version: serviceVersion,
         account_id: accountId,
@@ -73,6 +75,7 @@ describe('Dashboards Client Test Suite:', () => {
       await DashboardsClient.getDeploymentDashboardItem(accountId, deploymentId, dashboardItemId);
       expect(stub.callCount).to.equal(1);
       const payload = {
+        service_stack: AlLocation.InsightAPI,
         service_name: serviceName,
         version: serviceVersion,
         account_id: accountId,
@@ -93,6 +96,7 @@ describe('Dashboards Client Test Suite:', () => {
       await DashboardsClient.updateDeploymentDashboardItem(accountId, deploymentId, dashboardItemId, dashboardItemRequest);
       expect(stub.callCount).to.equal(1);
       const payload = {
+        service_stack: AlLocation.InsightAPI,
         service_name: serviceName,
         version: serviceVersion,
         account_id: accountId,
@@ -114,6 +118,7 @@ describe('Dashboards Client Test Suite:', () => {
       await DashboardsClient.deleteDeploymentDashboardItem(accountId, deploymentId, dashboardItemId);
       expect(stub.callCount).to.equal(1);
       const payload = {
+        service_stack: AlLocation.InsightAPI,
         service_name: serviceName,
         version: serviceVersion,
         account_id: accountId,
@@ -134,6 +139,7 @@ describe('Dashboards Client Test Suite:', () => {
       await DashboardsClient.listDeploymentDashboardItems(accountId, deploymentId);
       expect(stub.callCount).to.equal(1);
       const payload = {
+        service_stack: AlLocation.InsightAPI,
         service_name: serviceName,
         version: serviceVersion,
         account_id: accountId,
@@ -156,6 +162,7 @@ describe('Dashboards Client Test Suite:', () => {
       await DashboardsClient.createUserDashboardItem(accountId, userId, dashboardItemRequest);
       expect(stub.callCount).to.equal(1);
       const payload = {
+        service_stack: AlLocation.InsightAPI,
         service_name: serviceName,
         version: serviceVersion,
         account_id: accountId,
@@ -177,6 +184,7 @@ describe('Dashboards Client Test Suite:', () => {
       await DashboardsClient.getUserDashboardItem(accountId, userId, dashboardItemId);
       expect(stub.callCount).to.equal(1);
       const payload = {
+        service_stack: AlLocation.InsightAPI,
         service_name: serviceName,
         version: serviceVersion,
         account_id: accountId,
@@ -198,6 +206,7 @@ describe('Dashboards Client Test Suite:', () => {
       await DashboardsClient.updateUserDashboardItem(accountId, userId, dashboardItemId, dashboardItemRequest);
       expect(stub.callCount).to.equal(1);
       const payload = {
+        service_stack: AlLocation.InsightAPI,
         service_name: serviceName,
         version: serviceVersion,
         account_id: accountId,
@@ -219,6 +228,7 @@ describe('Dashboards Client Test Suite:', () => {
       await DashboardsClient.deleteUserDashboardItem(accountId, userId, dashboardItemId);
       expect(stub.callCount).to.equal(1);
       const payload = {
+        service_stack: AlLocation.InsightAPI,
         service_name: serviceName,
         version: serviceVersion,
         account_id: accountId,
@@ -239,6 +249,7 @@ describe('Dashboards Client Test Suite:', () => {
       await DashboardsClient.listUserDashboardItems(accountId, userId);
       expect(stub.callCount).to.equal(1);
       const payload = {
+        service_stack: AlLocation.InsightAPI,
         service_name: serviceName,
         version: serviceVersion,
         account_id: accountId,
@@ -262,6 +273,7 @@ describe('Dashboards Client Test Suite:', () => {
       await DashboardsClient.createOwnDashboardItem(contextAccountId, dashboardItemRequest);
       expect(stub.callCount).to.equal(1);
       const payload = {
+        service_stack: AlLocation.InsightAPI,
         service_name: serviceName,
         version: serviceVersion,
         path: '/user/dashboard_items',
@@ -283,6 +295,7 @@ describe('Dashboards Client Test Suite:', () => {
       await DashboardsClient.getOwnDashboardItem(contextAccountId, dashboardItemId);
       expect(stub.callCount).to.equal(1);
       const payload = {
+        service_stack: AlLocation.InsightAPI,
         service_name: serviceName,
         version: serviceVersion,
         path: `/user/dashboard_items/${dashboardItemId}`,
@@ -304,6 +317,7 @@ describe('Dashboards Client Test Suite:', () => {
       await DashboardsClient.updateOwnDashboardItem(contextAccountId, dashboardItemId, dashboardItemRequest);
       expect(stub.callCount).to.equal(1);
       const payload = {
+        service_stack: AlLocation.InsightAPI,
         service_name: serviceName,
         version: serviceVersion,
         path: `/user/dashboard_items/${dashboardItemId}`,
@@ -325,6 +339,7 @@ describe('Dashboards Client Test Suite:', () => {
       await DashboardsClient.deleteOwnDashboardItem(contextAccountId, dashboardItemId);
       expect(stub.callCount).to.equal(1);
       const payload = {
+        service_stack: AlLocation.InsightAPI,
         service_name: serviceName,
         version: serviceVersion,
         path: `/user/dashboard_items/${dashboardItemId}`,
@@ -346,6 +361,7 @@ describe('Dashboards Client Test Suite:', () => {
       await DashboardsClient.listOwnDashboardItems(contextAccountId);
       expect(stub.callCount).to.equal(1);
       const payload = {
+        service_stack: AlLocation.InsightAPI,
         service_name: serviceName,
         version: serviceVersion,
         path: '/user/dashboard_items',
@@ -368,6 +384,7 @@ describe('Dashboards Client Test Suite:', () => {
       await DashboardsClient.createDashboardGroup(accountId, dashboardGroup);
       expect(stub.callCount).to.equal(1);
       const payload = {
+        service_stack: AlLocation.InsightAPI,
         service_name: serviceName,
         version: serviceVersion,
         account_id: accountId,
@@ -389,6 +406,7 @@ describe('Dashboards Client Test Suite:', () => {
       await DashboardsClient.getDashboardGroup(accountId, dashboardGroupId);
       expect(stub.callCount).to.equal(1);
       const payload = {
+        service_stack: AlLocation.InsightAPI,
         service_name: serviceName,
         version: serviceVersion,
         account_id: accountId,
@@ -410,6 +428,7 @@ describe('Dashboards Client Test Suite:', () => {
       await DashboardsClient.listDashboardGroups(accountId);
       expect(stub.callCount).to.equal(1);
       const payload = {
+        service_stack: AlLocation.InsightAPI,
         service_name: serviceName,
         version: serviceVersion,
         account_id: accountId,
@@ -431,6 +450,7 @@ describe('Dashboards Client Test Suite:', () => {
       await DashboardsClient.updateDashboardGroup(accountId, dashboardGroupId, dashboardGroup);
       expect(stub.callCount).to.equal(1);
       const payload = {
+        service_stack: AlLocation.InsightAPI,
         service_name: serviceName,
         version: serviceVersion,
         account_id: accountId,
@@ -452,6 +472,7 @@ describe('Dashboards Client Test Suite:', () => {
       await DashboardsClient.deleteDashboardGroup(accountId, dashboardGroupId);
       expect(stub.callCount).to.equal(1);
       const payload = {
+        service_stack: AlLocation.InsightAPI,
         service_name: serviceName,
         version: serviceVersion,
         account_id: accountId,
@@ -473,6 +494,7 @@ describe('Dashboards Client Test Suite:', () => {
       await DashboardsClient.createSharedDashboardItem(accountId, sharedDashboardItem);
       expect(stub.callCount).to.equal(1);
       const payload = {
+        service_stack: AlLocation.InsightAPI,
         service_name: serviceName,
         version: serviceVersion,
         account_id: accountId,
@@ -494,6 +516,7 @@ describe('Dashboards Client Test Suite:', () => {
       await DashboardsClient.getSharedDashboardItem(accountId, sharedDashboardItemId);
       expect(stub.callCount).to.equal(1);
       const payload = {
+        service_stack: AlLocation.InsightAPI,
         service_name: serviceName,
         version: serviceVersion,
         account_id: accountId,
@@ -514,6 +537,7 @@ describe('Dashboards Client Test Suite:', () => {
       await DashboardsClient.listSharedDashboardItems(accountId);
       expect(stub.callCount).to.equal(1);
       const payload = {
+        service_stack: AlLocation.InsightAPI,
         service_name: serviceName,
         version: serviceVersion,
         account_id: accountId,
@@ -535,6 +559,7 @@ describe('Dashboards Client Test Suite:', () => {
       await DashboardsClient.updateSharedDashboardItem(accountId, sharedDashboardItemId, sharedDashboardItem);
       expect(stub.callCount).to.equal(1);
       const payload = {
+        service_stack: AlLocation.InsightAPI,
         service_name: serviceName,
         version: serviceVersion,
         account_id: accountId,
@@ -556,6 +581,7 @@ describe('Dashboards Client Test Suite:', () => {
       await DashboardsClient.deleteSharedDashboardItem(accountId, sharedDashboardItemId);
       expect(stub.callCount).to.equal(1);
       const payload = {
+        service_stack: AlLocation.InsightAPI,
         service_name: serviceName,
         version: serviceVersion,
         account_id: accountId,
