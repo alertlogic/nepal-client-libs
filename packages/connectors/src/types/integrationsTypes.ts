@@ -59,3 +59,8 @@ export interface AlIntegrationConnection {
     [key: string]: string | AlChangeStamp | AlIntegrationSample[] | undefined;
 
 }
+
+export interface AlConnectorsPayloadTypes{
+    value ?: string;
+    label ?: string;
+}
