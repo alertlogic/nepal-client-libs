@@ -1,7 +1,8 @@
 /**
  * Module to deal with available Dashboards Public API endpoints
  */
-import { AlDefaultClient } from '@al/core';
+import { AlDefaultClient,
+  AlLocation } from '@al/core';
 import {
   DashboardGroup,
   DashboardGroupsRequestParams,
@@ -27,6 +28,7 @@ class DashboardsClient {
    */
   async createDeploymentDashboardItem(accountId: string, deploymentId: string, reportRequest: DashboardRequest) {
     return this.client.post<DeploymentDashboardItem>({
+      service_stack: AlLocation.InsightAPI,
       service_name: this.serviceName,
       version: this.version,
       account_id: accountId,
@@ -39,6 +41,7 @@ class DashboardsClient {
    */
   async getDeploymentDashboardItem(accountId: string, deploymentId: string, dashboardItemId: string) {
     return this.client.get<DeploymentDashboardItem>({
+      service_stack: AlLocation.InsightAPI,
       service_name: this.serviceName,
       version: this.version,
       account_id: accountId,
@@ -50,6 +53,7 @@ class DashboardsClient {
    */
   async updateDeploymentDashboardItem(accountId: string, deploymentId: string, dashboardItemId: string, reportRequest: DashboardRequest) {
     return this.client.put<any>({
+      service_stack: AlLocation.InsightAPI,
       service_name: this.serviceName,
       version: this.version,
       account_id: accountId,
@@ -62,6 +66,7 @@ class DashboardsClient {
    */
   async deleteDeploymentDashboardItem(accountId: string, deploymentId: string, dashboardItemId: string) {
     return this.client.delete<any>({
+      service_stack: AlLocation.InsightAPI,
       service_name: this.serviceName,
       version: this.version,
       account_id: accountId,
@@ -73,6 +78,7 @@ class DashboardsClient {
    */
   async listDeploymentDashboardItems(accountId: string, deploymentId: string, requestQueryParams: DashboardItemsRequestQueryParams = {}) {
     return this.client.get<DashboardItemsListResponse>({
+      service_stack: AlLocation.InsightAPI,
       service_name: this.serviceName,
       version: this.version,
       account_id: accountId,
@@ -85,6 +91,7 @@ class DashboardsClient {
    */
   async createUserDashboardItem(accountId: string, userId: string, reportRequest: DashboardRequest) {
     return this.client.post<UserDashboardItem>({
+      service_stack: AlLocation.InsightAPI,
       service_name: this.serviceName,
       version: this.version,
       account_id: accountId,
@@ -97,6 +104,7 @@ class DashboardsClient {
    */
   async getUserDashboardItem(accountId: string, userId: string, dashboardItemId: string, requestQueryParams: {resolve_shared_refs?: boolean} = {}) {
     return this.client.get<UserDashboardItem>({
+      service_stack: AlLocation.InsightAPI,
       service_name: this.serviceName,
       version: this.version,
       account_id: accountId,
@@ -109,6 +117,7 @@ class DashboardsClient {
    */
   async updateUserDashboardItem(accountId: string, userId: string, dashboardItemId: string, reportRequest: DashboardRequest) {
     return this.client.put<any>({
+      service_stack: AlLocation.InsightAPI,
       service_name: this.serviceName,
       version: this.version,
       account_id: accountId,
@@ -121,6 +130,7 @@ class DashboardsClient {
    */
   async deleteUserDashboardItem(accountId: string, userId: string, dashboardItemId: string) {
     return this.client.delete<any>({
+      service_stack: AlLocation.InsightAPI,
       service_name: this.serviceName,
       version: this.version,
       account_id: accountId,
@@ -132,6 +142,7 @@ class DashboardsClient {
    */
   async listUserDashboardItems(accountId: string, userId: string, requestQueryParams: DashboardItemsRequestQueryParams = {}) {
     return this.client.get<DashboardItemsListResponse>({
+      service_stack: AlLocation.InsightAPI,
       service_name: this.serviceName,
       version: this.version,
       account_id: accountId,
@@ -144,6 +155,7 @@ class DashboardsClient {
    */
   async createOwnDashboardItem(accountId: string, reportRequest: DashboardRequest) {
     return this.client.post<UserDashboardItem>({
+      service_stack: AlLocation.InsightAPI,
       service_name: this.serviceName,
       version: this.version,
       path: '/user/dashboard_items',
@@ -156,6 +168,7 @@ class DashboardsClient {
    */
   async getOwnDashboardItem(accountId: string, dashboardItemId: string, requestQueryParams: {resolve_shared_refs?: boolean} = {}) {
     return this.client.get<UserDashboardItem>({
+      service_stack: AlLocation.InsightAPI,
       service_name: this.serviceName,
       version: this.version,
       path: `/user/dashboard_items/${dashboardItemId}`,
@@ -168,6 +181,7 @@ class DashboardsClient {
    */
   async listOwnDashboardItems(accountId: string, requestQueryParams: DashboardItemsRequestQueryParams = {}) {
     return this.client.get<DashboardItemsListResponse>({
+      service_stack: AlLocation.InsightAPI,
       service_name: this.serviceName,
       version: this.version,
       path: '/user/dashboard_items',
@@ -180,6 +194,7 @@ class DashboardsClient {
    */
   async updateOwnDashboardItem(accountId: string, dashboardItemId: string, reportRequest: DashboardRequest) {
     return this.client.put<UserDashboardItem>({
+      service_stack: AlLocation.InsightAPI,
       service_name: this.serviceName,
       version: this.version,
       path: `/user/dashboard_items/${dashboardItemId}`,
@@ -192,6 +207,7 @@ class DashboardsClient {
    */
   async deleteOwnDashboardItem(accountId: string, dashboardItemId: string) {
     return this.client.delete<any>({
+      service_stack: AlLocation.InsightAPI,
       service_name: this.serviceName,
       version: this.version,
       path: `/user/dashboard_items/${dashboardItemId}`,
@@ -205,6 +221,7 @@ class DashboardsClient {
    */
   async createDashboardGroup(accountId: string, dashboardGroup: DashboardGroup) {
     return this.client.post<DashboardGroup>({
+      service_stack: AlLocation.InsightAPI,
       service_name: this.serviceName,
       version: this.version,
       account_id: accountId,
@@ -217,6 +234,7 @@ class DashboardsClient {
    */
   async getDashboardGroup(accountId: string, dashboardGroupId: string, requestQueryParams: DashboardRequestParams = {}) {
     return this.client.get<DashboardGroup>({
+      service_stack: AlLocation.InsightAPI,
       service_name: this.serviceName,
       version: this.version,
       account_id: accountId,
@@ -229,6 +247,7 @@ class DashboardsClient {
    */
   async listDashboardGroups(accountId: string, requestQueryParams: DashboardGroupsRequestParams = {}) {
     return this.client.get<DashboardGroupsResponse>({
+      service_stack: AlLocation.InsightAPI,
       service_name: this.serviceName,
       version: this.version,
       account_id: accountId,
@@ -241,6 +260,7 @@ class DashboardsClient {
    */
   async updateDashboardGroup(accountId: string, dashboardGroupId: string, dashboardGroup: DashboardGroup) {
     return this.client.put<DashboardGroup>({
+      service_stack: AlLocation.InsightAPI,
       service_name: this.serviceName,
       version: this.version,
       account_id: accountId,
@@ -253,6 +273,7 @@ class DashboardsClient {
    */
   async deleteDashboardGroup(accountId: string, dashboardGroupId: string) {
     return this.client.delete<any>({
+      service_stack: AlLocation.InsightAPI,
       service_name: this.serviceName,
       version: this.version,
       account_id: accountId,
@@ -265,6 +286,7 @@ class DashboardsClient {
    */
   async createSharedDashboardItem(accountId: string, sharedDashboardItem: SharedDashboardItem) {
     return this.client.post<SharedDashboardItem>({
+      service_stack: AlLocation.InsightAPI,
       service_name: this.serviceName,
       version: this.version,
       account_id: accountId,
@@ -277,6 +299,7 @@ class DashboardsClient {
    */
   async getSharedDashboardItem(accountId: string, sharedDashboardItemId: string) {
     return this.client.get<SharedDashboardItem>({
+      service_stack: AlLocation.InsightAPI,
       service_name: this.serviceName,
       version: this.version,
       account_id: accountId,
@@ -288,6 +311,7 @@ class DashboardsClient {
    */
   async listSharedDashboardItems(accountId: string, requestQueryParams: SharedDashboardItemsRequestQueryParams = {}) {
     return this.client.get<DashboardItemsListResponse>({
+      service_stack: AlLocation.InsightAPI,
       service_name: this.serviceName,
       version: this.version,
       account_id: accountId,
@@ -301,6 +325,7 @@ class DashboardsClient {
    */
   async updateSharedDashboardItem(accountId: string, sharedDashboardItemId: string, sharedDashboardItem: SharedDashboardItem) {
     return this.client.put<SharedDashboardItem>({
+      service_stack: AlLocation.InsightAPI,
       service_name: this.serviceName,
       version: this.version,
       account_id: accountId,
@@ -313,6 +338,7 @@ class DashboardsClient {
    */
   async deleteSharedDashboardItem(accountId: string, sharedDashboardItemId: string) {
     return this.client.delete<any>({
+      service_stack: AlLocation.InsightAPI,
       service_name: this.serviceName,
       version: this.version,
       account_id: accountId,
