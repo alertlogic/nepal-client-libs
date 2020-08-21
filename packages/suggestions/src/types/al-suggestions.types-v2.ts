@@ -44,6 +44,10 @@ export interface AlCreateSavedQueryParamsV2 {
     name: string;
     description?: string;
     search_request: string;
+    template?: {
+        id: string,
+        account_id: string
+    };
 }
 
 export interface AlUpdateSavedQueryParamsV2 {
@@ -52,6 +56,10 @@ export interface AlUpdateSavedQueryParamsV2 {
     description?: string;
     search_request?: string;
     deleted?: boolean;
+    template?: {
+        id: string,
+        account_id: string
+    };
 }
 
 export interface AlSavedQueryV2 {
@@ -63,6 +71,10 @@ export interface AlSavedQueryV2 {
     data_type: string;
     search_request: string;
     deleted?: boolean;
+    template?: {
+        id: string,
+        account_id: string
+    };
     created: {
         at: number;
         by: string;
