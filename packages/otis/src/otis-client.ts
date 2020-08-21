@@ -92,8 +92,10 @@ class OTISClient {
   }
   /**
    * Update Option Value
+   *
+   * value: set as any because of the API flexibility, from docs: value - arbitrary JSON data
    */
-  async updateOptionValue(accountId: string, optionId: string, value: string) {
+  async updateOptionValue(accountId: string, optionId: string, value: any) {
     return this.client.put<any>({
       service_stack: AlLocation.InsightAPI,
       service_name: this.serviceName,
