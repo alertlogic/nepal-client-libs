@@ -63,4 +63,5 @@ export interface AlIntegrationConnection {
 export interface AlConnectorsPayloadTypes{
     value ?: string;
     label ?: string;
+    description ?: string;
 }
