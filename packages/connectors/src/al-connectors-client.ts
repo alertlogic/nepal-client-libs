@@ -190,7 +190,7 @@ export class AlConnectorsClientInstance {
      *
      * */
     async getPayloadTypes() {
-        return this.client.get<AlConnectorsPayloadTypes>({
+        return this.client.get<AlConnectorsPayloadTypes[]>({
             version: this.serviceVersion,
             service_stack: this.serviceStack,
             path: '/payload_types'
