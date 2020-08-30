@@ -7,11 +7,14 @@ export interface AlScanWindow {
     type?: AlScanWindow.TypeEnum;
 }
 export namespace AlScanWindow {
-    export type TypeEnum = 'days_of_week' | 'days_of_month' | 'weekly_period' | 'monthly_period' | 'specific_date';
+    export type TypeEnum = 'days_of_week' | 'days_of_month' | 'weekly_period' | 'monthly_period' | 'specific_date' | 'quarterly' | 'weekday_of_month';
     export const typeEnum = {
         DaysOfWeek: 'days_of_week' as TypeEnum,
         DaysOfMonth: 'days_of_month' as TypeEnum,
         WeeklyPeriod: 'weekly_period' as TypeEnum,
-        MonthlyPeriod: 'monthly_period' as TypeEnum
+        MonthlyPeriod: 'monthly_period' as TypeEnum,
+        SpecificDate: 'specific_date' as TypeEnum,
+        Quarterly: 'quarterly' as TypeEnum,
+        WeekdayOfMonth: 'weekday_of_month' as TypeEnum
     };
 }

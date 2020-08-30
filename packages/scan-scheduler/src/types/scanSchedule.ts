@@ -2,8 +2,10 @@ import { AlAuditObject } from './auditObject';
 import { AlScanScope } from './scanScope';
 import { AlScanWindowContinuousPeriodMonthly } from './scanWindowContinuousPeriodMonthly';
 import { AlScanWindowContinuousPeriodWeekly } from './scanWindowContinuousPeriodWeekly';
+import { AlScanWindowContinuousQuarterly } from './scanWindowContinuousQuarterly';
 import { AlScanWindowSelectedDaysOfMonth } from './scanWindowSelectedDaysOfMonth';
 import { AlScanWindowSelectedDaysOfWeek } from './scanWindowSelectedDaysOfWeek';
+import { AlScanWindowSelectedWeekdayOfMonth } from './scanWindowSelectedWeekdayOfMonth';
 import { AlScanWindowSpecificDate } from './scanWindowSpecificDate';
 
 /**
@@ -68,9 +70,15 @@ export interface AlScanSchedule {
      * - `ScanWindowSelectedDaysOfMonth`
      * - `ScanWindowContinuousPeriodWeekly`
      * - `ScanWindowContinuousPeriodMonthly`
+     * - `ScanWindowSpecificDate`
+     * - `ScanWindowContinuousQuarterly`
+     * - `ScanWindowSelectedWeekdayOfMonth'
      * For details please refer to the documentation of the above models.
      */
-    scan_windows?: (AlScanWindowSelectedDaysOfWeek | AlScanWindowSelectedDaysOfMonth | AlScanWindowContinuousPeriodWeekly | AlScanWindowContinuousPeriodMonthly | AlScanWindowSpecificDate)[];
+    scan_windows?: (AlScanWindowSelectedDaysOfWeek | AlScanWindowSelectedDaysOfMonth |
+                    AlScanWindowContinuousPeriodWeekly | AlScanWindowContinuousPeriodMonthly |
+                    AlScanWindowSpecificDate | AlScanWindowContinuousQuarterly |
+                    AlScanWindowSelectedWeekdayOfMonth)[];
     /**
      * Specifies what assets are considered to be scanned within designated periods defined by `scan_windows` parameter,
      * setting the SLA as specified by `scan_frequency` parameter.
@@ -86,11 +94,13 @@ export namespace AlScanSchedule {
         External: 'external' as TypeOfScanEnum,
         Discovery: 'discovery' as TypeOfScanEnum
     };
-    export type ScanFrequencyEnum = 'automatic' | 'daily' | 'weekly' | 'monthly' | 'once';
+    export type ScanFrequencyEnum = 'automatic' | 'daily' | 'weekly' | 'monthly' | 'quarterly' | 'once';
     export const scanFrequencyEnum = {
         Automatic: 'automatic' as ScanFrequencyEnum,
         Daily: 'daily' as ScanFrequencyEnum,
         Weekly: 'weekly' as ScanFrequencyEnum,
-        Monthly: 'monthly' as ScanFrequencyEnum
+        Monthly: 'monthly' as ScanFrequencyEnum,
+        Quarterly: 'quarterly' as ScanFrequencyEnum,
+        Once: 'once' as ScanFrequencyEnum
     };
 }
