@@ -42,6 +42,7 @@ export interface AlSuggestionsTemplateResponseV2 {
 export interface AlCreateSavedQueryParamsV2 {
     group_id: string | null;
     name: string;
+    tags?: string[];
     description?: string;
     search_request: string;
     template?: {
@@ -53,6 +54,7 @@ export interface AlCreateSavedQueryParamsV2 {
 export interface AlUpdateSavedQueryParamsV2 {
     group_id?: string | null;
     name?: string;
+    tags?: string[];
     description?: string;
     search_request?: string;
     deleted?: boolean;
@@ -67,6 +69,7 @@ export interface AlSavedQueryV2 {
     account_id: string;
     group_id: string | null;
     name: string;
+    tags?: string[];
     description?: string;
     data_type: string;
     search_request: string;
