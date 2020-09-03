@@ -273,6 +273,7 @@ export interface RemediationItemAsset {
     created_on?: number;
     deployment_id?: string;
     comment?: string;
+    expires?: number;
     exposures?: ExposureQueryResultItem[];
     exposures_count?: number;
     filters?: string[];
