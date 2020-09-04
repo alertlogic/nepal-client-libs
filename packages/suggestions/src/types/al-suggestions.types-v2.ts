@@ -87,3 +87,9 @@ export interface AlSavedQueryV2 {
         by: string;
     };
 }
+
+export interface AlPropertyValuesV2 {
+    tags: string[];
+}
+
+export type ValidPropertiesV2 = 'tags';

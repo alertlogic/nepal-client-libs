@@ -10,6 +10,8 @@ import {
     AlCreateSavedQueryParamsV2,
     AlSavedQueryV2,
     AlUpdateSavedQueryParamsV2,
+    AlPropertyValuesV2,
+    ValidPropertiesV2,
 } from './types';
 
 export class AlSuggestionsClientInstanceV2 {
@@ -138,6 +140,24 @@ export class AlSuggestionsClientInstanceV2 {
             account_id: accountId,
             path: `/queries/${queryId}`,
         });
+    }
+
+    /**
+     * Get Property Values (list)
+     * GET
+     * /suggestions/v2/:account_id/queries/properties
+     * @remarks "https://algithub.pd.alertlogic.net/pages/alertlogic/suggestions/api/index.html#api-Queries_V2-GetQueriesProperties"
+     */
+    async getPropertyValues(accountId: string, properties: ValidPropertiesV2[]): Promise<AlPropertyValuesV2> {
+        const result = await this.client.get({
+            service_stack: AlLocation.InsightAPI,
+            service_name: this.serviceName,
+            version: this.serviceVersion,
+            account_id: accountId,
+            path: `/queries/properties`,
+            params: {properties: properties},
+        });
+        return result as AlPropertyValuesV2;
     }
 
     /**
