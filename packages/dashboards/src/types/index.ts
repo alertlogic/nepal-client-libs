@@ -89,6 +89,7 @@ export interface DashboardMeta {
 }
 
 export interface DashboardLayoutConfig {
+  hasProgressBar?: boolean;
   index?: number;
   refreshRate?: number;
   refreshSource?:{
