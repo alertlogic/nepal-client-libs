@@ -1,9 +1,10 @@
 import { AlScanWindow } from './scanWindow';
 
 /**
- * Scan window for selected weekday of month, with a start times. The window will be active on a
- * specific nth weekday of a month such as the 2nd Monday where the scan will start at or shortly
- * after the given start_time
+ * Scan window for selected weekday of month, with a start and end times.
+ * The window will be active on a specific nth weekday of a month such as the 2nd Monday
+ * where the scan will start at or shortly after the given start_time until end_time.
+ * In case start_time is bigger than end_time the scan will continue to the following day.
  */
 export interface AlScanWindowSelectedWeekdayOfMonth extends AlScanWindow {
     type: AlScanWindowSelectedWeekdayOfMonth.TypeEnum;
@@ -11,6 +12,11 @@ export interface AlScanWindowSelectedWeekdayOfMonth extends AlScanWindow {
      * Time of day when scan window commences (24h format)
      */
     start_time: string;
+    /**
+     * Time of day when scan window ends (24h format). If the value is
+     * smaller than start_time it means window is active till the next day.
+     */
+    end_time: string;
     /**
      * The day of the week the scan will occur on
      */
