@@ -21,6 +21,7 @@ import {
     AssetsQueryParams,
     AssetQueryGeneralResponse,
 } from './types';
+import { AssetGroup, AssetGroupPayload } from './types/assets/asset-groups';
 
 export class AlAssetsQueryClientInstance {
 
@@ -409,4 +410,38 @@ export class AlAssetsQueryClientInstance {
     });
   }
 
+  /**
+   * Create, Delete and Update an asset-group asset based on operation JSON property:
+   * {
+   *    "operation": "create_asset_group",
+   *    "scope" : "user",
+   *    ...
+   *    }
+   *  }
+   * property value:
+   * Create: operation = create_asset_group,
+   * Delete: operation = delete_asset_group,
+   * Update: operation = update_asset_group
+   *
+   * PUT
+   * /assets_write/v1/:account_id/assets
+   *
+   * @param accountId The AIMS Account ID
+   * @param payload Notification type object
+   * @returns a promise with the asset-group that was created
+   *
+   * @remarks
+   * URL: https://api.product.dev.alertlogic.com/assets_write/v1/01000001/assets
+   * API: https://console.account.alertlogic.com/users/api/assets_write/#api-AssetGroupOperations
+   */
+  async assetGroupOperations(accountId: string, payload: AssetGroupPayload) : Promise<AssetGroup> {
+    return this.client.put<AssetGroup>({
+      service_stack: AlLocation.InsightAPI,
+      account_id: accountId,
+      service_name: 'assets_write',
+      path: 'assets',
+      version: this.serviceVersion,
+      data: payload
+    });
+  }
 }
