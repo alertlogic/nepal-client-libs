@@ -53,7 +53,7 @@ export async function takeScreenshot(page: Page, name: string) {
             return console.error(err);
         }
     });
-    await page.screenshot({path: `${name}-${new Date().getTime()}.png`});
+    await page.screenshot({path: filename});
     return filename;
 }
 
