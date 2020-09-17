@@ -10,6 +10,7 @@ import {
     ExpectedConditions,
     promise,
 } from 'protractor';
+import { Page } from 'puppeteer';
 
 export const WAIT_MAX_TIME = 35000;
 
@@ -44,8 +45,16 @@ export function writeScreenShot(data, filename) {
     return filename;
 }
 
-export function takeScreenshot(name: string) {
-    return browser.takeScreenshot().then((png) => writeScreenShot(png, `${name}-${new Date().getTime()}.png`));
+export async function takeScreenshot(page: Page, name: string) {
+    const filename = `${name}-${new Date().getTime()}.png`;
+    const path = filename.substring(0, filename.lastIndexOf("/"));
+    fs.mkdir(path, { recursive: true } ,(err) => {
+        if(err){
+            return console.error(err);
+        }
+    });
+    await page.screenshot({path: `${name}-${new Date().getTime()}.png`});
+    return filename;
 }
 
 /**
