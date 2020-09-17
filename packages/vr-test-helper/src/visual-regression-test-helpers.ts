@@ -4,9 +4,9 @@ import pixelmatch from 'pixelmatch';
 // @ts-ignore
 import { PNG } from 'pngjs';
 import { browser } from 'protractor';
-import {
-    takeScreenshot,
-} from './element-helpers';
+
+import { connect, Page } from 'puppeteer';
+import { takeScreenshot } from './element-helpers';
 
 export class Browser {
     public static async openPageInNewTab(url: string) {
@@ -43,9 +43,10 @@ export const compareAndWrite = async (
 
     const screenshots2: { [i: string]: { [jasmine: string]: string } } = {};
 
-    const takeScreenShot = (name: 'pr' | 'integration') => {
+    const takeScreenShot = (page: Page, name: 'pr' | 'integration') => {
         return async (partName: string) => {
-            const filename = await takeScreenshot(`${prefix}${partName.replace(/ /g, "-")}/${name}`);
+
+            const filename = await takeScreenshot(page, `${prefix}${partName.replace(/ /g, "-")}/${name}`);
             if (!screenshots2[name]) {
                 screenshots2[name] = {};
             }
@@ -56,15 +57,17 @@ export const compareAndWrite = async (
             return filename;
         };
     };
-
+    const pBrowser = await connect({
+        browserURL: 'http://localhost:21222'
+    });
+    const page = (await pBrowser.pages())[0];
     try {
         // console.log('pr part');
         // console.log((new URL(browser.params.baseUrl)).origin + urlEnd);
-        await browser.get((new URL(browser.params.baseUrl)).origin + urlEnd);
-        await browser.sleep(1000);
-        const prScreeennshotFn = takeScreenShot('pr');
+
+        await page.goto((new URL(browser.params.baseUrl)).origin + urlEnd);
+        const prScreeennshotFn = takeScreenShot(page, 'pr');
         await doThis(prScreeennshotFn);
-        await browser.sleep(1000);
         await prScreeennshotFn('end');
     } catch (e) {
         console.error("Error with PR test", e);
@@ -73,13 +76,13 @@ export const compareAndWrite = async (
 
     try {
         // do in integration
-        // console.log('integration part');
-        await browser.get((new URL(browser.params.integrationUrl)).origin + urlEnd);
-        await browser.sleep(1000);
+        // console.log('integration part');(new URL(browser.params.integrationUrl)).origin + urlEndbrowser.params.integrationUrl + urlEnd);
+        await page.goto((new URL(browser.params.integrationUrl)).origin + urlEnd);
+        await page.waitFor(1000);
 
-        const integrationScreenShotFn = takeScreenShot('integration');
+        const integrationScreenShotFn = takeScreenShot(page, 'integration');
         await doThis(integrationScreenShotFn);
-        await browser.sleep(1000);
+        await page.waitFor(1000);
         await integrationScreenShotFn('end');
     } catch (e) {
         console.error("Error with integration test", e);
@@ -88,7 +91,7 @@ export const compareAndWrite = async (
     // compare screenshots
 
     // let screenshots write
-    await browser.sleep(1000);
+    await page.waitFor(1000);
 
 
     const areas: string[] = [];
