@@ -89,11 +89,7 @@ export const compareAndWrite = async (
     }
 
     // compare screenshots
-
-    // let screenshots write
-    await page.waitFor(1000);
-
-
+    pBrowser.close();
     const areas: string[] = [];
     let partNames: string[] = [];
     Object.entries(screenshots2).forEach(([area, parts]) => {
@@ -102,7 +98,6 @@ export const compareAndWrite = async (
     });
 
     partNames = partNames.filter((value, index, self) => self.indexOf(value) === index); // uniques
-
 
     partNames.forEach(part => {
             const compareThese: string[] = [];
@@ -143,7 +138,6 @@ export const compareAndWrite = async (
                 return;
 
             }
-
 
         },
     );
