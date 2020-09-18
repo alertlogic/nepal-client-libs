@@ -90,8 +90,6 @@ export const compareAndWrite = async (
 
     // compare screenshots
     pBrowser.close();
-
-    // let screenshots write
     const areas: string[] = [];
     let partNames: string[] = [];
     Object.entries(screenshots2).forEach(([area, parts]) => {
