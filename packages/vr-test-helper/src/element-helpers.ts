@@ -113,3 +113,14 @@ export function scrollToElement(scrollToElement): Promise<unknown> {
     const wd = browser.driver;
     return scrollToElement.getLocation().then(loc => wd.executeScript('window.scrollTo(0,arguments[0]);', loc.y));
 }
+
+export async function closeWelcomeDialog(page: Page) {
+    try {
+        await page.waitForSelector('al-welcome-dialog', { visible: true });
+        await page.waitForSelector('al-welcome-dialog a.ui-dialog-titlebar-close', { visible: true });
+        await page.waitFor(700);
+        await page.click('al-welcome-dialog a.ui-dialog-titlebar-close');
+    } catch (error) {
+        console.log('Welcome Dialog not found');
+    }
+}
