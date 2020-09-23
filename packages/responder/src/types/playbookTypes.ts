@@ -17,3 +17,21 @@ export interface AlPlaybook {
     output_schema ?: object;
     workflow ?: object;
 }
+
+export interface AlPlaybookAction {
+    pack ?: object;
+    action: {
+        id ?: string;
+        name ?: string;
+        description ?: string;
+        parameters ?: object;
+        output_schema ?: object;
+
+        // for ui visual part
+        // for icons
+        iconClass ?: string;
+        icon: string,
+        // to group or filter
+        category ?: string;
+    };
+}
