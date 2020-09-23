@@ -7,7 +7,7 @@ import {
     AlLocation
 } from '@al/core';
 import {
-    AlPlaybook
+    AlPlaybook, AlPlaybookAction
 } from './types';
 
 export class AlResponderClientInstance {
@@ -129,5 +129,27 @@ export class AlResponderClientInstance {
             path: `/playbooks/${id}`
         });
         return result;
+    }
+
+
+    /**
+     * List actions
+     * GET
+     * /v1/{account_id}/actions
+     * https://responder.mdr.global.alertlogic.com
+     *
+     * @param accountId AIMS Account ID
+     * @returns Actions list
+     *
+     * @remarks
+     *
+     * */
+    async getActions(accountId: string) {
+        return this.client.get<AlPlaybookAction[]>({
+            version: this.serviceVersion,
+            service_stack: this.serviceStack,
+            account_id: accountId,
+            path: `/actions`
+        });
     }
 }
