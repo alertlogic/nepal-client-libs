@@ -451,7 +451,7 @@ export class AssetTypeDictionary {
             type: "load-balancer",
             topological: false,
             caption: "Load Balancer",
-            icon: 'al aws-elb',
+            icon: 'al al-aws-elb',
             iconMt: ''
         },
 
