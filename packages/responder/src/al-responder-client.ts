@@ -7,7 +7,7 @@ import {
     AlLocation
 } from '@al/core';
 import {
-    AlPlaybook, AlPlaybookAction
+    AlResponderPlaybook, AlResponderAction, AlResponderExecutions
 } from './types';
 
 export class AlResponderClientInstance {
@@ -33,7 +33,7 @@ export class AlResponderClientInstance {
      *
      * */
     async getPlaybooks(accountId: string) {
-        return this.client.get<AlPlaybook[]>({
+        return this.client.get<AlResponderPlaybook[]>({
             version: this.serviceVersion,
             service_stack: this.serviceStack,
             account_id: accountId,
@@ -55,7 +55,7 @@ export class AlResponderClientInstance {
      *
      * */
     async getPlaybookById(accountId: string, id: string) {
-        return this.client.get<AlPlaybook>({
+        return this.client.get<AlResponderPlaybook>({
             version: this.serviceVersion,
             service_stack: this.serviceStack,
             account_id: accountId,
@@ -75,8 +75,8 @@ export class AlResponderClientInstance {
      * @remarks
      */
     async createPlaybook(accountId: string,
-        payload: AlPlaybook): Promise<AlPlaybook> {
-        return this.client.post<AlPlaybook>({
+        payload: AlResponderPlaybook): Promise<AlResponderPlaybook> {
+        return this.client.post<AlResponderPlaybook>({
             version: this.serviceVersion,
             service_stack: this.serviceStack,
             account_id: accountId,
@@ -99,9 +99,9 @@ export class AlResponderClientInstance {
      */
     async updatePlaybook(accountId: string,
         id: string,
-        payload: AlPlaybook): Promise<AlPlaybook> {
+        payload: AlResponderPlaybook): Promise<AlResponderPlaybook> {
 
-        return this.client.put<AlPlaybook>({
+        return this.client.put<AlResponderPlaybook>({
             version: this.serviceVersion,
             service_stack: this.serviceStack,
             account_id: accountId,
@@ -145,11 +145,33 @@ export class AlResponderClientInstance {
      *
      * */
     async getActions(accountId: string) {
-        return this.client.get<AlPlaybookAction[]>({
+        return this.client.get<AlResponderAction[]>({
             version: this.serviceVersion,
             service_stack: this.serviceStack,
             account_id: accountId,
             path: `/actions`
+        });
+    }
+
+    /**
+     * List execution
+     * GET
+     * /v1/{account_id}/executions
+     * https://responder.mdr.global.alertlogic.com
+     *
+     * @param accountId AIMS Account ID
+     * @returns Executions list
+     *
+     * @remarks
+     *
+     * */
+    async getExecutions(accountId: string, params: { limit ?: number; offset ?: number; playbook_id ?: string;}) {
+        return this.client.get<AlResponderExecutions[]>({
+            version: this.serviceVersion,
+            service_stack: this.serviceStack,
+            account_id: accountId,
+            path: `/executions`,
+            params: params
         });
     }
 }
