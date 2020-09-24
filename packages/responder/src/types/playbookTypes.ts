@@ -1,6 +1,6 @@
-import { AlChangeStamp, AlDynamicFormControlElement } from '@al/core';
+import { AlChangeStamp } from '@al/core';
 
-export interface AlPlaybook {
+export interface AlResponderPlaybook {
     id ?: string;
     name ?: string;
     description ?: string;
@@ -18,7 +18,7 @@ export interface AlPlaybook {
     workflow ?: object;
 }
 
-export interface AlPlaybookAction {
+export interface AlResponderAction {
     pack ?: object;
     action: {
         id ?: string;
@@ -34,4 +34,19 @@ export interface AlPlaybookAction {
         // to group or filter
         category ?: string;
     };
+}
+
+export interface AlResponderExecution {
+    id ?: string;
+    modified ?: AlChangeStamp;
+    created ?: AlChangeStamp;
+    playbook_id ?: string;
+    status ?: string;
+    type ?: string;
+    account_id ?: string;
+}
+
+export interface AlResponderExecutions {
+    executions : AlResponderExecution[];
+    total_count ?: string;
 }

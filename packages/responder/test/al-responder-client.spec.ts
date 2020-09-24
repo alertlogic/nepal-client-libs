@@ -5,7 +5,7 @@ import {
 import { expect } from 'chai';
 import { describe } from 'mocha';
 import * as sinon from 'sinon';
-import { AlPlaybook, AlResponderClient } from '../src/index';
+import { AlResponderPlaybook, AlResponderClient } from '../src/index';
 
 beforeEach(() => {
   AlLocatorService.setContext( { environment: "production" } );
@@ -24,7 +24,7 @@ describe('Responder Client', () => {
     const version = "v1";
     const accountId = "2";
     const playbookId = "abc";
-    const playbooksMock: AlPlaybook[] = [
+    const playbooksMock: AlResponderPlaybook[] = [
         {
           "id": "string",
           "name": "string",
