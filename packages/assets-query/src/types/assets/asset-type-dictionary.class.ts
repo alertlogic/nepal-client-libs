@@ -760,7 +760,7 @@ export class AssetTypeDictionary {
             type: "s3-bucket",
             topological: false,
             caption: "S3 bucket",
-            icon: 'al aws-s3',
+            icon: 'al al-aws-s3',
             iconMt: ''
         },
 
