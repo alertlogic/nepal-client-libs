@@ -451,7 +451,7 @@ export class AssetTypeDictionary {
             type: "load-balancer",
             topological: false,
             caption: "Load Balancer",
-            icon: 'al aws-elb',
+            icon: 'al al-aws-elb',
             iconMt: ''
         },
 
@@ -760,7 +760,7 @@ export class AssetTypeDictionary {
             type: "s3-bucket",
             topological: false,
             caption: "S3 bucket",
-            icon: 'al aws-s3',
+            icon: 'al al-aws-s3',
             iconMt: ''
         },
 
