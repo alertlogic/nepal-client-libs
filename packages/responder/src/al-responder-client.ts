@@ -174,4 +174,77 @@ export class AlResponderClientInstance {
             params: params
         });
     }
+
+    /**
+     * Execute specified playbook
+     * POST
+     * /v1/{account_id}/executions
+     *
+     * @param accountId AIMS Account ID
+     * @param payload
+     * @returns a promise with the execution record
+     *
+     * @remarks
+     */
+    async createExecution(accountId: string,
+        payload: {
+            type: string;
+            payload: object;
+            playbook_id: string
+          }): Promise<AlResponderExecutions> {
+        return this.client.post<AlResponderExecutions>({
+            version: this.serviceVersion,
+            service_stack: this.serviceStack,
+            account_id: accountId,
+            path: `/executions`,
+            data: payload
+        });
+    }
+
+     /**
+     * Get execution results
+     * GET
+     * /v1/{account_id}/executions/{id}/result
+     * https://responder.mdr.global.alertlogic.com
+     *
+     * @param accountId AIMS Account ID
+     * @param executionId Execution Id
+     * @returns Execution result
+     *
+     * @remarks
+     *
+     * */
+    async getExecutionResults(accountId: string, executionId: string) {
+        return this.client.get<object>({// TODO type this result
+            version: this.serviceVersion,
+            service_stack: this.serviceStack,
+            account_id: accountId,
+            path: `/executions/${executionId}/result`,
+        });
+    }
+
+    /**
+     * Checks workflow document and returns a list of errors if any are found
+     * POST
+     * /v1/{account_id}/workflow/inspect
+     *
+     * @param accountId AIMS Account ID
+     * @param payload
+     * @returns a promise with the new playbook
+     *
+     * @remarks
+     */
+    async inspectWorkflow(accountId: string,
+        payload: {
+            input_type: 'yaml' | 'json' ;
+            workflow: any
+          }): Promise<AlResponderExecutions> {
+        return this.client.post<AlResponderExecutions>({
+            version: this.serviceVersion,
+            service_stack: this.serviceStack,
+            account_id: accountId,
+            path: `/workflow/inspect`,
+            data: payload
+        });
+    }
 }
