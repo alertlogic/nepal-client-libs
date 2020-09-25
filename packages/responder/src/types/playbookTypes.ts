@@ -19,7 +19,7 @@ export interface AlResponderPlaybook {
 }
 
 export interface AlResponderAction {
-    pack ?: object;
+    category ?: object;
     action: {
         id ?: string;
         name ?: string;
@@ -27,6 +27,7 @@ export interface AlResponderAction {
         parameters ?: object;
         output_schema ?: object;
 
+        ref ?: string;
         // for ui visual part
         // for icons
         iconClass ?: string;
