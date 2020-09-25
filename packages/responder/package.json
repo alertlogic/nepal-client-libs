@@ -1,6 +1,6 @@
 {
   "name": "@al/responder",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "license": "MIT",
   "description": "A lightweight client library for interacting with the Responder API",
   "author": {
