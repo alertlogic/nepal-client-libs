@@ -253,6 +253,7 @@ export interface RemediationItemsQueryParams {
     include_filters?: boolean;
     detailed_filters?: boolean;
     details?: boolean;
+    group_by_audit_id?: boolean;
 }
 export interface RemediationItemsQueryResponse {
     filters?: string[] | RemediationItemsFilter[];
@@ -270,15 +271,19 @@ export interface RemediationItemsFilter {
 export interface RemediationItemAsset {
     account_id?: string;
     asset_count?: number;
+    audit_id?: string;
     created_on?: number;
     deployment_id?: string;
+    deployment_ids?: string[];
     comment?: string;
     expires?: number;
     exposures?: ExposureQueryResultItem[];
     exposures_count?: number;
     filters?: string[];
     item_id?: string;
+    item_ids?: string[];
     key?: string;
+    keys?: string[];
     modified_on?: number;
     reason?: string;
     remediation?: {
