@@ -38,9 +38,9 @@ export interface AlResponderWorkflowContext
 
 export interface AlResponderWorkflowActionWhen
 {
-    when: string;
-    do: string; // | string[],
-    publish: string; // | {[key: string]: string}[],
+    when ?: string;
+    do ?: string; // | string[],
+    publish ?: string; // | {[key: string]: string}[],
 }
 
 export interface AlResponderWorkflowTask {
