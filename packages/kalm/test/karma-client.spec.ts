@@ -1,3 +1,4 @@
+import { AlLocation } from '@al/core';
 import {
   assert,
   expect,
@@ -31,6 +32,7 @@ describe('Kalm Client Test Suite', () => {
       await KalmClient.listCatalogTables();
       expect(stub.callCount).to.equal(1);
       const payload = {
+        service_stack: AlLocation.InsightAPI,
         service_name: serviceName,
         version: serviceVersion,
         path: '/catalog/table'
@@ -43,6 +45,7 @@ describe('Kalm Client Test Suite', () => {
       await KalmClient.getCatalogTable('test');
       expect(stub.callCount).to.equal(1);
       const payload = {
+        service_stack: AlLocation.InsightAPI,
         service_name: serviceName,
         version: serviceVersion,
         path: '/catalog/table/test'
@@ -55,6 +58,7 @@ describe('Kalm Client Test Suite', () => {
       await KalmClient.startSimpleQuery(accountId, 'test');
       expect(stub.callCount).to.equal(1);
       const payload = {
+        service_stack: AlLocation.InsightAPI,
         service_name: serviceName,
         version: serviceVersion,
         account_id: accountId,

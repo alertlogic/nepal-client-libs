@@ -1,7 +1,7 @@
 /*
 * Module to deal with available Kalm Public API endpoints
 */
-import { AlDefaultClient } from '@al/core';
+import { AlDefaultClient, AlLocation } from '@al/core';
 import { StorageDescriptor } from './types';
 
 interface SimpleQueryAdditionalParams {
@@ -20,6 +20,7 @@ class KalmClient {
   */
   async listCatalogTables() {
     return this.client.get<StorageDescriptor[]>({
+      service_stack: AlLocation.InsightAPI,
       service_name: this.serviceName,
       version: this.version,
       path: '/catalog/table',
@@ -31,6 +32,7 @@ class KalmClient {
   */
   async getCatalogTable(table: string) {
     return this.client.get<StorageDescriptor>({
+      service_stack: AlLocation.InsightAPI,
       service_name: this.serviceName,
       version: this.version,
       path: `/catalog/table/${table}`,
@@ -42,6 +44,7 @@ class KalmClient {
    */
   async startSimpleQuery(accountId: string, namedQuery: string, queryParams: SimpleQueryAdditionalParams = {}) {
     return this.client.get<any>({
+      service_stack: AlLocation.InsightAPI,
       service_name: this.serviceName,
       version: this.version,
       account_id: accountId,
