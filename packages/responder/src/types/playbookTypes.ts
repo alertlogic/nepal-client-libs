@@ -97,3 +97,10 @@ export interface AlResponderExecutions {
     executions : AlResponderExecution[];
     total_count ?: string;
 }
+
+export interface AlResponderInspectorError {
+    message ?: string;
+    schema_path ?: string;
+    spec_path ?: string;
+    type ?: string;
+}

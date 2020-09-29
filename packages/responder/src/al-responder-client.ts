@@ -7,7 +7,7 @@ import {
     AlLocation
 } from '@al/core';
 import {
-    AlResponderPlaybook, AlResponderAction, AlResponderExecutions
+    AlResponderPlaybook, AlResponderAction, AlResponderExecutions, AlResponderInspectorError
 } from './types';
 
 export class AlResponderClientInstance {
@@ -238,8 +238,8 @@ export class AlResponderClientInstance {
         payload: {
             input_type: 'yaml' | 'json' ;
             workflow: any
-          }): Promise<AlResponderExecutions> {
-        return this.client.post<AlResponderExecutions>({
+          }): Promise<AlResponderInspectorError[]> {
+        return this.client.post<AlResponderInspectorError[]>({
             version: this.serviceVersion,
             service_stack: this.serviceStack,
             account_id: accountId,
