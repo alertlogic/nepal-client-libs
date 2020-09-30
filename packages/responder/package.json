@@ -1,8 +1,8 @@
 {
   "name": "@al/responder",
-  "version": "0.0.10",
+  "version": "0.0.11",
   "license": "MIT",
-  "description": "A lightweight client library for interacting with the Responder API",
+  "description": "A lightweight client library for interacting with the Automatic Responder API",
   "author": {
     "name": "Maryit Sanchez",
     "email": "msanchez@alertlogic.com"

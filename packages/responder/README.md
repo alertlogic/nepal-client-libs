@@ -4,6 +4,7 @@
 A lightweight client library for interacting with the Responder API.
 
 This library uses @al/responder as its HTTP provider interface.
+you can handle actions task and the workflow.
 
 ## Disclaimer
 

@@ -10,6 +10,7 @@ export interface AlResponderAction {
         output_schema ?: object;
 
         ref ?: string;
+        pack ?: string;
         // for ui visual part
         // for icons
         iconClass ?: string;
