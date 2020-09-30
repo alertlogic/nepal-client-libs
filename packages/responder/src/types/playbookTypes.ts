@@ -40,7 +40,7 @@ export interface AlResponderWorkflowActionWhen
 {
     when ?: string;
     do ?: string; // | string[],
-    publish ?: string; // | {[key: string]: string}[],
+    publish ?: {[key: string]: string}[];
 }
 
 export interface AlResponderWorkflowTask {
