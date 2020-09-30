@@ -1,15 +1,4 @@
-import {
-    HealthAssetVPC,
-    HealthAssetRemediation,
-    HealthAssetDeployment,
-    HealthAssetHost,
-    HealthAssetAppliance,
-    HealthAssetAgent,
-    HealthListItem,
-    HealthResponseFilters,
-    HealthAssetCollector
-} from './health-assets';
-
+import { HealthAssetVPC, HealthAssetRemediation, HealthAssetDeployment, HealthAssetHost, HealthAssetAppliance, HealthAssetAgent, HealthListItem, HealthResponseFilters, HealthAssetCollector } from './health-assets';
 export * from './assets';
 export {
     HealthAssetVPC,
@@ -28,16 +17,9 @@ export {
     HealthResponseFilters,
     HealthAssetExposure
 } from './health-assets';
-
 export interface HealthResponse {
     assets?: {
-        [key: string]: HealthAssetVPC |
-                       HealthAssetRemediation  |
-                       HealthAssetDeployment |
-                       HealthAssetAppliance |
-                       HealthAssetAgent |
-                       HealthAssetHost |
-                       HealthAssetCollector
+        [key: string]: HealthAssetVPC | HealthAssetRemediation | HealthAssetDeployment | HealthAssetAppliance | HealthAssetAgent | HealthAssetHost | HealthAssetCollector;
     };
     filters?: HealthResponseFilters;
     list?: HealthListItem[];
@@ -165,12 +147,16 @@ export interface ExposureQueryResultItem {
     account_id?: string;
     asset_count?: number;
     categories?: string[];
+    created_on?: number;
     cve?: string;
     cvss_score?: number;
     cvss_vector?: string;
     deployment_id?: string;
     deployment_ids?: string[];
+    exposures?: ExposureQueryResultItem[];
+    exposures_count?: number;
     external?: boolean;
+    modified_on?: number;
     name?: string;
     remediation_count?: number;
     remediation_id?: string;
@@ -178,6 +164,7 @@ export interface ExposureQueryResultItem {
     severities?: ThreatSummary;
     severity?: string;
     tags?: any;
+    target_asset_type?: string;
     threat_level?: number;
     threat_pct?: number;
     threat_score?: number;
@@ -295,7 +282,7 @@ export interface RemediationItemAsset {
         modified_on?: number;
         name?: string;
         remediation_id?: string;
-        tags: any
+        tags: any;
         target_asset_type?: string;
         threat_level?: number;
         threatiness?: number;
@@ -311,12 +298,10 @@ export interface RemediationItemAsset {
     user_id?: string;
     vinstances_count?: number;
 }
-
 export interface RemediationItemsQueryResult {
     assets?: RemediationItemAsset[];
     rows?: number;
 }
-
 export interface AssetsQueryParams {
     asset_types?: string;
     return_types?: string;
@@ -326,12 +311,10 @@ export interface AssetsQueryParams {
     qfields?: string;
     [key: string]: any;
 }
-
 export interface AssetQueryGeneralResponse {
     assets: AssetQueryResultItem[];
     rows: number;
 }
-
 export interface AssetQueryResultItem {
     account_id?: string;
     created_on?: number;
@@ -351,11 +334,14 @@ export interface AssetQueryResultItem {
     scope_aws_group_name?: string;
     scope_aws_native_id?: string;
     scope_aws_vpc_id?: string;
-    tag_keys?: {[key:string]:string};
-    tags?: {[key:string]:string};
+    tag_keys?: {
+        [key: string]: string;
+    };
+    tags?: {
+        [key: string]: string;
+    };
     threat_level?: number;
     threatiness?: number;
     type?: string;
     version?: number;
 }
-
