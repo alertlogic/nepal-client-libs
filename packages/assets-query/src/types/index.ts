@@ -1,6 +1,22 @@
 import { HealthAssetVPC, HealthAssetRemediation, HealthAssetDeployment, HealthAssetHost, HealthAssetAppliance, HealthAssetAgent, HealthListItem, HealthResponseFilters, HealthAssetCollector } from './health-assets';
 export * from './assets';
-export { HealthAssetVPC, HealthAssetRemediation, HealthAssetDeployment, HealthAssetAppliance, HealthAssetAgent, HealthAssetHost, HealthListItem, HealthAssetStatisticCounts, HealthAssetDeploymentType, HealthAssetHealthLevel, HealthAssetProtectionPolicy, HealthAssetCategory, HealthAssetCollector, HealthResponseFilters, HealthAssetExposure } from './health-assets';
+export {
+    HealthAssetVPC,
+    HealthAssetRemediation,
+    HealthAssetDeployment,
+    HealthAssetAppliance,
+    HealthAssetAgent,
+    HealthAssetHost,
+    HealthListItem,
+    HealthAssetStatisticCounts,
+    HealthAssetDeploymentType,
+    HealthAssetHealthLevel,
+    HealthAssetProtectionPolicy,
+    HealthAssetCategory,
+    HealthAssetCollector,
+    HealthResponseFilters,
+    HealthAssetExposure
+} from './health-assets';
 export interface HealthResponse {
     assets?: {
         [key: string]: HealthAssetVPC | HealthAssetRemediation | HealthAssetDeployment | HealthAssetAppliance | HealthAssetAgent | HealthAssetHost | HealthAssetCollector;
