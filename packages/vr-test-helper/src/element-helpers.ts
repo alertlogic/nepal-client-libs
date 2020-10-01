@@ -10,7 +10,7 @@ import {
     ExpectedConditions,
     promise,
 } from 'protractor';
-import { Page } from 'puppeteer';
+import { ConsoleMessageType, Page } from 'puppeteer';
 
 export const WAIT_MAX_TIME = 35000;
 
@@ -53,6 +53,7 @@ export async function takeScreenshot(page: Page, name: string) {
             return console.error(err);
         }
     });
+    await page.setViewport({ width: 1280, height: 766 });
     await page.screenshot({path: filename});
     return filename;
 }
@@ -123,4 +124,40 @@ export async function closeWelcomeDialog(page: Page) {
     } catch (error) {
         console.log('Welcome Dialog not found');
     }
+}
+
+/**
+ * Create a report related to the console, every time a console API method is called (log (), error (), ...).
+ * With the types parameter you can filter which methods you want to report, example:
+ *      consoleReport (page, ['error']);
+ * this will create a report of only the calls of the console.error
+ * If the second parameter is not sent or is an empty array, a report will be created when any console method
+ * @param page Page from which you want the console reports
+ * @param types list of console methods to filter. (see ConsoleMessageType of Puppeteer)
+ * @return void - generates a folder with the report and the evidence called console_error
+ */
+export function consoleReport(page: Page, types: ConsoleMessageType[] = []) {
+    page.on('console', async (msg) => {
+        if (types === [] || types.includes(msg.type())) {
+          const title = await page.title();
+          const message = {
+            page: title,
+            url: page.url(),
+            text: msg.text().replace(/(\r\n|\n|\r)/gm,"<br>")
+          };
+          // Taking a screenshot when the error appears.
+          try {
+            await page.waitFor(1000);
+            // saving report
+            const imgName = await takeScreenshot(page, `./console_error/evidence/error`);
+            const row = `| ${message.text} | [${message.page}](${message.url}) | ![PR](${"%VISUAL_REGRESSION_URL%"+imgName.replace('./', '')}) |\n`;
+            fs.writeFile('./console_error/report_console_error.txt', row, {flag: 'a'},  (err) => {
+              if (err) throw err;
+              console.log('Adding information to the console report');
+            });
+          } catch (error) {
+            console.error("Error taking the screenshot", error);
+          }
+        }
+      });
 }
