@@ -166,7 +166,7 @@ export class AlResponderClientInstance {
      *
      * */
     async getExecutions(accountId: string, params: { limit ?: number; offset ?: number; playbook_id ?: string;}) {
-        return this.client.get<AlResponderExecutions[]>({
+        return this.client.get<AlResponderExecutions>({
             version: this.serviceVersion,
             service_stack: this.serviceStack,
             account_id: accountId,
