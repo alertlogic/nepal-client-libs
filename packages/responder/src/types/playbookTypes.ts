@@ -92,6 +92,11 @@ export interface AlResponderExecution {
     status ?: string;
     type ?: string;
     account_id ?: string;
+
+    start_timestamp ?: string;
+    elapsed_seconds ?: number;
+    end_timestamp ?: string;
+    result ?: object;
 }
 
 export interface AlResponderExecutions {
