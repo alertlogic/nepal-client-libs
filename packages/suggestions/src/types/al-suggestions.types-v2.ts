@@ -88,6 +88,16 @@ export interface AlSavedQueryV2 {
     };
 }
 
+export interface AlSavedQueriesV2 {
+    queries: AlSavedQueryV2[];
+    stats: AlSavedQueriesStats;
+}
+
+export interface AlSavedQueriesStats {
+    data_type: {[key: string]: number};
+    tags: {[key: string]: number};
+}
+
 export interface AlPropertyValuesV2 {
     tags: string[];
 }
