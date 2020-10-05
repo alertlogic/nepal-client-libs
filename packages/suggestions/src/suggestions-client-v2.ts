@@ -12,6 +12,7 @@ import {
     AlUpdateSavedQueryParamsV2,
     AlPropertyValuesV2,
     ValidPropertiesV2,
+    AlSavedQueriesV2
 } from './types';
 
 export class AlSuggestionsClientInstanceV2 {
@@ -182,16 +183,14 @@ export class AlSuggestionsClientInstanceV2 {
      * /suggestions/v2/:account_id/queries/
      * @remarks "https://console.account.product.dev.alertlogic.com/users/api/suggestions/index.html#api-Queries_V2-GetQueries"
      */
-    async getSavedQueries(accountId: string): Promise<AlSavedQueryV2[]> {
-        const result = await this.client.get({
+    async getSavedQueries(accountId: string): Promise<AlSavedQueriesV2> {
+        return this.client.get<AlSavedQueriesV2>({
             service_stack: AlLocation.InsightAPI,
             service_name: this.serviceName,
             version: this.serviceVersion,
             account_id: accountId,
             path: `/queries`,
         });
-
-        return result.queries as AlSavedQueryV2[];
     }
 
     /**
