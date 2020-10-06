@@ -64,6 +64,7 @@ export interface ScheduledReportV2 {
   is_active?: boolean;
   notify_behavior?: string;
   delete_empty_result?: boolean;
+  latest_schedule?: number|null;
 }
 
 export interface ScheduledReportListV2 {
