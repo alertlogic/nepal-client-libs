@@ -241,6 +241,9 @@ export interface RemediationItemsQueryParams {
     detailed_filters?: boolean;
     details?: boolean;
     group_by_audit_id?: boolean;
+    audit_ids?: string;
+    remediation_ids?: string;
+    vulnerability_ids?: string;
 }
 export interface RemediationItemsQueryResponse {
     filters?: string[] | RemediationItemsFilter[];
@@ -297,6 +300,7 @@ export interface RemediationItemAsset {
     type?: string;
     user_id?: string;
     vinstances_count?: number;
+    vulnerability_id?: string;
 }
 export interface RemediationItemsQueryResult {
     assets?: RemediationItemAsset[];
