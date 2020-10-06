@@ -135,11 +135,12 @@ export async function closeWelcomeDialog(page: Page) {
  */
 export async function consoleReport(logs, png) {
     if (logs && logs.length > 0) {
-        const title = await browser.getTitle();
+        let title = await browser.getTitle();
+        title = title ? title.replace(/\|/g, "-") : 'URL';
         const url = await browser.getCurrentUrl();
         const imgName = `./console_error/evidence/error-${new Date().getTime()}.png`;
         // log.level.value > 900 is an error
-        const message = logs.filter((l) => l.level.value > 900).map((l, index) => `${index + 1}. ${l.message.replace(/(\r\n|\n|\r)/gm, "<br>")}`).join("<br>");
+        const message = logs.filter((l) => l.level.value > 900).map((l, index) => `${index + 1}. ${l.message.replace(/(\r\n|\n|\r)/gm, "<br>")}`).replace(/\|/g, "-").join("<br>");
         const row = `| ${message} | [${title}](${url}) | ![PR](${"%VISUAL_REGRESSION_URL%" + imgName.replace('./', '')}) |\n`;
         try {
             writeScreenShot(png, imgName);
@@ -168,9 +169,9 @@ export function consoleReportPuppeter(page: Page, types: ConsoleMessageType[] = 
         if (types === [] || types.includes(msg.type())) {
             const title = await page.title();
             const message = {
-                page: title,
+                page: title ? title.replace(/\|/g, "-") : 'URL',
                 url: page.url(),
-                text: msg.text().replace(/(\r\n|\n|\r)/gm, "<br>")
+                text: msg.text() ? msg.text().replace(/(\r\n|\n|\r)/gm, "<br>").replace(/\|/g, "-") : ''
             };
             // Taking a screenshot when the error appears.
             try {
