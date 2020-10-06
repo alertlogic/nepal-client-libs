@@ -219,7 +219,7 @@ export class AlResponderClientInstance {
             version: this.serviceVersion,
             service_stack: this.serviceStack,
             account_id: accountId,
-            path: `/executions/${executionId}/result`,
+            path: `/executions/${executionId}`,
         });
     }
 
