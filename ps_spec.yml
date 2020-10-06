@@ -8,7 +8,7 @@ stages:
             - pull_request
             - pull_request:
                 trigger_phrase: test it
-        image: node:13
+        image: 422372788747.dkr.ecr.us-east-1.amazonaws.com/al-node:13
         compute_size: large
         commands:
             - npm install
@@ -65,7 +65,7 @@ stages:
         name: Master Push - Publish
         when:
             - push: ['master']
-        image: node:13
+        image: 422372788747.dkr.ecr.us-east-1.amazonaws.com/al-node:13
         compute_size: large
         commands:
             - echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google-chrome.list
