@@ -127,6 +127,33 @@ export async function closeWelcomeDialog(page: Page) {
 }
 
 /**
+/**
+ * Create a report related to the console, every time a console.error method is called (error ()).
+ * this will create a report of only the calls of the console.error
+ * @param logs is an array of logs
+ * @return void - generates a folder with the report and the evidence called console_error
+ */
+export async function consoleReport(logs, png) {
+    if (logs && logs.length > 0) {
+        const title = await browser.getTitle();
+        const url = await browser.getCurrentUrl();
+        const imgName = `./console_error/evidence/error-${new Date().getTime()}.png`;
+        // log.level.value > 900 is an error
+        const message = logs.filter((l) => l.level.value > 900).map((l, index) => `${index + 1}. ${l.message.replace(/(\r\n|\n|\r)/gm, "<br>")}`).join("<br>");
+        const row = `| ${message} | [${title}](${url}) | ![PR](${"%VISUAL_REGRESSION_URL%" + imgName.replace('./', '')}) |\n`;
+        try {
+            writeScreenShot(png, imgName);
+            fs.writeFile('./console_error/report_console_error.txt', row, { flag: 'a' }, (err) => {
+                if (err) throw err;
+                console.log('Adding information to the console report');
+            });
+        } catch(err) {
+            console.error("Error taking the screenshot", err);
+        }
+    }
+}
+
+/**
  * Create a report related to the console, every time a console API method is called (log (), error (), ...).
  * With the types parameter you can filter which methods you want to report, example:
  *      consoleReport (page, ['error']);
@@ -136,28 +163,28 @@ export async function closeWelcomeDialog(page: Page) {
  * @param types list of console methods to filter. (see ConsoleMessageType of Puppeteer)
  * @return void - generates a folder with the report and the evidence called console_error
  */
-export function consoleReport(page: Page, types: ConsoleMessageType[] = []) {
+export function consoleReportPuppeter(page: Page, types: ConsoleMessageType[] = []) {
     page.on('console', async (msg) => {
         if (types === [] || types.includes(msg.type())) {
-          const title = await page.title();
-          const message = {
-            page: title,
-            url: page.url(),
-            text: msg.text().replace(/(\r\n|\n|\r)/gm,"<br>")
-          };
-          // Taking a screenshot when the error appears.
-          try {
-            await page.waitFor(1000);
-            // saving report
-            const imgName = await takeScreenshot(page, `./console_error/evidence/error`);
-            const row = `| ${message.text} | [${message.page}](${message.url}) | ![PR](${"%VISUAL_REGRESSION_URL%"+imgName.replace('./', '')}) |\n`;
-            fs.writeFile('./console_error/report_console_error.txt', row, {flag: 'a'},  (err) => {
-              if (err) throw err;
-              console.log('Adding information to the console report');
-            });
-          } catch (error) {
-            console.error("Error taking the screenshot", error);
-          }
+            const title = await page.title();
+            const message = {
+                page: title,
+                url: page.url(),
+                text: msg.text().replace(/(\r\n|\n|\r)/gm, "<br>")
+            };
+            // Taking a screenshot when the error appears.
+            try {
+                await page.waitFor(1000);
+                // saving report
+                const imgName = await takeScreenshot(page, `./console_error/evidence/error`);
+                const row = `| ${message.text} | [${message.page}](${message.url}) | ![PR](${"%VISUAL_REGRESSION_URL%" + imgName.replace('./', '')}) |\n`;
+                fs.writeFile('./console_error/report_console_error.txt', row, { flag: 'a' }, (err) => {
+                    if (err) throw err;
+                    console.log('Adding information to the console report');
+                });
+            } catch (error) {
+                console.error("Error taking the screenshot", error);
+            }
         }
-      });
+    });
 }
