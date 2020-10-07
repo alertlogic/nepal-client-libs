@@ -38,6 +38,7 @@ export interface TableauReportDefinitionV2 {
 export interface SearchReportDefinitionV2 {
   saved_query_id: string;
   timerange?: CargoReportTimeRangeV2;
+  template_name?: string;
 }
 
 export interface ExecutionRecordOnceRequestV2 {
