@@ -140,7 +140,7 @@ export async function consoleReport(logs, png) {
         const url = await browser.getCurrentUrl();
         const imgName = `./console_error/evidence/error-${new Date().getTime()}.png`;
         // log.level.value > 900 is an error
-        const message = logs.filter((l) => l.level.value > 900).map((l, index) => `${index + 1}. ${l.message.replace(/(\r\n|\n|\r)/gm, "<br>")}`).replace(/\|/g, "-").join("<br>");
+        const message = logs.filter((l) => l.level.value > 900).map((l, index) => `${index + 1}. ${l.message.replace(/(\r\n|\n|\r)/gm, "<br>").replace(/\|/g, "-")}`).join("<br>");
         const row = `| ${message} | [${title}](${url}) | ![PR](${"%VISUAL_REGRESSION_URL%" + imgName.replace('./', '')}) |\n`;
         try {
             writeScreenShot(png, imgName);
