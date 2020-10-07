@@ -45,7 +45,7 @@ export function writeScreenShot(data, filename) {
     return filename;
 }
 
-export async function takeScreenshot(page: Page, name: string) {
+export async function takeScreenshotPuppetter(page: Page, name: string) {
     const filename = `${name}-${new Date().getTime()}.png`;
     const path = filename.substring(0, filename.lastIndexOf("/"));
     fs.mkdir(path, { recursive: true } ,(err) => {
@@ -56,6 +56,10 @@ export async function takeScreenshot(page: Page, name: string) {
     await page.setViewport({ width: 1280, height: 766 });
     await page.screenshot({path: filename});
     return filename;
+}
+
+export function takeScreenshot(name: string) {
+    return browser.takeScreenshot().then((png) => writeScreenShot(png, `${name}-${new Date().getTime()}.png`));
 }
 
 /**
@@ -177,7 +181,7 @@ export function consoleReportPuppeter(page: Page, types: ConsoleMessageType[] = 
             try {
                 await page.waitFor(1000);
                 // saving report
-                const imgName = await takeScreenshot(page, `./console_error/evidence/error`);
+                const imgName = await takeScreenshotPuppetter(page, `./console_error/evidence/error`);
                 const row = `| ${message.text} | [${message.page}](${message.url}) | ![PR](${"%VISUAL_REGRESSION_URL%" + imgName.replace('./', '')}) |\n`;
                 fs.writeFile('./console_error/report_console_error.txt', row, { flag: 'a' }, (err) => {
                     if (err) throw err;

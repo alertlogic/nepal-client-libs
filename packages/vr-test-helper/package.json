@@ -1,6 +1,6 @@
 {
   "name": "@al/vr-test-helper",
-  "version": "1.1.10-beta",
+  "version": "1.1.11",
   "license": "MIT",
   "description": "Helpers for visual regression tests",
   "author": {
