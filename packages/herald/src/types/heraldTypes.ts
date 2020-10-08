@@ -83,6 +83,7 @@ export interface AlHeraldAccountSubscriptionPayloadV2
     options ?: AlHeraldOptionV2; // "email_subject",  webhook_payload
     filters ?: Object;
     subscribers ?: AlHeraldSubscribersV2[];
+    template?: string;
 }
 
 export interface AlHeraldUpdateSubscriptionPayloadV2
