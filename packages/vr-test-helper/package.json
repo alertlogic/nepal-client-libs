@@ -1,6 +1,6 @@
 {
   "name": "@al/vr-test-helper",
-  "version": "1.1.12",
+  "version": "1.1.13",
   "license": "MIT",
   "description": "Helpers for visual regression tests",
   "author": {
@@ -29,9 +29,9 @@
   "es2015": "./dist/index.esm2015.js",
   "scripts": {
     "test": "echo 'no tests here'",
-    "build": "rollup -c ../../rollup.config.ts && npm run copy-specs",
+    "build": "../../node_modules/rollup/dist/bin/rollup -c ../../rollup.config.ts && npm run copy-specs",
     "prebuild": "npm run clean && npm run lint && npm run test ",
-    "lint": "tslint -p tsconfig.json -c ../../tslint.json",
+    "lint": "../../node_modules/tslint/bin/tslint -p tsconfig.json -c ../../tslint.json",
     "clean": "rm -rf dist",
     "prepublishOnly": "npm run build",
     "copy-specs": "cp -r src/e2e-shared dist"
