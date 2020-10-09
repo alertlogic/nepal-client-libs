@@ -223,7 +223,7 @@ export async function generateConsoleHTMLReport(logs, png) {
                 return {
                     'col-1': message,
                     'col-2': `<a href="${r.url}">${r.title}</a>`,
-                    'col-3': `<a href="%VISUAL_REGRESSION_URL%${r.image}" target="_blank"><img class="img-fluid img-thumbnail" src="file:///Users/andresecheverri/Documents/alert-logic/o3-portero/${r.image}" /></a>`
+                    'col-3': `<a href="%VISUAL_REGRESSION_URL%${r.image}" target="_blank"><img class="img-fluid img-thumbnail" src="%VISUAL_REGRESSION_URL%${r.image}" /></a>`
                 };
             });
             let header = '<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">'
