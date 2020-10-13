@@ -56,7 +56,7 @@ export interface ScheduledReportV2 {
   name: string;
   type?: string;
   definition: SearchReportDefinitionV2 | TableauReportDefinitionV2;
-  schedule?: 'every_15_minutes' | {
+  schedule?: 'every_15_minutes' | 'asap' |'once' | 'hourly' | {
     daily?: CargoReportDailyScheduleV2;
     weekly?: CargoReportWeeklyScheduleV2;
     monthly?: CargoReportMonthlyScheduleV2;
@@ -98,7 +98,7 @@ export interface ExecutionRecordV2 {
   status?: 'scheduled' | 'running' | 'cancelled' | 'completed' | 'failed';
   type?: 'tableau' | 'search' | 'search_v2';
   definition?: SearchReportDefinitionV2 | TableauReportDefinitionV2;
-  schedule?: 'every_15_minutes' | {
+  schedule?: 'every_15_minutes' | 'asap' |'once' | 'hourly' | {
     daily?: CargoReportDailyScheduleV2;
     weekly?: CargoReportWeeklyScheduleV2;
     monthly?: CargoReportMonthlyScheduleV2;
