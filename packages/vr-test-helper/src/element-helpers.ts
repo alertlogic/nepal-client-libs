@@ -160,7 +160,7 @@ export async function generateJSONConsoleReport(logs, png) {
             reportJson['specs'] = totalSpecs;
             reportJson['errors'] = totalErrors;
             try {
-                writeScreenShot(png, imgName);
+                writeScreenShot(png, `./console_error/${imgName}`);
                 fs.writeFileSync(reportName, JSON.stringify(reportJson));
             } catch (err) {
                 console.error("Error taking the screenshot", err);
