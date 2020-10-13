@@ -144,7 +144,7 @@ export async function generateJSONConsoleReport(logs, png) {
         let title = await browser.getTitle();
         title = title ? title.replace(/\|/g, "-") : 'URL';
         const url = await browser.getCurrentUrl();
-        const imgName = `./console_error/evidence/error-${new Date().getTime()}.png`;
+        const imgName = `evidence/error-${new Date().getTime()}.png`;
         // log.level.value > 900 is an error
         logs = logs.filter((l) => l.level.value > 900);
         if (logs && logs.length > 0) {
@@ -154,7 +154,7 @@ export async function generateJSONConsoleReport(logs, png) {
             }
             let contents = fs.readFileSync(reportName, 'utf8');
             let reportJson = JSON.parse(contents);
-            reportJson['data'].push({logs, title, url, image: imgName.replace('./', '')});
+            reportJson['data'].push({logs, title, url, image: imgName});
             let totalSpecs = reportJson['data'].length;
             let totalErrors = reportJson['data'].reduce((acc, r) => r.logs ? r.logs.length + acc : 0, 0);
             reportJson['specs'] = totalSpecs;
@@ -223,7 +223,7 @@ export async function generateConsoleHTMLReport(logs, png) {
                 return {
                     'col-1': message,
                     'col-2': `<a href="${r.url}">${r.title}</a>`,
-                    'col-3': `<a href="%VISUAL_REGRESSION_URL%${r.image}" target="_blank"><img class="img-fluid img-thumbnail" src="%VISUAL_REGRESSION_URL%${r.image}" /></a>`
+                    'col-3': `<a href="${r.image}" target="_blank"><img class="img-fluid img-thumbnail" src="${r.image}" /></a>`
                 };
             });
             let header = '<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">'
