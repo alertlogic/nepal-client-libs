@@ -240,3 +240,81 @@ export async function generateConsoleHTMLReport(logs, png) {
         }
     }
 }
+
+/**
+ * Create a report in JSON format of the e2e test
+ */
+export function generateJSONVR() {
+    const reportName = './visual-regression/report.json';
+    const getAllEvidences = (dir, acc = []) => {
+        acc = acc || [];
+        const files = fs.readdirSync(dir);
+        for (let i in files){
+            const name = dir + '/' + files[i];
+            if (fs.statSync(name).isDirectory()){
+                getAllEvidences(name, acc);
+            } else {
+                acc.push(name);
+            }
+        }
+        return acc;
+    };
+    const evidences = getAllEvidences('./visual-regression');
+    const report = {};
+    evidences.forEach(e => {
+        const name = path.dirname(e).replace('./visual-regression/', '');
+        let type = '';
+        if (e.includes('pr')) {
+            type = 'pr';
+        } else if (e.includes('integration')) {
+            type = 'integration';
+        } else if (e.includes('diff')) {
+            type = 'diff';
+        }
+        if(type){
+            if(!report.hasOwnProperty(name)){
+                report[name] = {};
+            }
+            report[name][type] = e.replace('./visual-regression/','');
+        }
+    });
+    ensureDirectoryExistence(reportName);
+    fs.writeFileSync(reportName, JSON.stringify(report));
+}
+
+/**
+ * Create an HTML report of visual regression tests
+ */
+export async function generateVRHTMLReport() {
+    await generateJSONVR();
+    const reportNameJson = './visual-regression/report.json';
+    const reportNameHTML = './visual-regression/report.html';
+
+    if (fs.existsSync(reportNameJson)) {
+        let contents = fs.readFileSync(reportNameJson, 'utf8');
+        let jsonData = JSON.parse(contents) as { [name: string]: { pr: string, integration: string, diff: string } };
+        if (Object.keys(jsonData).length > 0) {
+            let data = Object.keys(jsonData).map((key) => {
+                const imgTemplate = '<a href="{1}" target="_blank"><img class="img-fluid img-thumbnail" src="{1}" /></a>';
+                return {
+                    'col-1': key,
+                    'col-2': jsonData[key].pr ? imgTemplate.replace(/\{1\}/g, jsonData[key].pr) : 'NO DATA',
+                    'col-3': jsonData[key].integration ? imgTemplate.replace(/\{1\}/g, jsonData[key].integration) : 'NO DATA',
+                    'col-4': jsonData[key].diff ? imgTemplate.replace(/\{1\}/g, jsonData[key].diff) : 'NO DATA',
+                };
+            });
+
+            let header = '<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">'
+                + '<h1>Visual Regression Test</h1>'
+                + `<p><b>Total: </b><span class="badge badge-pill badge-danger">${data.length}</span><br>`;
+            const table = (new HTMLTable([
+                { key: 'col-1', value: 'Name', width: '10%' },
+                { key: 'col-2', value: 'PR', width: '30%' },
+                { key: 'col-3', value: 'Integration', width: '30%' },
+                { key: 'col-4', value: 'Diff', width: '30%' }
+            ], data)).getTable();
+            const page = header + table;
+            fs.writeFileSync(reportNameHTML, page);
+        }
+    }
+}
