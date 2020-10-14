@@ -1,23 +1,28 @@
 import { AlChangeStamp } from '@al/core';
 
+
+export interface AlResponderActionShort {
+    name ?: string;
+    description ?: string;
+    ref ?: string;
+    pack ?: string;
+}
+
+export interface AlResponderActionLong extends AlResponderActionShort{
+    id ?: string;
+    parameters ?: object;
+    output_schema ?: object;
+    // for ui visual part
+    // for icons
+    iconClass ?: string;
+    icon: string;
+    // to group or filter
+    category ?: string;
+}
+
 export interface AlResponderAction {
     category ?: object;
-    action: {
-        id ?: string;
-        name ?: string;
-        description ?: string;
-        parameters ?: object;
-        output_schema ?: object;
-
-        ref ?: string;
-        pack ?: string;
-        // for ui visual part
-        // for icons
-        iconClass ?: string;
-        icon: string,
-        // to group or filter
-        category ?: string;
-    };
+    action: AlResponderActionLong;
 }
 
 export interface AlResponderPlaybookParameter
@@ -84,19 +89,20 @@ export interface AlResponderPlaybook {
     workflow ?: AlResponderWorkflow;
 }
 
-export interface AlResponderExecution {
+export interface AlResponderExecutionCommon{
+    status ?: string;
+    start_timestamp ?: string;
+    elapsed_seconds ?: number;
+    end_timestamp ?: string;
+}
+
+export interface AlResponderExecution extends AlResponderExecutionCommon{
     id ?: string;
     modified ?: AlChangeStamp;
     created ?: AlChangeStamp;
     playbook_id ?: string;
-    status ?: string;
     type ?: string;
     account_id ?: string;
-
-    start_timestamp ?: string;
-    elapsed_seconds ?: number;
-    end_timestamp ?: string;
-    result ?: object;
 }
 
 export interface AlResponderExecutions {
@@ -109,4 +115,16 @@ export interface AlResponderInspectorError {
     schema_path ?: string;
     spec_path ?: string;
     type ?: string;
+}
+
+export interface AlResponderExecutionResultLog {
+    status ?: string;
+    timestamp ?: string;
+}
+
+export interface AlResponderExecutionResult extends AlResponderExecutionCommon {
+    parameters ?: {[key: string]: number | string | boolean | string[] | object};
+    action ?: AlResponderActionShort;
+    children ?: AlResponderExecutionResult[];
+    log ?: AlResponderExecutionResultLog[];
 }

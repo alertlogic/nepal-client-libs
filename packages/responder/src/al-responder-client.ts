@@ -7,7 +7,7 @@ import {
     AlLocation
 } from '@al/core';
 import {
-    AlResponderPlaybook, AlResponderAction, AlResponderExecutions, AlResponderInspectorError
+    AlResponderPlaybook, AlResponderAction, AlResponderExecutions, AlResponderInspectorError, AlResponderExecutionResult
 } from './types';
 
 export class AlResponderClientInstance {
@@ -215,7 +215,7 @@ export class AlResponderClientInstance {
      *
      * */
     async getExecutionResults(accountId: string, executionId: string) {
-        return this.client.get<object>({// TODO type this result
+        return this.client.get<AlResponderExecutionResult>({
             version: this.serviceVersion,
             service_stack: this.serviceStack,
             account_id: accountId,
