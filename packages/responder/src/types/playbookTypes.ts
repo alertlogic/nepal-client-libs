@@ -94,6 +94,7 @@ export interface AlResponderExecutionCommon{
     start_timestamp ?: string;
     elapsed_seconds ?: number;
     end_timestamp ?: string;
+    result ?: object;
 }
 
 export interface AlResponderExecution extends AlResponderExecutionCommon{
