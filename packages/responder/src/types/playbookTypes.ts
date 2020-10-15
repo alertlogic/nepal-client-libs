@@ -108,7 +108,8 @@ export interface AlResponderExecution extends AlResponderExecutionCommon{
 
 export interface AlResponderExecutions {
     executions : AlResponderExecution[];
-    total_count ?: string;
+    count ?: number;
+    marker ?: string;
 }
 
 export interface AlResponderInspectorError {
@@ -128,4 +129,17 @@ export interface AlResponderExecutionResult extends AlResponderExecutionCommon {
     action ?: AlResponderActionShort;
     children ?: AlResponderExecutionResult[];
     log ?: AlResponderExecutionResultLog[];
+}
+
+export interface AlResponderExecutionQueryParams{
+    limit ?: number;
+    offset ?: number;
+    marker ?: string;
+    playbook_id ?: string;
+    sort_by ?: 'start_timestamp' | 'end_timestamp';
+    sort_order ?:  'asc' | 'desc';
+    status ?: string;
+    start_timestamp ?: string;
+    end_timestamp ?: string;
+    type ?: string;
 }
