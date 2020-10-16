@@ -21,7 +21,7 @@ import {
     AssetsQueryParams,
     AssetQueryGeneralResponse,
 } from './types';
-import { AssetGroup, AssetGroupPayload } from './types/assets/asset-groups';
+import { AssetGroup, AssetGroupPayload, AssetGroupTopologyResponse, Scope } from './types/assets/asset-groups';
 
 export class AlAssetsQueryClientInstance {
 
@@ -444,5 +444,21 @@ export class AlAssetsQueryClientInstance {
       version: this.serviceVersion,
       data: payload
     });
+  }
+
+  /**
+   * Get Asset Group Topology
+   * POST
+   * /assets_query/v1/:account_id/topology/asset_group
+   */
+  async getAssetGroupTopology(accountId: string, scopes: Scope[]): Promise<AssetGroupTopologyResponse> {
+    return this.client.post<AssetGroupTopologyResponse>({
+        service_stack: AlLocation.InsightAPI,
+        account_id: accountId,
+        service_name: 'assets_query',
+        path: 'topology/asset_group',
+        version: this.serviceVersion,
+        data: {scopes}
+      });
   }
 }

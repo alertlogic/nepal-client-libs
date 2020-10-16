@@ -7,7 +7,7 @@ import {
     AlLocation
 } from '@al/core';
 import {
-    AlResponderPlaybook, AlResponderAction, AlResponderExecutions, AlResponderInspectorError, AlResponderExecutionResult
+    AlResponderPlaybook, AlResponderAction, AlResponderExecutions, AlResponderInspectorError, AlResponderExecutionResult, AlResponderExecutionQueryParams
 } from './types';
 
 export class AlResponderClientInstance {
@@ -165,7 +165,7 @@ export class AlResponderClientInstance {
      * @remarks
      *
      * */
-    async getExecutions(accountId: string, params: { limit ?: number; offset ?: number; playbook_id ?: string;}) {
+    async getExecutions(accountId: string, params: AlResponderExecutionQueryParams) {
         return this.client.get<AlResponderExecutions>({
             version: this.serviceVersion,
             service_stack: this.serviceStack,
