@@ -264,6 +264,12 @@ export class AssetTypeDictionary {
                         format: "date",
                         show: true
                     },
+                    "deployment_id": {
+                        caption:"Deployment",
+                        icon: 'fa fa-info-circle',
+                        format:null,
+                        show:true
+                    }
                 };
 
                 for (const property in assetDetailsInfo) {
