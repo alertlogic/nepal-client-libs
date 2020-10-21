@@ -1,6 +1,6 @@
 {
   "name": "@al/vr-test-helper",
-  "version": "1.1.17",
+  "version": "1.2.0-puppeteer.0",
   "license": "MIT",
   "description": "Helpers for visual regression tests",
   "author": {
@@ -29,24 +29,33 @@
   "es2015": "./dist/index.esm2015.js",
   "scripts": {
     "test": "echo 'no tests here'",
-    "build": "rollup -c ../../rollup.config.ts && npm run copy-specs",
+    "build": "../../node_modules/rollup/dist/bin/rollup -c ../../rollup.config.ts && npm run copy-specs && npm run copy-scripts",
     "prebuild": "npm run clean && npm run lint && npm run test ",
-    "lint": "tslint -p tsconfig.json -c ../../tslint.json",
+    "lint": "../../node_modules/tslint/bin/tslint -p tsconfig.json -c ../../tslint.json",
     "clean": "rm -rf dist",
     "prepublishOnly": "npm run build",
-    "copy-specs": "cp -r src/e2e-shared dist"
+    "copy-specs": "cp -r src/e2e-shared dist",
+    "copy-scripts": "cp -r src/scripts dist"
   },
   "peerDependencies": {
     "protractor": "^5.4.4"
   },
   "dependencies": {
+    "@types/jasmine": "^3.5.14",
     "@types/puppeteer": "^3.0.2",
     "pixelmatch": "^5.2.0",
     "pngjs": "^5.0.0",
     "protractor": "^5.4.4",
     "puppeteer": "^5.3.0"
   },
+  "devDependencies": {
+    "@types/jasmine": "^2.8.17",
+    "jasmine-core": "~2.99.1",
+    "jasmine-spec-reporter": "~4.2.1"
+  },
   "publishConfig": {
     "access": "public"
-  }
+  },
+  "publishClient": true,
+  "disTag": "puppeteer"
 }
