@@ -7,7 +7,7 @@ import {
     AlLocation
 } from '@al/core';
 import {
-    AlResponderPlaybook, AlResponderAction, AlResponderExecutions, AlResponderInspectorError, AlResponderExecutionResult, AlResponderExecutionQueryParams
+    AlResponderPlaybook, AlResponderAction, AlResponderExecutions, AlResponderInspectorError, AlResponderExecutionResult, AlResponderExecutionQueryParams, AlResponderSchema, AlResponderSchemaDetail
 } from './types';
 
 export class AlResponderClientInstance {
@@ -245,6 +245,49 @@ export class AlResponderClientInstance {
             account_id: accountId,
             path: `/workflow/inspect`,
             data: payload
+        });
+    }
+
+    /**
+     * Get schemas for customer
+     * GET
+     * /v1/{account_id}/schemas
+     * https://responder.mdr.global.alertlogic.com
+     *
+     * @param accountId AIMS Account ID
+     * @returns Schemas
+     *
+     * @remarks
+     *
+     * */
+    async getSchema(accountId: string, dataType: string) {
+        return this.client.get<AlResponderSchema>({
+            version: this.serviceVersion,
+            service_stack: this.serviceStack,
+            account_id: accountId,
+            path: `/schemas`,
+        });
+    }
+
+    /**
+     * Get schemas by type
+     * GET
+     * /v1/{account_id}/schemas/{data_type}
+     * https://responder.mdr.global.alertlogic.com
+     *
+     * @param accountId AIMS Account ID
+     * @param dataType Data type name to return JSON schema for
+     * @returns Schema Detail
+     *
+     * @remarks
+     *
+     * */
+    async getSchemaByType(accountId: string, dataType: string) {
+        return this.client.get<AlResponderSchemaDetail>({
+            version: this.serviceVersion,
+            service_stack: this.serviceStack,
+            account_id: accountId,
+            path: `/schemas/${dataType}`,
         });
     }
 }
