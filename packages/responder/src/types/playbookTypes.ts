@@ -147,7 +147,7 @@ export interface AlResponderExecutionQueryParams{
 export interface AlResponderSchema{
     name ?: string;
     version ?: string;
-    schema ?: object;
+    schema ?: AlResponderSchemaDetail;
 }
 
 export interface AlResponderSchemaDetailProperty{

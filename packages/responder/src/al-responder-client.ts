@@ -260,8 +260,8 @@ export class AlResponderClientInstance {
      * @remarks
      *
      * */
-    async getSchema(accountId: string, dataType: string) {
-        return this.client.get<AlResponderSchema>({
+    async getSchema(accountId: string) {
+        return this.client.get<AlResponderSchema[]>({
             version: this.serviceVersion,
             service_stack: this.serviceStack,
             account_id: accountId,
@@ -283,7 +283,7 @@ export class AlResponderClientInstance {
      *
      * */
     async getSchemaByType(accountId: string, dataType: string) {
-        return this.client.get<AlResponderSchemaDetail>({
+        return this.client.get<AlResponderSchema>({
             version: this.serviceVersion,
             service_stack: this.serviceStack,
             account_id: accountId,
