@@ -10,14 +10,16 @@ export interface AlResponderActionShort {
 
 export interface AlResponderActionLong extends AlResponderActionShort{
     id ?: string;
-    parameters ?: object;
-    output_schema ?: object;
-    // for ui visual part
-    // for icons
-    iconClass ?: string;
-    icon: string;
-    // to group or filter
-    category ?: string;
+    parameters ?: {
+        [key: string]: AlResponderPlaybookParameter;
+    };
+    output_schema ?: {
+        [key: string]: AlResponderSchemaDetailProperty;
+    };
+    tags ? : {
+        name:string;
+        value:string;
+    }[];
 }
 
 export interface AlResponderAction {
