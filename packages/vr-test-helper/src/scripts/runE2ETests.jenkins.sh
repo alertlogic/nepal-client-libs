@@ -10,6 +10,10 @@ echo "BROWSER_INSTANCES = $BROWSER_INSTANCES"
 echo "SUITE       = $SUITE"
 echo "EMAIL       = $EMAIL"
 echo "HEADLESS    = $HEADLESS"
+
+echo "PATH:  $PWD"
+echo "$(ls)"
+echo $(ls)
 # Transpile the tests to javascript so that jasmine can execute them
 $(node_modules/typescript/bin/tsc --project ./e2e/tsconfig.e2e.json)
 # Get the base url of the selected enviroment
