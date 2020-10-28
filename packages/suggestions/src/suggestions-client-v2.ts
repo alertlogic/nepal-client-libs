@@ -5,6 +5,7 @@ import {
 } from '@al/core';
 import {
     AlCreateQueryTemplateV2,
+    AlEnumeratedFieldV2,
     AlSuggestionsTemplateResponseV2,
     AlUpdateQueryTemplateV2,
     AlCreateSavedQueryParamsV2,
@@ -208,5 +209,55 @@ export class AlSuggestionsClientInstanceV2 {
             path: `/queries/${queryId}`,
             data: savedQueryParams,
         });
+    }
+
+    /**
+     * Retrieve an enumeration of fields for a given datatype
+     *
+     * GET /suggestions/v2/:account_id/enumeration/:datatype[/:field][?filter=foo]
+     * @remarks "https://console.account.product.dev.alertlogic.com/users/api/suggestions/index.html#api-Enumeration"
+     */
+    public enumerateFields( accountId:string,
+                            dataType:string,
+                            jpath?:string,
+                            filter?:string ):Promise<AlEnumeratedFieldV2[]> {
+        let path = `/enumeration/${dataType}/fields`;
+        if ( jpath ) {
+            path += `/${jpath}`;
+        }
+        let parameters:{[key:string]:string} = {};
+        if ( filter ) {
+            parameters.filter = filter;
+        }
+        let request = {
+            path,
+            parameters,
+            account_id: accountId,
+            service_stack: AlLocation.InsightAPI,
+            service_name: this.serviceName,
+            version: this.serviceVersion,
+        };
+        return this.client.get( request )
+                 .then( response => 'fields' in response ? response.fields : [] );
+    }
+
+    /**
+     * Retrieves an enumeration of values for a given field
+     *
+     * GET /suggestions/v2/:account_id/enumeration/:datatype/:field
+     * @remarks "https://console.account.product.dev.alertlogic.com/users/api/suggestions/index.html#api-Enumeration"
+     */
+    public enumerateValues( accountId:string,
+                            dataType:string,
+                            field:string ):Promise<string[]> {
+        let request = {
+            account_id: accountId,
+            service_stack: AlLocation.InsightAPI,
+            service_name: this.serviceName,
+            version: this.serviceVersion,
+            path: `/enumeration/${dataType}/values/${field}`
+        };
+        return this.client.get( request )
+                    .then( response => `values` in response ? response.values : [] );
     }
 }
