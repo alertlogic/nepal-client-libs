@@ -10,14 +10,16 @@ export interface AlResponderActionShort {
 
 export interface AlResponderActionLong extends AlResponderActionShort{
     id ?: string;
-    parameters ?: object;
-    output_schema ?: object;
-    // for ui visual part
-    // for icons
-    iconClass ?: string;
-    icon: string;
-    // to group or filter
-    category ?: string;
+    parameters ?: {
+        [key: string]: AlResponderPlaybookParameter;
+    };
+    output_schema ?: {
+        [key: string]: AlResponderSchemaDetailProperty;
+    };
+    tags ? : {
+        name:string;
+        value:string;
+    }[];
 }
 
 export interface AlResponderAction {
@@ -142,4 +144,33 @@ export interface AlResponderExecutionQueryParams{
     start_timestamp ?: string;
     end_timestamp ?: string;
     type ?: string;
+}
+
+export interface AlResponderSchema{
+    name ?: string;
+    version ?: string;
+    schema ?: AlResponderSchemaDetail;
+}
+
+export interface AlResponderSchemaDetailProperty{
+    type ?: string;
+    description ?: string;
+    enum ?: string[];
+    items ?: {
+        anyOf: []
+        type: string;
+    };
+    additionalProperties ?: AlResponderSchemaDetailProperty;
+    anyOf ?: AlResponderSchemaDetailProperty[];
+    properties ?: {
+        [key: string]: AlResponderSchemaDetailProperty;
+    };
+}
+
+export interface AlResponderSchemaDetail{
+    title ?: string;
+    type ?: string;
+    properties ?: {
+        [key: string]: AlResponderSchemaDetailProperty;
+    };
 }
