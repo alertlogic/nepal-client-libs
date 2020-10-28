@@ -51,8 +51,7 @@ jasmine.addReporter(specReporter);
 const init = async () => {
   // We create the browser instance and save it in the jasmine environment variables to later use it in the specs
   const browser = await puppeteer.launch({
-    headless: false,
-    
+    headless: true
   });
   let page = (await browser.pages())[0];
   // We save the page object that we will later use in the specs and reports
