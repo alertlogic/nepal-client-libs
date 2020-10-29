@@ -1,3 +1,4 @@
+import { Scope } from './assets';
 import { HealthAssetVPC, HealthAssetRemediation, HealthAssetDeployment, HealthAssetHost, HealthAssetAppliance, HealthAssetAgent, HealthListItem, HealthResponseFilters, HealthAssetCollector } from './health-assets';
 export * from './assets';
 export {
@@ -322,9 +323,11 @@ export interface AssetQueryGeneralResponse {
 export interface AssetQueryResultItem {
     account_id?: string;
     created_on?: number;
+    criticality?: number;
     declared?: boolean;
     deleted_on?: number;
     deployment_id?: string;
+    description?: string;
     group_id?: string;
     group_name?: string;
     in_scope?: boolean;
@@ -338,6 +341,7 @@ export interface AssetQueryResultItem {
     scope_aws_group_name?: string;
     scope_aws_native_id?: string;
     scope_aws_vpc_id?: string;
+    scopes?: Scope[];
     tag_keys?: {
         [key: string]: string;
     };
