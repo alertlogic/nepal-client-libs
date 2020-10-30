@@ -150,7 +150,7 @@ export class AlResponderClientInstance {
             version: this.serviceVersion,
             service_stack: this.serviceStack,
             account_id: accountId,
-            ath: `/actions`,
+            path: `/actions`,
             params: params
         });
     }
