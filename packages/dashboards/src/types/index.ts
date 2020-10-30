@@ -65,6 +65,11 @@ export interface DashboardWidgetConfig {
     link2?: string;
     settings?: string;
   };
+  refreshSource?:{
+    service:string;
+    args?:any;
+    method:string;
+  };
 }
 
 export interface DashboardWidgetButtonAction {
