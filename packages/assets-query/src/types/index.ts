@@ -211,6 +211,7 @@ export interface ExposureVInstanceItem {
     disposed?: boolean;
     key?: string;
     modified_on?: number;
+    remediation_item_id?: string;
     target?: ExposureVInstanceTarget;
     threatiness?: number;
 }
