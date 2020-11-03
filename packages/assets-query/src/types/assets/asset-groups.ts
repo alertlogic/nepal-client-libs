@@ -26,9 +26,9 @@ export interface AssetGroupPayload {
     operation: 'create_asset_group' | "delete_asset_group" | "update_asset_group";
     scope: string;
     name: string;
-    criticality: number;
-    description: string;
-    properties: Properties;
+    criticality?: number;
+    description?: string;
+    properties?: Properties;
 }
 
 export interface AssetGroup {
@@ -43,6 +43,9 @@ export interface AssetGroup {
     declared: boolean;
     deleted_on: number;
     modified_on: number;
+    scopes?: Scope[];
+    criticality?: number;
+    description?: string;
 }
 
 export interface AssetGroupTopologyResponse {
@@ -93,5 +96,9 @@ export interface TopologyAssetData {
     subnet_uuid?: string;
     tags?: { [property: string]: string };
     type?: string;
+}
 
+export interface AssetGroupListResponse {
+    count: number;
+    groups: AssetGroup[];
 }
