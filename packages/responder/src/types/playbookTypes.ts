@@ -25,6 +25,7 @@ export interface AlResponderActionLong extends AlResponderActionShort{
 export interface AlResponderAction {
     category ?: object;
     action: AlResponderActionLong;
+    allowed_values?: object;
 }
 
 export interface AlResponderPlaybookParameter

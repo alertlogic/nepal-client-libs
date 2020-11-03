@@ -139,17 +139,19 @@ export class AlResponderClientInstance {
      * https://responder.mdr.global.alertlogic.com
      *
      * @param accountId AIMS Account ID
+     * @param params
      * @returns Actions list
      *
      * @remarks
      *
      * */
-    async getActions(accountId: string) {
+    async getActions(accountId: string, params?: {payload_type: string}) {
         return this.client.get<AlResponderAction[]>({
             version: this.serviceVersion,
             service_stack: this.serviceStack,
             account_id: accountId,
-            path: `/actions`
+            path: `/actions`,
+            params: params
         });
     }
 
