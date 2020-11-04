@@ -1,6 +1,6 @@
 {
   "name": "@al/scan-scheduler",
-  "version": "1.0.17",
+  "version": "1.0.18",
   "license": "MIT",
   "description": "A client for interacting with the Alert Logic Scan Scheduler Public API",
   "author": {
