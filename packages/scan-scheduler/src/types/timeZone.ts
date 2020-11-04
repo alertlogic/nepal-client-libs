@@ -13,6 +13,10 @@ export interface AlTimeZone {
      * Optional field, for informational purposes and applicable only for timezones with `Alias` status.
      */
     tz_link?: string;
+    /**
+     * boolean describing whether or not the timezone is currently in daylight saving time
+     */
+    dst: boolean;
 }
 export namespace AlTimeZone {
     export type StatusEnum = 'Canonical' | 'Alias';
