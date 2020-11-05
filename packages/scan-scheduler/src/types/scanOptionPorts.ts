@@ -8,5 +8,5 @@ import { ScanOptionPortWildcard } from './scanOptionPortWildcard';
  * If no ScanOptionPort option is specified scan will use full port range
  */
 export interface ScanOptionPorts {
-    scan_ports?: Array<ScanOptionPortSingle | ScanOptionPortRange | ScanOptionPortWildcard>;
+    scan_ports?: (ScanOptionPortSingle | ScanOptionPortRange | ScanOptionPortWildcard)[];
 }

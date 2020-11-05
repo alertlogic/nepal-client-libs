@@ -1,7 +1,7 @@
 import { ScanOptionPort } from './scanOptionPort';
 
 export interface ScanOptionPortSingle extends ScanOptionPort {
-    ports: Array<number>;
+    ports: number[];
 }
 export namespace ScanOptionPortSingle {
 }

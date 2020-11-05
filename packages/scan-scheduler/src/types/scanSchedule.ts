@@ -88,7 +88,7 @@ export interface AlScanSchedule {
     /**
      * An optional list of Scan Options, that affect the scan configuration. One of the supported options is a list of ports
      */
-    scan_options?: Array<ScanOptionPorts>;
+    scan_options?: ScanOptionPorts[];
     created?: AlAuditObject;
     modified?: AlAuditObject;
 }
