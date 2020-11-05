@@ -1,4 +1,5 @@
 import { AlAuditObject } from './auditObject';
+import { ScanOptionPorts } from './scanOptionPorts';
 import { AlScanScope } from './scanScope';
 import { AlScanWindowContinuousPeriodMonthly } from './scanWindowContinuousPeriodMonthly';
 import { AlScanWindowContinuousPeriodWeekly } from './scanWindowContinuousPeriodWeekly';
@@ -84,6 +85,10 @@ export interface AlScanSchedule {
      * setting the SLA as specified by `scan_frequency` parameter.
      */
     scan_scope?: AlScanScope;
+    /**
+     * An optional list of Scan Options, that affect the scan configuration. One of the supported options is a list of ports
+     */
+    scan_options?: ScanOptionPorts[];
     created?: AlAuditObject;
     modified?: AlAuditObject;
 }
