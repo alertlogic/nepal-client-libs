@@ -156,17 +156,19 @@ export class AlAssetsQueryClientInstance {
 
   /**
    * Get Tags Summary
+   * Get a summary of all tags, with normalized keys, across all deployments. This endpoint should be preferred for use-cases that span deployments, like asset groups.
    * GET
-   * /assets_query/v1/:account_id/deployments/:deployment_id/tags/summary
-   * "https://api.cloudinsight.alertlogic.com/assets_query/v1/01000001/deployments/CD7C26C3-FAA1-4AD1-86CB-9628ED1B3327/tags/summary"
+   * /assets_query/v1/:account_id/tags/summary
+   * "https://api.cloudinsight.alertlogic.com/assets_query/v1/12345678/tags/summary?include_tagged_assets=true"
    */
-  async getTagsSummary(accountId: string, deploymentId: string) {
+  async getTagsSummary(accountId: string, includeTaggedAssets = false) {
     return this.client.get<TagsSummaryResponse>({
       service_stack: AlLocation.InsightAPI,
       version: this.serviceVersion,
       account_id: accountId,
       service_name: 'assets_query',
-      path: `/deployments/${deploymentId}/tags/summary`,
+      path: '/tags/summary',
+      params: includeTaggedAssets ? {['include_tagged_assets']: includeTaggedAssets} : {}
     });
 
   }
