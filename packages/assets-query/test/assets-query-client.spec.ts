@@ -112,7 +112,7 @@ describe('Assets Query Client Test Suite:', () => {
       stub.restore();
     });
     it('should call get() on the AlDefaultClient instance', async () => {
-      await assetsQueryClient.getTagsSummary('1234', '0987');
+      await assetsQueryClient.getTagsSummary('1234');
       expect(stub.callCount).to.equal(1);
     });
   });

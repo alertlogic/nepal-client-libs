@@ -72,7 +72,21 @@ export interface AssetTag {
     };
 }
 export interface TagsSummaryResponse {
-    tags?: AssetTag[];
+    tags?: {
+        assets: string[][];
+        rows: number;
+        data: {
+            [key:string]: TaggedAssetData
+        };
+    };
+}
+export interface TaggedAssetData {
+    deployment_ids?: string[];
+    key: string;
+    name: string;
+    tag_key?: string;
+    tag_value?: string;
+    type: string;
 }
 export interface TopologyResponse {
     topology?: {
