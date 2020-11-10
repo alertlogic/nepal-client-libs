@@ -105,7 +105,9 @@ export interface AlPropertyValuesV2 {
 export type ValidPropertiesV2 = 'tags';
 
 export interface AlEnumeratedFieldV2 {
-    description: string;
-    label: string;
     name: string;
+    label: string;
+    description: string;
+    has_fields: boolean;
+    has_values: boolean;
 }
