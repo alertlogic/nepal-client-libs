@@ -1,0 +1,52 @@
+{
+  "name": "@al/distributor",
+  "version": "0.0.1",
+  "license": "MIT",
+  "description": "A lightweight client library for interacting with the Automatic Distributor API",
+  "author": {
+    "name": "Maryit Sanchez",
+    "email": "msanchez@alertlogic.com"
+  },
+  "keywords": [
+    "Alert Logic",
+    "Client",
+    "Service",
+    "Distributor"
+  ],
+  "maintainers": [
+    {
+      "name": "Maryit Sanchez",
+      "email": "msanchez@alertlogic.com"
+    },
+    {
+      "name": "Alert Logic NPM Team",
+      "email": "npm@alertlogic.com"
+    }
+  ],
+  "repository": "github:alertlogic/nepal-client-libs",
+  "main": "./dist/index.cjs.js",
+  "types": "./dist/index.d.ts",
+  "module": "./dist/index.esm5.js",
+  "es2015": "./dist/index.esm2015.js",
+  "scripts": {
+    "test": "karma start",
+    "test-watch": "karma start --no-single-run --auto-watch",
+    "build": "rollup -c ../../rollup.config.ts",
+    "prebuild": "npm run clean && npm run lint",
+    "lint": "tslint -p tsconfig.json -c ../../tslint.json",
+    "clean": "rm -rf dist",
+    "prepublishOnly": "npm run build"
+  },
+  "dependencies": {
+    "@al/core": "^1.0.84"
+  },
+  "peerDependencies": {
+    "@al/core": "^1.0.84"
+  },
+  "files": [
+    "dist"
+  ],
+  "publishConfig": {
+    "access": "public"
+  }
+}
