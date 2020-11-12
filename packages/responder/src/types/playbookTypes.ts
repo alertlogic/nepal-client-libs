@@ -110,10 +110,18 @@ export interface AlResponderExecution extends AlResponderExecutionCommon{
     account_id ?: string;
 }
 
+export interface AlResponderExecutionSummary {
+    deployments: {[key: string]: number}[];
+    playbooks: {[key: string]: number}[];
+    statuses: {[key: string]: number}[];
+    types: {[key: string]: number}[];
+}
+
 export interface AlResponderExecutions {
     executions : AlResponderExecution[];
     count ?: number;
     marker ?: string;
+    summary ?: AlResponderExecutionSummary;
 }
 
 export interface AlResponderInspectorError {
