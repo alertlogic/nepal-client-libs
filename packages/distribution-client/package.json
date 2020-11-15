@@ -1,8 +1,8 @@
 {
-  "name": "@al/responder",
-  "version": "0.0.22",
+  "name": "@al/distributor",
+  "version": "0.0.1",
   "license": "MIT",
-  "description": "A lightweight client library for interacting with the Automatic Responder API",
+  "description": "A lightweight client library for interacting with the Automatic Distributor API",
   "author": {
     "name": "Maryit Sanchez",
     "email": "msanchez@alertlogic.com"
@@ -11,7 +11,7 @@
     "Alert Logic",
     "Client",
     "Service",
-    "Responder"
+    "Distributor"
   ],
   "maintainers": [
     {
@@ -38,10 +38,10 @@
     "prepublishOnly": "npm run build"
   },
   "dependencies": {
-    "@al/core": "^1.0.12"
+    "@al/core": "^1.0.84"
   },
   "peerDependencies": {
-    "@al/core": "^1.0.12"
+    "@al/core": "^1.0.84"
   },
   "files": [
     "dist"
