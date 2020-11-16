@@ -104,6 +104,7 @@ export interface DashboardLayoutConfig {
   };
   meta?: DashboardMeta;
   widgets: DashboardLayoutWidgetConfig[];
+  zeroStates?: Object[];
 }
 
 export interface UserDashboardItem {
