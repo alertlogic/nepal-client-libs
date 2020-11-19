@@ -29,6 +29,7 @@ import {
     AssetGroupTopologyResponse,
     Scope
 } from './types/assets/asset-groups';
+import { AssetTypesListResponse, AssetTypesResponse } from './types/assets/asset-types';
 
 export class AlAssetsQueryClientInstance {
 
@@ -483,6 +484,21 @@ export class AlAssetsQueryClientInstance {
         service_name: 'assets_query',
         path: 'asset_groups',
         version: this.serviceVersion
+      });
+  }
+
+  /**
+   * Fetches the "schema" for asset types. The schema describes the structure for asset types.
+   * GET
+   * /asset_query/v1/asset_types
+   */
+  async getAssetTypes(queryParams: {filter?: string, fields?: string, format?: string}) {
+    return this.client.get<AssetTypesResponse>({
+        service_stack: AlLocation.InsightAPI,
+        service_name: 'assets_query',
+        path: 'asset_types',
+        version: this.serviceVersion,
+        params: queryParams,
       });
   }
 }
