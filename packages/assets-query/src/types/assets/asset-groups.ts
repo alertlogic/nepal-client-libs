@@ -58,6 +58,11 @@ export interface AssetGroupTopology {
     rows: number;
 }
 
+export interface AssetGroupTopologyQueryParams {
+    scopes: Scope[];
+    return_asset_types?: string[];
+}
+
 // TODO - May be better to define an asset interface per asset type rather than merge all possible fields to a single interface
 // These fields should be enough for now for POC asset group work
 export interface TopologyAssetData {
