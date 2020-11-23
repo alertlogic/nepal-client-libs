@@ -1,7 +1,7 @@
 /*
 * Module to deal with available Kalm Public API endpoints
 */
-import { AlDefaultClient, AlLocation } from '@al/core';
+import { AlApiClient, AlDefaultClient, AlLocation } from '@al/core';
 import { StorageDescriptor } from './types';
 
 interface SimpleQueryAdditionalParams {
@@ -10,11 +10,15 @@ interface SimpleQueryAdditionalParams {
   managed_accounts?: string;
 }
 
-class KalmClient {
-  private client = AlDefaultClient;
+
+export class AlKalmClientInstance {
+
   private serviceName = 'kalm';
   private version = 'v1';
 
+  /* istanbul ignore next */
+  constructor(public client: AlApiClient = AlDefaultClient) {
+}
   /*
   *
   */
@@ -53,5 +57,3 @@ class KalmClient {
     });
   }
 }
-
-export const kalmClient =  new KalmClient();

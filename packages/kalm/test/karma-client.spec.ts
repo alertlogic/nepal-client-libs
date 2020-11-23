@@ -5,12 +5,16 @@ import {
 } from 'chai';
 import { describe } from 'mocha';
 import * as sinon from 'sinon';
-import { KalmClient } from '../src/index';
+import { AlKalmClientInstance } from '../src/index';
 
 const serviceName = 'kalm';
-const accountID = 1234;
 const serviceVersion = 'v1';
 
+let kalmClient:AlKalmClientInstance;
+
+beforeEach( () => {
+    kalmClient = new AlKalmClientInstance();
+} );
 afterEach(() => {
   sinon.restore();
 });
@@ -21,7 +25,7 @@ describe('Kalm Client Test Suite', () => {
     let stub: sinon.SinonSpy;
 
     beforeEach(() => {
-      stub = sinon.stub(KalmClient['client'], 'get');
+      stub = sinon.stub(kalmClient['client'], 'get');
     });
 
     afterEach(() => {
@@ -29,7 +33,7 @@ describe('Kalm Client Test Suite', () => {
     });
 
     it('should should call get() on the AlDefaultClient instance to the kalm catalog tables items endpoint for all tables', async() => {
-      await KalmClient.listCatalogTables();
+      await kalmClient.listCatalogTables();
       expect(stub.callCount).to.equal(1);
       const payload = {
         service_stack: AlLocation.InsightAPI,
@@ -42,7 +46,7 @@ describe('Kalm Client Test Suite', () => {
     });
 
     it('should should call get() on the AlDefaultClient instance to the kalm catalog tables items endpoint for a single table', async() => {
-      await KalmClient.getCatalogTable('test');
+      await kalmClient.getCatalogTable('test');
       expect(stub.callCount).to.equal(1);
       const payload = {
         service_stack: AlLocation.InsightAPI,
@@ -55,7 +59,7 @@ describe('Kalm Client Test Suite', () => {
     });
 
     it('should should call get() on the AlDefaultClient instance to the startSimpleQuery end point', async() => {
-      await KalmClient.startSimpleQuery(accountId, 'test');
+      await kalmClient.startSimpleQuery(accountId, 'test');
       expect(stub.callCount).to.equal(1);
       const payload = {
         service_stack: AlLocation.InsightAPI,
