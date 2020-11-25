@@ -47,11 +47,11 @@ export interface AlResponderWorkflowContext
 
 export interface AlResponderWorkflowActionWhen
 {
-    containerId ?: string; // this is for ui not for wf it self
-    containerIdList?: string[];
+    name ?: string;
     when ?: string;
     whenId?: string;
     do?: string[]; // many do add an array
+    doOut?: string[];
     publish ?: {[key: string]: string}[];
 }
 
