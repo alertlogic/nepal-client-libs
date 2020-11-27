@@ -1,6 +1,6 @@
 {
   "name": "@al/retina",
-  "version": "1.0.1",
+  "version": "1.0.3",
   "license": "MIT",
   "description": "A client for interacting with the Alert Logic Iris Public API",
   "author": {
@@ -34,7 +34,8 @@
     "interactive": "npm run build && node -i -e \"const RetinaClient = require('./dist/commonjs/index.js').RetinaClient;\""
   },
   "dependencies": {
-    "@al/core": "^1.0.12"
+    "@al/core": "^1.0.12",
+    "@al/iris": "^2.0.9"
   },
   "files": [
     "dist"

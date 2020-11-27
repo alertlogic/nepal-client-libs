@@ -4,9 +4,12 @@
 import {
     AlApiClient,
     AlDefaultClient,
-    APIRequestParams,
     AlLocation,
+    APIRequestParams,
 } from '@al/core';
+import {
+    AlIrisClient,
+} from '@al/iris';
 import {
     EvidenceParams,
     RetinaBody,
@@ -59,14 +62,7 @@ export class AlRetinaClientInstance {
             'all',
             updateElaboration,
         );
-        return this.client.post({
-            data,
-            service_stack: AlLocation.InsightAPI,
-            version: 'v3',
-            service_name: this.serviceName,
-            account_id: accountId,
-            path: `retinaSearch/${incidentId}`,
-        }).then((response) => {
+        return AlIrisClient.retinaSearch(accountId, incidentId, data).then((response) => {
             return Elaboration.deserializeArray(response.returnVals || []);
         });
     }
@@ -101,20 +97,12 @@ export class AlRetinaClientInstance {
                 true,
             );
 
-            return this.client.post({
-                data,
-                service_stack: AlLocation.InsightAPI,
-                version: 'v3',
-                service_name: this.serviceName,
-                account_id: accountId,
-                path: `retinaSearch/${incidentId}`,
-            })
-                .then((response) => {
-                    if (parameters.sourcesFilter !== null && parameters.sourcesFilter.indexOf(SourceType.FLAGGED) === -1) {
-                        return [];
-                    }
-                    return Elaboration.deserializeArray(response.returnVals || [], SourceType.FLAGGED);
-                });
+            return AlIrisClient.retinaSearch(accountId, incidentId, data).then((response) => {
+                if (parameters.sourcesFilter !== null && parameters.sourcesFilter.indexOf(SourceType.FLAGGED) === -1) {
+                    return [];
+                }
+                return Elaboration.deserializeArray(response.returnVals || [], SourceType.FLAGGED);
+            });
 
         }
     }
@@ -133,14 +121,7 @@ export class AlRetinaClientInstance {
     ): Promise<{ aggregation?: { [i: string]: { [j: string]: number } } }> {
 
         const data: RetinaBody = this.getElaborationAggregationFilter(null, elaborationsExcluded);
-        return this.client.post({
-            data,
-            service_stack: AlLocation.InsightAPI,
-            version: 'v3',
-            service_name: this.serviceName,
-            account_id: accountId,
-            path: `retinaSearch/${incidentId}`,
-        });
+        return AlIrisClient.retinaSearch(accountId, incidentId, data);
     }
 
     /**
@@ -156,14 +137,7 @@ export class AlRetinaClientInstance {
         elaborationsIncluded: string[],
     ): Promise<{ aggregation?: { [i: string]: { [j: string]: number } } }> {
         const data = this.getElaborationAggregationFilter(elaborationsIncluded, null);
-        return this.client.post({
-            data,
-            service_stack: AlLocation.InsightAPI,
-            version: 'v3',
-            service_name: this.serviceName,
-            account_id: accountId,
-            path: `retinaSearch/${incidentId}`,
-        });
+        return AlIrisClient.retinaSearch(accountId, incidentId, data);
     }
 
     /**
@@ -434,17 +408,17 @@ export class AlRetinaClientInstance {
                 account_id: accountId,
                 path: `${incidentId}/elaborationById/${uuid}?parse_logs=true`,
             }).then(json => {
-            if (Object.keys(json).length === 0) {
-                throw new Error("Malformed response from the backend api");
-            }
-            if (json.__contentType === "guardduty") {
-                return ElaborationGuardDuty.deserialize(json);
-            }
-            if (json.__irisType === "associated log") {
-                return ElaborationLog.deserialize(json);
-            }
-            return ElaborationEvent.deserialize(json);
-        });
+                if (Object.keys(json).length === 0) {
+                    throw new Error("Malformed response from the backend api");
+                }
+                if (json.__contentType === "guardduty") {
+                    return ElaborationGuardDuty.deserialize(json);
+                }
+                if (json.__irisType === "associated log") {
+                    return ElaborationLog.deserialize(json);
+                }
+                return ElaborationEvent.deserialize(json);
+            });
     }
 
     /**
@@ -471,15 +445,7 @@ export class AlRetinaClientInstance {
             "guardduty",
             updateElaboration,
         );
-        return this.client.post(
-            {
-                data,
-                service_stack: AlLocation.InsightAPI,
-                version: 'v3',
-                service_name: this.serviceName,
-                account_id: accountId,
-                path: `retinaSearch/${incidentId}`,
-            }).then(response => Elaboration.deserializeArray(response.returnVals || []));
+        return AlIrisClient.retinaSearch(accountId, incidentId, data).then(response => Elaboration.deserializeArray(response.returnVals || []));
 
     }
 
@@ -500,15 +466,7 @@ export class AlRetinaClientInstance {
                 },
             },
         };
-        return this.client.post(
-            {
-                data,
-                service_stack: AlLocation.InsightAPI,
-                version: 'v3',
-                service_name: this.serviceName,
-                account_id: accountId,
-                path: `retinaSearch/${incidentId}`,
-            }).then(response =>
+        return AlIrisClient.retinaSearch(accountId, incidentId, data).then(response =>
             (response.returnVals || []).map((item) => {
                 item.metadata.typeSemantic = item.metadata.flagged === 1 ? SourceType.LOGREVIEWATTACHMENTFLAGGED : SourceType.LOGREVIEWATTACHMENT;
                 item.metadata.__contentType = item.__contentType;
