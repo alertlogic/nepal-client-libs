@@ -36,6 +36,9 @@ export interface AlResponderPlaybookParameter
     immutable?: boolean;
     required?: boolean;
     secret?: string;
+    properties?: {
+        [key: string]: object;
+    };
 }
 
 export interface AlResponderWorkflowContext

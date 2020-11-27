@@ -638,4 +638,16 @@ export class AlIrisClientInstance {
         });
     }
 
+    public retinaSearch(accountId: string, incidentId: string, data: any) {
+        return this.client.post(
+            {
+                service_stack: AlLocation.InsightAPI,
+                service_name: this.serviceName,
+                version: 'v3',
+                account_id: accountId,
+                path: `retinaSearch/${incidentId}`,
+                data: data,
+        });
+    }
+
 }
