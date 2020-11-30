@@ -24,3 +24,10 @@ export interface MetaDataDictionary {
     "log-types":{ [i:string]:string };
     "sourceMap":{ [i:string]:string };
 }
+
+export interface RawFilterColumns {
+    iris_field_name: string;
+    ui_display_name: string;
+    use_as_column: boolean;
+    use_as_filter: boolean;
+}
