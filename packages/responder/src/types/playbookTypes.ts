@@ -50,7 +50,7 @@ export interface AlResponderWorkflowContext
 
 export interface AlResponderWorkflowActionWhen
 {
-    name ?: string;
+    x_alertlogic_condition_name ?: string; // this is not stack storm, just a way to identify conditions in ui side
     when ?: string;
     whenId?: string;
     do?: string[]; // many do add an array
