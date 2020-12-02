@@ -47,7 +47,7 @@ export interface ElaborationInterface {
     snort_pid?:number;
     snort_reference?:number;
     source_addr?:string;
-    __tokens?:Token2[];
+    __tokens?:Token[];
     ts?:number;
     ts_us?:number;
 
@@ -153,18 +153,18 @@ export interface ElaborationForIncTbl extends ElaborationInterface {
 
 }
 
-export interface TimeSpanObj2 {
+export interface TimeSpanObj {
     minTicks:number;
     maxTicks:number;
 }
 
 export interface IncidentTable {
     events:ElaborationForIncTbl[];
-    timespan?:TimeSpanObj2;
+    timespan?:TimeSpanObj;
     msgIds?:{[i:string]:boolean};
 }
 
-export interface Token2 {
+export interface Token {
     description:string;
     tokenName:string;
     value:string | string[];

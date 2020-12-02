@@ -6,8 +6,8 @@ import {
     AlDefaultClient,
     AlResponseValidationError,
     AlLocation,
+    APIRequestParams,
 } from '@al/core';
-import { APIRequestParams } from '@al/core/dist/src/client/types';
 import {
     AlIncidentFilterDictionary,
     ConstantDefinition,

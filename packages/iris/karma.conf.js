@@ -1,7 +1,6 @@
 module.exports = function (config) {
   config.set({
-    failOnEmptyTestSuite: false,
-    singleRun: true,
+
     frameworks: ["mocha", "karma-typescript"],
 
     files: [
