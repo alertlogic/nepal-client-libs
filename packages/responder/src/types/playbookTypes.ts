@@ -81,7 +81,9 @@ export interface AlResponderWorkflowTask {
 export interface AlResponderWorkflow extends AlResponderWorkflowContext{
     version ?: number; // The version of the spec being used in this workflow DSL.
     description ?: string; // The description of the workflow.
-    tasks ?: AlResponderWorkflowTask;
+    tasks ?: {
+        [key:string]:AlResponderWorkflowTask;
+    };
 }
 
 export interface AlResponderPlaybook {
