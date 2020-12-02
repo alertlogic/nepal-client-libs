@@ -1,6 +1,7 @@
 module.exports = function (config) {
   config.set({
-
+    failOnEmptyTestSuite: false,
+    singleRun: true,
     frameworks: ["mocha", "karma-typescript"],
 
     files: [
@@ -36,11 +37,6 @@ module.exports = function (config) {
           "subdirectory": "report"
         },
         "text-summary": "",
-        "json-summary": {
-          "directory": "./../../coverage/iris-client",
-          "subdirectory": "summary",
-          "filename": "json-summary.json"
-        }
       },
     },
 

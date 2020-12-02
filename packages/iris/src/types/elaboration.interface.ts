@@ -1,4 +1,3 @@
-/* tslint:disable:variable-name prefer-array-literal */
 /**
  * @file Holds the interfaces for elaborations after it has been "massaged"
  */
@@ -48,7 +47,7 @@ export interface ElaborationInterface {
     snort_pid?:number;
     snort_reference?:number;
     source_addr?:string;
-    __tokens?:Token[];
+    __tokens?:Token2[];
     ts?:number;
     ts_us?:number;
 
@@ -154,18 +153,18 @@ export interface ElaborationForIncTbl extends ElaborationInterface {
 
 }
 
-export interface TimeSpanObj {
+export interface TimeSpanObj2 {
     minTicks:number;
     maxTicks:number;
 }
 
 export interface IncidentTable {
     events:ElaborationForIncTbl[];
-    timespan?:TimeSpanObj;
+    timespan?:TimeSpanObj2;
     msgIds?:{[i:string]:boolean};
 }
 
-export interface Token {
+export interface Token2 {
     description:string;
     tokenName:string;
     value:string | string[];
