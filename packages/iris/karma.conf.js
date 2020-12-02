@@ -36,6 +36,11 @@ module.exports = function (config) {
           "subdirectory": "report"
         },
         "text-summary": "",
+        "json-summary": {
+          "directory": "./../../coverage/iris-client",
+          "subdirectory": "summary",
+          "filename": "json-summary.json"
+        }
       },
     },
 

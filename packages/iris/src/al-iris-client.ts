@@ -33,6 +33,7 @@ import {
     ElaborationEvent,
     ElaborationGuardDuty,
     ElaborationLog,
+    RawFilterColumns,
 } from './types';
 
 export class AlIrisClientInstance {
@@ -692,6 +693,21 @@ export class AlIrisClientInstance {
         );
         return this.retinaSearch(accountId, incidentId, data).then((response) => {
             return Elaboration.deserializeArray(response.returnVals || []);
+        });
+    }
+
+    /*
+     * Incidents filters and columns
+     * GET
+     * /iris/v3/filter_columns
+     * "https://api.product.dev.alertlogic.com/iris/v3/filter_columns'"
+     */
+    public getFiltersColumns(): Promise<Array<RawFilterColumns>> {
+        return this.client.get<Array<RawFilterColumns>>({
+            service_stack: AlLocation.InsightAPI,
+            service_name: this.serviceName,
+            version: 'v3',
+            path: `/filter_columns`,
         });
     }
 

@@ -189,3 +189,9 @@ export interface EvidenceFilter {
     value:string;
 }
 
+export interface RawFilterColumns {
+    iris_field_name: string;
+    ui_display_name: string;
+    use_as_column: boolean;
+    use_as_filter: boolean;
+}
