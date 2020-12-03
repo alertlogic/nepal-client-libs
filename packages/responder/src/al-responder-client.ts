@@ -246,9 +246,9 @@ export class AlResponderClientInstance {
      * @remarks
      *
      * */
-    async getExecutionsHistory(accountId: string, params: AlResponderExecutionsHistoryQueryParams): Promise<AlResponderExecutionsHistoryResult> {
+    async getExecutionsHistory(accountId: string, payload: AlResponderExecutionsHistoryQueryParams): Promise<AlResponderExecutionsHistoryResult> {
         return this.client.post<AlResponderExecutionsHistoryResult>({
-            params,
+            data: payload,
             version: this.serviceVersion,
             service_stack: this.serviceStack,
             account_id: accountId,
