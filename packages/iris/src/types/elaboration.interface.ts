@@ -1,4 +1,3 @@
-/* tslint:disable:variable-name prefer-array-literal */
 /**
  * @file Holds the interfaces for elaborations after it has been "massaged"
  */

@@ -1,4 +1,3 @@
-/* tslint:disable:variable-name prefer-array-literal */
 /*
  * Abstract class for all evidence types.
  * Since there is a variety of evidence coming from different sources. this provides a standard interface for filtering and sorting.
