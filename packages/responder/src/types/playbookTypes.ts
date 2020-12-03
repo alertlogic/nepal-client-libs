@@ -117,6 +117,22 @@ export interface AlResponderExecution extends AlResponderExecutionCommon{
     account_id ?: string;
 }
 
+export interface AlResponderExecutionsHistory extends AlResponderExecutionCommon{
+    id ?: string;
+    task_id	?: string;
+    task_name ?: string;
+    parent_execution_id ?: string;
+    playbook_type ?: string;
+    type ?: string;
+    playbook_id ?: string;
+    playbook_name ?: string;
+    native_id ?: string;
+    parameters ?: unknown;
+    action ?: unknown;
+    modified ?: AlChangeStamp;
+    created ?: AlChangeStamp;
+}
+
 export interface AlResponderExecutionSummary {
     deployments: {[key: string]: number}[];
     playbooks: {[key: string]: number}[];
@@ -150,26 +166,10 @@ export interface AlResponderExecutionResult extends AlResponderExecutionCommon {
     log ?: AlResponderExecutionResultLog[];
 }
 
-export interface AlResponderExecutionsHistoryResult extends AlResponderExecutionCommon {
+export interface AlResponderExecutionsHistoryResult {
     count: number;// minimum 0,
     marker: string;
-    executions: {
-        id ?: string;
-        task_id	?: string;
-        task_name ?: string;
-        parent_execution_id ?: string;
-        playbook_type ?: string;
-        playbook_id ?: string;
-        playbook_name ?: string;
-        native_id ?: string;
-        status ?: status;
-        start_timestamp: string;
-        end_timestamp: string;
-        elapsed_seconds: number;
-        parameters ?: unknown;
-        result ?: unknown;
-        action ?: unknown;
-    };
+    executions: AlResponderExecutionsHistory[];
     summary: {
         deployments ?: unknown[];
         statuses ?: unknown[];
@@ -202,13 +202,13 @@ export interface AlResponderExecutionsHistoryQueryParams{
     status ?: string;
     start_timestamp ?: string;
     end_timestamp ?: string;
-    filter: {
-        taks_id: string;
-        task_name: string;
-        playbook_id: string;
-        parent_execution_id: string;
-        native_id: string;
-        status: status;
+    filter ?: {
+        taks_id ?: string;
+        task_name ?: string;
+        playbook_id ?: string;
+        parent_execution_id ?: string;
+        native_id ?: string;
+        status ?: status;
     };
 }
 
