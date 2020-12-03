@@ -7,7 +7,15 @@ import {
     AlLocation
 } from '@al/core';
 import {
-    AlResponderPlaybook, AlResponderAction, AlResponderExecutions, AlResponderInspectorError, AlResponderExecutionResult, AlResponderExecutionQueryParams, AlResponderSchema, AlResponderSchemaDetail
+    AlResponderPlaybook,
+    AlResponderAction,
+    AlResponderExecutions,
+    AlResponderInspectorError,
+    AlResponderExecutionResult,
+    AlResponderExecutionQueryParams,
+    AlResponderSchema,
+    AlResponderExecutionsHistoryResult,
+    AlResponderExecutionsHistoryQueryParams
 } from './types';
 
 export class AlResponderClientInstance {
@@ -222,6 +230,29 @@ export class AlResponderClientInstance {
             service_stack: this.serviceStack,
             account_id: accountId,
             path: `/executions/${executionId}`,
+        });
+    }
+
+    /**
+     * Get execution results
+     * GET
+     * /v1/{account_id}/executions/history
+     * https://responder.mdr.global.alertlogic.com
+     *
+     * @param accountId AIMS Account ID
+     * @param params AlResponderExecutionQueryParams params
+     * @returns Execution history list
+     *
+     * @remarks
+     *
+     * */
+    async getExecutionsHistory(accountId: string, params: AlResponderExecutionsHistoryQueryParams): Promise<AlResponderExecutionsHistoryResult> {
+        return this.client.post<AlResponderExecutionsHistoryResult>({
+            params,
+            version: this.serviceVersion,
+            service_stack: this.serviceStack,
+            account_id: accountId,
+            path: `/executions/history`
         });
     }
 

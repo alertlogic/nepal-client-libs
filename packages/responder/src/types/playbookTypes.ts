@@ -150,6 +150,36 @@ export interface AlResponderExecutionResult extends AlResponderExecutionCommon {
     log ?: AlResponderExecutionResultLog[];
 }
 
+export interface AlResponderExecutionsHistoryResult extends AlResponderExecutionCommon {
+    count: number;// minimum 0,
+    marker: string;
+    executions: {
+        id ?: string;
+        task_id	?: string;
+        task_name ?: string;
+        parent_execution_id ?: string;
+        playbook_type ?: string;
+        playbook_id ?: string;
+        playbook_name ?: string;
+        native_id ?: string;
+        status ?: status;
+        start_timestamp: string;
+        end_timestamp: string;
+        elapsed_seconds: number;
+        parameters ?: unknown;
+        result ?: unknown;
+        action ?: unknown;
+    };
+    summary: {
+        deployments ?: unknown[];
+        statuses ?: unknown[];
+        playbook_types ?: unknown[];
+        playbook_ids ?: unknown[];
+        playbook_names ?: unknown[];
+        taksk ?: unknown[];
+    };
+}
+
 export interface AlResponderExecutionQueryParams{
     limit ?: number;
     offset ?: number;
@@ -161,6 +191,25 @@ export interface AlResponderExecutionQueryParams{
     start_timestamp ?: string;
     end_timestamp ?: string;
     type ?: string;
+}
+
+export interface AlResponderExecutionsHistoryQueryParams{
+    execution_type: string;
+    limit ?: number;// default: 50 minimum: 10 maximum: 100
+    marker ?: string;
+    sort_by ?: 'start_timestamp' | 'end_timestamp';
+    sort_order ?:  'asc' | 'desc';
+    status ?: string;
+    start_timestamp ?: string;
+    end_timestamp ?: string;
+    filter: {
+        taks_id: string;
+        task_name: string;
+        playbook_id: string;
+        parent_execution_id: string;
+        native_id: string;
+        status: status;
+    };
 }
 
 export interface AlResponderSchema{
@@ -191,3 +240,5 @@ export interface AlResponderSchemaDetail{
         [key: string]: AlResponderSchemaDetailProperty;
     };
 }
+
+export type status = "new" | "requested" | "scheduled" | "delayed" | "running" | "succeeded" | "failed" | "timeout" | "canceled";
