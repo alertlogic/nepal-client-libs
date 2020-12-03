@@ -1,6 +1,5 @@
-/* tslint:disable:variable-name prefer-array-literal */
 import { Elaboration } from './elaboration.class';
-
+/* tslint:disable:variable-name prefer-array-literal */
 export class ElaborationLog extends Elaboration {
 
     public message:string = "";

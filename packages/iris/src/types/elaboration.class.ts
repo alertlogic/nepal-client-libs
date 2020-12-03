@@ -1,4 +1,3 @@
-/* tslint:disable:variable-name prefer-array-literal */
 import {
     Evidence,
     EvidenceTypes,
@@ -11,7 +10,7 @@ export interface ParsedData {
     rule_id:string;
     rule_name:string;
 }
-
+/* tslint:disable:variable-name prefer-array-literal */
 export class Elaboration extends Evidence {
     public uuid:string;
     public time:Date;

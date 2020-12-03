@@ -1,6 +1,6 @@
 {
   "name": "@al/iris",
-  "version": "2.0.10",
+  "version": "2.0.11",
   "license": "MIT",
   "description": "A client for interacting with the Alert Logic Iris Public API",
   "author": {
@@ -34,7 +34,7 @@
     "interactive": "npm run build && node -i -e \"const IRISClient = require('./dist/commonjs/index.js').IRISClient;\""
   },
   "dependencies": {
-    "@al/core": "^1.0.12"
+    "@al/core": "^1.0.89"
   },
   "files": [
     "dist"
