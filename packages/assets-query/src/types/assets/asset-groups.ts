@@ -18,7 +18,9 @@ export interface Group {
 export interface Properties {
     scopes?: Scope[];
     tags?: Tag[];
-    groups?: Group[];
+    groups?: string[];
+    groups_match?: 'all' | 'any';
+    description?: string;
 }
 
 export interface AssetGroupPayload {
