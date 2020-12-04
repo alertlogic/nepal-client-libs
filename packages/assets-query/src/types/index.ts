@@ -345,6 +345,8 @@ export interface AssetQueryResultItem {
     description?: string;
     group_id?: string;
     group_name?: string;
+    groups?: string[];
+    groups_match?: 'any' | 'all';
     in_scope?: boolean;
     key?: string;
     modified_on?: number;
