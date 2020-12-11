@@ -166,18 +166,20 @@ export interface AlResponderExecutionResult extends AlResponderExecutionCommon {
     log ?: AlResponderExecutionResultLog[];
 }
 
+export interface AlResponderExecutionsHistoryResultSummary {
+    deployments ?: {[key: string]: number}[];
+    statuses ?: {[key: string]: number}[];
+    playbook_types ?: {[key: string]: number}[];
+    playbook_ids ?: {[key: string]: number}[];
+    playbook_names ?: {[key: string]: number}[];
+    taksk ?: unknown[];
+}
+
 export interface AlResponderExecutionsHistoryResult {
     count: number;// minimum 0,
     marker: string;
     executions: AlResponderExecutionsHistory[];
-    summary: {
-        deployments ?: unknown[];
-        statuses ?: unknown[];
-        playbook_types ?: unknown[];
-        playbook_ids ?: unknown[];
-        playbook_names ?: unknown[];
-        taksk ?: unknown[];
-    };
+    summary: AlResponderExecutionsHistoryResultSummary;
 }
 
 export interface AlResponderExecutionQueryParams{
