@@ -35,7 +35,7 @@ export interface AlResponderPlaybookParameter
     type?: string;
     immutable?: boolean;
     required?: boolean;
-    secret?: string;
+    secret?: boolean;
     properties?: {
         [key: string]: object;
     };
