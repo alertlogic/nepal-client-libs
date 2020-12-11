@@ -62,7 +62,7 @@ export class AlResponderClientInstance {
      * @remarks
      *
      * */
-    async getPlaybookById(accountId: string, id: string) {
+    async getPlaybookById(accountId: string, id: string): Promise<AlResponderPlaybook> {
         return this.client.get<AlResponderPlaybook>({
             version: this.serviceVersion,
             service_stack: this.serviceStack,
@@ -175,7 +175,7 @@ export class AlResponderClientInstance {
      * @remarks
      *
      * */
-    async getExecutions(accountId: string, params: AlResponderExecutionQueryParams) {
+    async getExecutions(accountId: string, params: AlResponderExecutionQueryParams): Promise<AlResponderExecutions> {
         return this.client.get<AlResponderExecutions>({
             version: this.serviceVersion,
             service_stack: this.serviceStack,
@@ -224,7 +224,7 @@ export class AlResponderClientInstance {
      * @remarks
      *
      * */
-    async getExecutionResults(accountId: string, executionId: string) {
+    async getExecutionResults(accountId: string, executionId: string): Promise<AlResponderExecutionResult> {
         return this.client.get<AlResponderExecutionResult>({
             version: this.serviceVersion,
             service_stack: this.serviceStack,
@@ -293,7 +293,7 @@ export class AlResponderClientInstance {
      * @remarks
      *
      * */
-    async getSchema(accountId: string) {
+    async getSchema(accountId: string): Promise<AlResponderSchema[]> {
         return this.client.get<AlResponderSchema[]>({
             version: this.serviceVersion,
             service_stack: this.serviceStack,
@@ -315,7 +315,7 @@ export class AlResponderClientInstance {
      * @remarks
      *
      * */
-    async getSchemaByType(accountId: string, dataType: string) {
+    async getSchemaByType(accountId: string, dataType: string): Promise<AlResponderSchema> {
         return this.client.get<AlResponderSchema>({
             version: this.serviceVersion,
             service_stack: this.serviceStack,
