@@ -105,7 +105,10 @@ export interface AlResponderExecutionCommon{
     start_timestamp ?: string;
     elapsed_seconds ?: number;
     end_timestamp ?: string;
-    result ?: object;
+    result ?: unknown;
+    modified ?: AlChangeStamp;
+    created ?: AlChangeStamp;
+    parameters ?: unknown;
 }
 
 export interface AlResponderExecution extends AlResponderExecutionCommon{
@@ -127,10 +130,7 @@ export interface AlResponderExecutionsHistory extends AlResponderExecutionCommon
     playbook_id ?: string;
     playbook_name ?: string;
     native_id ?: string;
-    parameters ?: unknown;
     action ?: unknown;
-    modified ?: AlChangeStamp;
-    created ?: AlChangeStamp;
 }
 
 export interface AlResponderExecutionSummary {
