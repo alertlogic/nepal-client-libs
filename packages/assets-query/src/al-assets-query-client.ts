@@ -274,7 +274,7 @@ export class AlAssetsQueryClientInstance {
    * "remediation_ids": ["ids_upgrade_hardware"], "deployment_ids":["0A2DC25F-5B5A-4A93-9413-1A8D6F87489E"], filters:[]}'
    */
   async disposeRemediations(accountId: string, remediationData: { deployment_ids?: string[], filters: string[] | string[][], vulnerability_ids?: string[], remediation_ids?: string[], reason: string,
-                                                                  comment: string, expires?: number}) {
+                                                                  comment: string, expires?: number, applies_to_specific_assets?: boolean}) {
     let baseRemediationData = { operation: 'dispose_remediations' };
     Object.assign(baseRemediationData, remediationData);
     return this.client.put<any>({
@@ -391,7 +391,8 @@ export class AlAssetsQueryClientInstance {
    * "https://api.cloudinsight.alertlogic.com/assets_query/v2/10000001/remediations"
    *  -d '{"operation": "conclude_remediations", "remediation_ids": ["ids_upgrade_hardware"], "deployment_ids":["0A2DC25F-5B5A-4A93-9413-1A8D6F87489E"], filters:[]}
    */
-  async concludeRemediations(accountId: string, remediationData: { deployment_ids?: string[], filters: string[] | string[][], vulnerability_ids?: string[], remediation_ids?: string[] }) {
+  async concludeRemediations(accountId: string, remediationData: {  deployment_ids?: string[], filters: string[] | string[][], vulnerability_ids?: string[],
+                                                                    remediation_ids?: string[], applies_to_specific_assets?: boolean }) {
     let baseRemediationData = { operation: 'conclude_remediations' };
     Object.assign(baseRemediationData, remediationData);
     return this.client.put<any>({

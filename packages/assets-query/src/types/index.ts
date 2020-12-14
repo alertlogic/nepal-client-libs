@@ -276,6 +276,7 @@ export interface RemediationItemsFilter {
 }
 export interface RemediationItemAsset {
     account_id?: string;
+    applies_to_specific_assets?: boolean;
     asset_count?: number;
     audit_id?: string;
     created_on?: number;
