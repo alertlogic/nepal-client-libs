@@ -201,16 +201,15 @@ export interface AlResponderExecutionsHistoryQueryParams{
     marker ?: string;
     sort_by ?: 'start_timestamp' | 'end_timestamp';
     sort_order ?:  'asc' | 'desc';
-    status ?: string;
     start_timestamp ?: string;
     end_timestamp ?: string;
     filter ?: {
         taks_id ?: string;
         task_name ?: string;
-        playbook_id ?: string;
+        playbook_id ?: string | string[];
         parent_execution_id ?: string;
         native_id ?: string;
-        status ?: status;
+        status ?: string | string[];
     };
 }
 
