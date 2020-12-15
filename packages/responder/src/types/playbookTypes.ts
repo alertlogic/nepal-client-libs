@@ -243,3 +243,5 @@ export interface AlResponderSchemaDetail{
 }
 
 export type status = "new" | "requested" | "scheduled" | "delayed" | "running" | "succeeded" | "failed" | "timeout" | "canceled";
+
+export type AlResponderPlaybookType = 'incident' | 'observation' | 'exposure' | 'remediation';
