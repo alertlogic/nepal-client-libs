@@ -100,18 +100,26 @@ export interface AlResponderPlaybook {
     workflow ?: AlResponderWorkflow;
 }
 
-export interface AlResponderExecutionCommon{
+export interface AlResponderExecutionResult {
+    output ?: unknown;
+    exit_code ?: number;
+    result ?: unknown;
+    stdout ?: string;
+    stderr ?: string;
+}
+
+export interface AlResponderExecutionCommon {
     status ?: string;
     start_timestamp ?: string;
     elapsed_seconds ?: number;
     end_timestamp ?: string;
-    result ?: unknown;
+    result ?: AlResponderExecutionResult;
     modified ?: AlChangeStamp;
     created ?: AlChangeStamp;
     parameters ?: unknown;
 }
 
-export interface AlResponderExecution extends AlResponderExecutionCommon{
+export interface AlResponderExecution extends AlResponderExecutionCommon {
     id ?: string;
     modified ?: AlChangeStamp;
     created ?: AlChangeStamp;
@@ -120,7 +128,7 @@ export interface AlResponderExecution extends AlResponderExecutionCommon{
     account_id ?: string;
 }
 
-export interface AlResponderExecutionsHistory extends AlResponderExecutionCommon{
+export interface AlResponderExecutionsHistory extends AlResponderExecutionCommon {
     id ?: string;
     task_id	?: string;
     task_name ?: string;
