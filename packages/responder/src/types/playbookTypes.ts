@@ -250,6 +250,16 @@ export interface AlResponderSchemaDetail{
     };
 }
 
+export interface AlResponderExecutionRequest{
+    payload: {
+        type?: 'action' | 'incident' | 'observation';
+        parameters?: {[key: string]: unknown};
+        incident?: {[key: string]: unknown};
+        observation?: {[key: string]: unknown};
+    };
+    playbook_id: string;
+}
+
 export type status = "new" | "requested" | "scheduled" | "delayed" | "running" | "succeeded" | "failed" | "timeout" | "canceled";
 
 export type AlResponderPlaybookType = 'incident' | 'observation' | 'exposure' | 'remediation';
