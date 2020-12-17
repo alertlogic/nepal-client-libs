@@ -15,7 +15,8 @@ import {
     AlResponderExecutionQueryParams,
     AlResponderSchema,
     AlResponderExecutionsHistoryResult,
-    AlResponderExecutionsHistoryQueryParams
+    AlResponderExecutionsHistoryQueryParams,
+    AlResponderExecutionRequest
 } from './types';
 
 export class AlResponderClientInstance {
@@ -197,11 +198,7 @@ export class AlResponderClientInstance {
      * @remarks
      */
     async createExecution(accountId: string,
-        payload: {
-            type: string;
-            payload: object;
-            playbook_id: string
-          }): Promise<AlResponderExecutions> {
+        payload: AlResponderExecutionRequest): Promise<AlResponderExecutions> {
         return this.client.post<AlResponderExecutions>({
             version: this.serviceVersion,
             service_stack: this.serviceStack,
