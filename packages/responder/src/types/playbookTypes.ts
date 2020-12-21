@@ -160,6 +160,7 @@ export interface AlResponderInspectorError {
     schema_path ?: string;
     spec_path ?: string;
     type ?: string;
+    taskId ?: string;
 }
 
 export interface AlResponderExecutionResultLog {
