@@ -34,6 +34,8 @@ import {
     ElaborationGuardDuty,
     ElaborationLog,
     RawFilterColumns,
+    AdditionalEvidenceRequest,
+    AdditionalEvidenceResponse,
 } from './types';
 
 export class AlIrisClientInstance {
@@ -663,6 +665,30 @@ export class AlIrisClientInstance {
                 path: `retinaSearch/${incidentId}`,
                 data: data,
             });
+    }
+
+    /**
+     * Elaborate additional evidence from a incident
+     * POST /iris/v3/{cid}/{incident_id}/additional_evidence
+     * @param accountId account id
+     * @param incidentId incident id
+     * @param data array with the ids of the evidences to elaborate
+     */
+    async elaborateAdditionalEvidence(
+        accountId: string,
+        incidentId: string,
+        data: AdditionalEvidenceRequest
+    ): Promise<AdditionalEvidenceResponse> {
+        return this.client.post<AdditionalEvidenceResponse>(
+            {
+                service_stack: AlLocation.InsightAPI,
+                service_name: this.serviceName,
+                version: 'v3',
+                account_id: accountId,
+                path: `${incidentId}/additional_evidence`,
+                data: data,
+            }
+        );
     }
 
     /**
