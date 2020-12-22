@@ -63,9 +63,9 @@ export interface AlResponderWorkflowTask {
     action ?: string; // The fully qualified name of the action to be executed.
     delay ?: number; // If specified, the number of seconds to delay the task execution.
     join ?: 'all' | number; // If specified, sets up a barrier for a group of parallel branches. //TBD
-    with ?: string | {
-        items: string,
-        concurrency: number
+    with ?: {
+        items ?: string,
+        concurrency ?: number
     };// When given a list, execute the action for each item.
     retry ?: {
         when ?: string;
