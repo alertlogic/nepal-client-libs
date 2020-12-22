@@ -9,6 +9,7 @@ export * from './elaboration.interface';
 export * from './evidence.class';
 export * from './old-types';
 export * from './source-type.class';
+export * from './additional-evidence-types';
 
 export interface AlIncidentFilterDictionary {
   classifications:{[classification:string]:{
