@@ -9,6 +9,7 @@ import {
 import {
     AlResponderPlaybook,
     AlResponderAction,
+    AlResponderExecution,
     AlResponderExecutions,
     AlResponderInspectorError,
     AlResponderExecutionResult,
@@ -16,7 +17,10 @@ import {
     AlResponderSchema,
     AlResponderExecutionsHistoryResult,
     AlResponderExecutionsHistoryQueryParams,
-    AlResponderExecutionRequest
+    AlResponderExecutionRequest,
+    AlResponderInquiries,
+    AlResponderInquiry,
+    AlResponderSchedule
 } from './types';
 
 export class AlResponderClientInstance {
@@ -154,7 +158,7 @@ export class AlResponderClientInstance {
      * @remarks
      *
      * */
-    async getActions(accountId: string, params?: {payload_type: string}) {
+    async getActions(accountId: string, params?: { payload_type: string }) {
         return this.client.get<AlResponderAction[]>({
             version: this.serviceVersion,
             service_stack: this.serviceStack,
@@ -208,7 +212,7 @@ export class AlResponderClientInstance {
         });
     }
 
-     /**
+    /**
      * GET
      * /v1/{account_id}/executions/{id}/result
      * https://responder.mdr.global.alertlogic.com
@@ -252,6 +256,75 @@ export class AlResponderClientInstance {
     }
 
     /**
+     * Re-run previosly executed playbook, Creates a new exection from a previously run exection.
+     * POST
+     * /v1/{account_id}/executions/{execution_id}/re_run
+     *
+     * @param accountId AIMS Account ID
+     * @param executionId Execution Id
+     * @param payload delay How long (in milliseconds) to delay the execution before scheduling
+     * @returns a promise with the new execution
+     *
+     * @remarks
+     */
+    async reRunExecution(accountId: string,
+        executionId: string,
+        payload: {
+            delay: number;
+        }): Promise<AlResponderExecution> {
+        return this.client.post<AlResponderExecution>({
+            version: this.serviceVersion,
+            service_stack: this.serviceStack,
+            account_id: accountId,
+            path: `/executions/${executionId}/re_run`,
+            data: payload
+        });
+    }
+
+    /**
+     * Pauses running execution
+     * POST
+     * /v1/{account_id}/executions/{execution_id}/pause
+     *
+     * @param accountId AIMS Account ID
+     * @param executionId Execution Id
+     * @returns a promise with the 204 or 404
+     *
+     * @remarks
+     */
+    async pauseExecution(accountId: string,
+        executionId: string): Promise<void> {
+        return this.client.post<void>({
+            version: this.serviceVersion,
+            service_stack: this.serviceStack,
+            account_id: accountId,
+            path: `/executions/${executionId}/pause`,
+        });
+    }
+
+
+    /**
+     * Resumes paused execution
+     * POST
+     * /v1/{account_id}/executions/{execution_id}/resume
+     *
+     * @param accountId AIMS Account ID
+     * @param executionId Execution Id
+     * @returns a promise with the 204 or 404
+     *
+     * @remarks
+     */
+    async resumeExecution(accountId: string,
+        executionId: string): Promise<void> {
+        return this.client.post<void>({
+            version: this.serviceVersion,
+            service_stack: this.serviceStack,
+            account_id: accountId,
+            path: `/executions/${executionId}/resume`,
+        });
+    }
+
+    /**
      * Checks workflow document and returns a list of errors if any are found
      * POST
      * /v1/{account_id}/workflow/inspect
@@ -264,9 +337,9 @@ export class AlResponderClientInstance {
      */
     async inspectWorkflow(accountId: string,
         payload: {
-            input_type: 'yaml' | 'json' ;
+            input_type: 'yaml' | 'json';
             workflow: any
-          }): Promise<AlResponderInspectorError[]> {
+        }): Promise<AlResponderInspectorError[]> {
         return this.client.post<AlResponderInspectorError[]>({
             version: this.serviceVersion,
             service_stack: this.serviceStack,
@@ -316,6 +389,96 @@ export class AlResponderClientInstance {
             service_stack: this.serviceStack,
             account_id: accountId,
             path: `/schemas/${dataType}`,
+        });
+    }
+
+    /**
+     * Get inquiries by account
+     * GET
+     * /v1/{account_id}/inquiries
+     * https://responder.mdr.global.alertlogic.com
+     *
+     * @param accountId AIMS Account ID
+     * @returns Inquiries list
+     *
+     * @remarks
+     *
+     * */
+    async getInquiries(accountId: string): Promise<AlResponderInquiries> {
+        return this.client.get<AlResponderInquiries>({
+            version: this.serviceVersion,
+            service_stack: this.serviceStack,
+            account_id: accountId,
+            path: `/inquiries`,
+        });
+    }
+
+    /**
+     * Returns a specific inquiry
+     * GET
+     * /v1/{account_id}/inquiries
+     * https://responder.mdr.global.alertlogic.com
+     *
+     * @param accountId AIMS Account ID
+     * @param inquiryId Inquiry Id
+     * @returns Inquiries list
+     *
+     * @remarks
+     *
+     * */
+    async getInquiry(accountId: string, inquiryId: string): Promise<AlResponderInquiry> {
+        return this.client.get<AlResponderInquiry>({
+            version: this.serviceVersion,
+            service_stack: this.serviceStack,
+            account_id: accountId,
+            path: `/inquiries/${inquiryId}`,
+        });
+    }
+
+    /**
+     * Update existing inquiry
+     * PUT
+     * /v1/{account_id}/inquiries
+     * https://responder.mdr.global.alertlogic.com
+     *
+     * @param accountId AIMS Account ID
+     * @returns Inquiry
+     *
+     * @remarks
+     *
+     * */
+    async updateInquiry(
+        accountId: string,
+        inquiryId: string,
+        payload: { [key: string]: unknown })
+        : Promise<AlResponderInquiry> {
+        return this.client.put<{ id: string; response: { [key: string]: unknown } }>({
+            version: this.serviceVersion,
+            service_stack: this.serviceStack,
+            account_id: accountId,
+            path: `/inquiries/${inquiryId}`,
+            data: payload
+        });
+    }
+
+    /**
+     * Get schedules by account
+     * GET
+     * /v1/{account_id}/schedules
+     * https://responder.mdr.global.alertlogic.com
+     *
+     * @param accountId AIMS Account ID
+     * @returns Schedules list
+     *
+     * @remarks
+     *
+     * */
+    async getSchedules(accountId: string): Promise<AlResponderSchedule[]> {
+        return this.client.get<AlResponderSchedule[]>({
+            version: this.serviceVersion,
+            service_stack: this.serviceStack,
+            account_id: accountId,
+            path: `/schedules`,
         });
     }
 }

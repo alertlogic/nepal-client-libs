@@ -261,6 +261,53 @@ export interface AlResponderExecutionRequest{
     playbook_id: string;
 }
 
+export interface AlResponderInquiry {
+    id: string;
+    status?: string;
+    start_timestamp?: number;
+    end_timestamp?: number;
+    liveaction?: {
+        route?: string;
+        parameters?: {
+            schema?: { [key: string]: unknown };
+            route?: string;
+            ttl?: number;
+        };
+    };
+    result?: { [key: string]: unknown };
+}
+
+export interface AlResponderInquiries {
+    inquiries?: AlResponderInquiry[];
+    count?: number;
+    marker?: string;
+}
+
+export interface AlResponderScheduleDetail {
+    timezone?: string;
+    year?: number;
+    month?: number;
+    day?: number;
+    week?: number;
+    day_of_week?: number;
+    hour?: number;
+    minute?: number;
+    second?: number;
+    type: "datetime" | "interval" | "cron"; // cron datetime interval not sure if there are more
+    delta?: number;
+    unit?: "seconds" | "minutes" | "hours" | "days" | "weeks";
+    date?: string;
+}
+
+export interface AlResponderSchedule {
+    name?: string;
+    description?: string;
+    ref?: string;
+    parameters?: { [key: string]: unknown };
+    schedule?: AlResponderScheduleDetail;
+    enabled: boolean;
+}
+
 export type status = "new" | "requested" | "scheduled" | "delayed" | "running" | "succeeded" | "failed" | "timeout" | "canceled";
 
 export type AlResponderPlaybookType = 'incident' | 'observation' | 'exposure' | 'remediation';
