@@ -279,7 +279,7 @@ export interface AlResponderInquiry {
 
 export interface AlResponderInquiries {
     inquiries?: AlResponderInquiry[];
-    count?: string;
+    count?: number;
     marker?: string;
 }
 
