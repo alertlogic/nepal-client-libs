@@ -45,12 +45,14 @@ describe('Responder Client', () => {
     ];
     const inquiryMock: AlResponderInquiry = {
         id: 'belen',
-        status: 'pending'
+        status: 'pending',
+        type: "email"
     };
     const inquiriesMock: AlResponderInquiries = {
         inquiries: [inquiryMock],
         count: 1,
-        marker: ""
+        marker: "",
+        summary: {}
     };
     const executionMock: AlResponderExecution = {
         "id": "string",
