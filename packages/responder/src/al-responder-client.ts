@@ -451,7 +451,7 @@ export class AlResponderClientInstance {
         accountId: string,
         inquiryId: string,
         payload: { [key: string]: unknown })
-        : Promise<AlResponderInquiry> {
+        : Promise<{ id: string; response: { [key: string]: unknown } }> {
         return this.client.put<{ id: string; response: { [key: string]: unknown } }>({
             version: this.serviceVersion,
             service_stack: this.serviceStack,

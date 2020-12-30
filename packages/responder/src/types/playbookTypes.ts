@@ -141,11 +141,15 @@ export interface AlResponderExecutionsHistory extends AlResponderExecutionCommon
     action ?: unknown;
 }
 
-export interface AlResponderExecutionSummary {
+export interface AlResponderExecutionSummary { // TODO this should be replace by AlResponderSummary
     deployments: {[key: string]: number}[];
     playbooks: {[key: string]: number}[];
     statuses: {[key: string]: number}[];
     types: {[key: string]: number}[];
+}
+
+export interface AlResponderSummary {
+    [key: string]: {[key: string]: number}[];
 }
 
 export interface AlResponderExecutions {
@@ -263,24 +267,24 @@ export interface AlResponderExecutionRequest{
 
 export interface AlResponderInquiry {
     id: string;
+    type: string;
     status?: string;
     start_timestamp?: number;
     end_timestamp?: number;
-    liveaction?: {
-        route?: string;
-        parameters?: {
-            schema?: { [key: string]: unknown };
-            route?: string;
-            ttl?: number;
-        };
-    };
-    result?: { [key: string]: unknown };
+    parameters?: AlResponderPlaybookParameter;
+    task_name?: string;
+    name?: string;
+    display_name?: string;
+    description?: string;
+    playbook_id?: string;
+    execution_id?: string;
 }
 
 export interface AlResponderInquiries {
-    inquiries?: AlResponderInquiry[];
+    inquiries: AlResponderInquiry[];
     count?: number;
     marker?: string;
+    summary: AlResponderSummary;
 }
 
 export interface AlResponderScheduleDetail {
