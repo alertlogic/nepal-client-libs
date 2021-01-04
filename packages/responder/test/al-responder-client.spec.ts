@@ -49,7 +49,7 @@ describe('Responder Client', () => {
         type: "email"
     };
     const inquiriesMock: AlResponderInquiries = {
-        inquiries: [inquiryMock],
+        executions: [inquiryMock],
         count: 1,
         marker: "",
         summary: {}

@@ -271,7 +271,7 @@ export interface AlResponderInquiry {
     status?: string;
     start_timestamp?: number;
     end_timestamp?: number;
-    parameters?: AlResponderPlaybookParameter;
+    parameters?: { [key: string]: AlResponderPlaybookParameter };
     task_name?: string;
     name?: string;
     display_name?: string;
@@ -281,7 +281,7 @@ export interface AlResponderInquiry {
 }
 
 export interface AlResponderInquiries {
-    inquiries: AlResponderInquiry[];
+    executions: AlResponderInquiry[];
     count?: number;
     marker?: string;
     summary: AlResponderSummary;
