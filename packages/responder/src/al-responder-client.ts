@@ -20,7 +20,8 @@ import {
     AlResponderExecutionRequest,
     AlResponderInquiries,
     AlResponderInquiry,
-    AlResponderSchedule
+    AlResponderSchedule,
+    AlResponderInquiriesHistoryQueryParams
 } from './types';
 
 export class AlResponderClientInstance {
@@ -410,6 +411,28 @@ export class AlResponderClientInstance {
             service_stack: this.serviceStack,
             account_id: accountId,
             path: `/inquiries`,
+        });
+    }
+
+    /**
+     * Get inquiries history by account
+     * GET
+     * /v1/{account_id}/inquiries/history
+     * https://responder.mdr.global.alertlogic.com
+     *
+     * @param accountId AIMS Account ID
+     * @returns Inquiries list
+     *
+     * @remarks
+     *
+     * */
+    async getInquiriesHistory(accountId: string, request: AlResponderInquiriesHistoryQueryParams): Promise<AlResponderInquiries> {
+        return this.client.post<AlResponderInquiries>({
+            version: this.serviceVersion,
+            service_stack: this.serviceStack,
+            account_id: accountId,
+            path: `/inquiries`,
+            data: request
         });
     }
 

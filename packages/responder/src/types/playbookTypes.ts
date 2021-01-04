@@ -226,6 +226,23 @@ export interface AlResponderExecutionsHistoryQueryParams{
     };
 }
 
+export interface AlResponderInquiriesHistoryQueryParams{
+    limit ?: number;// default: 50 minimum: 10 maximum: 100
+    marker ?: string;
+    sort_by ?: 'start_timestamp' | 'end_timestamp';
+    sort_order ?:  'asc' | 'desc';
+    start_timestamp ?: string;
+    end_timestamp ?: string;
+    status?: string[];
+    filter ?: {
+        name ?: string | string[];
+        playbook_id ?: string | string[];
+        task_name ?: string | string[];
+        status ?: string | string[];
+        type ?: string | string[];
+    };
+}
+
 export interface AlResponderSchema{
     name ?: string;
     version ?: string;
