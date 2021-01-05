@@ -295,6 +295,11 @@ export interface AlResponderInquiry {
     description?: string;
     playbook_id?: string;
     execution_id?: string;
+
+    // the following fields are going to be populated in the ui
+    playbook_name?: string;
+    start_time?: string;
+    end_time?: string;
 }
 
 export interface AlResponderInquiries {

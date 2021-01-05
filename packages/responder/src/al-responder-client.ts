@@ -431,7 +431,7 @@ export class AlResponderClientInstance {
             version: this.serviceVersion,
             service_stack: this.serviceStack,
             account_id: accountId,
-            path: `/inquiries`,
+            path: `/inquiries/history`,
             data: request
         });
     }
