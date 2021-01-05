@@ -235,6 +235,7 @@ export interface AlResponderInquiriesHistoryQueryParams{
     end_timestamp ?: string;
     status?: string[];
     filter ?: {
+        display_name ?: string | string[];
         name ?: string | string[];
         playbook_id ?: string | string[];
         task_name ?: string | string[];
