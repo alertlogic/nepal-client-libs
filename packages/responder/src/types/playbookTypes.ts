@@ -1,6 +1,5 @@
 import { AlChangeStamp } from '@al/core';
 
-
 export interface AlResponderActionShort {
     name ?: string;
     description ?: string;
@@ -299,6 +298,7 @@ export interface AlResponderInquiry {
 
     // the following fields are going to be populated in the ui
     playbook_name?: string;
+    playbook_description?: string;
     start_time?: string;
     end_time?: string;
 }
