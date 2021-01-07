@@ -89,7 +89,7 @@ export interface AlResponderPlaybook {
     id ?: string;
     name ?: string;
     description ?: string;
-    type : 'incident' | 'observation' | 'exposure' | 'remediation';
+    type ?: 'incident' | 'observation' | 'exposure' | 'remediation';
     enabled ?: boolean;
     tags ?: {key:string, value:string}[]; // candidate to be a type
     parameters ?: {
