@@ -213,8 +213,8 @@ export interface AlResponderExecutionsHistoryQueryParams{
     marker ?: string;
     sort_by ?: 'start_timestamp' | 'end_timestamp';
     sort_order ?:  'asc' | 'desc';
-    start_timestamp ?: string;
-    end_timestamp ?: string;
+    start_timestamp ?: number;
+    end_timestamp ?: number;
     filter ?: {
         taks_id ?: string;
         task_name ?: string;
