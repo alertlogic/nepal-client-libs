@@ -117,14 +117,14 @@ export interface AlResponderExecutionCommon {
     result ?: AlResponderExecutionCommonResult;
     modified ?: AlChangeStamp;
     created ?: AlChangeStamp;
-    parameters ?: unknown;
+    parameters ?: {
+        [key: string]: number | string | boolean | string[] | object;
+    };
+    playbook_id ?: string;
+    type ?: string;
 }
 
 export interface AlResponderExecution extends AlResponderExecutionCommon {
-    modified ?: AlChangeStamp;
-    created ?: AlChangeStamp;
-    playbook_id ?: string;
-    type ?: string;
     account_id ?: string;
 }
 
@@ -133,10 +133,7 @@ export interface AlResponderExecutionsHistory extends AlResponderExecutionCommon
     task_name ?: string;
     parent_execution_id ?: string;
     playbook_type ?: string;
-    type ?: string;
-    playbook_id ?: string;
     playbook_name ?: string;
-    native_id ?: string;
     action ?: unknown;
 }
 
@@ -172,7 +169,6 @@ export interface AlResponderExecutionResultLog {
 }
 
 export interface AlResponderExecutionResult extends AlResponderExecutionCommon {
-    parameters ?: {[key: string]: number | string | boolean | string[] | object};
     action ?: AlResponderActionShort;
     children ?: AlResponderExecutionResult[];
     log ?: AlResponderExecutionResultLog[];
