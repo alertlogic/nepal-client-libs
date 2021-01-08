@@ -11,6 +11,7 @@ export class AlObservation {
     elaborations:    unknown[];
     endTs:          number;
     id:              string;
+    keys:           unknown[];
     parents:         ObservationParents;
     path:            string;
     properties:      ObservationProperties;
