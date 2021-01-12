@@ -246,7 +246,7 @@ export class AlResponderClientInstance {
      * @remarks
      *
      * */
-    async getExecutionsHistory(accountId: string, payload: AlResponderExecutionsHistoryQueryParams): Promise<AlResponderExecutionsHistoryResult> {
+    async getExecutionsHistory(accountId: string, payload: AlResponderExecutionQueryParams): Promise<AlResponderExecutionsHistoryResult> {
         return this.client.post<AlResponderExecutionsHistoryResult>({
             data: payload,
             version: this.serviceVersion,
@@ -426,7 +426,7 @@ export class AlResponderClientInstance {
      * @remarks
      *
      * */
-    async getInquiriesHistory(accountId: string, request: AlResponderInquiriesHistoryQueryParams): Promise<AlResponderInquiries> {
+    async getInquiriesHistory(accountId: string, request: AlResponderExecutionQueryParams): Promise<AlResponderInquiries> {
         return this.client.post<AlResponderInquiries>({
             version: this.serviceVersion,
             service_stack: this.serviceStack,

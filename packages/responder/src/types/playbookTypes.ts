@@ -111,9 +111,9 @@ export interface AlResponderExecutionCommon {
     id: string;
     native_id ?: string;
     status ?: string;
-    start_timestamp ?: string;
+    start_timestamp ?: string | number;
     elapsed_seconds ?: number;
-    end_timestamp ?: string;
+    end_timestamp ?: string | number;
     result ?: AlResponderExecutionCommonResult;
     modified ?: AlChangeStamp;
     created ?: AlChangeStamp;
@@ -197,10 +197,24 @@ export interface AlResponderExecutionQueryParams{
     playbook_id ?: string;
     sort_by ?: 'start_timestamp' | 'end_timestamp';
     sort_order ?:  'asc' | 'desc';
-    status ?: string;
-    start_timestamp ?: string;
-    end_timestamp ?: string;
+    status ?: string | string[];
+    start_timestamp ?: string | number;
+    end_timestamp ?: string | number;
     type ?: string;
+    execution_type ?: string;
+    filter ?: {
+        display_name ?: string | string[];
+        name ?: string | string[];
+        playbook_id ?: string | string[];
+        task_name ?: string | string[];
+        status ?: string | string[];
+        type ?: string | string[];
+        taks_id ?: string;
+        parent_execution_id ?: string;
+        native_id ?: string;
+        deployment ?: string | string[];
+        playbook_type ?: string | string[];
+    };
 }
 
 export interface AlResponderExecutionsHistoryQueryParams{
@@ -209,8 +223,8 @@ export interface AlResponderExecutionsHistoryQueryParams{
     marker ?: string;
     sort_by ?: 'start_timestamp' | 'end_timestamp';
     sort_order ?:  'asc' | 'desc';
-    start_timestamp ?: number;
-    end_timestamp ?: number;
+    start_timestamp ?: number | string;
+    end_timestamp ?: number | string;
     filter ?: {
         taks_id ?: string;
         task_name ?: string;
@@ -226,8 +240,8 @@ export interface AlResponderInquiriesHistoryQueryParams{
     marker ?: string;
     sort_by ?: 'start_timestamp' | 'end_timestamp';
     sort_order ?:  'asc' | 'desc';
-    start_timestamp ?: string;
-    end_timestamp ?: string;
+    start_timestamp ?: string | number;
+    end_timestamp ?: string | number;
     status?: string[];
     filter ?: {
         display_name ?: string | string[];
@@ -282,8 +296,8 @@ export interface AlResponderInquiry {
     id: string;
     type: string;
     status?: string;
-    start_timestamp?: number;
-    end_timestamp?: number;
+    start_timestamp?: number | string;
+    end_timestamp?: number | string;
     parameters?: { [key: string]: AlResponderPlaybookParameter };
     task_name?: string;
     name?: string;
@@ -304,6 +318,8 @@ export interface AlResponderInquiries {
     count?: number;
     marker?: string;
     summary: AlResponderSummary;
+    start_timestamp?: string | number;
+    end_timestamp?: string | string;
 }
 
 export interface AlResponderScheduleDetail {
