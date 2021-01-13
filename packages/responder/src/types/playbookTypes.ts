@@ -202,6 +202,7 @@ export interface AlResponderExecutionQueryParams{
     end_timestamp ?: string | number;
     type ?: string;
     execution_type ?: string;
+    query_string ?: string;
     filter ?: {
         display_name ?: string | string[];
         name ?: string | string[];
