@@ -1,6 +1,6 @@
 import {
-  AlDefaultClient,
-  AlLocatorService,
+    AlDefaultClient,
+    AlLocatorService,
 } from '@al/core';
 import { expect } from 'chai';
 import { describe } from 'mocha';
@@ -8,9 +8,9 @@ import * as sinon from 'sinon';
 import { AlResponderPlaybook, AlResponderClient, AlResponderInquiry, AlResponderInquiries, AlResponderExecution, AlResponderActionShort, AlResponderAction, AlResponderSchedule } from '../src/index';
 
 beforeEach(() => {
-  AlLocatorService.setContext( { environment: "production" } );
-  AlDefaultClient.setGlobalParameters( { noEndpointsResolution: true } );
-} );
+    AlLocatorService.setContext({ environment: "production" });
+    AlDefaultClient.setGlobalParameters({ noEndpointsResolution: true });
+});
 
 afterEach(() => {
     sinon.restore();
@@ -27,20 +27,20 @@ describe('Responder Client', () => {
     const executionId = "123456";
     const playbooksMock: AlResponderPlaybook[] = [
         {
-          "id": "string",
-          "name": "string",
-          "description": "string",
-          "type": "incident",
-          "enabled": true,
-          "tags": [
-            {
-              "key": "string",
-              "value": "string"
-            }
-          ],
-          "parameters": {},
-          "output_schema": {},
-          "workflow": {}
+            "id": "string",
+            "name": "string",
+            "description": "string",
+            "type": "incident",
+            "enabled": true,
+            "tags": [
+                {
+                    "key": "string",
+                    "value": "string"
+                }
+            ],
+            "parameters": {},
+            "output_schema": {},
+            "workflow": {}
         }
     ];
     const inquiryMock: AlResponderInquiry = {
@@ -107,7 +107,7 @@ describe('Responder Client', () => {
     describe('Playbook', () => {
         describe('When get playbbok', () => {
             beforeEach(() => {
-                stub = sinon.stub(AlDefaultClient as any, 'axiosRequest').returns(Promise.resolve({status: 200, data: playbooksMock}));
+                stub = sinon.stub(AlDefaultClient as any, 'axiosRequest').returns(Promise.resolve({ status: 200, data: playbooksMock }));
             });
             afterEach(() => {
                 stub.restore();
@@ -115,10 +115,10 @@ describe('Responder Client', () => {
             it('Should call the client instance\'s GET.', async () => {
                 const result = await AlResponderClient.getPlaybooks(accountId);
                 const payload = stub.args[0][0];
-                expect( stub.callCount ).to.equal( 1 );
-                expect( payload.method ).to.equal( "GET" );
-                expect( payload.url ).to.equal( `${apiBaseURL}/${version}/${accountId}/playbooks` );
-                expect( result ).to.equal( playbooksMock );
+                expect(stub.callCount).to.equal(1);
+                expect(payload.method).to.equal("GET");
+                expect(payload.url).to.equal(`${apiBaseURL}/${version}/${accountId}/playbooks`);
+                expect(result).to.equal(playbooksMock);
             });
         });
 
@@ -138,7 +138,7 @@ describe('Responder Client', () => {
 
         describe('When update playbook is called', () => {
             beforeEach(() => {
-                stub = sinon.stub(AlDefaultClient as any, 'axiosRequest').returns(Promise.resolve({status: 200, data: playbooksMock[0]}));
+                stub = sinon.stub(AlDefaultClient as any, 'axiosRequest').returns(Promise.resolve({ status: 200, data: playbooksMock[0] }));
             });
             afterEach(() => {
                 stub.restore();
@@ -146,9 +146,9 @@ describe('Responder Client', () => {
             it('Should call the client instance\'s PUT.', async () => {
                 await AlResponderClient.updatePlaybook(accountId, playbookId, playbooksMock[0]);
                 const payload = stub.args[0][0];
-                expect( stub.callCount ).to.equal( 1 );
-                expect( payload.method ).to.equal( "PUT" );
-                expect( payload.url ).to.equal( `${apiBaseURL}/${version}/${accountId}/playbooks/${playbookId}` );
+                expect(stub.callCount).to.equal(1);
+                expect(payload.method).to.equal("PUT");
+                expect(payload.url).to.equal(`${apiBaseURL}/${version}/${accountId}/playbooks/${playbookId}`);
             });
         });
     });
@@ -156,18 +156,18 @@ describe('Responder Client', () => {
     describe('Actions', () => {
         describe('When get actions', () => {
             beforeEach(() => {
-                stub = sinon.stub(AlDefaultClient as any, 'axiosRequest').returns(Promise.resolve({status: 200, data: actions }));
+                stub = sinon.stub(AlDefaultClient as any, 'axiosRequest').returns(Promise.resolve({ status: 200, data: actions }));
             });
             afterEach(() => {
                 stub.restore();
             });
             it('Should call the client instance\'s GET.', async () => {
-                const result = await AlResponderClient.getActions(accountId,{payload_type:"incident"});
+                const result = await AlResponderClient.getActions(accountId, { payload_type: "incident" });
                 const payload = stub.args[0][0];
-                expect( stub.callCount ).to.equal( 1 );
-                expect( payload.method ).to.equal( "GET" );
-                expect( payload.url ).to.equal( `${apiBaseURL}/${version}/${accountId}/actions` );
-                expect( result ).to.equal( actions );
+                expect(stub.callCount).to.equal(1);
+                expect(payload.method).to.equal("GET");
+                expect(payload.url).to.equal(`${apiBaseURL}/${version}/${accountId}/actions`);
+                expect(result).to.equal(actions);
             });
         });
     });
@@ -175,24 +175,24 @@ describe('Responder Client', () => {
     describe('Executions actions', () => {
         describe('When re-run is called', () => {
             beforeEach(() => {
-                stub = sinon.stub(AlDefaultClient as any, 'axiosRequest').returns(Promise.resolve({status: 200, data: executionMock }));
+                stub = sinon.stub(AlDefaultClient as any, 'axiosRequest').returns(Promise.resolve({ status: 200, data: executionMock }));
             });
             afterEach(() => {
                 stub.restore();
             });
             it('Should call the client instance\'s POST.', async () => {
-                const result = await AlResponderClient.reRunExecution(accountId, executionId, {delay:30});
+                const result = await AlResponderClient.reRunExecution(accountId, executionId, { delay: 30 });
                 const payload = stub.args[0][0];
-                expect( stub.callCount ).to.equal( 1 );
-                expect( payload.method ).to.equal( "POST" );
-                expect( payload.url ).to.equal( `${apiBaseURL}/${version}/${accountId}/executions/${executionId}/re_run` );
-                expect( result ).to.equal( executionMock );
+                expect(stub.callCount).to.equal(1);
+                expect(payload.method).to.equal("POST");
+                expect(payload.url).to.equal(`${apiBaseURL}/${version}/${accountId}/executions/${executionId}/re_run`);
+                expect(result).to.equal(executionMock);
             });
         });
 
         describe('When paused is called', () => {
             beforeEach(() => {
-                stub = sinon.stub(AlDefaultClient as any, 'axiosRequest').returns(Promise.resolve({status: 200 }));
+                stub = sinon.stub(AlDefaultClient as any, 'axiosRequest').returns(Promise.resolve({ status: 200 }));
             });
             afterEach(() => {
                 stub.restore();
@@ -200,15 +200,15 @@ describe('Responder Client', () => {
             it('Should call the client instance\'s POST.', async () => {
                 await AlResponderClient.pauseExecution(accountId, executionId);
                 const payload = stub.args[0][0];
-                expect( stub.callCount ).to.equal( 1 );
-                expect( payload.method ).to.equal( "POST" );
-                expect( payload.url ).to.equal( `${apiBaseURL}/${version}/${accountId}/executions/${executionId}/pause` );
+                expect(stub.callCount).to.equal(1);
+                expect(payload.method).to.equal("POST");
+                expect(payload.url).to.equal(`${apiBaseURL}/${version}/${accountId}/executions/${executionId}/pause`);
             });
         });
 
         describe('When resume is called', () => {
             beforeEach(() => {
-                stub = sinon.stub(AlDefaultClient as any, 'axiosRequest').returns(Promise.resolve({status: 200 }));
+                stub = sinon.stub(AlDefaultClient as any, 'axiosRequest').returns(Promise.resolve({ status: 200 }));
             });
             afterEach(() => {
                 stub.restore();
@@ -216,16 +216,16 @@ describe('Responder Client', () => {
             it('Should call the client instance\'s POST.', async () => {
                 await AlResponderClient.resumeExecution(accountId, executionId);
                 const payload = stub.args[0][0];
-                expect( stub.callCount ).to.equal( 1 );
-                expect( payload.method ).to.equal( "POST" );
-                expect( payload.url ).to.equal( `${apiBaseURL}/${version}/${accountId}/executions/${executionId}/resume` );
+                expect(stub.callCount).to.equal(1);
+                expect(payload.method).to.equal("POST");
+                expect(payload.url).to.equal(`${apiBaseURL}/${version}/${accountId}/executions/${executionId}/resume`);
             });
         });
     });
     describe('Inquiries', () => {
         describe('When get inquiries', () => {
             beforeEach(() => {
-                stub = sinon.stub(AlDefaultClient as any, 'axiosRequest').returns(Promise.resolve({status: 200, data: inquiriesMock}));
+                stub = sinon.stub(AlDefaultClient as any, 'axiosRequest').returns(Promise.resolve({ status: 200, data: inquiriesMock }));
             });
             afterEach(() => {
                 stub.restore();
@@ -233,16 +233,16 @@ describe('Responder Client', () => {
             it('Should call the client instance\'s GET.', async () => {
                 const result = await AlResponderClient.getInquiries(accountId);
                 const payload = stub.args[0][0];
-                expect( stub.callCount ).to.equal( 1 );
-                expect( payload.method ).to.equal( "GET" );
-                expect( payload.url ).to.equal( `${apiBaseURL}/${version}/${accountId}/inquiries` );
-                expect( result ).to.equal( inquiriesMock );
+                expect(stub.callCount).to.equal(1);
+                expect(payload.method).to.equal("GET");
+                expect(payload.url).to.equal(`${apiBaseURL}/${version}/${accountId}/inquiries`);
+                expect(result).to.equal(inquiriesMock);
             });
         });
 
         describe('When get inquiry', () => {
             beforeEach(() => {
-                stub = sinon.stub(AlDefaultClient as any, 'axiosRequest').returns(Promise.resolve({status: 200, data: inquiryMock}));
+                stub = sinon.stub(AlDefaultClient as any, 'axiosRequest').returns(Promise.resolve({ status: 200, data: inquiryMock }));
             });
             afterEach(() => {
                 stub.restore();
@@ -251,18 +251,20 @@ describe('Responder Client', () => {
                 const inquiryId = "someid";
                 const result = await AlResponderClient.getInquiry(accountId, inquiryId);
                 const payload = stub.args[0][0];
-                expect( stub.callCount ).to.equal( 1 );
-                expect( payload.method ).to.equal( "GET" );
-                expect( payload.url ).to.equal( `${apiBaseURL}/${version}/${accountId}/inquiries/${inquiryId}` );
-                expect( result ).to.equal( inquiryMock );
+                expect(stub.callCount).to.equal(1);
+                expect(payload.method).to.equal("GET");
+                expect(payload.url).to.equal(`${apiBaseURL}/${version}/${accountId}/inquiries/${inquiryId}`);
+                expect(result).to.equal(inquiryMock);
             });
         });
     });
 
     describe('Schedules', () => {
+        const scheduleId = "123";
+
         describe('When get schedules', () => {
             beforeEach(() => {
-                stub = sinon.stub(AlDefaultClient as any, 'axiosRequest').returns(Promise.resolve({status: 200, data: schedules}));
+                stub = sinon.stub(AlDefaultClient as any, 'axiosRequest').returns(Promise.resolve({ status: 200, data: schedules }));
             });
             afterEach(() => {
                 stub.restore();
@@ -270,10 +272,57 @@ describe('Responder Client', () => {
             it('Should call the client instance\'s GET.', async () => {
                 const result = await AlResponderClient.getSchedules(accountId);
                 const payload = stub.args[0][0];
-                expect( stub.callCount ).to.equal( 1 );
-                expect( payload.method ).to.equal( "GET" );
-                expect( payload.url ).to.equal( `${apiBaseURL}/${version}/${accountId}/schedules` );
-                expect( result ).to.equal( schedules );
+                expect(stub.callCount).to.equal(1);
+                expect(payload.method).to.equal("GET");
+                expect(payload.url).to.equal(`${apiBaseURL}/${version}/${accountId}/schedules`);
+                expect(result).to.equal(schedules);
+            });
+        });
+
+        describe('When get schedule by id', () => {
+            beforeEach(() => {
+                stub = sinon.stub(AlDefaultClient as any, 'axiosRequest').returns(Promise.resolve({ status: 200, data: schedules[0] }));
+            });
+            afterEach(() => {
+                stub.restore();
+            });
+            it('Should call the client instance\'s GET.', async () => {
+                const result = await AlResponderClient.getScheduleById(accountId, scheduleId);
+                const payload = stub.args[0][0];
+                expect(stub.callCount).to.equal(1);
+                expect(payload.method).to.equal("GET");
+                expect(payload.url).to.equal(`${apiBaseURL}/${version}/${accountId}/schedules/${scheduleId}`);
+                expect(result).to.equal(schedules[0]);
+            });
+        });
+
+        describe('When delete schedule by id is called', () => {
+            beforeEach(() => {
+                stub = sinon.stub(AlDefaultClient as any, 'axiosRequest').returns({ status: 204 });
+            });
+            afterEach(() => {
+                stub.restore();
+            });
+            it('Should call the client instance\'s DELETE.', async () => {
+                await AlResponderClient.deleteScheduleById(accountId, scheduleId);
+                expect(stub.callCount).to.equal(1);
+                expect(stub.args[0][0].url).to.equal(`${apiBaseURL}/${version}/${accountId}/schedules/${scheduleId}`);
+            });
+        });
+
+        describe('When update schedule is called', () => {
+            beforeEach(() => {
+                stub = sinon.stub(AlDefaultClient as any, 'axiosRequest').returns(Promise.resolve({ status: 200, data: schedules[0] }));
+            });
+            afterEach(() => {
+                stub.restore();
+            });
+            it('Should call the client instance\'s PUT.', async () => {
+                await AlResponderClient.updateSchedule(accountId, scheduleId, schedules[0]);
+                const payload = stub.args[0][0];
+                expect(stub.callCount).to.equal(1);
+                expect(payload.method).to.equal("PUT");
+                expect(payload.url).to.equal(`${apiBaseURL}/${version}/${accountId}/schedules/${scheduleId}`);
             });
         });
     });

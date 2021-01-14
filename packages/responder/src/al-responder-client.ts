@@ -504,4 +504,93 @@ export class AlResponderClientInstance {
             path: `/schedules`,
         });
     }
+
+    /**
+     * Create a new schedule
+     * POST
+     * /v1/{account_id}/schedules
+     *
+     * @param accountId AIMS Account ID
+     * @param schedule
+     * @returns a promise with the new schedule
+     *
+     * @remarks
+     */
+    async createSchedule(accountId: string,
+        payload: AlResponderSchedule): Promise<AlResponderSchedule> {
+        return this.client.post<AlResponderSchedule>({
+            version: this.serviceVersion,
+            service_stack: this.serviceStack,
+            account_id: accountId,
+            path: `/schedules`,
+            data: payload
+        });
+    }
+
+    /**
+     * Deletes existing schedule
+     * DELETE
+     * /v1/{account_id}/schedules/{id}
+     *
+     * @param accountId AIMS Account ID
+     * @param id Schedules ID
+     * @returns just the status code 204, 403, 404
+     *
+     * @remarks
+     */
+    async deleteScheduleById(accountId: string, id: string) {
+        const result = await this.client.delete({
+            version: this.serviceVersion,
+            service_stack: this.serviceStack,
+            account_id: accountId,
+            path: `/schedules/${id}`
+        });
+        return result;
+    }
+
+    /**
+    * Update existing Schedule
+    * PUT
+    * /v1/{account_id}/schedules/{id}
+    *
+    * @param accountId AIMS Account ID
+    * @param id Schedule id
+    * @param payload
+    * @returns a promise with the updated schedule
+    *
+    * @remarks
+    */
+    async updateSchedule(accountId: string,
+        id: string,
+        payload: AlResponderSchedule): Promise<AlResponderSchedule> {
+        return this.client.put<AlResponderSchedule>({
+            version: this.serviceVersion,
+            service_stack: this.serviceStack,
+            account_id: accountId,
+            path: `/schedules/${id}`,
+            data: payload
+        });
+    }
+
+    /**
+     * Get Schedule by id
+     * GET
+     * /v1/{account_id}/schedules/{id}
+     * https://responder.mdr.global.alertlogic.com
+     *
+     * @param accountId AIMS Account ID
+     * @param id Schedule ID
+     * @returns an existing schedule
+     *
+     * @remarks
+     *
+     * */
+    async getScheduleById(accountId: string, id: string): Promise<AlResponderSchedule> {
+        return this.client.get<AlResponderSchedule>({
+            version: this.serviceVersion,
+            service_stack: this.serviceStack,
+            account_id: accountId,
+            path: `/schedules/${id}`
+        });
+    }
 }
