@@ -326,6 +326,26 @@ export class AlResponderClientInstance {
     }
 
     /**
+     * Cancels Execution
+     * DELETE
+     * /v1/{account_id}/executions/{execution_id}
+     *
+     * @param accountId AIMS Account ID
+     * @param id Execution_id
+     * @returns just the status code 204, 403, 404
+     *
+     * @remarks
+     */
+    async deleteExecutionById(accountId: string, id: string):Promise<void> {
+        return await this.client.delete({
+            version: this.serviceVersion,
+            service_stack: this.serviceStack,
+            account_id: accountId,
+            path: `/executions/${id}`
+        });
+    }
+
+    /**
      * Checks workflow document and returns a list of errors if any are found
      * POST
      * /v1/{account_id}/workflow/inspect
