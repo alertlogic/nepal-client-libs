@@ -350,6 +350,9 @@ export interface AssetQueryResultItem {
     groups_match?: 'any' | 'all';
     in_scope?: boolean;
     key?: string;
+    membership_counts?: {
+        [property: string]: number;
+    };
     modified_on?: number;
     name?: string;
     native_type?: string;
