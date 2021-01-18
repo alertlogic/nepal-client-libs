@@ -11,7 +11,7 @@ export class AlObservation {
     elaborations:    unknown[];
     endTs:          number;
     id:              string;
-    keys:           unknown[];
+    keys:            ObservationKeys;
     parents:         ObservationParents;
     path:            string;
     properties:      ObservationProperties;
@@ -74,6 +74,10 @@ export interface ObservationProperties {
 }
 
 export interface ObservationScope {
+}
+
+export interface ObservationKeys {
+    [key: string]: any & {enrichment_map?: {[key: string]: string[]}};
 }
 
 // Observation wasnt being exported in the js code for some reason
