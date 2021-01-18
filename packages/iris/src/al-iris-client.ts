@@ -1199,6 +1199,7 @@ export class AlIrisClientInstance {
         queryParams?: { multi?: boolean, size?: number, metadata?: boolean, raw_totals?: boolean },
     ) {
         return this.client.post<any>({
+            responseType: 'arraybuffer',
             service_stack: AlLocation.InsightAPI,
             account_id: accountId,
             service_name: this.serviceName,
