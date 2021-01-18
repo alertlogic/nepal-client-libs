@@ -31,3 +31,11 @@ export interface AssetTypesListResponse {
     unscoped_properties: string[];
     vulnerable: boolean;
 }
+
+export interface DeleteAssetGroupResponse {
+    dry_run: boolean;
+    operations: {
+        operation: string;
+        name: string;
+    }[];
+}

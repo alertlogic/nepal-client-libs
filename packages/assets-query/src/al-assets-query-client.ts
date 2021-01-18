@@ -29,7 +29,7 @@ import {
     AssetGroupTopologyResponse,
     Scope
 } from './types/assets/asset-groups';
-import { AssetTypesListResponse, AssetTypesResponse } from './types/assets/asset-types';
+import { AssetTypesListResponse, AssetTypesResponse, DeleteAssetGroupResponse } from './types/assets/asset-types';
 
 export class AlAssetsQueryClientInstance {
 
@@ -500,6 +500,27 @@ export class AlAssetsQueryClientInstance {
         path: 'asset_types',
         version: this.serviceVersion,
         params: queryParams,
+      });
+  }
+
+  /**
+   * Delete Asset Group
+   * PUT
+   * /assets_query/v1/:account_id/asset_groups
+   */
+  async deleteAssetGroup(accountId: string, name: string, dryRun = false) {
+    return this.client.put<DeleteAssetGroupResponse>({
+        service_stack: AlLocation.InsightAPI,
+        account_id: accountId,
+        service_name: 'assets_query',
+        path: 'asset_groups',
+        version: this.serviceVersion,
+        data: {
+            name,
+            operation: 'delete_asset_group',
+            scope : 'user',
+            dry_run: dryRun
+        }
       });
   }
 }

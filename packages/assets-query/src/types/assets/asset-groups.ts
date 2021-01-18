@@ -24,13 +24,14 @@ export interface Properties {
 }
 
 export interface AssetGroupPayload {
-    key: string;
-    operation: 'create_asset_group' | "delete_asset_group" | "update_asset_group";
-    scope: string;
-    name: string;
+    key?: string;
+    operation?: 'create_asset_group' | "delete_asset_group" | "update_asset_group";
+    scope?: string;
+    name?: string;
     criticality?: number;
     description?: string;
     properties?: Properties;
+    dry_run?: boolean;
 }
 
 export interface AssetGroup {
@@ -86,6 +87,10 @@ export interface TopologyAssetData {
     ip_address?: string;
     key?: string;
     launch_time?: number;
+    membership_counts?: { [property: string]: {
+        in?: number;
+        not_in?: number
+    } };
     modified_on?: number;
     name?: string;
     native_type?: string;
