@@ -214,7 +214,7 @@ export interface AlResponderExecutionQueryParams{
         taks_id ?: string;
         parent_execution_id ?: string;
         native_id ?: string;
-        deployment ?: string | string[];
+        deployment_id ?: string | string[];
     };
 }
 
