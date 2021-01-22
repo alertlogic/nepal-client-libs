@@ -67,7 +67,11 @@ describe('Kalm Client Test Suite', () => {
         version: serviceVersion,
         account_id: accountId,
         path: `/query/test`,
-        params: {}
+        params: {},
+        validation: {
+          providers: kalmClient,
+          schema: 'https://alertlogic.com/schematics/kalm#definitions/queryResponse'
+        }
       };
 
       assert.deepEqual(payload, stub.args[0][0]);
