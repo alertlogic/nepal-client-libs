@@ -195,4 +195,5 @@ export interface RawFilterColumns {
     ui_display_name: string;
     use_as_column: boolean;
     use_as_filter: boolean;
+    sorted?: boolean;
 }

@@ -203,6 +203,7 @@ export interface AlResponderExecutionQueryParams{
     type ?: string;
     execution_type ?: string;
     query_string ?: string;
+    playbook_type ?: string | string[];
     filter ?: {
         display_name ?: string | string[];
         name ?: string | string[];
@@ -213,8 +214,7 @@ export interface AlResponderExecutionQueryParams{
         taks_id ?: string;
         parent_execution_id ?: string;
         native_id ?: string;
-        deployment ?: string | string[];
-        playbook_type ?: string | string[];
+        deployment_id ?: string | string[];
     };
 }
 
