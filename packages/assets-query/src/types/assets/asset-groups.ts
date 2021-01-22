@@ -21,6 +21,7 @@ export interface Properties {
     groups?: string[];
     groups_match?: 'all' | 'any';
     description?: string;
+    criticality?: number;
 }
 
 export interface AssetGroupPayload {
@@ -28,7 +29,6 @@ export interface AssetGroupPayload {
     operation?: 'create_asset_group' | "delete_asset_group" | "update_asset_group";
     scope?: string;
     name?: string;
-    criticality?: number;
     description?: string;
     properties?: Properties;
     dry_run?: boolean;
