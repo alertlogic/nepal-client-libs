@@ -32,6 +32,7 @@ export interface AssetGroupPayload {
     description?: string;
     properties?: Properties;
     dry_run?: boolean;
+    wait_for_operation?: boolean;
 }
 
 export interface AssetGroup {

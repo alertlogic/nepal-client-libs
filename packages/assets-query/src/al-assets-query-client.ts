@@ -450,8 +450,8 @@ export class AlAssetsQueryClientInstance {
     return this.client.put<AssetGroup>({
       service_stack: AlLocation.InsightAPI,
       account_id: accountId,
-      service_name: 'assets_write',
-      path: 'assets',
+      service_name: 'assets_query',
+      path: 'asset_groups',
       version: this.serviceVersion,
       data: payload
     });
