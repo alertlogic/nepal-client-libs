@@ -50,6 +50,12 @@ export interface AssetGroup {
     scopes?: Scope[];
     criticality?: number;
     description?: string;
+    created_by: string;
+    modified_by: string;
+    groups?: string[];
+    membership_counts?: {
+        [property: string]: number;
+    };
 }
 
 export interface AssetGroupTopologyResponse {
