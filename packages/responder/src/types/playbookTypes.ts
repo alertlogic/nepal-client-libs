@@ -25,6 +25,7 @@ export interface AlResponderAction {
     category ?: object;
     action: AlResponderActionLong;
     allowed_values?: object;
+    isComplete ?: boolean; // just for ui, is to know if the action is completed with details or not
 }
 
 export interface AlResponderPlaybookParameter
