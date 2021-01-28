@@ -169,6 +169,31 @@ export class AlResponderClientInstance {
         });
     }
 
+
+    /**
+     * Get actions by ref
+     * GET
+     * /v1/{account_id}/actions/{action_ref}
+     * https://responder.mdr.global.alertlogic.com
+     *
+     * @param accountId AIMS Account ID
+     * @param actionRef Action ref
+     * @param params
+     * @returns Action
+     *
+     * @remarks
+     *
+     * */
+    async getActionByRef(accountId: string, actionRef: string, params?: { payload_type: string }) {
+        return this.client.get<AlResponderAction>({
+            version: this.serviceVersion,
+            service_stack: this.serviceStack,
+            account_id: accountId,
+            path: `/actions/${actionRef}`,
+            params: params
+        });
+    }
+
     /**
      * List execution
      * GET
