@@ -46,6 +46,8 @@ export class AlObservation {
 export interface ObservationParents {
     facts_count:        number;
     observations_count: number;
+    observation_data?: unknown[];
+    facts?: unknown[];
 }
 
 export interface ObservationProperties {
