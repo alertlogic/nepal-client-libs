@@ -1,4 +1,12 @@
-import { AlChangeStamp } from '@al/core';
+import { AlChangeStamp, AlDynamicFormControlElement } from '@al/core';
+
+export interface AlResponderPlaybookDefinition{
+    id ?: string;
+    title ?: 'incident';
+    form ?: {
+        controls: AlDynamicFormControlElement[];
+    };
+}
 
 export interface AlResponderActionShort {
     name ?: string;

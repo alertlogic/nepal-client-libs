@@ -21,7 +21,8 @@ import {
     AlResponderInquiries,
     AlResponderInquiry,
     AlResponderSchedule,
-    AlResponderInquiriesHistoryQueryParams
+    AlResponderInquiriesHistoryQueryParams,
+    AlResponderPlaybookDefinition
 } from './types';
 
 export class AlResponderClientInstance {
@@ -32,6 +33,25 @@ export class AlResponderClientInstance {
 
     constructor(client: AlApiClient = null) {
         this.client = client || AlDefaultClient;
+    }
+
+    /**
+     * List all playbooks definitions
+     * GET
+     * /v1/playbook_definitions
+     * https://responder.mdr.global.alertlogic.com
+     *
+     * @returns Playbook definitions
+     *
+     * @remarks
+     *
+     * */
+    async getPlaybookDefinitions(){
+        return this.client.get<AlResponderPlaybookDefinition[]>({
+            version: this.serviceVersion,
+            service_stack: this.serviceStack,
+            path: `/playbook_definitions`
+        });
     }
 
     /**
