@@ -563,7 +563,7 @@ export class IncidentCard {
     deserialize(incident: Incident) {
         const date = incident.createdOn;
         const ordinalDay = numberToOrdinalNumber(date.getDate());
-        const subtitle = `${ordinalDay} ${format(date, 'MMM YYYY HH:m:s OOOO')}`;
+        const subtitle = `${ordinalDay} ${format(date, 'MMM yyyy HH:m:s OOOO')}`;
         let incidentCard = {
             icon: {
                 cssClasses: incident.severityIcon ? incident.severityIcon : '',
