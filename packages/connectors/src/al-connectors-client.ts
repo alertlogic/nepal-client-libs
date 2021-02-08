@@ -210,7 +210,7 @@ export class AlConnectorsClientInstance {
      *  @remarks
      *
      * */
-    async getConnectionTargets(accountId: string, type?: string) {
+    async getConnectionTargets(accountId: string, type?: string): Promise<AlConnectionTargets[]> {
         let params = {};
         if (type) {
             params[type] = type;
@@ -237,7 +237,7 @@ export class AlConnectorsClientInstance {
      * @remarks
      *
      * */
-    async getConnectionTargetById(accountId: string, connectionTargetId: string) {
+    async getConnectionTargetById(accountId: string, connectionTargetId: string): Promise<AlConnectionTargets> {
         return this.client.get<AlConnectionTargets>({
             version: this.serviceVersion,
             service_stack: this.serviceStack,
@@ -307,7 +307,7 @@ export class AlConnectorsClientInstance {
      *
      * @remarks
      */
-    async deleteConnectionTargetById(accountId: string, connectionTargetId: string) {
+    async deleteConnectionTargetById(accountId: string, connectionTargetId: string) : Promise<void> {
         const result = await this.client.delete({
             version: this.serviceVersion,
             service_stack: this.serviceStack,
