@@ -60,6 +60,22 @@ export interface AlIntegrationConnection {
 
 }
 
+export interface AlConnectionTargets {
+    // Common
+    id?: string;
+    name: string;
+    type: 'snow' | 'jsd' | 'jira' | 'msteams' | 'slack' | 'pagerduty' | 'webhook';
+    created?: AlChangeStamp;
+    modified?: AlChangeStamp;
+
+    // Integration fields
+    instance_name?: string;
+    auth_header?: string;
+    headers?: string;
+    base_url?: string;
+    routing_key?: string;
+}
+
 export interface AlConnectorsPayloadTypes{
     value ?: string;
     label ?: string;
