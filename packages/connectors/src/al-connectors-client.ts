@@ -11,7 +11,8 @@ import {
     AlIntegrationTypeDetail,
     AlIntegrationConnection,
     AlConnectorsPayloadTypes,
-    AlConnectionTargets
+    AlConnectionTargets,
+    AlConnectionTargetType
 } from './types';
 
 export class AlConnectorsClientInstance {
@@ -220,6 +221,26 @@ export class AlConnectorsClientInstance {
             service_stack: this.serviceStack,
             account_id: accountId,
             params: params,
+            path: `/connection_targets`
+        });
+    }
+
+
+    /**
+     * Returns Get a list of supported connection targets
+     * GET
+     * /v1/connection_targets
+     * https://connectors.mdr.product.dev.alertlogic.com
+     *
+     * @returns the List of Connection Target with forms
+     *
+     * @remarks
+     *
+     * */
+    async getConnectionTargetsDefinitions(): Promise<AlConnectionTargetType[]> {
+        return this.client.get<AlConnectionTargetType[]>({
+            version: this.serviceVersion,
+            service_stack: this.serviceStack,
             path: `/connection_targets`
         });
     }
