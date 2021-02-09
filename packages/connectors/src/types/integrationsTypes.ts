@@ -13,6 +13,12 @@ export interface AlIntegrationType {
     icon: string;
 }
 
+export interface AlConnectionTargetType extends AlIntegrationType{
+    form: {
+        controls: AlDynamicFormControlElement[];
+    };
+}
+
 export interface AlIntegrationTypeDetail extends AlIntegrationType{
     schema?: Object;
     dry_run_message?: string;
