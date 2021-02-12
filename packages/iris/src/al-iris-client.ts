@@ -241,6 +241,22 @@ export class AlIrisClientInstance {
         });
     }
 
+    async getAggregationsForFieldsV3(
+        accountId: string,
+        filterExpression: any,
+        queryParams?: { multi?: boolean, size?: number, metadata?: boolean, raw_totals?: boolean },
+    ) {
+        return this.client.post<any>({
+            service_stack: AlLocation.InsightAPI,
+            account_id: accountId,
+            service_name: this.serviceName,
+            version: 'v3',
+            path: '/incident/aggregations',
+            params: queryParams,
+            data: filterExpression,
+        });
+    }
+
     /**
      * Incident note update
      * PUT
