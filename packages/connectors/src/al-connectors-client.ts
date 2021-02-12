@@ -10,7 +10,9 @@ import {
     AlIntegrationType,
     AlIntegrationTypeDetail,
     AlIntegrationConnection,
-    AlConnectorsPayloadTypes
+    AlConnectorsPayloadTypes,
+    AlConnectionTargets,
+    AlConnectionTargetType
 } from './types';
 
 export class AlConnectorsClientInstance {
@@ -196,4 +198,144 @@ export class AlConnectorsClientInstance {
             path: '/payload_types'
         });
     }
+
+
+    /**
+     * Returns a list of all connections targets for an account
+     * GET
+     * /v1/{account_id}/connection_targets
+     * https://connectors.mdr.product.dev.alertlogic.com
+     *
+     *  @returns the list of connection targets
+     *
+     *  @remarks
+     *
+     * */
+    async getConnectionTargets(accountId: string, type?: string): Promise<AlConnectionTargets[]> {
+        let params = {};
+        if (type) {
+            params[type] = type;
+        }
+        return this.client.get<AlConnectionTargets[]>({
+            version: this.serviceVersion,
+            service_stack: this.serviceStack,
+            account_id: accountId,
+            params: params,
+            path: `/connection_targets`
+        });
+    }
+
+
+    /**
+     * Returns Get a list of supported connection targets
+     * GET
+     * /v1/connection_targets
+     * https://connectors.mdr.product.dev.alertlogic.com
+     *
+     * @returns the List of Connection Target with forms
+     *
+     * @remarks
+     *
+     * */
+    async getConnectionTargetsDefinitions(): Promise<AlConnectionTargetType[]> {
+        return this.client.get<AlConnectionTargetType[]>({
+            version: this.serviceVersion,
+            service_stack: this.serviceStack,
+            path: `/connection_targets`
+        });
+    }
+
+    /**
+     * Returns Connection Target Information
+     * GET
+     * /v1/{account_id}/connection_targets/{id}
+     * https://connectors.mdr.product.dev.alertlogic.com
+     *
+     * @param accountId account id
+     * @param connectionTargetId connection id
+     * @returns an existing connection target
+     *
+     * @remarks
+     *
+     * */
+    async getConnectionTargetById(accountId: string, connectionTargetId: string): Promise<AlConnectionTargets> {
+        return this.client.get<AlConnectionTargets>({
+            version: this.serviceVersion,
+            service_stack: this.serviceStack,
+            account_id: accountId,
+            path: `/connection_targets/${connectionTargetId}`
+        });
+    }
+
+    /**
+     * Create a connection target
+     * POST
+     * /v1/{account_id}/connection_targets
+     * https://connectors.mdr.product.dev.alertlogic.com
+     *
+     * @param accountId account id
+     * @param payload connection target
+     * @returns a promise with the new connection
+     *
+     * @remarks
+     */
+    async createConnectionTarget(accountId: string,
+        payload: AlConnectionTargets ): Promise<AlConnectionTargets> {
+        return this.client.post<AlConnectionTargets>({
+            version: this.serviceVersion,
+            service_stack: this.serviceStack,
+            account_id: accountId,
+            path: `/connection_targets`,
+            data: payload
+        });
+    }
+
+    /**
+     * Updates existing connection target
+     * PUT
+     * /v1/{account_id}/connection_targets/{id}
+     * https://connectors.mdr.product.dev.alertlogic.com
+     *
+     * @param accountId account id
+     * @param connectionTargetId connection id
+     * @param payload
+     * @returns a promise with the new connection
+     *
+     * @remarks
+     */
+    async updateConnectionTarget(accountId: string,
+        connectionTargetId: string,
+        payload: AlConnectionTargets): Promise<AlConnectionTargets> {
+
+        return this.client.put<AlConnectionTargets>({
+            version: this.serviceVersion,
+            service_stack: this.serviceStack,
+            account_id: accountId,
+            path: `/connection_targets/${connectionTargetId}`,
+            data: payload
+        });
+    }
+
+    /**
+     * Deletes existing connection target
+     * DELETE
+     * /v1/{account_id}/connection_targets/{id}
+     * https://connectors.mdr.product.dev.alertlogic.com
+     *
+     * @param accountId The AIMS Account ID
+     * @param connectionTargetId connection id
+     * @returns just the status code
+     *
+     * @remarks
+     */
+    async deleteConnectionTargetById(accountId: string, connectionTargetId: string) : Promise<void> {
+        const result = await this.client.delete({
+            version: this.serviceVersion,
+            service_stack: this.serviceStack,
+            account_id: accountId,
+            path: `/connection_targets/${connectionTargetId}`
+        });
+        return result;
+    }
+
 }
