@@ -31,6 +31,9 @@ export interface AlIntegrationTypeDetail extends AlIntegrationType{
     subject_templates?: {
         [key: string]: {default : string };
     };
+    connection_target_form?: {
+        controls: AlDynamicFormControlElement[];
+    };
 }
 
 export interface AlIntegrationSample{
