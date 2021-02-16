@@ -359,6 +359,18 @@ export interface AlResponderSchedule {
     enabled: boolean;
 }
 
+export interface AlResponderSample {
+    id?: string;
+    account?: string;
+    name?: string;
+    payload_type?: string;
+    content?: string;
+}
+
+export interface AlResponderSamples {
+    payload_samples: AlResponderSample[];
+}
+
 export type status = "new" | "requested" | "scheduled" | "delayed" | "running" | "succeeded" | "failed" | "timeout" | "canceled";
 
 export type AlResponderPlaybookType = 'incident' | 'observation' | 'exposure' | 'remediation';
