@@ -22,7 +22,9 @@ import {
     AlResponderInquiry,
     AlResponderSchedule,
     AlResponderInquiriesHistoryQueryParams,
-    AlResponderPlaybookDefinition
+    AlResponderPlaybookDefinition,
+    AlResponderSample,
+    AlResponderSamples
 } from './types';
 
 export class AlResponderClientInstance {
@@ -656,6 +658,116 @@ export class AlResponderClientInstance {
             service_stack: this.serviceStack,
             account_id: accountId,
             path: `/schedules/${id}`
+        });
+    }
+
+    /**
+     * List system payload samples
+     * GET
+     * /v1/payload_samples
+     * https://responder.mdr.global.alertlogic.com
+     *
+     * @returns Returns system payload samples
+     *
+     * @remarks
+     *
+     * */
+    async getSystemSamples(): Promise<AlResponderSamples> {
+        return this.client.get<AlResponderSamples>({
+            version: this.serviceVersion,
+            service_stack: this.serviceStack,
+            path: `/v1/payload_samples`
+        });
+    }
+
+
+    /**
+     * List customer payload samples
+     * GET
+     * /v1/{account_id}/payload_samples
+     * https://responder.mdr.global.alertlogic.com
+     *
+     * @param accountId AIMS Account ID
+     * @returns Returns customer payload samples
+     *
+     * @remarks
+     *
+     * */
+    async getSamples(accountId: string): Promise<AlResponderSamples> {
+        return this.client.get<AlResponderSamples>({
+            version: this.serviceVersion,
+            service_stack: this.serviceStack,
+            account_id: accountId,
+            path: `/v1/payload_samples`
+        });
+    }
+
+
+    /**
+    /*
+     * Create a new payload sample
+     * POST
+     * /v1/{account_id}/payload_samples
+     *
+     * @param accountId AIMS Account ID
+     * @param payload_sample
+     * @returns a promise with the sample
+     *
+     * @remarks
+     */
+    async createPayloadSample(accountId: string,
+        payload: AlResponderSample): Promise<AlResponderSample> {
+        return this.client.post<AlResponderSample>({
+            version: this.serviceVersion,
+            service_stack: this.serviceStack,
+            account_id: accountId,
+            path: `/payload_samples`,
+            data: payload
+        });
+    }
+
+    /**
+     * Delete existing payload sample by id and per account
+     * DELETE
+     * /v1/{account_id}/payload_samples/{id}
+     *
+     * @param accountId AIMS Account ID
+     * @param id Payload sample id
+     * @returns just the status code 204, 404
+     *
+     * @remarks
+     */
+    async deletePayloadSampleById(accountId: string, id: string): Promise<void> {
+        const result = await this.client.delete({
+            version: this.serviceVersion,
+            service_stack: this.serviceStack,
+            account_id: accountId,
+            path: `/payload_samples/${id}`
+        });
+        return result;
+    }
+
+    /**
+    * Update payload sample
+    * PUT
+    * /v1/{account_id}/payload_samples/{id}
+    *
+    * @param accountId AIMS Account ID
+    * @param id payload sample id
+    * @param payload
+    * @returns a promise with the updated payload sample
+    *
+    * @remarks
+    */
+    async updatePayloadSample(accountId: string,
+        id: string,
+        payload: AlResponderSample): Promise<AlResponderSample> {
+        return this.client.put<AlResponderSample>({
+            version: this.serviceVersion,
+            service_stack: this.serviceStack,
+            account_id: accountId,
+            path: `/payload_samples/${id}`,
+            data: payload
         });
     }
 }
