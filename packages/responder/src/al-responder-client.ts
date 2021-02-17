@@ -676,7 +676,7 @@ export class AlResponderClientInstance {
         return this.client.get<AlResponderSamples>({
             version: this.serviceVersion,
             service_stack: this.serviceStack,
-            path: `/v1/payload_samples`
+            path: `/payload_samples`
         });
     }
 
@@ -698,7 +698,7 @@ export class AlResponderClientInstance {
             version: this.serviceVersion,
             service_stack: this.serviceStack,
             account_id: accountId,
-            path: `/v1/payload_samples`
+            path: `/payload_samples`
         });
     }
 
