@@ -1226,4 +1226,14 @@ export class AlIrisClientInstance {
         });
     }
 
+    public renderMarkdown(markdown: string): Promise<any> {
+        return this.client.post<any>({
+            service_stack: AlLocation.InsightAPI,
+            service_name: this.serviceName,
+            version: 'v3',
+            path: `/render_markdown`,
+            data: { 'markdown': markdown },
+        });
+    }
+
 }
