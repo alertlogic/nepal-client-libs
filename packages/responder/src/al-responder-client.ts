@@ -24,7 +24,8 @@ import {
     AlResponderInquiriesHistoryQueryParams,
     AlResponderPlaybookDefinition,
     AlResponderSample,
-    AlResponderSamples
+    AlResponderSamples,
+    AlPlaybookRequest
 } from './types';
 
 export class AlResponderClientInstance {
@@ -68,12 +69,13 @@ export class AlResponderClientInstance {
      * @remarks
      *
      * */
-    async getPlaybooks(accountId: string) {
+    async getPlaybooks(accountId: string, parameters: AlPlaybookRequest) {
         return this.client.get<AlResponderPlaybook[]>({
             version: this.serviceVersion,
             service_stack: this.serviceStack,
             account_id: accountId,
-            path: `/playbooks`
+            path: `/playbooks`,
+            params: parameters
         });
     }
 
