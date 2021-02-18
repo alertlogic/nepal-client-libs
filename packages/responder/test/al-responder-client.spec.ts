@@ -105,7 +105,7 @@ describe('Responder Client', () => {
     ];
 
     describe('Playbook', () => {
-        describe('When get playbbok', () => {
+        describe('When get playbook', () => {
             beforeEach(() => {
                 stub = sinon.stub(AlDefaultClient as any, 'axiosRequest').returns(Promise.resolve({ status: 200, data: playbooksMock }));
             });
@@ -113,7 +113,24 @@ describe('Responder Client', () => {
                 stub.restore();
             });
             it('Should call the client instance\'s GET.', async () => {
-                const result = await AlResponderClient.getPlaybooks(accountId);
+                const result = await AlResponderClient.getPlaybooks(accountId,{});
+                const payload = stub.args[0][0];
+                expect(stub.callCount).to.equal(1);
+                expect(payload.method).to.equal("GET");
+                expect(payload.url).to.equal(`${apiBaseURL}/${version}/${accountId}/playbooks`);
+                expect(result).to.equal(playbooksMock);
+            });
+        });
+
+        describe('When get all playbooks even deleted', () => {
+            beforeEach(() => {
+                stub = sinon.stub(AlDefaultClient as any, 'axiosRequest').returns(Promise.resolve({ status: 200, data: playbooksMock }));
+            });
+            afterEach(() => {
+                stub.restore();
+            });
+            it('Should call the client instance\'s GET.', async () => {
+                const result = await AlResponderClient.getPlaybooks(accountId,{deleted:true});
                 const payload = stub.args[0][0];
                 expect(stub.callCount).to.equal(1);
                 expect(payload.method).to.equal("GET");

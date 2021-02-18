@@ -371,6 +371,14 @@ export interface AlResponderSamples {
     payload_samples: AlResponderSample[];
 }
 
+export interface AlPlaybookRequest {
+    type?: string;
+    enabled?: boolean;
+    limit?: number;
+    marker?: string;
+    deleted?: boolean;
+}
+
 export type status = "new" | "requested" | "scheduled" | "delayed" | "running" | "succeeded" | "failed" | "timeout" | "canceled";
 
 export type AlResponderPlaybookType = 'incident' | 'observation' | 'exposure' | 'remediation';
