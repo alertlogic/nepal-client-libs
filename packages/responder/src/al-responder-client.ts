@@ -69,7 +69,7 @@ export class AlResponderClientInstance {
      * @remarks
      *
      * */
-    async getPlaybooks(accountId: string, parameters: AlPlaybookRequest) {
+    async getPlaybooks(accountId: string, parameters: AlPlaybookRequest = {}) {
         return this.client.get<AlResponderPlaybook[]>({
             version: this.serviceVersion,
             service_stack: this.serviceStack,
