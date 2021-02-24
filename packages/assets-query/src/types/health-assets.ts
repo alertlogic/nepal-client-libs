@@ -60,7 +60,7 @@ export interface HealthAssetHost {
     ip_address?: string;
     key?: string;
     name?: string;
-    private_dns_name?:  string;
+    private_dns_name?: string;
     private_ip_address?: string;
     private_ip_addresses?: string[];
     private_ipv4_addresses?: string[];
@@ -68,12 +68,14 @@ export interface HealthAssetHost {
     public_ip_addresses?: string[];
     public_ipv4_addresses?: string[];
     public_ipv6_addresses?: string[];
+    local_ipv6?: string[];
+    local_ipv4?: string[];
     last_scan_time?: number;
-    launch_time?:number;
+    launch_time?: number;
     architecture?: string;
     availability_zone?: string;
     state?: string;
-    tags?:  {
+    tags?: {
         [key: string]: string;
     };
     threat_level?: number;
