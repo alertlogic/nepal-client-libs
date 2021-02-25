@@ -7,7 +7,7 @@ import {
 } from '@al/core';
 
 import {
-    AlManualRequest
+    AlManualRequest, AlManualResponse
 } from './types/models';
 
 export class AlAeManualClientInstance {
@@ -21,7 +21,7 @@ export class AlAeManualClientInstance {
      * @param accountId
      * @param observable
      */
-    async create(accountId: string, observable: AlManualRequest) {
+    async create(accountId: string, observable: AlManualRequest): Promise<AlManualResponse> {
         return AlDefaultClient.post({
             service_stack: AlLocation.MDRAPI,
             service_name: this.serviceName,
