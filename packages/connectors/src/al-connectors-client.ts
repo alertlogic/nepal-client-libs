@@ -45,6 +45,28 @@ export class AlConnectorsClientInstance {
     }
 
     /**
+     * Get a list of supported integration types by account
+     * GET
+     * /v1/{account_id}/integration_types/{name}
+     * https://integrations.mdr.global.alertlogic.com
+     *
+     *  @param accountId account id
+     *  @param name integration name
+     *  @returns a list of integration types
+     *
+     *  @remarks
+     *
+     * */
+    async getIntegrationTypeByAccount(accountId, name:string): Promise<AlIntegrationTypeDetail> {
+        return this.client.get<AlIntegrationTypeDetail>({
+            version: this.serviceVersion,
+            service_stack: this.serviceStack,
+            path: `/integration_types/${name}`,
+            account_id: accountId
+        });
+    }
+
+    /**
      * Get integration type details
      * GET
      * /v1/integration_types/{name}
