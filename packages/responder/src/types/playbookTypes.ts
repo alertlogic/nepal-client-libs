@@ -98,7 +98,7 @@ export interface AlResponderPlaybook {
     id ?: string;
     name ?: string;
     description ?: string;
-    type ?: 'incident' | 'observation' | 'exposure' | 'remediation';
+    type ?: AlResponderPlaybookType;
     enabled ?: boolean;
     tags ?: {key:string, value:string}[]; // candidate to be a type
     parameters ?: {
@@ -381,4 +381,4 @@ export interface AlPlaybookRequest {
 
 export type status = "new" | "requested" | "scheduled" | "delayed" | "running" | "succeeded" | "failed" | "timeout" | "canceled";
 
-export type AlResponderPlaybookType = 'incident' | 'observation' | 'exposure' | 'remediation';
+export type AlResponderPlaybookType = 'incident' | 'observation' | 'exposure' | 'remediation' | 'generic';
