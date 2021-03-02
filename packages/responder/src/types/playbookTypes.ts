@@ -294,7 +294,7 @@ export interface AlResponderSchemaDetail{
 
 export interface AlResponderExecutionRequest{
     payload: {
-        type?: 'action' | 'incident' | 'observation';
+        type?: AlResponderPlaybookType;
         parameters?: {[key: string]: unknown};
         incident?: {[key: string]: unknown};
         observation?: {[key: string]: unknown};
