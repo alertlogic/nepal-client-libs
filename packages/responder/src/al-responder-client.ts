@@ -25,7 +25,8 @@ import {
     AlResponderPlaybookDefinition,
     AlResponderSample,
     AlResponderSamples,
-    AlPlaybookRequest
+    AlPlaybookRequest,
+    AlResponderExecutionsHistory
 } from './types';
 
 export class AlResponderClientInstance {
@@ -302,6 +303,28 @@ export class AlResponderClientInstance {
             service_stack: this.serviceStack,
             account_id: accountId,
             path: `/executions/history`
+        });
+    }
+
+    /**
+     * GET
+     * /v1/{account_id}/executions/history/{type}/{id}
+     * https://responder.mdr.global.alertlogic.com
+     *
+     * @param accountId AIMS Account ID
+     * @param type execution type:playbook, task, action
+     * @param id execution id
+     * @returns Execution history detail
+     *
+     * @remarks
+     *
+     * */
+    async getExecutionsHistoryById(accountId: string, type: string, executionId:string ): Promise<AlResponderExecutionsHistory> {
+        return this.client.get<AlResponderExecutionsHistory>({
+            version: this.serviceVersion,
+            service_stack: this.serviceStack,
+            account_id: accountId,
+            path: `/executions/history/${type}/${executionId}`
         });
     }
 
