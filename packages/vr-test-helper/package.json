@@ -1,6 +1,6 @@
 {
   "name": "@al/vr-test-helper",
-  "version": "1.2.0-puppeteer.3",
+  "version": "1.2.0-puppeteer.4",
   "license": "MIT",
   "description": "Helpers for visual regression tests",
   "author": {
