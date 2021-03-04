@@ -139,25 +139,52 @@ export async function closeWelcomeDialog(page: Page) {
  * @param logs is an array of logs
  * @return void - generates a folder with the report and the evidence called console_error
  */
-export async function generateJSONConsoleReport(logs, png) {
+export async function generateJSONConsoleReport(allLogs, png, options: { blackList: RegExp[] } = {blackList: []}) {
+    const defaultBlackList: RegExp[] = [
+        /TypeError: Cannot read property/gi,
+        /TypeError: .* is not a function/gi,
+        /TypeError: Cannot set property/gi,
+        /RangeError: Maximun call stack size exceeded/gi,
+        /ReferenceError: .* is not defined/gi,
+        /'undefined' is not an object/gi,
+        /'null' is not an object/gi,
+        /Unexpected token .* in JSON at position/gi,
+    ];
+    const blackList = options && options.blackList && options.blackList.length > 0 ? options.blackList.concat(defaultBlackList) : defaultBlackList;
+    const regExpSources: string[] =  blackList.map((r) => r.source);
     const reportName = './console_error/report_console_error.json';
-    if (logs && logs.length > 0) {
+    if (allLogs && allLogs.length > 0) {
         let title = await browser.getTitle();
         title = title ? title.replace(/\|/g, "-") : 'URL';
         const url = await browser.getCurrentUrl();
         const imgName = `evidence/error-${new Date().getTime()}.png`;
         // log.level.value > 900 is an error
-        logs = logs.filter((l) => l.level.value > 900);
-        if (logs && logs.length > 0) {
+        allLogs = allLogs.filter((l) => l.level.value > 900);
+
+        let blockLogs = allLogs.filter((l) => {
+            return blackList.some((expression) => { console.log(expression.test(l.message)); return expression.test(l.message); });
+        });
+
+        let restLogs = allLogs.filter((l) => {
+            return blackList.some((expression) => { let match = l.message.match(expression); match === null || match.length === 0; });
+        });
+
+        if (allLogs && allLogs.length > 0) {
             ensureDirectoryExistence(reportName);
             if (!fs.existsSync(reportName)) {
-                fs.writeFileSync(reportName, '{"data": [], "errors": 0, "specs": 0}');
+                fs.writeFileSync(reportName, '{"data": [], "errors": 0, "specs": 0, "block": [], "blackList": []}');
             }
             let contents = fs.readFileSync(reportName, 'utf8');
             let reportJson = JSON.parse(contents);
-            reportJson['data'].push({logs, title, url, image: imgName});
+            reportJson['blackList'] = regExpSources;
+            if(blockLogs && blockLogs.length > 0){
+                reportJson['block'].push({ title, url, image: imgName, logs: blockLogs });
+            }
+            if(restLogs && restLogs.length > 0){
+                reportJson['data'].push({ title, url, image: imgName, logs: restLogs});
+            }
             let totalSpecs = reportJson['data'].length;
-            let totalErrors = reportJson['data'].reduce((acc, r) => r.logs ? r.logs.length + acc : 0, 0);
+            let totalErrors = reportJson['data'].reduce((acc, r) => r.allLogs ? r.allLogs.length + acc : 0, 0);
             reportJson['specs'] = totalSpecs;
             reportJson['errors'] = totalErrors;
             try {
@@ -266,13 +293,21 @@ export async function generateConsoleHTMLReport(logs, png) {
     await generateJSONConsoleReport(logs, png);
     const reportNameJson = './console_error/report_console_error.json';
     const reportNameHTML = './console_error/report_console_error.html';
+    const reportNameBlockHTML = './console_error/report_console_error_block.html';
 
     if (fs.existsSync(reportNameJson)) {
         let contents = fs.readFileSync(reportNameJson, 'utf8');
-        let jsonData = JSON.parse(contents) as { data : {logs: any[], title:string, url: string, image: string}[], errors: number, specs: number };
+        let jsonData = JSON.parse(contents) as {
+            data: { logs: any[], title: string, url: string, image: string }[],
+            block: { logs: any[], title: string, url: string, image: string }[],
+            errors: number,
+            specs: number
+        };
         let report = jsonData.data;
-        if(report && report.length > 0) {
-            let data = report.map(r => {
+        let block = jsonData.block;
+
+        const aux = (r: {logs: any[], title:string, url: string, image: string}[]) => {
+            return r.map(r => {
                 let message =
                     '<ol>'
                     + r.logs.map(l => `<li><pre>${l.message.replace(/(\r\n|\n|\r)/gm, "<br>").replace(/\s/g, "&nbsp;")}</pre></li>`).join('');
@@ -283,15 +318,28 @@ export async function generateConsoleHTMLReport(logs, png) {
                     'col-3': `<a href="${r.image}" target="_blank"><img class="img-fluid img-thumbnail" src="${r.image}" /></a>`
                 };
             });
-            let header = '<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">'
-                            + '<h1>Console Report</h1>'
-                            + `<p><b>Total specs with errors in console: </b><span class="badge badge-pill badge-danger">${jsonData.specs}</span><br>`
-                            + `<b>Total errors in console:</b><span class="badge badge-pill badge-danger">${jsonData.errors}</span></p>`;
+        };
+
+        if(report && report.length > 0) {
+            let data = aux(report);
+            let blockHtml = block && block.length > 0 ? aux(block) : null;
+            let header = `<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+                                <h1>Console Report</h1>¡`;
             const table = (new HTMLTable([
                 { key: 'col-1', value: 'Error', width: '50%' },
                 { key: 'col-2', value: 'Url', width: '25%' },
                 { key: 'col-3', value: 'Screenshot', width: '25%' }
             ], data)).getTable();
+            let tableBlock = '';
+            if(blockHtml != null) {
+                tableBlock = (new HTMLTable([
+                    { key: 'col-1', value: 'Error', width: '50%' },
+                    { key: 'col-2', value: 'Url', width: '25%' },
+                    { key: 'col-3', value: 'Screenshot', width: '25%' }
+                ], blockHtml)).getTable();
+                const pageBlock = header + tableBlock;
+                fs.writeFileSync(reportNameBlockHTML, pageBlock);
+            }
             const page = header + table;
             fs.writeFileSync(reportNameHTML, page);
         }
