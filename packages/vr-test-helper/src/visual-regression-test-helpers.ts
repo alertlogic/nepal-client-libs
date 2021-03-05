@@ -4,9 +4,7 @@ import pixelmatch from 'pixelmatch';
 // @ts-ignore
 import { PNG } from 'pngjs';
 import { browser } from 'protractor';
-import { Page } from 'puppeteer';
-import { takeScreenshot, takeScreenshotPuppetter } from './element-helpers';
-
+import { takeScreenshot } from './element-helpers';
 
 export class Browser {
     public static async openPageInNewTab(url: string) {
@@ -81,60 +79,6 @@ export const compareScreenShots = (screenshots) => {
                 }
             },
         );
-};
-
-export const compareAndWritePuppeteer = async (
-    page: Page,
-    compareUrl: string,
-    testName: string,
-    urlEnd: string,
-    doThis: (ss: (n: string) => Promise<unknown>) => Promise<unknown>,
-) => {
-    // do in pr
-
-    const prefix = `./visual-regression/${testName.replace(/ /g, "-")}/`;
-
-    const screenshots2: { [i: string]: { [jasmine: string]: string } } = {};
-
-    const takeScreenShot = (name: 'pr' | 'integration') => {
-        return async (partName: string) => {
-
-            const filename = await takeScreenshotPuppetter(page, `${prefix}${partName.replace(/ /g, "-")}/${name}`);
-            if (!screenshots2[name]) {
-                screenshots2[name] = {};
-            }
-            if (screenshots2[name][partName]) {
-                throw new Error(`duplicate screenshot name ${partName}`);
-            }
-            screenshots2[name][partName] = filename;
-            return filename;
-        };
-    };
-    try {
-        // console.log('pr part');
-        // console.log((new URL(browser.params.baseUrl)).origin + urlEnd);
-
-        await page.goto((new URL(process.env.BASE_URL)).origin + urlEnd);
-        const prScreeennshotFn = takeScreenShot('pr');
-        await doThis(prScreeennshotFn);
-        await prScreeennshotFn('end');
-    } catch (e) {
-        console.error("Error with PR test", e);
-    }
-    try {
-        // do in integration
-        // console.log('integration part');(new URL(browser.params.integrationUrl)).origin + urlEndbrowser.params.integrationUrl + urlEnd);
-        await page.goto((new URL(compareUrl)).origin + urlEnd);
-        await page.waitFor(1000);
-
-        const integrationScreenShotFn = takeScreenShot('integration');
-        await doThis(integrationScreenShotFn);
-        await page.waitFor(1000);
-        await integrationScreenShotFn('end');
-    } catch (e) {
-        console.error("Error with integration test", e);
-    }
-    compareScreenShots(screenshots2);
 };
 
 export const compareAndWrite = async (

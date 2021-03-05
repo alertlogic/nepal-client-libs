@@ -9,6 +9,5 @@ const init = async () => {
     }catch(error){
         console.log(error);
     }
-    alVRTestHelper.generateConsoleHTMLReportPuppeteer();
 };
 init();
