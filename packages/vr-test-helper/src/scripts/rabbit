@@ -1,3 +1,0 @@
-#!/usr/bin/env node
-
-require('./rabbit-cli.js');
