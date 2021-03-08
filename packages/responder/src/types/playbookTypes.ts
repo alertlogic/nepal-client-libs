@@ -66,6 +66,12 @@ export interface AlResponderWorkflowActionWhen
     publish ?: {[key: string]: string}[];
 }
 
+export interface AlResponderWorkflowTaskRetry {
+    when ?: string;
+    count ?: number;
+    delay ?: number;
+}
+
 export interface AlResponderWorkflowTask {
     // https://docs.stackstorm.com/orquesta/languages/orquesta.html#task-model
     action ?: string; // The fully qualified name of the action to be executed.
@@ -75,11 +81,7 @@ export interface AlResponderWorkflowTask {
         items ?: string,
         concurrency ?: number
     };// When given a list, execute the action for each item.
-    retry ?: {
-        when ?: string;
-        count ?: number;
-        delay ?: number;
-    };// If specified, define requirements for task to be retried.
+    retry ?: AlResponderWorkflowTaskRetry;// If specified, define requirements for task to be retried.
     // inputs
     input ?: {[key: string]: number | string | boolean | string[] | object}; // A dictionary of input arguments for the action execution.
     // output
