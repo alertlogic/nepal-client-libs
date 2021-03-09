@@ -3,8 +3,5 @@ export interface AdditionalEvidenceRequest {
 }
 
 export interface AdditionalEvidenceResponse {
-  fields: {
-    get_additional_evidence: boolean,
-    reelaborate: boolean
-  };
+  request_id: string;
 }
