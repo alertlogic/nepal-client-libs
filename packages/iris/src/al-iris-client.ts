@@ -708,6 +708,27 @@ export class AlIrisClientInstance {
     }
 
     /**
+     * Reelaboration status from a incident
+     * GET /iris/v3/{cid}/reelaboration_status/{request_id}
+     * @param accountId account id
+     * @param requestId request id
+     */
+    async reelaborateIncidentStatus(
+        accountId: string,
+        requestId: string,
+    ): Promise<unknown> {
+        return this.client.get<unknown>(
+            {
+                service_stack: AlLocation.InsightAPI,
+                service_name: this.serviceName,
+                version: 'v3',
+                account_id: accountId,
+                path: `/reelaboration_status/${requestId}`,
+            }
+        );
+    }
+
+    /**
      * Get the elaborations that are not flagged
      * @param accountId account id
      * @param incidentId incident id
