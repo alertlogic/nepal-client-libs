@@ -25,6 +25,7 @@ import {
     AlResponderPlaybookDefinition,
     AlResponderSample,
     AlResponderSamples,
+    AlPlaybookTemplate,
     AlPlaybookRequest,
     AlResponderExecutionsHistory
 } from './types';
@@ -792,6 +793,114 @@ export class AlResponderClientInstance {
             service_stack: this.serviceStack,
             account_id: accountId,
             path: `/payload_samples/${id}`,
+            data: payload
+        });
+    }
+
+    /**
+     * List playbook templates
+     * GET
+     * /v1/{account_id}/playbook_templates
+     *
+     * @param accountId AIMS Account ID
+     * @returns Returns playbook templates
+     *
+     */
+    async getTemplates(accountId: string): Promise<AlPlaybookTemplate[]> {
+        return this.client.get<AlPlaybookTemplate[]>({
+            version: this.serviceVersion,
+            service_stack: this.serviceStack,
+            account_id: accountId,
+            path: `/playbook_templates`
+        });
+    }
+
+    /**
+    /*
+     * Creates playbook template
+     * POST
+     * /v1/{account_id}/playbook_templates
+     *
+     * @param accountId AIMS Account ID
+     * @param payload_sample
+     * @returns a promise with the sample
+     *
+     * @remarks
+     */
+    async createTemplate(accountId: string,
+        payload: AlResponderSample): Promise<AlPlaybookTemplate> {
+        return this.client.post<AlPlaybookTemplate>({
+            version: this.serviceVersion,
+            service_stack: this.serviceStack,
+            account_id: accountId,
+            path: `/playbook_templates`,
+            data: payload
+        });
+    }
+
+    /**
+     * Get Template by id
+     * GET
+     * /v1/{account_id}/playbook_templates/{id}
+     * https://responder.mdr.global.alertlogic.com
+     *
+     * @param accountId AIMS Account ID
+     * @param id Template ID
+     * @returns an existing playbook template
+     *
+     * @remarks
+     *
+     * */
+    async getTemplateById(accountId: string, id: string): Promise<AlPlaybookTemplate> {
+        return this.client.get<AlPlaybookTemplate>({
+            version: this.serviceVersion,
+            service_stack: this.serviceStack,
+            account_id: accountId,
+            path: `/playbook_templates/${id}`
+        });
+    }
+
+    /**
+     * Delete existing playbook template by id and per account
+     * DELETE
+     * /v1/{account_id}/playbook_templates/{id}
+     *
+     * @param accountId AIMS Account ID
+     * @param id Playbook template id
+     * @returns just the status code 204, 404
+     *
+     * @remarks
+     */
+    async deleteTemplateById(accountId: string, id: string): Promise<void> {
+        const result = await this.client.delete({
+            version: this.serviceVersion,
+            service_stack: this.serviceStack,
+            account_id: accountId,
+            path: `/playbook_templates/${id}`
+        });
+        return result;
+    }
+
+    /**
+    * Update playbook template
+    * PUT
+    * /v1/{account_id}/playbook_templates/{id}
+    *
+    * @param accountId AIMS Account ID
+    * @param id Playbook template id
+    * @param payload
+    * @returns a promise with the updated playbook template
+    *
+    * @remarks
+    */
+    async updateTemplate(accountId: string,
+        id: string,
+        payload: AlPlaybookTemplate): Promise<AlPlaybookTemplate> {
+        return this.client.put<AlPlaybookTemplate>({
+            version: this.serviceVersion,
+            service_stack: this.serviceStack,
+            account_id: accountId,
+            path: `/playbook_templates/${id}`,
             data: payload
         });
     }
