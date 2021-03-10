@@ -379,6 +379,19 @@ export interface AlPlaybookRequest {
     deleted?: boolean;
 }
 
+export interface AlPlaybookTemplate {
+    id?: string;
+    name: string;
+    description?: string;
+    playbook: {
+        type: AlResponderPlaybookType;
+        parameters: { [key:string]: AlResponderPlaybookParameter };
+        workflow: AlResponderWorkflow;
+    };
+    payload_types?: AlResponderPlaybookType[];
+    shared?: boolean;
+}
+
 export type status = "new" | "requested" | "scheduled" | "delayed" | "running" | "succeeded" | "failed" | "timeout" | "canceled";
 
 export type AlResponderPlaybookType = 'incident' | 'observation' | 'exposure' | 'remediation' | 'generic';
