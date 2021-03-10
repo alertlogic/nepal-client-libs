@@ -27,7 +27,8 @@ import {
     AlResponderSamples,
     AlPlaybookTemplate,
     AlPlaybookRequest,
-    AlResponderExecutionsHistory
+    AlResponderExecutionsHistory,
+    AlResponderPlaybookTrigger
 } from './types';
 
 export class AlResponderClientInstance {
@@ -798,6 +799,117 @@ export class AlResponderClientInstance {
     }
 
     /**
+     * Get triggers by account
+     * GET
+     * /v1/{account_id}/triggers
+     * https://responder.mdr.global.alertlogic.com
+     *
+     * @param accountId AIMS Account ID
+     * @returns Triggers list
+     *
+     * @remarks
+     *
+     * */
+    async getTriggers(accountId: string): Promise<AlResponderPlaybookTrigger[]> {
+        return this.client.get<AlResponderPlaybookTrigger[]>({
+            version: this.serviceVersion,
+            service_stack: this.serviceStack,
+            account_id: accountId,
+            path: `/triggers`,
+        });
+    }
+
+    /**
+     * Get trigger by ID
+     * GET
+     * /v1/{account_id}/triggers/{id}
+     * https://responder.mdr.global.alertlogic.com
+     *
+     * @param accountId AIMS Account ID
+     * @param triggerId A trigger ID
+     * @returns A trigger definition
+     *
+     * @remarks
+     *
+     * */
+    async getTrigger(accountId: string, triggerId: string): Promise<AlResponderPlaybookTrigger> {
+        return this.client.get<AlResponderPlaybookTrigger>({
+            version: this.serviceVersion,
+            service_stack: this.serviceStack,
+            account_id: accountId,
+            path: `/triggers/${triggerId}`,
+        });
+    }
+
+    /**
+     * Update a trigger by ID
+     * GET
+     * /v1/{account_id}/triggers/{id}
+     * https://responder.mdr.global.alertlogic.com
+     *
+     * @param accountId AIMS Account ID
+     * @param triggerId A trigger ID
+     * @param trigger Trigger Definition
+     * @returns The updated trigger definition
+     *
+     * @remarks
+     *
+     * */
+    async updateTrigger(accountId: string, triggerId: string, trigger: AlResponderPlaybookTrigger): Promise<AlResponderPlaybookTrigger> {
+        return this.client.put<AlResponderPlaybookTrigger>({
+            version: this.serviceVersion,
+            service_stack: this.serviceStack,
+            account_id: accountId,
+            path: `/triggers/${triggerId}`,
+            data: trigger
+        });
+    }
+
+    /**
+     * Delete a trigger by ID
+     * GET
+     * /v1/{account_id}/triggers/{id}
+     * https://responder.mdr.global.alertlogic.com
+     *
+     * @param accountId AIMS Account ID
+     * @param triggerId A trigger ID
+     *
+     * @remarks
+     *
+     * */
+    async deleteTrigger(accountId: string, triggerId: string): Promise<void> {
+        return this.client.delete({
+            version: this.serviceVersion,
+            service_stack: this.serviceStack,
+            account_id: accountId,
+            path: `/triggers/${triggerId}`
+        });
+    }
+
+    /**
+     * Create a Trigger
+     * GET
+     * /v1/{account_id}/triggers
+     * https://responder.mdr.global.alertlogic.com
+     *
+     * @param accountId AIMS Account ID
+     * @param trigger Trigger Definition
+     * @returns The created trigger
+     *
+     * @remarks
+     *
+     * */
+    async createTrigger(accountId: string, trigger: AlResponderPlaybookTrigger): Promise<AlResponderPlaybookTrigger> {
+        return this.client.post<AlResponderPlaybookTrigger>({
+            version: this.serviceVersion,
+            service_stack: this.serviceStack,
+            account_id: accountId,
+            path: `/triggers`,
+            data: trigger
+        });
+    }
+
+    /**
      * List playbook templates
      * GET
      * /v1/{account_id}/playbook_templates
@@ -847,9 +959,6 @@ export class AlResponderClientInstance {
      * @param accountId AIMS Account ID
      * @param id Template ID
      * @returns an existing playbook template
-     *
-     * @remarks
-     *
      * */
     async getTemplateById(accountId: string, id: string): Promise<AlPlaybookTemplate> {
         return this.client.get<AlPlaybookTemplate>({
