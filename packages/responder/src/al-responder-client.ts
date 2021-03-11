@@ -918,8 +918,8 @@ export class AlResponderClientInstance {
      * @returns Returns playbook templates
      *
      */
-    async getTemplates(accountId: string): Promise<AlPlaybookTemplate[]> {
-        return this.client.get<AlPlaybookTemplate[]>({
+    async getTemplates(accountId: string): Promise<{playbook_templates: AlPlaybookTemplate[]}> {
+        return this.client.get<{playbook_templates: AlPlaybookTemplate[]}>({
             version: this.serviceVersion,
             service_stack: this.serviceStack,
             account_id: accountId,

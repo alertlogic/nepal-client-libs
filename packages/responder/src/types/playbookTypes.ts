@@ -47,6 +47,9 @@ export interface AlResponderPlaybookParameter
     properties?: {
         [key: string]: object;
     };
+    items?: {
+        type: string
+    };
 }
 
 export interface AlResponderWorkflowContext
