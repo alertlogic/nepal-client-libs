@@ -28,7 +28,8 @@ import {
     AlPlaybookTemplate,
     AlPlaybookRequest,
     AlResponderExecutionsHistory,
-    AlResponderPlaybookTrigger
+    AlResponderPlaybookTrigger,
+    AlResponderTriggers
 } from './types';
 
 export class AlResponderClientInstance {
@@ -810,8 +811,8 @@ export class AlResponderClientInstance {
      * @remarks
      *
      * */
-    async getTriggers(accountId: string): Promise<AlResponderPlaybookTrigger[]> {
-        return this.client.get<AlResponderPlaybookTrigger[]>({
+    async getTriggers(accountId: string): Promise<AlResponderTriggers> {
+        return this.client.get<AlResponderTriggers>({
             version: this.serviceVersion,
             service_stack: this.serviceStack,
             account_id: accountId,
