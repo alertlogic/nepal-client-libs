@@ -107,7 +107,9 @@ export interface AlResponderPlaybook {
     parameters ?: {
         [key:string]: AlResponderPlaybookParameter
     };
-    output_schema ?: object;
+    output_schema ?: {
+        [key:string]: AlResponderPlaybookParameter
+    };
     workflow ?: AlResponderWorkflow;
 }
 
