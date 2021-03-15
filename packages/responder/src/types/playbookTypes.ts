@@ -47,6 +47,9 @@ export interface AlResponderPlaybookParameter
     properties?: {
         [key: string]: object;
     };
+    items?: {
+        type: string
+    };
 }
 
 export interface AlResponderWorkflowContext
@@ -379,6 +382,99 @@ export interface AlPlaybookRequest {
     deleted?: boolean;
 }
 
+export interface AlPlaybookTemplate {
+    id?: string;
+    name: string;
+    description?: string;
+    playbook: {
+        type: AlResponderPlaybookType;
+        parameters: { [key:string]: AlResponderPlaybookParameter };
+        workflow: AlResponderWorkflow;
+    };
+    payload_types?: AlResponderPlaybookType[];
+    shared?: boolean;
+}
+
 export type status = "new" | "requested" | "scheduled" | "delayed" | "running" | "succeeded" | "failed" | "timeout" | "canceled";
 
 export type AlResponderPlaybookType = 'incident' | 'observation' | 'exposure' | 'remediation' | 'generic';
+
+export interface AlResponderTriggers {
+    triggers: AlResponderPlaybookTrigger[];
+    count?: number;
+    marker?: string;
+}
+
+export type AlResponderPlaybookTrigger =    AlResponderIncidentTrigger |
+                                            AlResponderObservationTrigger |
+                                            AlResponderCronScheduleTrigger |
+                                            AlResponderIntervalScheduleTrigger |
+                                            AlResponderDateTimeScheduleTrigger;
+
+interface AlResponderTriggerBase {
+    account_id?: string;
+    id?: string;
+    modified?: AlChangeStamp;
+    created?: AlChangeStamp;
+    name?: string;
+    description?: string;
+    type?: string;
+    enabled?: boolean;
+    playbooks?: AlResponderTriggerPlaybookParameter[];
+}
+
+
+export interface AlResponderIncidentTrigger extends AlResponderTriggerBase {
+    escalated?: boolean;
+    threat_levels?: string[];
+    asset_groups?: {
+        member_of: boolean;
+        groups: string | string[];
+    };
+    additional_filters?: {
+        paramter: string;
+        type: string;
+        pattern: string;
+    }[];
+}
+
+export interface AlResponderObservationTrigger extends AlResponderTriggerBase {
+}
+
+export interface AlResponderCronScheduleTrigger extends AlResponderTriggerBase {
+    actions?: AlResponderTriggerActionParameter[];
+    timezone?: string;
+    year?: number;
+    month?: number;
+    day?: number;
+    week?: number;
+    day_of_week?: number;
+    hour?: number;
+    minute?: number;
+    second?: number;
+}
+
+export interface AlResponderIntervalScheduleTrigger extends AlResponderTriggerBase {
+    actions?: AlResponderTriggerActionParameter[];
+    unit?: string;
+    delta?: number;
+}
+
+export interface AlResponderDateTimeScheduleTrigger extends AlResponderTriggerBase {
+    actions?: AlResponderTriggerActionParameter[];
+    timezone?: string;
+    date?: string;
+}
+
+export interface AlResponderTriggerActionParameter {
+    ref: string;
+    parameters?: any[] ;// We dont have a definition for these in API docs yet
+}
+
+export interface AlResponderTriggerPlaybookParameter {
+    playbook_id: string;
+    parameters: {
+        name: string;
+        value: string;
+    }[];
+}

@@ -25,8 +25,11 @@ import {
     AlResponderPlaybookDefinition,
     AlResponderSample,
     AlResponderSamples,
+    AlPlaybookTemplate,
     AlPlaybookRequest,
-    AlResponderExecutionsHistory
+    AlResponderExecutionsHistory,
+    AlResponderPlaybookTrigger,
+    AlResponderTriggers
 } from './types';
 
 export class AlResponderClientInstance {
@@ -792,6 +795,222 @@ export class AlResponderClientInstance {
             service_stack: this.serviceStack,
             account_id: accountId,
             path: `/payload_samples/${id}`,
+            data: payload
+        });
+    }
+
+    /**
+     * Get triggers by account
+     * GET
+     * /v1/{account_id}/triggers
+     * https://responder.mdr.global.alertlogic.com
+     *
+     * @param accountId AIMS Account ID
+     * @returns Triggers list
+     *
+     * @remarks
+     *
+     * */
+    async getTriggers(accountId: string): Promise<AlResponderTriggers> {
+        return this.client.get<AlResponderTriggers>({
+            version: this.serviceVersion,
+            service_stack: this.serviceStack,
+            account_id: accountId,
+            path: `/triggers`,
+        });
+    }
+
+    /**
+     * Get trigger by ID
+     * GET
+     * /v1/{account_id}/triggers/{id}
+     * https://responder.mdr.global.alertlogic.com
+     *
+     * @param accountId AIMS Account ID
+     * @param triggerId A trigger ID
+     * @returns A trigger definition
+     *
+     * @remarks
+     *
+     * */
+    async getTrigger(accountId: string, triggerId: string): Promise<AlResponderPlaybookTrigger> {
+        return this.client.get<AlResponderPlaybookTrigger>({
+            version: this.serviceVersion,
+            service_stack: this.serviceStack,
+            account_id: accountId,
+            path: `/triggers/${triggerId}`,
+        });
+    }
+
+    /**
+     * Update a trigger by ID
+     * GET
+     * /v1/{account_id}/triggers/{id}
+     * https://responder.mdr.global.alertlogic.com
+     *
+     * @param accountId AIMS Account ID
+     * @param triggerId A trigger ID
+     * @param trigger Trigger Definition
+     * @returns The updated trigger definition
+     *
+     * @remarks
+     *
+     * */
+    async updateTrigger(accountId: string, triggerId: string, trigger: AlResponderPlaybookTrigger): Promise<AlResponderPlaybookTrigger> {
+        return this.client.put<AlResponderPlaybookTrigger>({
+            version: this.serviceVersion,
+            service_stack: this.serviceStack,
+            account_id: accountId,
+            path: `/triggers/${triggerId}`,
+            data: trigger
+        });
+    }
+
+    /**
+     * Delete a trigger by ID
+     * GET
+     * /v1/{account_id}/triggers/{id}
+     * https://responder.mdr.global.alertlogic.com
+     *
+     * @param accountId AIMS Account ID
+     * @param triggerId A trigger ID
+     *
+     * @remarks
+     *
+     * */
+    async deleteTrigger(accountId: string, triggerId: string): Promise<void> {
+        return this.client.delete({
+            version: this.serviceVersion,
+            service_stack: this.serviceStack,
+            account_id: accountId,
+            path: `/triggers/${triggerId}`
+        });
+    }
+
+    /**
+     * Create a Trigger
+     * GET
+     * /v1/{account_id}/triggers
+     * https://responder.mdr.global.alertlogic.com
+     *
+     * @param accountId AIMS Account ID
+     * @param trigger Trigger Definition
+     * @returns The created trigger
+     *
+     * @remarks
+     *
+     * */
+    async createTrigger(accountId: string, trigger: AlResponderPlaybookTrigger): Promise<AlResponderPlaybookTrigger> {
+        return this.client.post<AlResponderPlaybookTrigger>({
+            version: this.serviceVersion,
+            service_stack: this.serviceStack,
+            account_id: accountId,
+            path: `/triggers`,
+            data: trigger
+        });
+    }
+
+    /**
+     * List playbook templates
+     * GET
+     * /v1/{account_id}/playbook_templates
+     *
+     * @param accountId AIMS Account ID
+     * @returns Returns playbook templates
+     *
+     */
+    async getTemplates(accountId: string): Promise<{playbook_templates: AlPlaybookTemplate[]}> {
+        return this.client.get<{playbook_templates: AlPlaybookTemplate[]}>({
+            version: this.serviceVersion,
+            service_stack: this.serviceStack,
+            account_id: accountId,
+            path: `/playbook_templates`
+        });
+    }
+
+    /**
+    /*
+     * Creates playbook template
+     * POST
+     * /v1/{account_id}/playbook_templates
+     *
+     * @param accountId AIMS Account ID
+     * @param payload_sample
+     * @returns a promise with the sample
+     *
+     * @remarks
+     */
+    async createTemplate(accountId: string,
+        payload: AlResponderSample): Promise<AlPlaybookTemplate> {
+        return this.client.post<AlPlaybookTemplate>({
+            version: this.serviceVersion,
+            service_stack: this.serviceStack,
+            account_id: accountId,
+            path: `/playbook_templates`,
+            data: payload
+        });
+    }
+
+    /**
+     * Get Template by id
+     * GET
+     * /v1/{account_id}/playbook_templates/{id}
+     * https://responder.mdr.global.alertlogic.com
+     *
+     * @param accountId AIMS Account ID
+     * @param id Template ID
+     * @returns an existing playbook template
+     * */
+    async getTemplateById(accountId: string, id: string): Promise<AlPlaybookTemplate> {
+        return this.client.get<AlPlaybookTemplate>({
+            version: this.serviceVersion,
+            service_stack: this.serviceStack,
+            account_id: accountId,
+            path: `/playbook_templates/${id}`
+        });
+    }
+
+    /**
+     * Delete existing playbook template by id and per account
+     * DELETE
+     * /v1/{account_id}/playbook_templates/{id}
+     *
+     * @param accountId AIMS Account ID
+     * @param id Playbook template id
+     * @returns just the status code 204, 404
+     *
+     * @remarks
+     */
+    async deleteTemplateById(accountId: string, id: string): Promise<void> {
+        const result = await this.client.delete({
+            version: this.serviceVersion,
+            service_stack: this.serviceStack,
+            account_id: accountId,
+            path: `/playbook_templates/${id}`
+        });
+        return result;
+    }
+
+    /**
+    * Update playbook template
+    * PUT
+    * /v1/{account_id}/playbook_templates/{id}
+    *
+    * @param accountId AIMS Account ID
+    * @param id Playbook template id
+    * @param payload
+    * @returns a promise with the updated playbook template
+    *
+    * @remarks
+    */
+    async updateTemplate(accountId: string,
+        id: string,
+        payload: AlPlaybookTemplate): Promise<AlPlaybookTemplate> {
+        return this.client.put<AlPlaybookTemplate>({
+            version: this.serviceVersion,
+            service_stack: this.serviceStack,
+            account_id: accountId,
+            path: `/playbook_templates/${id}`,
             data: payload
         });
     }
