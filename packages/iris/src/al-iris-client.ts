@@ -683,6 +683,18 @@ export class AlIrisClientInstance {
             });
     }
 
+    public testRetinaSearch(accountId: string, incidentId: string, data: any) {
+        return this.client.post(
+            {
+                service_stack: AlLocation.InsightAPI,
+                service_name: this.serviceName,
+                version: 'v3',
+                account_id: accountId,
+                path: `test/${incidentId}/retinaSearch`,
+                data: data,
+            });
+    }
+
     /**
      * Elaborate additional evidence from a incident
      * POST /iris/v3/{cid}/{incident_id}/additional_evidence
@@ -743,6 +755,7 @@ export class AlIrisClientInstance {
         parameters: EvidenceParams,
         elaborationsExcluded: string[],
         updateElaboration: boolean = false,
+        isTestIncident: boolean = false,
     ): Promise<Elaboration[]> {
 
         const data = this.getElaborationFilter(
@@ -754,7 +767,8 @@ export class AlIrisClientInstance {
             'all',
             updateElaboration,
         );
-        return this.retinaSearch(accountId, incidentId, data).then((response) => {
+        const response = isTestIncident ? this.testRetinaSearch(accountId, incidentId, data) : this.retinaSearch(accountId, incidentId, data);
+        return response.then((response) => {
             return Elaboration.deserializeArray(response.returnVals || []);
         });
     }
@@ -787,6 +801,7 @@ export class AlIrisClientInstance {
         incidentId: string,
         parameters: EvidenceParams,
         elaborationsIncluded: string[],
+        isTestIncident: boolean = false,
     ): Promise<Elaboration[]> {
 
         // check if the there's not elaborationsIncluded so we don't need make the call
@@ -803,8 +818,8 @@ export class AlIrisClientInstance {
                 false,
                 true,
             );
-
-            return this.retinaSearch(accountId, incidentId, data).then((response) => {
+            const response = isTestIncident ? this.testRetinaSearch(accountId, incidentId, data) : this.retinaSearch(accountId, incidentId, data);
+            return response.then((response) => {
                 if (parameters.sourcesFilter !== null && parameters.sourcesFilter.indexOf(SourceType.FLAGGED) === -1) {
                     return [];
                 }
@@ -825,9 +840,10 @@ export class AlIrisClientInstance {
         accountId: string,
         incidentId: string,
         elaborationsIncluded: string[],
+        isTestIncident: boolean = false,
     ): Promise<{ aggregation?: { [i: string]: { [j: string]: number } } }> {
         const data = this.getElaborationAggregationFilter(elaborationsIncluded, null);
-        return this.retinaSearch(accountId, incidentId, data);
+        return isTestIncident ? this.testRetinaSearch(accountId, incidentId, data) : this.retinaSearch(accountId, incidentId, data);
     }
 
     /**
@@ -841,9 +857,10 @@ export class AlIrisClientInstance {
         accountId: string,
         incidentId: string,
         elaborationsExcluded: string[],
+        isTestIncident: boolean = false,
     ): Promise<{ aggregation?: { [i: string]: { [j: string]: number } } }> {
         const data: RetinaBody = this.getElaborationAggregationFilter(null, elaborationsExcluded);
-        return this.retinaSearch(accountId, incidentId, data);
+        return isTestIncident ? this.testRetinaSearch(accountId, incidentId, data) : this.retinaSearch(accountId, incidentId, data);
     }
 
     /**
@@ -890,6 +907,7 @@ export class AlIrisClientInstance {
         incidentId: string,
         parameters: any,
         updateElaboration: boolean = false,
+        isTestIncident: boolean = false,
     ) {
 
         const data = this.getElaborationFilter(
@@ -901,7 +919,10 @@ export class AlIrisClientInstance {
             "guardduty",
             updateElaboration,
         );
-        return this.retinaSearch(accountId, incidentId, data).then(response => Elaboration.deserializeArray(response.returnVals || []));
+
+        const response = isTestIncident ? this.testRetinaSearch(accountId, incidentId, data) : this.retinaSearch(accountId, incidentId, data);
+
+        return response.then(response => Elaboration.deserializeArray(response.returnVals || []));
 
     }
 
@@ -911,7 +932,7 @@ export class AlIrisClientInstance {
      * @param {string} incidentId
      * @returns {Promise<any>}
      */
-    public getAttachments(accountId: string, incidentId: string) {
+    public getAttachments(accountId: string, incidentId: string, isTestIncident: boolean = false) {
         const data = {
             returnValues: "*",
             aggregation: [],
@@ -922,7 +943,9 @@ export class AlIrisClientInstance {
                 },
             },
         };
-        return this.retinaSearch(accountId, incidentId, data).then(response =>
+        const response = isTestIncident ? this.testRetinaSearch(accountId, incidentId, data) : this.retinaSearch(accountId, incidentId, data);
+
+        return response.then(response =>
             (response.returnVals || []).map((item) => {
                 item.metadata.typeSemantic = item.metadata.flagged === 1 ? SourceType.LOGREVIEWATTACHMENTFLAGGED : SourceType.LOGREVIEWATTACHMENT;
                 item.metadata.__contentType = item.__contentType;
