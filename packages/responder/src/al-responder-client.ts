@@ -29,7 +29,8 @@ import {
     AlPlaybookRequest,
     AlResponderExecutionsHistory,
     AlResponderPlaybookTrigger,
-    AlResponderTriggers
+    AlResponderTriggers,
+    AlResponderTriggerQueryParams
 } from './types';
 
 export class AlResponderClientInstance {
@@ -811,12 +812,13 @@ export class AlResponderClientInstance {
      * @remarks
      *
      * */
-    async getTriggers(accountId: string): Promise<AlResponderTriggers> {
+    async getTriggers(accountId: string, params?: AlResponderTriggerQueryParams): Promise<AlResponderTriggers> {
         return this.client.get<AlResponderTriggers>({
             version: this.serviceVersion,
             service_stack: this.serviceStack,
             account_id: accountId,
             path: `/triggers`,
+            params: params
         });
     }
 
