@@ -405,6 +405,19 @@ export interface AlResponderTriggers {
     triggers: AlResponderPlaybookTrigger[];
     count?: number;
     marker?: string;
+    summary: AlResponderSummary;
+}
+
+export interface AlResponderTriggerQueryParams{
+    limit?: number;
+    marker?: string;
+    playbooks?: string;
+    sort_by?: string;
+    sort_order?: string;
+    enabled?: string;
+    type?: string;
+    actions?: string;
+    name?: string;
 }
 
 export type AlResponderPlaybookTrigger =    AlResponderIncidentTrigger |
