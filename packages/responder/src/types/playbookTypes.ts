@@ -209,8 +209,8 @@ export interface AlResponderExecutionQueryParams{
     offset ?: number;
     marker ?: string;
     playbook_id ?: string;
-    sort_by ?: 'start_timestamp' | 'end_timestamp';
-    sort_order ?:  'asc' | 'desc';
+    sort_by ?: string;
+    sort_order ?:  string;
     status ?: string | string[];
     start_timestamp ?: string | number;
     end_timestamp ?: string | number;
@@ -229,42 +229,6 @@ export interface AlResponderExecutionQueryParams{
         parent_execution_id ?: string;
         native_id ?: string;
         deployment_id ?: string | string[];
-    };
-}
-
-export interface AlResponderExecutionsHistoryQueryParams{
-    execution_type: string;
-    limit ?: number;// default: 50 minimum: 10 maximum: 100
-    marker ?: string;
-    sort_by ?: 'start_timestamp' | 'end_timestamp';
-    sort_order ?:  'asc' | 'desc';
-    start_timestamp ?: number | string;
-    end_timestamp ?: number | string;
-    filter ?: {
-        taks_id ?: string;
-        task_name ?: string;
-        playbook_id ?: string | string[];
-        parent_execution_id ?: string;
-        native_id ?: string;
-        status ?: string | string[];
-    };
-}
-
-export interface AlResponderInquiriesHistoryQueryParams{
-    limit ?: number;// default: 50 minimum: 10 maximum: 100
-    marker ?: string;
-    sort_by ?: 'start_timestamp' | 'end_timestamp';
-    sort_order ?:  'asc' | 'desc';
-    start_timestamp ?: string | number;
-    end_timestamp ?: string | number;
-    status?: string[];
-    filter ?: {
-        display_name ?: string | string[];
-        name ?: string | string[];
-        playbook_id ?: string | string[];
-        task_name ?: string | string[];
-        status ?: string | string[];
-        type ?: string | string[];
     };
 }
 
