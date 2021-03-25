@@ -359,6 +359,8 @@ export interface AlPlaybookTemplate {
     };
     payload_types?: AlResponderPlaybookType[];
     shared?: boolean;
+    categories?: string[];
+    vendors?: string[];
 }
 
 export type status = "new" | "requested" | "scheduled" | "delayed" | "running" | "succeeded" | "failed" | "timeout" | "canceled";
