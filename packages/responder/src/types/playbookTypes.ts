@@ -423,14 +423,14 @@ export interface AlResponderObservationTrigger extends AlResponderTriggerBase {
 export interface AlResponderCronScheduleTrigger extends AlResponderTriggerBase {
     actions?: AlResponderTriggerActionParameter[];
     timezone?: string;
-    year?: number;
-    month?: number;
-    day?: number;
-    week?: number;
-    day_of_week?: number;
-    hour?: number;
-    minute?: number;
-    second?: number;
+    year?: string;
+    month?: string;
+    day?: string;
+    week?: string;
+    day_of_week?: string;
+    hour?: string;
+    minute?: string;
+    second?: string;
 }
 
 export interface AlResponderIntervalScheduleTrigger extends AlResponderTriggerBase {
