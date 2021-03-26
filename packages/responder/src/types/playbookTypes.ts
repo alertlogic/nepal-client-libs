@@ -243,12 +243,21 @@ export interface AlResponderSchemaDetailProperty{
     description ?: string;
     enum ?: string[];
     items ?: {
-        anyOf: []
+        anyOf: AlResponderSchemaDetailProperty[];
         type: string;
+        properties ?: {
+            [key: string]: AlResponderSchemaDetailProperty;
+        };
+        parameters?: {
+            [key: string]: AlResponderSchemaDetailProperty;
+        };
     };
     additionalProperties ?: AlResponderSchemaDetailProperty;
     anyOf ?: AlResponderSchemaDetailProperty[];
     properties ?: {
+        [key: string]: AlResponderSchemaDetailProperty;
+    };
+    parameters?: {
         [key: string]: AlResponderSchemaDetailProperty;
     };
 }
