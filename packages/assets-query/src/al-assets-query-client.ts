@@ -10,6 +10,9 @@ import {
     ExposureQueryParams,
     ExposuresQueryResponse,
     ExposuresSummary,
+    ExposuresCountSummary,
+    ExposuresCountSummaryQueryParams,
+    ExposureSeverities,
     FindAssetsRequest,
     HealthResponse,
     HealthSummaryResponse,
@@ -31,9 +34,10 @@ import {
 } from './types/assets/asset-groups';
 import { AssetTypesListResponse, AssetTypesResponse, DeleteAssetGroupResponse } from './types/assets/asset-types';
 
+
+
 export class AlAssetsQueryClientInstance {
 
-  protected serviceVersion = 'v1';
 
   /* istanbul ignore next */
   constructor(public client:AlApiClient = AlDefaultClient) {
@@ -49,7 +53,7 @@ export class AlAssetsQueryClientInstance {
   async getHealth(accountId: string, assetType: string, queryParams?: CollectionHealthQueryParams) {
     return this.client.get<HealthResponse>({
       service_stack: AlLocation.InsightAPI,
-      version: this.serviceVersion,
+      version: 'v1',
       account_id: accountId,
       service_name: 'remediations',
       path: `/health/${assetType}`,
@@ -66,7 +70,7 @@ export class AlAssetsQueryClientInstance {
   async getHealthSummary(accountId: string,  queryParams?: {scope?: boolean, filter?: string[]}) {
     return this.client.get<HealthSummaryResponse>({
       service_stack: AlLocation.InsightAPI,
-      version: this.serviceVersion,
+      version: 'v1',
       account_id: accountId,
       service_name: 'remediations',
       path: '/health/summary',
@@ -83,7 +87,7 @@ export class AlAssetsQueryClientInstance {
   async findAsset(accountId: string,  queryParams?: {uuid: string, collector_type?: string}) {
     return this.client.get<any>({
       service_stack: AlLocation.InsightAPI,
-      version: this.serviceVersion,
+      version: 'v1',
       account_id: accountId,
       service_name: 'assets_query',
       path: '/find',
@@ -100,7 +104,7 @@ export class AlAssetsQueryClientInstance {
   async findAssets(accountId: string,  queryParams?: FindAssetsRequest) {
     return this.client.get<any>({
       service_stack: AlLocation.InsightAPI,
-      version: this.serviceVersion,
+      version: 'v1',
       account_id: accountId,
       service_name: 'assets_query',
       path: '/find',
@@ -120,7 +124,7 @@ export class AlAssetsQueryClientInstance {
   ) {
     return this.client.get<any>({
       service_stack: AlLocation.InsightAPI,
-      version: this.serviceVersion,
+      version: 'v1',
       account_id: accountId,
       service_name: 'assets_query',
       path: '/details',
@@ -137,7 +141,7 @@ export class AlAssetsQueryClientInstance {
   async getAccountAssets(accountId: string, queryParams?: AssetsQueryParams) {
     return this.client.get<AssetQueryGeneralResponse>({
       service_stack: AlLocation.InsightAPI,
-      version: this.serviceVersion,
+      version: 'v1',
       account_id: accountId,
       service_name: 'assets_query',
       path: '/assets',
@@ -154,12 +158,24 @@ export class AlAssetsQueryClientInstance {
   async getDeploymentAssets(accountId: string, deploymentId: string, queryParams?: AssetsQueryParams) {
     return this.client.get<AssetQueryGeneralResponse>({
       service_stack: AlLocation.InsightAPI,
-      version: this.serviceVersion,
+      version: 'v1',
       account_id: accountId,
       service_name: 'assets_query',
       path: `/deployments/${deploymentId}/assets`,
       params: queryParams,
     });
+  }
+
+  async getExposuresSummary(accountId: string,
+                            qParams: ExposuresCountSummaryQueryParams ): Promise<ExposuresCountSummary> {
+        return this.client.get<ExposuresCountSummary>({
+          service_stack: AlLocation.InsightAPI,
+          version: 'v2',
+          account_id: accountId,
+          service_name: 'assets_query',
+          path: '/exposures',
+          params: qParams,
+        });
   }
 
   /**
@@ -172,7 +188,7 @@ export class AlAssetsQueryClientInstance {
   async getTagsSummary(accountId: string, includeTaggedAssets = false) {
     return this.client.get<TagsSummaryResponse>({
       service_stack: AlLocation.InsightAPI,
-      version: this.serviceVersion,
+      version: 'v1',
       account_id: accountId,
       service_name: 'assets_query',
       path: '/tags/summary',
@@ -190,7 +206,7 @@ export class AlAssetsQueryClientInstance {
   async getTopology(accountId: string, deploymentId: string, queryParams?: {include_filters?: boolean, include_remediations?: boolean, disposed?: string, extras?: string}) {
     return this.client.get<TopologyResponse>({
       service_stack: AlLocation.InsightAPI,
-      version: this.serviceVersion,
+      version: 'v1',
       account_id: accountId,
       service_name: 'assets_query',
       path: `/deployments/${deploymentId}/topology`,
@@ -207,7 +223,7 @@ export class AlAssetsQueryClientInstance {
   async getAssessmentSpecs(accountId: string, deploymentId: string) {
     return this.client.get<any>({
       service_stack: AlLocation.InsightAPI,
-      version: this.serviceVersion,
+      version: 'v1',
       account_id: accountId,
       service_name: 'remediations',
       path: `/deployments/${deploymentId}/assessment-specs`,
@@ -223,7 +239,7 @@ export class AlAssetsQueryClientInstance {
   async getRemediationItemsList(accountId: string, deploymentId: string) {
     return this.client.get<any>({
       service_stack: AlLocation.InsightAPI,
-      version: this.serviceVersion,
+      version: 'v1',
       account_id: accountId,
       service_name: 'remediations',
       path: `/deployments/${deploymentId}/remediation-items-list`,
@@ -239,7 +255,7 @@ export class AlAssetsQueryClientInstance {
   async getRemediationItems(accountId: string, deploymentId: string) {
     return this.client.get<any>({
       service_stack: AlLocation.InsightAPI,
-      version: this.serviceVersion,
+      version: 'v1',
       account_id: accountId,
       service_name: 'remediations',
       path: `/deployments/${deploymentId}/remediation-items`,
@@ -256,7 +272,7 @@ export class AlAssetsQueryClientInstance {
   async completeRemediations(accountId: string, deploymentId: string, remediationData: {operation: string, remediation_items: string[]}) {
     return this.client.put<any>({
       service_stack: AlLocation.InsightAPI,
-      version: this.serviceVersion,
+      version: 'v1',
       account_id: accountId,
       service_name: 'remediations',
       path: `/deployments/${deploymentId}/remediations`,
@@ -297,7 +313,7 @@ export class AlAssetsQueryClientInstance {
   async uncompleteRemediations(accountId: string, deploymentId: string, remediationData: {operation: string, remediation_items: string[]}) {
     return this.client.put<any>({
       service_stack: AlLocation.InsightAPI,
-      version: this.serviceVersion,
+      version: 'v1',
       account_id: accountId,
       service_name: 'remediations',
       path: `/deployments/${deploymentId}/remediations`,
@@ -340,7 +356,7 @@ export class AlAssetsQueryClientInstance {
   ) {
     return this.client.put<any>({
       service_stack: AlLocation.InsightAPI,
-      version: this.serviceVersion,
+      version: 'v1',
       account_id: accountId,
       service_name: 'remediations',
       path: `/deployments/${deploymentId}/remediations`,
@@ -452,7 +468,7 @@ export class AlAssetsQueryClientInstance {
       account_id: accountId,
       service_name: 'assets_query',
       path: 'asset_groups',
-      version: this.serviceVersion,
+      version: 'v1',
       data: payload
     });
   }
@@ -468,7 +484,7 @@ export class AlAssetsQueryClientInstance {
         account_id: accountId,
         service_name: 'assets_query',
         path: 'topology/asset_group',
-        version: this.serviceVersion,
+        version: 'v1',
         data: requestParams
       });
   }
@@ -484,7 +500,7 @@ export class AlAssetsQueryClientInstance {
         account_id: accountId,
         service_name: 'assets_query',
         path: 'asset_groups',
-        version: this.serviceVersion
+        version: 'v1'
       });
   }
 
@@ -498,7 +514,7 @@ export class AlAssetsQueryClientInstance {
         service_stack: AlLocation.InsightAPI,
         service_name: 'assets_query',
         path: 'asset_types',
-        version: this.serviceVersion,
+        version: 'v1',
         params: queryParams,
       });
   }
@@ -514,7 +530,7 @@ export class AlAssetsQueryClientInstance {
         account_id: accountId,
         service_name: 'assets_query',
         path: 'asset_groups',
-        version: this.serviceVersion,
+        version: 'v1',
         data: {
             name,
             operation: 'delete_asset_group',
