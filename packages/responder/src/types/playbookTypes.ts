@@ -411,6 +411,7 @@ interface AlResponderTriggerBase {
     type?: string;
     enabled?: boolean;
     playbooks?: AlResponderTriggerPlaybookParameter[];
+    actions?: AlResponderTriggerActionParameter[];
 }
 
 
