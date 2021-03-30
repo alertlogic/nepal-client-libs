@@ -340,3 +340,30 @@ export interface HealthAssetImage{
     type?: string;
 }
 
+export interface ExposuresCountSummaryQueryParams {
+    scope?: boolean;
+    include_filters?: boolean;
+    include_remediations?: boolean;
+    filter?: string[];
+    deployment_id?: string;
+}
+
+export interface ExposureSeverities {
+    medium: number;
+    low: number;
+    info: number;
+    high: number;
+    all: number;
+}
+
+export interface ExposuresCountSummary {
+    summary: {
+        severities: ExposureSeverities
+    };
+    remediations: {
+        rows: number,
+        assets: unknown[]
+    };
+    filters: unknown[];
+}
+

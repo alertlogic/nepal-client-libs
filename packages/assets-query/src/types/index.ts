@@ -1,6 +1,16 @@
 import { Scope } from './assets';
-import { HealthAssetVPC, HealthAssetRemediation, HealthAssetDeployment, HealthAssetHost, HealthAssetAppliance, HealthAssetAgent, HealthListItem, HealthResponseFilters, HealthAssetCollector } from './health-assets';
+
+import { HealthAssetVPC,
+         HealthAssetRemediation,
+         HealthAssetDeployment,
+         HealthAssetHost,
+         HealthAssetAppliance,
+         HealthAssetAgent,
+         HealthListItem,
+         HealthResponseFilters,
+         HealthAssetCollector } from './health-assets';
 export * from './assets';
+
 export {
     HealthAssetVPC,
     HealthAssetRemediation,
@@ -18,6 +28,9 @@ export {
     HealthResponseFilters,
     HealthAssetExposure
 } from './health-assets';
+
+export * from './health-assets';
+
 export interface HealthResponse {
     assets?: {
         [key: string]: HealthAssetVPC | HealthAssetRemediation | HealthAssetDeployment | HealthAssetAppliance | HealthAssetAgent | HealthAssetHost | HealthAssetCollector;
@@ -76,7 +89,7 @@ export interface TagsSummaryResponse {
         assets: string[][];
         rows: number;
         data: {
-            [key:string]: TaggedAssetData
+            [key: string]: TaggedAssetData
         };
     };
 }
