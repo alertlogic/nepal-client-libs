@@ -2,11 +2,14 @@ import { expect } from 'chai';
 import { describe } from 'mocha';
 import * as sinon from 'sinon';
 import { AlAssetsQueryClientInstance } from '../src/index';
+import { AlAssetsQueryV2ClientInstance } from '../src/index';
 
 let assetsQueryClient:AlAssetsQueryClientInstance;
+let assetQueryV2Client: AlAssetsQueryV2ClientInstance;
 
 beforeEach(() => {
   assetsQueryClient = new AlAssetsQueryClientInstance();
+  assetQueryV2Client = new AlAssetsQueryV2ClientInstance();
 });
 afterEach(() => {
   sinon.restore();
@@ -190,7 +193,7 @@ describe('Assets Query Client Test Suite:', () => {
       stub.restore();
     });
     it('should call put() on the AlDefaultClient instance', async () => {
-      await assetsQueryClient.disposeRemediations('1234', { reason: 'because', comment: 'testing', expires: 1234, remediation_ids: ['4567', '7654'], filters:[]});
+      await assetQueryV2Client.disposeRemediations('1234', { reason: 'because', comment: 'testing', expires: 1234, remediation_ids: ['4567', '7654'], filters:[]});
       expect(stub.callCount).to.equal(1);
     });
   });
@@ -229,7 +232,7 @@ describe('Assets Query Client Test Suite:', () => {
       stub.restore();
     });
     it('should call put() on the AlDefaultClient instance', async () => {
-      await assetsQueryClient.undisposeRemediations('1234', { remediation_item_ids: '4567' });
+      await assetQueryV2Client.undisposeRemediations('1234', { remediation_item_ids: '4567' });
       expect(stub.callCount).to.equal(1);
     });
   });
@@ -242,7 +245,7 @@ describe('Assets Query Client Test Suite:', () => {
       stub.restore();
     });
     it('should call get() on the AlDefaultClient instance', async () => {
-      await assetsQueryClient.getExposuresDeploymentSummary('1234');
+      await assetQueryV2Client.getExposuresDeploymentSummary('1234');
       expect(stub.callCount).to.equal(1);
     });
   });
