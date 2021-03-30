@@ -9,7 +9,7 @@ import { AlAssetsManagerReportSummary,
 
 export class AlAssetsManagerClientInstance {
     client: AlApiClient;
-    private readonly serviceName: string = 'assets-manager';
+    private readonly serviceName: string = 'assets_manager';
     private readonly version: string = 'v1';
 
     constructor(client?: AlApiClient) {
