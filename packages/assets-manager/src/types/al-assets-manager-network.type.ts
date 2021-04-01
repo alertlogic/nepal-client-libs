@@ -6,6 +6,16 @@ export interface AlAssetManagerNetwork {
     span_port_enabled?: boolean;
 }
 
+export function newNetwork(): AlAssetManagerNetwork {
+    return {
+        key: '',
+        network_name: '',
+        cidr_ranges: [],
+        public_cidr_ranges: [],
+        span_port_enabled: false,
+    };
+}
+
 export function addPrivateCidr(network:AlAssetManagerNetwork, range: string): AlAssetManagerNetwork {
     network.cidr_ranges.push(range);
     return network;
