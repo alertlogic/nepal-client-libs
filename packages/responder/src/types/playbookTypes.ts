@@ -188,12 +188,21 @@ export interface AlResponderExecutionResult extends AlResponderExecutionCommon {
     log ?: AlResponderExecutionResultLog[];
 }
 
+export interface AlResponderAggregationsSummaryItem {
+    [key: string]: number;
+}
+export interface AlResponderExecutionsHistoryResultAggregations {
+    statuses ?: {[key: string]: AlResponderAggregationsSummaryItem[]}[];
+    playbook_names ?: {[key: string]: AlResponderAggregationsSummaryItem[]}[];
+    trigger_ids ?: {[key: string]: AlResponderAggregationsSummaryItem[]}[];
+}
+
 export interface AlResponderExecutionsHistoryResultSummary {
-    deployments ?: {[key: string]: number}[];
-    statuses ?: {[key: string]: number}[];
-    playbook_types ?: {[key: string]: number}[];
-    playbook_ids ?: {[key: string]: number}[];
-    playbook_names ?: {[key: string]: number}[];
+    deployments ?: AlResponderAggregationsSummaryItem[];
+    statuses ?: AlResponderAggregationsSummaryItem[];
+    playbook_types ?: AlResponderAggregationsSummaryItem[];
+    playbook_ids ?: AlResponderAggregationsSummaryItem[];
+    playbook_names ?: AlResponderAggregationsSummaryItem[];
     taksk ?: unknown[];
 }
 
@@ -202,6 +211,7 @@ export interface AlResponderExecutionsHistoryResult {
     marker: string;
     executions: AlResponderExecutionsHistory[];
     summary: AlResponderExecutionsHistoryResultSummary;
+    aggregations?: AlResponderExecutionsHistoryResultAggregations;
 }
 
 export interface AlResponderExecutionQueryParams{
@@ -230,6 +240,7 @@ export interface AlResponderExecutionQueryParams{
         native_id ?: string;
         deployment_id ?: string | string[];
     };
+    aggregations ?: {interval?:string; name?:string, size?: number}[];
 }
 
 export interface AlResponderSchema{
