@@ -4,6 +4,7 @@ export interface AlAssetManagerNetwork {
     cidr_ranges?: string[];
     public_cidr_ranges?: string[];
     span_port_enabled?: boolean;
+    network_uuid?: string;
 }
 
 export function newNetwork(): AlAssetManagerNetwork {
@@ -13,6 +14,7 @@ export function newNetwork(): AlAssetManagerNetwork {
         cidr_ranges: [],
         public_cidr_ranges: [],
         span_port_enabled: false,
+        network_uuid: ''
     };
 }
 
