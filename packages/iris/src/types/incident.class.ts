@@ -82,6 +82,43 @@ export class VictimLset {
     }
 }
 
+interface IncidentPorperty {
+    analyst_assist?: null
+    attackClassId?: number;
+    attackClassId_str?: string;
+    description?: string;
+    escalated?: string;
+    escalatedBy?: string;
+    escalationTime?: string;
+    evolution?: {
+        to: {
+            alphaId?: string;
+            friendlyId: string;
+            incidentId: string;
+        }[];
+        tree: {
+            escalated?: boolean;
+            escalatedBy?: string;
+            friendlyId?: string;
+            incidentId?: string;
+            summary?: string;
+            threatRating?: string;
+            evolved_from: {
+                at: number;
+                incidentId: string;
+                friendlyId: string;
+                summary: string;
+                escalated: boolean;
+                escalatedBy: string;
+                threatRating: string;
+            }[];
+        };
+    };
+    recommendations?: string;
+    summary?: string;
+    threatRating?: string;
+}
+
 export class Incident {
     public incidentId:string;
     public accountId:number;
@@ -146,6 +183,7 @@ export class Incident {
     public flaggedEventCount:number    = 0; // Currently not in Iris.
     public appliances:string[]         = [];
     public parents?:{facts_count: number; observations_count: number, unelaborated_ids?: string[]};
+    public incident: IncidentPorperty;
 
     /**
      *  Return the icon according to the severity level
@@ -434,6 +472,10 @@ export class Incident {
 
         if (rawData.parents) {
             i.parents = rawData.parents;
+        }
+
+        if (rawData.hasOwnProperty('incident')) {
+            i.incident = rawData.incident;
         }
 
         return i;
