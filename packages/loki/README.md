@@ -15,7 +15,7 @@ Until the release of version 1.0.0 all current minor version increments may be b
 
 ## Usage
 
-      var KalmClient = require('@al/loki').AlLokiClient; //commonjs - e.g. node
+      var AlLokiClient = require('@al/loki').AlLokiClient; //commonjs - e.g. node
       import { AlLokiClient } from '@al/loki'; //ES2015 - e.g. Angular, TS projects
         
 ## Interactive

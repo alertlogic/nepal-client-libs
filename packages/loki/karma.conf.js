@@ -32,12 +32,12 @@ module.exports = function (config) {
             reports:
                 {
                     "html": {
-                        "directory": "./../../coverage/kalm-client",
+                        "directory": "./../../coverage/loki-client",
                         "subdirectory": "report"
                     },
                     "text-summary": "",
                     "json-summary": {
-                        "directory": "./../../coverage/kalm-client",
+                        "directory": "./../../coverage/loki-client",
                         "subdirectory": "summary",
                         "filename": "json-summary.json"
                     }
