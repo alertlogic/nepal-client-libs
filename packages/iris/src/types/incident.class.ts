@@ -82,7 +82,7 @@ export class VictimLset {
     }
 }
 
-interface IncidentPorperty {
+interface IncidentProperties {
     analyst_assist?: null
     attackClassId?: number;
     attackClassId_str?: string;
@@ -183,7 +183,7 @@ export class Incident {
     public flaggedEventCount:number    = 0; // Currently not in Iris.
     public appliances:string[]         = [];
     public parents?:{facts_count: number; observations_count: number, unelaborated_ids?: string[]};
-    public incident: IncidentPorperty;
+    public incident: IncidentProperties;
 
     /**
      *  Return the icon according to the severity level
