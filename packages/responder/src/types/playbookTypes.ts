@@ -194,6 +194,7 @@ export interface AlResponderAggregationsSummaryItem {
 export interface AlResponderExecutionsHistoryResultAggregations {
     statuses ?: {[key: string]: AlResponderAggregationsSummaryItem[]}[];
     playbook_names ?: {[key: string]: AlResponderAggregationsSummaryItem[]}[];
+    playbook_ids ?: {[key: string]: AlResponderAggregationsSummaryItem[]}[];
     trigger_ids ?: {[key: string]: AlResponderAggregationsSummaryItem[]}[];
 }
 
