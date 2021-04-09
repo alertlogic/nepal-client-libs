@@ -3,16 +3,60 @@ import { TopologyNode } from './topology-node.class';
 
 type NodeIteratorCallback = (asset: TopologyNode) => boolean;
 
+
+export interface Coverage {
+    regions?: TopologyNode[];
+    regionsCount?: number;
+    regionsByKey?: {[i: string]: TopologyNode};
+    vpcs?: TopologyNode[];
+    vpcsCount?: number;
+    vpcsByKey?: {[i: string]: TopologyNode};
+    subnets?: TopologyNode[];
+    subnetsCount?: number;
+    subnetsByKey?: {[i: string]: TopologyNode};
+    hosts?: TopologyNode[];
+    hostsCount?: number;
+    hostsByKey?: {[i: string]: TopologyNode};
+}
+
+export interface TopologyAssetsSummary {
+    regions: TopologyNode[];
+    vpcs: TopologyNode[];
+    subnets: TopologyNode[];
+    hosts: TopologyNode[];
+    regionsCount: number;
+    vpcsCount: number;
+    subnetsCount: number;
+    hostsCount: number;
+}
+
 export class PhoenixTopologySnapshot {
-    public static extraAssetTypes = ['load-balancer', 'image', 'sg', 'container', 'tag'];
-    public regions: TopologyNode[] = [];
-    public vpcs: TopologyNode[] = [];
-    public subnets: TopologyNode[] = [];
-    public extras: { [key: string]: TopologyNode[] } = {};
-    public assetsByKey: { [key: string]: TopologyNode } = {};
-    /* tslint:disable-next-line */
-    public deployment_mode: string = null;
-    public deploymentId: string = null;
+
+    static extraAssetTypes: string[] = ['load-balancer', 'image',
+                                        'sg', 'container', 'tag',
+                                        'appliance'];
+
+    regions: TopologyNode[] = [];
+    vpcs: TopologyNode[] = [];
+    subnets: TopologyNode[] = [];
+    extras: { [key: string]: TopologyNode[] } = {};
+    assetsByKey: { [key: string]: TopologyNode } = {};
+    deploymentMode: string = null;
+    deploymentId: string = null;
+    summary: { [i: string]: number } = {
+        vpcs: 0,
+        subnets: 0,
+        regions: 0,
+        running_hosts: 0, // aka billed hosts
+        all_hosts: 0, // host.appliance + host.agent + host.running
+        appliances: 0,
+        tags: 0,
+        containers: 0,
+        security_groups: 0,
+        images: 0,
+        load_balancers: 0,
+        all: 0
+    };
 
     constructor() {
     }
@@ -25,9 +69,9 @@ export class PhoenixTopologySnapshot {
      *  https://console.product.dev.alertlogic.com/api/assets_query/index.html#api-Queries-Topology_Query
      *  It returns a populated instance of type TopologySnapshot.
      */
-    public static import(rawData: any) {
+    static import(rawData) {
         let topology = new PhoenixTopologySnapshot();
-        if (!rawData.hasOwnProperty("topology")) {
+        if (!rawData?.topology) {
             console.warn("Unexpected input: the input data to PhoenixTopologySnapshot.import does not appear to be valid topology data");
             return topology;
         }
@@ -48,7 +92,7 @@ export class PhoenixTopologySnapshot {
             }
         }
 
-        if (rawData.topology.hasOwnProperty('extras')) {
+        if (rawData.topology?.extras) {
             rawData.topology.extras.forEach((pair: string[]) => {
                 let correlatedAssetRow = rawData.topology.data[pair[1]];
                 let linkedAssetRow = rawData.topology.data[pair[0]];
@@ -65,13 +109,44 @@ export class PhoenixTopologySnapshot {
             console.error("Could not calculate deployment id of topology because of missing regions");
         }
 
+        if (rawData['topology'].hasOwnProperty('asset_counts_by_type')) {
+            topology.summary =
+                PhoenixTopologySnapshot.calculateSummary(rawData['topology']['asset_counts_by_type']);
+        }
         return topology;
+    }
+
+    static calculateSummary(assetCounts): { [i: string]: number } {
+        let summary: { [i: string]: number } = {
+            all: assetCounts['all']
+        };
+        ['region', 'vpc', 'subnet', 'host',
+         'load-balancer', 'image', 'sg',
+         'container', 'tag'].forEach(type => {
+                if (assetCounts.hasOwnProperty(type) && type === 'subnet') {
+                    summary['subnets'] = assetCounts['subnet']['standard'] || assetCounts['subnet']['all'];
+                } else if (assetCounts.hasOwnProperty(type) && type !== 'host') {
+                    summary[`${type}s`] = assetCounts[type];
+                } else if (assetCounts.hasOwnProperty(type) && type === 'host') {
+                    summary['running_hosts'] = assetCounts['host']['running'];
+                    summary['all_hosts'] = assetCounts['host']['all'];
+                    summary['appliances'] = assetCounts['host'].hasOwnProperty('appliance') ? assetCounts['host']['appliance'] : 0;
+                } else if (!assetCounts.hasOwnProperty(type) && type === 'host') {
+                    summary['running_hosts'] = 0;
+                    summary['all_hosts'] = 0;
+                    summary['appliances'] = 0;
+                } else {
+                    summary[`${type}s`] = 0;
+                }
+            });
+
+        return summary;
     }
 
     /**
      *  Gets any node in the tree, identified by key
      */
-    public getByKey(key: string): TopologyNode {
+    getByKey(key: string): TopologyNode {
         if (this.assetsByKey.hasOwnProperty(key)) {
             return this.assetsByKey[key];
         }
@@ -82,7 +157,7 @@ export class PhoenixTopologySnapshot {
      *  Inserts an TopologyNode into the asset tree, appending it to the top level
      *  region & vpc lists if it is a region or vpc and adding it to a parent node if one is provided.
      */
-    public add(asset: TopologyNode, parent: TopologyNode = null, isExtra = false) {
+    add(asset: TopologyNode, parent: TopologyNode = null, isExtra = false): TopologyNode {
         if (isExtra) {
             if (PhoenixTopologySnapshot.extraAssetTypes.indexOf(asset.type) >= 0) {
                 if (!this.assetsByKey.hasOwnProperty(asset.key)) {
@@ -91,7 +166,7 @@ export class PhoenixTopologySnapshot {
                 if (PhoenixTopologySnapshot.extraAssetTypes.indexOf(parent.type) === -1) {
                     if (parent && !parent.childByKey(asset.key)) {
                         parent.children.push(asset);
-                        parent._children.push({ source: parent, target: asset });
+                        parent.nchildren.push({ source: parent, target: asset });
                     }
                     if (this.extras[asset.type] && this.extras[asset.type].length > 0) {
                         this.extras[asset.type].push(asset);
@@ -119,7 +194,7 @@ export class PhoenixTopologySnapshot {
             }
             if (parent && !parent.childByKey(asset.key)) {
                 parent.children.push(asset);
-                parent._children.push({ source: parent, target: asset });
+                parent.nchildren.push({ source: parent, target: asset });
             }
         }
 
@@ -152,8 +227,8 @@ export class PhoenixTopologySnapshot {
      *  This return dicionary with the assets count summary
      *
      */
-    public getSummary(assetTypes: string[] = ['vpc', 'subnet', 'host'], startNodeKey?: string, scope?: SourceScope): any {
-        const summary = {};
+    public getSummary(assetTypes: string[] = ['vpc', 'subnet', 'host', 'appliance'], startNodeKey?: string, scope?: SourceScope): {[i: string]: number} {
+        const summary:  {[i: string]: number} = {};
         const subnets = [];
         assetTypes.forEach(type => { summary[type] = 0; });
         if (startNodeKey) {
@@ -227,6 +302,9 @@ export class PhoenixTopologySnapshot {
                 return true;
             }, assetTypes);
         }
+        if (assetTypes.find(type => type === 'appliance')) {
+            summary['appliance'] = this.extras?.appliance ? this.extras.appliance.length : 0;
+        }
         subnets.forEach(subnet => {
             subnet.iterate(subnetChild => {
                 if (subnetChild.type === 'host') {
@@ -235,6 +313,8 @@ export class PhoenixTopologySnapshot {
                 return true;
             });
         });
+
+        summary['host'] -= summary['appliance'];
         return summary;
     }
     /**
@@ -244,27 +324,26 @@ export class PhoenixTopologySnapshot {
      * @param deployment_mode
      * @param deploymentType
      */
-    public getCoverage(scope: SourceScope, deploymentMode: string = '', deploymentType = 'aws') {
-        this.deployment_mode = deploymentMode;
-        let coverage: object;
+    public getCoverage(scope: SourceScope, deploymentMode: string = '', deploymentType = 'aws'): Coverage {
+        this.deploymentMode = deploymentMode;
         // TODO: USE nestedGet method
-        if (!scope.hasOwnProperty("scopeIncludeByKey") || !scope.hasOwnProperty("scopeExcludeByKey")) {
+        if (!scope?.scopeIncludeByKey || !scope?.scopeExcludeByKey) {
             console.warn("Unexpected input: the input data to TopologySnapshot.getCoverage does not have a valid topology data");
-            return coverage;
+            return {};
         }
         let assetTypes = ['region', 'vpc', 'subnet'];
         if (deploymentType === 'datacenter') {
             assetTypes = ['vpc', 'subnet'];
         }
 
-        let vpcs: TopologyNode[] = [];
-        let subnets: TopologyNode[] = [];
-        let hosts: TopologyNode[] = [];
-        let regions: TopologyNode[] = [];
-        let regionsByKey: { [key: string]: TopologyNode } = {};
-        let hostsByKey: { [key: string]: TopologyNode } = {};
-        let subnetsByKey: { [key: string]: TopologyNode } = {};
-        let vpcsByKey: { [key: string]: TopologyNode } = {};
+        const vpcs: Array<TopologyNode> = [];
+        const subnets: Array<TopologyNode> = [];
+        const hosts: Array<TopologyNode> = [];
+        const regions: Array<TopologyNode> = [];
+        const regionsByKey: { [key: string]: TopologyNode } = {};
+        const hostsByKey: { [key: string]: TopologyNode } = {};
+        const subnetsByKey: { [key: string]: TopologyNode } = {};
+        const vpcsByKey: { [key: string]: TopologyNode } = {};
         this.iterate(asset => {
             if (asset.type === 'vpc') {
                 if (scope.scopeIncludeByKey.hasOwnProperty(asset.key)) {
@@ -321,21 +400,20 @@ export class PhoenixTopologySnapshot {
                 return true;
             });
         });
-        coverage = {
-            regions: regions,
+        return {
+            hosts,
+            subnets,
+            vpcs,
+            regions,
             regionsCount: regions.length,
             regionsByKey: regionsByKey,
-            vpcs: vpcs,
             vpcsCount: vpcs.length,
             vpcsByKey: vpcsByKey,
-            subnets: subnets,
             subnetsCount: subnets.length,
             subnetsByKey: subnetsByKey,
-            hosts: hosts,
             hostsCount: hosts.length,
             hostsByKey: hostsByKey
-        };
-        return coverage;
+        } as Coverage;
     }
 
 
@@ -343,113 +421,48 @@ export class PhoenixTopologySnapshot {
      * @method PhoenixTopologySnapshot.getAllAssets
      *
      */
-    public getAllAssets() {
-
-        let allAssets: object;
-        let regions: TopologyNode[] = [];
-        let vpcs: TopologyNode[] = [];
-        let subnets: TopologyNode[] = [];
-        let hosts: TopologyNode[] = [];
+    getAllAssets(): TopologyAssetsSummary {
+        const regions: Array<TopologyNode> = [];
+        const vpcs: Array<TopologyNode> = [];
+        const subnets: Array<TopologyNode> = [];
+        const hosts: Array<TopologyNode> = [];
         this.iterate(asset => {
-            if (asset.type === 'region') {
-                regions.push(asset);
-            }
-            if (asset.type === 'vpc') {
-                vpcs.push(asset);
-            }
-            if (asset.type === 'subnet') {
-                if (asset.properties.hasOwnProperty('alertlogic_security')) {
-                    if (!asset.properties.alertlogic_security) {
+            switch (asset.type) {
+                case 'region':
+                    regions.push(asset);
+                    break;
+                case 'vpc':
+                    vpcs.push(asset);
+                    break;
+                case 'subnet':
+                    if (!this.isAlSecurity(asset)) {
                         subnets.push(asset);
                     }
-                } else {
-                    subnets.push(asset);
-                }
-            }
-            if (asset.type === 'host') {
-                if (asset.properties.hasOwnProperty('alertlogic_security')) {
-                    if (!asset.properties.alertlogic_security) {
+                    break;
+                case 'host':
+                    if (!this.isAlSecurity(asset)) {
                         hosts.push(asset);
                     }
-                } else {
-                    hosts.push(asset);
-                }
+                    break;
+                default:
+                    break;
             }
             return true;
         });
-
-        allAssets = {
-            regions: regions,
-            vpcs: vpcs,
-            subnets: subnets,
-            hosts: hosts,
+        return {
+            regions,
+            vpcs,
+            subnets,
+            hosts,
             regionsCount: regions.length,
             vpcsCount: vpcs.length,
             subnetsCount: subnets.length,
             hostsCount: hosts.length
-        };
-        return allAssets;
+        } as TopologyAssetsSummary;
     }
 
-    /**
-    * Performs the search of assets matching a string against fields: key, name and description.
-    *
-    * This function traverses the topology set to find assets matching a search phrase,
-    * optionally limiting to visible elements, and applies a callback to *each* corresponding graph node.
-    * @param {PhoenixTopologySnapshot} topology The topology data
-    * @param {string} selectedRegionKey the asset key of a region item in topology (set as undefined it there is not one)
-    * @param {string} searchPhrase text to do to pattern matching with.
-    * @param {boolean} includeInvisibleItems is a flag to tell whether include un-scoped and filtered assets or not
-    * @returns the  assets found.
-    */
-    search = (topology: PhoenixTopologySnapshot, selectedRegionKey: string, searchPhrase: string, includeInvisibleItems: boolean): any => {
-        let hits = {};
-
-        /**
-        * Performs the search on asset fields
-        * @returns {boolean} true for matched, false otherwise.
-        */
-        const match = (asset: TopologyNode): boolean => {
-            const searchMatch = new RegExp(searchPhrase
-                .replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g,
-                    '\\$&'), 'i');
-            let matched = false;
-
-            if (!includeInvisibleItems) {
-                if (asset['exclude']) {
-                    return false;
-                }
-            }
-
-            /* More fields could be included in search here */
-            matched = searchMatch.test(asset.key);
-            matched = matched || (asset.name && searchMatch.test(asset.name));
-            matched = matched || (asset.properties['description'] && searchMatch.test(asset.properties['description']));
-            matched = matched || (asset.properties['private_ip_address'] && searchMatch.test(asset.properties['private_ip_address']));
-            matched = matched || (asset.properties['ip_address'] && searchMatch.test(asset.properties['ip_address']));
-
-            if (matched) {
-                asset.matched = true;
-                hits[asset.key] = asset;
-            } else {
-                asset.matched = false;
-            }
-            return matched;
-        };
-
-        if (selectedRegionKey) {
-            topology.getByKey(selectedRegionKey).iterate((node: TopologyNode) => {
-                match(node);
-                return true;
-            });
-        } else {
-            topology.iterate((node: TopologyNode) => {
-                match(node);
-                return true;
-            });
-        }
-        return hits;
+    private isAlSecurity(asset: TopologyNode): boolean {
+        return !!asset.properties?.alertlogic_security;
     }
-
 
 }

@@ -1,29 +1,29 @@
 type AssetIteratorCallback = (asset: AssetDescriptor) => boolean;
 
 export class AssetDescriptor {
-    public type: string = null;
-    public key: string = null;
-    public name: string = null;
-    public parent: AssetDescriptor = null;
-    public children: AssetDescriptor[] = [];
-    public properties: { [property: string]: any } = {};
-    public summary: any = {};
+    type: string = null;
+    key: string = null;
+    name: string = null;
+    parent: AssetDescriptor = null;
+    children: AssetDescriptor[] = [];
+    summary: {[i: string] : number} = {};
+    properties: { [property: string]: unknown } = {};
 
     constructor() {
     }
 
-    public static import(rawData: any) {
+    public static import(rawData) {
 
-        let asset = new AssetDescriptor();
+        const asset = new AssetDescriptor();
 
-        if (!rawData.hasOwnProperty("type") || !rawData.hasOwnProperty("key")) {
+        if (!rawData?.type|| !rawData?.key) {
             console.warn("Unexpected input: asset representations must have at least 'type' and 'key' properties");
             return asset;
         }
 
         asset.type = rawData.type;
         asset.key = rawData.key;
-        asset.name = rawData.hasOwnProperty('name') ? rawData.name : rawData.key;
+        asset.name = rawData?.name ?? rawData.key;
         asset.properties = rawData;
         asset.summary = {};
         return asset;
@@ -32,19 +32,14 @@ export class AssetDescriptor {
     /**
      *  Retrieves a child AssetDescriptor, identified by key, if this AssetDescriptor has such a child.
      */
-    public childByKey(key: string): AssetDescriptor {
-        for (let i = 0; i < this.children.length; i++) {
-            if (this.children[i].key === key) {
-                return this.children[i];
-            }
-        }
-        return null;
+    childByKey(key: string): AssetDescriptor {
+        return this.children.find(child => child.key === key) ?? null;
     }
 
     /**
      *  The `lineage` iteration method allows the caller to ascend upwards through the topology view, from lowest to highest.
      */
-    public lineage(iterator: AssetIteratorCallback): void {
+    lineage(iterator: AssetIteratorCallback): void {
         let shouldContinue = iterator(this);
         if (shouldContinue) {
             if (this.parent) {
@@ -56,7 +51,7 @@ export class AssetDescriptor {
     /**
      *  The `iterate` method allows the caller to descend into the topology view from a given asset.
      */
-    public iterate(iterator: AssetIteratorCallback, typesFilter: string[] = null): void {
+    iterate(iterator: AssetIteratorCallback, typesFilter: string[] = null): void {
         let shouldContinue = iterator(this);
         if (!shouldContinue) {
             return;
@@ -68,3 +63,4 @@ export class AssetDescriptor {
         }
     }
 }
+
