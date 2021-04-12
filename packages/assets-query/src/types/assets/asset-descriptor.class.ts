@@ -7,7 +7,7 @@ export class AssetDescriptor {
     parent: AssetDescriptor = null;
     children: AssetDescriptor[] = [];
     summary: {[i: string] : number} = {};
-    properties: { [property: string]: unknown } = {};
+    properties: { [property: string]: any } = {};
 
     constructor() {
     }

@@ -4,7 +4,7 @@ type NodeIteratorCallback = ( asset: TopologyNode) => boolean;
 
 export class TopologyNode extends AssetDescriptor {
     children: TopologyNode[] = [];
-    parent: TopologyNode = null;
+    parent: TopologyNode | null = null;
      /** UI properties */
     excluded = false; // To be use for exclusions in Configuration
     matched = true; // To be use when searching an asset.
@@ -19,7 +19,7 @@ export class TopologyNode extends AssetDescriptor {
     scanInProgress = false; // To paint nodes with active scans in Overview Topology
     hasCredentials = false; // To paint nodes with credentials in Overview Topology
     peeredFrom: TopologyNode[] = []; // For vpc peering
-    peeredTo: TopologyNode = null; // For vpc peering
+    peeredTo: TopologyNode | null = null; // For vpc peering
     selected = false;
     deploymentId: string = null;
 
