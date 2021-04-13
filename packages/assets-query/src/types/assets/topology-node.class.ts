@@ -22,6 +22,9 @@ export class TopologyNode extends AssetDescriptor {
     peeredTo: TopologyNode | null = null; // For vpc peering
     selected = false;
     deploymentId: string = null;
+    stoppedInstance: boolean;
+    nodeId: string;
+    focused: boolean;
 
     static import(rawData) {
         let asset = new TopologyNode();
