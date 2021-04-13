@@ -75,11 +75,8 @@ export class AlEndpointsClientInstance {
     }
 
     private async getEsbApiOrigin( accountId:string ):Promise<string> {
-        const endpointsDictionary = await AlDefaultClient.getServiceEndpoints(accountId, ['esb']);
-        if ( endpointsDictionary.hasOwnProperty( "esb" ) ) {
-            return endpointsDictionary['esb'];
-        }
-        return '';
+        await AlDefaultClient.resolveDefaultEndpoints(accountId, ['esb']);
+        return AlDefaultClient.lookupDefaultServiceEndpoint(accountId, 'esb');
     }
 
     /**
