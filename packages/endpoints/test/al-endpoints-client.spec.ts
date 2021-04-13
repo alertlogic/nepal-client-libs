@@ -14,6 +14,7 @@ describe('Endpoints API Client', () => {
     let requestStub:sinon.SinonSpy;
     let getServiceEndpointsStub: sinon.SinonSpy;
     let getOrgStub:sinon.SinonSpy;
+    let lookupDefaultServiceEndpointStub:sinon.SinonSpy;
     let apiBaseURL: string;
     let globalBaseURL: string;
     let endpointsApiURL: string;
@@ -43,8 +44,10 @@ describe('Endpoints API Client', () => {
                 .setGlobalParameters( { noEndpointsResolution: true } );
         requestStub = sinon.stub(AlDefaultClient as any, "axiosRequest")
                 .returns( Promise.resolve( { status: 200, data: 'Some result', config: {} } ) );
-        getServiceEndpointsStub = sinon.stub(AlDefaultClient, 'getServiceEndpoints')
-                .returns( Promise.resolve( { } ) );
+        getServiceEndpointsStub = sinon.stub(AlDefaultClient, 'resolveDefaultEndpoints')
+                .returns( Promise.resolve() );
+        lookupDefaultServiceEndpointStub = sinon.stub(AlDefaultClient, 'lookupDefaultServiceEndpoint')
+                .returns( 'https://api.endpoints.product.dev.alertlogic.com' );
         getOrgStub = sinon.stub( AIMSClient, 'getAccountOrganization' )
                 .returns( Promise.resolve( organizationMock ) );
         apiBaseURL = AlLocatorService.resolveURL( AlLocation.InsightAPI );
@@ -55,6 +58,7 @@ describe('Endpoints API Client', () => {
         requestStub.restore();
         getServiceEndpointsStub.restore();
         getOrgStub.restore();
+        lookupDefaultServiceEndpointStub.restore();
     });
     describe('dereferencing an account to an organization', () => {
         it('should use the AIMSClient.getAccountOrganization method and cache results', async() => {

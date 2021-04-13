@@ -10,7 +10,7 @@
     "interactive": "npm run build && node -i -e \"const IRISClient = require('./dist/commonjs/index.js').IRISClient;\""
   },
   "dependencies": {
-    "@al/core": "^1.0.114",
+    "@al/core": "^1.0.121",
     "@al/sources": "^1.0.0",
     "date-fns": "^2.16.1",
     "rollup": "^2.6.1"
