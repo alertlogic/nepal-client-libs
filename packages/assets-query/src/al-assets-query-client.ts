@@ -2,45 +2,103 @@
  * Module to deal with available Assets Query Public API endpoints
  */
 import {
-    AlApiClient,
-    AlDefaultClient,
-    AlLocation
+  AlApiClient,
+  AlDefaultClient,
+  AlLocation
 } from '@al/core';
 import {
-    ExposureQueryParams,
-    ExposuresQueryResponse,
-    ExposuresSummary,
-    ExposuresCountSummary,
-    ExposuresCountSummaryQueryParams,
-    ExposureSeverities,
-    FindAssetsRequest,
-    HealthResponse,
-    HealthSummaryResponse,
-    TagsSummaryResponse,
-    TopologyResponse,
-    CollectionHealthQueryParams,
-    RemediationItemsQueryParams,
-    RemediationItemsQueryResponse,
-    AssetsQueryParams,
-    AssetQueryGeneralResponse,
+  ExposureQueryParams,
+  ExposuresQueryResponse,
+  ExposuresSummary,
+  ExposuresCountSummary,
+  ExposuresCountSummaryQueryParams,
+  ExposureSeverities,
+  FindAssetsRequest,
+  HealthResponse,
+  HealthSummaryResponse,
+  TagsSummaryResponse,
+  TopologyResponse,
+  CollectionHealthQueryParams,
+  RemediationItemsQueryParams,
+  RemediationItemsQueryResponse,
+  AssetsQueryParams,
+  AssetQueryGeneralResponse,
 } from './types';
 import {
-    AssetGroup,
-    AssetGroupListResponse,
-    AssetGroupPayload,
-    AssetGroupTopologyQueryParams,
-    AssetGroupTopologyResponse,
-    Scope
+  AssetGroup,
+  AssetGroupListResponse,
+  AssetGroupPayload,
+  AssetGroupTopologyQueryParams,
+  AssetGroupTopologyResponse,
+  Scope
 } from './types/assets/asset-groups';
-import { AssetTypesListResponse, AssetTypesResponse, DeleteAssetGroupResponse } from './types/assets/asset-types';
+import {
+  AssetTypesResponse,
+  DeleteAssetGroupResponse,
+} from './types/assets/asset-types';
 
-
+import { PhoenixTopologySnapshot, TopologyNode } from './types/assets';
 
 export class AlAssetsQueryClientInstance {
 
 
   /* istanbul ignore next */
-  constructor(public client:AlApiClient = AlDefaultClient) {
+  constructor(public client: AlApiClient = AlDefaultClient) {
+  }
+
+
+  /**
+    *  Gets the topology tree for a given deployment and returns a
+    *  PhoenixTopologySnapshot describing it.
+    *  This endpoint only return assets downto the subnet level.
+    * @remarks https://console.cloudinsight.alertlogic.com/api/assets_query/#api-Topology-GetConfigTopology
+    */
+  async getConfigTopologySnapshot(accountId: string, deploymentId: string): Promise<PhoenixTopologySnapshot> {
+    return this.client.get<PhoenixTopologySnapshot>({
+      service_stack: AlLocation.InsightAPI,
+      version: 'v1',
+      account_id: accountId,
+      service_name: 'assets_query',
+      path: `/deployments/${deploymentId}/topology/config`
+    });
+  }
+
+  /**
+    *  Gets the topology tree for a given deployment and returns a
+    *  PhoenixTopologySnapshot describing it.
+    * This endpoint accepts 2 query parameters, category,
+    * which will be used to filter vulnerabilities included in the resulting calculation.
+    * ?category=config for configuration issues, ?category=security for security findings and scope,
+    * ?scope=true for assets in scope (default behavior), ?category=false for all the asssets.
+    * The returned format is the same, so rows are just rows of references to the data section.
+    * The resulting threatiness on each asset is a live number based on the category filter applied.
+    * If unfiltered (no category is provided) all vulnerabilities are included.
+    * There is one *maybe* missing feature at this point,
+    * which is the relative-ranked categorization by asset type (i.e. threat_level used for color-coding).
+    * @param accountId
+    * @param deploymentId
+    * @param categories the remediations category. Only security and configuration are allowed for now
+    * @param extraAssetTypes extras include (container, sg, load-balancer and image)
+    * @param scope true|false to whether return all the assets or just the one in scope.
+    * @remarks https://console.cloudinsight.alertlogic.com/api/assets_query/#api-Topology-GetOverviewTopology
+    */
+  async getOverviewTopologySnapshot(accountId: string,
+                                    deploymentId: string,
+                                    extraAssetTypes: string[] = [],
+                                    categories: string[] = [],
+                                    scope = true): Promise<PhoenixTopologySnapshot> {
+    return this.client.get<PhoenixTopologySnapshot>({
+      service_stack: AlLocation.InsightAPI,
+      version: 'v1',
+      account_id: accountId,
+      service_name: 'assets_query',
+      path: `/deployments/${deploymentId}/topology/overview`,
+      params: {
+        scope,
+        ...(categories.length > 0 && { category: categories.join() }),
+        ...(extraAssetTypes.length > 0 && { extras: extraAssetTypes.join() })
+      }
+    });
   }
 
   /**
@@ -67,7 +125,7 @@ export class AlAssetsQueryClientInstance {
    * /remediations/v1/:account_id/health/summary
    * "https://api.cloudinsight.alertlogic.com/remediations/v1/10000001/health/summary"
    */
-  async getHealthSummary(accountId: string,  queryParams?: {scope?: boolean, filter?: string[]}) {
+  async getHealthSummary(accountId: string, queryParams?: { scope?: boolean, filter?: string[] }) {
     return this.client.get<HealthSummaryResponse>({
       service_stack: AlLocation.InsightAPI,
       version: 'v1',
@@ -84,7 +142,7 @@ export class AlAssetsQueryClientInstance {
    * /assets_query/v1/:account_id/find
    * "https://api.cloudinsight.alertlogic.com/assets_query/v1/01000001/find?collector_type=agent&uuid=CD7C26C3-FAA1-4AD1-86CB-9628ED1B3327"
    */
-  async findAsset(accountId: string,  queryParams?: {uuid: string, collector_type?: string}) {
+  async findAsset(accountId: string, queryParams?: { uuid: string, collector_type?: string }) {
     return this.client.get<any>({
       service_stack: AlLocation.InsightAPI,
       version: 'v1',
@@ -101,7 +159,7 @@ export class AlAssetsQueryClientInstance {
    * /assets_query/v1/:account_id/find
    * "https://api.cloudinsight.alertlogic.com/assets_query/v1/01000001/find?collector_type=agent&uuid=CD7C26C3-FAA1-4AD1-86CB-9628ED1B3327"
    */
-  async findAssets(accountId: string,  queryParams?: FindAssetsRequest) {
+  async findAssets(accountId: string, queryParams?: FindAssetsRequest) {
     return this.client.get<any>({
       service_stack: AlLocation.InsightAPI,
       version: 'v1',
@@ -119,8 +177,8 @@ export class AlAssetsQueryClientInstance {
    * "https://api.cloudinsight.alertlogic.com/assets_query/v1/12345678/details?type=host&key=id:i-0fa67ce21528409bc&deployment=aws:1234567890®ion=id:us-east-2"
    */
   async getAssetDetails(
-      accountId: string,
-      queryParams?: { type?: string, key?: string, deployment?: string, region?: string, appliance_uuid?: string, ip_address?: string, port?: string, host_uuid?: string },
+    accountId: string,
+    queryParams?: { type?: string, key?: string, deployment?: string, region?: string, appliance_uuid?: string, ip_address?: string, port?: string, host_uuid?: string },
   ) {
     return this.client.get<any>({
       service_stack: AlLocation.InsightAPI,
@@ -167,15 +225,15 @@ export class AlAssetsQueryClientInstance {
   }
 
   async getExposuresSummary(accountId: string,
-                            qParams: ExposuresCountSummaryQueryParams ): Promise<ExposuresCountSummary> {
-        return this.client.get<ExposuresCountSummary>({
-          service_stack: AlLocation.InsightAPI,
-          version: 'v2',
-          account_id: accountId,
-          service_name: 'assets_query',
-          path: '/exposures',
-          params: qParams,
-        });
+    qParams: ExposuresCountSummaryQueryParams): Promise<ExposuresCountSummary> {
+    return this.client.get<ExposuresCountSummary>({
+      service_stack: AlLocation.InsightAPI,
+      version: 'v2',
+      account_id: accountId,
+      service_name: 'assets_query',
+      path: '/exposures',
+      params: qParams,
+    });
   }
 
   /**
@@ -192,7 +250,7 @@ export class AlAssetsQueryClientInstance {
       account_id: accountId,
       service_name: 'assets_query',
       path: '/tags/summary',
-      params: includeTaggedAssets ? {['include_tagged_assets']: includeTaggedAssets} : {}
+      params: includeTaggedAssets ? { ['include_tagged_assets']: includeTaggedAssets } : {}
     });
 
   }
@@ -203,7 +261,7 @@ export class AlAssetsQueryClientInstance {
    * /assets_query/v1/:account_id/deployments/:deployment_id/topology
    * "https://api.cloudinsight.alertlogic.com/assets_query/v1/19000001/deployments/814C2911-09BB-1005-9916-7831C1BAC182/topology"
    */
-  async getTopology(accountId: string, deploymentId: string, queryParams?: {include_filters?: boolean, include_remediations?: boolean, disposed?: string, extras?: string}) {
+  async getTopology(accountId: string, deploymentId: string, queryParams?: { include_filters?: boolean, include_remediations?: boolean, disposed?: string, extras?: string }) {
     return this.client.get<TopologyResponse>({
       service_stack: AlLocation.InsightAPI,
       version: 'v1',
@@ -269,7 +327,7 @@ export class AlAssetsQueryClientInstance {
    * "https://api.cloudinsight.alertlogic.com/remediations/v1/10000001/deployments/347203EF-134C-1005-8499-1289DB15AB31/remediations"
    * -d '{"operation": "complete_remediations", "remediation_items": ["/al/15000001:814C2911-09BB-1005-9916-7831C1BAC182/remediation-item/0536575B914C32C8A5D28415D02E4545"]}
    */
-  async completeRemediations(accountId: string, deploymentId: string, remediationData: {operation: string, remediation_items: string[]}) {
+  async completeRemediations(accountId: string, deploymentId: string, remediationData: { operation: string, remediation_items: string[] }) {
     return this.client.put<any>({
       service_stack: AlLocation.InsightAPI,
       version: 'v1',
@@ -289,17 +347,19 @@ export class AlAssetsQueryClientInstance {
    * "comment": "This risk is acceptable", "expires": 0,
    * "remediation_ids": ["ids_upgrade_hardware"], "deployment_ids":["0A2DC25F-5B5A-4A93-9413-1A8D6F87489E"], filters:[]}'
    */
-  async disposeRemediations(accountId: string, remediationData: { deployment_ids?: string[], filters: string[] | string[][], vulnerability_ids?: string[], remediation_ids?: string[], reason: string,
-                                                                  comment: string, expires?: number, applies_to_specific_assets?: boolean}) {
+  async disposeRemediations(accountId: string, remediationData: {
+    deployment_ids?: string[], filters: string[] | string[][], vulnerability_ids?: string[], remediation_ids?: string[], reason: string,
+    comment: string, expires?: number, applies_to_specific_assets?: boolean
+  }) {
     let baseRemediationData = { operation: 'dispose_remediations' };
     Object.assign(baseRemediationData, remediationData);
     return this.client.put<any>({
-        service_stack: AlLocation.InsightAPI,
-        account_id: accountId,
-        service_name: 'assets_query',
-        path: 'remediations',
-        version: 'v2',
-        data: baseRemediationData,
+      service_stack: AlLocation.InsightAPI,
+      account_id: accountId,
+      service_name: 'assets_query',
+      path: 'remediations',
+      version: 'v2',
+      data: baseRemediationData,
     });
   }
 
@@ -310,7 +370,7 @@ export class AlAssetsQueryClientInstance {
    * "https://api.cloudinsight.alertlogic.com/remediations/v1/10000001/deployments/347203EF-134C-1005-8499-1289DB15AB31/remediations"
    * -d '{"operation": "uncomplete_remediations", "remediation_itemss": ["/al/15000001:814C2911-09BB-1005-9916-7831C1BAC182/remediation-item/0536575B914C32C8A5D28415D02E4545"]}
    */
-  async uncompleteRemediations(accountId: string, deploymentId: string, remediationData: {operation: string, remediation_items: string[]}) {
+  async uncompleteRemediations(accountId: string, deploymentId: string, remediationData: { operation: string, remediation_items: string[] }) {
     return this.client.put<any>({
       service_stack: AlLocation.InsightAPI,
       version: 'v1',
@@ -327,8 +387,10 @@ export class AlAssetsQueryClientInstance {
    * /remediations/v1/:account_id/remediations
    * https://api.cloudinsight.alertlogic.com/remediations/v1/12345678/remediations?remediation_item_ids=0536575B914C32C8A5D28415D02E4545"
    */
-  async undisposeRemediations(accountId: string, queryParams?: { audit_ids?: string, deployment_ids?: string, remediation_item_ids?: string,
-                                                                 remediation_ids?: string, vulnerability_ids?: string,}) {
+  async undisposeRemediations(accountId: string, queryParams?: {
+    audit_ids?: string, deployment_ids?: string, remediation_item_ids?: string,
+    remediation_ids?: string, vulnerability_ids?: string,
+  }) {
     return this.client.delete<any>({
       service_stack: AlLocation.InsightAPI,
       account_id: accountId,
@@ -350,9 +412,9 @@ export class AlAssetsQueryClientInstance {
    *      "remediations": ["/al/15000001:814C2911-09BB-1005-9916-7831C1BAC182/remediation-item/0536575B914C32C8A5D28415D02E4545"]}
    */
   async planRemediations(
-      accountId: string,
-      deploymentId: string,
-      remediationData: { operation: string, filters: string[], user_id: string, remediations: string[] },
+    accountId: string,
+    deploymentId: string,
+    remediationData: { operation: string, filters: string[], user_id: string, remediations: string[] },
   ) {
     return this.client.put<any>({
       service_stack: AlLocation.InsightAPI,
@@ -407,18 +469,20 @@ export class AlAssetsQueryClientInstance {
    * "https://api.cloudinsight.alertlogic.com/assets_query/v2/10000001/remediations"
    *  -d '{"operation": "conclude_remediations", "remediation_ids": ["ids_upgrade_hardware"], "deployment_ids":["0A2DC25F-5B5A-4A93-9413-1A8D6F87489E"], filters:[]}
    */
-  async concludeRemediations(accountId: string, remediationData: {  deployment_ids?: string[], filters: string[] | string[][], vulnerability_ids?: string[],
-                                                                    remediation_ids?: string[], applies_to_specific_assets?: boolean }) {
+  async concludeRemediations(accountId: string, remediationData: {
+    deployment_ids?: string[], filters: string[] | string[][], vulnerability_ids?: string[],
+    remediation_ids?: string[], applies_to_specific_assets?: boolean
+  }) {
     let baseRemediationData = { operation: 'conclude_remediations' };
     Object.assign(baseRemediationData, remediationData);
     return this.client.put<any>({
-            service_stack: AlLocation.InsightAPI,
-            account_id: accountId,
-            service_name: 'assets_query',
-            path: 'remediations',
-            version: 'v2',
-            data: baseRemediationData,
-        });
+      service_stack: AlLocation.InsightAPI,
+      account_id: accountId,
+      service_name: 'assets_query',
+      path: 'remediations',
+      version: 'v2',
+      data: baseRemediationData,
+    });
   }
 
   /**
@@ -462,7 +526,7 @@ export class AlAssetsQueryClientInstance {
    * URL: https://api.product.dev.alertlogic.com/assets_write/v1/01000001/assets
    * API: https://console.account.alertlogic.com/users/api/assets_write/#api-AssetGroupOperations
    */
-  async assetGroupOperations(accountId: string, payload: AssetGroupPayload) : Promise<AssetGroup> {
+  async assetGroupOperations(accountId: string, payload: AssetGroupPayload): Promise<AssetGroup> {
     return this.client.put<AssetGroup>({
       service_stack: AlLocation.InsightAPI,
       account_id: accountId,
@@ -480,13 +544,13 @@ export class AlAssetsQueryClientInstance {
    */
   async getAssetGroupTopology(accountId: string, requestParams: AssetGroupTopologyQueryParams): Promise<AssetGroupTopologyResponse> {
     return this.client.post<AssetGroupTopologyResponse>({
-        service_stack: AlLocation.InsightAPI,
-        account_id: accountId,
-        service_name: 'assets_query',
-        path: 'topology/asset_group',
-        version: 'v1',
-        data: requestParams
-      });
+      service_stack: AlLocation.InsightAPI,
+      account_id: accountId,
+      service_name: 'assets_query',
+      path: 'topology/asset_group',
+      version: 'v1',
+      data: requestParams
+    });
   }
 
   /**
@@ -496,12 +560,12 @@ export class AlAssetsQueryClientInstance {
    */
   async listAssetGroups(accountId: string): Promise<AssetGroupListResponse> {
     return this.client.get<AssetGroupListResponse>({
-        service_stack: AlLocation.InsightAPI,
-        account_id: accountId,
-        service_name: 'assets_query',
-        path: 'asset_groups',
-        version: 'v1'
-      });
+      service_stack: AlLocation.InsightAPI,
+      account_id: accountId,
+      service_name: 'assets_query',
+      path: 'asset_groups',
+      version: 'v1'
+    });
   }
 
   /**
@@ -509,14 +573,14 @@ export class AlAssetsQueryClientInstance {
    * GET
    * /asset_query/v1/asset_types
    */
-  async getAssetTypes(queryParams: {filter?: string, fields?: string, format?: string}) {
+  async getAssetTypes(queryParams: { filter?: string, fields?: string, format?: string }) {
     return this.client.get<AssetTypesResponse>({
-        service_stack: AlLocation.InsightAPI,
-        service_name: 'assets_query',
-        path: 'asset_types',
-        version: 'v1',
-        params: queryParams,
-      });
+      service_stack: AlLocation.InsightAPI,
+      service_name: 'assets_query',
+      path: 'asset_types',
+      version: 'v1',
+      params: queryParams,
+    });
   }
 
   /**
@@ -526,17 +590,17 @@ export class AlAssetsQueryClientInstance {
    */
   async deleteAssetGroup(accountId: string, name: string, dryRun = false) {
     return this.client.put<DeleteAssetGroupResponse>({
-        service_stack: AlLocation.InsightAPI,
-        account_id: accountId,
-        service_name: 'assets_query',
-        path: 'asset_groups',
-        version: 'v1',
-        data: {
-            name,
-            operation: 'delete_asset_group',
-            scope : 'user',
-            dry_run: dryRun
-        }
-      });
+      service_stack: AlLocation.InsightAPI,
+      account_id: accountId,
+      service_name: 'assets_query',
+      path: 'asset_groups',
+      version: 'v1',
+      data: {
+        name,
+        operation: 'delete_asset_group',
+        scope: 'user',
+        dry_run: dryRun
+      }
+    });
   }
 }

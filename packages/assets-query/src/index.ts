@@ -6,3 +6,4 @@ export const AlAssetsQueryClient = AlGlobalizer.instantiate('al.assets-query', (
 
 export { AlAssetsQueryClientInstance } from './al-assets-query-client';
 export * from './types';
+export * from './assets-utilities';
