@@ -14,15 +14,15 @@ type DeploymentStatus = {
   timestamp?: number;
 };
 
-interface IncludedAsset {
-  type: 'deployment' | 'region' | 'vpc';
+export interface IncludedAsset {
+  type: 'deployment' | 'region' | 'vpc' | 'subnet';
   key: string;
   policy?: {
     id: string;
   };
 }
 
-interface ExcludedAsset {
+export interface ExcludedAsset {
   type: 'region' | 'vpc' | 'subnet';
   key : string;
 }

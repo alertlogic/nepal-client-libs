@@ -6,3 +6,4 @@ export const AlPoliciesClient = AlGlobalizer.instantiate('al.policies', () => ne
 
 export { AlPoliciesClientInstance } from './al-policies-client';
 export * from './types';
+export * from './policies-utilities';
