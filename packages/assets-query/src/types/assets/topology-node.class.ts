@@ -1,6 +1,16 @@
+/**
+ * An almost exact copy of the AssetDescriptor class but with added properties only used
+ * in the frontend for rendering the topology tree. In theory, this class should be
+ * over the visualizations module, but I couldn't think of a way to decouple the rendering-specific
+ * properties from from core client ones given that the topology is query for other purposes
+ * besides graph rendering... so (shrug)
+ */
+
 import { AssetDescriptor } from './asset-descriptor.class';
 
 type NodeIteratorCallback = ( asset: TopologyNode) => boolean;
+
+export type TopologyNodeLink = { source: TopologyNode, target: TopologyNode };
 
 export class TopologyNode extends AssetDescriptor {
     children: TopologyNode[] = [];
@@ -8,7 +18,7 @@ export class TopologyNode extends AssetDescriptor {
      /** UI properties */
     excluded = false; // To be use for exclusions in Configuration
     matched = true; // To be use when searching an asset.
-    nchildren: {source: TopologyNode, target: TopologyNode}[] = []; // To be use for the Solar System algorithm
+    links: TopologyNodeLink[] = []; // To be use for the Solar System algorithm
     flavor = ''; // To be use with Protection Level visualization.
     remediationsThreatLevel = null; // To be use in Overview Topology for node coloring
     securityRemediations = false;

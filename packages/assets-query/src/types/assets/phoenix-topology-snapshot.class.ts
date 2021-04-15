@@ -166,7 +166,7 @@ export class PhoenixTopologySnapshot {
                 if (PhoenixTopologySnapshot.extraAssetTypes.indexOf(parent.type) === -1) {
                     if (parent && !parent.childByKey(asset.key)) {
                         parent.children.push(asset);
-                        parent.nchildren.push({ source: parent, target: asset });
+                        parent.links.push({ source: parent, target: asset });
                     }
                     if (this.extras[asset.type] && this.extras[asset.type].length > 0) {
                         this.extras[asset.type].push(asset);
@@ -194,7 +194,7 @@ export class PhoenixTopologySnapshot {
             }
             if (parent && !parent.childByKey(asset.key)) {
                 parent.children.push(asset);
-                parent.nchildren.push({ source: parent, target: asset });
+                parent.links.push({ source: parent, target: asset });
             }
         }
 
