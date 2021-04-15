@@ -54,13 +54,14 @@ export class AlAssetsQueryClientInstance {
     * @remarks https://console.cloudinsight.alertlogic.com/api/assets_query/#api-Topology-GetConfigTopology
     */
   async getConfigTopologySnapshot(accountId: string, deploymentId: string): Promise<PhoenixTopologySnapshot> {
-    return this.client.get<PhoenixTopologySnapshot>({
+    const rawdata =  await this.client.get({
       service_stack: AlLocation.InsightAPI,
       version: 'v1',
       account_id: accountId,
       service_name: 'assets_query',
       path: `/deployments/${deploymentId}/topology/config`
     });
+    return PhoenixTopologySnapshot.import(rawdata);
   }
 
   /**
@@ -87,7 +88,7 @@ export class AlAssetsQueryClientInstance {
                                     extraAssetTypes: string[] = [],
                                     categories: string[] = [],
                                     scope = true): Promise<PhoenixTopologySnapshot> {
-    return this.client.get<PhoenixTopologySnapshot>({
+    const rawdata =  await this.client.get<PhoenixTopologySnapshot>({
       service_stack: AlLocation.InsightAPI,
       version: 'v1',
       account_id: accountId,
@@ -99,6 +100,7 @@ export class AlAssetsQueryClientInstance {
         ...(extraAssetTypes.length > 0 && { extras: extraAssetTypes.join() })
       }
     });
+    return  PhoenixTopologySnapshot.import(rawdata);
   }
 
   /**
