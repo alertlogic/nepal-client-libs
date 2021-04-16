@@ -1,26 +1,39 @@
+/**
+ * An almost exact copy of the AssetDescriptor class but with added properties only used
+ * in the frontend for rendering the topology tree. In theory, this class should be
+ * over the visualizations module, but I couldn't think of a way to decouple the rendering-specific
+ * properties from from core client ones given that the topology is query for other purposes
+ * besides graph rendering... so (shrug)
+ */
+
 import { AssetDescriptor } from './asset-descriptor.class';
 
 type NodeIteratorCallback = ( asset: TopologyNode) => boolean;
+
+export interface TopologyNodeLink {
+     source: TopologyNode;
+     target: TopologyNode;
+}
 
 export class TopologyNode extends AssetDescriptor {
     children: TopologyNode[] = [];
     parent: TopologyNode | null = null;
      /** UI properties */
-    excluded = false; // To be use for exclusions in Configuration
-    matched = true; // To be use when searching an asset.
-    nchildren: {source: TopologyNode, target: TopologyNode}[] = []; // To be use for the Solar System algorithm
+    excluded: boolean = false; // To be use for exclusions in Configuration
+    matched: boolean = true; // To be use when searching an asset.
+    links: TopologyNodeLink[] = []; // To be use for the Solar System algorithm
     flavor = ''; // To be use with Protection Level visualization.
     remediationsThreatLevel = null; // To be use in Overview Topology for node coloring
-    securityRemediations = false;
+    securityRemediations: boolean = false;
     configurationRemediations = false;
     incidentsThreatLevel; // To be use in Overview Topology for node coloring
     expediteScanPending = false; // To paint nodes with expedite scan pending in Overview Topology
     lastScan = null; // To be use in the tooltip in Overview Topology
-    scanInProgress = false; // To paint nodes with active scans in Overview Topology
-    hasCredentials = false; // To paint nodes with credentials in Overview Topology
+    scanInProgress: boolean = false; // To paint nodes with active scans in Overview Topology
+    hasCredentials: boolean = false; // To paint nodes with credentials in Overview Topology
     peeredFrom: TopologyNode[] = []; // For vpc peering
     peeredTo: TopologyNode | null = null; // For vpc peering
-    selected = false;
+    selected: boolean = false;
     deploymentId: string = null;
     stoppedInstance: boolean;
     nodeId: string;
@@ -72,3 +85,5 @@ export class TopologyNode extends AssetDescriptor {
         }
     }
 }
+
+
