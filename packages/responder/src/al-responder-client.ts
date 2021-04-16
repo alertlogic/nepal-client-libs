@@ -919,12 +919,14 @@ export class AlResponderClientInstance {
      * @returns Returns playbook templates
      *
      */
-    async getTemplates(accountId: string): Promise<{playbook_templates: AlPlaybookTemplate[]}> {
+    async getTemplates(accountId: string,
+        parameters: {include_parents?: boolean} = {}): Promise<{playbook_templates: AlPlaybookTemplate[]}> {
         return this.client.get<{playbook_templates: AlPlaybookTemplate[]}>({
             version: this.serviceVersion,
             service_stack: this.serviceStack,
             account_id: accountId,
-            path: `/playbook_templates`
+            path: `/playbook_templates`,
+            params: parameters
         });
     }
 
