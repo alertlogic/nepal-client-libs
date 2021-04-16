@@ -940,8 +940,7 @@ export class AlResponderClientInstance {
      *
      * @remarks
      */
-    async createTemplate(accountId: string,
-        payload: AlResponderSample): Promise<AlPlaybookTemplate> {
+    async createTemplate(accountId: string, payload: AlPlaybookTemplate): Promise<AlPlaybookTemplate> {
         return this.client.post<AlPlaybookTemplate>({
             version: this.serviceVersion,
             service_stack: this.serviceStack,
