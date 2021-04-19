@@ -31,8 +31,10 @@ export class TopologyNode extends AssetDescriptor {
     lastScan = null; // To be use in the tooltip in Overview Topology
     scanInProgress: boolean = false; // To paint nodes with active scans in Overview Topology
     hasCredentials: boolean = false; // To paint nodes with credentials in Overview Topology
-    peeredFrom: TopologyNode[] = []; // For vpc peering
-    peeredTo: TopologyNode | null = null; // For vpc peering
+    peeredFrom: TopologyNode[] = []; // For cross-network protection
+    peeredTo: TopologyNode | null = null; // For cross-network protection
+    deploymentName?: string; // For cross-network protection
+    hasVpcId: boolean; // For cross-network protection
     selected: boolean = false;
     deploymentId: string = null;
     stoppedInstance: boolean;
@@ -48,6 +50,7 @@ export class TopologyNode extends AssetDescriptor {
         asset.flavor =  rawData?.flavor ?? '';
         asset.properties = rawData;
         asset.summary = {};
+        asset.hasVpcId = !!asset.properties?.vpc_id;
         return asset;
     }
 
