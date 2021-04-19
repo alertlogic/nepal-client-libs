@@ -215,6 +215,13 @@ export interface AlResponderExecutionsHistoryResult {
     aggregations?: AlResponderExecutionsHistoryResultAggregations;
 }
 
+export interface AlResponderExecutionAggregationQueryParams{
+    interval?:string;
+    name?:string;
+    size?: number;
+    aggregations?: AlResponderExecutionAggregationQueryParams[];
+}
+
 export interface AlResponderExecutionQueryParams{
     limit ?: number;
     offset ?: number;
@@ -242,7 +249,7 @@ export interface AlResponderExecutionQueryParams{
         native_id ?: string;
         deployment_id ?: string | string[];
     };
-    aggregations ?: {interval?:string; name?:string, size?: number}[];
+    aggregations ?: AlResponderExecutionAggregationQueryParams[];
 }
 
 export interface AlResponderSchema{
@@ -323,6 +330,22 @@ export interface AlResponderInquiries {
     summary: AlResponderSummary;
     start_timestamp?: string | number;
     end_timestamp?: string | string;
+    aggregations?: {
+        responses: {
+            approve?: number;
+            reject?: number;
+            aggregations: {
+                tasks: {
+                    [key: string]: number | {
+                        playbook_ids: AlResponderAggregationsSummaryItem[]
+                    };
+                    aggregations: {
+                        playbook_ids: AlResponderAggregationsSummaryItem[]
+                    }
+                }[]
+            }
+        }[];
+    };
 }
 
 export interface AlResponderScheduleDetail {
