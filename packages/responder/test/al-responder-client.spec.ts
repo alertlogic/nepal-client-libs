@@ -5,7 +5,7 @@ import {
 import { expect } from 'chai';
 import { describe } from 'mocha';
 import * as sinon from 'sinon';
-import { AlResponderPlaybook, AlResponderClient, AlResponderInquiry, AlResponderInquiries, AlResponderExecution, AlResponderActionShort, AlResponderAction, AlResponderSchedule } from '../src/index';
+import { AlResponderPlaybook, AlResponderClient, AlResponderInquiry, AlResponderInquiries, AlResponderExecution, AlResponderActionShort, AlResponderAction, AlResponderSchedule, AlResponderPlaybooks } from '../src/index';
 
 beforeEach(() => {
     AlLocatorService.setContext({ environment: "production" });
@@ -43,6 +43,10 @@ describe('Responder Client', () => {
             "workflow": {}
         }
     ];
+    const playbookListMock: AlResponderPlaybooks = {
+        playbooks: playbooksMock,
+        marker: '233'
+    };
     const inquiryMock: AlResponderInquiry = {
         id: 'belen',
         status: 'pending',
@@ -107,7 +111,7 @@ describe('Responder Client', () => {
     describe('Playbook', () => {
         describe('When get playbook', () => {
             beforeEach(() => {
-                stub = sinon.stub(AlDefaultClient as any, 'axiosRequest').returns(Promise.resolve({ status: 200, data: playbooksMock }));
+                stub = sinon.stub(AlDefaultClient as any, 'axiosRequest').returns(Promise.resolve({ status: 200, data: playbookListMock }));
             });
             afterEach(() => {
                 stub.restore();
@@ -118,13 +122,13 @@ describe('Responder Client', () => {
                 expect(stub.callCount).to.equal(1);
                 expect(payload.method).to.equal("GET");
                 expect(payload.url).to.equal(`${apiBaseURL}/${version}/${accountId}/playbooks`);
-                expect(result).to.equal(playbooksMock);
+                expect(result).to.equal(playbookListMock);
             });
         });
 
         describe('When get all playbooks even deleted', () => {
             beforeEach(() => {
-                stub = sinon.stub(AlDefaultClient as any, 'axiosRequest').returns(Promise.resolve({ status: 200, data: playbooksMock }));
+                stub = sinon.stub(AlDefaultClient as any, 'axiosRequest').returns(Promise.resolve({ status: 200, data: playbookListMock }));
             });
             afterEach(() => {
                 stub.restore();
@@ -135,7 +139,7 @@ describe('Responder Client', () => {
                 expect(stub.callCount).to.equal(1);
                 expect(payload.method).to.equal("GET");
                 expect(payload.url).to.equal(`${apiBaseURL}/${version}/${accountId}/playbooks`);
-                expect(result).to.equal(playbooksMock);
+                expect(result).to.equal(playbookListMock);
             });
         });
 

@@ -28,7 +28,8 @@ import {
     AlResponderExecutionsHistory,
     AlResponderPlaybookTrigger,
     AlResponderTriggers,
-    AlResponderTriggerQueryParams
+    AlResponderTriggerQueryParams,
+    AlResponderPlaybooks
 } from './types';
 
 export class AlResponderClientInstance {
@@ -61,6 +62,28 @@ export class AlResponderClientInstance {
     }
 
     /**
+     * List playbooks ake in account the list is limited to 100 items
+     * GET
+     * /v1/{account_id}/playbooks
+     * https://responder.mdr.global.alertlogic.com
+     *
+     * @param accountId AIMS Account ID
+     * @returns Playbook list
+     *
+     * @remarks
+     *
+     * */
+    async getPlaybooks(accountId: string, parameters: AlPlaybookRequest = {}):Promise<AlResponderPlaybooks> {
+        return this.client.get<AlResponderPlaybooks>({
+            version: this.serviceVersion,
+            service_stack: this.serviceStack,
+            account_id: accountId,
+            path: `/playbooks`,
+            params: parameters
+        });
+    }
+
+    /**
      * List all playbooks
      * GET
      * /v1/{account_id}/playbooks
@@ -72,14 +95,33 @@ export class AlResponderClientInstance {
      * @remarks
      *
      * */
-    async getPlaybooks(accountId: string, parameters: AlPlaybookRequest = {}) {
-        return this.client.get<AlResponderPlaybook[]>({
-            version: this.serviceVersion,
-            service_stack: this.serviceStack,
-            account_id: accountId,
-            path: `/playbooks`,
-            params: parameters
-        });
+    async getAllPlaybooks(accountId: string, parameters: AlPlaybookRequest = {}): Promise<AlResponderPlaybook[]> {
+        let playbooks = [];
+        let marker = undefined;
+
+        const staticParams = {
+            ...parameters,
+            ...{ limit: 10 },
+        };
+
+        do {
+            const params = {
+                ...staticParams,
+                ...marker ? { marker } : {}
+            };
+            const result = await this.client.get<AlResponderPlaybooks>({
+                version: this.serviceVersion,
+                service_stack: this.serviceStack,
+                account_id: accountId,
+                path: `/playbooks`,
+                params: params
+            });
+
+            playbooks = playbooks.concat(result.playbooks);
+            marker = result.marker || undefined;
+        } while (marker);
+
+        return playbooks;
     }
 
     /**
