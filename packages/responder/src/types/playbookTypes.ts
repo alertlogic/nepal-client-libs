@@ -113,6 +113,11 @@ export interface AlResponderPlaybook {
     workflow ?: AlResponderWorkflow;
 }
 
+export interface AlResponderPlaybooks {
+    playbooks?: AlResponderPlaybook[];
+    marker?: string;
+}
+
 export interface AlResponderExecutionCommonResult {
     output ?: unknown;
     exit_code ?: number;
