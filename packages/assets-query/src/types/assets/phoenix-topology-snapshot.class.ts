@@ -230,7 +230,7 @@ export class PhoenixTopologySnapshot {
     public getSummary(assetTypes: string[] = ['vpc', 'subnet', 'host', 'appliance'], startNodeKey?: string, scope?: SourceScope): {[i: string]: number} {
         const summary:  {[i: string]: number} = {};
         const subnets = [];
-        assetTypes.forEach(type => { summary[type] = 0; });
+        assetTypes.forEach(type => summary[type] = 0);
         if (startNodeKey) {
             if (this.getByKey(startNodeKey).type !== 'region' && this.getByKey(startNodeKey).type !== 'vpc') {
                 return {};
@@ -314,7 +314,7 @@ export class PhoenixTopologySnapshot {
             });
         });
 
-        summary['host'] -= summary['appliance'];
+        summary['host'] -= summary['appliance'] ?? 0;
         return summary;
     }
     /**
@@ -331,7 +331,7 @@ export class PhoenixTopologySnapshot {
             console.warn("Unexpected input: the input data to TopologySnapshot.getCoverage does not have a valid topology data");
             return {};
         }
-        let assetTypes = ['region', 'vpc', 'subnet'];
+        let assetTypes = ['region', 'vpc', 'subnet', 'host'];
         if (deploymentType === 'datacenter') {
             assetTypes = ['vpc', 'subnet'];
         }
