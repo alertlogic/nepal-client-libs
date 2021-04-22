@@ -101,7 +101,7 @@ export class AlResponderClientInstance {
 
         const staticParams = {
             ...parameters,
-            ...{ limit: 10 },
+            ...{ limit: 100 },
         };
 
         do {
