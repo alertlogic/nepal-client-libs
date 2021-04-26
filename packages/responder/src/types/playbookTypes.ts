@@ -118,6 +118,12 @@ export interface AlResponderPlaybooks {
     marker?: string;
 }
 
+export interface AlResponderPlaybookSummary {
+    summary?: {
+        [key:string]: number;
+    };
+}
+
 export interface AlResponderExecutionCommonResult {
     output ?: unknown;
     exit_code ?: number;
