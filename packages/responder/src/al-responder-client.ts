@@ -29,7 +29,8 @@ import {
     AlResponderPlaybookTrigger,
     AlResponderTriggers,
     AlResponderTriggerQueryParams,
-    AlResponderPlaybooks
+    AlResponderPlaybooks,
+    AlResponderPlaybookSummary
 } from './types';
 
 export class AlResponderClientInstance {
@@ -214,6 +215,27 @@ export class AlResponderClientInstance {
         return result;
     }
 
+
+    /**
+     * List playbooks by vendor summary
+     * GET
+     * /v1/{account_id}/summary/playbooks
+     * https://responder.mdr.global.alertlogic.com
+     *
+     * @param accountId AIMS Account ID
+     * @returns Summary by vendor
+     *
+     * @remarks
+     *
+     * */
+    async getPlaybookSummary(accountId: string): Promise<AlResponderPlaybookSummary> {
+        return this.client.get<AlResponderPlaybookSummary>({
+            version: this.serviceVersion,
+            service_stack: this.serviceStack,
+            account_id: accountId,
+            path: `/summary/playbooks`
+        });
+    }
 
     /**
      * List actions
