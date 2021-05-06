@@ -119,9 +119,7 @@ export interface AlResponderPlaybooks {
 }
 
 export interface AlResponderPlaybookSummary {
-    summary?: {
-        [key:string]: number;
-    };
+    summary?: AlResponderSummary;
 }
 
 export interface AlResponderExecutionCommonResult {
