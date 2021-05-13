@@ -1,7 +1,7 @@
 # @al/asi
 =========
 
-A lightweight client library for interacting with the Aplications API.
+A lightweight client library for interacting with the ASI API.
 
 This library uses @al/core and axios as its HTTP provider interface.
 

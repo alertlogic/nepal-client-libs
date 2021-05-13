@@ -3,7 +3,8 @@ import { expect } from 'chai';
 import { describe } from 'mocha';
 import * as sinon from 'sinon';
 import {
-    AlASIClient, Signup
+    AlASIClient,
+    Signup
 } from '../src/index';
 
 

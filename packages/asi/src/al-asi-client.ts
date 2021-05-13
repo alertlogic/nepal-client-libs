@@ -3,12 +3,11 @@ import {
     AlDefaultClient,
     AlLocation,
 } from '@al/core';
-import { Signup } from './types';
+import { Signup, SignupAWS } from './types';
 
 export class AlASIClientInstance {
     protected client: AlApiClient;
     protected serviceName = 'asi';
-    protected serviceVersion = 'v1';
 
     constructor(client?: AlApiClient) {
         this.client = client || AlDefaultClient;
@@ -18,8 +17,18 @@ export class AlASIClientInstance {
         return this.client.post({
             service_stack: AlLocation.InsightAPI,
             service_name: this.serviceName,
-            version: this.serviceVersion,
+            version: 'v1',
             path: `/registration/signup/mrr/${productType}`,
+            data: fields
+        });
+    }
+
+    signup(fields: SignupAWS): Promise<any> {
+        return this.client.post({
+            service_stack: AlLocation.InsightAPI,
+            service_name: this.serviceName,
+            version: 'v2',
+            path: `/registration/signup`,
             data: fields
         });
     }
@@ -28,7 +37,7 @@ export class AlASIClientInstance {
         return this.client.post({
             service_stack: AlLocation.InsightAPI,
             service_name: this.serviceName,
-            version: this.serviceVersion,
+            version: 'v1',
             path: `/registration/signup/activate/${token}`,
             data: null
         });
