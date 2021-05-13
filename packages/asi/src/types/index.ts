@@ -24,3 +24,12 @@ export interface Signup {
     tertiary_contact_phone?: string;
     tertiary_contact_mobile?: string;
 }
+
+export interface SignupAWS {
+    aws_marketplace_token: string;
+    first_name: string;
+    last_name: string;
+    user_email: string;
+    account_name: string;
+    phone_number: string;
+}
