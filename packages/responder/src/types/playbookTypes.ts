@@ -514,3 +514,14 @@ export interface AlResponderTriggerPlaybookParameter {
         value: string;
     }[];
 }
+
+export interface AlResponderAllowedValue {
+    value?: string;
+    label?: string;
+}
+
+export interface AlResponderPlaybookRoles {
+    allowed_values?: {
+        role_ids?: AlResponderAllowedValue[];
+    };
+}

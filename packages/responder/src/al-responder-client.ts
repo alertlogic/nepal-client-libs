@@ -30,7 +30,8 @@ import {
     AlResponderTriggers,
     AlResponderTriggerQueryParams,
     AlResponderPlaybooks,
-    AlResponderPlaybookSummary
+    AlResponderPlaybookSummary,
+    AlResponderPlaybookRoles
 } from './types';
 
 export class AlResponderClientInstance {
@@ -1077,6 +1078,25 @@ export class AlResponderClientInstance {
             account_id: accountId,
             path: `/playbook_templates/${id}`,
             data: payload
+        });
+    }
+
+    /**
+    * List of playbook roles for a customer account
+    * GET
+    * /v1/{account_id}/playbook_roles
+    * https://responder.mdr.global.alertlogic.com
+    *
+    * @param accountId AIMS Account ID
+    * @returns Playbook roles
+    *
+    */
+    async getPlaybookRoles(accountId: string): Promise<AlResponderPlaybookRoles> {
+        return this.client.get<AlResponderPlaybookRoles>({
+            version: this.serviceVersion,
+            service_stack: this.serviceStack,
+            account_id: accountId,
+            path: `/playbook_roles`
         });
     }
 }
