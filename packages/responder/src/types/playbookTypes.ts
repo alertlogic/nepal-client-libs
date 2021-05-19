@@ -103,6 +103,7 @@ export interface AlResponderPlaybook {
     description ?: string;
     type ?: AlResponderPlaybookType;
     enabled ?: boolean;
+    role_id ?: string;
     tags ?: {key:string, value:string}[]; // candidate to be a type
     parameters ?: {
         [key:string]: AlResponderPlaybookParameter
