@@ -5,7 +5,7 @@ import {
 import { expect } from 'chai';
 import { describe } from 'mocha';
 import * as sinon from 'sinon';
-import { AlResponderPlaybook, AlResponderClient, AlResponderInquiry, AlResponderInquiries, AlResponderExecution, AlResponderActionShort, AlResponderAction, AlResponderSchedule, AlResponderPlaybooks } from '../src/index';
+import { AlResponderPlaybook, AlResponderClient, AlResponderInquiry, AlResponderInquiries, AlResponderExecution, AlResponderActionShort, AlResponderAction, AlResponderSchedule, AlResponderPlaybooks, AlResponderPlaybookRoles } from '../src/index';
 
 beforeEach(() => {
     AlLocatorService.setContext({ environment: "production" });
@@ -107,6 +107,14 @@ describe('Responder Client', () => {
             "enabled": true
         }
     ];
+    const playbookRolesMock: AlResponderPlaybookRoles = {
+        allowed_values:{
+            role_ids:[
+                {label:"A", value:"B"},
+                {label:"D", value:"C"}
+            ]
+        }
+    };
 
     describe('Playbook', () => {
         describe('When get playbook', () => {
@@ -344,6 +352,26 @@ describe('Responder Client', () => {
                 expect(stub.callCount).to.equal(1);
                 expect(payload.method).to.equal("PUT");
                 expect(payload.url).to.equal(`${apiBaseURL}/${version}/${accountId}/schedules/${scheduleId}`);
+            });
+        });
+    });
+
+
+    describe('Playbook Roles', () => {
+        describe('When get playbook roles', () => {
+            beforeEach(() => {
+                stub = sinon.stub(AlDefaultClient as any, 'axiosRequest').returns(Promise.resolve({ status: 200, data: playbookRolesMock }));
+            });
+            afterEach(() => {
+                stub.restore();
+            });
+            it('Should call the client instance\'s GET.', async () => {
+                const result = await AlResponderClient.getPlaybookRoles(accountId);
+                const payload = stub.args[0][0];
+                expect(stub.callCount).to.equal(1);
+                expect(payload.method).to.equal("GET");
+                expect(payload.url).to.equal(`${apiBaseURL}/${version}/${accountId}/playbook_roles`);
+                expect(result).to.equal(playbookRolesMock);
             });
         });
     });
