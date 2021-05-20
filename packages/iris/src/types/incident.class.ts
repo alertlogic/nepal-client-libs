@@ -183,6 +183,7 @@ export class Incident {
     public flaggedEventCount:number    = 0; // Currently not in Iris.
     public appliances:string[]         = [];
     public parents?:{facts_count: number; observations_count: number, unelaborated_ids?: string[]};
+    public path: string;
     public incident: IncidentProperties;
 
     /**
@@ -277,6 +278,7 @@ export class Incident {
         i.source          = (Array.isArray(rawData.source_keyword)) ? rawData.source_keyword[0] : rawData.source_keyword;
         i.detectionSource = (rawData.detection_source) ? rawData.detection_source : null;
         i.summary         = "";
+        i.path            = rawData.path;
 
         if (rawData.hasOwnProperty('incident.summary')) {
             i.summary = rawData['incident.summary'];
