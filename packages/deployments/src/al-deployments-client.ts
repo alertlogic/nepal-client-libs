@@ -64,7 +64,7 @@ export class AlDeploymentsClientInstance {
 
   }
 
-  async listDeployments(accountId: string, filters?: string[]) {
+  async listDeployments(accountId: string, filters?: {[i:string]: string} | string[]) {
     return this.client.get<Deployment[]>({
       service_stack: AlLocation.InsightAPI,
       version: this.serviceVersion,
