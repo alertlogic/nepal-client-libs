@@ -55,12 +55,8 @@ export interface AlResponderPlaybookParameter
 export interface AlResponderWorkflowContext
 {
     vars ?: ({[key: string]: string} | string) []; // A list of input arguments for this workflow.
-    input?: {
-        [key: string]: number | string | boolean | string[] | object;
-    };
-    output?: {
-        [key: string]: number | string | boolean | string[] | object;
-    };
+    input ?: ({[key: string]: unknown} | string) []; // A list of variables defined for the scope of this workflow.
+    output ?: ({[key: string]: string} | string) []; // A list of variables defined as output for the workflow.
 }
 
 export interface AlResponderWorkflowActionWhen
