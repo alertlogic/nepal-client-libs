@@ -38,10 +38,10 @@
     "interactive": "npm run build && node -i -e \"const AertaClient = require('./dist/commonjs/index.js').AertaClient;\""
   },
   "dependencies": {
-    "@al/core": "^1.0.12"
+    "@al/core": "^1.0.127"
   },
   "peerDependencies": {
-    "@al/core": "^1.0.12"
+    "@al/core": "^1.0.127"
   },
   "files": [
     "dist"
