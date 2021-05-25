@@ -10,7 +10,6 @@ export class AecontentClientInstance {
      * Get Observation
      * GET
      *
-     * @param accountId
      * @param path string observation path
      * @param timestamp Epoch/Unix Timestamp
      */
