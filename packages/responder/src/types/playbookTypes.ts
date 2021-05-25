@@ -32,14 +32,17 @@ export interface AlResponderActionLong extends AlResponderActionShort{
 export interface AlResponderAction {
     category ?: object;
     action: AlResponderActionLong;
-    allowed_values?: object;
+    allowed_values?: {
+        [key: string]: AlResponderAllowedValue[];
+    };
     isComplete ?: boolean; // just for ui, is to know if the action is completed with details or not
 }
 
 export interface AlResponderPlaybookParameter
 {
     default?: string | boolean | string[];
-    description?: string; enum?: string[];
+    description?: string;
+    enum?: string[] | string;
     type?: string;
     immutable?: boolean;
     required?: boolean;
@@ -517,8 +520,8 @@ export interface AlResponderTriggerPlaybookParameter {
 }
 
 export interface AlResponderAllowedValue {
-    value?: string;
-    label?: string;
+    value: string;
+    label: string;
 }
 
 export interface AlResponderPlaybookRoles {
