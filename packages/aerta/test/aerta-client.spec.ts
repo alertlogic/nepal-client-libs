@@ -16,7 +16,7 @@ describe('Aerta Client Test Suite:', () => {
             stub.restore();
         });
         it('should call get() on the AlDefaultClient instance', async () => {
-            await AertaClient.get('fake', 'fake', 'fake', 1234);
+            await AertaClient.getByPath('fake', 'fake', 1234);
             expect(stub.callCount).to.equal(1);
         });
     });
