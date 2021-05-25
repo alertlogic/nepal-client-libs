@@ -10,13 +10,11 @@ export class AefrClientInstance {
      * Get Trigger
      * GET
      *
-     * @param accountId
      * @param path string trigger path
      * @param timestamp Epoch/Unix Timestamp
      */
-    public async getByPath(accountId: string, path: string, timestamp: number) {
+    public async getByPath(path: string, timestamp: number) {
         return this.client.get<any>({
-            account_id: accountId,
             service_name: this.serviceName,
             service_stack: AlLocation.GlobalAPI,
             path: `/triggers/paths/${path}`,

@@ -16,7 +16,7 @@ describe('Aefr Client Test Suite:', () => {
             stub.restore();
         });
         it('should call get() on the AlDefaultClient instance', async () => {
-            await AefrClient.getByPath('fake', 'fake', 1234);
+            await AefrClient.getByPath('fake', 1234);
             expect(stub.callCount).to.equal(1);
         });
     });
