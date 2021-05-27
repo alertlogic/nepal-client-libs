@@ -1,8 +1,8 @@
 {
-  "name": "@al/aerta",
+  "name": "@al/aecontent",
   "version": "0.0.2",
   "license": "MIT",
-  "description": "A client for interacting with the Alert Logic Aerta Public API",
+  "description": "A client for interacting with the Alert Logic Aecontent Public API",
   "author": {
     "name": "Alert Logic UI Team",
     "email": "ui@alertlogic.com"
@@ -35,7 +35,7 @@
     "lint": "tslint -p tsconfig.json -c ../../tslint.json",
     "clean": "rm -rf dist",
     "prepublishOnly": "npm run build",
-    "interactive": "npm run build && node -i -e \"const AertaClient = require('./dist/commonjs/index.js').AertaClient;\""
+    "interactive": "npm run build && node -i -e \"const AecontentClient = require('./dist/commonjs/index.js').AecontentClient;\""
   },
   "dependencies": {
     "@al/core": "^1.0.127"

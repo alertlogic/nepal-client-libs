@@ -1,22 +1,22 @@
 import { AlApiClient, AlDefaultClient, AlLocation } from '@al/core';
 
-export class AertaClientInstance {
-    private serviceName = 'aerta';
+export class AecontentClientInstance {
+    private serviceName = 'aecontent';
 
     public constructor(public client: AlApiClient = AlDefaultClient) {
     }
 
     /**
-     * Get RTA
+     * Get Observation
      * GET
      *
-     * @param path string RTA path
+     * @param path string observation path
      * @param timestamp Epoch/Unix Timestamp
      */
     public async getByPath(path: string, timestamp: number) {
         return this.client.get<any>({
             service_name: this.serviceName,
-            path: `/rtas/paths/${path}`,
+            path: `/observations/paths/${path}`,
             version: 'v1',
             params: { ts: timestamp }
         });
