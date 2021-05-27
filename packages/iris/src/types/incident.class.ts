@@ -185,6 +185,7 @@ export class Incident {
     public parents?:{facts_count: number; observations_count: number, unelaborated_ids?: string[]};
     public path: string;
     public incident: IncidentProperties;
+    public automated_response: string;
 
     /**
      *  Return the icon according to the severity level
@@ -479,6 +480,9 @@ export class Incident {
         if (rawData.hasOwnProperty('incident')) {
             i.incident = rawData.incident;
         }
+        if (rawData.hasOwnProperty('automated_response')) {
+            i.automated_response = rawData.automated_response;
+        }
 
         return i;
     }
@@ -552,6 +556,8 @@ export class Incident {
                 return this.victimAny;
             case "humanFriendlyId":
                 return this.friendlyId;
+            case "automated_response":
+                return this.automated_response;
             case "":
             default:
                 return "";
