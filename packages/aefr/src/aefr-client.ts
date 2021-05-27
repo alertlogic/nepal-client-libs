@@ -16,7 +16,6 @@ export class AefrClientInstance {
     public async getByPath(path: string, timestamp: number) {
         return this.client.get<any>({
             service_name: this.serviceName,
-            service_stack: AlLocation.GlobalAPI,
             path: `/triggers/paths/${path}`,
             version: 'v1',
             params: { ts: timestamp }

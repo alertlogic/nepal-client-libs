@@ -16,7 +16,6 @@ export class AecontentClientInstance {
     public async getByPath(path: string, timestamp: number) {
         return this.client.get<any>({
             service_name: this.serviceName,
-            service_stack: AlLocation.GlobalAPI,
             path: `/observations/paths/${path}`,
             version: 'v1',
             params: { ts: timestamp }
