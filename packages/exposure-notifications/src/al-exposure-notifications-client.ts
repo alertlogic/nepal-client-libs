@@ -50,7 +50,7 @@ export class AlExposureNotificationsInstanceClient {
             service_stack: AlLocation.InsightAPI,
             service_name: this.serviceName,
             version: 1,
-            path: `/notification_policies/filters`
+            path: `/filters`
         });
     }
 
