@@ -100,6 +100,18 @@ export interface AlResponderWorkflow extends AlResponderWorkflowContext{
     };
 }
 
+export interface AlResponderPlaybookVariableBind {
+    task_name ?: string;
+    parameter_name ?: string;
+    action_ref ?: string;
+}
+
+export interface AlResponderPlaybookVariable {
+    name ?: string;
+    value ?: string;
+    bind ?: AlResponderPlaybookVariableBind[];
+}
+
 export interface AlResponderPlaybook {
     id ?: string;
     name ?: string;
@@ -115,6 +127,7 @@ export interface AlResponderPlaybook {
         [key:string]: AlResponderPlaybookParameter
     };
     workflow ?: AlResponderWorkflow;
+    vars ?: AlResponderPlaybookVariable[];
 }
 
 export interface AlResponderPlaybooks {
