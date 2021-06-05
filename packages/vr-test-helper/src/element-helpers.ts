@@ -46,8 +46,9 @@ export function writeScreenShot(data, filename) {
     return filename;
 }
 
-export function takeScreenshot(name: string) {
-    return browser.takeScreenshot().then((png) => writeScreenShot(png, `${name}-${new Date().getTime()}.png`));
+export async function takeScreenshot(name: string) {
+    const png = await browser.takeScreenshot();
+    return writeScreenShot(png, `${name}-${new Date().getTime()}.png`);
 }
 
 /**
@@ -55,8 +56,8 @@ export function takeScreenshot(name: string) {
  * @param element
  * @param className
  */
-export function waitForClass(element, className) {
-    browser.wait(
+export async function waitForClass(element, className) {
+    await browser.wait(
         () => hasClass(element, className),
         4000,
         `Not able to find ${className}`,
@@ -68,10 +69,10 @@ export function waitForClass(element, className) {
  * @param element
  * @param message
  */
-export function waitForElementPresence(element: ElementFinder, message?: string) {
+export async function waitForElementPresence(element: ElementFinder, message?: string) {
     const until = ExpectedConditions;
     message = message ? message : `Not able to find element, taking more than ${WAIT_MAX_TIME}ms`;
-    browser.wait(
+    await browser.wait(
         until.presenceOf(element),
         WAIT_MAX_TIME,
         message,
@@ -97,14 +98,15 @@ export async function getCoordinates(element: ElementFinder): Promise<Coordinate
  * @param y
  * @return a promise of a script that scrolls to specific coordinates
  */
-export function scrollTo(coordinates: Coordinates): promise.Promise<any> {
+export async function scrollTo(coordinates: Coordinates): Promise<unknown> {
     const script = `window.scrollTo(${coordinates.x}, ${coordinates.y});`;
-    return browser.executeScript(script);
+    return await browser.executeScript(script);
 }
 
-export function scrollToElement(scrollToElement): Promise<unknown> {
+export async function scrollToElement(scrollToElement): Promise<unknown> {
     const wd = browser.driver;
-    return scrollToElement.getLocation().then(loc => wd.executeScript('window.scrollTo(0,arguments[0]);', loc.y));
+    const loc = await scrollToElement.getLocation();
+    return await wd.executeScript('window.scrollTo(0,arguments[0]);', loc.y);
 }
 
 /**
