@@ -109,6 +109,11 @@ export interface AlResponderPlaybookVariableBind {
 export interface AlResponderPlaybookVariable {
     name ?: string;
     value ?: string;
+    value_type ?: {
+        action_ref ?: string;
+        parameter_name ?: string;
+    };
+    export_to_context ?: boolean;
     bind ?: AlResponderPlaybookVariableBind[];
 }
 
