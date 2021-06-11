@@ -139,6 +139,11 @@ export interface AlResponderPlaybook {
 export interface AlResponderPlaybooks {
     playbooks?: AlResponderPlaybook[];
     marker?: string;
+    summary?: {
+        playbook_vendors: {[key: string]: number}[],
+        playbook_statuses: {[key: string]: number}[],
+        playbook_types: {[key: string]: number}[]
+    };
 }
 
 export interface AlResponderPlaybookSummary {
@@ -423,6 +428,7 @@ export interface AlPlaybookRequest {
     limit?: number;
     marker?: string;
     deleted?: boolean;
+    vendors?: string;
 }
 
 export interface AlPlaybookTemplate {
