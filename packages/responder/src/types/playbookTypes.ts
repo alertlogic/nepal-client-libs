@@ -233,6 +233,11 @@ export interface AlResponderExecutionsHistoryResultAggregations {
     playbook_names ?: {[key: string]: AlResponderAggregationsSummaryItem[]}[];
     playbook_ids ?: {[key: string]: AlResponderAggregationsSummaryItem[]}[];
     trigger_ids ?: {[key: string]: AlResponderAggregationsSummaryItem[]}[];
+    asset_groups?: {
+        [key: string]: number | {
+            trigger_ids: AlResponderAggregationsSummaryItem[];
+        }
+    }[];
 }
 
 export interface AlResponderExecutionsHistoryResultSummary {
