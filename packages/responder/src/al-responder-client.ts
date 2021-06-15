@@ -1110,12 +1110,12 @@ export class AlResponderClientInstance {
     * @returns incident in bifrost format
     *
     */
-    async getIncidentBifrostFormat(accountId: string, incidentId: string): Promise<AlResponderPlaybookRoles> {
+    async getIncidentBifrostFormat(accountId: string, incidentId: string): Promise<any> {
         return this.client.get<AlResponderPlaybookRoles>({
             version: this.serviceVersion,
             service_stack: this.serviceStack,
             account_id: accountId,
-            path: `/playbook_roles/${incidentId}`
+            path: `/playbook_incidents/${incidentId}`
         });
     }
 }
