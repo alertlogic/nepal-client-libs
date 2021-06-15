@@ -1099,4 +1099,23 @@ export class AlResponderClientInstance {
             path: `/playbook_roles`
         });
     }
+
+    /**
+    * Get incident from Iris in responder (bifrost) format
+    * GET
+    * /v1/{account_id}/playbook_incidents/{incident_id}
+    * https://responder.mdr.global.alertlogic.com
+    *
+    * @param accountId AIMS Account ID
+    * @returns incident in bifrost format
+    *
+    */
+    async getIncidentBifrostFormat(accountId: string, incidentId: string): Promise<AlResponderPlaybookRoles> {
+        return this.client.get<AlResponderPlaybookRoles>({
+            version: this.serviceVersion,
+            service_stack: this.serviceStack,
+            account_id: accountId,
+            path: `/playbook_roles/${incidentId}`
+        });
+    }
 }
