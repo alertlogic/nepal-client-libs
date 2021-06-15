@@ -174,5 +174,7 @@ export interface AlDeployACollector {
 export interface AlApplicationAttribute {
     name: string;
     id: string;
+    parent_categories?: string[];
+    type?: string;
 }
 
