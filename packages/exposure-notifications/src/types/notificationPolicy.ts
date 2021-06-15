@@ -5,7 +5,7 @@ import { AlAuditObject } from "./auditObject";
  */
 export interface AlNotificationPolicy {
     readonly id: string;
-    readonly name: string;
+    readonly name?: string;
     readonly schedule: SchedulePolicy;
     readonly created?: AlAuditObject;
 }

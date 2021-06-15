@@ -1,6 +1,6 @@
 {
   "name": "@al/exposure-notifications",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "license": "MIT",
   "description": "A client for interacting with the Alert Logic Exposure Notifications Public API",
   "author": {
@@ -39,7 +39,8 @@
     "interactive": "npm run build && node -i -e \"const AlExposureNotificationsClient = require('./dist/commonjs/index.js').AlExposureNotificationsClient;\""
   },
   "dependencies": {
-    "@al/core": "^1.0.48"
+    "@al/core": "^1.0.48",
+    "@al/herald": "^2.0.14"
   },
   "peerDependencies": {
     "@al/core": "^1.0.48"
