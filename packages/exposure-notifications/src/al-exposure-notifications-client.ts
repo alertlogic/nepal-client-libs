@@ -9,12 +9,14 @@ import {
 
 import {
     AlAssignment,
-    AlNotificationPolicy
+    AlNotificationPolicy,
+    Subscription
 } from './types/models';
 
 export class AlExposureNotificationsInstanceClient {
 
     private serviceName = 'exposure_notifications';
+    private serviceVersion = 1;
 
     /**
      *  Lists available notification policies for a given account id
@@ -23,7 +25,7 @@ export class AlExposureNotificationsInstanceClient {
         return AlDefaultClient.get({
             service_stack: AlLocation.InsightAPI,
             service_name: this.serviceName,
-            version: 1,
+            version: this.serviceVersion,
             account_id: accountId,
             path: `/notification_policies`
         });
@@ -36,7 +38,7 @@ export class AlExposureNotificationsInstanceClient {
         return AlDefaultClient.get({
             service_stack: AlLocation.InsightAPI,
             service_name: this.serviceName,
-            version: 1,
+            version: this.serviceVersion,
             account_id: accountId,
             path: `/notification_policies/${policyId}`
         });
@@ -45,11 +47,12 @@ export class AlExposureNotificationsInstanceClient {
     /**
      *  Lists available notification rules
      */
-    async getNotificationRules(): Promise<{ [filterName: string]: string[] }[]> {
+    async getNotificationRules(accountId: string): Promise<{ [filterName: string]: string[] }[]> {
         return AlDefaultClient.get({
             service_stack: AlLocation.InsightAPI,
             service_name: this.serviceName,
-            version: 1,
+            version: this.serviceVersion,
+            account_id: accountId,
             path: `/filters`
         });
     }
@@ -61,7 +64,7 @@ export class AlExposureNotificationsInstanceClient {
         const result = await AlDefaultClient.post({
             service_stack: AlLocation.InsightAPI,
             service_name: this.serviceName,
-            version: 1,
+            version: this.serviceVersion,
             account_id: accountId,
             path: `/assignments`,
             data: assignment
@@ -79,7 +82,7 @@ export class AlExposureNotificationsInstanceClient {
         return AlDefaultClient.get({
             service_stack: AlLocation.InsightAPI,
             service_name: this.serviceName,
-            version: 1,
+            version: this.serviceVersion,
             account_id: accountId,
             path: `/assignments`
         });
@@ -92,7 +95,7 @@ export class AlExposureNotificationsInstanceClient {
         return AlDefaultClient.get({
             service_stack: AlLocation.InsightAPI,
             service_name: this.serviceName,
-            version: 1,
+            version: this.serviceVersion,
             account_id: accountId,
             path: `/assignments/${assignmentId}`
         });
@@ -101,13 +104,75 @@ export class AlExposureNotificationsInstanceClient {
     /**
      *  Deletes an Assignment
      */
-    async removeAssignment(accountId: string, assignmentId: string) {
+    async deleteAssignment(accountId: string, assignmentId: string) {
         return AlDefaultClient.delete({
             service_stack: AlLocation.InsightAPI,
             service_name: this.serviceName,
-            version: 1,
+            version: this.serviceVersion,
             account_id: accountId,
             path: `/assignments/${assignmentId}`
         });
     }
+
+    /**
+     * Deletes subscription and policy assigned
+     */
+    async deleteSubscriptionAndPolicy(accountId: string, subscriptionId: string) {
+        return AlDefaultClient.delete({
+            service_stack: AlLocation.InsightAPI,
+            service_name: this.serviceName,
+            version: this.serviceVersion,
+            account_id: accountId,
+            path: `/facade/subscriptions/${subscriptionId}`
+        });
+    }
+
+    /**
+     * Updates subscription in Herald service and updates an assignment of
+     * notification policy to subscription if changed. null as notification policy
+     * will unassign policy.
+     */
+    async updateSubscription(accountId: string, subscriptionId: string, subscriptionBody: Subscription) {
+        return AlDefaultClient.put({
+            service_stack: AlLocation.InsightAPI,
+            service_name: this.serviceName,
+            version: this.serviceVersion,
+            account_id: accountId,
+            path: `/facade/subscriptions/${subscriptionId}`,
+            data: subscriptionBody
+        });
+    }
+
+    /**
+     * Create a subscription and assign notification policy to it.
+     * null as notification policy means no policy assigned.
+     */
+    async createSubscription(accountId: string, subscriptionBody: Subscription): Promise<AlAssignment> {
+        const result = await AlDefaultClient.post({
+            service_stack: AlLocation.InsightAPI,
+            service_name: this.serviceName,
+            version: this.serviceVersion,
+            account_id: accountId,
+            path: `/facade/subscriptions`,
+            data: subscriptionBody
+        });
+        if (!result.hasOwnProperty("id")) {
+            throw new AlResponseValidationError(`Service returned unexpected result; missing 'id' property.`);
+        }
+        return result;
+    }
+
+    /**
+     * Listed herald subscriptions with policies if assigned
+     */
+    async getSubscriptions(accountId: string): Promise<Subscription[]> {
+        return AlDefaultClient.get({
+            service_stack: AlLocation.InsightAPI,
+            service_name: this.serviceName,
+            version: this.serviceVersion,
+            account_id: accountId,
+            path: `/facade/subscriptions`
+        });
+    }
+
 }
