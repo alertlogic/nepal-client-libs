@@ -186,6 +186,7 @@ export class Incident {
     public path: string;
     public incident: IncidentProperties;
     public automated_response?: string;
+    public mitreClassification?: Array<{ sub_technique:string, tactic:string, technique?:string }>;
 
     /**
      *  Return the icon according to the severity level
@@ -482,6 +483,9 @@ export class Incident {
         }
         if (rawData.hasOwnProperty('automated_response')) {
             i.automated_response = rawData.automated_response;
+        }
+        if (rawData.hasOwnProperty('mitre_classification')) {
+            i.mitreClassification = rawData.mitre_classification;
         }
 
         return i;
