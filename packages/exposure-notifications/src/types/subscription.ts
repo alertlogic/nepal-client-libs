@@ -14,3 +14,10 @@ export interface Subscription {
 export interface AlNotificationPolicyId {
     id: string;
 }
+
+export interface AssetFilter {
+    type: string;
+    name: string;
+    key?: string;
+    deployment_id?: string;
+}

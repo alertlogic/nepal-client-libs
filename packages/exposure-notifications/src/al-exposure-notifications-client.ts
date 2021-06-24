@@ -10,6 +10,7 @@ import {
 import {
     AlAssignment,
     AlNotificationPolicy,
+    AssetFilter,
     Subscription
 } from './types/models';
 
@@ -47,7 +48,7 @@ export class AlExposureNotificationsInstanceClient {
     /**
      *  Lists available notification rules
      */
-    async getNotificationRules(accountId: string): Promise<{ [filterName: string]: string[] }[]> {
+    async getNotificationRules(accountId: string): Promise<{ [filterName: string]: string[] | AssetFilter[] }[]> {
         return AlDefaultClient.get({
             service_stack: AlLocation.InsightAPI,
             service_name: this.serviceName,
@@ -147,8 +148,8 @@ export class AlExposureNotificationsInstanceClient {
      * Create a subscription and assign notification policy to it.
      * null as notification policy means no policy assigned.
      */
-    async createSubscription(accountId: string, subscriptionBody: Subscription): Promise<AlAssignment> {
-        const result = await AlDefaultClient.post({
+    async createSubscription(accountId: string, subscriptionBody: Subscription): Promise<Subscription> {
+        const result: Subscription = await AlDefaultClient.post({
             service_stack: AlLocation.InsightAPI,
             service_name: this.serviceName,
             version: this.serviceVersion,
@@ -156,8 +157,8 @@ export class AlExposureNotificationsInstanceClient {
             path: `/facade/subscriptions`,
             data: subscriptionBody
         });
-        if (!result.hasOwnProperty("id")) {
-            throw new AlResponseValidationError(`Service returned unexpected result; missing 'id' property.`);
+        if (!(result.hasOwnProperty("subscription")&&result.subscription.hasOwnProperty("id"))) {
+            throw new AlResponseValidationError(`Service returned unexpected result; missing subscription.'id' property.`);
         }
         return result;
     }
