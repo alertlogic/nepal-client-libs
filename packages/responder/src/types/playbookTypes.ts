@@ -125,7 +125,7 @@ export interface AlResponderPlaybook {
     type ?: AlResponderPlaybookType;
     enabled ?: boolean;
     role_id ?: string;
-    tags ?: {key:string, value:string}[]; // candidate to be a type
+    tags ?: {name?:string, key:string, value:string}[]; // candidate to be a type
     parameters ?: {
         [key:string]: AlResponderPlaybookParameter
     };
@@ -134,6 +134,7 @@ export interface AlResponderPlaybook {
     };
     workflow ?: AlResponderWorkflow;
     vars ?: AlResponderPlaybookVariable[];
+    vendors ?: string[];
 }
 
 export interface AlResponderPlaybooks {
@@ -474,10 +475,10 @@ export interface AlResponderTriggerQueryParams{
     name?: string;
 }
 
-export type AlResponderPlaybookTrigger =    AlResponderIncidentTrigger |
-                                            AlResponderObservationTrigger |
-                                            AlResponderCronScheduleTrigger |
-                                            AlResponderIntervalScheduleTrigger |
+export type AlResponderPlaybookTrigger =    AlResponderIncidentTrigger &
+                                            AlResponderObservationTrigger &
+                                            AlResponderCronScheduleTrigger &
+                                            AlResponderIntervalScheduleTrigger &
                                             AlResponderDateTimeScheduleTrigger;
 
 interface AlResponderTriggerBase {
@@ -499,7 +500,7 @@ export interface AlResponderIncidentTrigger extends AlResponderTriggerBase {
     threat_levels?: string[];
     asset_groups?: {
         member_of: boolean;
-        groups: string | string[];
+        groups: string[];
     };
     additional_filters?: {
         paramter: string;
