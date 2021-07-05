@@ -35,7 +35,8 @@ export interface AlResponderAction {
     allowed_values?: {
         [key: string]: AlResponderAllowedValue[];
     };
-    isComplete ?: boolean; // just for ui, is to know if the action is completed with details or not
+    isComplete?: boolean; // just for ui, is to know if the action is completed with details or not
+    sensitive_params?: string[];
 }
 
 export interface AlResponderPlaybookParameter
@@ -443,13 +444,32 @@ export interface AlPlaybookTemplate {
     description?: string;
     playbook: {
         type: AlResponderPlaybookType;
-        parameters: { [key:string]: AlResponderPlaybookParameter };
+        parameters: {
+            [key: string]: AlResponderPlaybookParameter;
+        };
         workflow: AlResponderWorkflow;
+        vars?: AlPlaybookTemplateVariable[];
     };
     payload_types?: AlResponderPlaybookType[];
     shared?: boolean;
     categories?: string[];
     vendors?: string[];
+}
+
+export interface AlPlaybookTemplateVariable {
+    name:  string;
+    value?: string;
+    value_type?: {
+        action_ref: string;
+        parameter_name: string;
+    };
+    export_to_workflow?: boolean;
+    bind: AlPlaybookTemplateVariableBinding[];
+}
+
+export interface AlPlaybookTemplateVariableBinding {
+    task_name: string;
+    parameter_name?: string;
 }
 
 export type status = "new" | "requested" | "scheduled" | "delayed" | "running" | "succeeded" | "failed" | "timeout" | "canceled";
