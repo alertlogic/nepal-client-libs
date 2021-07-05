@@ -185,7 +185,7 @@ export class Incident {
     public parents?:{facts_count: number; observations_count: number, unelaborated_ids?: string[]};
     public path: string;
     public incident: IncidentProperties;
-    public automated_response?: string;
+    public automated_response_history?: string;
     public mitreClassification?: Array<{ sub_technique:string, tactic:string, technique?:string }>;
 
     /**
@@ -481,8 +481,8 @@ export class Incident {
         if (rawData.hasOwnProperty('incident')) {
             i.incident = rawData.incident;
         }
-        if (rawData.hasOwnProperty('automated_response')) {
-            i.automated_response = rawData.automated_response;
+        if (rawData.hasOwnProperty('automated_response_history')) {
+            i.automated_response_history = rawData.automated_response_history;
         }
         if (rawData.hasOwnProperty('mitre_classification')) {
             i.mitreClassification = rawData.mitre_classification;
@@ -560,8 +560,8 @@ export class Incident {
                 return this.victimAny;
             case "humanFriendlyId":
                 return this.friendlyId;
-            case "automated_response":
-                return this.automated_response;
+            case "automated_response_history":
+                return this.automated_response_history;
             case "":
             default:
                 return "";
