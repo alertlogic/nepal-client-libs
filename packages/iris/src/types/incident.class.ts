@@ -185,7 +185,7 @@ export class Incident {
     public parents?:{facts_count: number; observations_count: number, unelaborated_ids?: string[]};
     public path: string;
     public incident: IncidentProperties;
-    public automated_response_history?: string;
+    public automated_response_history?: {[key:string]: {[key:string]: number}};
     public mitreClassification?: Array<{ sub_technique:string, tactic:string, technique?:string }>;
 
     /**
