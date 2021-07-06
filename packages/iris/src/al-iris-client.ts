@@ -1270,6 +1270,30 @@ export class AlIrisClientInstance {
         });
     }
 
+    /**
+     * Get csv for all the evidence from a observation grouped by aggregator
+     * GET /iris/v3/:account_id/:incident_id/facts/csv/:path_aggregator
+     * @param accountId account id
+     * @param incidentId request id
+     * @param pathAggregator path_aggregator
+     */
+    async getCsvIncidentEvidence(
+        accountId: string,
+        incidentId: string,
+        pathAggregator: string,
+    ) {
+        return this.client.get<any>(
+            {
+                service_stack: AlLocation.InsightAPI,
+                service_name: this.serviceName,
+                version: 'v3',
+                account_id: accountId,
+                path: `${incidentId}/facts/csv/${pathAggregator}`,
+                responseType: 'arraybuffer'
+            },
+        );
+    }
+
     public renderMarkdown(markdown: string): Promise<any> {
         return this.client.post<any>({
             service_stack: AlLocation.InsightAPI,
