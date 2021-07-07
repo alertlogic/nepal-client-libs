@@ -454,6 +454,8 @@ export interface AlPlaybookTemplate {
     shared?: boolean;
     categories?: string[];
     vendors?: string[];
+    vars?: AlPlaybookTemplateVariable[];
+    account_id?: string;
 }
 
 export interface AlPlaybookTemplateVariable {
