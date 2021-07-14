@@ -1272,23 +1272,26 @@ export class AlIrisClientInstance {
 
     /**
      * Get csv for all the evidence from a observation grouped by aggregator
-     * GET /iris/v3/:account_id/:incident_id/facts/csv/:path_aggregator
-     * @param accountId account id
-     * @param incidentId request id
-     * @param pathAggregator path_aggregator
+     * GET /:incident_id/facts/csv/:path_aggregator
+     *  GET   /:incident_id/:observation_id/facts/csv/enrichment_map/:aggregator_path
      */
     async getCsvIncidentEvidence(
         accountId: string,
         incidentId: string,
-        pathAggregator: string,
-    ) {
-        return this.client.get<any>(
+        aggregatorPath: string,
+        observationId?: string,
+    ): Promise<unknown> {
+        let path: string =  `${incidentId}/facts/csv/${aggregatorPath}`;
+        if (observationId) {
+            path = `${incidentId}/${observationId}/facts/csv/enrichment_map/${aggregatorPath}`;
+        }
+        return this.client.get<unknown>(
             {
+                path,
                 service_stack: AlLocation.InsightAPI,
                 service_name: this.serviceName,
                 version: 'v3',
                 account_id: accountId,
-                path: `${incidentId}/facts/csv/${pathAggregator}`,
                 responseType: 'arraybuffer'
             },
         );
