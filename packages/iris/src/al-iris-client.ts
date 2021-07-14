@@ -1273,7 +1273,7 @@ export class AlIrisClientInstance {
     /**
      * Get csv for all the evidence from a observation grouped by aggregator
      * GET /:incident_id/facts/csv/:path_aggregator
-     *     /:incident_id/:observation_id/facts/csv/enrichment_map/:aggregator_path
+     *  GET   /:incident_id/:observation_id/facts/csv/enrichment_map/:aggregator_path
      */
     async getCsvIncidentEvidence(
         accountId: string,
