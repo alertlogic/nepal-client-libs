@@ -5,6 +5,8 @@ import { AlChangeStamp } from '@al/core';
  */
 export { AlChangeStamp } from '@al/core';
 
+type AlApplicationProperties = { [key: string]: number | string | boolean | AlApplicationProperties };
+
 export interface AlApplicationStream {
     name: string;
 }
@@ -22,7 +24,7 @@ export interface AlApplicationMessageSplitSpecMultiline {
     type: "multiline_pattern";
     pattern: {
         type: "string" | "regex";
-        value:string;
+        value: string;
     };
     match_mode: "begins" | "contains" | "ends";
 }
@@ -33,8 +35,8 @@ export interface AlApplicationMessageTimestamp {
 }
 
 export interface AlApplicationAutomaticFilename {
-   type?: 'automatic';
-   pattern?: string;
+    type?: 'automatic';
+    pattern?: string;
 }
 
 export interface AlApplicationCounterFilename {
@@ -112,7 +114,7 @@ export interface AlControlApplication {
     property: string;
     label: string;
     description: string;
-    defaultValue?: string|string[]|boolean;
+    defaultValue?: string | string[] | boolean;
     validationPattern?: string;
     optional?: boolean;
     options?: AlOptionFormApplication[];
@@ -127,7 +129,7 @@ export interface AlApplication extends AlBaseApplication {
     enabled?: boolean;
     description?: string[];
     form: AlFormApplication;
-    properties?: {[i: string]: any};
+    properties?: { [i: string]: any };
 }
 
 export interface AlRule extends AlBaseApplication {
@@ -137,8 +139,8 @@ export interface AlRule extends AlBaseApplication {
     account_id: string;
     enabled?: boolean;
     default?: boolean;
-    parameters?: {[i: string]: any};
-    search_by?: {[i: string]: any}[];
+    parameters?: { [i: string]: any };
+    search_by?: { [i: string]: any }[];
 }
 
 export interface AlRuleForDeployment extends AlRule {
@@ -154,7 +156,7 @@ export interface AlRulePayload {
     scope?: (AlAssetScopeItem | AlTagScopeItem)[];
     enabled?: boolean;
     default?: boolean;
-    parameters?: {[i: string]: any};
+    parameters?: { [i: string]: any };
 }
 
 export interface AlApplicationConfigQuery {
@@ -176,5 +178,6 @@ export interface AlApplicationAttribute {
     id: string;
     parent_categories?: string[];
     type?: string;
+    properties?: AlApplicationProperties;
 }
 
