@@ -514,6 +514,7 @@ interface AlResponderTriggerBase {
     enabled?: boolean;
     playbooks?: AlResponderTriggerPlaybookParameter[];
     actions?: AlResponderTriggerActionParameter[];
+    playbooks_names?: string; // This is for UI only
 }
 
 
