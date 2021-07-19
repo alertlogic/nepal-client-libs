@@ -15,14 +15,14 @@ export class AlVulnerabilitiesClientInstance {
     constructor(public client: AlApiClient = AlDefaultClient) {
     }
 
-    async getRemediation(remediationId: string) {
+    async getRemediation(remediationId: string): Promise<Remediation> {
         return this.client.get<Remediation>({
             service_name: 'remediation',
             path: `/${remediationId}`,
         });
     }
 
-    async getVulnerability(vulnerabilityId: string) {
+    async getVulnerability(vulnerabilityId: string): Promise<Vulnerability> {
         return this.client.get<Vulnerability>({
             service_name: 'vulnerability',
             path: `/${vulnerabilityId}`,
