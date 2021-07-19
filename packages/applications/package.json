@@ -1,6 +1,6 @@
 {
   "name": "@al/applications",
-  "version": "1.0.13",
+  "version": "1.0.14",
   "license": "MIT",
   "description": "A lightweight client library for interacting with the applications API",
   "author": {

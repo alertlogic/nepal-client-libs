@@ -15,6 +15,7 @@ import {
   AlRuleForDeployment,
   AlRulePayload,
   AlApplicationAttribute,
+  DeployedCollectorUpdateResponse,
 } from './types';
 
 export class AlApplicationsClientInstance {
@@ -133,7 +134,7 @@ export class AlApplicationsClientInstance {
      * @remarks
      * https://api.product.dev.alertlogic.com/applications/v1/01000001/rules/B37CEE84-6D27-4D0F-943C-F23937587574
      */
-    async deleteRule(accountId: string, ruleId: string) {
+    async deleteRule(accountId: string, ruleId: string): Promise<any> {
         return this.client.delete<any>({
             service_stack: AlLocation.InsightAPI,
             service_name: this.serviceName,
@@ -234,7 +235,7 @@ export class AlApplicationsClientInstance {
      * @remarks
      * https://api.product.dev.alertlogic.com/applications/v1/01000001/rules/B37CEE84-6D27-4D0F-943C-F23937587574
      */
-    async deleteADeployedCollector(accountId: string, collectorId: string) {
+    async deleteADeployedCollector(accountId: string, collectorId: string): Promise<any> {
         return this.client.delete<any>({
             service_stack: AlLocation.InsightAPI,
             service_name: this.serviceName,
@@ -251,13 +252,14 @@ export class AlApplicationsClientInstance {
      *
      * @param accountId The AIMS Account ID
      * @param collectorId A v4 UUID generated when collector is deployed
-     * @returns just the status code
      *
      * @remarks
      * https://console.product.dev.alertlogic.com/api/applications/index.html#api-Collectors-UpdateDeployedCollector
      */
-    async updateADeployedCollector(accountId: string, collectorId: string, data: AlDeployACollectorPayload) {
-        return this.client.put<any>({
+    async updateADeployedCollector(accountId: string,
+                                   collectorId: string,
+                                   data: AlDeployACollectorPayload): Promise<DeployedCollectorUpdateResponse> {
+        return this.client.put<DeployedCollectorUpdateResponse>({
             service_stack: AlLocation.InsightAPI,
             service_name: this.serviceName,
             version: this.serviceVersion,
