@@ -13,7 +13,7 @@ export class AertaClientInstance {
      * @param path string RTA path
      * @param timestamp Epoch/Unix Timestamp
      */
-    public async getByPath(path: string, timestamp: number) {
+    public async getByPath(path: string, timestamp: number): Promise<any> {
         return this.client.get<any>({
             service_name: this.serviceName,
             path: `/rtas/paths/${path}`,
