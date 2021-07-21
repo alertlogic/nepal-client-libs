@@ -65,7 +65,10 @@ export class AetherClientInstance {
      * @param query The search string, or null.
      * @param advanced Optional, configuration parameters for sorting, paging & criteria
      */
-    public async search(query: string, advanced?: { parser?: string, options?: string, size?: number, sort?: string, start?: number, format?: string, cursor?: string, fq?: string, facet?: string }) {
+    public async search(query: string,
+                        advanced?: { parser?: string, options?: string, size?: number,
+                                     sort?: string, start?: number, format?: string,
+                                     cursor?: string, fq?: string, facet?: string }): Promise<AetherSearchResponse> {
         const queryParams = Object.entries({ q: query, ...advanced })
             .map(([parameter, value]) => `${parameter}=${value.toString()}`)
             .join(`&`)
