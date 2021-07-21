@@ -14,6 +14,7 @@ export interface IAssetType {
 }
 
 export class AssetTypeDictionary {
+      /* tslint:disable */
     public static types: { [type: string]: IAssetType } = {
 
         /*  Default entry.  This type doesn't occur in nature, but is provided so that arbitrary asset types (such as scope, acl, acl-entry, network-interface, etc)
@@ -21,13 +22,13 @@ export class AssetTypeDictionary {
         "_default": {
             type: "any",
             topological: false,
-            renderName: function (asset) {
+            renderName: function (asset): string {
                 if (asset.type) {
                     return asset.type + " '" + (asset.name ? asset.name : asset.key) + "'";
                 }
                 return "Unknown object '" + (asset.name ? asset.name : asset.key) + "'";
             },
-            getAssetDetails: function (asset: any) {
+            getAssetDetails: function (asset: any): any[] {
                 const assetDetails = [];
                 const assetDetailsInfo = {
                     "key": {

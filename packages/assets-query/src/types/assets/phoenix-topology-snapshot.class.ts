@@ -69,7 +69,7 @@ export class PhoenixTopologySnapshot {
      *  https://console.product.dev.alertlogic.com/api/assets_query/index.html#api-Queries-Topology_Query
      *  It returns a populated instance of type TopologySnapshot.
      */
-    static import(rawData) {
+    static import(rawData): PhoenixTopologySnapshot {
         let topology = new PhoenixTopologySnapshot();
         if (!rawData?.topology) {
             console.warn("Unexpected input: the input data to PhoenixTopologySnapshot.import does not appear to be valid topology data");
