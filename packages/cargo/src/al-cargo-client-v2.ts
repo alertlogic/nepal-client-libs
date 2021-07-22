@@ -111,7 +111,7 @@ export class AlCargoClientInstanceV2 extends AlCargoClientInstance {
      * @remarks
      * https://console.account.product.dev.alertlogic.com/users/api/index.html#api-Schedules-RemoveSchedule
      */
-    async deleteSchedule(accountId: string, scheduleId: string) {
+    async deleteSchedule(accountId: string, scheduleId: string): Promise<void> {
         const scheduleDelete = await this.client.delete({
             service_stack: AlLocation.InsightAPI,
             service_name: this.serviceName,
@@ -135,7 +135,7 @@ export class AlCargoClientInstanceV2 extends AlCargoClientInstance {
      * @remarks
      * https://console.account.product.dev.alertlogic.com/users/api/cargo/index.html#api-Schedules-UpdateSchedule
      */
-    async updateSchedule(accountId: string, reportId: string, schedule: ScheduledReportV2) {
+    async updateSchedule(accountId: string, reportId: string, schedule: ScheduledReportV2): Promise<ScheduledReportV2> {
         return this.client.post<ScheduledReportV2>({
             service_stack: AlLocation.InsightAPI,
             service_name: this.serviceName,
@@ -156,13 +156,12 @@ export class AlCargoClientInstanceV2 extends AlCargoClientInstance {
      *
      * @param accountId The AIMS Account ID
      * @param executionRecordId The Execution Record ID
-     * @returns a promise with the result
      *
      * @remarks
      * https://console.account.product.dev.alertlogic.com/users/api/cargo/index.html#api-Execution_Records-CancelExecutionRecord
      * @overrides cancelScheduledReport V1
      */
-    async cancelScheduledReport(accountId: string, executionRecordId: string) {
+    async cancelScheduledReport(accountId: string, executionRecordId: string): Promise<void> {
         const result = await this.client.post({
             service_stack: AlLocation.InsightAPI,
             service_name: this.serviceName,
@@ -213,7 +212,7 @@ export class AlCargoClientInstanceV2 extends AlCargoClientInstance {
      *  @remarks
      *  https://console.account.product.dev.alertlogic.com/users/api/cargo/index.html#api-Execution_Records-CreateExecutionRecord
      */
-    async createExecutionRecord(accountId: string, payload: ExecutionRecordRequestV2 | ExecutionRecordOnceRequestV2) {
+    async createExecutionRecord(accountId: string, payload: ExecutionRecordRequestV2 | ExecutionRecordOnceRequestV2): Promise<unknown> {
         const result = await this.client.post({
             service_stack: AlLocation.InsightAPI,
             service_name: this.serviceName,
@@ -336,7 +335,7 @@ export class AlCargoClientInstanceV2 extends AlCargoClientInstance {
      *  @remarks
      *  https://console.account.product.dev.alertlogic.com/users/api/index.html#api-Execution_Records-RemoveExecutionRecord
      */
-    async deleteExecutionRecord(accountId: string, executionRecordId: string) {
+    async deleteExecutionRecord(accountId: string, executionRecordId: string): Promise<void> {
         const result = await this.client.delete({
             service_stack: AlLocation.InsightAPI,
             service_name: this.serviceName,
@@ -362,7 +361,7 @@ export class AlCargoClientInstanceV2 extends AlCargoClientInstance {
      * https://console.product.dev.alertlogic.com/api/cargo/#api-Schedules-BatchRemoveSchedules
      *
      */
-    async batchDeleteSchedules(accountId: string, ids: string[]) {
+    async batchDeleteSchedules(accountId: string, ids: string[]): Promise<void> {
         const strIds = ids.join(',');
         return await this.client.delete({
             service_stack: AlLocation.InsightAPI,
@@ -387,7 +386,7 @@ export class AlCargoClientInstanceV2 extends AlCargoClientInstance {
      * https://console.product.dev.alertlogic.com/api/cargo/#api-Execution_Records-BatchRemoveExecutionRecords
      *
      */
-    async batchDeleteExecutionRecords(accountId: string, ids: string[]) {
+    async batchDeleteExecutionRecords(accountId: string, ids: string[]): Promise<void> {
         const strIds = ids.join(',');
         return await this.client.delete({
             service_stack: AlLocation.InsightAPI,
