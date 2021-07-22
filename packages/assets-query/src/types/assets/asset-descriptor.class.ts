@@ -12,7 +12,7 @@ export class AssetDescriptor {
     constructor() {
     }
 
-    public static import(rawData) {
+    public static import(rawData): AssetDescriptor {
 
         const asset = new AssetDescriptor();
 
