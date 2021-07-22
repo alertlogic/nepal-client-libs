@@ -10,7 +10,12 @@ export interface AzureExplorerValidationParams {
   environment_id?: string;
 }
 
-interface AzureExplorerCredential {
+export interface AzureExplorerValidationResponse {
+  status?: string;
+  message?: string;
+}
+
+export interface AzureExplorerCredential {
   name?: string;
   type?: 'azure_ad_user';
   azure_ad_user?: {
@@ -25,16 +30,18 @@ class AzureExplorerClient {
   private client = AlDefaultClient;
   private serviceName = 'azure_explorer';
 
-  async validateExistingCredentials(accountId: string, environmentId: string) {
-    return this.client.post<any>({
+  async validateExistingCredentials(accountId: string,
+                                    environmentId: string): Promise<AzureExplorerValidationResponse> {
+    return this.client.post<AzureExplorerValidationResponse>({
       service_name: this.serviceName,
       account_id: accountId,
       path: `/environments/${environmentId}/validate_credentials`,
     });
   }
 
-  async validateExternalCredentials(accountId: string, validationParams: AzureExplorerValidationParams) {
-    return this.client.post<any>({
+  async validateExternalCredentials(accountId: string,
+                                    validationParams: AzureExplorerValidationParams): Promise<AzureExplorerValidationResponse> {
+    return this.client.post<AzureExplorerValidationResponse>({
       service_name: this.serviceName,
       account_id: accountId,
       path: 'validate_credentials',
