@@ -7,7 +7,8 @@ import {
     AlScanCredentialsHost,
     AlScanCredentialsAllHosts,
     AlAssetScanCredentials,
-    AlCredential
+    AlCredential,
+    AlCredentialsStoredResponse
 } from './types';
 
 export class AlCredentialsClientInstance {
@@ -29,7 +30,7 @@ export class AlCredentialsClientInstance {
         environmentId: string,
         assetType: string,
         credentialType: string,
-        assetKey: string) {
+        assetKey: string): Promise<void> {
         return this.client.delete({
             service_stack: AlLocation.InsightAPI,
             version: this.serviceVersion,
@@ -47,7 +48,7 @@ export class AlCredentialsClientInstance {
      */
     async getHostScanCredentials(accountId: string,
         environmentId: string,
-        assetKey: string) {
+        assetKey: string): Promise<AlScanCredentialsHost> {
         return this.client.get<AlScanCredentialsHost>({
             service_stack: AlLocation.InsightAPI,
             version: this.serviceVersion,
@@ -64,7 +65,7 @@ export class AlCredentialsClientInstance {
      * "https://api.cloudinsight.alertlogic.com/credentials/v1/01000001/5955C10B-33A2-41A0-9E73-10CBD51FA9CF/host/scan"
      */
     async getAllHostScanCredentials(accountId: string,
-        environmentId: string) {
+        environmentId: string): Promise<AlScanCredentialsAllHosts> {
         return this.client.get<AlScanCredentialsAllHosts>({
             service_stack: AlLocation.InsightAPI,
             version: this.serviceVersion,
@@ -85,8 +86,8 @@ export class AlCredentialsClientInstance {
         environmentId: string,
         assetType: string,
         assetKey: string,
-        credential: AlAssetScanCredentials) {
-        return this.client.put({
+        credential: AlAssetScanCredentials): Promise<AlCredentialsStoredResponse> {
+        return this.client.put<AlCredentialsStoredResponse>({
             service_stack: AlLocation.InsightAPI,
             version: this.serviceVersion,
             service_name: this.serviceName,
@@ -104,8 +105,8 @@ export class AlCredentialsClientInstance {
      * -d '{"name":"IAM Role","secrets":{"type":"aws_iam_role","arn":"ARN"}}'
      */
     async createCredential(accountId: string,
-        credential: AlCredential) {
-        return this.client.post({
+        credential: AlCredential): Promise<AlCredential> {
+        return this.client.post<AlCredential>({
             service_stack: AlLocation.InsightAPI,
             service_name: this.serviceName,
             account_id: accountId,
@@ -122,7 +123,7 @@ export class AlCredentialsClientInstance {
      * "https://api.cloudinsight.alertlogic.com/credentials/v1/01000001/credentials/5955C10B-33A2-41A0-9E73-10CBD51FA9CF"
      */
     async deleteCredential(accountId: string,
-        credentialId: string) {
+        credentialId: string): Promise<void> {
         return this.client.delete({
             service_stack: AlLocation.InsightAPI,
             service_name: this.serviceName,
@@ -139,7 +140,7 @@ export class AlCredentialsClientInstance {
      * "https://api.cloudinsight.alertlogic.com/credentials/v2/01000001/credentials/BD7592C5-0111-1005-83EE-7831C1BAEAE6"
      */
     async getCredentialById(accountId: string,
-        credentialId: string) {
+        credentialId: string): Promise<AlCredential> {
         return this.client.get<AlCredential>({
             service_stack: AlLocation.InsightAPI,
             service_name: this.serviceName,
@@ -155,7 +156,7 @@ export class AlCredentialsClientInstance {
      * /credentials/v2/:account_id/credentials
      * "https://api.cloudinsight.alertlogic.com/credentials/v2/01000001/credentials"
      */
-    async listCredentials(accountId: string) {
+    async listCredentials(accountId: string): Promise<AlCredential[]> {
         return this.client.get<AlCredential[]>({
             service_stack: AlLocation.InsightAPI,
             service_name: this.serviceName,
