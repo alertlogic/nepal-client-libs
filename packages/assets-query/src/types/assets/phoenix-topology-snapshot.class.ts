@@ -34,7 +34,7 @@ export class PhoenixTopologySnapshot {
 
     static extraAssetTypes: string[] = ['load-balancer', 'image',
                                         'sg', 'container', 'tag',
-                                        'appliance'];
+                                        'appliance', 'agent'];
 
     regions: TopologyNode[] = [];
     vpcs: TopologyNode[] = [];
