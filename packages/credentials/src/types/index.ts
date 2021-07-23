@@ -72,4 +72,6 @@ export interface AlAssetScanCredentials {
     password?: string;
     key?: string;
     snmp_community_string?: string;
-  }
+}
+
+export type AlCredentialsStoredResponse = {credential_id: string};
