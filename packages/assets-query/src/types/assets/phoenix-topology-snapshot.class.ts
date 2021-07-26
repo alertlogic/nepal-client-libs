@@ -118,7 +118,8 @@ export class PhoenixTopologySnapshot {
 
     static calculateSummary(assetCounts): { [i: string]: number } {
         let summary: { [i: string]: number } = {
-            all: assetCounts['all']
+            all: assetCounts['all'],
+            ...(assetCounts?.agent && {agents: assetCounts?.agent} )
         };
         ['region', 'vpc', 'subnet', 'host',
          'load-balancer', 'image', 'sg',
