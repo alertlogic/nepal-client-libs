@@ -83,7 +83,7 @@ export class AlEndpointsClientInstance {
      * This method will attempt to override the final URL constructed based on whether the acting account
      * has access to an esb service endpoint, otherwise the default construction based on AlLocation.EndpointsAPI location will be used.
      */
-    private async buildRequestDescriptor(accountId: string, path: string) {
+    private async buildRequestDescriptor(accountId: string, path: string): Promise<APIRequestParams> {
         const esbServiceBaseUrl = await this.getEsbApiOrigin( accountId );
         const requestDescriptor: APIRequestParams = {};
         if(esbServiceBaseUrl === '') {
