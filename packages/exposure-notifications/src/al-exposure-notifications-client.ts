@@ -105,7 +105,7 @@ export class AlExposureNotificationsInstanceClient {
     /**
      *  Deletes an Assignment
      */
-    async deleteAssignment(accountId: string, assignmentId: string) {
+    async deleteAssignment(accountId: string, assignmentId: string): Promise<void> {
         return AlDefaultClient.delete({
             service_stack: AlLocation.InsightAPI,
             service_name: this.serviceName,
@@ -118,7 +118,7 @@ export class AlExposureNotificationsInstanceClient {
     /**
      * Deletes subscription and policy assigned
      */
-    async deleteSubscriptionAndPolicy(accountId: string, subscriptionId: string) {
+    async deleteSubscriptionAndPolicy(accountId: string, subscriptionId: string): Promise<void> {
         return AlDefaultClient.delete({
             service_stack: AlLocation.InsightAPI,
             service_name: this.serviceName,
@@ -133,7 +133,7 @@ export class AlExposureNotificationsInstanceClient {
      * notification policy to subscription if changed. null as notification policy
      * will unassign policy.
      */
-    async updateSubscription(accountId: string, subscriptionId: string, subscriptionBody: Subscription) {
+    async updateSubscription(accountId: string, subscriptionId: string, subscriptionBody: Subscription): Promise<void> {
         return AlDefaultClient.put({
             service_stack: AlLocation.InsightAPI,
             service_name: this.serviceName,
