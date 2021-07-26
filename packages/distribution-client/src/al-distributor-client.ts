@@ -26,8 +26,8 @@ export class AlDistributorClientInstance {
      * @remarks
      *
      * */
-    async downloadFirewallRules(accountId: string, path: string, version: string = 'v1') {
-        return this.client.get<any>({
+    async downloadFirewallRules(accountId: string, path: string, version: string = 'v1'): Promise<unknown> {
+        return this.client.get({
             path,
             version: version,
             service_stack: this.serviceStack,
