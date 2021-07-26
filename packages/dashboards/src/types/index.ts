@@ -1,3 +1,5 @@
+import { AlChangeStamp } from '@al/core';
+
 export interface DashboardRequest {
   name?: string;
   description?: string;
@@ -230,4 +232,16 @@ export interface SharedDashboardItemsRequestQueryParams {
   order?: 'asc' | 'desc';
   fields?: string;
   [key:string]: any;
+}
+
+export interface UpdateDashboardItemResponse {
+    id?: string;
+    account_id?: string;
+    deployment_id?: string;
+    environment_id?: string;
+    asset_filters?: any[];
+    name?: string;
+    type?: string;
+    created?: AlChangeStamp;
+    modified?: AlChangeStamp;
 }
