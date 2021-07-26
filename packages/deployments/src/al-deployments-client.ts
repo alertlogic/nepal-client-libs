@@ -21,7 +21,7 @@ export class AlDeploymentsClientInstance {
   constructor(public client:AlApiClient = AlDefaultClient) {
   }
 
-  async createDeployment(accountId: string, deploymentRequest: DeploymentCreateBody) {
+  async createDeployment(accountId: string, deploymentRequest: DeploymentCreateBody): Promise<Deployment> {
     return this.client.post<Deployment>({
       service_stack: AlLocation.InsightAPI,
       version: this.serviceVersion,
@@ -32,7 +32,7 @@ export class AlDeploymentsClientInstance {
     });
   }
 
-  async updateDeployment(accountId: string, deploymentId: string, deploymentRequest: DeploymentUpdateBody) {
+  async updateDeployment(accountId: string, deploymentId: string, deploymentRequest: DeploymentUpdateBody): Promise<Deployment> {
     return this.client.put<Deployment>({
       service_stack: AlLocation.InsightAPI,
       version: this.serviceVersion,
@@ -43,8 +43,8 @@ export class AlDeploymentsClientInstance {
     });
   }
 
-  async deleteDeployment(accountId: string, deploymentId: string) {
-    return this.client.delete<any>({
+  async deleteDeployment(accountId: string, deploymentId: string): Promise<void> {
+    return this.client.delete({
       service_stack: AlLocation.InsightAPI,
       version: this.serviceVersion,
       service_name: this.serviceName,
@@ -53,7 +53,7 @@ export class AlDeploymentsClientInstance {
     });
   }
 
-  async getDeployment(accountId: string, deploymentId: string) {
+  async getDeployment(accountId: string, deploymentId: string): Promise<Deployment> {
     return this.client.get<Deployment>({
       service_stack: AlLocation.InsightAPI,
       version: this.serviceVersion,
@@ -64,7 +64,7 @@ export class AlDeploymentsClientInstance {
 
   }
 
-  async listDeployments(accountId: string, filters?: {[i:string]: string} | string[]) {
+  async listDeployments(accountId: string, filters?: {[i:string]: string} | string[]): Promise<Deployment[]> {
     return this.client.get<Deployment[]>({
       service_stack: AlLocation.InsightAPI,
       version: this.serviceVersion,
