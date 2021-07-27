@@ -7,7 +7,7 @@ import { browser } from 'protractor';
 import { takeScreenshot } from './element-helpers';
 
 export class Browser {
-    public static async openPageInNewTab(url: string) {
+    public static async openPageInNewTab(url: string): Promise<number> {
         const nums = await browser.getAllWindowHandles();
         await Browser.createNewBrowserTab();
         await Browser.switchToTabNumber(nums.length);
@@ -15,11 +15,11 @@ export class Browser {
         return nums.length;
     }
 
-    public static createNewBrowserTab() {
+    public static async createNewBrowserTab(): Promise<unknown> {
         return browser.executeScript('window.open()');
     }
 
-    public static async switchToTabNumber(number: number) {
+    public static async switchToTabNumber(number: number): Promise<void> {
         const handles = await browser.getAllWindowHandles();
         // console.log(handles);
         const newWindowHandle = handles[number];
@@ -28,7 +28,7 @@ export class Browser {
 
 }
 
-export const compareScreenShots = (screenshots) => {
+export const compareScreenShots = (screenshots): void => {
         // compare screenshots
         const areas: string[] = [];
         let partNames: string[] = [];
