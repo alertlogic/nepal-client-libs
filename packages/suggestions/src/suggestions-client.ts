@@ -35,7 +35,7 @@ export class AlSuggestionsClientInstanceV1 {
     /**
      * Create a saved query for the given account ID
      */
-    async createSavedQuery(accountId: string, savedQueryParams: CreateSavedQueryParams) {
+    async createSavedQuery(accountId: string, savedQueryParams: CreateSavedQueryParams): Promise<SavedQuery> {
         return this.client.post<SavedQuery>({
             service_stack: AlLocation.InsightAPI,
             service_name: this.serviceName,
@@ -49,7 +49,7 @@ export class AlSuggestionsClientInstanceV1 {
     /**
      * Get a saved query by account ID and query ID
      */
-    async getQuery(accountId: string, queryId: string) {
+    async getQuery(accountId: string, queryId: string): Promise<SavedQuery> {
         return this.client.get<SavedQuery>({
             service_stack: AlLocation.InsightAPI,
             service_name: this.serviceName,
@@ -62,7 +62,7 @@ export class AlSuggestionsClientInstanceV1 {
     /**
      * Get a list of saved queries for the given account ID
      */
-    async getQueries(accountId: string, queryParams: { data_type?: string } = {}) {
+    async getQueries(accountId: string, queryParams: { data_type?: string } = {}): Promise<SavedQuery[]> {
         const fetchRequestParams: APIRequestParams = {
             service_stack: AlLocation.InsightAPI,
             service_name: this.serviceName,
@@ -70,14 +70,14 @@ export class AlSuggestionsClientInstanceV1 {
             path: '/queries',
             params: queryParams,
         };
-        return await this.client.get(fetchRequestParams)
-            .then((response: FetchQueriesResponse) => response.queries);
+        const response: FetchQueriesResponse = await this.client.get(fetchRequestParams);
+        return response.queries;
     }
 
     /**
      * Update the saved query with the given ID. All body parameters are optional, but at least one should be given.
      */
-    async updateQuery(accountId: string, queryId: string, queryUpdate: UpdateSavedQueryParams) {
+    async updateQuery(accountId: string, queryId: string, queryUpdate: UpdateSavedQueryParams): Promise<SavedQuery> {
         return this.client.post<SavedQuery>({
             service_stack: AlLocation.InsightAPI,
             service_name: this.serviceName,
@@ -104,7 +104,7 @@ export class AlSuggestionsClientInstanceV1 {
      * Get a list of search categories. If the ids parameter is passed with a CSV of IDs, the result is the set of categories identified by each ID in a categories array.
      * If no ids parameter is passed, returns all categories.
      */
-    async getCategories(accountId: string, queryParams?: { ids: string[] }) {
+    async getCategories(accountId: string, queryParams?: { ids: string[] }): Promise<SearchCategory[]> {
         const fetchRequestParams: APIRequestParams = {
             service_stack: AlLocation.InsightAPI,
             service_name: this.serviceName,
@@ -121,7 +121,7 @@ export class AlSuggestionsClientInstanceV1 {
     /**
      * Get a search rule by rule ID
      */
-    async getRule(accountId: string, ruleId: string, queryParams?: { include_categories: string }) {
+    async getRule(accountId: string, ruleId: string, queryParams?: { include_categories: string }): Promise<SearchRule> {
         const fetchRequestParams: APIRequestParams = {
             service_stack: AlLocation.InsightAPI,
             service_name: this.serviceName,
@@ -157,7 +157,7 @@ export class AlSuggestionsClientInstanceV1 {
      * Get a list of search tokens. If the ids parameter is passed with a CSV of IDs, the result is the set of tokens identified by each ID in a tokens array.
      * If no ids parameter is passed, returns all rules
      */
-    async getTokens(accountId: string, queryParams?: { ids?: string }) {
+    async getTokens(accountId: string, queryParams?: { ids?: string }): Promise<SearchToken[]> {
         const fetchRequestParams: APIRequestParams = {
             service_stack: AlLocation.InsightAPI,
             service_name: this.serviceName,
@@ -174,7 +174,7 @@ export class AlSuggestionsClientInstanceV1 {
     /**
      * This hints suggestions to preload and index the data sets for the given account_id. If the data for this account is already in the cache, nothing is done
      */
-    precache(accountId: string) {
+    precache(accountId: string): Promise<void> {
         return this.client.get({
             service_stack: AlLocation.InsightAPI,
             service_name: this.serviceName,
@@ -186,7 +186,7 @@ export class AlSuggestionsClientInstanceV1 {
     /**
      * Provides suggestions for the search filters of all displayable fields (depending on how it is called).
      */
-    async suggest(accountId: string, dataType: string = 'logmsgs', requestParams: SuggestionsRequestParams) {
+    async suggest(accountId: string, dataType: string = 'logmsgs', requestParams: SuggestionsRequestParams): Promise<SuggestSearchResponse> {
         return this.client.post<SuggestSearchResponse>({
             service_stack: AlLocation.InsightAPI,
             service_name: this.serviceName,
@@ -201,7 +201,7 @@ export class AlSuggestionsClientInstanceV1 {
      * This endpoint takes an entire search request  and rewrites it so that the descriptor fields (field_descriptors array and display attributes on some id fields) have been added or updated.
      * Additionally, this performs syntactic and semantic validation of the query
      */
-    async describe(accountId: string, dataType: string = 'logmsgs', searchRequest: DescribeSearchRequest) {
+    async describe(accountId: string, dataType: string = 'logmsgs', searchRequest: DescribeSearchRequest): Promise<DescribeSearchResponse> {
         return this.client.post<DescribeSearchResponse>({
             service_stack: AlLocation.InsightAPI,
             service_name: this.serviceName,
@@ -218,7 +218,7 @@ export class AlSuggestionsClientInstanceV1 {
      * format suitable for input to the search API
      * Specifically, JSON body of the request to the search API is returned in the search_request key of the response.
      */
-    async translate(accountId: string, dataType: string = 'logmsgs', searchRequest: TranslateSearchRequest) {
+    async translate(accountId: string, dataType: string = 'logmsgs', searchRequest: TranslateSearchRequest): Promise<TranslateSearchResponse> {
         return this.client.post<TranslateSearchResponse>({
             service_stack: AlLocation.InsightAPI,
             service_name: this.serviceName,
@@ -369,7 +369,7 @@ export class AlSuggestionsClientInstanceV1 {
      * Attempting to delete a group set to "deleted": false will result in a 400 Bad Request error.
      * If a group is permanently deleted, all child groups and all associated objects (templates or saved queries) will be permanently deleted as well.
      */
-    async deleteGroup(accountId: string, objectType: 'queries' | 'templates', groupId: string): Promise<unknown> {
+    async deleteGroup(accountId: string, objectType: 'queries' | 'templates', groupId: string): Promise<void> {
         return this.client.delete({
             service_stack: AlLocation.InsightAPI,
             service_name: this.serviceName,

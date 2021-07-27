@@ -49,7 +49,7 @@ export class AlSuggestionsClientInstanceV2 {
      * /suggestions/v2/:account_id/templates/:id
      * @remarks "https://console.account.product.dev.alertlogic.com/users/api/suggestions/index.html#api-Templates_V2-DeleteTemplate"
      */
-    deleteQueryTemplate(accountId: string, queryId: string) {
+    deleteQueryTemplate(accountId: string, queryId: string): Promise<void> {
         return this.client.delete({
             service_stack: AlLocation.InsightAPI,
             service_name: this.serviceName,
@@ -134,7 +134,7 @@ export class AlSuggestionsClientInstanceV2 {
      * /suggestions/v2/:account_id/queries/:id
      * @remarks "https://console.account.product.dev.alertlogic.com/users/api/suggestions/index.html#api-Queries_V2-GetQueries"
      */
-    deleteSavedQuery(accountId: string, queryId: string) {
+    deleteSavedQuery(accountId: string, queryId: string): Promise<void> {
         return this.client.delete({
             service_stack: AlLocation.InsightAPI,
             service_name: this.serviceName,
@@ -278,7 +278,7 @@ export class AlSuggestionsClientInstanceV2 {
                     .then( response => `values` in response ? response.values : [] );
     }
 
-    protected applyMagic( fields:AlEnumeratedFieldV2[], searchPhrase:string ) {
+    protected applyMagic( fields:AlEnumeratedFieldV2[], searchPhrase:string ): void {
         let escapedSearchPhrase = searchPhrase.replace( /[-\/\\^$.()|[\]{}]/g, '\\$&' )
                                               .replace( /\*/g, "([a-z0-9_\\-\\.]+)" );
         let exactMatch = new RegExp( `^${escapedSearchPhrase}$`, 'i' );
