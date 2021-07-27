@@ -8,7 +8,7 @@ import { browser } from 'protractor';
 export async function scrollThePage(
     pictureName: string,
     pictureFunction: (name: string) => Promise<unknown>,
-    maxScrolls = 25,
+    maxScrolls: number = 25,
 ): Promise<void> {
 
 

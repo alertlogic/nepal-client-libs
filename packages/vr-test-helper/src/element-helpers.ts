@@ -20,7 +20,7 @@ interface Coordinates {
     y: number;
 }
 
-export function ensureDirectoryExistence(filePath: string) {
+export function ensureDirectoryExistence(filePath: string): void {
     const dirname = path.dirname(filePath);
     if (fs.existsSync(dirname)) {
         return;
@@ -35,18 +35,18 @@ export function ensureDirectoryExistence(filePath: string) {
  * @param element
  * @param cls
  */
-export function hasClass(element, cls) {
+export function hasClass(element: any, cls: string): void {
     return element.getAttribute('class').then((classes) => classes.split(' ').indexOf(cls) !== -1);
 }
 
-export function writeScreenShot(data, filename) {
+export function writeScreenShot(data: any, filename: string): string {
     console.log('writing file to ' + filename);
     ensureDirectoryExistence(filename);
     fs.writeFileSync(filename, data, { encoding: 'base64' });
     return filename;
 }
 
-export async function takeScreenshot(name: string) {
+export async function takeScreenshot(name: string): Promise<string> {
     const png = await browser.takeScreenshot();
     return writeScreenShot(png, `${name}-${new Date().getTime()}.png`);
 }
@@ -56,7 +56,7 @@ export async function takeScreenshot(name: string) {
  * @param element
  * @param className
  */
-export async function waitForClass(element, className) {
+export async function waitForClass(element: any, className: string): Promise<void> {
     await browser.wait(
         () => hasClass(element, className),
         4000,
@@ -69,7 +69,7 @@ export async function waitForClass(element, className) {
  * @param element
  * @param message
  */
-export async function waitForElementPresence(element: ElementFinder, message?: string) {
+export async function waitForElementPresence(element: ElementFinder, message?: string): Promise<void> {
     const until = ExpectedConditions;
     message = message ? message : `Not able to find element, taking more than ${WAIT_MAX_TIME}ms`;
     await browser.wait(
@@ -103,7 +103,7 @@ export async function scrollTo(coordinates: Coordinates): Promise<unknown> {
     return await browser.executeScript(script);
 }
 
-export async function scrollToElement(scrollToElement): Promise<unknown> {
+export async function scrollToElement(scrollToElement: any): Promise<unknown> {
     const wd = browser.driver;
     const loc = await scrollToElement.getLocation();
     return await wd.executeScript('window.scrollTo(0,arguments[0]);', loc.y);
@@ -116,7 +116,7 @@ export async function scrollToElement(scrollToElement): Promise<unknown> {
  * @param logs is an array of logs
  * @return void - generates a folder with the report and the evidence called console_error
  */
-export async function generateJSONConsoleReport(allLogs, png, options: { blackList: RegExp[] } = {blackList: []}) {
+export async function generateJSONConsoleReport(allLogs: any[], png: any, options: { blackList: RegExp[] } = {blackList: []}): Promise<void> {
     const defaultBlackList: RegExp[] = [
         /TypeError: Cannot read property/gi,
         /TypeError: .* is not a function/gi,
@@ -169,7 +169,7 @@ export async function generateJSONConsoleReport(allLogs, png, options: { blackLi
     }
 }
 
-export async function generateConsoleHTMLReport(logs, png) {
+export async function generateConsoleHTMLReport(logs: any[], png: any): Promise<void> {
     await generateJSONConsoleReport(logs, png);
     const reportNameJson = './console_error/report_console_error.json';
     const reportNameHTML = './console_error/report_console_error.html';
@@ -229,7 +229,7 @@ export async function generateConsoleHTMLReport(logs, png) {
 /**
  * Create a report in JSON format of the e2e test
  */
-export function generateJSONVR() {
+export function generateJSONVR(): void {
     const reportName = './visual-regression/report.json';
     const getAllEvidences = (dir, acc = []) => {
         acc = acc || [];
@@ -270,7 +270,7 @@ export function generateJSONVR() {
 /**
  * Create an HTML report of visual regression tests
  */
-export async function generateVRHTMLReport() {
+export async function generateVRHTMLReport(): Promise<void> {
     await generateJSONVR();
     const reportNameJson = './visual-regression/report.json';
     const reportNameHTML = './visual-regression/report.html';
@@ -304,7 +304,7 @@ export async function generateVRHTMLReport() {
     }
 }
 
-export function generateScreenshotReportHTML() {
+export function generateScreenshotReportHTML(): void {
     glob("./reports_e2e/screenshot-report-*.json", (er, files) => {
         let style = `<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
                 <style>
