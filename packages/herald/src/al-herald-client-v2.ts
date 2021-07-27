@@ -27,7 +27,7 @@ export class AlHeraldClientInstanceV2 extends AlHeraldClientInstance {
 
     protected serviceVersion = 'v2';
 
-    super(client: AlApiClient = null) {
+    super(client: AlApiClient = null): void {
         this.client = client || AlDefaultClient;
     }
 
@@ -91,7 +91,7 @@ export class AlHeraldClientInstanceV2 extends AlHeraldClientInstance {
      * @remarks
      * https://console.account.product.dev.alertlogic.com/users/api/herald/index.html#api-Subscribers_v2-RemoveSubscriber
      */
-    async unsubscribeFromSubscriptionType(accountId: string, subscriptionId: string, subscriberType: string) {
+    async unsubscribeFromSubscriptionType(accountId: string, subscriptionId: string, subscriberType: string): Promise<void> {
         const result = await this.client.delete({
             service_stack: AlLocation.InsightAPI,
             service_name: this.serviceName,
@@ -136,7 +136,7 @@ export class AlHeraldClientInstanceV2 extends AlHeraldClientInstance {
      * @remarks
      * https://console.account.product.dev.alertlogic.com/users/api/herald/index.html#api-NotificationTypes-DeleteNotificationType
      */
-    async deleteNotificationType(notificationType: string) {
+    async deleteNotificationType(notificationType: string): Promise<void> {
         const result = await this.client.delete({
             service_stack: AlLocation.InsightAPI,
             service_name: this.serviceName,
@@ -314,7 +314,7 @@ export class AlHeraldClientInstanceV2 extends AlHeraldClientInstance {
      * @remarks
      * https://console.account.product.dev.alertlogic.com/users/api/herald/index.html#api-Subscriptions_v2-DeleteSubscription
      */
-    async deleteSubscriptionById(accountId: string, subscriptionId: string) {
+    async deleteSubscriptionById(accountId: string, subscriptionId: string): Promise<void> {
         const result = await this.client.delete({
             service_stack: AlLocation.InsightAPI,
             service_name: this.serviceName,
@@ -389,7 +389,7 @@ export class AlHeraldClientInstanceV2 extends AlHeraldClientInstance {
      * @remarks
      * https://console.product.dev.alertlogic.com/api/herald/#api-Subscriptions_v2-BatchDeleteSubscription
      */
-    async deleteSubscriptionsByIds(accountId: string, subscriptionIds: string[]) {
+    async deleteSubscriptionsByIds(accountId: string, subscriptionIds: string[]): Promise<void> {
         const result = await this.client.post({
             service_stack: AlLocation.InsightAPI,
             service_name: this.serviceName,
@@ -412,7 +412,7 @@ export class AlHeraldClientInstanceV2 extends AlHeraldClientInstance {
      * @returns just the status code
      *
      */
-    async batchUpdateSubscriptions(accountId: string, subscriptionId: string, subscriptions: AlHeraldSubscribersV2[]) {
+    async batchUpdateSubscriptions(accountId: string, subscriptionId: string, subscriptions: AlHeraldSubscribersV2[]): Promise<void> {
         return await this.client.post({
             service_stack: AlLocation.InsightAPI,
             service_name: this.serviceName,
