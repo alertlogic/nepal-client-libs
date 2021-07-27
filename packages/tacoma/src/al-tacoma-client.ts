@@ -25,8 +25,8 @@ export class AlTacomaClientInstance
      *  Export saved view csv/pdf report
      *  GET /tacoma/v1/:account_id/sites/:site_id/saved_views/:saved_view_id/export
      */
-    async exportSavedViewReport(accountId: string, siteId: string, savedViewId: string, fileFormat?: string) {
-        return this.client.get<any>({
+    async exportSavedViewReport(accountId: string, siteId: string, savedViewId: string, fileFormat?: string): Promise<unknown> {
+        return this.client.get({
             service_stack: AlLocation.InsightAPI,
             account_id: accountId,
             service_name: this.serviceName,
@@ -54,8 +54,8 @@ export class AlTacomaClientInstance
      *  Export view csv/pdf report
      *  GET /tacoma/v1/:account_id/sites/:site_id/workbooks/:workbook_id/views/:view_id/export
      */
-    async exportViewReport(accountId: string, siteId: string, workBookId: string, viewId: string) {
-        return this.client.get<any>({
+    async exportViewReport(accountId: string, siteId: string, workBookId: string, viewId: string): Promise<unknown> {
+        return this.client.get({
             service_stack: AlLocation.InsightAPI,
             account_id: accountId,
             service_name: this.serviceName,
@@ -81,8 +81,8 @@ export class AlTacomaClientInstance
      *  Export workbook pdf report
      *  GET /tacoma/v1/:account_id/sites/:site_id/workbooks/:workbook_id/export
      */
-    async exportWorkbookReport(accountId: string, siteId: string, workBookId: string, format?: string, anyQueryParameter?: string) {
-        return this.client.get<any>({
+    async exportWorkbookReport(accountId: string, siteId: string, workBookId: string, format?: string, anyQueryParameter?: string): Promise<unknown> {
+        return this.client.get({
             service_stack: AlLocation.InsightAPI,
             account_id: accountId,
             service_name: this.serviceName,
@@ -94,8 +94,8 @@ export class AlTacomaClientInstance
      *  Get workbook preview
      *  GET /tacoma/v1/:account_id/sites/:site_id/workbooks/:workbook_id/preview
      */
-    async getWorkbookPreview(accountId: string, siteId: string, workBookId: string) {
-        return this.client.get<any>({
+    async getWorkbookPreview(accountId: string, siteId: string, workBookId: string): Promise<unknown> {
+        return this.client.get({
             service_stack: AlLocation.InsightAPI,
             account_id: accountId,
             service_name: this.serviceName,
@@ -129,7 +129,7 @@ export class AlTacomaClientInstance
      *
      *  Poorly named alias for `listWorkbooks`.
      */
-    async getWorkbook( accountId: string, queryParams?:{filter_subscriptions?:string, sub_menu?:string} ) {
+    async getWorkbook( accountId: string, queryParams?:{filter_subscriptions?:string, sub_menu?:string} ): Promise<AlTacomaSite[]> {
         console.warn("Deprecation warning: please use `TacomaClient.listWorkbooks` instead of `TacomaClient.getWorkbook`" );
         return this.listWorkbooks( accountId, queryParams );
     }
