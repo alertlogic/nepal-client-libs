@@ -90,7 +90,7 @@ export class AlAssetsQueryClientInstance {
     deploymentId: string,
     extraAssetTypes: string[] = [],
     categories: string[] = [],
-    scope = true): Promise<PhoenixTopologySnapshot> {
+    scope: boolean = true): Promise<PhoenixTopologySnapshot> {
     const rawdata = await this.client.get<PhoenixTopologySnapshot>({
       service_stack: AlLocation.InsightAPI,
       version: 'v1',
@@ -252,7 +252,7 @@ export class AlAssetsQueryClientInstance {
    * /assets_query/v1/:account_id/tags/summary
    * "https://api.cloudinsight.alertlogic.com/assets_query/v1/12345678/tags/summary?include_tagged_assets=true"
    */
-  async getTagsSummary(accountId: string, includeTaggedAssets = false): Promise<TagsSummaryResponse> {
+  async getTagsSummary(accountId: string, includeTaggedAssets: boolean = false): Promise<TagsSummaryResponse> {
     return this.client.get<TagsSummaryResponse>({
       service_stack: AlLocation.InsightAPI,
       version: 'v1',
@@ -606,7 +606,7 @@ export class AlAssetsQueryClientInstance {
    * PUT
    * /assets_query/v1/:account_id/asset_groups
    */
-  async deleteAssetGroup(accountId: string, name: string, dryRun = false): Promise<DeleteAssetGroupResponse> {
+  async deleteAssetGroup(accountId: string, name: string, dryRun: boolean = false): Promise<DeleteAssetGroupResponse> {
     return this.client.put<DeleteAssetGroupResponse>({
       service_stack: AlLocation.InsightAPI,
       account_id: accountId,
