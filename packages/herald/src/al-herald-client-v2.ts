@@ -412,7 +412,7 @@ export class AlHeraldClientInstanceV2 extends AlHeraldClientInstance {
      * @returns just the status code
      *
      */
-    async batchUpdateSubscriptions(accountId: string, subscriptionId: string, subscriptions: AlHeraldSubscribersV2[]): Promise<AlHeraldUpdateSubscriptionPayloadV2> {
+    async batchUpdateSubscriptions(accountId: string, subscriptionId: string, subscriptions: AlHeraldSubscribersV2[]): Promise<void> {
         return await this.client.post({
             service_stack: AlLocation.InsightAPI,
             service_name: this.serviceName,
