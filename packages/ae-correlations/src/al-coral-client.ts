@@ -122,15 +122,14 @@ export class AlCoralClientInstance {
     /**
      *  Get all correlation rules
      */
-    async getAllCorrelations(accountId: string, params = {}): Promise<AlCorrelationRule[] | { [type: string]: AlCorrelationRule[] }> {
-        const correlations = await AlDefaultClient.get({
+    async getAllCorrelations(accountId: string, params: {[i: string]: string} = {}): Promise<AlCorrelationRule[] | { [type: string]: AlCorrelationRule[] }> {
+       return await AlDefaultClient.get({
             service_stack: AlLocation.InsightAPI,
             service_name: this.serviceName,
             account_id: accountId,
             path: '/correlations',
             params: params
         });
-        return correlations;
     }
 
     /**
