@@ -41,7 +41,7 @@ export class TopologyNode extends AssetDescriptor {
     nodeId: string;
     focused: boolean;
 
-    static import(rawData): TopologyNode {
+    static import(rawData: any): TopologyNode {
         let asset = new TopologyNode();
         asset.type = rawData.type;
         asset.key = rawData.key;
