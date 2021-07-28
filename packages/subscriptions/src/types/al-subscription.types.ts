@@ -7,12 +7,14 @@
  *  @copyright Alert Logic, Inc 2019
  */
 
+ import { AlChangeStamp } from '@al/core';
+
 /**
  *  AlEntitlementRecord describes the basic properties of an entitlement.
  *  This may not represent the complete entitlement record, but excluded fields are generally not of interest outside of very specific use cases.
  */
 /* tslint:disable:variable-name*/
-export interface AlEntitlementRecord
+ export interface AlEntitlementRecord
 {
     productId:string;
     active:boolean;
@@ -24,7 +26,7 @@ export interface AlEntitlementRecord
 /**
  *  AlEntitlementCollection manages groups of entitlement records, and makes it easy (and safe) to interrogate them.
  */
-export class AlEntitlementCollection
+ export class AlEntitlementCollection
 {
     /**
      * This static list of "known" entitlements is derived from actually interrogating production entitlements for all
@@ -161,7 +163,7 @@ export class AlEntitlementCollection
      *      -   Active entitlements for a given product supersede inactive entitlements
      *      -   Latest active expiration supercedes earlier expirations
      */
-    public merge( entitlements:AlEntitlementRecord[] ) {
+    public merge( entitlements:AlEntitlementRecord[] ): AlEntitlementCollection {
         this.evaluationCache = {};      //  flush cached evaluation outputs if the entitlement set changes
         for ( let i = 0; i < entitlements.length; i++ ) {
             let entitlement = entitlements[i];
@@ -278,4 +280,22 @@ export class AlEntitlementCollection
             }
         }
     }
+}
+
+ export interface AlSubscription {
+    id?: string;
+    account_id?: string;
+    active?: boolean;
+    type?:  string;
+    created?: AlChangeStamp;
+    updated?: AlChangeStamp;
+    entitlements?: unknown[];
+    billing_id?: string;
+}
+
+ export interface AlSubscriptionPayload {
+    product_code?: string;
+    aws_customer_identifier?: string;
+    status?: string;
+    account_id?: string;
 }
