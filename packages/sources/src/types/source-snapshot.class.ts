@@ -26,7 +26,7 @@ export class SourceSnapshot {
      *
      *  It returns a populated instance of type SourceSnapshot.
      */
-    public static import(rawData: EnvironmentSource) {
+    public static import(rawData: EnvironmentSource): SourceSnapshot {
         let deployment = new SourceSnapshot();
 
         if (!rawData.hasOwnProperty("source")) {
@@ -40,7 +40,7 @@ export class SourceSnapshot {
     /**
      *  Gets any node in the tree, identified by key
     */
-    public getScope(provider: string = 'aws') {
+    public getScope(provider: string = 'aws'): SourceScope | null {
         let scope: SourceScope = {};
         const source = this.source.source;
 
@@ -85,7 +85,7 @@ export class SourceSnapshot {
     /**
      * Inserts an SourceDescriptor into the source object
      */
-    public add(source: EnvironmentSource) {
+    public add(source: EnvironmentSource): EnvironmentSource {
 
         if (this.sourceByKey.hasOwnProperty(source.source.id)) {
             console.warn("Internal error: cannot add an existing source to a Source Snapshot. For shame!");
