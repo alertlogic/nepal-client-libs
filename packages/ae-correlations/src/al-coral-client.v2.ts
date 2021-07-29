@@ -123,7 +123,7 @@ export class AlCoralClientInstanceV2 {
     /**
      *  Get all correlation rules
      */
-    async getAllCorrelations(accountId: string, params = {}): Promise<AlCorrelationRulesResponseV2> {
+    async getAllCorrelations(accountId: string, params: {[i: string]: string} = {}): Promise<AlCorrelationRulesResponseV2> {
         return AlDefaultClient.get({
             service_stack: AlLocation.InsightAPI,
             service_name: this.serviceName,
