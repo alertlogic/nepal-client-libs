@@ -102,8 +102,8 @@ export class AlResponderClientInstance {
         let marker = undefined;
 
         const staticParams = {
-            ...parameters,
             ...{ limit: 100 },
+            ...parameters
         };
 
         do {
