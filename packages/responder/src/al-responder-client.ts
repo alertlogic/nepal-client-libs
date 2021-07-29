@@ -55,7 +55,7 @@ export class AlResponderClientInstance {
      * @remarks
      *
      * */
-    async getPlaybookDefinitions(){
+    async getPlaybookDefinitions(): Promise<AlResponderPlaybookDefinition[]>{
         return this.client.get<AlResponderPlaybookDefinition[]>({
             version: this.serviceVersion,
             service_stack: this.serviceStack,
@@ -206,14 +206,13 @@ export class AlResponderClientInstance {
      *
      * @remarks
      */
-    async deletePlaybookById(accountId: string, id: string) {
-        const result = await this.client.delete({
+    async deletePlaybookById(accountId: string, id: string): Promise<void> {
+        return await this.client.delete({
             version: this.serviceVersion,
             service_stack: this.serviceStack,
             account_id: accountId,
             path: `/playbooks/${id}`
         });
-        return result;
     }
 
 
@@ -251,7 +250,7 @@ export class AlResponderClientInstance {
      * @remarks
      *
      * */
-    async getActions(accountId: string, params?: { payload_type: string }) {
+    async getActions(accountId: string, params?: { payload_type: string }): Promise<AlResponderAction[]> {
         return this.client.get<AlResponderAction[]>({
             version: this.serviceVersion,
             service_stack: this.serviceStack,
@@ -276,7 +275,7 @@ export class AlResponderClientInstance {
      * @remarks
      *
      * */
-    async getActionByRef(accountId: string, actionRef: string, params?: { payload_type: string }) {
+    async getActionByRef(accountId: string, actionRef: string, params?: { payload_type: string }): Promise<AlResponderAction> {
         return this.client.get<AlResponderAction>({
             version: this.serviceVersion,
             service_stack: this.serviceStack,
@@ -697,14 +696,13 @@ export class AlResponderClientInstance {
      *
      * @remarks
      */
-    async deleteScheduleById(accountId: string, id: string) {
-        const result = await this.client.delete({
+    async deleteScheduleById(accountId: string, id: string): Promise<void> {
+        return await this.client.delete({
             version: this.serviceVersion,
             service_stack: this.serviceStack,
             account_id: accountId,
             path: `/schedules/${id}`
         });
-        return result;
     }
 
     /**
@@ -830,13 +828,12 @@ export class AlResponderClientInstance {
      * @remarks
      */
     async deletePayloadSampleById(accountId: string, id: string): Promise<void> {
-        const result = await this.client.delete({
+        return await this.client.delete({
             version: this.serviceVersion,
             service_stack: this.serviceStack,
             account_id: accountId,
             path: `/payload_samples/${id}`
         });
-        return result;
     }
 
     /**
@@ -1111,7 +1108,7 @@ export class AlResponderClientInstance {
     *
     */
     async getIncidentBifrostFormat(accountId: string, incidentId: string): Promise<any> {
-        return this.client.get<AlResponderPlaybookRoles>({
+        return this.client.get({
             version: this.serviceVersion,
             service_stack: this.serviceStack,
             account_id: accountId,
