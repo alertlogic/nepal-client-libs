@@ -57,7 +57,7 @@ export class AlConnectorsClientInstance {
      *  @remarks
      *
      * */
-    async getIntegrationTypeByAccount(accountId, name:string): Promise<AlIntegrationTypeDetail> {
+    async getIntegrationTypeByAccount(accountId: string, name:string): Promise<AlIntegrationTypeDetail> {
         return this.client.get<AlIntegrationTypeDetail>({
             version: this.serviceVersion,
             service_stack: this.serviceStack,
