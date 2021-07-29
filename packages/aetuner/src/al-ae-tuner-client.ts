@@ -106,7 +106,7 @@ export class AlAETunerClientInstance {
      * @param update
      * @param incidentType Incident Type Fully Qualified Name
      */
-    async updateIncidentType(accountId, update: AnalyticUpdateObject, incidentType: string):Promise<unknown> {
+    async updateIncidentType(accountId: string, update: AnalyticUpdateObject, incidentType: string):Promise<unknown> {
         return this.client.post<unknown>({
             service_stack: AlLocation.AETunerAPI,
             account_id: accountId,
