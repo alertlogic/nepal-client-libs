@@ -12,10 +12,10 @@ import {
     AlScanScheduleSummary,
     AlScanScopeItemAsset,
     AlIPValidationResult,
-    AlScanScopeItemIPRange,
-    AlScanScopeItemCIDR,
     AlTimeZone
 } from './types/models';
+
+type QParams = {[q: string]: string | number | boolean} | {};
 
 export class AlScanSchedulerClientInstanceV2 {
 
@@ -24,7 +24,7 @@ export class AlScanSchedulerClientInstanceV2 {
     /**
      *  Lists scan schedules that belong to a particular deployment
      */
-    async getScanSchedulesList(accountId: string, deploymentId: string, params = {}): Promise<AlScanSchedule[]> {
+    async getScanSchedulesList(accountId: string, deploymentId: string, params: QParams = {}): Promise<AlScanSchedule[]> {
         return AlDefaultClient.get({
             service_stack: AlLocation.InsightAPI,
             service_name: this.serviceName,
@@ -69,7 +69,7 @@ export class AlScanSchedulerClientInstanceV2 {
     /**
      *  Deletes Selected Schedule
      */
-    async removeScanSchedule(accountId: string, deploymentId: string, scheduleId: string) {
+    async removeScanSchedule(accountId: string, deploymentId: string, scheduleId: string): Promise<void> {
         return AlDefaultClient.delete({
             service_stack: AlLocation.InsightAPI,
             service_name: this.serviceName,
@@ -101,7 +101,7 @@ export class AlScanSchedulerClientInstanceV2 {
     /**
      *  Get scan schedule summary by ID
      */
-    async getScanScheduleSummary(accountId: string, deploymentId: string, scheduleId: string, params = {}): Promise<AlScanScheduleSummary> {
+    async getScanScheduleSummary(accountId: string, deploymentId: string, scheduleId: string, params: QParams = {}): Promise<AlScanScheduleSummary> {
         return AlDefaultClient.get({
             service_stack: AlLocation.InsightAPI,
             service_name: this.serviceName,
@@ -147,7 +147,7 @@ export class AlScanSchedulerClientInstanceV2 {
      *  @force param: Allows to override the exclusion rules applied to selected targets.
      *                Otherwise exclusion rules take precedence over expedited scan.
      */
-    async scanNow(accountId: string, deploymentId: string, scanScopeItem: AlScanScopeItemAsset, params: {force: boolean} = {force: false}) {
+    async scanNow(accountId: string, deploymentId: string, scanScopeItem: AlScanScopeItemAsset, params: {force: boolean} = {force: false}): Promise<void> {
         return AlDefaultClient.put({
             service_stack: AlLocation.InsightAPI,
             service_name: this.serviceName,
@@ -166,7 +166,7 @@ export class AlScanSchedulerClientInstanceV2 {
      * @param accountId
      * @param deploymentId
      */
-    async stopScanAssets(accountId: string, deploymentId: string, scanScopeItem: AlScanScopeItemAsset) {
+    async stopScanAssets(accountId: string, deploymentId: string, scanScopeItem: AlScanScopeItemAsset): Promise<void> {
         return AlDefaultClient.put({
             service_stack: AlLocation.InsightAPI,
             service_name: this.serviceName,
@@ -185,7 +185,7 @@ export class AlScanSchedulerClientInstanceV2 {
      * @param deploymentId
      * @param scanScheduleId
      */
-    async stopScanSchedule(accountId: string, deploymentId: string, scanScheduleId: string) {
+    async stopScanSchedule(accountId: string, deploymentId: string, scanScheduleId: string): Promise<void> {
         return AlDefaultClient.put({
             service_stack: AlLocation.InsightAPI,
             service_name: this.serviceName,
