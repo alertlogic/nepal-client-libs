@@ -20,7 +20,7 @@ export class AlPoliciesClientInstance {
   /**
    * Returns the policy matching account_id and policy_id specified
    */
-  async getPolicy(accountId: string, policyId: string) {
+  async getPolicy(accountId: string, policyId: string): Promise<Policy> {
     return this.client.get<Policy>({
       service_stack: AlLocation.InsightAPI,
       service_name: this.serviceName,
@@ -32,7 +32,7 @@ export class AlPoliciesClientInstance {
   /**
    * Lists policies belonging to a particular account
    */
-  async listPolicies(accountId: string) {
+  async listPolicies(accountId: string): Promise<Policy[]> {
     return this.client.get<Policy[]>({
       service_stack: AlLocation.InsightAPI,
       service_name: this.serviceName,
