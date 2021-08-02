@@ -1,6 +1,6 @@
 {
   "name": "@al/loki",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "license": "MIT",
   "description": "A client for interacting with the Alert Logic Loki Public API",
   "author": {

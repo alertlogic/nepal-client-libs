@@ -1,5 +1,5 @@
 import { AlApiClient, AlDefaultClient, AlLocation } from "@al/core";
-import { IncidentType, ListType } from "./loki-client.type";
+import { IncidentType, IpAddressQueryResult, ListType } from "./loki-client.type";
 
 export class AlLokiClientInstance {
     private serviceName = 'loki';
@@ -13,8 +13,11 @@ export class AlLokiClientInstance {
      * POST
      * /loki/v1/:account_id/:list_type/:incident_type
      */
-    async addIpAddress(accountId:string, listType:ListType, incidentType:IncidentType, addresses:string[]) {
-        return this.client.post<any>({
+    async addIpAddress(accountId:string,
+                      listType:ListType,
+                      incidentType:IncidentType,
+                      addresses:string[]): Promise<void> {
+        return this.client.post({
             service_stack: AlLocation.GlobalAPI,
             service_name: this.serviceName,
             account_id: accountId,
@@ -29,8 +32,11 @@ export class AlLokiClientInstance {
      * GET
      * /loki/v1/:account_id/:list_type/:incident_type
      */
-    async queryIpAddress(accountId:string, listType:ListType, incidentType:IncidentType, address:string) {
-        return this.client.get<any>({
+    async queryIpAddress(accountId:string,
+                         listType:ListType,
+                         incidentType:IncidentType,
+                         address:string): Promise<IpAddressQueryResult> {
+        return this.client.get<IpAddressQueryResult>({
             service_stack: AlLocation.GlobalAPI,
             service_name: this.serviceName,
             account_id: accountId,
@@ -45,8 +51,11 @@ export class AlLokiClientInstance {
      * DELETE
      * /loki/v1/:account_id/:list_type/:incident_type
      */
-    async deleteIpAddress(accountId:string, listType:ListType, incidentType:IncidentType, addresses:string[]) {
-        return this.client.delete<any>({
+    async deleteIpAddress(accountId:string,
+                          listType:ListType,
+                          incidentType:IncidentType,
+                          addresses:string[]): Promise<void> {
+        return this.client.delete({
             service_stack: AlLocation.GlobalAPI,
             service_name: this.serviceName,
             account_id: accountId,
