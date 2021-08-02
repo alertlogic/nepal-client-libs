@@ -3,35 +3,21 @@
  */
 import { ALClient, AlLocation } from '@al/core';
 
+export interface TuningOptionScope {
+  deployment_id?: string;
+  region_key?: string;
+  vpc_key?: string;
+}
+
+export type TuningOptionValue = string | number | {[key:string]: unknown};
+
 export interface TuningOption {
-  id: string;
-  name: string;
-  scope?: {
-    deployment_id?: string;
-    region_key?: string;
-    vpc_key?: string;
-  };
-  value: string|number|{[key:string]: unknown};
+  id?: string;
+  name?: string;
+  scope?: TuningOptionScope;
+  value?: TuningOptionValue;
 }
 
-export interface OptionRequestParams {
-  name: string;
-  scope?: {
-    deployment_id?: string;
-    region_key?: string;
-    vpc_key?: string;
-  };
-  value: string|number|{[key:string]: unknown};
-}
-
-export interface ResolveOptionsRequestParams {
-  scope: {
-    deployment_id?: string;
-    region_key?: string;
-    vpc_key?: string;
-  };
-  names: string[];
-}
 
 class OTISClient {
 
@@ -41,20 +27,20 @@ class OTISClient {
   /**
    * Create Option
    */
-  async createOption(accountId: string, optionRequest: OptionRequestParams) {
-    return this.client.post<any>({
+  async createOption(accountId: string, data: TuningOption): Promise<TuningOption> {
+    return this.client.post<TuningOption>({
+      data,
       service_stack: AlLocation.InsightAPI,
       service_name: this.serviceName,
       account_id: accountId,
       path: '/options',
-      version: this.version,
-      data: optionRequest,
+      version: this.version
     });
   }
   /**
    * Get Option
    */
-  async getOption(accountId: string, optionId: string) {
+  async getOption(accountId: string, optionId: string): Promise<TuningOption> {
     return this.client.get<TuningOption>({
       service_stack: AlLocation.InsightAPI,
       service_name: this.serviceName,
@@ -67,7 +53,7 @@ class OTISClient {
   /**
    * List Options
    */
-  async listOptions(accountId: string, params?: {[key:string]: string|string[]}) {
+  async listOptions(accountId: string, params?: {[key:string]: string|string[]}): Promise<TuningOption[]> {
     return this.client.get<TuningOption[]>({
       service_stack: AlLocation.InsightAPI,
       service_name: this.serviceName,
@@ -81,8 +67,8 @@ class OTISClient {
   /**
    * Delete Option
    */
-  async deleteOption(accountId: string, optionId: string) {
-    return this.client.delete<any>({
+  async deleteOption(accountId: string, optionId: string): Promise<void> {
+    return this.client.delete({
       service_stack: AlLocation.InsightAPI,
       service_name: this.serviceName,
       account_id: accountId,
@@ -95,8 +81,8 @@ class OTISClient {
    *
    * value: set as any because of the API flexibility, from docs: value - arbitrary JSON data
    */
-  async updateOptionValue(accountId: string, optionId: string, value: any) {
-    return this.client.put<any>({
+  async updateOptionValue(accountId: string, optionId: string, value: TuningOptionValue): Promise<TuningOption> {
+    return this.client.put<TuningOption>({
       service_stack: AlLocation.InsightAPI,
       service_name: this.serviceName,
       account_id: accountId,
@@ -107,17 +93,19 @@ class OTISClient {
       },
     });
   }
+
   /**
    * Resolve Option Values
    */
-  async resolveOptionValues(accountId: string, resolveOptionsRequestParams: ResolveOptionsRequestParams) {
-    return this.client.post<any>({
+  async resolveOptionValues(accountId: string,
+                            data: {  scope: TuningOptionScope, names: string[] }): Promise<unknown> {
+    return this.client.post({
+      data,
       service_stack: AlLocation.InsightAPI,
       service_name: this.serviceName,
       account_id: accountId,
       path: '/options/resolve',
-      version: this.version,
-      data: resolveOptionsRequestParams,
+      version: this.version
     });
   }
 }
