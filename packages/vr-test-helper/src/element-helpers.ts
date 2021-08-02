@@ -35,7 +35,7 @@ export function ensureDirectoryExistence(filePath: string): void {
  * @param element
  * @param cls
  */
-export function hasClass(element: any, cls: string): void {
+export function hasClass(element: any, cls: string): boolean {
     return element.getAttribute('class').then((classes) => classes.split(' ').indexOf(cls) !== -1);
 }
 
