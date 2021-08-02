@@ -1,6 +1,6 @@
 export {
     otisClient as OTISClient,
     TuningOption,
-    OptionRequestParams,
-    ResolveOptionsRequestParams
+    TuningOptionScope,
+    TuningOptionValue
 } from './otis-client';
