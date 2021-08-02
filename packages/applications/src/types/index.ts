@@ -181,3 +181,5 @@ export interface AlApplicationAttribute {
     properties?: AlApplicationProperties;
 }
 
+export type DeployedCollectorUpdateResponse = {id: string, credential_id: string};
+

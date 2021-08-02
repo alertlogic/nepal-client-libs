@@ -290,8 +290,8 @@ export class AlHeraldClientInstance {
      * @remarks
      * https://console.account.product.dev.alertlogic.com/users/api/herald/index.html#api-Subscriptions-UnsetUserSubscriptionsForAccountFeature
      */
-    async unsetUserSubscriptionsByFeature(accountId: string, userId: string, feature: string) {
-        return this.client.delete<any>({
+    async unsetUserSubscriptionsByFeature(accountId: string, userId: string, feature: string): Promise<void> {
+        return this.client.delete({
             service_stack: AlLocation.InsightAPI,
             service_name: this.serviceName,
             version: this.serviceVersion,
@@ -316,8 +316,8 @@ Header"
      * @remarks
      * https://console.account.product.dev.alertlogic.com/users/api/herald/index.html#api-Subscriptions-UnsetIntegrationsSubscriptionsForAccountFeature
      */
-    async unsetIntegrationsSubscriptionsByFeature(accountId: string, integrationId: string, feature: string) {
-        return this.client.delete<any>({
+    async unsetIntegrationsSubscriptionsByFeature(accountId: string, integrationId: string, feature: string): Promise<void> {
+        return this.client.delete({
             service_stack: AlLocation.InsightAPI,
             service_name: this.serviceName,
             version: this.serviceVersion,
@@ -501,8 +501,8 @@ Header"
      * @remarks
      * https://console.account.product.dev.alertlogic.com/users/api/herald/index.html#api-Integrations-DeleteAccountIntegrations
      */
-    async deleteIntegration(accountId: string, integrationId: string) {
-        return this.client.delete<any>({
+    async deleteIntegration(accountId: string, integrationId: string): Promise<void> {
+        return this.client.delete({
             service_stack: AlLocation.InsightAPI,
             service_name: this.serviceName,
             version: this.serviceVersion,
@@ -929,8 +929,8 @@ Header"
      * @remarks
      * https://console.account.product.dev.alertlogic.com/users/api/herald/index.html#api-Subscription_Keys-DeleteAccountSubscriptionKey
      */
-    async deleteAccountSubscriptionKey(accountId: string, feature: string, subkey: string) {
-        return this.client.delete<any>({
+    async deleteAccountSubscriptionKey(accountId: string, feature: string, subkey: string): Promise<void> {
+        return this.client.delete({
             service_stack: AlLocation.InsightAPI,
             service_name: this.serviceName,
             version: this.serviceVersion,

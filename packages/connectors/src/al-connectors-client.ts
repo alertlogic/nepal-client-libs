@@ -36,7 +36,7 @@ export class AlConnectorsClientInstance {
      *  @remarks
      *
      * */
-    async getIntegrationTypes() {
+    async getIntegrationTypes(): Promise<AlIntegrationType[]> {
         return this.client.get<AlIntegrationType[]>({
             version: this.serviceVersion,
             service_stack: this.serviceStack,
@@ -57,7 +57,7 @@ export class AlConnectorsClientInstance {
      *  @remarks
      *
      * */
-    async getIntegrationTypeByAccount(accountId, name:string): Promise<AlIntegrationTypeDetail> {
+    async getIntegrationTypeByAccount(accountId: string, name:string): Promise<AlIntegrationTypeDetail> {
         return this.client.get<AlIntegrationTypeDetail>({
             version: this.serviceVersion,
             service_stack: this.serviceStack,
@@ -77,7 +77,7 @@ export class AlConnectorsClientInstance {
      *  @remarks
      *
      * */
-    async getIntegrationTypeByName(name:string) {
+    async getIntegrationTypeByName(name:string): Promise<AlIntegrationTypeDetail> {
         return this.client.get<AlIntegrationTypeDetail>({
             version: this.serviceVersion,
             service_stack: this.serviceStack,
@@ -96,7 +96,7 @@ export class AlConnectorsClientInstance {
      *  @remarks
      *
      * */
-    async getConnections(accountId: string, params?: {include_sample_payload: boolean}) {
+    async getConnections(accountId: string, params?: {include_sample_payload: boolean}): Promise< AlIntegrationConnection[]> {
         return this.client.get<AlIntegrationConnection[]>({
             version: this.serviceVersion,
             service_stack: this.serviceStack,
@@ -117,7 +117,7 @@ export class AlConnectorsClientInstance {
      *  @remarks
      *
      * */
-    async getConnectionById(accountId: string, connectionId: string) {
+    async getConnectionById(accountId: string, connectionId: string): Promise<AlIntegrationConnection> {
         return this.client.get<AlIntegrationConnection>({
             version: this.serviceVersion,
             service_stack: this.serviceStack,
@@ -194,7 +194,7 @@ export class AlConnectorsClientInstance {
      *
      * @remarks
      */
-    async deleteConnectionById(accountId: string, connectionId: string) {
+    async deleteConnectionById(accountId: string, connectionId: string): Promise<void> {
         const result = await this.client.delete({
             version: this.serviceVersion,
             service_stack: this.serviceStack,
@@ -213,7 +213,7 @@ export class AlConnectorsClientInstance {
      *  @remarks
      *
      * */
-    async getPayloadTypes() {
+    async getPayloadTypes(): Promise<AlConnectorsPayloadTypes[]> {
         return this.client.get<AlConnectorsPayloadTypes[]>({
             version: this.serviceVersion,
             service_stack: this.serviceStack,

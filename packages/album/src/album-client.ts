@@ -34,7 +34,7 @@ class AlbumClient {
    * /album/v1/images?type=:type&product=:product
    * "https://api.cloudinsight.alertlogic.com/album/v1/images?type=aws"
    */
-  async getImages(queryParams?: {type?: string, product?: string}) {
+  async getImages(queryParams?: {type?: string, product?: string}): Promise<AlbumImagesResponse> {
     return this.client.get<AlbumImagesResponse>({
       service_name: this.serviceName,
       path: '/images',
@@ -49,7 +49,7 @@ class AlbumClient {
    * /album/v1/images/:image_id/shares
    * "https://api.cloudinsight.alertlogic.com/album/v1/images/ami-1234567/shares?type=aws"
    */
-  async getShares(amiId: string, queryParams?: {type?: string, type_id?: string}) {
+  async getShares(amiId: string, queryParams?: {type?: string, type_id?: string}): Promise<AlbumSharesResponse> {
     return this.client.get<AlbumSharesResponse>({
       service_name: this.serviceName,
       path: `/images/${amiId}/shares`,
@@ -64,7 +64,7 @@ class AlbumClient {
    * /album/v1/shares/:type/:type_id
    * "https://api.cloudinsight.alertlogic.com/album/v1/shares/aws/123456789012"
    */
-  async shareImage(type: string, typeId: string) {
+  async shareImage(type: string, typeId: string): Promise<any> {
     return this.client.put<any>({
       service_name: this.serviceName,
       path: `/shares/${type}/${typeId}`,
@@ -77,7 +77,7 @@ class AlbumClient {
    * /album/v1/shares/:type/:type_id
    * "https://api.cloudinsight.alertlogic.com/album/v1/shares/aws/123456789012"
    */
-  async unshareImage(type: string, typeId: string) {
+  async unshareImage(type: string, typeId: string): Promise<any> {
     return this.client.delete<any>({
       service_name: this.serviceName,
       path: `/shares/${type}/${typeId}`,

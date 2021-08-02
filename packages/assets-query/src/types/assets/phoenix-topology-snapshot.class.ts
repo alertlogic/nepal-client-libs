@@ -34,7 +34,7 @@ export class PhoenixTopologySnapshot {
 
     static extraAssetTypes: string[] = ['load-balancer', 'image',
                                         'sg', 'container', 'tag',
-                                        'appliance'];
+                                        'appliance', 'agent'];
 
     regions: TopologyNode[] = [];
     vpcs: TopologyNode[] = [];
@@ -69,7 +69,7 @@ export class PhoenixTopologySnapshot {
      *  https://console.product.dev.alertlogic.com/api/assets_query/index.html#api-Queries-Topology_Query
      *  It returns a populated instance of type TopologySnapshot.
      */
-    static import(rawData) {
+    static import(rawData: any): PhoenixTopologySnapshot {
         let topology = new PhoenixTopologySnapshot();
         if (!rawData?.topology) {
             console.warn("Unexpected input: the input data to PhoenixTopologySnapshot.import does not appear to be valid topology data");
@@ -116,9 +116,10 @@ export class PhoenixTopologySnapshot {
         return topology;
     }
 
-    static calculateSummary(assetCounts): { [i: string]: number } {
+    static calculateSummary(assetCounts: any): { [i: string]: number } {
         let summary: { [i: string]: number } = {
-            all: assetCounts['all']
+            all: assetCounts['all'],
+            ...(assetCounts?.agent && {agents: assetCounts?.agent} )
         };
         ['region', 'vpc', 'subnet', 'host',
          'load-balancer', 'image', 'sg',
@@ -157,7 +158,7 @@ export class PhoenixTopologySnapshot {
      *  Inserts an TopologyNode into the asset tree, appending it to the top level
      *  region & vpc lists if it is a region or vpc and adding it to a parent node if one is provided.
      */
-    add(asset: TopologyNode, parent: TopologyNode = null, isExtra = false): TopologyNode {
+    add(asset: TopologyNode, parent: TopologyNode = null, isExtra: boolean = false): TopologyNode {
         if (isExtra) {
             if (PhoenixTopologySnapshot.extraAssetTypes.indexOf(asset.type) >= 0) {
                 if (!this.assetsByKey.hasOwnProperty(asset.key)) {
@@ -324,7 +325,7 @@ export class PhoenixTopologySnapshot {
      * @param deployment_mode
      * @param deploymentType
      */
-    public getCoverage(scope: SourceScope, deploymentMode: string = '', deploymentType = 'aws'): Coverage {
+    public getCoverage(scope: SourceScope, deploymentMode: string = '', deploymentType: string = 'aws'): Coverage {
         this.deploymentMode = deploymentMode;
         // TODO: USE nestedGet method
         if (!scope?.scopeIncludeByKey || !scope?.scopeExcludeByKey) {

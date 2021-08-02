@@ -48,7 +48,7 @@ class ThemisClient {
       platformType: 'aws' | 'azure',
       roleType: 'ci_full' | 'cd_full' | 'ci_x_account_ct' | 'ci_readonly' | 'ci_essentials' | 'ci_manual',
       roleVersion: string
-  ) {
+  ): Promise<ThemisRoleDocument> {
       const role = await this.client.fetch({
           service_stack: AlLocation.InsightAPI,
           version: 'v1',
@@ -59,7 +59,7 @@ class ThemisClient {
       return role as ThemisRoleDocument;
   }
 
-  async getRoles(accountId: string) {
+  async getRoles(accountId: string): Promise<{roles: ThemisRoleDocument[]}> {
       const roles = await this.client.fetch({
           service_stack: AlLocation.InsightAPI,
           version: 'v1',
@@ -70,7 +70,7 @@ class ThemisClient {
       return roles as { roles: ThemisRoleDocument[] };
   }
 
-  async validateRoleCredentials(accountId: string, awsRole: AWSRole) {
+  async validateRoleCredentials(accountId: string, awsRole: AWSRole): Promise<AWSRoleValidationResponse> {
       const validate = await this.client.post({
           service_stack: AlLocation.InsightAPI,
           version: 'v1',

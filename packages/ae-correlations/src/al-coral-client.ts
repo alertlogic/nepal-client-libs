@@ -96,7 +96,7 @@ export class AlCoralClientInstance {
     /**
      *  Delete correlation rule
      */
-    async removeCorrelationRule(accountId: string, correlationId: string) {
+    async removeCorrelationRule(accountId: string, correlationId: string): Promise<any> {
         const correlation = await AlDefaultClient.delete({
             service_stack: AlLocation.InsightAPI,
             service_name: this.serviceName,
@@ -122,15 +122,14 @@ export class AlCoralClientInstance {
     /**
      *  Get all correlation rules
      */
-    async getAllCorrelations(accountId: string, params = {}): Promise<AlCorrelationRule[] | { [type: string]: AlCorrelationRule[] }> {
-        const correlations = await AlDefaultClient.get({
+    async getAllCorrelations(accountId: string, params: {[i: string]: string} = {}): Promise<AlCorrelationRule[] | { [type: string]: AlCorrelationRule[] }> {
+       return await AlDefaultClient.get({
             service_stack: AlLocation.InsightAPI,
             service_name: this.serviceName,
             account_id: accountId,
             path: '/correlations',
             params: params
         });
-        return correlations;
     }
 
     /**
@@ -154,7 +153,7 @@ export class AlCoralClientInstance {
     /**
      *  It tests the validity of an input or in a debugging capacity to see what content aecoral would generate for a given input.
      */
-    async validateCorrelationPolicy(accountId: string, correlation: AlCreateCorrelationRequest) {
+    async validateCorrelationPolicy(accountId: string, correlation: AlCreateCorrelationRequest): Promise<AlCorrelationValidationResponse> {
         const validation = await AlDefaultClient.post({
             service_stack: AlLocation.InsightAPI,
             service_name: this.serviceName,

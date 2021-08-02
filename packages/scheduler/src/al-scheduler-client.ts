@@ -17,7 +17,7 @@ export class AlSchedulerClientInstance {
     constructor(public client: AlApiClient = AlDefaultClient) {
     }
 
-    async getScanStatusSummary(accountId: string, environmentId: string, queryParams?: {vpc_key: string}) {
+    async getScanStatusSummary(accountId: string, environmentId: string, queryParams?: {vpc_key: string}): Promise<ScanStatusSummary> {
         const summary = await this.client.fetch({
             service_name: this.serviceName,
             account_id: accountId,
@@ -28,7 +28,7 @@ export class AlSchedulerClientInstance {
         return summary as ScanStatusSummary;
     }
 
-    async getTargetHosts(accountId: string, environmentId: string) {
+    async getTargetHosts(accountId: string, environmentId: string): Promise<ScanTargetHost> {
         const hosts = await this.client.fetch({
             service_name: this.serviceName,
             account_id: accountId,
@@ -38,14 +38,13 @@ export class AlSchedulerClientInstance {
         return hosts as ScanTargetHost;
     }
 
-    async scanAsset(accountId: string, environmentId: string, assetKey: string) {
-        const scan = await this.client.put({
+    async scanAsset(accountId: string, environmentId: string, assetKey: string): Promise<void> {
+        return await this.client.put({
             service_name: this.serviceName,
             account_id: accountId,
             path: `${environmentId}/scan`,
             data: {asset: assetKey},
             version: 1
         });
-        return scan;
     }
 }

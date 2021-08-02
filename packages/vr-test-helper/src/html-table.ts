@@ -43,7 +43,7 @@ export class HTMLTable {
         return this.table;
     }
 
-    private buildTable() {
+    private buildTable(): void {
         this.table = '<table class="table" style="table-layout: fixed;">'+this.header+this.body+'</table>';
     }
 }

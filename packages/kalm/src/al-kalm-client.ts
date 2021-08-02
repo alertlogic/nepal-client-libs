@@ -92,4 +92,17 @@ export class AlKalmClientInstance implements AlValidationSchemaProvider {
   public getProviders() {
     return [ AlDefaultClient ];
   }
+
+  /**
+   * /kalm/v1/{account_id}/query/tic_mitre_classification
+   * @returns mitre classification
+   */
+  public getMitreClassification(accountId: string) {
+    return this.client.get({
+        service_stack: AlLocation.InsightAPI,
+        service_name: this.serviceName,
+        version: this.version,
+        path: `${accountId}/query/tic_mitre_classification`,
+    });
+}
 }

@@ -5,6 +5,7 @@ import {
     AlApiClient,
     AlDefaultClient,
 } from '@al/core';
+
 import {
     EnvironmentCredential,
     EnvironmentSource
@@ -17,7 +18,7 @@ export class AlSourcesClientInstance {
     constructor(public client: AlApiClient = AlDefaultClient) {
     }
 
-    async getSources(accountId: string, filters?: string) {
+    async getSources(accountId: string, filters?: string): Promise<EnvironmentSource[]>{
         const sources = await this.client.fetch({
             service_name: this.serviceName,
             account_id: accountId,
@@ -28,7 +29,7 @@ export class AlSourcesClientInstance {
         return sources as EnvironmentSource[];
     }
 
-    async getSource(accountId: string, sourceId: string) {
+    async getSource(accountId: string, sourceId: string): Promise<EnvironmentSource> {
         const source = await this.client.fetch({
             service_name: this.serviceName,
             account_id: accountId,
@@ -38,7 +39,7 @@ export class AlSourcesClientInstance {
         return source as EnvironmentSource;
     }
 
-    async createSource(accountId: string, source: EnvironmentSource) {
+    async createSource(accountId: string, source: EnvironmentSource): Promise<EnvironmentSource> {
         const create = await this.client.post({
             service_name: this.serviceName,
             account_id: accountId,
@@ -49,7 +50,7 @@ export class AlSourcesClientInstance {
         return create as EnvironmentSource;
     }
 
-    async replaceSource(accountId: string, sourceId: string, source: EnvironmentSource) {
+    async replaceSource(accountId: string, sourceId: string, source: EnvironmentSource): Promise<EnvironmentSource> {
         const replacedSource = await this.client.put({
             service_name: this.serviceName,
             account_id: accountId,
@@ -60,28 +61,26 @@ export class AlSourcesClientInstance {
         return replacedSource as EnvironmentSource;
     }
 
-    async deleteSource(accountId: string, sourceId: string) {
-        const deleteSource = await this.client.delete({
+    async deleteSource(accountId: string, sourceId: string): Promise<void> {
+        return await this.client.delete({
             service_name: this.serviceName,
             account_id: accountId,
             path: `/sources/${sourceId}`,
             version: 1
         });
-        return deleteSource;
     }
 
-    async deleteAllSources(accountId: string, filters?: string) {
-        const deleteSources = await this.client.delete({
+    async deleteAllSources(accountId: string, filters?: string): Promise<void> {
+         return await this.client.delete({
             service_name: this.serviceName,
             account_id: accountId,
             path: '/sources',
             params: filters,
             version: 1
         });
-        return deleteSources;
     }
 
-    async getCredentials(accountId: string, filters?: string) {
+    async getCredentials(accountId: string, filters?: string): Promise<EnvironmentCredential[]> {
         const sources = await this.client.fetch({
             service_name: this.serviceName,
             account_id: accountId,
@@ -92,7 +91,7 @@ export class AlSourcesClientInstance {
         return sources as EnvironmentCredential[];
     }
 
-    async getCredential(accountId: string, credentialId: string) {
+    async getCredential(accountId: string, credentialId: string): Promise<EnvironmentCredential> {
         const source = await this.client.fetch({
             service_name: this.serviceName,
             account_id: accountId,
@@ -102,7 +101,7 @@ export class AlSourcesClientInstance {
         return source as EnvironmentCredential;
     }
 
-    async createCredential(accountId: string, credential: EnvironmentCredential) {
+    async createCredential(accountId: string, credential: EnvironmentCredential): Promise<EnvironmentCredential> {
         const create = await this.client.post({
             service_name: this.serviceName,
             account_id: accountId,
@@ -113,7 +112,7 @@ export class AlSourcesClientInstance {
         return create as EnvironmentCredential;
     }
 
-    async replaceCredential(accountId: string, sourceId: string, credential: EnvironmentCredential) {
+    async replaceCredential(accountId: string, sourceId: string, credential: EnvironmentCredential): Promise<EnvironmentCredential> {
         const replacedCredential = await this.client.set({
             service_name: this.serviceName,
             account_id: accountId,
@@ -124,14 +123,13 @@ export class AlSourcesClientInstance {
         return replacedCredential as EnvironmentCredential;
     }
 
-    async deleteCredential(accountId: string, credentialId: string, filters?: string) {
-        const deleteCredential = await this.client.delete({
+    async deleteCredential(accountId: string, credentialId: string, filters?: string): Promise<void> {
+        return await this.client.delete({
             service_name: this.serviceName,
             account_id: accountId,
             path: `/credentials/${credentialId}`,
             params: filters,
             version: 1
         });
-        return deleteCredential;
     }
 }

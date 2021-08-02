@@ -387,3 +387,18 @@ export interface AssetQueryResultItem {
     type?: string;
     version?: number;
 }
+
+export interface FoundAsset {
+    type?: string;
+    key?:  string;
+    deployment_id?: string;
+    host_key?: string;
+    [key: string]: string;
+}
+
+export type GenericResponse = { [key: string]: unknown };
+
+export interface RemediationsItemsListResponse {
+    assets?: GenericResponse[];
+    rows?: number;
+}

@@ -89,8 +89,8 @@ describe('Subscriptions Client Test Suite:', () => {
       stub.restore();
     });
     it('should call post() on the AlDefaultClient instance to the /subscription endpoint using the supplied entitements in the subscription data sent', async() => {
-      const entitlements = [{
-        product_family_code:'log_manager',
+      const entitlements: unknown[] = [{
+        product_family: 'log_manager',
         status:'active',
       }];
       const subscriptionData = {

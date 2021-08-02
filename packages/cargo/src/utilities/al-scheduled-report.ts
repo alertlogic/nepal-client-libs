@@ -16,17 +16,17 @@ export class AlTableauScheduledReport {
     definition: this.reportDefinition
   };
 
-  public setViewDefinition(siteId: string, worbookId: string, viewId: string) {
+  public setViewDefinition(siteId: string, worbookId: string, viewId: string): void {
     this.reportDefinition.site_id = siteId;
     this.reportDefinition.workbook_id = worbookId;
     this.reportDefinition.view_id = viewId;
   }
 
-  public setFilterValues(filterValues: { [key: string]: string[] }) {
+  public setFilterValues(filterValues: { [key: string]: string[] }): void {
     this.reportDefinition.filter_values = filterValues;
   }
 
-  public setFormat(format: "csv" | "pdf") {
+  public setFormat(format: "csv" | "pdf"): void {
     this.reportDefinition.format = format;
   }
 

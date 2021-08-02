@@ -24,7 +24,7 @@ export class TopologySnapshot {
      *  https://console.cloudinsight.alertlogic.com/api/assets/#api-Assets_Queries-Topology_Query
      *  It returns a populated instance of type TopologySnapshot.
      */
-    public static import(rawData: any) {
+    public static import(rawData: any): TopologySnapshot {
         let topology = new TopologySnapshot();
         if (!rawData.hasOwnProperty("topology")) {
             console.warn("Unexpected input: the input data to TopologySnapshot.import does not appear to be valid topology data");
@@ -75,7 +75,7 @@ export class TopologySnapshot {
      *  Inserts an AssetDescriptor into the asset tree, appending it to the top level
      *  region & vpc lists if it is a region or vpc and adding it to a parent node if one is provided.
      */
-    public add(asset: AssetDescriptor, parent: AssetDescriptor = null) {
+    public add(asset: AssetDescriptor, parent: AssetDescriptor = null): AssetDescriptor {
         if (this.assetsByKey.hasOwnProperty(asset.key)) {
             console.warn("Internal error: cannot add an existing asset to a Topology Snapshot.  For shame!");
             return asset;
@@ -127,7 +127,7 @@ export class TopologySnapshot {
      *  It just support regions and vpcs
      *
      */
-    public getSummary(asset: AssetDescriptor, scope: any) {
+    public getSummary(asset: AssetDescriptor, scope: any): any {
         if (asset.type !== 'region' && asset.type !== 'vpc') {
             return {};
         }
@@ -188,7 +188,7 @@ export class TopologySnapshot {
      *
      * @param scope
      */
-    public getCoverage(scope: any, deploymentMode: string = '') {
+    public getCoverage(scope: any, deploymentMode: string = ''): any {
         this.deployment_mode = deploymentMode;
         let coverage: object;
         // TODO: USE nestedGet method
@@ -282,7 +282,7 @@ export class TopologySnapshot {
      *
      * @param scope
      */
-    public getAllAssets() {
+    public getAllAssets(): any {
 
         let allAssets: object;
         let regions: AssetDescriptor[] = [];
