@@ -530,6 +530,15 @@ export interface AlResponderIncidentTrigger extends AlResponderTriggerBase {
         type: string;
         pattern: string;
     }[];
+    mitre_classifications?: AlResponderMitre[];
+    detection_sources?: string[];
+    analytics?: string[];
+}
+
+export interface AlResponderMitre {
+    tactic: string;
+    technique?: string;
+    sub_technique?: string;
 }
 
 export interface AlResponderObservationTrigger extends AlResponderTriggerBase {
