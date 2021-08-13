@@ -26,6 +26,7 @@ import {
   FoundAsset,
   GenericResponse,
   RemediationsItemsListResponse,
+  UndisposeRemediationsRequestBody,
 } from './types';
 import {
   AssetGroup,
@@ -365,7 +366,7 @@ export class AlAssetsQueryClientInstance {
   async disposeRemediations(accountId: string, remediationData: {
     deployment_ids?: string[], filters: string[] | string[][],
     vulnerability_ids?: string[], remediation_ids?: string[], reason: string,
-    comment: string, expires?: number, applies_to_specific_assets?: boolean
+    comment: string, expires?: number, applies_to_specific_assets?: boolean, filter_match_mode?: string
   }): Promise<RemediationsItemsListResponse> {
     let baseRemediationData = { operation: 'dispose_remediations' };
     Object.assign(baseRemediationData, remediationData);
@@ -400,6 +401,7 @@ export class AlAssetsQueryClientInstance {
 
   /**
    * Undispose Remediations
+   * @deprecated use undisposeRemediationItems insetad.
    * DELETE
    * /remediations/v1/:account_id/remediations
    * https://api.cloudinsight.alertlogic.com/remediations/v1/12345678/remediations?remediation_item_ids=0536575B914C32C8A5D28415D02E4545"
@@ -415,6 +417,19 @@ export class AlAssetsQueryClientInstance {
       path: '/remediations',
       params: queryParams,
       version: 'v2'
+    });
+  }
+
+  async undisposeRemediationItems(accountId: string, remediationData: UndisposeRemediationsRequestBody): Promise<RemediationsItemsListResponse> {
+    let baseRemediationData: UndisposeRemediationsRequestBody = { operation: 'undispose_remediations' };
+    Object.assign(baseRemediationData, remediationData);
+    return this.client.put<RemediationsItemsListResponse>({
+      service_stack: AlLocation.InsightAPI,
+      account_id: accountId,
+      service_name: 'assets_query',
+      path: 'remediations',
+      version: 'v2',
+      data: baseRemediationData,
     });
   }
 
@@ -489,7 +504,7 @@ export class AlAssetsQueryClientInstance {
   async concludeRemediations(accountId: string,
     remediationData: {
       deployment_ids?: string[], filters: string[] | string[][], vulnerability_ids?: string[],
-      remediation_ids?: string[], applies_to_specific_assets?: boolean
+      remediation_ids?: string[], applies_to_specific_assets?: boolean, filter_match_mode?: string
     }): Promise<RemediationsItemsListResponse> {
     let baseRemediationData = { operation: 'conclude_remediations' };
     Object.assign(baseRemediationData, remediationData);

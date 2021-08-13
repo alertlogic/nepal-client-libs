@@ -299,6 +299,7 @@ export interface RemediationItemAsset {
     expires?: number;
     exposures?: ExposureQueryResultItem[];
     exposures_count?: number;
+    filter_match_mode?: string;
     filters?: string[];
     item_id?: string;
     item_ids?: string[];
@@ -402,3 +403,14 @@ export interface RemediationsItemsListResponse {
     assets?: GenericResponse[];
     rows?: number;
 }
+
+export interface UndisposeRemediationsRequestBody {
+    operation?: string;
+    filters?: string[];
+    audit_ids?: string[];
+    deployment_ids?: string[];
+    vulnerability_ids?: string[];
+    remediation_ids?: string[];
+    remediation_item_ids?: string[];
+}
+
