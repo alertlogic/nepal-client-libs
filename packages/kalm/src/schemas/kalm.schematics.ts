@@ -1,4 +1,4 @@
-export const kalmTypeSchematics = {
+export const kalmTypeSchematics: {  [i: string]: unknown } = {
     "https://alertlogic.com/schematics/kalm": {
         definitions: {
             queryResponse: {

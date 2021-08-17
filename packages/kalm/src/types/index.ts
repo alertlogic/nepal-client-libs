@@ -9,3 +9,7 @@ export interface StorageDescriptor {
   PartitionKeys: any;
   Name: string;
 }
+
+export type KalmColum = { name: string, type: string };
+
+export type StandardKalmResponse = { rows: string[], column_info: KalmColum };

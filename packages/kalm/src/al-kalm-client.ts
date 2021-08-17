@@ -2,7 +2,7 @@
 * Module to deal with available Kalm Public API endpoints
 */
 import { AlApiClient, AlDefaultClient, AlLocation, AlValidationSchemaProvider } from '@al/core';
-import { StorageDescriptor } from './types';
+import { StandardKalmResponse, StorageDescriptor } from './types';
 import { kalmTypeSchematics } from './schemas/kalm.schematics';
 
 interface SimpleQueryAdditionalParams {
@@ -22,7 +22,7 @@ export class AlKalmClientInstance implements AlValidationSchemaProvider {
   /*
   *
   */
-  async listCatalogTables() {
+  async listCatalogTables(): Promise<StorageDescriptor[]> {
     return this.client.get<StorageDescriptor[]>({
       service_stack: AlLocation.InsightAPI,
       service_name: this.serviceName,
@@ -34,7 +34,7 @@ export class AlKalmClientInstance implements AlValidationSchemaProvider {
   /*
   *
   */
-  async getCatalogTable(table: string) {
+  async getCatalogTable(table: string): Promise<StorageDescriptor> {
     return this.client.get<StorageDescriptor>({
       service_stack: AlLocation.InsightAPI,
       service_name: this.serviceName,
@@ -46,8 +46,8 @@ export class AlKalmClientInstance implements AlValidationSchemaProvider {
   /*
    *
    */
-  async startSimpleQuery(accountId: string, namedQuery: string, queryParams: SimpleQueryAdditionalParams = {}) {
-    return this.client.get<any>({
+  async startSimpleQuery(accountId: string, namedQuery: string, queryParams: SimpleQueryAdditionalParams = {}):  Promise<StandardKalmResponse> {
+    return this.client.get({
       service_stack: AlLocation.InsightAPI,
       service_name: this.serviceName,
       version: this.version,
@@ -69,8 +69,8 @@ export class AlKalmClientInstance implements AlValidationSchemaProvider {
    * @param queryParams Parameters to filter the query
    * @returns
    */
-  async queryStream(accountId: string, namedQuery: string, queryParams: SimpleQueryAdditionalParams = {}) {
-    return this.client.get<any>({
+  async queryStream(accountId: string, namedQuery: string, queryParams: SimpleQueryAdditionalParams = {}): Promise<StandardKalmResponse>{
+    return this.client.get({
       responseType: 'arraybuffer',
       service_stack: AlLocation.InsightAPI,
       service_name: this.serviceName,
@@ -81,15 +81,15 @@ export class AlKalmClientInstance implements AlValidationSchemaProvider {
     });
   }
 
-  public hasSchema( schemaId:string ) {
+  public hasSchema( schemaId:string ): boolean {
     return schemaId in kalmTypeSchematics;
   }
 
-  public async getSchema( schemaId:string ) {
+  public async getSchema( schemaId:string ): Promise<unknown> {
     return kalmTypeSchematics[schemaId];
   }
 
-  public getProviders() {
+  public getProviders(): AlApiClient[] {
     return [ AlDefaultClient ];
   }
 
@@ -97,7 +97,7 @@ export class AlKalmClientInstance implements AlValidationSchemaProvider {
    * /kalm/v1/{account_id}/query/tic_mitre_classification
    * @returns mitre classification
    */
-  public getMitreClassification(accountId: string) {
+  public getMitreClassification(accountId: string): Promise<StandardKalmResponse> {
     return this.client.get({
         service_stack: AlLocation.InsightAPI,
         service_name: this.serviceName,
