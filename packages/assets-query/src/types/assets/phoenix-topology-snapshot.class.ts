@@ -39,8 +39,8 @@ export class PhoenixTopologySnapshot {
     regions: TopologyNode[] = [];
     vpcs: TopologyNode[] = [];
     subnets: TopologyNode[] = [];
+    hosts:  TopologyNode[] = [];
     extras: { [key: string]: TopologyNode[] } = {};
-    assetsByKey: { [key: string]: TopologyNode } = {};
     deploymentMode: string = null;
     deploymentId: string = null;
     summary: { [i: string]: number } = {
@@ -57,6 +57,9 @@ export class PhoenixTopologySnapshot {
         load_balancers: 0,
         all: 0
     };
+
+    private assetsByKey: { [key: string]: TopologyNode } = {};
+    private hostsByUuid: { [key: string]: TopologyNode } = {};
 
     constructor() {
     }
@@ -119,11 +122,10 @@ export class PhoenixTopologySnapshot {
     static calculateSummary(assetCounts: any): { [i: string]: number } {
         let summary: { [i: string]: number } = {
             all: assetCounts['all'],
-            ...(assetCounts?.agent && {agents: assetCounts?.agent} )
         };
         ['region', 'vpc', 'subnet', 'host',
          'load-balancer', 'image', 'sg',
-         'container', 'tag'].forEach(type => {
+         'container', 'tag', 'agent'].forEach(type => {
                 if (assetCounts.hasOwnProperty(type) && type === 'subnet') {
                     summary['subnets'] = assetCounts['subnet']['standard'] || assetCounts['subnet']['all'];
                 } else if (assetCounts.hasOwnProperty(type) && type !== 'host') {
@@ -147,9 +149,16 @@ export class PhoenixTopologySnapshot {
     /**
      *  Gets any node in the tree, identified by key
      */
-    getByKey(key: string): TopologyNode {
+    getByKey(key: string): TopologyNode | null {
         if (this.assetsByKey.hasOwnProperty(key)) {
             return this.assetsByKey[key];
+        }
+        return null;
+    }
+
+    getByHostUuid(hostUuid: string): TopologyNode | null{
+        if (this.hostsByUuid.hasOwnProperty(hostUuid)) {
+            return this.hostsByUuid[hostUuid];
         }
         return null;
     }
@@ -192,6 +201,11 @@ export class PhoenixTopologySnapshot {
                 this.vpcs.push(asset);
             } else if (asset.type === "subnet") {
                 this.subnets.push(asset);
+            } else if (asset.type === 'host') {
+                this.hosts.push(asset);
+                if (asset.properties?.host_uuid) {
+                    this.hostsByUuid[asset.properties.host_uuid] = asset;
+                }
             }
             if (parent && !parent.childByKey(asset.key)) {
                 parent.children.push(asset);
