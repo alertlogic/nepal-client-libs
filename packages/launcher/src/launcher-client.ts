@@ -92,7 +92,7 @@ class LauncherClient {
    * /launcher/v1/:account_id/environments/:environment_id
    * "https://api.cloudinsight.alertlogic.com/launcher/v1/00000000/environments/7573E365-0B2A-1005-B049-7831C1BE64D2"
    */
-  async getDeploymentStatus(accountId: string, environmentId: string) {
+  async getDeploymentStatus(accountId: string, environmentId: string): Promise<DeploymentStatus> {
     return this.client.get<DeploymentStatus>({
       account_id: accountId,
       service_name: this.serviceName,
@@ -106,7 +106,7 @@ class LauncherClient {
    * Get map of regions and corresponding scanner ami images ids
    * "https://api.cloudinsight.alertlogic.com/launcher/v1/amis/scan"
    */
-  async getRegionMap() {
+  async getRegionMap(): Promise<AmiMap> {
     return this.client.get<AmiMap>({
       service_name: this.serviceName,
       path: '/amis/scan',
@@ -119,8 +119,8 @@ class LauncherClient {
    * /launcher/v1/deployment/:deployment_token
    * "https://api.cloudinsight.alertlogic.com/launcher/v1/deployment/a94b48fbcdce82b031d40f2e00df498cd50b1720"
    */
-  async getProvisioningDocument(deploymentToken: string) {
-    return this.client.get<any>({
+  async getProvisioningDocument(deploymentToken: string): Promise<{ document: string  } | string> {
+    return this.client.get({
       service_name: this.serviceName,
       path: `/deployment/${deploymentToken}`,
     });
@@ -132,7 +132,7 @@ class LauncherClient {
    * /launcher/v1/:account_id/resources
    * "https://api.cloudinsight.alertlogic.com/launcher/v1/00000000/resources"
    */
-  async getAccountAssetList(accountId: string) {
+  async getAccountAssetList(accountId: string): Promise<AccountEnvironmentAssetsResponse> {
     return this.client.get<AccountEnvironmentAssetsResponse>({
       account_id: accountId,
       service_name: this.serviceName,
@@ -146,7 +146,7 @@ class LauncherClient {
    * /launcher/v1/:account_id/:environment_id/resources
    * "https://api.cloudinsight.alertlogic.com/launcher/v1/00000000/1086B0A8-A0D6-4CCC-B8C3-78AA82826606/resources"
    */
-  async getEnvironmentAssetList(accountId: string, environmentId: string) {
+  async getEnvironmentAssetList(accountId: string, environmentId: string): Promise<EnvironmentAssets> {
     return this.client.get<EnvironmentAssets>({
       account_id: accountId,
       service_name: this.serviceName,
