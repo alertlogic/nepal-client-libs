@@ -46,7 +46,7 @@ export class ElaborationEvent extends Elaboration {
         super();
     }
 
-    public static deserialize(raw:any) {
+    public static deserialize(raw:any):  ElaborationEvent {
         const elaboration = new ElaborationEvent();
         if (raw.hasOwnProperty('dst')) {
             elaboration.dst = raw.dst;

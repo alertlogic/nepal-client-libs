@@ -42,7 +42,7 @@ export class Elaboration extends Evidence {
      *
      *  @returns {Elaboration} The interpreted instance object.
      */
-    public static deserialize(raw:any, type?:EvidenceTypes) {
+    public static deserialize(raw:any, type?:EvidenceTypes):  Elaboration {
         const elaboration = new Elaboration();
         elaboration.time = new Date(raw.__normalizedTime);
         elaboration.evidenceType = SourceType.getType(raw.__contentType);
@@ -98,7 +98,7 @@ export class Elaboration extends Evidence {
      *
      *  @returns {boolean} The interpreted instance object.
      */
-    public static isValid(raw:any) {
+    public static isValid(raw:any): boolean {
         const elaboration = new Elaboration();
         if (!raw.hasOwnProperty('__normalizedTime')) {
             elaboration.errorStructure("the elaboration does not have the field the __normalizedTime", raw);
@@ -127,7 +127,7 @@ export class Elaboration extends Evidence {
      *
      *  @returns {Array} The interpreted instance object.
      */
-    public static deserializeArray(rawData:any[], elaborationType?:EvidenceTypes) {
+    public static deserializeArray(rawData:any[], elaborationType?:EvidenceTypes): Array<Elaboration> {
         const elaborations = new Array<Elaboration>();
         for (let x = 0; x < rawData.length; x++) {
             if (Elaboration.isValid(rawData[x])) {

@@ -12,7 +12,7 @@ export abstract class Evidence {
 
     constructor() {}
 
-    public errorStructure(msg:string, raw:any) {
+    public errorStructure(msg:string, raw:any): void {
         console.warn(msg, raw);
     }
 

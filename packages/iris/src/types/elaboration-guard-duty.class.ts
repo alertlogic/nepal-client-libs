@@ -35,7 +35,7 @@ export class ElaborationGuardDuty extends Elaboration {
         return evidence;
     }
 
-    public static deserialize(raw:any) {
+    public static deserialize(raw:any): ElaborationGuardDuty {
 
         const elaboration = new ElaborationGuardDuty();
 
