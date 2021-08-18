@@ -8,6 +8,12 @@
     "max-line-length": {
       "options": [200]
     },
+    "typedef": [
+      true,
+      "call-signature",
+      "property-declaration",
+      "parameter"
+    ],
     "ter-indent": false,
     "ter-arrow-parens": false,
     "no-increment-decrement": false,

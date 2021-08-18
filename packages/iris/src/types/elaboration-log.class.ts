@@ -19,7 +19,7 @@ export class ElaborationLog extends Elaboration {
         super();
     }
 
-    public static proccessTokens(tokens:any) {
+    public static proccessTokens(tokens:any): any[] {
         const tokenFilter = [];
 
         for (let i = 0; i < tokens.length; i++) {
@@ -42,7 +42,7 @@ export class ElaborationLog extends Elaboration {
         return tokenFilter;
     }
 
-    public static deserialize(raw:any) {
+    public static deserialize(raw: any): ElaborationLog {
         const elaboration = new ElaborationLog();
 
         if (raw.hasOwnProperty('message')) {
