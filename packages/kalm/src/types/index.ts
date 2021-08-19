@@ -12,4 +12,4 @@ export interface StorageDescriptor {
 
 export type KalmColum = { name: string, type: string };
 
-export type StandardKalmResponse = { rows: string[], column_info: KalmColum };
+export type StandardKalmResponse = { rows: unknown[], column_info: KalmColum };
