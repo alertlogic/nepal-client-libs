@@ -1,6 +1,6 @@
 {
   "name": "@al/vr-test-helper",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "license": "MIT",
   "description": "Helpers for visual regression tests (ng11)",
   "author": {
@@ -44,7 +44,7 @@
     "@types/jasmine": "^3.5.14",
     "pixelmatch": "^5.2.0",
     "pngjs": "^5.0.0",
-    "protractor": "^5.4.4"
+    "protractor": "^7.0.0"
   },
   "devDependencies": {
     "@types/jasmine": "^2.8.17",
