@@ -64,7 +64,7 @@ stages:
     -
         name: Master Push - Publish
         when:
-            - push: ['master']
+            - push: [ 'ng11' ]
         image: 422372788747.dkr.ecr.us-east-1.amazonaws.com/al-node:13
         compute_size: large
         commands:
@@ -100,6 +100,6 @@ stages:
                 npm run build
 
                 git diff
-                node_modules/lerna/cli.js publish from-package --no-git-reset --no-git-tag-version --yes
+                node_modules/lerna/cli.js publish from-package --no-git-reset --no-git-tag-version --yes --dist-tag ng11
 
             - echo done
