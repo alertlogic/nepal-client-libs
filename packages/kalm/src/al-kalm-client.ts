@@ -81,6 +81,26 @@ export class AlKalmClientInstance implements AlValidationSchemaProvider {
     });
   }
 
+  /**
+   * Dumps all data for account_id in a streaming csv format.
+   * https://console.product.dev.alertlogic.com/api/kalm/#api-Query-StreamNamedQuery
+   * @param accountId Account Id
+   * @param namedQuery Name query or table
+   * @param queryParams Parameters to filter the query
+   * @returns
+   */
+  async queryStreamCsv(accountId: string, namedQuery: string, queryParams: SimpleQueryAdditionalParams = {}): Promise<StandardKalmResponse>{
+      return this.client.get({
+        responseType: 'arraybuffer',
+        service_stack: AlLocation.InsightAPI,
+        service_name: this.serviceName,
+        version: this.version,
+        account_id: accountId,
+        path: `/query/${namedQuery}`,
+        params: queryParams,
+      });
+  }
+
   public hasSchema( schemaId:string ): boolean {
     return schemaId in kalmTypeSchematics;
   }
