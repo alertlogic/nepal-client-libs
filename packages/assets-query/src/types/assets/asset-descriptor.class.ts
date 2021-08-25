@@ -8,6 +8,11 @@ export class AssetDescriptor {
     children: AssetDescriptor[] = [];
     summary: {[i: string] : number} = {};
     properties: { [property: string]: any } = {};
+    dnsName: string;
+    state: string;
+    operation: string;
+    scope: string;
+    ipAddress: string;
 
     constructor() {
     }
@@ -16,7 +21,7 @@ export class AssetDescriptor {
 
         const asset = new AssetDescriptor();
 
-        if (!rawData?.type|| !rawData?.key) {
+        if (!rawData?.type || !rawData?.key) {
             console.warn("Unexpected input: asset representations must have at least 'type' and 'key' properties");
             return asset;
         }
@@ -26,6 +31,12 @@ export class AssetDescriptor {
         asset.name = rawData?.name ?? rawData.key;
         asset.properties = rawData;
         asset.summary = {};
+        asset.dnsName = rawData?.dns_name ?? null;
+        asset.ipAddress = rawData?.ip_address ?? null;
+        asset.state = rawData?.state ?? null;
+        asset.operation = rawData?.operation ?? null;
+        asset.scope = rawData?.scope ?? null;
+
         return asset;
     }
 
