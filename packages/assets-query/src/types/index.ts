@@ -1,14 +1,16 @@
 import { Scope } from './assets';
 
-import { HealthAssetVPC,
-         HealthAssetRemediation,
-         HealthAssetDeployment,
-         HealthAssetHost,
-         HealthAssetAppliance,
-         HealthAssetAgent,
-         HealthListItem,
-         HealthResponseFilters,
-         HealthAssetCollector } from './health-assets';
+import {
+    HealthAssetVPC,
+    HealthAssetRemediation,
+    HealthAssetDeployment,
+    HealthAssetHost,
+    HealthAssetAppliance,
+    HealthAssetAgent,
+    HealthListItem,
+    HealthResponseFilters,
+    HealthAssetCollector
+} from './health-assets';
 export * from './assets';
 
 export {
@@ -391,7 +393,7 @@ export interface AssetQueryResultItem {
 
 export interface FoundAsset {
     type?: string;
-    key?:  string;
+    key?: string;
     deployment_id?: string;
     host_key?: string;
     [key: string]: string;
@@ -413,4 +415,59 @@ export interface UndisposeRemediationsRequestBody {
     remediation_ids?: string[];
     remediation_item_ids?: string[];
 }
+
+export interface AssetWriteNetworkProperties {
+    network_name: string;
+    cidr_ranges: string[];
+    public_cidr_ranges: string[];
+}
+
+export interface AssetWriteNetworkRequestBody {
+    operation: 'create_network'; // allowed values will be extended later
+    scope: 'datacenter'; // allowed values will be extended later
+    properties?: AssetWriteNetworkProperties;
+}
+
+export interface AssetWriteDeclareAssetRequestBody {
+    operation: 'declare_asset';
+    type: string;
+    scope: string;
+    key: string;
+    properties?: { [property: string]: any };
+    relationships?: AssetWriteDeclareAssetRelationship[];
+    exclusive?: string;
+    exclusive_types?: string[];
+}
+
+export interface AssetWriteDeclareAssetRelationship {
+    type: string;
+    key: string;
+    relationship_type?: string;
+}
+
+export interface AssetWriteDeclareAssetResponse {
+    account_id: string;
+    deployment_id: string;
+    key: string;
+    type: string;
+    relationships?: AssetWriteDeclareAssetRelationship;
+    [i: string]: any;
+}
+
+export interface AssetWriteDeletePropertiesRequestBody {
+    operation: 'remove_properties';
+    type: string;
+    scope: string;
+    key: string;
+    property_names: string[];
+}
+
+export interface AssetWriteDeletePropertiesResponse {
+    account_id: string;
+    deployment_id: string;
+    key: string;
+    type: string;
+}
+
+
 
