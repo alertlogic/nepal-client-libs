@@ -429,7 +429,7 @@ export interface AssetWriteNetworkRequestBody {
 }
 
 export interface AssetWriteDeclareAssetRequestBody {
-    operation: 'declare_asset';
+    operation: 'declare_asset' | 'remove_asset';
     type: string;
     scope: string;
     key: string;
