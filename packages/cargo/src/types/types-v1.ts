@@ -84,7 +84,7 @@ export interface CargoReport {
     result_id: string;
     is_reference: boolean;
   }];
-  notify_behaviour?: string;
+  notify_behavior?: string;
   delete_empty_result?: boolean;
   per_account_ids?: string[];
   latest_schedule?: number;
