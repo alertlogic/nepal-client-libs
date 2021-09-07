@@ -78,6 +78,7 @@ export interface AlHeraldAccountSubscriptionPayloadV2
     class: string;
     external_id ?: string; // Required when class is schedule
     notification_type: string;
+    suppression_interval?: number;
     id?: string;
     active: boolean;
     options ?: AlHeraldOptionV2; // "email_subject",  webhook_payload
