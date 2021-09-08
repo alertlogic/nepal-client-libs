@@ -16,6 +16,7 @@ export interface AlTacomaView {
     filter_names?:  string[];
     schedule_frequency?: string[] | false;
     parent_account_only?: boolean;
+    report_format?: string[];
 }
 
 export interface AlTacomaWorkbook {
