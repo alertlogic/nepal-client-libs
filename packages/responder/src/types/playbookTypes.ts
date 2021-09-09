@@ -587,7 +587,7 @@ export interface AlResponderAllowedValue {
     label: string;
 }
 
-export interface AlResponderPlaybookRoles {
+export interface AlResponderRoles {
     allowed_values?: {
         role_ids?: AlResponderAllowedValue[];
     };

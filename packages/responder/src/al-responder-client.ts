@@ -31,7 +31,7 @@ import {
     AlResponderTriggerQueryParams,
     AlResponderPlaybooks,
     AlResponderPlaybookSummary,
-    AlResponderPlaybookRoles
+    AlResponderRoles
 } from './types';
 
 export class AlResponderClientInstance {
@@ -1088,12 +1088,31 @@ export class AlResponderClientInstance {
     * @returns Playbook roles
     *
     */
-    async getPlaybookRoles(accountId: string): Promise<AlResponderPlaybookRoles> {
-        return this.client.get<AlResponderPlaybookRoles>({
+    async getPlaybookRoles(accountId: string): Promise<AlResponderRoles> {
+        return this.client.get<AlResponderRoles>({
             version: this.serviceVersion,
             service_stack: this.serviceStack,
             account_id: accountId,
             path: `/playbook_roles`
+        });
+    }
+
+    /**
+    * List of trigger roles (trigger permission levels) for a customer account
+    * GET
+    * /v1/{account_id}/trigger_roles
+    * https://responder.mdr.global.alertlogic.com
+    *
+    * @param accountId AIMS Account ID
+    * @returns Trigger roles
+    *
+    */
+    async getTriggerRoles(accountId: string): Promise<AlResponderRoles> {
+        return this.client.get<AlResponderRoles>({
+            version: this.serviceVersion,
+            service_stack: this.serviceStack,
+            account_id: accountId,
+            path: `/trigger_roles`
         });
     }
 
