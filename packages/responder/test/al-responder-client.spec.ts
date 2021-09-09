@@ -5,7 +5,7 @@ import {
 import { expect } from 'chai';
 import { describe } from 'mocha';
 import * as sinon from 'sinon';
-import { AlResponderPlaybook, AlResponderClient, AlResponderInquiry, AlResponderInquiries, AlResponderExecution, AlResponderActionShort, AlResponderAction, AlResponderSchedule, AlResponderPlaybooks, AlResponderPlaybookRoles } from '../src/index';
+import { AlResponderPlaybook, AlResponderClient, AlResponderInquiry, AlResponderInquiries, AlResponderExecution, AlResponderActionShort, AlResponderAction, AlResponderSchedule, AlResponderPlaybooks, AlResponderRoles } from '../src/index';
 
 beforeEach(() => {
     AlLocatorService.setContext({ environment: "production" });
@@ -107,7 +107,7 @@ describe('Responder Client', () => {
             "enabled": true
         }
     ];
-    const playbookRolesMock: AlResponderPlaybookRoles = {
+    const playbookRolesMock: AlResponderRoles = {
         allowed_values:{
             role_ids:[
                 {label:"A", value:"B"},
