@@ -179,6 +179,7 @@ export interface ExposureQueryResultItem {
     categories?: string[];
     created_on?: number;
     cve?: string;
+    cwe?: string;
     cvss_score?: number;
     cvss_vector?: string;
     deployment_id?: string;
