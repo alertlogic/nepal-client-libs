@@ -95,6 +95,7 @@ interface IncidentProperties {
             alphaId?: string;
             friendlyId: string;
             incidentId: string;
+            threatRating: string;
         }[];
         tree: {
             escalated?: boolean;
