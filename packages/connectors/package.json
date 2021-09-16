@@ -1,6 +1,6 @@
 {
   "name": "@al/connectors",
-  "version": "1.0.9",
+  "version": "1.0.10",
   "license": "MIT",
   "description": "A lightweight client library for interacting with the Integrations API",
   "author": {

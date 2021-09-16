@@ -360,4 +360,24 @@ export class AlConnectorsClientInstance {
         return result;
     }
 
+    /**
+     * Returns Get a list of supported connection targets
+     * GET
+     * /v1/{{accountId}}/definitions/connection_targets
+     * https://connectors.mdr.product.dev.alertlogic.com
+     *
+     * @returns the List of Connection Target with forms
+     *
+     * @remarks
+     *
+     * */
+    async getConnectionTargetsDefinitionsByAccountId(accountId: string): Promise<AlConnectionTargetType[]> {
+        return this.client.get<AlConnectionTargetType[]>({
+            version: this.serviceVersion,
+            service_stack: this.serviceStack,
+            account_id: accountId,
+            path: `/definitions/connection_targets`
+        });
+    }
+
 }
