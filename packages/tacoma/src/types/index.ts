@@ -17,6 +17,10 @@ export interface AlTacomaView {
     schedule_frequency?: string[] | false;
     parent_account_only?: boolean;
     report_format?: string[];
+    allowed_schedule_hours?: {
+        to: number;
+        from: number;
+    };
 }
 
 export interface AlTacomaWorkbook {
