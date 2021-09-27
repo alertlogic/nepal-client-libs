@@ -516,6 +516,7 @@ interface AlResponderTriggerBase {
     actions?: AlResponderTriggerActionParameter[];
     role_id?: string;
     playbooks_names?: string; // This is for UI only
+    type_name?: string; // UI only
 }
 
 
