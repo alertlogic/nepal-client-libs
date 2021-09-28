@@ -1,4 +1,4 @@
-import { AlApiClient, AlDefaultClient, AlLocation } from '@al/core';
+import { AlApiClient, AlDefaultClient } from '@al/core';
 
 export class AegraphClientInstance {
     private serviceName = 'aegraph';
@@ -8,7 +8,6 @@ export class AegraphClientInstance {
 
     public async getByRange(cid: number, timestamp: { start: number, end: number }): Promise<any> {
         return this.client.get<any>({
-            service_stack: AlLocation.GlobalAPI,
             service_name: this.serviceName,
             path: `/${cid}/graphs/`,
             version: 'v1',
