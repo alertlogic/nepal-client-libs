@@ -1,4 +1,4 @@
-import { AlApiClient, AlDefaultClient, AlLocation } from '@al/core';
+import { AlApiClient, AlDefaultClient } from '@al/core';
 
 export class AegraphClientInstance {
     private serviceName = 'aegraph';
