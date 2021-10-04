@@ -2,11 +2,14 @@ import { expect } from 'chai';
 import { describe } from 'mocha';
 import * as sinon from 'sinon';
 import { AlCredentialsClientInstance } from '../src/index';
+import { AlCredentialslientV2Instance } from '../src/index';
 
 let credentialsClient:AlCredentialsClientInstance;
+let credentialsClientV2: AlCredentialslientV2Instance;
 
 beforeEach(() => {
     credentialsClient = new AlCredentialsClientInstance();
+    credentialsClientV2 = new AlCredentialslientV2Instance();
 });
 afterEach(() => {
   sinon.restore();
@@ -21,7 +24,7 @@ describe('Credentials Client Test Suite:', () => {
       stub.restore();
     });
     it('should call post() on the AlDefaultClient instance', async () => {
-      await credentialsClient.createCredential('1234', {name: 'my creds'});
+      await credentialsClientV2.create('1234', {name: 'my creds'});
       expect(stub.callCount).to.equal(1);
     });
   });
@@ -34,7 +37,7 @@ describe('Credentials Client Test Suite:', () => {
       stub.restore();
     });
     it('should call delete() on the AlDefaultClient instance', async () => {
-      await credentialsClient.deleteCredential('1234', '3546');
+      await credentialsClientV2.delete('1234', '3546');
       expect(stub.callCount).to.equal(1);
     });
   });
@@ -47,7 +50,7 @@ describe('Credentials Client Test Suite:', () => {
       stub.restore();
     });
     it('should call fetch() on the AlDefaultClient instance', async () => {
-      await credentialsClient.getCredentialById('1234', '3546');
+      await credentialsClientV2.getById('1234', '3546');
       expect(stub.callCount).to.equal(1);
     });
   });
@@ -60,7 +63,7 @@ describe('Credentials Client Test Suite:', () => {
       stub.restore();
     });
     it('should call fetch() on the AlDefaultClient instance', async () => {
-      await credentialsClient.listCredentials('1234');
+      await credentialsClientV2.listAll('1234');
       expect(stub.callCount).to.equal(1);
     });
   });
