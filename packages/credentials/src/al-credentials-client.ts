@@ -7,7 +7,6 @@ import {
     AlScanCredentialsHost,
     AlScanCredentialsAllHosts,
     AlAssetScanCredentials,
-    AlCredential,
     AlCredentialsStoredResponse
 } from './types';
 
@@ -94,75 +93,6 @@ export class AlCredentialsClientInstance {
             account_id: accountId,
             path: `/${environmentId}/${assetType}/scan/${assetKey}`,
             data: credential,
-        });
-    }
-
-    /**
-     * Create Credential
-     * POST
-     * /credentials/v2/:account_id/credentials
-     * "https://api.cloudinsight.alertlogic.com/credentials/v1/01000001/credentials"
-     * -d '{"name":"IAM Role","secrets":{"type":"aws_iam_role","arn":"ARN"}}'
-     */
-    async createCredential(accountId: string,
-        credential: AlCredential): Promise<AlCredential> {
-        return this.client.post<AlCredential>({
-            service_stack: AlLocation.InsightAPI,
-            service_name: this.serviceName,
-            account_id: accountId,
-            path: '/credentials',
-            version: 'v2',
-            data: credential,
-        });
-    }
-
-    /**
-     * Delete Credential
-     * DELETE
-     * /credentials/v2/:account_id/credentials/:credential_id
-     * "https://api.cloudinsight.alertlogic.com/credentials/v1/01000001/credentials/5955C10B-33A2-41A0-9E73-10CBD51FA9CF"
-     */
-    async deleteCredential(accountId: string,
-        credentialId: string): Promise<void> {
-        return this.client.delete({
-            service_stack: AlLocation.InsightAPI,
-            service_name: this.serviceName,
-            account_id: accountId,
-            path: `/credentials/${credentialId}`,
-            version: 'v2',
-        });
-    }
-
-    /**
-     * Get credential
-     * GET
-     * /credentials/v2/:account_id/credentials/:credential_id
-     * "https://api.cloudinsight.alertlogic.com/credentials/v2/01000001/credentials/BD7592C5-0111-1005-83EE-7831C1BAEAE6"
-     */
-    async getCredentialById(accountId: string,
-        credentialId: string): Promise<AlCredential> {
-        return this.client.get<AlCredential>({
-            service_stack: AlLocation.InsightAPI,
-            service_name: this.serviceName,
-            account_id: accountId,
-            path: `/credentials/${credentialId}`,
-            version: 'v2',
-        });
-    }
-
-    /**
-     * List credentials
-     * GET
-     * /credentials/v2/:account_id/credentials
-     * "https://api.cloudinsight.alertlogic.com/credentials/v2/01000001/credentials"
-     */
-    async listCredentials(accountId: string): Promise<AlCredential[]> {
-        return this.client.get<AlCredential[]>({
-            service_stack: AlLocation.InsightAPI,
-            service_name: this.serviceName,
-            account_id: accountId,
-            path: '/credentials/',
-            version: 'v2',
         });
     }
 }
