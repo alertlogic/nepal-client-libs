@@ -11,6 +11,8 @@ export interface AlDataTypeDocField {
     description: string;
     type?: string;
     fields?: { [key: string]: AlDataTypeDocField };
+    label: string;
+    presentation_type?: string;
 }
 
 export interface AlDataTypeDoc {
