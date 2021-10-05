@@ -1,38 +1,24 @@
 /**
  * Module to deal with available Azure Explorer Public API endpoints
  */
-import { AlDefaultClient } from '@al/core';
+import { AlApiClient, AlDefaultClient } from '@al/core';
+import { AlAzureExplorerValidationParams, AlAzureExplorerValidationResponse } from './types';
 
-export interface AzureExplorerValidationParams {
-  subscription_id?: string;
-  credential?: AzureExplorerCredential;
-  account_id?: string;
-  environment_id?: string;
-}
+export class AlAzureExplorerClientInstance {
 
-export interface AzureExplorerValidationResponse {
-  status?: string;
-  message?: string;
-}
 
-export interface AzureExplorerCredential {
-  name?: string;
-  type?: 'azure_ad_user';
-  azure_ad_user?: {
-    active_directory_id?: string;
-    username?: string;
-    password?: string;
-  };
-}
+  protected client: AlApiClient;
+  protected serviceName = 'applications';
+  protected serviceVersion = 'v1';
 
-class AzureExplorerClient {
-
-  private client = AlDefaultClient;
-  private serviceName = 'azure_explorer';
+  constructor(client: AlApiClient = null) {
+      this.client = client || AlDefaultClient;
+  }
 
   async validateExistingCredentials(accountId: string,
-                                    environmentId: string): Promise<AzureExplorerValidationResponse> {
-    return this.client.post<AzureExplorerValidationResponse>({
+                                    environmentId: string): Promise<AlAzureExplorerValidationResponse> {
+    return this.client.post<AlAzureExplorerValidationResponse>({
+      version: this.serviceVersion,
       service_name: this.serviceName,
       account_id: accountId,
       path: `/environments/${environmentId}/validate_credentials`,
@@ -40,14 +26,17 @@ class AzureExplorerClient {
   }
 
   async validateExternalCredentials(accountId: string,
-                                    validationParams: AzureExplorerValidationParams): Promise<AzureExplorerValidationResponse> {
-    return this.client.post<AzureExplorerValidationResponse>({
+                                    validationParams: AlAzureExplorerValidationParams): Promise<AlAzureExplorerValidationResponse> {
+    return this.client.post<AlAzureExplorerValidationResponse>({
+      version: this.serviceVersion,
       service_name: this.serviceName,
       account_id: accountId,
       path: 'validate_credentials',
       data: validationParams,
     });
   }
+
 }
 
-export const azureExplorerClient =  new AzureExplorerClient();
+
+
