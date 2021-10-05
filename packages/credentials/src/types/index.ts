@@ -46,6 +46,7 @@ export interface AlCredentialSecrets {
     ad_id?: string;
     username?: string;
     client_id?: string;
+    client_secret?: string;
 }
 
 export interface AlDecryptedCredential {
