@@ -6,7 +6,7 @@ export class AegraphClientInstance {
     public constructor(public client: AlApiClient = AlDefaultClient) {
     }
 
-    public async getByRange(cid: number, timestamp: { start: number, end: number }): Promise<any> {
+    public async getByRange(cid: number, timestamp: { start: number, end: number }, filters?: {[k:string]:string}): Promise<any> {
         return this.client.get<any>({
             service_name: this.serviceName,
             path: `/${cid}/graphs/`,
@@ -14,6 +14,7 @@ export class AegraphClientInstance {
             params: {
                 start_ts: timestamp.start,
                 end_ts: timestamp.end,
+                ...filters
             },
         });
     }
