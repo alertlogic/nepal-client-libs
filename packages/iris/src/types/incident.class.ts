@@ -188,6 +188,7 @@ export class Incident {
     public incident: IncidentProperties;
     public automated_response_history?: {[key:string]: {[key:string]: number}};
     public mitreClassification?: Array<{ sub_technique:string, tactic:string, technique?:string }>;
+    public geo_ip_map: {[key: string]: Geo};
 
     /**
      *  Return the icon according to the severity level
@@ -487,6 +488,14 @@ export class Incident {
         }
         if (rawData.hasOwnProperty('mitre_classification')) {
             i.mitreClassification = rawData.mitre_classification;
+        }
+        if (rawData.hasOwnProperty('geo_ip_map')) {
+            const geoObjects = {};
+            const geoRawObjects = Object.entries(rawData.geo_ip_map);
+            geoRawObjects.forEach((geoRawObject) => {
+                geoObjects[geoRawObject[0]] = Geo.import([geoRawObject[1]])[0];
+            });
+            i.geo_ip_map = geoObjects;
         }
 
         return i;
