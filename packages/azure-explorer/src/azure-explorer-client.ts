@@ -25,13 +25,12 @@ export class AlAzureExplorerClientInstance {
     });
   }
 
-  async validateExternalCredentials(accountId: string,
-                                    validationParams: AlAzureExplorerValidationParams): Promise<AlAzureExplorerValidationResponse> {
+  async validateExternalCredentials(validationParams: AlAzureExplorerValidationParams, accountId?: string): Promise<AlAzureExplorerValidationResponse> {
     return this.client.post<AlAzureExplorerValidationResponse>({
       version: this.serviceVersion,
       service_name: this.serviceName,
-      account_id: accountId,
       path: 'validate_credentials',
+      account_id: accountId,
       data: validationParams,
     });
   }
