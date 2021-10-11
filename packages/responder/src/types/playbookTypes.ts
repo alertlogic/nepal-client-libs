@@ -365,6 +365,7 @@ export interface AlResponderInquiry {
     playbook_description?: string;
     start_time?: string;
     end_time?: string;
+    is_timeout?: boolean;
 }
 
 export interface AlResponderInquiries {
