@@ -494,11 +494,14 @@ export class AlResponderClientInstance {
      *
      * @remarks
      */
-    async inspectWorkflow(accountId: string,
+    async inspectWorkflow(
+        accountId: string,
         payload: {
             input_type: 'yaml' | 'json';
-            workflow: any
-        }): Promise<AlResponderInspectorError[]> {
+            workflow: any;
+            parameters?: {};
+        },
+    ): Promise<AlResponderInspectorError[]> {
         return this.client.post<AlResponderInspectorError[]>({
             version: this.serviceVersion,
             service_stack: this.serviceStack,
