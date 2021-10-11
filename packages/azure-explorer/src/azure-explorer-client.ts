@@ -8,7 +8,7 @@ export class AlAzureExplorerClientInstance {
 
 
   protected client: AlApiClient;
-  protected serviceName = 'applications';
+  protected serviceName = 'azure_explorer';
   protected serviceVersion = 'v1';
 
   constructor(client: AlApiClient = null) {
