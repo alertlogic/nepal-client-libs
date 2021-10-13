@@ -595,3 +595,93 @@ export interface AlResponderRoles {
         role_ids?: AlResponderAllowedValue[];
     };
 }
+
+/**
+ * Managed Response config item for AWS WAF
+ */
+export interface AlResponderMRAWSWAF {
+    type: 'aws_waf';
+    name: string;
+    resource_arn: string;
+    resource_scope: string;
+    connection_target_id: string;
+    enabled?: boolean;
+    ttl_sec?: string;
+    id?: string;
+}
+
+/**
+ * Managed Response config item for AWS SNS
+ */
+export interface AlResponderMRAWSSNS {
+    type: 'aws_sns';
+    name: string;
+    connection_target_id: string;
+    topic_arn?: string;
+    target_arn?: string;
+    phone_number?: string;
+    enabled?: boolean;
+    ttl_sec?: string;
+    id?: string;
+}
+
+/**
+ * Managed Response config item for AWS Event bridge
+ */
+export interface AlResponderMREventBridge {
+    type: 'aws_eventbridge';
+    name: string;
+    connection_target_id: string;
+    resource_arn?: string;
+    event_bus_name?: string;
+    enabled?: boolean;
+    ttl_sec?: string;
+    id?: string;
+}
+
+/**
+ * Managed Response config item for Stackstorm action
+ */
+export interface AlResponderMRStackstormAction {
+    type: 'st2_action';
+    name: string;
+    ref_apply: string;
+    parameters_apply: {[key: string]: unknown};
+    ref_revert: string;
+    parameters_revert: {[key: string]: unknown};
+    enabled?: boolean;
+    ttl_sec?: string;
+    id?: string;
+}
+
+/**
+ * 	Managed Response config item for Palo Alto Firewall Block
+ */
+export interface AlResponderMRPaloAltoBlock {
+    type: 'paloalto_block';
+    name: string;
+    tag: string;
+    enabled?: boolean;
+    ttl_sec?: string;
+    id?: string;
+}
+
+export interface AlResponderMRGeneric {
+    type: 'aws_waf' | 'aws_sns' | 'aws_eventbridge' | 'paloalto_block' | 'st2_action';
+    name: string;
+    tag: string;
+    ref_apply?: string;
+    parameters_apply?: {[key: string]: unknown};
+    ref_revert?: string;
+    parameters_revert?: {[key: string]: unknown};
+    connection_target_id?: string;
+    resource_arn?: string;
+    event_bus_name?: string;
+    topic_arn?: string;
+    target_arn?: string;
+    phone_number?: string;
+    resource_scope?: string;
+    enabled?: boolean;
+    ttl_sec?: string;
+    id?: string;
+}
