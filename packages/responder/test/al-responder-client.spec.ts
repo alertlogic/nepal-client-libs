@@ -1,11 +1,23 @@
 import {
     AlDefaultClient,
-    AlLocatorService,
+    AlLocatorService
 } from '@al/core';
 import { expect } from 'chai';
 import { describe } from 'mocha';
 import * as sinon from 'sinon';
-import { AlResponderPlaybook, AlResponderClient, AlResponderInquiry, AlResponderInquiries, AlResponderExecution, AlResponderActionShort, AlResponderAction, AlResponderSchedule, AlResponderPlaybooks, AlResponderRoles } from '../src/index';
+import {
+    AlResponderAction,
+    AlResponderClient,
+    AlResponderExecution,
+    AlResponderInquiries,
+    AlResponderInquiry,
+    AlResponderMRGeneric,
+    AlResponderMRPaloAltoBlock,
+    AlResponderPlaybook,
+    AlResponderPlaybooks,
+    AlResponderRoles,
+    AlResponderSchedule
+} from '../src/index';
 
 beforeEach(() => {
     AlLocatorService.setContext({ environment: "production" });
@@ -115,6 +127,13 @@ describe('Responder Client', () => {
             ]
         }
     };
+    const mrConfigList: AlResponderMRGeneric[] = [];
+    const mrConfigItem: AlResponderMRPaloAltoBlock = {
+        type: "paloalto_block",
+        name: "palo_alto",
+        tag: "Palo alto tag"
+    };
+    const mrConfigId = '123';
 
     describe('Playbook', () => {
         describe('When get playbook', () => {
@@ -372,6 +391,90 @@ describe('Responder Client', () => {
                 expect(payload.method).to.equal("GET");
                 expect(payload.url).to.equal(`${apiBaseURL}/${version}/${accountId}/playbook_roles`);
                 expect(result).to.equal(playbookRolesMock);
+            });
+        });
+    });
+
+    describe('MR config', () => {
+        describe('When get MR config list', () => {
+            beforeEach(() => {
+                stub = sinon.stub(AlDefaultClient as any, 'axiosRequest').returns(Promise.resolve({ status: 200, data: mrConfigList }));
+            });
+            afterEach(() => {
+                stub.restore();
+            });
+            it('Should call the client instance\'s GET.', async () => {
+                const result = await AlResponderClient.getMRConfigList(accountId);
+                const payload = stub.args[0][0];
+                expect(stub.callCount).to.equal(1);
+                expect(payload.method).to.equal("GET");
+                expect(payload.url).to.equal(`${apiBaseURL}/${version}/${accountId}/mr_configs`);
+                expect(result).to.equal(mrConfigList);
+            });
+        });
+
+        describe('When get MR config by id', () => {
+            beforeEach(() => {
+                stub = sinon.stub(AlDefaultClient as any, 'axiosRequest').returns(Promise.resolve({ status: 200, data: mrConfigList[0] }));
+            });
+            afterEach(() => {
+                stub.restore();
+            });
+            it('Should call the client instance\'s GET.', async () => {
+                const result = await AlResponderClient.getMRConfigItemById(accountId, mrConfigId);
+                const payload = stub.args[0][0];
+                expect(stub.callCount).to.equal(1);
+                expect(payload.method).to.equal("GET");
+                expect(payload.url).to.equal(`${apiBaseURL}/${version}/${accountId}/mr_configs/${mrConfigId}`);
+                expect(result).to.equal(mrConfigList[0]);
+            });
+        });
+
+        describe('When create MR config is called', () => {
+            beforeEach(() => {
+                stub = sinon.stub(AlDefaultClient as any, 'axiosRequest').returns(Promise.resolve({ status: 201 }));
+            });
+            afterEach(() => {
+                stub.restore();
+            });
+            it('Should call the client instance\'s POST.', async () => {
+                await AlResponderClient.createMRConfigItem(accountId, mrConfigItem);
+                const payload = stub.args[0][0];
+                expect(stub.callCount).to.equal(1);
+                expect(payload.method).to.equal("POST");
+                expect(payload.url).to.equal(`${apiBaseURL}/${version}/${accountId}/mr_configs`);
+            });
+        });
+
+        describe('When update MR config is called', () => {
+            beforeEach(() => {
+                stub = sinon.stub(AlDefaultClient as any, 'axiosRequest').returns(Promise.resolve({ status: 200 }));
+            });
+            afterEach(() => {
+                stub.restore();
+            });
+            it('Should call the client instance\'s PUT.', async () => {
+                await AlResponderClient.updateMRConfigItem(accountId, mrConfigId, mrConfigItem);
+                const payload = stub.args[0][0];
+                expect(stub.callCount).to.equal(1);
+                expect(payload.method).to.equal("PUT");
+                expect(payload.url).to.equal(`${apiBaseURL}/${version}/${accountId}/mr_configs/${mrConfigId}`);
+            });
+        });
+
+        describe('When delete MR config is called', () => {
+            beforeEach(() => {
+                stub = sinon.stub(AlDefaultClient as any, 'axiosRequest').returns(Promise.resolve({ status: 200 }));
+            });
+            afterEach(() => {
+                stub.restore();
+            });
+            it('Should call the client instance\'s DELETE.', async () => {
+                await AlResponderClient.deleteMRConfigItem(accountId, mrConfigId);
+                const payload = stub.args[0][0];
+                expect(stub.callCount).to.equal(1);
+                expect(payload.method).to.equal("DELETE");
+                expect(payload.url).to.equal(`${apiBaseURL}/${version}/${accountId}/mr_configs/${mrConfigId}`);
             });
         });
     });

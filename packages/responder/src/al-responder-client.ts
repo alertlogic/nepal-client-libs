@@ -31,7 +31,13 @@ import {
     AlResponderTriggerQueryParams,
     AlResponderPlaybooks,
     AlResponderPlaybookSummary,
-    AlResponderRoles
+    AlResponderRoles,
+    AlResponderMRGeneric,
+    AlResponderMRAWSSNS,
+    AlResponderMRAWSWAF,
+    AlResponderMREventBridge,
+    AlResponderMRPaloAltoBlock,
+    AlResponderMRStackstormAction
 } from './types';
 
 export class AlResponderClientInstance {
@@ -1137,4 +1143,101 @@ export class AlResponderClientInstance {
             path: `/playbook_incidents/${incidentId}`
         });
     }
+
+    /**
+     * Get list all MR config items for account
+     * GET
+     * /v1/{account_id}/mr_configs
+     * https://responder.mdr.global.alertlogic.com
+     * @param accountId {string} AIMS Account ID
+     * @return {Promise<Array<AlResponderMRGeneric>>}
+     */
+    async getMRConfigList(accountId: string): Promise<Array<AlResponderMRGeneric>> {
+        return this.client.get({
+            version: this.serviceVersion,
+            service_stack: this.serviceStack,
+            account_id: accountId,
+            path: `/mr_configs`
+        });
+    }
+
+    /**
+     * Get MR config item by id
+     * @param accountId {string} AIMS Account ID
+     * @param id {string} MR config item id
+     * @returns {Promise<AlResponderMRGeneric>}
+     */
+    async getMRConfigItemById(accountId: string, id: string): Promise<AlResponderMRGeneric> {
+        return this.client.get({
+            version: this.serviceVersion,
+            service_stack: this.serviceStack,
+            account_id: accountId,
+            path: `/mr_configs/${id}`
+        });
+    }
+
+    /**
+     * Create new MR config item
+     * POST
+     * /v1/{account_id}/mr_configs
+     * https://responder.mdr.global.alertlogic.com
+     * @param accountId {string} AIMS Account ID
+     * @param payload {AlResponderMRAWSWAF | AlResponderMRAWSSNS | AlResponderMREventBridge | AlResponderMRStackstormAction | AlResponderMRPaloAltoBlock}
+     * @returns {Promise<void>}
+     */
+    async createMRConfigItem(
+        accountId: string,
+        payload: AlResponderMRAWSWAF | AlResponderMRAWSSNS | AlResponderMREventBridge | AlResponderMRStackstormAction | AlResponderMRPaloAltoBlock
+    ): Promise<void> {
+        return this.client.post<void>({
+            version: this.serviceVersion,
+            service_stack: this.serviceStack,
+            account_id: accountId,
+            data: payload,
+            path: `/mr_configs`
+        });
+    }
+
+    /**
+     * Update existing MR config item
+     * PUT
+     * /v1/{account_id}/mr_configs/{id}
+     * https://responder.mdr.global.alertlogic.com
+     * @param accountId {string} AIMS Account ID
+     * @param id {string} MR config item id
+     * @param payload {string}
+     * @returns
+     */
+    async updateMRConfigItem(
+        accountId: string,
+        id: string,
+        payload: AlResponderMRAWSWAF | AlResponderMRAWSSNS | AlResponderMREventBridge | AlResponderMRStackstormAction | AlResponderMRPaloAltoBlock
+    ): Promise<void> {
+        return this.client.put<void>({
+            version: this.serviceVersion,
+            service_stack: this.serviceStack,
+            account_id: accountId,
+            data: payload,
+            path: `/mr_configs/${id}`
+        });
+    }
+
+    /**
+     * Delete existing MR config item
+     * DELETE
+     * /v1/{account_id}/mr_configs/{id}
+     * https://responder.mdr.global.alertlogic.com
+     * @param accountId {string} AIMS Account ID
+     * @param id {string} MR config item id
+     * @returns
+     */
+    async deleteMRConfigItem(accountId: string, id: string): Promise<void> {
+        return this.client.delete<void>({
+            version: this.serviceVersion,
+            service_stack: this.serviceStack,
+            account_id: accountId,
+            path: `/mr_configs/${id}`
+        });
+    }
+
 }
