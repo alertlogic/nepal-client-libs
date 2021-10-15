@@ -192,6 +192,7 @@ export interface EvidenceFilter {
 }
 
 export interface RawFilterColumns {
+    filter_order?: number;
     iris_field_name: string;
     ui_display_name: string;
     use_as_column: boolean;
