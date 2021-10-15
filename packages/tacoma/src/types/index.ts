@@ -21,6 +21,7 @@ export interface AlTacomaView {
         to: number;
         from: number;
     };
+    schedule_after?: number;
 }
 
 export interface AlTacomaWorkbook {
