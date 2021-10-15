@@ -1,6 +1,6 @@
 {
   "name": "@al/azure-explorer",
-  "version": "2.0.5",
+  "version": "2.0.7",
   "license": "MIT",
   "description": "A client for interacting with the Alert Logic Azure Explorer Public API",
   "author": {
