@@ -57,7 +57,7 @@ export interface DeploymentCreateBody extends DeploymentCommonBody{
   };
 }
 
-interface DeploymentCredentials {
+export interface DeploymentCredentials {
   id: string;
   purpose: 'discover' | 'x-account-monitor';
   version?: string;
