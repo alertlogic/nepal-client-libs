@@ -280,6 +280,7 @@ export class Incident {
         i.victimAny       = (rawData.victim_any) ? rawData.victim_any : [];
         i.updateVersion   = (rawData.incident_update_version) ? rawData.incident_update_version : 0;
         i.source          = (Array.isArray(rawData.source_keyword)) ? rawData.source_keyword[0] : rawData.source_keyword;
+        i.source          = i.source ?? (Array.isArray(rawData?.sources) ? rawData.sources[0] : rawData.sources);
         i.detectionSource = (rawData.detection_source) ? rawData.detection_source : null;
         i.summary         = "";
         i.path            = rawData.path;
