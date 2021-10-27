@@ -1,6 +1,3 @@
-/**
- * Applications API client
- */
 import {
   AlApiClient,
   AlDefaultClient,
