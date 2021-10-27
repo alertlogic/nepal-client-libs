@@ -1,6 +1,6 @@
 {
   "name": "@al/tacoma",
-  "version": "2.0.11",
+  "version": "2.0.12",
   "license": "MIT",
   "description": "A client for interacting with the Alert Logic Tacoma Public API",
   "author": {

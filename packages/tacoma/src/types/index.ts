@@ -22,6 +22,7 @@ export interface AlTacomaView {
         from: number;
     };
     schedule_after?: number;
+    default_report_format?: string;
 }
 
 export interface AlTacomaWorkbook {
