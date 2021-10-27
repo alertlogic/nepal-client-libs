@@ -78,14 +78,14 @@ export class AlExclusionsClientInstance {
     /**
      * @remarks https://console.cloudinsight.alertlogic.com/api/exclusions/index.html#api-Exclusion_Rules-UpdateExclusionRule
      */
-    async updateRule(accountId: string, deploymentId: string, data: ExclusionsRulesDescriptor): Promise<ExclusionsRulesDescriptor> {
+    async updateRule(accountId: string, deploymentId: string, ruleId: string, data: ExclusionsRulesDescriptor): Promise<ExclusionsRulesDescriptor> {
         const rawData = this.client.put({
             data,
             service_stack: AlLocation.InsightAPI,
             version: this.serviceVersion,
             service_name: this.serviceName,
             account_id: accountId,
-            path: `/${deploymentId}/rules`,
+            path: `/${deploymentId}/rules/${ruleId}`,
         });
         return ExclusionsRulesDescriptor.import(rawData);
     }
