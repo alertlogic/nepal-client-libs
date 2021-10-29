@@ -510,6 +510,20 @@ export class AssetTypeDictionary {
                             return "EU (Paris)";
                         case "ca-central-1":
                             return "Canada (Central)";
+                        case "af-south-1":
+                            return "Africa (Cape Town)";
+                        case "ap-east-1":
+                            return "Asia Pacific (Hong Kong)";
+                        case "ap-northeast-3":
+                            return "Asia Pacific (Osaka)";
+                        case "eu-north-1":
+                            return "Europe (Stockholm)";
+                        case "eu-south-1":
+                            return "Europe (Milan)";
+                        case "eu-west-3":
+                            return "Europe (Ireland)";
+                        case "me-south-1":
+                            return "Middle East (Bahrain)";
                         case "brazilsouth":
                             return "Brazil South (Sao Paulo State)";
                         case "centralindia":
