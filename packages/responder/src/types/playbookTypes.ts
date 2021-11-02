@@ -44,6 +44,7 @@ export interface AlResponderPlaybookParameter
     default?: string | boolean | string[];
     description?: string;
     enum?: string[] | string;
+    title?:string;
     type?: string;
     immutable?: boolean;
     required?: boolean;
