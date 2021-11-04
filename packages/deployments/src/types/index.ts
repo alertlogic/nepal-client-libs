@@ -78,6 +78,21 @@ interface UserTimeStamp {
   at: number;
 }
 
+export interface ScopeInfo {
+  type: 'deployment' | 'region' | 'vpc' | 'subnet' | 'host';
+  key: string;
+}
+
+export interface FeatureScopeInfo {
+  scope?: ScopeInfo[];
+}
+
+export interface DeploymentFeatures {
+  abs?: FeatureScopeInfo[];
+  scan?: FeatureScopeInfo[];
+  fim?: FeatureScopeInfo[];
+}
+
 export interface Deployment {
   id?: string;
   account_id?: string;
@@ -86,6 +101,7 @@ export interface Deployment {
   platform?: DeploymentPlatformType;
   mode?: 'manual' | 'readonly' | 'automatic'| 'guided' | 'none';
   enabled?: boolean;
+  features?: DeploymentFeatures;
   discover?: boolean;
   scan?: boolean;
   scope?: {
