@@ -189,6 +189,7 @@ export class Incident {
     public automated_response_history?: {[key:string]: {[key:string]: number}};
     public mitreClassification?: Array<{ sub_technique:string, tactic:string, technique?:string }>;
     public geo_ip_map: {[key: string]: Geo};
+    public collectorName: string;
 
     /**
      *  Return the icon according to the severity level
@@ -441,6 +442,12 @@ export class Incident {
         } else if (rawData.assets && rawData.assets.al__subnet) {
             i.subnet = rawData.assets.al__subnet;
         }
+        i.collectorName = '';
+        if (rawData.hasOwnProperty('assets.al__collector_name')) {
+            i.collectorName = rawData['assets.al__collector_name'];
+        } else if (rawData.assets && rawData.assets.al__collector_name) {
+            i.collectorName = rawData.assets.al__collector_name;
+        }
 
         i.type = '';
         if (rawData.hasOwnProperty('incident.type')) {
@@ -573,6 +580,8 @@ export class Incident {
                 return this.friendlyId;
             case "automated_response_history":
                 return this.automated_response_history;
+            case "assets.al__collector_name":
+                return this.collectorName;
             case "":
             default:
                 return "";
