@@ -57,7 +57,7 @@ export interface AlApplicationScope {
 }
 
 export interface AlAssetScopeItem {
-    type: 'deployment' | 'vpc' | 'subnet' | 'host';
+    type: 'deployment' | 'vpc' | 'subnet' | 'host' | 'region';
     key: string;
 }
 
