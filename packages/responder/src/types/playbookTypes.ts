@@ -55,6 +55,8 @@ export interface AlResponderPlaybookParameter
     items?: {
         type: string
     };
+    minimum?: number;
+    maximum?: number;
 }
 
 export interface AlResponderWorkflowContext
