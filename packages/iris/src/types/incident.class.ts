@@ -244,23 +244,28 @@ export class Incident {
      *  Converts a raw JSON object to a structured instance of the Incident class
      *
      *  @param {Object} rawData The raw data.
-     *
+     *  @param {boolean} strict Whether or not errors with properties should be handled strictly (thrown exception) or leniently (console warning).
      *  @returns {Incident} The interpreted instance object.
      */
-    public static deserialize(rawData:any) {
+    public static deserialize(rawData:any, strict = true) {
         const i = new Incident();
 
+        let errorMessage = "";
         if (!rawData.incidentId) {
-            console.error('Incident must have an incidentId', rawData);
-            throw new Error('Incident must have an incidentId');
+            errorMessage = 'Incident must have an incidentId.\n';
         }
-        i.incidentId = (rawData.incidentId) ? rawData.incidentId : "";
-
         if (!rawData.accountId) {
-            console.error('Incident must have an accountId', rawData);
-            throw new Error('Incident must have an accountId');
+            errorMessage += 'Incident must have an accountId.';
+        }
+        if (errorMessage) {
+            const consoleMethod = strict ? 'error' : 'warn';
+            console[consoleMethod](errorMessage);
+            if (strict) {
+                throw new Error(errorMessage);
+            }
         }
 
+        i.incidentId = (rawData.incidentId) ? rawData.incidentId : "";
         i.accountId       = (rawData.accountId) ? rawData.accountId : 0;
         i.friendlyId      = (rawData.humanFriendlyId) ? rawData.humanFriendlyId : "";
         i.correlationId   = (rawData.correlation_id) ? rawData.correlation_id : null;
