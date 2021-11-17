@@ -350,7 +350,7 @@ export interface AssetsQueryParams {
     [key: string]: any;
 }
 export interface AssetQueryGeneralResponse {
-    assets: AssetQueryResultItem[];
+    assets: AssetQueryResultItem[] |  AssetQueryResultItem[][];
     rows: number;
 }
 export interface AssetQueryResultItem {
