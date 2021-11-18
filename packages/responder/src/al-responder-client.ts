@@ -45,7 +45,7 @@ export class AlResponderClientInstance {
     protected client: AlApiClient;
     protected serviceVersion = 'v1';
     protected serviceStack = AlLocation.ResponderAPI;
-    protected targetEndpoint = "responder"
+    protected targetEndpoint = "responder";
 
     constructor(client: AlApiClient = null) {
         this.client = client || AlDefaultClient;
