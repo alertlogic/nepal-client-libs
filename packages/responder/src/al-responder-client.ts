@@ -45,6 +45,7 @@ export class AlResponderClientInstance {
     protected client: AlApiClient;
     protected serviceVersion = 'v1';
     protected serviceStack = AlLocation.ResponderAPI;
+    protected targetEndpoint = "responder"
 
     constructor(client: AlApiClient = null) {
         this.client = client || AlDefaultClient;
@@ -65,6 +66,7 @@ export class AlResponderClientInstance {
         return this.client.get<AlResponderPlaybookDefinition[]>({
             version: this.serviceVersion,
             service_stack: this.serviceStack,
+            target_endpoint: this.targetEndpoint,
             path: `/playbook_definitions`
         });
     }
@@ -85,6 +87,7 @@ export class AlResponderClientInstance {
         return this.client.get<AlResponderPlaybooks>({
             version: this.serviceVersion,
             service_stack: this.serviceStack,
+            target_endpoint: this.targetEndpoint,
             account_id: accountId,
             path: `/playbooks`,
             params: parameters
@@ -120,6 +123,7 @@ export class AlResponderClientInstance {
             const result = await this.client.get<AlResponderPlaybooks>({
                 version: this.serviceVersion,
                 service_stack: this.serviceStack,
+                target_endpoint: this.targetEndpoint,
                 account_id: accountId,
                 path: `/playbooks`,
                 params: params
@@ -149,6 +153,7 @@ export class AlResponderClientInstance {
         return this.client.get<AlResponderPlaybook>({
             version: this.serviceVersion,
             service_stack: this.serviceStack,
+            target_endpoint: this.targetEndpoint,
             account_id: accountId,
             path: `/playbooks/${id}`
         });
@@ -170,6 +175,7 @@ export class AlResponderClientInstance {
         return this.client.post<AlResponderPlaybook>({
             version: this.serviceVersion,
             service_stack: this.serviceStack,
+            target_endpoint: this.targetEndpoint,
             account_id: accountId,
             path: `/playbooks`,
             data: payload
@@ -195,6 +201,7 @@ export class AlResponderClientInstance {
         return this.client.put<AlResponderPlaybook>({
             version: this.serviceVersion,
             service_stack: this.serviceStack,
+            target_endpoint: this.targetEndpoint,
             account_id: accountId,
             path: `/playbooks/${id}`,
             data: payload
@@ -216,6 +223,7 @@ export class AlResponderClientInstance {
         return await this.client.delete({
             version: this.serviceVersion,
             service_stack: this.serviceStack,
+            target_endpoint: this.targetEndpoint,
             account_id: accountId,
             path: `/playbooks/${id}`
         });
@@ -238,6 +246,7 @@ export class AlResponderClientInstance {
         return this.client.get<AlResponderPlaybookSummary>({
             version: this.serviceVersion,
             service_stack: this.serviceStack,
+            target_endpoint: this.targetEndpoint,
             account_id: accountId,
             path: `/summary/playbooks`
         });
@@ -260,6 +269,7 @@ export class AlResponderClientInstance {
         return this.client.get<AlResponderAction[]>({
             version: this.serviceVersion,
             service_stack: this.serviceStack,
+            target_endpoint: this.targetEndpoint,
             account_id: accountId,
             path: `/actions`,
             params: params
@@ -285,6 +295,7 @@ export class AlResponderClientInstance {
         return this.client.get<AlResponderAction>({
             version: this.serviceVersion,
             service_stack: this.serviceStack,
+            target_endpoint: this.targetEndpoint,
             account_id: accountId,
             path: `/actions/${actionRef}`,
             params: params
@@ -307,6 +318,7 @@ export class AlResponderClientInstance {
         return this.client.get<AlResponderExecutions>({
             version: this.serviceVersion,
             service_stack: this.serviceStack,
+            target_endpoint: this.targetEndpoint,
             account_id: accountId,
             path: `/executions`,
             params: params
@@ -329,6 +341,7 @@ export class AlResponderClientInstance {
         return this.client.post<AlResponderExecutions>({
             version: this.serviceVersion,
             service_stack: this.serviceStack,
+            target_endpoint: this.targetEndpoint,
             account_id: accountId,
             path: `/executions`,
             data: payload
@@ -351,6 +364,7 @@ export class AlResponderClientInstance {
         return this.client.get<AlResponderExecutionResult>({
             version: this.serviceVersion,
             service_stack: this.serviceStack,
+            target_endpoint: this.targetEndpoint,
             account_id: accountId,
             path: `/executions/${executionId}`,
         });
@@ -373,6 +387,7 @@ export class AlResponderClientInstance {
             data: payload,
             version: this.serviceVersion,
             service_stack: this.serviceStack,
+            target_endpoint: this.targetEndpoint,
             account_id: accountId,
             path: `/executions/history`
         });
@@ -395,6 +410,7 @@ export class AlResponderClientInstance {
         return this.client.get<AlResponderExecutionsHistory>({
             version: this.serviceVersion,
             service_stack: this.serviceStack,
+            target_endpoint: this.targetEndpoint,
             account_id: accountId,
             path: `/executions/history/${type}/${executionId}`
         });
@@ -420,6 +436,7 @@ export class AlResponderClientInstance {
         return this.client.post<AlResponderExecution>({
             version: this.serviceVersion,
             service_stack: this.serviceStack,
+            target_endpoint: this.targetEndpoint,
             account_id: accountId,
             path: `/executions/${executionId}/re_run`,
             data: payload
@@ -442,6 +459,7 @@ export class AlResponderClientInstance {
         return this.client.post<void>({
             version: this.serviceVersion,
             service_stack: this.serviceStack,
+            target_endpoint: this.targetEndpoint,
             account_id: accountId,
             path: `/executions/${executionId}/pause`,
         });
@@ -464,6 +482,7 @@ export class AlResponderClientInstance {
         return this.client.post<void>({
             version: this.serviceVersion,
             service_stack: this.serviceStack,
+            target_endpoint: this.targetEndpoint,
             account_id: accountId,
             path: `/executions/${executionId}/resume`,
         });
@@ -484,6 +503,7 @@ export class AlResponderClientInstance {
         return await this.client.delete({
             version: this.serviceVersion,
             service_stack: this.serviceStack,
+            target_endpoint: this.targetEndpoint,
             account_id: accountId,
             path: `/executions/${id}`
         });
@@ -511,6 +531,7 @@ export class AlResponderClientInstance {
         return this.client.post<AlResponderInspectorError[]>({
             version: this.serviceVersion,
             service_stack: this.serviceStack,
+            target_endpoint: this.targetEndpoint,
             account_id: accountId,
             path: `/workflow/inspect`,
             data: payload
@@ -533,6 +554,7 @@ export class AlResponderClientInstance {
         return this.client.get<AlResponderSchema[]>({
             version: this.serviceVersion,
             service_stack: this.serviceStack,
+            target_endpoint: this.targetEndpoint,
             account_id: accountId,
             path: `/schemas`,
         });
@@ -555,6 +577,7 @@ export class AlResponderClientInstance {
         return this.client.get<AlResponderSchema>({
             version: this.serviceVersion,
             service_stack: this.serviceStack,
+            target_endpoint: this.targetEndpoint,
             account_id: accountId,
             path: `/schemas/${dataType}`,
         });
@@ -576,6 +599,7 @@ export class AlResponderClientInstance {
         return this.client.get<AlResponderInquiries>({
             version: this.serviceVersion,
             service_stack: this.serviceStack,
+            target_endpoint: this.targetEndpoint,
             account_id: accountId,
             path: `/inquiries`,
         });
@@ -597,6 +621,7 @@ export class AlResponderClientInstance {
         return this.client.post<AlResponderInquiries>({
             version: this.serviceVersion,
             service_stack: this.serviceStack,
+            target_endpoint: this.targetEndpoint,
             account_id: accountId,
             path: `/inquiries/history`,
             data: request
@@ -620,6 +645,7 @@ export class AlResponderClientInstance {
         return this.client.get<AlResponderInquiry>({
             version: this.serviceVersion,
             service_stack: this.serviceStack,
+            target_endpoint: this.targetEndpoint,
             account_id: accountId,
             path: `/inquiries/${inquiryId}`,
         });
@@ -645,6 +671,7 @@ export class AlResponderClientInstance {
         return this.client.put<{ id: string; response: { [key: string]: unknown } }>({
             version: this.serviceVersion,
             service_stack: this.serviceStack,
+            target_endpoint: this.targetEndpoint,
             account_id: accountId,
             path: `/inquiries/${inquiryId}`,
             data: payload
@@ -667,6 +694,7 @@ export class AlResponderClientInstance {
         return this.client.get<AlResponderSchedule[]>({
             version: this.serviceVersion,
             service_stack: this.serviceStack,
+            target_endpoint: this.targetEndpoint,
             account_id: accountId,
             path: `/schedules`,
         });
@@ -688,6 +716,7 @@ export class AlResponderClientInstance {
         return this.client.post<AlResponderSchedule>({
             version: this.serviceVersion,
             service_stack: this.serviceStack,
+            target_endpoint: this.targetEndpoint,
             account_id: accountId,
             path: `/schedules`,
             data: payload
@@ -709,6 +738,7 @@ export class AlResponderClientInstance {
         return await this.client.delete({
             version: this.serviceVersion,
             service_stack: this.serviceStack,
+            target_endpoint: this.targetEndpoint,
             account_id: accountId,
             path: `/schedules/${id}`
         });
@@ -732,6 +762,7 @@ export class AlResponderClientInstance {
         return this.client.put<AlResponderSchedule>({
             version: this.serviceVersion,
             service_stack: this.serviceStack,
+            target_endpoint: this.targetEndpoint,
             account_id: accountId,
             path: `/schedules/${id}`,
             data: payload
@@ -755,6 +786,7 @@ export class AlResponderClientInstance {
         return this.client.get<AlResponderSchedule>({
             version: this.serviceVersion,
             service_stack: this.serviceStack,
+            target_endpoint: this.targetEndpoint,
             account_id: accountId,
             path: `/schedules/${id}`
         });
@@ -775,6 +807,7 @@ export class AlResponderClientInstance {
         return this.client.get<AlResponderSamples>({
             version: this.serviceVersion,
             service_stack: this.serviceStack,
+            target_endpoint: this.targetEndpoint,
             path: `/payload_samples`
         });
     }
@@ -796,6 +829,7 @@ export class AlResponderClientInstance {
         return this.client.get<AlResponderSamples>({
             version: this.serviceVersion,
             service_stack: this.serviceStack,
+            target_endpoint: this.targetEndpoint,
             account_id: accountId,
             path: `/payload_samples`
         });
@@ -819,6 +853,7 @@ export class AlResponderClientInstance {
         return this.client.post<AlResponderSample>({
             version: this.serviceVersion,
             service_stack: this.serviceStack,
+            target_endpoint: this.targetEndpoint,
             account_id: accountId,
             path: `/payload_samples`,
             data: payload
@@ -840,6 +875,7 @@ export class AlResponderClientInstance {
         return await this.client.delete({
             version: this.serviceVersion,
             service_stack: this.serviceStack,
+            target_endpoint: this.targetEndpoint,
             account_id: accountId,
             path: `/payload_samples/${id}`
         });
@@ -863,6 +899,7 @@ export class AlResponderClientInstance {
         return this.client.put<AlResponderSample>({
             version: this.serviceVersion,
             service_stack: this.serviceStack,
+            target_endpoint: this.targetEndpoint,
             account_id: accountId,
             path: `/payload_samples/${id}`,
             data: payload
@@ -885,6 +922,7 @@ export class AlResponderClientInstance {
         return this.client.get<AlResponderTriggers>({
             version: this.serviceVersion,
             service_stack: this.serviceStack,
+            target_endpoint: this.targetEndpoint,
             account_id: accountId,
             path: `/triggers`,
             params: params
@@ -908,6 +946,7 @@ export class AlResponderClientInstance {
         return this.client.get<AlResponderPlaybookTrigger>({
             version: this.serviceVersion,
             service_stack: this.serviceStack,
+            target_endpoint: this.targetEndpoint,
             account_id: accountId,
             path: `/triggers/${triggerId}`,
         });
@@ -931,6 +970,7 @@ export class AlResponderClientInstance {
         return this.client.put<AlResponderPlaybookTrigger>({
             version: this.serviceVersion,
             service_stack: this.serviceStack,
+            target_endpoint: this.targetEndpoint,
             account_id: accountId,
             path: `/triggers/${triggerId}`,
             data: trigger
@@ -953,6 +993,7 @@ export class AlResponderClientInstance {
         return this.client.delete({
             version: this.serviceVersion,
             service_stack: this.serviceStack,
+            target_endpoint: this.targetEndpoint,
             account_id: accountId,
             path: `/triggers/${triggerId}`
         });
@@ -975,6 +1016,7 @@ export class AlResponderClientInstance {
         return this.client.post<AlResponderPlaybookTrigger>({
             version: this.serviceVersion,
             service_stack: this.serviceStack,
+            target_endpoint: this.targetEndpoint,
             account_id: accountId,
             path: `/triggers`,
             data: trigger
@@ -995,6 +1037,7 @@ export class AlResponderClientInstance {
         return this.client.get<{playbook_templates: AlPlaybookTemplate[]}>({
             version: this.serviceVersion,
             service_stack: this.serviceStack,
+            target_endpoint: this.targetEndpoint,
             account_id: accountId,
             path: `/playbook_templates`,
             params: parameters
@@ -1017,6 +1060,7 @@ export class AlResponderClientInstance {
         return this.client.post<AlPlaybookTemplate>({
             version: this.serviceVersion,
             service_stack: this.serviceStack,
+            target_endpoint: this.targetEndpoint,
             account_id: accountId,
             path: `/playbook_templates`,
             data: payload
@@ -1037,6 +1081,7 @@ export class AlResponderClientInstance {
         return this.client.get<AlPlaybookTemplate>({
             version: this.serviceVersion,
             service_stack: this.serviceStack,
+            target_endpoint: this.targetEndpoint,
             account_id: accountId,
             path: `/playbook_templates/${id}`
         });
@@ -1057,6 +1102,7 @@ export class AlResponderClientInstance {
         const result = await this.client.delete({
             version: this.serviceVersion,
             service_stack: this.serviceStack,
+            target_endpoint: this.targetEndpoint,
             account_id: accountId,
             path: `/playbook_templates/${id}`
         });
@@ -1081,6 +1127,7 @@ export class AlResponderClientInstance {
         return this.client.put<AlPlaybookTemplate>({
             version: this.serviceVersion,
             service_stack: this.serviceStack,
+            target_endpoint: this.targetEndpoint,
             account_id: accountId,
             path: `/playbook_templates/${id}`,
             data: payload
@@ -1101,6 +1148,7 @@ export class AlResponderClientInstance {
         return this.client.get<AlResponderRoles>({
             version: this.serviceVersion,
             service_stack: this.serviceStack,
+            target_endpoint: this.targetEndpoint,
             account_id: accountId,
             path: `/playbook_roles`
         });
@@ -1120,6 +1168,7 @@ export class AlResponderClientInstance {
         return this.client.get<AlResponderRoles>({
             version: this.serviceVersion,
             service_stack: this.serviceStack,
+            target_endpoint: this.targetEndpoint,
             account_id: accountId,
             path: `/trigger_roles`
         });
@@ -1139,6 +1188,7 @@ export class AlResponderClientInstance {
         return this.client.get({
             version: this.serviceVersion,
             service_stack: this.serviceStack,
+            target_endpoint: this.targetEndpoint,
             account_id: accountId,
             path: `/playbook_incidents/${incidentId}`
         });
@@ -1156,6 +1206,7 @@ export class AlResponderClientInstance {
         return this.client.get({
             version: this.serviceVersion,
             service_stack: this.serviceStack,
+            target_endpoint: this.targetEndpoint,
             account_id: accountId,
             path: `/mr_configs`
         });
@@ -1171,6 +1222,7 @@ export class AlResponderClientInstance {
         return this.client.get({
             version: this.serviceVersion,
             service_stack: this.serviceStack,
+            target_endpoint: this.targetEndpoint,
             account_id: accountId,
             path: `/mr_configs/${id}`
         });
@@ -1192,6 +1244,7 @@ export class AlResponderClientInstance {
         return this.client.post<void>({
             version: this.serviceVersion,
             service_stack: this.serviceStack,
+            target_endpoint: this.targetEndpoint,
             account_id: accountId,
             data: payload,
             path: `/mr_configs`
@@ -1216,6 +1269,7 @@ export class AlResponderClientInstance {
         return this.client.put<void>({
             version: this.serviceVersion,
             service_stack: this.serviceStack,
+            target_endpoint: this.targetEndpoint,
             account_id: accountId,
             data: payload,
             path: `/mr_configs/${id}`
@@ -1235,6 +1289,7 @@ export class AlResponderClientInstance {
         return this.client.delete<void>({
             version: this.serviceVersion,
             service_stack: this.serviceStack,
+            target_endpoint: this.targetEndpoint,
             account_id: accountId,
             path: `/mr_configs/${id}`
         });
