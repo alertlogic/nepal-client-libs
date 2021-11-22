@@ -688,3 +688,12 @@ export interface AlResponderMRGeneric {
     ttl_sec?: string;
     id?: string;
 }
+
+export interface AlResponderMRDefinitions {
+    name: string;
+    display_name: string;
+    category: string;
+    icon: string;
+    form: { controls: Array<AlDynamicFormControlElement> };
+    description: string;
+}

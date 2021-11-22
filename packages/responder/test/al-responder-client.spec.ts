@@ -477,5 +477,22 @@ describe('Responder Client', () => {
                 expect(payload.url).to.equal(`${apiBaseURL}/${version}/${accountId}/mr_configs/${mrConfigId}`);
             });
         });
+
+        describe('When get MR config definitions', () => {
+            beforeEach(() => {
+                stub = sinon.stub(AlDefaultClient as any, 'axiosRequest').returns(Promise.resolve({ status: 200, data: [] }));
+            });
+            afterEach(() => {
+                stub.restore();
+            });
+            it('Should call the client instance\'s GET.', async () => {
+                const result = await AlResponderClient.getMRConfigDefinitions(accountId);
+                const payload = stub.args[0][0];
+                expect(stub.callCount).to.equal(1);
+                expect(payload.method).to.equal("GET");
+                expect(payload.url).to.equal(`${apiBaseURL}/${version}/${accountId}/definitions/mr_configs`);
+                expect(result).to.deep.eq([]);
+            });
+        });
     });
 });
