@@ -7,37 +7,38 @@ import {
     AlLocation
 } from '@al/core';
 import {
-    AlResponderPlaybook,
+    AlPlaybookRequest,
+    AlPlaybookTemplate,
     AlResponderAction,
     AlResponderExecution,
-    AlResponderExecutions,
-    AlResponderInspectorError,
-    AlResponderExecutionResult,
     AlResponderExecutionQueryParams,
-    AlResponderSchema,
-    AlResponderExecutionsHistoryResult,
     AlResponderExecutionRequest,
+    AlResponderExecutionResult,
+    AlResponderExecutions,
+    AlResponderExecutionsHistory,
+    AlResponderExecutionsHistoryResult,
     AlResponderInquiries,
     AlResponderInquiry,
-    AlResponderSchedule,
-    AlResponderPlaybookDefinition,
-    AlResponderSample,
-    AlResponderSamples,
-    AlPlaybookTemplate,
-    AlPlaybookRequest,
-    AlResponderExecutionsHistory,
-    AlResponderPlaybookTrigger,
-    AlResponderTriggers,
-    AlResponderTriggerQueryParams,
-    AlResponderPlaybooks,
-    AlResponderPlaybookSummary,
-    AlResponderRoles,
-    AlResponderMRGeneric,
+    AlResponderInspectorError,
     AlResponderMRAWSSNS,
     AlResponderMRAWSWAF,
+    AlResponderMRDefinitions,
     AlResponderMREventBridge,
+    AlResponderMRGeneric,
     AlResponderMRPaloAltoBlock,
-    AlResponderMRStackstormAction
+    AlResponderMRStackstormAction,
+    AlResponderPlaybook,
+    AlResponderPlaybookDefinition,
+    AlResponderPlaybooks,
+    AlResponderPlaybookSummary,
+    AlResponderPlaybookTrigger,
+    AlResponderRoles,
+    AlResponderSample,
+    AlResponderSamples,
+    AlResponderSchedule,
+    AlResponderSchema,
+    AlResponderTriggerQueryParams,
+    AlResponderTriggers
 } from './types';
 
 export class AlResponderClientInstance {
@@ -1292,6 +1293,23 @@ export class AlResponderClientInstance {
             target_endpoint: this.targetEndpoint,
             account_id: accountId,
             path: `/mr_configs/${id}`
+        });
+    }
+
+    /**
+     * GET MR Config definitions list
+     * GET
+     * /v1/{accoutId}/definitions/mr_configs
+     * https://responder.mdr.global.alertlogic.com
+     * @param accountId {string} AIMS Account ID
+     * @returns {Promise<AlResponderMRDefinitions[]>}
+     */
+    async getMRConfigDefinitions(accountId: string): Promise<AlResponderMRDefinitions[]> {
+        return this.client.get({
+            version: this.serviceVersion,
+            service_stack: this.serviceStack,
+            account_id: accountId,
+            path: `/definitions/mr_configs`
         });
     }
 
