@@ -689,6 +689,10 @@ export interface AlResponderMRGeneric {
     id?: string;
 }
 
+export interface AlResponderMRList {
+    mr_configs: Array<AlResponderMRGeneric>;
+}
+
 export interface AlResponderMRDefinitions {
     name: string;
     display_name: string;
