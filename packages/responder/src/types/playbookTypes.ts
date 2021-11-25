@@ -607,7 +607,7 @@ export interface AlResponderMRAWSWAF {
     name: string;
     resource_arn: string;
     resource_scope: string;
-    connection_target_id: string;
+    role_connection_target_id: string;
     enabled?: boolean;
     ttl_sec?: string;
     id?: string;
@@ -619,7 +619,7 @@ export interface AlResponderMRAWSWAF {
 export interface AlResponderMRAWSSNS {
     type: 'aws_sns';
     name: string;
-    connection_target_id: string;
+    role_connection_target_id: string;
     topic_arn?: string;
     target_arn?: string;
     phone_number?: string;
@@ -634,7 +634,7 @@ export interface AlResponderMRAWSSNS {
 export interface AlResponderMREventBridge {
     type: 'aws_eventbridge';
     name: string;
-    connection_target_id: string;
+    role_connection_target_id: string;
     resource_arn?: string;
     event_bus_name?: string;
     enabled?: boolean;
@@ -677,7 +677,7 @@ export interface AlResponderMRGeneric {
     parameters_apply?: {[key: string]: unknown};
     ref_revert?: string;
     parameters_revert?: {[key: string]: unknown};
-    connection_target_id?: string;
+    role_connection_target_id?: string;
     resource_arn?: string;
     event_bus_name?: string;
     topic_arn?: string;
