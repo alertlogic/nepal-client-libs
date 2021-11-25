@@ -38,7 +38,8 @@ import {
     AlResponderSchedule,
     AlResponderSchema,
     AlResponderTriggerQueryParams,
-    AlResponderTriggers
+    AlResponderTriggers,
+    AlResponderMRList
 } from './types';
 
 export class AlResponderClientInstance {
@@ -1201,9 +1202,9 @@ export class AlResponderClientInstance {
      * /v1/{account_id}/mr_configs
      * https://responder.mdr.global.alertlogic.com
      * @param accountId {string} AIMS Account ID
-     * @return {Promise<Array<AlResponderMRGeneric>>}
+     * @return {Promise<AlResponderMRList>}
      */
-    async getMRConfigList(accountId: string): Promise<Array<AlResponderMRGeneric>> {
+    async getMRConfigList(accountId: string): Promise<AlResponderMRList> {
         return this.client.get({
             version: this.serviceVersion,
             service_stack: this.serviceStack,
