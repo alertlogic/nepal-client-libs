@@ -23,6 +23,7 @@ export interface AlTacomaView {
     };
     schedule_after?: number;
     default_report_format?: string;
+    interactive_report:boolean;
 }
 
 export interface AlTacomaWorkbook {
