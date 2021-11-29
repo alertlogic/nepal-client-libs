@@ -698,7 +698,7 @@ export interface AlResponderMRSchemaDefinition {
     description: string;
     type: string;
     additionalProperties: boolean;
-    properties: { [key: string]: { type: string } };
+    properties: { [key: string]: { type: string, enum?: Array<string> } };
     required: Array<string>;
 }
 
