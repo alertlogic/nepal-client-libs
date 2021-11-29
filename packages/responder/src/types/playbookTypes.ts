@@ -693,11 +693,21 @@ export interface AlResponderMRList {
     mr_configs: Array<AlResponderMRGeneric>;
 }
 
+export interface AlResponderMRSchemaDefinition {
+    title: string;
+    description: string;
+    type: string;
+    additionalProperties: boolean;
+    properties: { [key: string]: { type: string } };
+    required: Array<string>;
+}
+
 export interface AlResponderMRDefinitions {
     name: string;
     display_name: string;
     category: string;
     icon: string;
+    schema: AlResponderMRSchemaDefinition;
     form: { controls: Array<AlDynamicFormControlElement> };
     description: string;
 }
