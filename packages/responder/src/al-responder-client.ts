@@ -23,8 +23,10 @@ import {
     AlResponderMRAWSSNS,
     AlResponderMRAWSWAF,
     AlResponderMRDefinitions,
+    AlResponderMRDeviceDefinitions,
     AlResponderMREventBridge,
     AlResponderMRGeneric,
+    AlResponderMRList,
     AlResponderMRPaloAltoBlock,
     AlResponderMRStackstormAction,
     AlResponderPlaybook,
@@ -38,8 +40,7 @@ import {
     AlResponderSchedule,
     AlResponderSchema,
     AlResponderTriggerQueryParams,
-    AlResponderTriggers,
-    AlResponderMRList
+    AlResponderTriggers
 } from './types';
 
 export class AlResponderClientInstance {
@@ -1311,6 +1312,23 @@ export class AlResponderClientInstance {
             service_stack: this.serviceStack,
             account_id: accountId,
             path: `/definitions/mr_configs`
+        });
+    }
+
+    /**
+     * GET MR Device definitions list
+     * GET
+     * /v1/{accoutId}/definitions/mr_devices
+     * https://responder.mdr.global.alertlogic.com
+     * @param accountId {string} AIMS Account ID
+     * @returns {Promise<AlResponderMRDefinitions[]>}
+     */
+    async getMRDevicesDefinitions(accountId: string): Promise<AlResponderMRDeviceDefinitions[]> {
+        return this.client.get({
+            version: this.serviceVersion,
+            service_stack: this.serviceStack,
+            account_id: accountId,
+            path: `/definitions/mr_devices`
         });
     }
 
