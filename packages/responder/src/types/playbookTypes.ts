@@ -711,3 +711,14 @@ export interface AlResponderMRDefinitions {
     form: { controls: Array<AlDynamicFormControlElement> };
     description: string;
 }
+
+export interface AlResponderMRDeviceDefinitions {
+    name: string;
+    display_name: string;
+    category: string;
+    icon: string;
+    schema: AlResponderMRSchemaDefinition;
+    form: { controls: Array<AlDynamicFormControlElement> };
+    description: string;
+    device_backend_type: string;
+}
