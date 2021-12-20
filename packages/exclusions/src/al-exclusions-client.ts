@@ -95,7 +95,7 @@ export class AlExclusionsClientInstance {
      */
     async isExcluded(accountId: string, deploymentId: string, assetType: string, assetKey: string,
                      feature: string = "scan", searchParams?: { [i: string]: string }): Promise<ExclusionsRulesDescriptor> {
-        const rawData = this.client.get({
+        const rawData = await this.client.get({
             service_stack: AlLocation.InsightAPI,
             version: 'v2',
             service_name: this.serviceName,
@@ -103,7 +103,7 @@ export class AlExclusionsClientInstance {
             path: `/${deploymentId}/is_excluded/${feature}/${assetType}/${assetKey}`,
             params: searchParams
         });
-        return ExclusionsRulesDescriptor.import(rawData);
+        return rawData? ExclusionsRulesDescriptor.import(rawData) : new ExclusionsRulesDescriptor();
     }
 
 }
