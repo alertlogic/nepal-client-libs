@@ -1340,13 +1340,13 @@ export class AlResponderClientInstance {
      * https://responder.mdr.global.alertlogic.com
      * @param accountId {string} AIMS Account ID
      * @param payload {AlResponderMRAWSWAF | AlResponderMRAWSSNS | AlResponderMREventBridge | AlResponderMRStackstormAction | AlResponderMRPaloAltoBlock}
-     * @returns {Promise<void>}
+     * @returns {Promise<{id: string}>}
      */
     async createMRDryRun(
         accountId: string,
-        payload: AlResponderMRAWSWAF | AlResponderMRAWSSNS | AlResponderMREventBridge | AlResponderMRStackstormAction | AlResponderMRPaloAltoBlock
-    ): Promise<void> {
-        return this.client.post<void>({
+        payload: AlResponderMRGeneric | AlResponderMRAWSWAF | AlResponderMRAWSSNS | AlResponderMREventBridge | AlResponderMRStackstormAction | AlResponderMRPaloAltoBlock
+    ): Promise<{id: string}> {
+        return this.client.post<{id: string}>({
             version: this.serviceVersion,
             service_stack: this.serviceStack,
             target_endpoint: this.targetEndpoint,
