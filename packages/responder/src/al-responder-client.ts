@@ -24,6 +24,7 @@ import {
     AlResponderMRAWSWAF,
     AlResponderMRDefinitions,
     AlResponderMRDeviceDefinitions,
+    AlResponderMRDryRun,
     AlResponderMREventBridge,
     AlResponderMRGeneric,
     AlResponderMRList,
@@ -1316,14 +1317,68 @@ export class AlResponderClientInstance {
     }
 
     /**
+     * List all MR 'dry_run' reports for account
+     * GET
+     * /v1/{account_id}/mr_configs/dry_runs
+     * https://responder.mdr.global.alertlogic.com
+     * @param accountId {string} AIMS Account ID
+     * @returns {Promise<Array<AlResponderMRDryRun>>}
+     */
+    async getMRDryRuns(accountId: string): Promise<Array<AlResponderMRDryRun>> {
+        return this.client.get({
+            version: this.serviceVersion,
+            service_stack: this.serviceStack,
+            account_id: accountId,
+            path: `/mr_configs/dry_runs`
+        });
+    }
+
+    /**
+     * Initiate new dry run for specified MR config
+     * POST
+     * /v1/{account_id}/mr_configs/dry_runs
+     * https://responder.mdr.global.alertlogic.com
+     * @param accountId {string} AIMS Account ID
+     * @param payload {AlResponderMRAWSWAF | AlResponderMRAWSSNS | AlResponderMREventBridge | AlResponderMRStackstormAction | AlResponderMRPaloAltoBlock}
+     * @returns {Promise<void>}
+     */
+    async createMRDryRun(
+        accountId: string,
+        payload: AlResponderMRAWSWAF | AlResponderMRAWSSNS | AlResponderMREventBridge | AlResponderMRStackstormAction | AlResponderMRPaloAltoBlock
+    ): Promise<void> {
+        return this.client.post<void>({
+            version: this.serviceVersion,
+            service_stack: this.serviceStack,
+            target_endpoint: this.targetEndpoint,
+            account_id: accountId,
+            data: payload,
+            path: `/mr_configs/dry_runs`
+        });
+    }
+
+    /**
+     * Get MR dry_run execution report
+     * GET
+     * /v1/{account_id}/mr_configs/dry_runs/{id}
+     * https://responder.mdr.global.alertlogic.com
+     * @param accountId {string} AIMS Account ID
+     * @returns {Promise<AlResponderMRDryRun>}
+     */
+    async getMRDryRunById(accountId: string, id: string): Promise<AlResponderMRDryRun> {
+        return this.client.get({
+            version: this.serviceVersion,
+            service_stack: this.serviceStack,
+            account_id: accountId,
+            path: `/mr_configs/dry_runs/${id}`
+        });
+    }
+
+    /**
      * GET MR Device definitions list
      * GET
      * /v1/{accoutId}/definitions/mr_devices
-     * https://responder.mdr.global.alertlogic.com
-     * @param accountId {string} AIMS Account ID
-     * @returns {Promise<AlResponderMRDefinitions[]>}
      */
-    async getMRDevicesDefinitions(accountId: string): Promise<AlResponderMRDeviceDefinitions[]> {
+    async getMRDevicesDefinitions(accountId: string): Promise<Array<AlResponderMRDeviceDefinitions>> {
         return this.client.get({
             version: this.serviceVersion,
             service_stack: this.serviceStack,

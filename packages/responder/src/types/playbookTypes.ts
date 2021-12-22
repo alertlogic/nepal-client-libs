@@ -723,3 +723,16 @@ export interface AlResponderMRDeviceDefinitions {
     description: string;
     device_backend_type: string;
 }
+
+export interface AlResponderMRDryRun {
+    created: { at: number, by: string };
+    modified: { at: number, by: string };
+    status: string;
+    start_timestamp: number;
+    end_timestamp: number;
+    elapsed_seconds: number;
+    result: {
+        connection_info: { [key: string]: unknown };
+        logs: Array<{ message: string, error: string, timestamp: number, status: string }>;
+    };
+}
