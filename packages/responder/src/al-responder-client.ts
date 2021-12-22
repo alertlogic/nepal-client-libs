@@ -23,8 +23,11 @@ import {
     AlResponderMRAWSSNS,
     AlResponderMRAWSWAF,
     AlResponderMRDefinitions,
+    AlResponderMRDeviceDefinitions,
+    AlResponderMRDryRun,
     AlResponderMREventBridge,
     AlResponderMRGeneric,
+    AlResponderMRList,
     AlResponderMRPaloAltoBlock,
     AlResponderMRStackstormAction,
     AlResponderPlaybook,
@@ -38,8 +41,7 @@ import {
     AlResponderSchedule,
     AlResponderSchema,
     AlResponderTriggerQueryParams,
-    AlResponderTriggers,
-    AlResponderMRList
+    AlResponderTriggers
 } from './types';
 
 export class AlResponderClientInstance {
@@ -1320,9 +1322,9 @@ export class AlResponderClientInstance {
      * /v1/{account_id}/mr_configs/dry_runs
      * https://responder.mdr.global.alertlogic.com
      * @param accountId {string} AIMS Account ID
-     * @returns {Promise<>}
+     * @returns {Promise<Array<AlResponderMRDryRun>>}
      */
-    async getMRDryRuns(accountId: string): Promise<AlResponderMRDefinitions[]> {
+    async getMRDryRuns(accountId: string): Promise<Array<AlResponderMRDryRun>> {
         return this.client.get({
             version: this.serviceVersion,
             service_stack: this.serviceStack,
@@ -1360,14 +1362,28 @@ export class AlResponderClientInstance {
      * /v1/{account_id}/mr_configs/dry_runs/{id}
      * https://responder.mdr.global.alertlogic.com
      * @param accountId {string} AIMS Account ID
-     * @returns {Promise<AlResponderMRDefinitions[]>}
+     * @returns {Promise<AlResponderMRDryRun>}
      */
-    async getMRDryRunById(accountId: string, id: string): Promise<void> {
+    async getMRDryRunById(accountId: string, id: string): Promise<AlResponderMRDryRun> {
         return this.client.get({
             version: this.serviceVersion,
             service_stack: this.serviceStack,
             account_id: accountId,
             path: `/mr_configs/dry_runs/${id}`
+        });
+    }
+
+    /**
+     * GET MR Device definitions list
+     * GET
+     * /v1/{accoutId}/definitions/mr_devices
+     */
+    async getMRDevicesDefinitions(accountId: string): Promise<Array<AlResponderMRDeviceDefinitions>> {
+        return this.client.get({
+            version: this.serviceVersion,
+            service_stack: this.serviceStack,
+            account_id: accountId,
+            path: `/definitions/mr_devices`
         });
     }
 
