@@ -731,7 +731,7 @@ export interface AlResponderMRDryRun {
     start_timestamp: number;
     end_timestamp: number;
     elapsed_seconds: number;
-    result: {
+    result?: {
         connection_info: { [key: string]: unknown };
         logs: Array<{ message: string, error: string, timestamp: number, status: string }>;
     };
