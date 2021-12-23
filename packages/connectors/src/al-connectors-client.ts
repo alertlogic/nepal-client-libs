@@ -233,11 +233,7 @@ export class AlConnectorsClientInstance {
      *  @remarks
      *
      * */
-    async getConnectionTargets(accountId: string, type?: string): Promise<AlConnectionTargets[]> {
-        let params = {};
-        if (type) {
-            params[type] = type;
-        }
+    async getConnectionTargets(accountId: string, params: {[key: string]: string} = {}): Promise<AlConnectionTargets[]> {
         return this.client.get<AlConnectionTargets[]>({
             version: this.serviceVersion,
             service_stack: this.serviceStack,

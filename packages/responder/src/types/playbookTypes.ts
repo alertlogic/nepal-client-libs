@@ -607,7 +607,7 @@ export interface AlResponderMRAWSWAF {
     name: string;
     resource_arn: string;
     resource_scope: string;
-    role_connection_target_id: string;
+    connection_target_id: string;
     enabled?: boolean;
     ttl_sec?: string;
     id?: string;
@@ -619,7 +619,7 @@ export interface AlResponderMRAWSWAF {
 export interface AlResponderMRAWSSNS {
     type: 'aws_sns';
     name: string;
-    role_connection_target_id: string;
+    connection_target_id: string;
     topic_arn?: string;
     target_arn?: string;
     phone_number?: string;
@@ -634,7 +634,7 @@ export interface AlResponderMRAWSSNS {
 export interface AlResponderMREventBridge {
     type: 'aws_eventbridge';
     name: string;
-    role_connection_target_id: string;
+    connection_target_id: string;
     resource_arn?: string;
     event_bus_name?: string;
     enabled?: boolean;
@@ -677,7 +677,7 @@ export interface AlResponderMRGeneric {
     parameters_apply?: {[key: string]: unknown};
     ref_revert?: string;
     parameters_revert?: {[key: string]: unknown};
-    role_connection_target_id?: string;
+    connection_target_id?: string;
     resource_arn?: string;
     event_bus_name?: string;
     topic_arn?: string;
@@ -708,6 +708,31 @@ export interface AlResponderMRDefinitions {
     category: string;
     icon: string;
     schema: AlResponderMRSchemaDefinition;
+    connection_target_types: string | Array<string>;
     form: { controls: Array<AlDynamicFormControlElement> };
     description: string;
+}
+
+export interface AlResponderMRDeviceDefinitions {
+    name: string;
+    display_name: string;
+    category: string;
+    icon: string;
+    schema: AlResponderMRSchemaDefinition;
+    form: { controls: Array<AlDynamicFormControlElement> };
+    description: string;
+    device_backend_type: string;
+}
+
+export interface AlResponderMRDryRun {
+    created: { at: number, by: string };
+    modified: { at: number, by: string };
+    status: string;
+    start_timestamp: number;
+    end_timestamp: number;
+    elapsed_seconds: number;
+    result?: {
+        connection_info: { [key: string]: unknown };
+        logs: Array<{ message: string, error: string, timestamp: number, status: string }>;
+    };
 }
