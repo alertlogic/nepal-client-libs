@@ -33,7 +33,7 @@ export interface AlManualRequest {
     /**
      * The datacenter that facts are coming from (Ashburn, Denver, Integration, Newport, etc)
      */
-    datacenter: string;
+    datacenter?: string;
     /**
      * The Incident Source (MANL for log, MANI for IDS)
      */
