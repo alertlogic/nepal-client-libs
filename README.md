@@ -45,3 +45,4 @@ Builds will be be generated into a `dist` folder and will contain commonjs and u
 To gererate build for a specific package, use the command:
 
     PATH=$(cd ../.. && npm bin):$PATH npm run build
+
