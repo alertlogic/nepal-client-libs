@@ -6,10 +6,16 @@ import {
 } from '@al/core';
 
 
-export interface AlLogMessageMetaData {
+export interface AlMessageDetailsMetaData {
+    qingest_id: string;
     account: number;
     aid: number;
     msgid: string;
+}
+
+export interface AlReadMessageDetailsResponse {
+    id: AlMessageDetailsMetaData;
+    fields: AlLogMessageFields | AlIdsMessageFields | AlFimDataFields | AlObservationFields;
 }
 
 export interface AlLogMessageFields {
@@ -40,11 +46,6 @@ export interface AlLogMessageFields {
     };
     prioriy: number;
     program: string;
-}
-
-export interface AlReadLogMessageResponse {
-    id: AlLogMessageMetaData;
-    fields: AlLogMessageFields | AlIdsMessageFields | AlFimDataFields | AlObservationFields;
 }
 
 export interface AlFlags {
@@ -198,7 +199,7 @@ export class AlMsgAccessClientInstance {
      * Read Messages
      * Read a set of messages from storage by ID. Proxy for daccess service messages API. Only addition is logmsgs data type messages are also parsed and tokenised
      */
-    async readMessages(accountId: string, dataType: string = 'logmsgs', queryParams: { ids: string, fields?: string }): Promise<AlReadLogMessageResponse[]> {
+    async readMessages(accountId: string, dataType: string = 'logmsgs', queryParams: { ids: string, fields?: string }): Promise<AlReadMessageDetailsResponse[]> {
         // Let's set the fields default value
         // which is to get all of them
         if (!queryParams.fields) {
@@ -216,7 +217,7 @@ export class AlMsgAccessClientInstance {
      * Read Messages POST
      * Read a set of messages from storage by ID. Proxy for daccess service messages API. Only addition is logmsgs data type messages are also parsed and tokenised
      */
-    async readMessagesPost(accountId: string, dataType: string = 'logmsgs', params: { ids: string[], fields?: string }): Promise<AlReadLogMessageResponse[]> {
+    async readMessagesPost(accountId: string, dataType: string = 'logmsgs', params: { ids: string[], fields?: string }): Promise<AlReadMessageDetailsResponse[]> {
         // Let's set the fields default value
         // which is to get all of them
         if (!params.fields) {
