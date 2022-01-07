@@ -34,14 +34,11 @@
     "build": "rollup -c ../../rollup.config.ts",
     "prebuild": "npm run clean && npm run lint && npm run test",
     "lint": "tslint -p tsconfig.json -c ../../tslint.json",
-    "clean": "rm -rf dist",
+    "clean": "rm -rf dist node_modules",
     "prepublishOnly": "npm run build"
   },
   "dependencies": {
-    "@al/core": "^1.0.12"
-  },
-  "peerDependencies": {
-    "@al/core": "^1.0.12"
+    "@al/core": "^1.0.173"
   },
   "files": [
     "dist"
