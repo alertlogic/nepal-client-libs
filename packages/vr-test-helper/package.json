@@ -32,7 +32,7 @@
     "build": "../../node_modules/rollup/dist/bin/rollup -c ../../rollup.config.ts && npm run copy-specs && npm run copy-scripts",
     "prebuild": "npm run clean && npm run lint && npm run test ",
     "lint": "../../node_modules/tslint/bin/tslint -p tsconfig.json -c ../../tslint.json",
-    "clean": "rm -rf dist",
+    "clean": "rm -rf dist node_modules",
     "prepublishOnly": "npm run build",
     "copy-specs": "cp -r src/e2e-shared dist",
     "copy-scripts": "cp -r src/scripts dist"
@@ -44,7 +44,8 @@
     "@types/jasmine": "^3.5.14",
     "pixelmatch": "^5.2.0",
     "pngjs": "^5.0.0",
-    "protractor": "^5.4.4"
+    "protractor": "^5.4.4",
+    "@al/core": "^1.0.173"
   },
   "devDependencies": {
     "@types/jasmine": "^2.8.17",

@@ -120,6 +120,45 @@ interface IncidentProperties {
     threatRating?: string;
 }
 
+interface Properties {
+    action?: string;
+    anonymous?: boolean;
+    asn_org?: string;
+    attacker?: string;
+    baseline?: Array<any>;
+    country?: string;
+    event_time?: string;
+    geographic_data?: {
+        title?: string;
+        data_types?: Array<{color?: string, display?:string, name?: string, shape?: string }>;
+        markers?: {
+            baseline?: Array<{coords?: Array<number>, text?: string}>;
+            outlier?: Array<{coords?: Array<number>, text?: string}>;
+        };
+    }
+    hosting?: boolean;
+    human_time?: string;
+    ip_enriched?: boolean;
+    isp?: string;
+    lat?: number;
+    lon?: number;
+    map_link?: string;
+    mfa?: boolean;
+    public_proxy?: boolean;
+    queries?: Array<any>;
+    tor?: boolean;
+    ua_browser?: string;
+    ua_device?: string;
+    ua_mobile?: boolean;
+    ua_os?: string;
+    ua_parsed?: boolean;
+    user?: string;
+    user_desc?: string;
+    user_type?: string;
+    useragent?: string;
+    vpn?: boolean;
+}
+
 export class Incident {
     public incidentId:string;
     public accountId:number;
@@ -191,6 +230,7 @@ export class Incident {
     public geo_ip_map: {[key: string]: Geo};
     public collectorName: string;
     public collectorType: string;
+    public properties: Properties;
 
     /**
      *  Return the icon according to the severity level
@@ -516,6 +556,9 @@ export class Incident {
                 geoObjects[geoRawObject[0]] = Geo.import([geoRawObject[1]])[0];
             });
             i.geo_ip_map = geoObjects;
+        }
+        if (rawData.hasOwnProperty('properties')) {
+            i.properties = rawData.properties;
         }
 
         return i;

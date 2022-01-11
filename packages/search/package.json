@@ -1,0 +1,44 @@
+{
+  "name": "@al/search",
+  "version": "2.0.1",
+  "license": "MIT",
+  "description": "A client library for interacting with the Search API",
+  "author": {
+    "name": "Alert Logic UI Team",
+    "email": "ui@alertlogic.com"
+  },
+  "keywords": [
+    "Alert Logic",
+    "Client",
+    "Service"
+  ],
+  "maintainers": [
+    {
+      "name": "Alert Logic UI Team",
+      "email": "ui@alertlogic.com"
+    }
+  ],
+  "repository": "github:alertlogic/nepal-client-libs",
+  "main": "./dist/index.cjs.js",
+  "types": "./dist/index.d.ts",
+  "module": "./dist/index.esm5.js",
+  "es2015": "./dist/index.esm2015.js",
+  "scripts": {
+    "test": "karma start",
+    "test-watch": "karma start --no-single-run --auto-watch",
+    "build": "rollup -c ../../rollup.config.ts",
+    "prebuild": "npm run clean && npm run lint",
+    "lint": "tslint -p tsconfig.json -c ../../tslint.json",
+    "clean": "rm -rf dist node_modules",
+    "prepublishOnly": "npm run build"
+  },
+  "dependencies": {
+    "@al/core": "^1.0.173"
+  },
+  "files": [
+    "dist"
+  ],
+  "publishConfig": {
+    "access": "public"
+  }
+}

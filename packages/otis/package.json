@@ -36,15 +36,12 @@
     "build": "rollup -c ../../rollup.config.ts",
     "prebuild": "npm run clean && npm run lint ",
     "lint": "tslint -p tsconfig.json -c ../../tslint.json",
-    "clean": "rm -rf dist",
+    "clean": "rm -rf dist node_modules",
     "prepublishOnly": "npm run build",
     "interactive": "node -i -e \"const OTISClient = require('./dist/commonjs/index.js').OTISClient;\""
   },
   "dependencies": {
-    "@al/core": "^1.0.65"
-  },
-  "peerDependencies": {
-    "@al/core": "^1.0.65"
+    "@al/core": "^1.0.173"
   },
   "files": [
     "dist"
