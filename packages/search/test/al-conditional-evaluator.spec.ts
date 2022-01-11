@@ -3,7 +3,7 @@ import { describe } from 'mocha';
 import {
     AlConditionalSubject,
     SQXSearchQuery,
-} from '@al/core';
+} from '@al/search';
 
 
 function timestamp( defaultValue:number ):number {
