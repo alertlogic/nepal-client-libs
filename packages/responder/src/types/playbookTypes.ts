@@ -57,6 +57,7 @@ export interface AlResponderPlaybookParameter
     };
     minimum?: number;
     maximum?: number;
+    belowDescription?: string;
 }
 
 export interface AlResponderWorkflowContext
@@ -471,6 +472,7 @@ export interface AlPlaybookTemplateVariable {
     };
     export_to_workflow?: boolean;
     bind: AlPlaybookTemplateVariableBinding[];
+    description?: string;
 }
 
 export interface AlPlaybookTemplateVariableBinding {
