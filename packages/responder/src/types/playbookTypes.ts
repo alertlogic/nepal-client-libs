@@ -289,6 +289,7 @@ export interface AlResponderExecutionQueryParams{
         name ?: string | string[];
         playbook_id ?: string | string[];
         trigger_id ?: string | string[];
+        action_id ?: string | string[];
         task_name ?: string | string[];
         status ?: string | string[];
         type ?: string | string[];
