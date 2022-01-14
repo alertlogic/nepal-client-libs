@@ -95,6 +95,4 @@ export class SourceSnapshot {
         this.source = source;
         return source;
     }
-
-
 }

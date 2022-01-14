@@ -1,8 +1,17 @@
-interface UserTimeStamp {
-    at?: number;
-    by?: string;
+import { AlChangeStamp } from '@al/core';
+
+export interface EnvironmentSourceScope {
+    include?: {
+        type?: string;
+        key?: string;
+    }[];
+    exclude?: {
+        type?: string;
+        key?: string;
+    }[];
 }
-interface EnvironmentSourceConfig {
+
+export interface EnvironmentSourceConfig {
     account_id?: string;
     credential?: {
         id?: string;
@@ -17,16 +26,7 @@ interface EnvironmentSourceConfig {
         purpose?: string;
         version?: string;
     };
-    scope?: {
-        include?: {
-            type?: string;
-            key?: string;
-        }[];
-        exclude?: {
-            type?: string;
-            key?: string;
-        }[];
-    };
+    scope?: EnvironmentSourceScope;
     subscription_id?: string;
 }
 
@@ -44,8 +44,8 @@ export interface EnvironmentSource {
             aws?: EnvironmentSourceConfig;
             azure?: EnvironmentSourceConfig;
         };
-        created?: UserTimeStamp;
-        modified?: UserTimeStamp;
+        created?: AlChangeStamp;
+        modified?: AlChangeStamp;
         enabled?: boolean;
         host?: {[key:string]: string }
         status?: {[key:string]: string };
@@ -70,7 +70,7 @@ export interface EnvironmentCredential {
             client_id?: string;
             client_secret?: string;
         }
-        created?: UserTimeStamp;
-        modified?: UserTimeStamp;
+        created?: AlChangeStamp;
+        modified?: AlChangeStamp;
     };
 }
