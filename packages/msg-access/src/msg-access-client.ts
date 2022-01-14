@@ -191,6 +191,11 @@ export interface AlObservationFields {
     authority: string;
 }
 
+interface OptionalParams {
+    fields?: string;
+    return_type?: string;
+}
+
 export class AlMsgAccessClientInstance {
 
     private serviceName = 'msg_access';
@@ -199,17 +204,16 @@ export class AlMsgAccessClientInstance {
      * Read Messages
      * Read a set of messages from storage by ID. Proxy for daccess service messages API. Only addition is logmsgs data type messages are also parsed and tokenised
      */
-    async readMessages(accountId: string, dataType: string = 'logmsgs', queryParams: { ids: string, fields?: string }): Promise<AlReadMessageDetailsResponse[]> {
-        // Let's set the fields default value
-        // which is to get all of them
-        if (!queryParams.fields) {
-            queryParams.fields = '__all';
-        }
+    async readMessagesGET(accountId: string, dataType: string = 'logmsgs', queryParams: { ids: string, fields?: string, return_type?: string }): Promise<AlReadMessageDetailsResponse[]> {
+        // Let's set up default query params in case they are not present (optional)
+        Object.assign(queryParams, this.setOptionalParams(queryParams));
+
         return AlDefaultClient.get({
             service_name: this.serviceName,
             account_id: accountId,
             path: `/messages/${dataType}`,
             params: queryParams,
+            headers: { 'Accept': 'application/json' }
         });
     }
 
@@ -217,17 +221,30 @@ export class AlMsgAccessClientInstance {
      * Read Messages POST
      * Read a set of messages from storage by ID. Proxy for daccess service messages API. Only addition is logmsgs data type messages are also parsed and tokenised
      */
-    async readMessagesPost(accountId: string, dataType: string = 'logmsgs', params: { ids: string[], fields?: string }): Promise<AlReadMessageDetailsResponse[]> {
-        // Let's set the fields default value
-        // which is to get all of them
-        if (!params.fields) {
-            params.fields = '__all';
-        }
+    async readMessagesPOST(accountId: string, dataType: string = 'logmsgs', params: { ids: string[], fields?: string, return_type?: string }): Promise<AlReadMessageDetailsResponse[]> {
+        // Let's set up default data params in case they are not present (optional)
+        Object.assign(params, this.setOptionalParams(params));
+
         return AlDefaultClient.post({
             service_name: this.serviceName,
             account_id: accountId,
             path: `/messages/${dataType}`,
             data: params
         });
+    }
+
+    private setOptionalParams(params: OptionalParams): OptionalParams {
+        // Let's set the fields default value
+        // which is to get all of them
+        if (!params.fields) {
+            params.fields = '__all';
+        }
+        // and return_type = ui meaning returning data
+        // transformed for presentations purposes
+        if (!params.return_type) {
+            params.return_type = 'ui';
+        }
+
+        return params;
     }
 }
