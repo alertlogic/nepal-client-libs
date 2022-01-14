@@ -712,7 +712,7 @@ export interface AlResponderMRDefinitions {
     icon: string;
     schema: AlResponderMRSchemaDefinition;
     connection_target_types: string | Array<string>;
-    form: { controls: Array<AlDynamicFormControlElement> };
+    form: Array<{ title: string; controls: Array<AlDynamicFormControlElement> }>;
     description: string;
 }
 
