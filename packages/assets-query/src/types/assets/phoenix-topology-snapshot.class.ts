@@ -1,8 +1,7 @@
-import { SourceScope } from '@al/sources';
+import { EnvironmentSourceScope } from '@al/sources';
 import { TopologyNode } from './topology-node.class';
 
 type NodeIteratorCallback = (asset: TopologyNode) => boolean;
-
 
 export interface Coverage {
     regions?: TopologyNode[];
@@ -237,12 +236,12 @@ export class PhoenixTopologySnapshot {
      *
      *  @param {Array<string>} assetTypes
      *  @param {TopologyNode} startNode optional starting node
-     *  @param {SourceScope} scope optional scope
+     *  @param {EnvironmentSourceScope} scope optional scope
      *
      *  This return dicionary with the assets count summary
      *
      */
-    public getSummary(assetTypes: string[] = ['vpc', 'subnet', 'host', 'appliance'], startNodeKey?: string, scope?: SourceScope): {[i: string]: number} {
+    public getSummary(assetTypes: string[] = ['vpc', 'subnet', 'host', 'appliance'], startNodeKey?: string, scope?: EnvironmentSourceScope): {[i: string]: number} {
         const summary:  {[i: string]: number} = {};
         const subnets = [];
         assetTypes.forEach(type => summary[type] = 0);
@@ -264,15 +263,15 @@ export class PhoenixTopologySnapshot {
                 } else if (assetObj.type === 'vpc' && assetTypes.indexOf('vpc') >= 0) {
                     if (scope) {
                         if (this.getByKey(startNodeKey).type === 'region') {
-                            if (scope.scopeIncludeByKey.hasOwnProperty(assetObj.key)) {
+                            if (scope.include.hasOwnProperty(assetObj.key)) {
                                 summary['vpc']++;
-                            } else if (!scope.scopeExcludeByKey.hasOwnProperty(assetObj.key)) {
+                            } else if (!scope.exclude.hasOwnProperty(assetObj.key)) {
                                 let parent = assetObj.parent;
                                 if (!parent) {
                                     console.error(`Node without parent: ${assetObj}`);
                                     return false;
                                 }
-                                if (scope.scopeIncludeByKey.hasOwnProperty(parent.key)) {
+                                if (scope.include.hasOwnProperty(parent.key)) {
                                     summary['vpc']++;
                                 }
                             }
@@ -287,7 +286,7 @@ export class PhoenixTopologySnapshot {
                     if (assetTypes.indexOf(assetObj.type) >= 0) {
                         if (assetObj.properties.hasOwnProperty('alertlogic_security')) {
                             if (!assetObj.properties.alertlogic_security) {
-                                if (scope.scopeIncludeByKey.hasOwnProperty(assetObj.key)) {
+                                if (scope.include.hasOwnProperty(assetObj.key)) {
                                     summary[assetObj.type]++;
                                     if (assetObj.type === 'subnet') {
                                         subnets.push(assetObj);
@@ -295,7 +294,7 @@ export class PhoenixTopologySnapshot {
                                 }
                             }
                         } else {
-                            if (scope.scopeIncludeByKey.hasOwnProperty(assetObj.key)) {
+                            if (scope.include.hasOwnProperty(assetObj.key)) {
                                 summary[assetObj.type]++;
                                 if (assetObj.type === 'subnet') {
                                     subnets.push(assetObj);
@@ -332,20 +331,16 @@ export class PhoenixTopologySnapshot {
         summary['host'] -= summary['appliance'] ?? 0;
         return summary;
     }
-    /**
-     * @method PhoenixTopologySnapshot.getCoverage
-     *
-     * @param scope
-     * @param deployment_mode
-     * @param deploymentType
-     */
-    public getCoverage(scope: SourceScope, deploymentMode: string = '', deploymentType: string = 'aws'): Coverage {
+
+
+    public getCoverage(scope: EnvironmentSourceScope, deploymentMode: string = '', deploymentType: string = 'aws'): Coverage {
         this.deploymentMode = deploymentMode;
         // TODO: USE nestedGet method
-        if (!scope?.scopeIncludeByKey || !scope?.scopeExcludeByKey) {
+        if (!scope?.include || !scope?.exclude) {
             console.warn("Unexpected input: the input data to TopologySnapshot.getCoverage does not have a valid topology data");
             return {};
         }
+
         let assetTypes = ['region', 'vpc', 'subnet', 'host'];
         if (deploymentType === 'datacenter') {
             assetTypes = ['vpc', 'subnet'];
@@ -361,13 +356,13 @@ export class PhoenixTopologySnapshot {
         const vpcsByKey: { [key: string]: TopologyNode } = {};
         this.iterate(asset => {
             if (asset.type === 'vpc') {
-                if (scope.scopeIncludeByKey.hasOwnProperty(asset.key)) {
+                if (scope.include.hasOwnProperty(asset.key)) {
                     asset.summary = this.getSummary(assetTypes, asset.key, scope);
                     vpcs.push(asset);
                     vpcsByKey[asset.key] = asset;
-                } else if (!scope.scopeExcludeByKey.hasOwnProperty(asset.key)) {
+                } else if (!scope.exclude.hasOwnProperty(asset.key)) {
                     let parent = asset.parent;
-                    if (scope.scopeIncludeByKey.hasOwnProperty(parent.key)) {
+                    if (scope.include.hasOwnProperty(parent.key)) {
                         asset.summary = this.getSummary(assetTypes, asset.key, scope);
                         vpcs.push(asset);
                         vpcsByKey[asset.key] = asset;
