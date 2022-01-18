@@ -1,6 +1,6 @@
 {
   "name": "@al/aecoral",
-  "version": "2.0.9",
+  "version": "2.0.10",
   "license": "MIT",
   "description": "A client for interacting with the Alert Logic Analytics Engine Correlations Public API",
   "author": {
@@ -37,8 +37,8 @@
     "prepublishOnly": "npm run build"
   },
   "dependencies": {
-    "@al/core": "^1.0.173",
-    "@al/search": "^2.0.0"
+    "@al/core": "^1.0.174",
+    "@al/search": "^2.0.1"
   },
   "files": [
     "dist"
