@@ -706,14 +706,17 @@ export interface AlResponderMRSchemaDefinition {
 }
 
 export interface AlResponderMRDefinitions {
-    name: string;
-    display_name: string;
-    category: string;
-    icon: string;
-    schema: AlResponderMRSchemaDefinition;
-    connection_target_types: string | Array<string>;
-    form: Array<{ title: string; controls: Array<AlDynamicFormControlElement> }>;
-    description: string;
+    definitions: Array<{
+        name: string;
+        display_name: string;
+        category: string;
+        icon: string;
+        schema: AlResponderMRSchemaDefinition;
+        connection_target_types: string | Array<string>;
+        form: Array<{ title: string; controls: Array<AlDynamicFormControlElement> }>;
+        description: string;
+    }>;
+    allowed_values: { [key: string]: Array<{ label: string, value: string }> };
 }
 
 export interface AlResponderMRDeviceDefinitions {
@@ -724,7 +727,7 @@ export interface AlResponderMRDeviceDefinitions {
     schema: AlResponderMRSchemaDefinition;
     form: { controls: Array<AlDynamicFormControlElement> };
     description: string;
-    device_backend_type: string;
+    device_backend_type?: string;
 }
 
 export interface AlResponderMRDryRun {
