@@ -705,7 +705,7 @@ export interface AlResponderMRSchemaDefinition {
     required: Array<string>;
 }
 
-export interface AlResponderMRDefinitions {
+export interface AlResponderMRSimpleDefinition {
     name: string;
     display_name: string;
     category: string;
@@ -714,6 +714,15 @@ export interface AlResponderMRDefinitions {
     connection_target_types: string | Array<string>;
     form: Array<{ title: string; controls: Array<AlDynamicFormControlElement> }>;
     description: string;
+}
+
+export interface AlResponderAllowedValues{
+    [key: string]: Array<{ label: string, value: string }>;
+}
+
+export interface AlResponderMRDefinitions {
+    definitions: Array<AlResponderMRSimpleDefinition>;
+    allowed_values: AlResponderAllowedValues;
 }
 
 export interface AlResponderMRDeviceDefinitions {
