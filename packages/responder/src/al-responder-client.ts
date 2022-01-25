@@ -1305,9 +1305,9 @@ export class AlResponderClientInstance {
      * /v1/{accoutId}/definitions/mr_configs
      * https://responder.mdr.global.alertlogic.com
      * @param accountId {string} AIMS Account ID
-     * @returns {Promise<AlResponderMRDefinitions[]>}
+     * @returns {Promise<AlResponderMRDefinitions>}
      */
-    async getMRConfigDefinitions(accountId: string): Promise<AlResponderMRDefinitions[]> {
+    async getMRConfigDefinitions(accountId: string): Promise<AlResponderMRDefinitions> {
         return this.client.get({
             version: this.serviceVersion,
             service_stack: this.serviceStack,
