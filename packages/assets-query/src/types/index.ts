@@ -138,6 +138,7 @@ export interface ExposuresDeploymentSummary {
 }
 export interface ExposureQueryParams {
     details?: boolean;
+    basic_details?: boolean;
     filter?: string | string[];
     group?: 'exposure' | 'remediation' | 'asset';
     include_exposures?: boolean;
