@@ -9,6 +9,7 @@ export class SourceType {
     public static readonly ASSOCLOGMEG = 'application/x-alpacket-megmsgs';
     public static readonly LOGREVIEWATTACHMENT = 'Attachment';
     public static readonly LOGREVIEWATTACHMENTFLAGGED = 'FlaggedEvidence';
+    public static readonly ASSOCIDS = 'application/x-alpacket-idsmsgs';
 
 
     /**
@@ -31,6 +32,8 @@ export class SourceType {
                 return "GuardDuty findings";
             case "application/al-lr-case-evidence":
                 return "Attachments";
+            case "application/x-alpacket-idsmsgs":
+                    return "Event";
             default:
                 console.warn("Please notify the ui team that we have a new content type", type);
                 return type;
@@ -55,6 +58,8 @@ export class SourceType {
                 return "associated log";
             case "guardduty":
                 return "guardduty";
+            case "application/x-alpacket-idsmsgs":
+                    return "associated event";
             default:
                 console.warn("Please notify the ui team that we have a new content type", type);
                 return type;
