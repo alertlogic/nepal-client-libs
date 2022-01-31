@@ -1311,6 +1311,7 @@ export class AlResponderClientInstance {
     async getMRConfigDefinitions(accountId: string): Promise<AlResponderMRDefinitions> {
         return this.client.get({
             version: this.serviceVersion,
+            target_endpoint: this.targetEndpoint,
             service_stack: this.serviceStack,
             account_id: accountId,
             path: `/definitions/mr_configs`
@@ -1329,6 +1330,7 @@ export class AlResponderClientInstance {
         return this.client.get({
             version: this.serviceVersion,
             service_stack: this.serviceStack,
+            target_endpoint: this.targetEndpoint,
             account_id: accountId,
             path: `/mr_configs/dry_runs`
         });
@@ -1368,6 +1370,7 @@ export class AlResponderClientInstance {
     async getMRDryRunById(accountId: string, id: string): Promise<AlResponderMRDryRun> {
         return this.client.get({
             version: this.serviceVersion,
+            target_endpoint: this.targetEndpoint,
             service_stack: this.serviceStack,
             account_id: accountId,
             path: `/mr_configs/dry_runs/${id}`
@@ -1382,6 +1385,7 @@ export class AlResponderClientInstance {
     async getMRDevicesDefinitions(accountId: string): Promise<Array<AlResponderMRDeviceDefinitions>> {
         return this.client.get({
             version: this.serviceVersion,
+            target_endpoint: this.targetEndpoint,
             service_stack: this.serviceStack,
             account_id: accountId,
             path: `/definitions/mr_devices`
