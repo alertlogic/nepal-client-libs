@@ -692,8 +692,15 @@ export interface AlResponderMRGeneric {
     id?: string;
 }
 
+export interface AlResponderMRSummaryList {
+    key: string;
+    title: string;
+    values: Array<{ title: string; value: string; count: number; }>;
+}
+
 export interface AlResponderMRList {
     mr_configs: Array<AlResponderMRGeneric>;
+    summary: Array<AlResponderMRSummaryList>;
 }
 
 export interface AlResponderMRSchemaDefinition {
