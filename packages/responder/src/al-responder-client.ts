@@ -1206,12 +1206,13 @@ export class AlResponderClientInstance {
      * @param accountId {string} AIMS Account ID
      * @return {Promise<AlResponderMRList>}
      */
-    async getMRConfigList(accountId: string): Promise<AlResponderMRList> {
+    async getMRConfigList(accountId: string, parameters: {[key: string]: string | boolean | number} = {}): Promise<AlResponderMRList> {
         return this.client.get({
             version: this.serviceVersion,
             service_stack: this.serviceStack,
             target_endpoint: this.targetEndpoint,
             account_id: accountId,
+            params: parameters,
             path: `/mr_configs`
         });
     }
