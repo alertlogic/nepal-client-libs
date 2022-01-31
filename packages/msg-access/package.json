@@ -1,6 +1,6 @@
 {
   "name": "@al/msgaccess",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "license": "MIT",
   "description": "A client for interacting with the Alert Logic msg-access Service API",
   "author": {
