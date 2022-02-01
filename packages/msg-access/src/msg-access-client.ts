@@ -103,6 +103,8 @@ export interface AlPayload {
     data: string;
     hex: string;
     ascii: string;
+    ts: number;
+    ts_us: number;
 }
 
 export interface AlIdsMessageFields {
