@@ -1307,4 +1307,20 @@ export class AlIrisClientInstance {
         });
     }
 
+
+    /**
+     * Returns the results of any Search elaborations for an incident
+     * GET
+     * /iris/v3/:accountId/:incidentId/searches
+     * "https://algithub.pd.alertlogic.net/alertlogic/al_iris_py/blob/c7c66bd623962bbc1cb1dab2d8ae20e5606d2018/design/searches/searches.md"
+     */
+    async getSearchElaborations(accountId: string, incidentId: string): Promise<any> {
+        return this.client.get<any>({
+            service_stack: AlLocation.InsightAPI,
+            account_id: accountId,
+            service_name: this.serviceName,
+            version: 'v3',
+            path: `/${incidentId}/searches`,
+        });
+    }
 }
