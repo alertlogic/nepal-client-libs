@@ -755,3 +755,30 @@ export interface AlResponderMRDryRun {
         logs: Array<{ message: string, error: string, timestamp: number, status: string }>;
     };
 }
+
+export interface AlResponderBlockHistory {
+    bk_category: string;
+    incident_id: string;
+    block_key: string;
+    bk_location_type: string;
+    bobj: string;
+    bk_location_id: string;
+    bk_tm_bucket: string;
+    status: string;
+}
+
+export interface AlResponderBlockHistoryList {
+    count: number;
+    blocks: Array<AlResponderBlockHistory>;
+    marker: string;
+    summary: { [key: string]: Array<{ [key: string]: number }> };
+    execution_type: string;
+}
+
+export interface AlResponderBlockHistoryPayload {
+    limit?: number;
+    start_timestamp?: number;
+    end_timestamp?: number;
+    marker?: string;
+    filter?: {[key: string]: Array<string> | string};
+}
