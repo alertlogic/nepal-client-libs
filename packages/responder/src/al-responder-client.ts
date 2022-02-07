@@ -10,6 +10,8 @@ import {
     AlPlaybookRequest,
     AlPlaybookTemplate,
     AlResponderAction,
+    AlResponderBlockHistoryList,
+    AlResponderBlockHistoryPayload,
     AlResponderExecution,
     AlResponderExecutionQueryParams,
     AlResponderExecutionRequest,
@@ -1392,4 +1394,21 @@ export class AlResponderClientInstance {
         });
     }
 
+    /**
+     * Simple mode history
+     * POST
+     * @param accountId {string}
+     * @param payload {AlResponderBlockHistoryPayload}
+     * @returns {Promise<AlResponderBlockHistoryList>}
+     */
+    async getBlockHistory(accountId: string, payload: AlResponderBlockHistoryPayload): Promise<AlResponderBlockHistoryList> {
+        return this.client.post({
+            version: this.serviceVersion,
+            target_endpoint: this.targetEndpoint,
+            service_stack: this.serviceStack,
+            account_id: accountId,
+            data: payload,
+            path: `/blocks/history`
+        });
+    }
 }
