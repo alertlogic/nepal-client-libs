@@ -2,6 +2,7 @@ import { AlGlobalizer } from '@al/core';
 import { ConvergenceUtilityClientInstance } from './convergence-utility-client';
 
 export * from './convergence-utility-client';
+export * from './types';
 
 /**
  * Nothing is complete without at least two aliases
