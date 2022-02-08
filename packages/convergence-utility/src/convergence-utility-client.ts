@@ -4,18 +4,61 @@ import {
     AlLocation
 } from '@al/core';
 
-import { CollectionFilters, LookedUpUsers } from './types';
+import { CollectionFiltersResponse, CollectionResponse, CollectionSource, LookedUpUsersResponse } from './types';
 
 export class ConvergenceUtilityClientInstance {
 
-    private readonly serviceName:string = 'convergence';
-    private readonly serviceVersion:string = 'v2';
-    private readonly serviceStack:string = AlLocation.LegacyUI;
+    private readonly serviceName: string = 'convergence';
+    private readonly serviceVersion: string = 'v2';
+    private readonly serviceStack: string = AlLocation.LegacyUI;
 
     public constructor(public client: AlApiClient = AlDefaultClient) {
     }
 
-    public async addToCase(accountId: string, data: {id: string, type: string}): Promise<any> {
+    public async deleteCollectionSource(
+        accountId: string,
+        deploymentId: string,
+        collectionId: string,
+        entityType: string = 'collection'): Promise<void> {
+        return this.client.delete({
+            service_stack: this.serviceStack,
+            service_name: this.serviceName,
+            version: this.serviceVersion,
+            account_id: accountId,
+            path: `/deployments/${deploymentId}/${entityType}/${collectionId}`
+        });
+    }
+
+    public async getCollectionSource(
+        accountId: string,
+        deploymentId: string,
+        collectionId: string,
+        entityType: string = 'collection'): Promise<CollectionSource> {
+        return this.client.get({
+            service_stack: this.serviceStack,
+            service_name: this.serviceName,
+            version: this.serviceVersion,
+            account_id: accountId,
+            path: `/deployments/${deploymentId}/${entityType}/${collectionId}`
+        });
+    }
+
+    public async listCollectionSources(
+        accountId: string,
+        deploymentId: string,
+        params: { [i: string]: string | number | boolean },
+        entityType: string = 'collection'): Promise<CollectionResponse> {
+        return this.client.get({
+            params,
+            service_stack: this.serviceStack,
+            service_name: this.serviceName,
+            version: this.serviceVersion,
+            account_id: accountId,
+            path: `/deployments/${deploymentId}/${entityType}`
+        });
+    }
+
+    public async addToCase(accountId: string, data: { id: string, type: string }): Promise<any> {
         return this.client.post({
             data,
             service_stack: this.serviceStack,
@@ -26,8 +69,8 @@ export class ConvergenceUtilityClientInstance {
         });
     }
 
-    public async getFiltersByEntityType(accountId: string, entityType: string): Promise<CollectionFilters> {
-        return this.client.get<CollectionFilters>({
+    public async getFiltersByEntityType(accountId: string, entityType: string): Promise<CollectionFiltersResponse> {
+        return this.client.get<CollectionFiltersResponse>({
             service_stack: this.serviceStack,
             service_name: this.serviceName,
             version: this.serviceVersion,
@@ -36,9 +79,9 @@ export class ConvergenceUtilityClientInstance {
         });
     }
 
-    public async lookUpUsers(accountId: string, userIds: string[]): Promise<LookedUpUsers> {
+    public async lookUpUsers(accountId: string, userIds: string[]): Promise<LookedUpUsersResponse> {
         const users: string = userIds.join(',');
-        return this.client.get<LookedUpUsers>({
+        return this.client.get<LookedUpUsersResponse>({
             service_stack: this.serviceStack,
             service_name: this.serviceName,
             version: this.serviceVersion,
@@ -48,7 +91,7 @@ export class ConvergenceUtilityClientInstance {
         });
     }
 
-    public async getDownloads( accountId:string, product:string ): Promise<any> {
+    public async getDownloads(accountId: string, product: string): Promise<any> {
         return this.client.get<any>({
             service_stack: this.serviceStack,
             service_name: this.serviceName,
@@ -57,7 +100,7 @@ export class ConvergenceUtilityClientInstance {
         });
     }
 
-    public async getApiKey( accountId:string ): Promise<any> {
+    public async getApiKey(accountId: string): Promise<any> {
         return this.client.get<any>({
             service_stack: this.serviceStack,
             service_name: this.serviceName,
