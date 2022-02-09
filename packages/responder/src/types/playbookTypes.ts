@@ -692,7 +692,7 @@ export interface AlResponderMRGeneric {
     id?: string;
 }
 
-export interface AlResponderMRSummaryList {
+export interface AlResponderGenericSummary {
     key: string;
     title: string;
     values: Array<{ title: string; value: string; count: number; }>;
@@ -700,7 +700,7 @@ export interface AlResponderMRSummaryList {
 
 export interface AlResponderMRList {
     mr_configs: Array<AlResponderMRGeneric>;
-    summary: Array<AlResponderMRSummaryList>;
+    summary: Array<AlResponderGenericSummary>;
 }
 
 export interface AlResponderMRSchemaDefinition {
