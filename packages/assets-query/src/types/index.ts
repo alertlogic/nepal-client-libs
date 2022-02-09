@@ -361,6 +361,7 @@ export interface AssetQueryResultItem {
     declared?: boolean;
     deleted_on?: number;
     deployment_id?: string;
+    deployment_type?: string;
     description?: string;
     group_id?: string;
     group_name?: string;
