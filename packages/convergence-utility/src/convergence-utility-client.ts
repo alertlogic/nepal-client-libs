@@ -4,7 +4,7 @@ import {
     AlLocation
 } from '@al/core';
 
-import { CollectionFiltersResponse, CollectionResponse, CollectionSource, LookedUpUsersResponse } from './types';
+import { CloudExplorerAwsRegionRecord, CollectionFiltersResponse, CollectionResponse, CollectionSource, LookedUpUsersResponse } from './types';
 
 export class ConvergenceUtilityClientInstance {
 
@@ -13,6 +13,16 @@ export class ConvergenceUtilityClientInstance {
     private readonly serviceStack: string = AlLocation.LegacyUI;
 
     public constructor(public client: AlApiClient = AlDefaultClient) {
+    }
+
+    public async getCloudExplorerAwsRegions(accountId: string): Promise<CloudExplorerAwsRegionRecord[]> {
+        return this.client.get({
+            service_stack: this.serviceStack,
+            service_name: this.serviceName,
+            version: this.serviceVersion,
+            account_id: accountId,
+            path: `/cloud-explorer/regions`
+        });
     }
 
     public async deleteCollectionSource(
