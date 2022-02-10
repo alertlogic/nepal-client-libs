@@ -15,6 +15,38 @@ export class ConvergenceUtilityClientInstance {
     public constructor(public client: AlApiClient = AlDefaultClient) {
     }
 
+    public async createCollection(
+        accountId: string,
+        deploymentId: string,
+        data: any,
+        entityType: string = 'collection'
+    ): Promise<CollectionResponse> {
+        return this.client.post({
+            data,
+            service_stack: this.serviceStack,
+            service_name: this.serviceName,
+            version: this.serviceVersion,
+            account_id: accountId,
+            path: `/deployments/${deploymentId}/${entityType}`
+        });
+    }
+
+    public async updateCollection(
+        accountId: string,
+        deploymentId: string,
+        collectionId: string,
+        data: any,
+        entityType: string = 'collection'): Promise<CollectionResponse> {
+        return this.client.put({
+            data,
+            service_stack: this.serviceStack,
+            service_name: this.serviceName,
+            version: this.serviceVersion,
+            account_id: accountId,
+            path: `/deployments/${deploymentId}/${entityType}/${collectionId}`
+        });
+    }
+
     public async getCloudExplorerAwsRegions(accountId: string): Promise<CloudExplorerAwsRegionRecord[]> {
         return this.client.get({
             service_stack: this.serviceStack,
