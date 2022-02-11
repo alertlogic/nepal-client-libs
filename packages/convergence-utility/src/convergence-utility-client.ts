@@ -4,7 +4,15 @@ import {
     AlLocation
 } from '@al/core';
 
-import { CloudExplorerAwsRegionRecord, CollectionFiltersResponse, CollectionResponse, CollectionSource, LookedUpUsersResponse } from './types';
+import {
+    CloudExplorerAwsRegionRecord,
+    CollectionFiltersResponse,
+    CollectionPolicy,
+    CollectionsGenericResponse,
+    CollectionSource,
+    LookedUpUsersResponse,
+    PolicyType
+} from './types';
 
 export class ConvergenceUtilityClientInstance {
 
@@ -15,12 +23,138 @@ export class ConvergenceUtilityClientInstance {
     public constructor(public client: AlApiClient = AlDefaultClient) {
     }
 
+    public async listHosts(
+        accountId: string,
+        deploymentId: string,
+        productType: string,
+        params: { [i: string]: string | number | boolean },
+        action?: 'massedit' | 'deleted'): Promise<CollectionsGenericResponse> {
+        if (productType === "lm") {
+            productType = "lmhosts";
+        } else if (productType === "tm") {
+            productType = "tmhosts";
+        }
+        if (action) {
+            productType += "_" + action;
+        }
+        return this.client.get({
+            params,
+            service_stack: this.serviceStack,
+            service_name: this.serviceName,
+            version: this.serviceVersion,
+            account_id: accountId,
+            path: `/datacenter/deployments/${deploymentId}/${productType}`
+        });
+    }
+
+    public async listCredentials(
+        accountId: string,
+        params: { [i: string]: string | number | boolean }): Promise<CollectionsGenericResponse> {
+        return this.client.get({
+            params,
+            service_stack: this.serviceStack,
+            service_name: this.serviceName,
+            version: this.serviceVersion,
+            account_id: accountId,
+            path: `/credentials`
+        });
+    }
+
+    public async listAlertRules(
+        accountId: string,
+        productType: string,
+        params: { [i: string]: string | number | boolean }
+    ): Promise<CollectionsGenericResponse> {
+        if (productType === "log-collection") {
+            productType = "lm_collection";
+        } else if (productType === "intrusion-detection") {
+            productType = "tm_collection";
+        }
+        return this.client.get({
+            params,
+            service_stack: this.serviceStack,
+            service_name: this.serviceName,
+            version: this.serviceVersion,
+            account_id: accountId,
+            path: `/alertrules/${productType}`
+        });
+    }
+
+    public async getOnePolicy(
+        accountId: string,
+        policyType: PolicyType,
+        policyId: string): Promise<CollectionPolicy> {
+        return this.client.get({
+            service_stack: this.serviceStack,
+            service_name: this.serviceName,
+            version: this.serviceVersion,
+            account_id: accountId,
+            path: `/policies/${policyType}/${policyId}`
+        });
+    }
+
+    public async listPolicies(
+        accountId: string,
+        policyType: PolicyType,
+        params: { [i: string]: string | number | boolean }): Promise<CollectionsGenericResponse> {
+        return this.client.get({
+            params,
+            service_stack: this.serviceStack,
+            service_name: this.serviceName,
+            version: this.serviceVersion,
+            account_id: accountId,
+            path: `/policies/${policyType}`
+        });
+    }
+
+    public async updateCollector(
+        accountId: string,
+        deploymentId: string,
+        collectorId: string,
+        data: any): Promise<CollectionSource> {
+        return this.client.put({
+            data,
+            service_stack: this.serviceStack,
+            service_name: this.serviceName,
+            version: this.serviceVersion,
+            account_id: accountId,
+            path: `/deployments/${deploymentId}/collectors/${collectorId}`
+        });
+    }
+
+    public async getOneCollector(
+        accountId: string,
+        deploymentId: string,
+        collectorId: string): Promise<CollectionSource> {
+        return this.client.get({
+            service_stack: this.serviceStack,
+            service_name: this.serviceName,
+            version: this.serviceVersion,
+            account_id: accountId,
+            path: `/deployments/${deploymentId}/collectors/${collectorId}`
+        });
+    }
+
+    public async listCollectors(
+        accountId: string,
+        deploymentId: string,
+        params: { [i: string]: number | string | boolean }): Promise<CollectionsGenericResponse> {
+        return this.client.get({
+            params,
+            service_stack: this.serviceStack,
+            service_name: this.serviceName,
+            version: this.serviceVersion,
+            account_id: accountId,
+            path: `/deployments/${deploymentId}/collectors`
+        });
+    }
+
     public async createCollection(
         accountId: string,
         deploymentId: string,
         data: any,
         entityType: string = 'collection'
-    ): Promise<CollectionResponse> {
+    ): Promise<CollectionsGenericResponse> {
         return this.client.post({
             data,
             service_stack: this.serviceStack,
@@ -36,7 +170,7 @@ export class ConvergenceUtilityClientInstance {
         deploymentId: string,
         collectionId: string,
         data: any,
-        entityType: string = 'collection'): Promise<CollectionResponse> {
+        entityType: string = 'collection'): Promise<CollectionsGenericResponse> {
         return this.client.put({
             data,
             service_stack: this.serviceStack,
@@ -89,7 +223,7 @@ export class ConvergenceUtilityClientInstance {
         accountId: string,
         deploymentId: string,
         params: { [i: string]: string | number | boolean },
-        entityType: string = 'collection'): Promise<CollectionResponse> {
+        entityType: string = 'collection'): Promise<CollectionsGenericResponse> {
         return this.client.get({
             params,
             service_stack: this.serviceStack,
