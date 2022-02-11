@@ -9,6 +9,11 @@ export type CollectionFilterValue = ICollectionFilterValue | string;
 
 export type CollectionSourceMetadata = {[i: string]: string};
 
+export interface CloudExplorerAwsRegionRecord {
+    id: string;
+    name: string;
+}
+
 export interface CollectionResponse {
     sources: CollectionSource[];
     total_count?: number;
@@ -26,8 +31,8 @@ export interface CollectionSourceValue {
     modified?: AlChangeStamp;
     customer?: { id: string };
     enabled?: boolean;
-    host?: {id: string};
-    appliance?: any[];
+    host?: {id: string, ip_address?: string};
+    appliance?: any;
     id?: string;
     name?: string;
     product_type?: string;
@@ -36,6 +41,7 @@ export interface CollectionSourceValue {
     tags?: {name: string}[];
     type?: string;
     metadata?: CollectionSourceMetadata;
+    assignmentPolicy?: {id: string};
 }
 
 export interface CollectionSourceStatus {

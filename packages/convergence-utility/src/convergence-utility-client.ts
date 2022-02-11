@@ -4,7 +4,7 @@ import {
     AlLocation
 } from '@al/core';
 
-import { CollectionFiltersResponse, CollectionResponse, CollectionSource, LookedUpUsersResponse } from './types';
+import { CloudExplorerAwsRegionRecord, CollectionFiltersResponse, CollectionResponse, CollectionSource, LookedUpUsersResponse } from './types';
 
 export class ConvergenceUtilityClientInstance {
 
@@ -13,6 +13,48 @@ export class ConvergenceUtilityClientInstance {
     private readonly serviceStack: string = AlLocation.LegacyUI;
 
     public constructor(public client: AlApiClient = AlDefaultClient) {
+    }
+
+    public async createCollection(
+        accountId: string,
+        deploymentId: string,
+        data: any,
+        entityType: string = 'collection'
+    ): Promise<CollectionResponse> {
+        return this.client.post({
+            data,
+            service_stack: this.serviceStack,
+            service_name: this.serviceName,
+            version: this.serviceVersion,
+            account_id: accountId,
+            path: `/deployments/${deploymentId}/${entityType}`
+        });
+    }
+
+    public async updateCollection(
+        accountId: string,
+        deploymentId: string,
+        collectionId: string,
+        data: any,
+        entityType: string = 'collection'): Promise<CollectionResponse> {
+        return this.client.put({
+            data,
+            service_stack: this.serviceStack,
+            service_name: this.serviceName,
+            version: this.serviceVersion,
+            account_id: accountId,
+            path: `/deployments/${deploymentId}/${entityType}/${collectionId}`
+        });
+    }
+
+    public async getCloudExplorerAwsRegions(accountId: string): Promise<CloudExplorerAwsRegionRecord[]> {
+        return this.client.get({
+            service_stack: this.serviceStack,
+            service_name: this.serviceName,
+            version: this.serviceVersion,
+            account_id: accountId,
+            path: `/cloud-explorer/regions`
+        });
     }
 
     public async deleteCollectionSource(
