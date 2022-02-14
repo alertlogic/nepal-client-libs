@@ -1,8 +1,8 @@
 {
-  "name": "@al/msgaccess",
-  "version": "1.0.4",
+  "name": "@al/whois",
+  "version": "1.0.3",
   "license": "MIT",
-  "description": "A client for interacting with the Alert Logic msg-access Service API",
+  "description": "A client for interacting with the Alert Logic whois Service API",
   "author": {
     "name": "Jorge Mario Valencia",
     "email": "jmvalencia@alertlogic.com"
@@ -35,7 +35,7 @@
     "lint": "tslint -p tsconfig.json -c ../../tslint.json",
     "clean": "rm -rf dist node_modules",
     "prepublishOnly": "npm run build",
-    "interactive": "npm run build && node -i -e \"const MsgAccessClient = require('./dist/commonjs/index.js').MsgAccessClient;\""
+    "interactive": "npm run build && node -i -e \"const AlWhoisClient = require('./dist/commonjs/index.js').AlWhoisClient;\""
   },
   "dependencies": {
     "@al/core": "^1.0.173"
