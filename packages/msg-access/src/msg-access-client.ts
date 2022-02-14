@@ -214,8 +214,7 @@ export class AlMsgAccessClientInstance {
             service_name: this.serviceName,
             account_id: accountId,
             path: `/messages/${dataType}`,
-            params: queryParams,
-            headers: { 'Accept': 'application/json' }
+            params: queryParams
         });
     }
 
