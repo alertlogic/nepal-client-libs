@@ -1,6 +1,8 @@
 
 import { AlChangeStamp } from '@al/core';
 
+export type ConvergenceQueryParams =  { [i: string]: string | number | boolean };
+
 export type PolicyType = 'eventlogs' | 's3' | 'flatfile';
 
 export type LookedUpUsersResponse = { users: { [id: string]: UserData } };
@@ -17,7 +19,7 @@ export interface CloudExplorerAwsRegionRecord {
 }
 
 export interface CollectionsGenericResponse {
-    credentials?: CollectionCredential;
+    credentials?: CollectionCredential[];
     policies?: CollectionPolicy[];
     sources?: CollectionSource[];
     collectors?: CollectionSource[];

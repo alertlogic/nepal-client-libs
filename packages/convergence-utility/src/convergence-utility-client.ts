@@ -10,6 +10,7 @@ import {
     CollectionPolicy,
     CollectionsGenericResponse,
     CollectionSource,
+    ConvergenceQueryParams,
     LookedUpUsersResponse,
     PolicyType
 } from './types';
@@ -27,7 +28,7 @@ export class ConvergenceUtilityClientInstance {
         accountId: string,
         deploymentId: string,
         productType: string,
-        params: { [i: string]: string | number | boolean },
+        params: ConvergenceQueryParams,
         action?: 'massedit' | 'deleted'): Promise<CollectionsGenericResponse> {
         if (productType === "lm") {
             productType = "lmhosts";
@@ -49,7 +50,7 @@ export class ConvergenceUtilityClientInstance {
 
     public async listCredentials(
         accountId: string,
-        params: { [i: string]: string | number | boolean }): Promise<CollectionsGenericResponse> {
+        params: ConvergenceQueryParams): Promise<CollectionsGenericResponse> {
         return this.client.get({
             params,
             service_stack: this.serviceStack,
@@ -63,7 +64,7 @@ export class ConvergenceUtilityClientInstance {
     public async listAlertRules(
         accountId: string,
         productType: string,
-        params: { [i: string]: string | number | boolean }
+        params: ConvergenceQueryParams
     ): Promise<CollectionsGenericResponse> {
         if (productType === "log-collection") {
             productType = "lm_collection";
@@ -96,7 +97,7 @@ export class ConvergenceUtilityClientInstance {
     public async listPolicies(
         accountId: string,
         policyType: PolicyType,
-        params: { [i: string]: string | number | boolean }): Promise<CollectionsGenericResponse> {
+        params: ConvergenceQueryParams): Promise<CollectionsGenericResponse> {
         return this.client.get({
             params,
             service_stack: this.serviceStack,
@@ -222,7 +223,7 @@ export class ConvergenceUtilityClientInstance {
     public async listCollectionSources(
         accountId: string,
         deploymentId: string,
-        params: { [i: string]: string | number | boolean },
+        params: ConvergenceQueryParams,
         entityType: string = 'collection'): Promise<CollectionsGenericResponse> {
         return this.client.get({
             params,
