@@ -713,13 +713,11 @@ export interface AlResponderMRSchemaDefinition {
 }
 
 export interface AlResponderMRSimpleDefinition {
-    name: string;
     display_name: string;
     category: string;
     icon: string;
-    schema: AlResponderMRSchemaDefinition;
     connection_target_types: string | Array<string>;
-    form: Array<{ title: string; controls: Array<AlDynamicFormControlElement> }>;
+    type: string;
     description: string;
 }
 
@@ -729,7 +727,6 @@ export interface AlResponderAllowedValues{
 
 export interface AlResponderMRDefinitions {
     definitions: Array<AlResponderMRSimpleDefinition>;
-    allowed_values: AlResponderAllowedValues;
 }
 
 export interface AlResponderMRDeviceDefinitions {
@@ -781,4 +778,9 @@ export interface AlResponderBlockHistoryPayload {
     end_timestamp?: number;
     marker?: string;
     filter?: {[key: string]: Array<string> | string};
+}
+
+export interface AlResponderMRDefinitionDetail {
+    form: Array<{ title: string; controls: Array<AlDynamicFormControlElement> }>;
+    allowed_values: AlResponderAllowedValues;
 }

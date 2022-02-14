@@ -24,6 +24,7 @@ import {
     AlResponderInspectorError,
     AlResponderMRAWSSNS,
     AlResponderMRAWSWAF,
+    AlResponderMRDefinitionDetail,
     AlResponderMRDefinitions,
     AlResponderMRDeviceDefinitions,
     AlResponderMRDryRun,
@@ -1409,6 +1410,25 @@ export class AlResponderClientInstance {
             account_id: accountId,
             data: payload,
             path: `/blocks/history`
+        });
+    }
+
+    /**
+     * GET MR Config definition detail by mr type
+     * GET
+     * /v1/{account_id}/definitions/mr_configs/{mr_type}
+     * https://responder.mdr.global.alertlogic.com
+     * @param accountId {string} AIMS Account ID
+     * @params type {string} mr type
+     * @returns {Promise<AlResponderMRDefinitionDetail>}
+     */
+    async getMRConfigDefinitionDetail(accountId: string, type: string): Promise<AlResponderMRDefinitionDetail> {
+        return this.client.get({
+            version: this.serviceVersion,
+            target_endpoint: this.targetEndpoint,
+            service_stack: this.serviceStack,
+            account_id: accountId,
+            path: `/definitions/mr_configs/${type}`
         });
     }
 }
