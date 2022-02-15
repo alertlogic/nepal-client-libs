@@ -23,7 +23,7 @@ export class AlSercaClientInstance {
     async search(accountId: string, query: string, queryParams?: { [i: string]: unknown }): Promise<SercaSeachResult> {
         const rawData = this.client.post({
             data:query,
-            service_stack: AlLocation.GlobalAPI,
+            service_stack: AlLocation.InsightAPI,
             version: this.serviceVersion,
             service_name: this.serviceName,
             account_id: accountId,
