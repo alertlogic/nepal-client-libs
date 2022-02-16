@@ -137,6 +137,7 @@ export interface ExposuresDeploymentSummary {
     type: string;
 }
 export interface ExposureQueryParams {
+    deployment_id?: string;
     details?: boolean;
     basic_details?: boolean;
     filter?: string | string[];
