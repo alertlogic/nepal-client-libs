@@ -3,7 +3,14 @@ import { AlChangeStamp } from '@al/core';
 
 export type ConvergenceQueryParams =  { [i: string]: string | number | boolean };
 
-export type PolicyType = 'eventlogs' | 's3' | 'flatfile';
+export type PolicyType = 'eventlogs'
+                        | 's3'
+                        | 'flatfile'
+                        | 'assignment'
+                        | 'monitoring'
+                        | 'host'
+                        | 'syslog'
+                        | 'updates';
 
 export type LookedUpUsersResponse = { users: { [id: string]: UserData } };
 
@@ -13,9 +20,16 @@ export type CollectionFilterValue = ICollectionFilterValue | string;
 
 export type CollectionSourceMetadata = { [i: string]: string };
 
+export type ZoneMembershipResponse = { zoneMembership: ApplianceZoneRecord[] };
+
 export interface CloudExplorerAwsRegionRecord {
     id: string;
     name: string;
+}
+
+export interface ApplianceZoneRecord {
+    zone_id?: string;
+    name?: string;
 }
 
 export interface CollectionsGenericResponse {
@@ -24,7 +38,21 @@ export interface CollectionsGenericResponse {
     sources?: CollectionSource[];
     collectors?: CollectionSource[];
     hosts?: CollectionSource[];
+    networks?:  CollectionSource[];
+    history?: CollectionHistory[];
     total_count?: number;
+}
+
+export interface CollectionHistory {
+    details?: { [k:string]: string }[];
+    host_id?: string;
+    inst_type?: string;
+    reported_by?: string;
+    source_id?: string;
+    status?: string;
+    stream?: string;
+    timestamp?: AlChangeStamp;
+    updated?: AlChangeStamp;
 }
 
 export interface CollectionCredential {
@@ -69,6 +97,7 @@ export interface CollectionPolicy {
     flatfile?: FlatFile;
     alert_type?: string;
     target_type?: string;
+    monitoring?: any;
 }
 
 export interface FlatFile {
@@ -135,6 +164,7 @@ export interface CollectionSourceValue {
     metadata?: CollectionSourceMetadata;
     assignmentPolicy?: { id: string };
     update_policy?: any;
+    deployment?: any;
 }
 
 export interface CollectionSourceStatus {
