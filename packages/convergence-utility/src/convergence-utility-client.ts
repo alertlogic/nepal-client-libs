@@ -5,14 +5,17 @@ import {
 } from '@al/core';
 
 import {
+    ApplianceZoneRecord,
     CloudExplorerAwsRegionRecord,
+    CollectionCredential,
     CollectionFiltersResponse,
     CollectionPolicy,
     CollectionsGenericResponse,
     CollectionSource,
     ConvergenceQueryParams,
     LookedUpUsersResponse,
-    PolicyType
+    PolicyType,
+    ZoneMembershipResponse
 } from './types';
 
 export class ConvergenceUtilityClientInstance {
@@ -22,6 +25,96 @@ export class ConvergenceUtilityClientInstance {
     private readonly serviceStack: string = AlLocation.LegacyUI;
 
     public constructor(public client: AlApiClient = AlDefaultClient) {
+    }
+
+    public async listApplianceZones(
+        accountId: string
+    ): Promise<ZoneMembershipResponse> {
+        return this.client.get({
+            service_stack: this.serviceStack,
+            service_name: this.serviceName,
+            version: this.serviceVersion,
+            account_id: accountId,
+            path: `/zonemembership`
+        });
+    }
+
+    public async getOneApplianceZone(// TODO: improve this response object
+        accountId: string,
+        applianceId: string
+    ): Promise<ZoneMembershipResponse> {
+        return this.client.get({
+            service_stack: this.serviceStack,
+            service_name: this.serviceName,
+            version: this.serviceVersion,
+            account_id: accountId,
+            path: `/zonemembership/${applianceId}`
+        });
+    }
+
+    public async listProtectedHosts(
+        accountId: string,
+        deploymentId: string,
+        params: ConvergenceQueryParams): Promise<CollectionsGenericResponse> {
+        return this.client.get({
+            params,
+            service_stack: this.serviceStack,
+            service_name: this.serviceName,
+            version: this.serviceVersion,
+            account_id: accountId,
+            path: `/deloyments/${deploymentId}/protectedhosts`
+        });
+    }
+
+    public async listNetworks(
+        accountId: string,
+        deploymentId: string,
+        params: ConvergenceQueryParams): Promise<CollectionsGenericResponse> {
+        return this.client.get({
+            params,
+            service_stack: this.serviceStack,
+            service_name: this.serviceName,
+            version: this.serviceVersion,
+            account_id: accountId,
+            path: `/deloyments/${deploymentId}/networks`
+        });
+    }
+
+    public async getOneNetwork(
+        accountId: string,
+        deploymentId: string,
+        networkId: string): Promise<CollectionSource> {
+        return this.client.get({
+            service_stack: this.serviceStack,
+            service_name: this.serviceName,
+            version: this.serviceVersion,
+            account_id: accountId,
+            path: `/deloyments/${deploymentId}/networks/${networkId}`
+        });
+    }
+
+    public async getHostHistory(
+        accountId: string,
+        hostId: string,
+        type: 'metadata' | 'status'
+    ): Promise<CollectionsGenericResponse> {
+        return this.client.get({
+            service_stack: this.serviceStack,
+            service_name: this.serviceName,
+            version: this.serviceVersion,
+            account_id: accountId,
+            path: `/history/${type}/${hostId}`
+        });
+    }
+
+    public async getAgentVersion(accountId: string, hostId: string): Promise<{ agentVersion: string }> {
+        return this.client.get({
+            service_stack: this.serviceStack,
+            service_name: this.serviceName,
+            version: this.serviceVersion,
+            account_id: accountId,
+            path: `/utilities/agentversion/${hostId}`
+        });
     }
 
     public async listHosts(
@@ -61,6 +154,18 @@ export class ConvergenceUtilityClientInstance {
         });
     }
 
+    public async getOneCredential(
+        accountId: string,
+        credentialId: string): Promise<CollectionCredential> {
+        return this.client.get({
+            service_stack: this.serviceStack,
+            service_name: this.serviceName,
+            version: this.serviceVersion,
+            account_id: accountId,
+            path: `/credentials/${credentialId}`
+        });
+    }
+
     public async listAlertRules(
         accountId: string,
         productType: string,
@@ -85,13 +190,14 @@ export class ConvergenceUtilityClientInstance {
         accountId: string,
         policyType: PolicyType,
         policyId: string): Promise<CollectionPolicy> {
-        return this.client.get({
+        const raw = await this.client.get({
             service_stack: this.serviceStack,
             service_name: this.serviceName,
             version: this.serviceVersion,
             account_id: accountId,
             path: `/policies/${policyType}/${policyId}`
         });
+        return raw?.policy ?? raw;
     }
 
     public async listPolicies(
