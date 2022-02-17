@@ -166,6 +166,7 @@ export interface AlAdditionalSubmitParams {
     start?: number;
     end?: number;
     timeframe?: number;
+    child_accounts?: string|string[];
 }
 
 // Grammar related interfaces
