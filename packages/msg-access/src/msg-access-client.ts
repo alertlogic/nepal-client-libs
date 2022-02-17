@@ -108,6 +108,7 @@ export interface AlPayload {
 }
 
 export interface AlIdsMessageFields {
+    asset: AlAsset;
     vlan?: number;
     ts_us: number;
     ts: number;
@@ -134,7 +135,7 @@ export interface AlIdsMessageFields {
 }
 
 export interface AlAsset {
-    dict: object;
+    dict: { [key: string]: unknown };
     data: string;
     asset_id: string;
 }
