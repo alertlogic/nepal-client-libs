@@ -42,14 +42,15 @@ export class ConvergenceUtilityClientInstance {
     public async getOneApplianceZone(// TODO: improve this response object
         accountId: string,
         applianceId: string
-    ): Promise<ZoneMembershipResponse> {
-        return this.client.get({
+    ): Promise<ApplianceZoneRecord> {
+        const raw = await this.client.get({
             service_stack: this.serviceStack,
             service_name: this.serviceName,
             version: this.serviceVersion,
             account_id: accountId,
             path: `/zonemembership/${applianceId}`
         });
+        return Array.isArray(raw?.zoneMembership) ? raw.zoneMembership[0] : raw?.zoneMembership;
     }
 
     public async listProtectedHosts(
