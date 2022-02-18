@@ -5,6 +5,8 @@ import {
     AlDefaultClient
 } from '@al/core';
 
+// Type to handle data types as an explicit one
+export type AlMessageDataType = 'logmsgs'|'observation'|'idsmsgs'|'fimdata';
 
 export interface AlMessageDetailsMetaData {
     qingest_id: string;
@@ -207,7 +209,7 @@ export class AlMsgAccessClientInstance {
      * Read Messages
      * Read a set of messages from storage by ID. Proxy for daccess service messages API. Only addition is logmsgs data type messages are also parsed and tokenised
      */
-    async readMessagesGET(accountId: string, dataType: string = 'logmsgs', queryParams: { ids: string, fields?: string, return_type?: string }): Promise<AlReadMessageDetailsResponse[]> {
+    async readMessagesGET(accountId: string, dataType: AlMessageDataType = 'logmsgs', queryParams: { ids: string, fields?: string, return_type?: string }): Promise<AlReadMessageDetailsResponse[]> {
         // Let's set up default query params in case they are not present (optional)
         Object.assign(queryParams, this.setOptionalParams(queryParams));
 
@@ -223,7 +225,7 @@ export class AlMsgAccessClientInstance {
      * Read Messages POST
      * Read a set of messages from storage by ID. Proxy for daccess service messages API. Only addition is logmsgs data type messages are also parsed and tokenised
      */
-    async readMessagesPOST(accountId: string, dataType: string = 'logmsgs', params: { ids: string[], fields?: string, return_type?: string }): Promise<AlReadMessageDetailsResponse[]> {
+    async readMessagesPOST(accountId: string, dataType: AlMessageDataType = 'logmsgs', params: { ids: string[], fields?: string, return_type?: string }): Promise<AlReadMessageDetailsResponse[]> {
         // Let's set up default data params in case they are not present (optional)
         Object.assign(params, this.setOptionalParams(params));
 
