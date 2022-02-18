@@ -150,21 +150,34 @@ export interface CollectionSourceValue {
     config?: CollectionSourceConfig;
     created?: AlChangeStamp;
     modified?: AlChangeStamp;
-    customer?: { id: string };
+    customer?: {
+        id: string;
+    };
     enabled?: boolean;
-    host?: { id: string, ip_address?: string };
+    host?: {
+        id: string;
+        ip_address?: string;
+    };
     appliance?: any;
     id?: string;
     name?: string;
     product_type?: string;
-    stats?: { [k: string]: number };
+    stats?: {
+        [k: string]: number;
+    };
     status?: CollectionSourceStatus;
-    tags?: { name: string }[];
+    tags?: {
+        name: string;
+    }[];
     type?: string;
     metadata?: CollectionSourceMetadata;
-    assignmentPolicy?: { id: string };
+    assignmentPolicy?: {
+        id: string;
+    };
     update_policy?: any;
     deployment?: any;
+    monitoring?: any;
+    timestamp?: AlChangeStamp;
 }
 
 export interface CollectionSourceStatus {
@@ -182,7 +195,10 @@ export interface CollectionSourceConfig {
         name: string
     };
     time_zone?: string;
-    [property: string]: any;
+    max_collection_interval?: string;
+    s3aws?: any;
+    s3?: any;
+    tmappliance?: any;
 }
 
 export interface UserData {
