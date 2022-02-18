@@ -7,6 +7,8 @@ import {
     APIRequestParams,
 } from "@al/core";
 
+import { AlMessageDataType } from '@al/msgaccess';
+
 export interface AlSearchSubmitV2 {
     update_ts: number;
     status_details: string;
@@ -96,7 +98,7 @@ export interface AlSearchResultRecordIdV2 {
     account: number;
     aid: number;
     msgid: string;
-    datatype: string;
+    datatype: AlMessageDataType;
 }
 
 export interface AlSearchResultsQueryParamsV2 {
