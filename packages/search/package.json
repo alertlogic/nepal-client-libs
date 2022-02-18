@@ -1,6 +1,6 @@
 {
   "name": "@al/search",
-  "version": "2.0.3",
+  "version": "2.0.4",
   "license": "MIT",
   "description": "A client library for interacting with the Search API",
   "author": {
@@ -33,7 +33,8 @@
     "prepublishOnly": "npm run build"
   },
   "dependencies": {
-    "@al/core": "^1.0.173"
+    "@al/core": "^1.0.173",
+    "@al/msgaccess": "^1.0.6"
   },
   "files": [
     "dist"
