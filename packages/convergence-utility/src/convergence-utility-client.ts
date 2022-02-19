@@ -167,6 +167,19 @@ export class ConvergenceUtilityClientInstance {
         });
     }
 
+    public async deleteOneCredential(
+        accountId: string,
+        credentialId: string
+    ): Promise<void> {
+        return this.client.delete({
+            service_stack: this.serviceStack,
+            service_name: this.serviceName,
+            version: this.serviceVersion,
+            account_id: accountId,
+            path: `/credentials/${credentialId}`
+        });
+    }
+
     public async listAlertRules(
         accountId: string,
         productType: string,

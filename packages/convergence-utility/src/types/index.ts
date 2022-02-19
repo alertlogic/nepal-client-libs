@@ -189,10 +189,26 @@ export interface CollectionSourceStatus {
 
 export interface CollectionSourceConfig {
     collection_method?: string;
+    template_id?: string;
     collection_type?: string;
     policy?: {
-        id: string | null,
-        name: string
+        id?: string,
+        name?: string
+    };
+    azure_events?: {
+        credential?: any,
+        filters?: any[],
+        subscription_id?: string
+    };
+    azure_table?: {
+        table_name?: string,
+        credential?: any
+    };
+    azure_blob?: {
+        app_service_name?: string,
+        credential?: any,
+        config_type?: string,
+        container?: string
     };
     time_zone?: string;
     max_collection_interval?: string;
