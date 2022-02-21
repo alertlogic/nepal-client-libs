@@ -117,13 +117,13 @@ export class AlScanSchedulerClientInstanceV2 {
      *  This API always returns 200 OK status and provides the results of validation using two arrays with respective status (valid/invalid).
      *  IP Addresses that are present in the valid list can be subsequently used as applicable ScanScopeItems.
      */
-    async validateIp(accountId: string, deploymentId: string, ips: string[]): Promise<AlIPValidationResult> {
+    async validateIp(accountId: string, deploymentId: string, ips: string[], typeOfScan:AlScanSchedule.TypeOfScanEnum='vulnerability'): Promise<AlIPValidationResult> {
         return AlDefaultClient.post({
             service_stack: AlLocation.InsightAPI,
             service_name: this.serviceName,
             version:      2,
             account_id:   accountId,
-            path:         `/${deploymentId}/ip_validator`,
+            path:         `/${deploymentId}/ip_validator/${typeOfScan}`,
             data:         ips
         });
     }
