@@ -93,19 +93,21 @@ export interface AlScanSchedule {
     modified?: AlAuditObject;
 }
 export namespace AlScanSchedule {
-    export type TypeOfScanEnum = 'vulnerability' | 'external' | 'discovery';
+    export type TypeOfScanEnum = 'vulnerability' | 'external' | 'discovery' | 'abs';
     export const typeOfScanEnum = {
         Vulnerability: 'vulnerability' as TypeOfScanEnum,
         External: 'external' as TypeOfScanEnum,
-        Discovery: 'discovery' as TypeOfScanEnum
+        Discovery: 'discovery' as TypeOfScanEnum,
+        Abs: 'abs' as TypeOfScanEnum,
     };
-    export type ScanFrequencyEnum = 'automatic' | 'daily' | 'weekly' | 'monthly' | 'quarterly' | 'once';
+    export type ScanFrequencyEnum = 'automatic' | 'daily' | 'weekly' | 'fortnightly' | 'monthly' | 'quarterly' | 'once';
     export const scanFrequencyEnum = {
         Automatic: 'automatic' as ScanFrequencyEnum,
         Daily: 'daily' as ScanFrequencyEnum,
         Weekly: 'weekly' as ScanFrequencyEnum,
+        Fortnightly: 'fortnightly' as ScanFrequencyEnum,
         Monthly: 'monthly' as ScanFrequencyEnum,
         Quarterly: 'quarterly' as ScanFrequencyEnum,
-        Once: 'once' as ScanFrequencyEnum
+        Once: 'once' as ScanFrequencyEnum,
     };
 }
