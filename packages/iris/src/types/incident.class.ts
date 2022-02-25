@@ -120,7 +120,7 @@ interface IncidentProperties {
     threatRating?: string;
 }
 
-interface Properties {
+export interface Properties {
     action?: string;
     anonymous?: boolean;
     asn_org?: string;
@@ -131,10 +131,7 @@ interface Properties {
     geographic_data?: {
         title?: string;
         data_types?: Array<{color?: string, display?:string, name?: string, shape?: string }>;
-        markers?: {
-            baseline?: Array<{coords?: Array<number>, text?: string}>;
-            outlier?: Array<{coords?: Array<number>, text?: string}>;
-        };
+        markers?: { [key:string]: Array<{coords?: Array<number>, text?: string}>; };
     }
     hosting?: boolean;
     human_time?: string;
