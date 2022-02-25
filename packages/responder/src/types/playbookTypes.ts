@@ -690,6 +690,7 @@ export interface AlResponderMRGeneric {
     enabled?: boolean;
     ttl_sec?: string;
     id?: string;
+    exclusion_list?: Array<string>;
 }
 
 export interface AlResponderGenericSummary {
