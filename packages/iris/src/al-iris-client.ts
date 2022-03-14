@@ -630,6 +630,7 @@ export class AlIrisClientInstance {
         return this.client.get<any[]>({
             service_stack: AlLocation.InsightAPI,
             service_name: this.serviceName,
+            residency: 'us',
             version: 'v3',
             account_id: accountId,
             path: `nested/${incidentId}`,
