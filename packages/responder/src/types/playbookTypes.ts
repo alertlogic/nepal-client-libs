@@ -785,3 +785,20 @@ export interface AlResponderMRDefinitionDetail {
     form: Array<{ title: string; controls: Array<AlDynamicFormControlElement> }>;
     allowed_values: AlResponderAllowedValues;
 }
+
+export interface AlResponderManageBlockStatusRequest {
+    requests: Array<AlManageBlockStatus>;
+}
+
+export interface AlManageBlockStatus {
+    bobjs?: Array<string>;
+    block_key: string;
+    intent: AlBlockIntent;
+}
+
+export const enum AlBlockIntent {
+    BlockSoft = "block_soft",
+    UnblockSoft = "unblock_soft",
+    BlockForce = "block_force",
+    UnblockForce = "unblock_force"
+}

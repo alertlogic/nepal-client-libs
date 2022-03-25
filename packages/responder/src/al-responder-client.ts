@@ -22,6 +22,7 @@ import {
     AlResponderInquiries,
     AlResponderInquiry,
     AlResponderInspectorError,
+    AlResponderManageBlockStatusRequest,
     AlResponderMRAWSSNS,
     AlResponderMRAWSWAF,
     AlResponderMRDefinitionDetail,
@@ -1429,6 +1430,24 @@ export class AlResponderClientInstance {
             service_stack: this.serviceStack,
             account_id: accountId,
             path: `/definitions/mr_configs/${type}`
+        });
+    }
+
+    /**
+     * Manage Block Status
+     * POST
+     * @param accountId {string}
+     * @param payload {AlResponderManageBlockStatusRequest}
+     * @returns {Promise<string>}
+     */
+    async manageBlockStatus(accountId: string, payload: AlResponderManageBlockStatusRequest): Promise<string> {
+        return this.client.post({
+            version: this.serviceVersion,
+            target_endpoint: this.targetEndpoint,
+            service_stack: this.serviceStack,
+            account_id: accountId,
+            data: payload,
+            path: `/blocks/manage`
         });
     }
 }
