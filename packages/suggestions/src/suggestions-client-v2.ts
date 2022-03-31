@@ -266,13 +266,20 @@ export class AlSuggestionsClientInstanceV2 {
      */
     public async enumerateValues( accountId:string,
                                   dataType:string,
-                                  field:string ):Promise<string[]> {
+                                  field:string,
+                                  isCrossCid: boolean = false ):Promise<string[]> {
+
+        let path: string = `/enumeration/${dataType}/values/${field}`;
+        // Let's set the cross account values check if required
+        if (isCrossCid) {
+            path += '?cross_cid=true';
+        }
         let request = {
             account_id: accountId,
             service_stack: AlLocation.InsightAPI,
             service_name: this.serviceName,
             version: this.serviceVersion,
-            path: `/enumeration/${dataType}/values/${field}`
+            path: path
         };
         return this.client.get( request )
                     .then( response => `values` in response ? response.values : [] );
