@@ -110,5 +110,6 @@ export interface AlEnumeratedFieldV2 {
     description: string;
     has_fields: boolean;
     has_values: boolean;
+    has_cross_cid_values: boolean;
     type?: string|{[array:string]:string};
 }
