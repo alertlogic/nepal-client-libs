@@ -297,6 +297,7 @@ export interface AlResponderExecutionQueryParams{
         parent_execution_id ?: string;
         native_id ?: string;
         deployment_id ?: string | string[];
+        response ?: string | string[];
     };
     aggregations ?: AlResponderExecutionAggregationQueryParams[];
 }
