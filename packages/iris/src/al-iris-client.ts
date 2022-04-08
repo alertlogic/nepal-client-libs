@@ -1332,8 +1332,8 @@ export class AlIrisClientInstance {
      * Allows for bulk state update operations to be performed against multiple account Ids to their respective default IRIS residency locations
      */
      async massAcknowledgeIncidents(
-         incidents: {accountId:number, incidentId:string, state:string}[],
-         newState: { [s: string]: string }
+         incidents: { accountId: number, incidentId: string, state: string }[],
+         newState: { "incidentState": string, "assignedOperatorId": string },
      ): Promise<any[]> {
         const resolveDefaultEndpointsRequests = [];
         const massAcknowledgeIncidentsRequests = [];
