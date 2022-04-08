@@ -7,7 +7,9 @@ import {
     AlResponseValidationError,
     AlLocation,
     APIRequestParams,
+    AlLocatorService,
 } from '@al/core';
+
 import {
     AlIncidentFilterDictionary,
     ConstantDefinition,
@@ -46,6 +48,7 @@ export class AlIrisClientInstance {
     ];
     public defaultContentType: string[] = ['guardduty'];
     private serviceName = 'iris';
+    private accountDefaultEndpoints = {};
 
     /* istanbul ignore next */
     constructor(public client: AlApiClient = AlDefaultClient) {
@@ -1322,5 +1325,41 @@ export class AlIrisClientInstance {
             version: 'v3',
             path: `/${incidentId}/searches`,
         });
+    }
+
+     /**
+     * For HudUI usage specifically
+     * Allows for bulk state update operations to be performed against multiple account Ids to their respective default IRIS residency locations
+     */
+    async massAcknowledgeIncidents(accountIds: string[], payload: any): Promise<any[]> {
+        const resolveDefaultEndpointsRequests = [];
+        const massAcknowledgeIncidentsRequests = [];
+        const environment = AlLocatorService.getCurrentEnvironment();
+        // First go resolve the default IRIS service locations for each accountId supplied
+        accountIds.forEach(accountId => {
+            if(!this.accountDefaultEndpoints[accountId]) {
+            resolveDefaultEndpointsRequests.push(this.client.resolveDefaultEndpoints(accountId, ['iris'], true).then(endpoints => {
+                    if (!this.accountDefaultEndpoints[accountId]) {
+                        // store in a lookup (part of this client only) a list of accountIds vs IRIS default endpoint locations
+                        this.accountDefaultEndpoints[accountId] = endpoints[environment][accountId]['iris']['default'];
+                    }
+                }));
+            }
+        });
+
+        if(resolveDefaultEndpointsRequests.length > 0) {
+            await Promise.all(resolveDefaultEndpointsRequests);
+        }
+
+        // Second, actually peform the mass acknowledge operation...
+        accountIds.forEach(accountId => {
+            massAcknowledgeIncidentsRequests.push(this.client.post({
+                url: `${this.accountDefaultEndpoints[accountId]}/v1/${accountId}/bulk/state`,
+                service_stack: AlLocation.InsightAPI,
+                noEndpointsResolution: true,
+                data: payload,
+            }));
+        });
+        return await Promise.all(massAcknowledgeIncidentsRequests);
     }
 }
