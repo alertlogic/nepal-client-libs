@@ -1362,13 +1362,13 @@ export class AlIrisClientInstance {
                 incidents: incidentsByCustomer[accountId],
             };
             massAcknowledgeIncidentsRequests.push(this.client.post({
+                data,
                 context_account_id: accountId,
                 service_stack: AlLocation.InsightAPI,
                 service_name: this.serviceName,
                 residency: 'default', // important
                 version: 'v1',
                 path: '/bulk/state',
-                data
             }));
         });
         return await Promise.all(massAcknowledgeIncidentsRequests);
