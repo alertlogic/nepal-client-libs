@@ -1358,8 +1358,8 @@ export class AlIrisClientInstance {
         // Second, actually perform the mass acknowledge operation...
         Object.keys(incidentsByCustomer).forEach(accountId => {
             const data = {
+                newState,
                 incidents: incidentsByCustomer[accountId],
-                newState
             };
             massAcknowledgeIncidentsRequests.push(this.client.post({
                 context_account_id: accountId,
