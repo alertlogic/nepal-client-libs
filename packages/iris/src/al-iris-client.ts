@@ -1331,7 +1331,7 @@ export class AlIrisClientInstance {
      * For HudUI usage specifically
      * Allows for bulk state update operations to be performed against multiple account Ids to their respective default IRIS residency locations
      */
-     async massAcknowledgeIncidents(
+    async massAcknowledgeIncidents(
          incidents: { accountId: number, incidentId: string, state: string }[],
          newState: { "incidentState": string, "assignedOperatorId": string },
      ): Promise<any[]> {
@@ -1339,19 +1339,19 @@ export class AlIrisClientInstance {
         const massAcknowledgeIncidentsRequests = [];
         const environment = AlLocatorService.getCurrentEnvironment();
 
-         const incidentsByCustomer = {};
-         // Prepare requests for each accountId in each incident.
-         incidents.forEach((i) => {
+        const incidentsByCustomer = {};
+        // Prepare requests for each accountId in each incident.
+        incidents.forEach((i) => {
              if (!incidentsByCustomer[i.accountId]) {
                  incidentsByCustomer[i.accountId] = [];
              }
              incidentsByCustomer[i.accountId].push(i);
          });
 
-         // Resolve the default IRIS service locations for each accountId supplied
-         Object.keys(incidentsByCustomer).forEach(accountId => {
+        // Resolve the default IRIS service locations for each accountId supplied
+        Object.keys(incidentsByCustomer).forEach(accountId => {
             if (!this.accountDefaultEndpoints[accountId]) {
-                const resolvedEndpoints = this.client.resolveDefaultEndpoints(accountId, ['iris'], true);
+                const resolvedEndpoints = this.client.resolveDefaultEndpoints(accountId, ['iris']);
                 resolveDefaultEndpointsRequests.push(resolvedEndpoints.then(endpoints => {
                     if (!this.accountDefaultEndpoints[accountId]) {
                         // store in a lookup (part of this client only) a list of accountIds vs IRIS default endpoint locations
@@ -1366,7 +1366,7 @@ export class AlIrisClientInstance {
         }
 
         // Second, actually perform the mass acknowledge operation...
-         Object.keys(incidentsByCustomer).forEach(accountId => {
+        Object.keys(incidentsByCustomer).forEach(accountId => {
             massAcknowledgeIncidentsRequests.push(this.client.post({
                 url: `${this.accountDefaultEndpoints[accountId]}/v1/${accountId}/bulk/state`,
                 service_stack: AlLocation.InsightAPI,
