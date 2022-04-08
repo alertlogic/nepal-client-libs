@@ -1337,7 +1337,6 @@ export class AlIrisClientInstance {
      ): Promise<any[]> {
         const resolveDefaultEndpointsRequests = [];
         const massAcknowledgeIncidentsRequests = [];
-        const environment = AlLocatorService.getCurrentEnvironment();
 
         const incidentsByCustomer = {};
         // Prepare requests for each accountId in each incident.
@@ -1348,30 +1347,24 @@ export class AlIrisClientInstance {
              incidentsByCustomer[i.accountId].push(i);
          });
 
-        // Resolve the default IRIS service locations for each accountId supplied
+        // Resolve the default residency IRIS service locations for each accountId supplied
+        // This will update the internal endpointCache in the underlying AlClient instance
         Object.keys(incidentsByCustomer).forEach(accountId => {
-            if (!this.accountDefaultEndpoints[accountId]) {
-                const resolvedEndpoints = this.client.resolveDefaultEndpoints(accountId, ['iris']);
-                resolveDefaultEndpointsRequests.push(resolvedEndpoints.then(endpoints => {
-                    if (!this.accountDefaultEndpoints[accountId]) {
-                        // store in a lookup (part of this client only) a list of accountIds vs IRIS default endpoint locations
-                        this.accountDefaultEndpoints[accountId] = endpoints[environment][accountId]['iris']['default'];
-                    }
-                }));
-            }
+            resolveDefaultEndpointsRequests.push(this.client.resolveDefaultEndpoints(accountId, ['iris']));
         });
 
-        if (resolveDefaultEndpointsRequests.length > 0) {
-            await Promise.all(resolveDefaultEndpointsRequests);
-        }
+        await Promise.all(resolveDefaultEndpointsRequests);
 
         // Second, actually perform the mass acknowledge operation...
         Object.keys(incidentsByCustomer).forEach(accountId => {
             massAcknowledgeIncidentsRequests.push(this.client.post({
-                url: `${this.accountDefaultEndpoints[accountId]}/v1/${accountId}/bulk/state`,
+                account_id: accountId,
                 service_stack: AlLocation.InsightAPI,
-                noEndpointsResolution: true,
-                data: newState,
+                service_name: this.serviceName,
+                residency: 'default', // important
+                version: 'v1',
+                path: '/bulk/state',
+                data: newState
             }));
         });
         return await Promise.all(massAcknowledgeIncidentsRequests);
