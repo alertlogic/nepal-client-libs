@@ -45,7 +45,7 @@ describe('Endpoints API Client', () => {
         requestStub = sinon.stub(AlDefaultClient as any, "axiosRequest")
                 .returns( Promise.resolve( { status: 200, data: 'Some result', config: {} } ) );
         getServiceEndpointsStub = sinon.stub(AlDefaultClient, 'resolveDefaultEndpoints')
-                .returns( Promise.resolve() );
+                .returns( Promise.resolve({}) );
         lookupDefaultServiceEndpointStub = sinon.stub(AlDefaultClient, 'lookupDefaultServiceEndpoint')
                 .returns( 'https://api.endpoints.product.dev.alertlogic.com' );
         getOrgStub = sinon.stub( AIMSClient, 'getAccountOrganization' )

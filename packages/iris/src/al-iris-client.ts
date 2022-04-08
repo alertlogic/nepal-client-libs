@@ -7,7 +7,9 @@ import {
     AlResponseValidationError,
     AlLocation,
     APIRequestParams,
+    AlLocatorService,
 } from '@al/core';
+
 import {
     AlIncidentFilterDictionary,
     ConstantDefinition,
@@ -46,6 +48,7 @@ export class AlIrisClientInstance {
     ];
     public defaultContentType: string[] = ['guardduty'];
     private serviceName = 'iris';
+    private accountDefaultEndpoints = {};
 
     /* istanbul ignore next */
     constructor(public client: AlApiClient = AlDefaultClient) {
@@ -1322,5 +1325,52 @@ export class AlIrisClientInstance {
             version: 'v3',
             path: `/${incidentId}/searches`,
         });
+    }
+
+     /**
+     * For HudUI usage specifically
+     * Allows for bulk state update operations to be performed against multiple account Ids to their respective default IRIS residency locations
+     */
+    async massAcknowledgeIncidents(
+         incidents: { accountId: number, incidentId: string, state: string }[],
+         newState: { "incidentState": string, "assignedOperatorId": string },
+     ): Promise<any[]> {
+        const resolveDefaultEndpointsRequests = [];
+        const massAcknowledgeIncidentsRequests = [];
+
+        const incidentsByCustomer = {};
+        // Prepare requests for each accountId in each incident.
+        incidents.forEach((i) => {
+             if (!incidentsByCustomer[i.accountId]) {
+                 incidentsByCustomer[i.accountId] = [];
+             }
+             incidentsByCustomer[i.accountId].push(i);
+         });
+
+        // Resolve the default residency IRIS service locations for each accountId supplied
+        // This will update the internal endpointCache in the underlying AlClient instance
+        Object.keys(incidentsByCustomer).forEach(accountId => {
+            resolveDefaultEndpointsRequests.push(this.client.resolveDefaultEndpoints(accountId, ['iris']));
+        });
+
+        await Promise.all(resolveDefaultEndpointsRequests);
+
+        // Second, actually perform the mass acknowledge operation...
+        Object.keys(incidentsByCustomer).forEach(accountId => {
+            const data = {
+                newState,
+                incidents: incidentsByCustomer[accountId],
+            };
+            massAcknowledgeIncidentsRequests.push(this.client.post({
+                data,
+                context_account_id: accountId,
+                service_stack: AlLocation.InsightAPI,
+                service_name: this.serviceName,
+                residency: 'default', // important
+                version: 'v1',
+                path: '/bulk/state',
+            }));
+        });
+        return await Promise.all(massAcknowledgeIncidentsRequests);
     }
 }
