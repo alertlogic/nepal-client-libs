@@ -8,6 +8,7 @@ import {
 
 export interface AlWhoisResponse {
     raw: string;
+    hostnames: string[];
 }
 
 export class AlWhoisClientInstance {
