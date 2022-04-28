@@ -90,7 +90,8 @@
         "tmpro",
         "web_application_firewall",
         "web_security_managed",
-        "web_security_manager"
+        "web_security_manager",
+        "expert_response"
     ];
     protected collection:{[productId:string]:AlEntitlementRecord} = {};
     protected evaluationCache:{[expression:string]:boolean} = {};
