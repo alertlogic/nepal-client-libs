@@ -1,6 +1,6 @@
 {
   "name": "@al/exclusions",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "license": "MIT",
   "description": "A lightweight client library for interacting with the Exclusions API",
   "author": {
