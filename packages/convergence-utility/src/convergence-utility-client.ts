@@ -10,6 +10,7 @@ import {
     CollectionCredential,
     CollectionFiltersResponse,
     CollectionPolicy,
+    CollectionUpdatesPolicy as CollectionUpdatesPolicy,
     CollectionsGenericResponse,
     CollectionSource,
     ConvergenceQueryParams,
@@ -393,7 +394,8 @@ export class ConvergenceUtilityClientInstance {
             service_stack: this.serviceStack,
             service_name: this.serviceName,
             version: this.serviceVersion,
-            path: `/${accountId}/utilities/downloads/${product}`,
+            account_id: accountId,
+            path: `/utilities/downloads/${product}`,
         });
     }
 
@@ -402,7 +404,62 @@ export class ConvergenceUtilityClientInstance {
             service_stack: this.serviceStack,
             service_name: this.serviceName,
             version: this.serviceVersion,
-            path: `${accountId}/apikey`,
+            account_id: accountId,
+            path: `/apikey`,
         });
     }
+
+    public async listUpdatesPolicies(accountId: string, params?: ConvergenceQueryParams): Promise<CollectionsGenericResponse> {
+        return this.client.get({
+            params,
+            service_stack: this.serviceStack,
+            service_name: this.serviceName,
+            version: this.serviceVersion,
+            account_id: accountId,
+            path: `/policies/updates`
+        });
+    }
+
+    public async getUpdatesPolicy(accountId: string, policyId: string): Promise<CollectionUpdatesPolicy> {
+        return this.client.get({
+            service_stack: this.serviceStack,
+            service_name: this.serviceName,
+            version: this.serviceVersion,
+            account_id: accountId,
+            path: `/policies/updates/${policyId}`
+        });
+    }
+
+    public async deleteUpdatesPolicy(accountId: string, policyId: string): Promise<void> {
+        return this.client.delete({
+            service_stack: this.serviceStack,
+            service_name: this.serviceName,
+            version: this.serviceVersion,
+            account_id: accountId,
+            path: `/policies/updates/${policyId}`
+        });
+    }
+
+    public async createUpdatesPolicy(accountId: string, data: CollectionUpdatesPolicy): Promise<CollectionUpdatesPolicy> {
+        return this.client.post({
+            data,
+            service_stack: this.serviceStack,
+            service_name: this.serviceName,
+            version: this.serviceVersion,
+            account_id: accountId,
+            path: `/policies/updates`
+        });
+    }
+
+    public async updateUpdatesPolicy(accountId: string, data: CollectionUpdatesPolicy): Promise<CollectionUpdatesPolicy> {
+        return this.client.put({
+            data,
+            service_stack: this.serviceStack,
+            service_name: this.serviceName,
+            version: this.serviceVersion,
+            account_id: accountId,
+            path: `/policies/updates`
+        });
+    }
+
 }

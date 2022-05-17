@@ -40,6 +40,7 @@ export interface CollectionsGenericResponse {
     hosts?: CollectionSource[];
     networks?:  CollectionSource[];
     history?: CollectionHistory[];
+    updates?: CollectionUpdatesPolicy[];
     total_count?: number;
 }
 
@@ -99,6 +100,31 @@ export interface CollectionPolicy {
     target_type?: string;
     monitoring?: any;
 }
+
+export interface CollectionUpdatesPolicy extends CollectionPolicy {
+    when?: string;
+    schedule?: CollectionUpdatesPolicySchedule[];
+    timezone?: string;
+}
+
+export interface CollectionUpdatesPolicySchedule {
+    days?: CollectionUpdatesPolicyScheduleDaysConfig;
+    time?: CollectionUpdatesPolicyScheduleTimeConfig;
+}
+
+export interface CollectionUpdatesPolicyScheduleDaysConfig {
+    how: string;
+    weekly?: string[];
+    monthly?: number[];
+}
+
+
+export interface CollectionUpdatesPolicyScheduleTimeConfig {
+    from: TimeConfig;
+    to: TimeConfig;
+}
+
+export type TimeConfig = { hour: number, minute: number };
 
 export interface FlatFile {
     filename_integer_pattern?: string;
