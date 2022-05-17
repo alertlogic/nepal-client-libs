@@ -11,6 +11,7 @@ export class ExclusionsRulesDescriptor {
     public blackouts: ExclusionsBlackouts[] = [];
     public assets: ExclusionsAssets[] = [];
     public details?: ExlusionsDetails[] = [];
+    public modified?: ExclusionsModified[] = [] ;
 
     constructor() {
     }
@@ -48,6 +49,10 @@ export class ExclusionsRulesDescriptor {
             for (let i = 0; i < rawData.details.length; i++) {
                 exclusion.details.push(rawData.details[i].hasOwnProperty('feature') ? ExlusionsDetails.import(rawData.details[i]) : new ExlusionsDetails());
             }
+        }
+
+        if (typeof (rawData?.modified) === 'object') {
+            exclusion.modified.push((rawData.modified.hasOwnProperty('at') || rawData.modified.hasOwnProperty('by')) ? ExclusionsModified.import(rawData.modified) : new ExclusionsModified());
         }
 
         return exclusion;
@@ -212,6 +217,29 @@ export class ExlusionsDetails {
         return detail;
     }
 
+}
+
+export class ExclusionsModified {
+
+    at?: number;
+    by?: string;
+
+    constructor() { }
+
+    public static import(rawData: any): ExclusionsModified {
+
+        let modified = new ExclusionsModified();
+
+        if (rawData.hasOwnProperty('at')) {
+            modified.at = rawData.at;
+        }
+
+        if (rawData.hasOwnProperty('by')) {
+            modified.by = rawData.by;
+        }
+
+        return modified;
+    }
 }
 
 export class ExclusionsRulesSnapshot {
