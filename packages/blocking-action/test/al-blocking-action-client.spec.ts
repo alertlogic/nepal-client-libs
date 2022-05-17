@@ -18,7 +18,7 @@ afterEach(() => {
 describe('whois Service Client Test Suite', () => {
   const accountId = '2';
   const blockingActionMock = {
-    "userid": 2100004387, 
+    "email": "test@test.co", 
     "ingestid": "YikP3AAAACAAAvTmAAM6IA==", 
     "duration": 60, 
     "source_ip": "2001:db8::dead:beef", 

@@ -1,5 +1,5 @@
 export interface AlBlockingAction {
-    userid: number;
+    email: string;
     ingestid: string;
     eventid: number;
     duration: number;
