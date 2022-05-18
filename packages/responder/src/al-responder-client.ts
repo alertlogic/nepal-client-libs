@@ -7,6 +7,7 @@ import {
     AlLocation
 } from '@al/core';
 import {
+    AlManagedResponsePayload,
     AlPlaybookRequest,
     AlPlaybookTemplate,
     AlResponderAction,
@@ -1448,6 +1449,25 @@ export class AlResponderClientInstance {
             account_id: accountId,
             data: payload,
             path: `/blocks/manage`
+        });
+    }
+
+    /**
+     * Execute specific managed response for an incident
+     * POST
+     * @param accountId {string}
+     * @param requestBody {AlManagedResponsePayload}
+     * @returns {Promise<unknown>}
+     */
+    async managedResponse(accountId: string, requestBody: AlManagedResponsePayload, params?: { dry_run: boolean }): Promise<unknown> {
+        return this.client.post({
+            version: this.serviceVersion,
+            target_endpoint: this.targetEndpoint,
+            service_stack: this.serviceStack,
+            account_id: accountId,
+            data: requestBody,
+            params: params,
+            path: `/managed_response`
         });
     }
 }
