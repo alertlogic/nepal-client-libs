@@ -92,8 +92,8 @@ export interface CollectionPolicy {
     schedule?: any;
     created?: AlChangeStamp;
     modified?: AlChangeStamp;
-    template_id: string;
-    s3: S3;
+    template_id?: string;
+    s3?: S3;
     collection_alert?: CollectionAlert;
     flatfile?: FlatFile;
     alert_type?: string;
@@ -109,7 +109,7 @@ export interface CollectionUpdatesPolicy extends CollectionPolicy {
 
 export interface CollectionUpdatesPolicySchedule {
     days?: CollectionUpdatesPolicyScheduleDaysConfig;
-    time?: CollectionUpdatesPolicyScheduleTimeConfig;
+    time?: CollectionUpdatesPolicyScheduleTimeConfig[];
 }
 
 export interface CollectionUpdatesPolicyScheduleDaysConfig {
@@ -124,7 +124,7 @@ export interface CollectionUpdatesPolicyScheduleTimeConfig {
     to: TimeConfig;
 }
 
-export type TimeConfig = { hour: number, minute: number };
+export type TimeConfig = { hour: string, minute: string };
 
 export interface FlatFile {
     filename_integer_pattern?: string;
