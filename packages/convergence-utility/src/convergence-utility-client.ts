@@ -421,13 +421,14 @@ export class ConvergenceUtilityClientInstance {
     }
 
     public async getUpdatesPolicy(accountId: string, policyId: string): Promise<CollectionUpdatesPolicy> {
-        return this.client.get({
+        const rawResponse =  await this.client.get({
             service_stack: this.serviceStack,
             service_name: this.serviceName,
             version: this.serviceVersion,
             account_id: accountId,
             path: `/policies/updates/${policyId}`
         });
+        return rawResponse?.policy ?? null;
     }
 
     public async deleteUpdatesPolicy(accountId: string, policyId: string): Promise<void> {
@@ -451,14 +452,14 @@ export class ConvergenceUtilityClientInstance {
         });
     }
 
-    public async updateUpdatesPolicy(accountId: string, data: CollectionUpdatesPolicy): Promise<CollectionUpdatesPolicy> {
+    public async updateUpdatesPolicy(accountId: string, policyId: string, data: CollectionUpdatesPolicy): Promise<CollectionUpdatesPolicy> {
         return this.client.put({
             data,
             service_stack: this.serviceStack,
             service_name: this.serviceName,
             version: this.serviceVersion,
             account_id: accountId,
-            path: `/policies/updates`
+            path: `/policies/updates/${policyId}`
         });
     }
 
