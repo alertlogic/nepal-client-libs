@@ -1459,7 +1459,7 @@ export class AlResponderClientInstance {
      * @param requestBody {AlManagedResponsePayload}
      * @returns {Promise<unknown>}
      */
-     async managedResponse(accountId: string, requestBody: AlManagedResponsePayload, params?: {dry_run: boolean}): Promise<unknown> {
+    async managedResponse(accountId: string, requestBody: AlManagedResponsePayload, params?: { dry_run: boolean }): Promise<unknown> {
         return this.client.post({
             version: this.serviceVersion,
             target_endpoint: this.targetEndpoint,

@@ -810,6 +810,6 @@ export interface AlManagedResponsePayload {
         type: "incident",
         incident: object,
         parameters?: object
-    },
+    };
     target_account_id?: string;
 }
