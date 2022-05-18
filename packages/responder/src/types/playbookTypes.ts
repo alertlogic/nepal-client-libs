@@ -803,3 +803,13 @@ export const enum AlBlockIntent {
     BlockForce = "block_force",
     UnblockForce = "unblock_force"
 }
+
+export interface AlManagedResponsePayload {
+    config_ids: string[];
+    payload?: {
+        type: "incident",
+        incident: object,
+        parameters?: object
+    },
+    target_account_id?: string;
+}
