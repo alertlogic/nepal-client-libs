@@ -104,7 +104,7 @@ export interface CollectionPolicy {
 export interface CollectionUpdatesPolicy extends CollectionPolicy {
     when?: string;
     schedule?: CollectionUpdatesPolicySchedule[];
-    timezone?: string;
+    time_zone?: string;
 }
 
 export interface CollectionUpdatesPolicySchedule {
