@@ -721,6 +721,8 @@ export interface AlResponderMRSimpleDefinition {
     connection_target_types: string | Array<string>;
     type: string;
     description: string;
+    analytic_category: string;
+    documentation_url?: string;
 }
 
 export interface AlResponderAllowedValues{
