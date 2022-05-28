@@ -424,6 +424,8 @@ export class Incident {
 
                         // test this in production with
                         // /#/incidents/10785703/ea11106d32f14546/recommendations?aaid=10785703&locid=defender-us-denver
+
+                        // only try this if API is returning  the 'related' property for the host 
                         if (i.assetDeploymentInScope && host.hasOwnProperty('related')) {
                             Object.entries(host.related)
                                   .filter(([key, value]) => ['auto-scaling-group', 'image', 'load-balancer', 'network-interface', 'sg', 'subnet'].includes(
