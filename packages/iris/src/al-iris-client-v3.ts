@@ -7,26 +7,14 @@ import {
     AlResponseValidationError,
     AlLocation,
     APIRequestParams,
-    AlLocatorService,
 } from '@al/core';
+import { AlIrisClientInstance } from './al-iris-client';
 
 import {
     AlIncidentFilterDictionary,
-    ConstantDefinition,
-    ConstantTuple,
-    IncidentBatchData,
-    IncidentBatchUpdateResponse,
     IncidentHistoryResponse,
-    IncidentIdResponse,
-    IncidentNoteListResponse,
-    IncidentQuery,
-    IncidentQueryParams,
-    IncidentSearchResponse,
-    IncidentSnooze,
-    IncidentStateChangeResponse,
     MetaDataDictionary,
     AlObservation,
-    UndoDataDefinition,
     RetinaBody,
     RetinaFilterOp,
     Elaboration,
@@ -40,184 +28,27 @@ import {
     AdditionalEvidenceResponse,
 } from './types';
 
-export class AlIrisClientInstance {
+export class AlIrisClientV3Instance extends AlIrisClientInstance {
 
-    public defaultIrisType: string[] = [
-        'associated log',
-        'associated event',
-    ];
-    public defaultContentType: string[] = ['guardduty'];
-    protected serviceName = 'iris';
-    private accountDefaultEndpoints = {};
+    protected serviceVersion = 'v3';
 
-    /* istanbul ignore next */
-    constructor(public client: AlApiClient = AlDefaultClient) {
+    super(client: AlApiClient = null): void {
+        this.client = client || AlDefaultClient;
     }
 
-    /**
-     * Fetch the assets elaboration for this incident, if it exists
-     * GET
-     * /iris/v2/:accountId/:incidentId/elaborations/assets
-     * "https://api.cloudinsight.alertlogic.com/iris/v2/100/f00b0abab/elaborations/assets"
-     */
-    async getElaborations(accountId: string, incidentId: string, returnValue?: string): Promise<any> {
-        return this.client.get<any>({
-            service_stack: AlLocation.InsightAPI,
-            service_name: this.serviceName,
-            account_id: accountId,
-            version: 'v2',
-            path: `/${incidentId}/elaborations/assets`,
-            params: returnValue,
-        });
-    }
 
     /**
-     * DSL Translate to al_query
-     * POST
-     * /iris/v2/incidents/dsl-translate
-     * "https://api.cloudinsight.alertlogic.com/iris/v2/incidents/dsl-translate"
-     * -d '{"query_string": ["LIKE(Unauthorized),incident.threatRating>High"]}'
-     */
-    async dslTranslate(queryParams: { query_string: string[] }): Promise<any> {
-        return this.client.post<any>({
-            service_stack: AlLocation.InsightAPI,
-            service_name: this.serviceName,
-            version: 'v2',
-            path: '/incidents/dsl-translate',
-            params: queryParams,
-        });
-    }
-
-    /**
-     * Get System Constants
-     * GET
-     * /iris/v2/incidents/helpers
-     * "https://api.cloudinsight.alertlogic.com/iris/v2/incidents/helpers"
-     */
-    async getConstants(): Promise<ConstantDefinition> {
-        return this.client.get<ConstantDefinition>({
-            service_stack: AlLocation.InsightAPI,
-            service_name: this.serviceName,
-            version: 'v2',
-            path: '/incidents/helpers',
-        });
-    }
-
-    /**
-     * Translate search to al_query
-     * POST
-     * /iris/v2/incidents/translate
-     * "https://api.cloudinsight.alertlogic.com/iris/v2/incidents/translate"
-     * -d '{"search_request": {...}}'
-     */
-    async searchTranslate(queryParams: { search_request: any }): Promise<any> {
-        return this.client.post<any>({
-            service_stack: AlLocation.InsightAPI,
-            service_name: this.serviceName,
-            version: 'v2',
-            path: '/incidents/translate',
-            params: queryParams,
-        });
-    }
-
-    /**
-     * Fetch the associated logs/events for this incident
-     * GET
-     * /iris/v2/:accountId/:incidentId/elaborations/associated
-     * "https://api.cloudinsight.alertlogic.com/iris/v2/100/f00b0abab/elaborations/associated"
-     */
-    async getAssociatedElaborations(accountId: string, incidentId: string, returnValue?: string): Promise<any> {
-        return this.client.get<any>({
-            service_stack: AlLocation.InsightAPI,
-            account_id: accountId,
-            service_name: this.serviceName,
-            version: 'v2',
-            path: `/${incidentId}/elaborations/associated`,
-            params: returnValue,
-        });
-    }
-
-    /**
-     * Fetch the attatched logs/events for this incident
-     * GET
-     * /iris/v2/:accountId/:incidentId/elaborations/attached
-     * "https://api.cloudinsight.alertlogic.com/iris/v2/100/f00b0abab/elaborations/attached"
-     */
-    async getAttatchedElaborations(accountId: string, incidentId: string, returnValue?: string): Promise<any> {
-        return this.client.get<any>({
-            service_stack: AlLocation.InsightAPI,
-            account_id: accountId,
-            service_name: this.serviceName,
-            version: 'v2',
-            path: `/${incidentId}/elaborations/attached`,
-            params: returnValue,
-        });
-    }
-
-    /**
-     * Incident search
-     * POST
-     * /iris/v2/:account_id/incident/search
-     * "https://api.cloudinsight.alertlogic.com/iris/v2/incidents/translate"
-     */
-    async incidentSearch(accountId: string, queryData: IncidentQuery, queryParams?: IncidentQueryParams): Promise<IncidentSearchResponse> {
-        return this.client.post<IncidentSearchResponse>({
-            service_stack: AlLocation.InsightAPI,
-            account_id: accountId,
-            service_name: this.serviceName,
-            version: 'v2',
-            path: '/incident/search',
-            params: queryParams,
-            data: queryData,
-        });
-    }
-
-    /**
-     * Fetch an specific incident by id
-     * GET
-     * /:account_id/:incident_id/incident/fetch
-     * "https://api.cloudinsight.alertlogic.com/iris/v2/100/f00b0abab/incident/fetch"
-     */
-    async getIncidentById(accountId: string, incidentId: string, returnValue?: string): Promise<any> {
-        return this.client.get<any>({
-            service_stack: AlLocation.InsightAPI,
-            account_id: accountId,
-            service_name: this.serviceName,
-            version: 'v2',
-            path: `/${incidentId}/incident/fetch`,
-            params: returnValue,
-        });
-    }
-
-    /**
-     * @deprecated use v3 version - getIncidentHistoryV3
      * Fetch incident history for the customer console UI
      * GET
-     * /iris/v2/:accountId/:incidentId/incident/log
-     * "https://api.cloudinsight.alertlogic.com/iris/v2/100/ascads/incident/log"
+     * /iris/v3/:accountId/:incidentId/history
+     * "https://api.cloudinsight.alertlogic.com/iris/v3/100/ascads/history"
      */
     async getIncidentHistory(accountId: string, incidentId: string): Promise<IncidentHistoryResponse[]> {
         return this.client.get<IncidentHistoryResponse[]>({
             service_stack: AlLocation.InsightAPI,
             account_id: accountId,
             service_name: this.serviceName,
-            version: 'v2',
-            path: `${incidentId}/ascads/incident/log`,
-        });
-    }
-
-    /**
-     * Fetch incident history for the customer console UI
-     * GET
-     * /iris/v2/:accountId/:incidentId/incident/log
-     * "https://api.cloudinsight.alertlogic.com/iris/v2/100/ascads/incident/log"
-     */
-    async getIncidentHistoryV3(accountId: string, incidentId: string): Promise<IncidentHistoryResponse[]> {
-        return this.client.get<IncidentHistoryResponse[]>({
-            service_stack: AlLocation.InsightAPI,
-            account_id: accountId,
-            service_name: this.serviceName,
-            version: 'v3',
+            version: this.serviceVersion,
             path: `${incidentId}/history`,
         });
     }
@@ -225,8 +56,8 @@ export class AlIrisClientInstance {
     /**
      * Get aggregations for a list of fields
      * POST
-     * /iris/v2/:account_id/incident/aggregations
-     * "https://api.cloudinsight.alertlogic.com/iris/v2/2/incident/aggregations?size=0"
+     * /iris/v3/:account_id/incident/aggregations
+     * "https://api.cloudinsight.alertlogic.com/iris/v3/2/incident/aggregations?size=0"
      */
     async getAggregationsForFields(
         accountId: string,
@@ -237,234 +68,10 @@ export class AlIrisClientInstance {
             service_stack: AlLocation.InsightAPI,
             account_id: accountId,
             service_name: this.serviceName,
-            version: 'v2',
+            version: this.serviceVersion,
             path: '/incident/aggregations',
             params: queryParams,
             data: filterExpression,
-        });
-    }
-
-    async getAggregationsForFieldsV3(
-        accountId: string,
-        filterExpression: any,
-        queryParams?: { multi?: boolean, size?: number, metadata?: boolean, raw_totals?: boolean },
-    ): Promise<any> {
-        return this.client.post<any>({
-            service_stack: AlLocation.InsightAPI,
-            account_id: accountId,
-            service_name: this.serviceName,
-            version: 'v3',
-            path: '/incident/aggregations',
-            params: queryParams,
-            data: filterExpression,
-        });
-    }
-
-    /**
-     * Incident note update
-     * PUT
-     * /iris/v2/:account_id/:incident_id/incident/note/:note_id
-     * "https://api.cloudinsight.alertlogic.com/iris/v1/1234/e7119f0d76d29879/incident/note/234234-23423432-2342343412341234"
-     * -d {"note": "This is a note" }
-     */
-    async updateNote(accountId: string, incidentId: string, noteId: string, noteData: { note: string }): Promise<any> {
-        return this.client.put<any>({
-            service_stack: AlLocation.InsightAPI,
-            account_id: accountId,
-            service_name: this.serviceName,
-            version: 'v2',
-            path: `/${incidentId}/incident/note/${noteId}`,
-            data: noteData,
-        });
-    }
-
-    /**
-     * Incident status batch update
-     * POST
-     * /iris/v2/:account_id/incident/status
-     * "https://api.cloudinsight.alertlogic.com/iris/v2/19651/incident/status"
-     * -d '{ "operation": "open", "reason_code": "further_action", "notes": "whatever customer thinks is useful!", "incidents": ["e811af1c88c16a4f"] }'
-     */
-    async incidentStatusBatchUpdate(accountId: string, batchData: IncidentBatchData): Promise<IncidentBatchUpdateResponse> {
-        return this.client.post<IncidentBatchUpdateResponse>({
-            service_stack: AlLocation.InsightAPI,
-            account_id: accountId,
-            service_name: this.serviceName,
-            version: 'v2',
-            path: '/incident/status',
-            data: batchData,
-        });
-    }
-
-    /**
-     * List notes on an incident
-     * GET
-     * /iris/v2/:account_id/:incident_id/incident/note
-     * "https://api.cloudinsight.alertlogic.com/iris/v2/1234/e7119f0d76d29879/incident/note"
-     */
-    async getIncidentNoteList(accountId: string, incidentId: string): Promise<IncidentNoteListResponse> {
-        return this.client.get<IncidentNoteListResponse>({
-            service_stack: AlLocation.InsightAPI,
-            account_id: accountId,
-            service_name: this.serviceName,
-            version: 'v2',
-            path: `${incidentId}/incident/note`,
-        });
-    }
-
-    /**
-     * New incident note
-     * POST
-     * /iris/v2/:account_id/:incident_id/incident/note
-     * "https://api.cloudinsight.alertlogic.com/iris/v2/1234/e7119f0d76d29879/incident/note"
-     * -d {"note": "This is a note" }
-     */
-    async newIncidentNote(accountId: string, incidentId: string, noteData: { note: string }): Promise<any> {
-        return this.client.post<any>({
-            service_stack: AlLocation.InsightAPI,
-            account_id: accountId,
-            service_name: this.serviceName,
-            version: 'v2',
-            path: `/${incidentId}/incident/note`,
-            data: noteData,
-        });
-    }
-
-    /**
-     * Perform batch update on incidents feedback
-     * POST
-     * /iris/v2/:account_id/incident/feedback
-     * "https://api.cloudinsight.alertlogic.com/iris/v2/19651/incident/feedback"
-     * -d '{ "operation": "open", "reason_code": "further_action", "notes": "whatever customer thinks is useful!", "incidents": ["e811af1c88c16a4f"] }'
-     */
-    async incidentFeedbackBatchUpdate(accountId: string, batchData: IncidentBatchData): Promise<IncidentBatchUpdateResponse> {
-        return this.client.post<IncidentBatchUpdateResponse>({
-            service_stack: AlLocation.InsightAPI,
-            account_id: accountId,
-            service_name: this.serviceName,
-            version: 'v2',
-            path: '/incident/feedback',
-            data: batchData,
-        });
-    }
-
-    /**
-     * Perform close incident for the customer UI
-     * POST
-     * /iris/v2/:accountId/:incidentId/incident/close
-     * "https://api.cloudinsight.alertlogic.com/iris/v2/19651/2d3424342/incident/close"
-     * -d '{ "reason_code": "further_action",  "notes": "We are done with this" }'
-     */
-    async closeIncident(accountId: string, incidentId: string, closeData: { reason_code: string, notes: string }): Promise<IncidentStateChangeResponse> {
-        return this.client.post<IncidentStateChangeResponse>({
-            service_stack: AlLocation.InsightAPI,
-            account_id: accountId,
-            service_name: this.serviceName,
-            version: 'v2',
-            path: `/${incidentId}/incident/close`,
-            data: closeData,
-        });
-    }
-
-    /**
-     * Reopen an incident in the customer UI
-     * POST
-     * /iris/v2/:accountId/:incidentId/incident/reopen
-     * "https://api.cloudinsight.alertlogic.com/iris/v2/19651/2d3424342/incident/reopen"
-     * -d '{ "notes": "Need to check this out again" }'
-     */
-    async reopenIncident(accountId: string, incidentId: string, reopenData: { notes: string }): Promise<IncidentStateChangeResponse> {
-        return this.client.post<IncidentStateChangeResponse>({
-            service_stack: AlLocation.InsightAPI,
-            account_id: accountId,
-            service_name: this.serviceName,
-            version: 'v2',
-            path: `/${incidentId}/incident/reopen`,
-            data: reopenData,
-        });
-    }
-
-    /**
-     * Return the actual incident id for a short friendly id
-     * GET
-     * /iris/v2/:accountId/incident/friendly/:shortIncidentId
-     * "https://api.cloudinsight.alertlogic.com/iris/v2/19651/incident/friendly/asv3s2"
-     */
-    async getIncidentId(accountId: string, shortIncidentId: string): Promise<IncidentIdResponse> {
-        return this.client.get<IncidentIdResponse>({
-            service_stack: AlLocation.InsightAPI,
-            account_id: accountId,
-            service_name: this.serviceName,
-            version: 'v2',
-            path: `/incident/friendly/${shortIncidentId}`,
-        });
-    }
-
-    /**
-     * Snooze a list of incidents in the customer UI
-     * POST
-     * /iris/v2/:account_id/incident/snooze
-     * "https://api.cloudinsight.alertlogic.com/iris/v2/19651/incident/snooze"
-     * -d '{ "period_ms": 1, "reason_code": "tomorrow", "notes": "Snoozed until Bob fixes this", "incidents": ["e811af1c88c16a4f"] }'
-     */
-    async snoozeIncidents(
-        accountId: string,
-        snoozeData: { period_ms: number, reason_code: string, notes: string, incidents: string[] },
-    ): Promise<IncidentBatchUpdateResponse> {
-        return this.client.post<IncidentBatchUpdateResponse>({
-            service_stack: AlLocation.InsightAPI,
-            account_id: accountId,
-            service_name: this.serviceName,
-            version: 'v2',
-            path: '/incident/snooze',
-            data: snoozeData,
-        });
-    }
-
-    /**
-     * Snooze an incident in the customer UI
-     * POST
-     * /iris/v2/:account_id/:incident_id/incident/snooze
-     * "https://api.cloudinsight.alertlogic.com/iris/v2/19651/2d3424342/incident/snooze"
-     * -d '{ "period_ms": 1, "reason_code": "tomorrow", "notes": "Snoozed until Bob fixes this" }'
-     */
-    snoozeIncident(
-        accountId: string,
-        incidentId: string,
-        snoozeData: { period_ms: number, reason_code: string, notes: string },
-    ): Promise<IncidentSnooze> {
-        return this.client.post<IncidentSnooze>({
-            service_stack: AlLocation.InsightAPI,
-            account_id: accountId,
-            service_name: this.serviceName,
-            version: 'v2',
-            path: `/${incidentId}/incident/snooze`,
-            data: snoozeData,
-        });
-    }
-
-    /**
-     * Undo cached actions on incidents by token
-     * POST
-     * /iris/v2/:account_id/incident/undo
-     * "https://api.cloudinsight.alertlogic.com/iris/v2/:account_id/incident/undo"
-     * -d '{ "performed_by":"John Diaz <jdiaz@alertlogic.com>", "total_updated":1, "update_time":1537804956.345696, \
-     * "updates":{ "e81109b776a84ec9":{ "account_id":134232303, "change":{ "new":{ "expiration":1537909356.345745, \
-     * "expiration_str":"2018-09-25T21:02:36.345745+00:00", "notes":"Does this work again, testing undo 3!", "period_ms":86400000, \
-     * "reactivates_at":"2018-09-25 16:02:36.345745", "reason_code":"next_week", "snooze_by":"John Diaz <jdiaz@alertlogic.com>", \
-     * "snoozed":true }, "old":{ "expiration":1537909172.469218, "expiration_str":"2018-09-25T20:59:32.469218+00:00", \
-     * "notes":"Does this work again, testing undo 3!", "period_ms":86400000, "reactivates_at":"2018-09-25 15:59:32.469218", \
-     * "reason_code":"next_week", "snooze_by":"John Diaz <jdiaz@alertlogic.com>", "snoozed":true } }, \
-     * "message":"Updated: snooze_status", "property":"snooze_status" } }}'
-     */
-    incidentUndoByToken(accountId: string, undoData: UndoDataDefinition): Promise<ConstantTuple[]> {
-        return this.client.post<ConstantTuple[]>({
-            service_stack: AlLocation.InsightAPI,
-            account_id: accountId,
-            service_name: this.serviceName,
-            version: 'v2',
-            path: '/incident/undo',
-            data: undoData,
         });
     }
 
@@ -522,7 +129,7 @@ export class AlIrisClientInstance {
             service_stack: AlLocation.InsightAPI,
             account_id: accountId,
             service_name: this.serviceName,
-            version: 'v3',
+            version: this.serviceVersion,
             path: `/correlation_count/${correlationId}`,
         });
     }
@@ -531,17 +138,17 @@ export class AlIrisClientInstance {
         return this.client.get<MetaDataDictionary>({
             service_stack: AlLocation.InsightAPI,
             service_name: this.serviceName,
-            version: 'v3',
+            version: this.serviceVersion,
             path: 'metadata-constants',
         });
     }
 
-    getOneIncidentById(accountId: string, incidentId: string): Promise<any> {
+    getIncidentById(accountId: string, incidentId: string): Promise<any> {
         return this.client.get<any>({
             service_stack: AlLocation.InsightAPI,
             account_id: accountId,
             service_name: this.serviceName,
-            version: 'v3',
+            version: this.serviceVersion,
             path: `/${incidentId}`,
         });
     }
@@ -551,7 +158,7 @@ export class AlIrisClientInstance {
             service_stack: AlLocation.InsightAPI,
             account_id: accountId,
             service_name: this.serviceName,
-            version: 'v3',
+            version: this.serviceVersion,
             path: `/${incidentId}/assets`,
         }).then(data => {
             if (data && data.returnVals && data.returnVals.length > 0) {
@@ -570,7 +177,7 @@ export class AlIrisClientInstance {
             service_stack: AlLocation.InsightAPI,
             account_id: accountId,
             service_name: this.serviceName,
-            version: 'v3',
+            version: this.serviceVersion,
             path: `/batch/${noun}`,
             data: payload,
         });
@@ -603,7 +210,7 @@ export class AlIrisClientInstance {
             service_stack: AlLocation.InsightAPI,
             account_id: accountId,
             service_name: this.serviceName,
-            version: 'v3',
+            version: this.serviceVersion,
             path: `${token}/undo`,
         });
     }
@@ -613,7 +220,7 @@ export class AlIrisClientInstance {
         return this.client.post<any>({
             service_stack: AlLocation.InsightAPI,
             service_name: this.serviceName,
-            version: 'v3',
+            version: this.serviceVersion,
             path: `incident/dsl-translate?aliases=${aliases}`,
             data: { query_string: query },
         });
@@ -623,7 +230,7 @@ export class AlIrisClientInstance {
         return this.client.get<unknown>({
             service_stack: AlLocation.InsightAPI,
             service_name: this.serviceName,
-            version: 'v3',
+            version: this.serviceVersion,
             account_id: accountId,
             path: `${incidentId}/facts/${observationId}`,
         });
@@ -633,7 +240,7 @@ export class AlIrisClientInstance {
         return this.client.get<any[]>({
             service_stack: AlLocation.InsightAPI,
             service_name: this.serviceName,
-            version: 'v3',
+            version: this.serviceVersion,
             account_id: accountId,
             path: `nested/${incidentId}`,
         }).then(obs => obs.map(ob => AlObservation.import(ob)));
@@ -644,7 +251,7 @@ export class AlIrisClientInstance {
             service_stack: AlLocation.InsightAPI,
             account_id: accountId,
             service_name: this.serviceName,
-            version: 'v3',
+            version: this.serviceVersion,
             path: `/test/${incidentId}/get_test_incident`,
         });
     }
@@ -654,7 +261,7 @@ export class AlIrisClientInstance {
             service_stack: AlLocation.InsightAPI,
             account_id: accountId,
             service_name: this.serviceName,
-            version: 'v3',
+            version: this.serviceVersion,
             path: `test/${incidentId}/assets`,
         }).then(data => {
             if (data && data['returnVals'] && data['returnVals'].length > 0) {
@@ -669,7 +276,7 @@ export class AlIrisClientInstance {
             service_stack: AlLocation.InsightAPI,
             account_id: accountId,
             service_name: this.serviceName,
-            version: 'v3',
+            version: this.serviceVersion,
             path: `test/${incidentId}/history`,
         });
     }
@@ -679,7 +286,7 @@ export class AlIrisClientInstance {
             {
                 service_stack: AlLocation.InsightAPI,
                 service_name: this.serviceName,
-                version: 'v3',
+                version: this.serviceVersion,
                 account_id: accountId,
                 path: `retinaSearch/${incidentId}`,
                 data: data,
@@ -691,7 +298,7 @@ export class AlIrisClientInstance {
             {
                 service_stack: AlLocation.InsightAPI,
                 service_name: this.serviceName,
-                version: 'v3',
+                version: this.serviceVersion,
                 account_id: accountId,
                 path: `test/${incidentId}/retinaSearch`,
                 data: data,
@@ -714,7 +321,7 @@ export class AlIrisClientInstance {
             {
                 service_stack: AlLocation.InsightAPI,
                 service_name: this.serviceName,
-                version: 'v3',
+                version: this.serviceVersion,
                 account_id: accountId,
                 path: `${incidentId}/additional_evidence`,
                 data: data,
@@ -736,7 +343,7 @@ export class AlIrisClientInstance {
             {
                 service_stack: AlLocation.InsightAPI,
                 service_name: this.serviceName,
-                version: 'v3',
+                version: this.serviceVersion,
                 account_id: accountId,
                 path: `/reelaboration_status/${requestId}`,
             }
@@ -786,7 +393,7 @@ export class AlIrisClientInstance {
         return this.client.get<Array<RawFilterColumns>>({
             service_stack: AlLocation.InsightAPI,
             service_name: this.serviceName,
-            version: 'v3',
+            version: this.serviceVersion,
             path: `/filter_columns`,
         });
     }
@@ -879,7 +486,7 @@ export class AlIrisClientInstance {
     async getPCAPfile(accountId: string, incidentId: string, uuids: string[]): Promise<Blob> {
 
         const options: APIRequestParams = {
-            version: 'v3',
+            version: this.serviceVersion,
             service_name: this.serviceName,
             account_id: accountId,
             responseType: 'blob',
@@ -972,7 +579,7 @@ export class AlIrisClientInstance {
         return this.client.get(
             {
                 service_stack: AlLocation.InsightAPI,
-                version: 'v3',
+                version: this.serviceVersion,
                 service_name: this.serviceName,
                 account_id: accountId,
                 path: `${incidentId}/elaborationById/${uuid}?parse_logs=true`,
@@ -996,7 +603,7 @@ export class AlIrisClientInstance {
                 service_stack: AlLocation.InsightAPI,
                 service_name: this.serviceName,
                 account_id: accountId,
-                version: 'v3',
+                version: this.serviceVersion,
                 path: `${incidentId}/application/al-lr-case-evidence/${messageId}?type=csv`,
                 responseType: 'text',
             },
@@ -1266,7 +873,7 @@ export class AlIrisClientInstance {
             service_stack: AlLocation.InsightAPI,
             account_id: accountId,
             service_name: this.serviceName,
-            version: 'v3',
+            version: this.serviceVersion,
             path: '/csv',
             params: queryParams,
             data: filterExpression,
@@ -1293,7 +900,7 @@ export class AlIrisClientInstance {
                 path,
                 service_stack: AlLocation.InsightAPI,
                 service_name: this.serviceName,
-                version: 'v3',
+                version: this.serviceVersion,
                 account_id: accountId,
                 responseType: 'arraybuffer'
             },
@@ -1304,7 +911,7 @@ export class AlIrisClientInstance {
         return this.client.post<any>({
             service_stack: AlLocation.InsightAPI,
             service_name: this.serviceName,
-            version: 'v3',
+            version: this.serviceVersion,
             path: `/render_markdown`,
             data: { 'markdown': markdown },
         });
@@ -1322,55 +929,9 @@ export class AlIrisClientInstance {
             service_stack: AlLocation.InsightAPI,
             account_id: accountId,
             service_name: this.serviceName,
-            version: 'v3',
+            version: this.serviceVersion,
             path: `/${incidentId}/searches`,
         });
     }
 
-     /**
-     * For HudUI usage specifically
-     * Allows for bulk state update operations to be performed against multiple account Ids to their respective default IRIS residency locations
-     */
-    async massAcknowledgeIncidents(
-         incidents: { accountId: number, incidentId: string, state: string }[],
-         newState: { "incidentState": string, "assignedOperatorId": string },
-     ): Promise<any[]> {
-        const resolveDefaultEndpointsRequests = [];
-        const massAcknowledgeIncidentsRequests = [];
-
-        const incidentsByCustomer = {};
-        // Prepare requests for each accountId in each incident.
-        incidents.forEach((i) => {
-             if (!incidentsByCustomer[i.accountId]) {
-                 incidentsByCustomer[i.accountId] = [];
-             }
-             incidentsByCustomer[i.accountId].push(i);
-         });
-
-        // Resolve the default residency IRIS service locations for each accountId supplied
-        // This will update the internal endpointCache in the underlying AlClient instance
-        Object.keys(incidentsByCustomer).forEach(accountId => {
-            resolveDefaultEndpointsRequests.push(this.client.resolveDefaultEndpoints(accountId, ['iris']));
-        });
-
-        await Promise.all(resolveDefaultEndpointsRequests);
-
-        // Second, actually perform the mass acknowledge operation...
-        Object.keys(incidentsByCustomer).forEach(accountId => {
-            const data = {
-                newState,
-                incidents: incidentsByCustomer[accountId],
-            };
-            massAcknowledgeIncidentsRequests.push(this.client.post({
-                data,
-                context_account_id: accountId,
-                service_stack: AlLocation.InsightAPI,
-                service_name: this.serviceName,
-                residency: 'default', // important
-                version: 'v1',
-                path: '/bulk/state',
-            }));
-        });
-        return await Promise.all(massAcknowledgeIncidentsRequests);
-    }
 }
