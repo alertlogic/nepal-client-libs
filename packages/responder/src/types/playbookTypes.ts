@@ -815,3 +815,14 @@ export interface AlManagedResponsePayload {
     };
     target_account_id?: string;
 }
+
+export interface AlResponderLimitContent {
+    max_count: number;
+    count: number;
+}
+
+export interface AlResponderLimits {
+    limits: {
+        mr_configs: AlResponderLimitContent
+    };
+}
