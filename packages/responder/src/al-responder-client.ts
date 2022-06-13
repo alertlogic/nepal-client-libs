@@ -23,6 +23,7 @@ import {
     AlResponderInquiries,
     AlResponderInquiry,
     AlResponderInspectorError,
+    AlResponderLimits,
     AlResponderManageBlockStatusRequest,
     AlResponderMRAWSSNS,
     AlResponderMRAWSWAF,
@@ -1468,6 +1469,24 @@ export class AlResponderClientInstance {
             data: requestBody,
             params: params,
             path: `/managed_response`
+        });
+    }
+
+    /**
+     * Get limits for the creation of paybooks, tasks, triggers, simple responses and exclusions
+     * GET
+     * /v1/{account_id}/limits
+     * https://responder.mdr.global.alertlogic.com
+     * @param accountId {string} AIMS Account ID
+     * @returns {Promise<AlResponderLimits>}
+     */
+    async getLimits(accountId: string, type: string): Promise<AlResponderLimits> {
+        return this.client.get({
+            version: this.serviceVersion,
+            target_endpoint: this.targetEndpoint,
+            service_stack: this.serviceStack,
+            account_id: accountId,
+            path: `/limits`
         });
     }
 }
