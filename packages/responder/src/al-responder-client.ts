@@ -1480,7 +1480,7 @@ export class AlResponderClientInstance {
      * @param accountId {string} AIMS Account ID
      * @returns {Promise<AlResponderLimits>}
      */
-    async getLimits(accountId: string, type: string): Promise<AlResponderLimits> {
+    async getLimits(accountId: string): Promise<AlResponderLimits> {
         return this.client.get({
             version: this.serviceVersion,
             target_endpoint: this.targetEndpoint,
