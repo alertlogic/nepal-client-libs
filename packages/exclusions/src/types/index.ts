@@ -273,6 +273,7 @@ export class CidrType {
     public port: string;
     public networkKey: string;
     public asset_type: string;
+    public description: string;
 
     public static import(rawData: any): CidrType {
         let item = new CidrType();
@@ -283,6 +284,7 @@ export class CidrType {
         item.port = rawData.hasOwnProperty('port') ? rawData.port : '';
         item.networkKey = rawData.hasOwnProperty('networkKey') ? rawData.networkKey : '';
         item.asset_type = rawData.hasOwnProperty('asset_type') ? rawData.asset_type : '';
+        item.description = rawData.hasOwnProperty('description') ? rawData.description : '';
 
         return item;
     }
