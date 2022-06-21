@@ -72,6 +72,7 @@ export interface AlApplicationSyslog {
     disk_cache_size?: number;
     disk_limit?: number;
     agent_port?: number;
+    use_original_ts?: boolean;
 }
 
 export interface AlApplicationEventlog {
