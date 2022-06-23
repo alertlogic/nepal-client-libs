@@ -16,7 +16,8 @@ import {
     ConvergenceQueryParams,
     LookedUpUsersResponse,
     PolicyType,
-    ZoneMembershipResponse
+    ZoneMembershipResponse,
+    CertificateKeyPair
 } from './types';
 
 export class ConvergenceUtilityClientInstance {
@@ -421,7 +422,7 @@ export class ConvergenceUtilityClientInstance {
     }
 
     public async getUpdatesPolicy(accountId: string, policyId: string): Promise<CollectionUpdatesPolicy> {
-        const rawResponse =  await this.client.get({
+        const rawResponse = await this.client.get({
             service_stack: this.serviceStack,
             service_name: this.serviceName,
             version: this.serviceVersion,
@@ -460,6 +461,53 @@ export class ConvergenceUtilityClientInstance {
             version: this.serviceVersion,
             account_id: accountId,
             path: `/policies/updates/${policyId}`
+        });
+    }
+
+    public async listCertificateKeyPairs(accountId: string, params?: ConvergenceQueryParams): Promise<CollectionsGenericResponse> {
+        return this.client.get({
+            params,
+            service_stack: this.serviceStack,
+            service_name: this.serviceName,
+            version: this.serviceVersion,
+            account_id: accountId,
+            path: `/certificates`
+        });
+    }
+
+    public async createCertificateKeyPair(accountId: string, data: CertificateKeyPair): Promise<CertificateKeyPair> {
+        const { keypair }: { keypair: CertificateKeyPair } =
+            await this.client.post({
+                data,
+                service_stack: this.serviceStack,
+                service_name: this.serviceName,
+                version: this.serviceVersion,
+                account_id: accountId,
+                path: `/certificates`
+            });
+        return keypair;
+    }
+
+    public async deleteCertificateKeyPair(accountId: string, keypairId: string): Promise<void> {
+        return this.client.delete({
+            service_stack: this.serviceStack,
+            service_name: this.serviceName,
+            version: this.serviceVersion,
+            account_id: accountId,
+            path: `/certificates/${keypairId}`
+        });
+    }
+
+    public async validatePemFile(accountId: string, file: File): Promise<string[][]> {
+        const data: FormData = new FormData();
+        data.append('file', file);
+        return this.client.post({
+            data,
+            service_stack: this.serviceStack,
+            service_name: this.serviceName,
+            version: this.serviceVersion,
+            account_id: accountId,
+            path: `/certificates/pemvalidation`
         });
     }
 
