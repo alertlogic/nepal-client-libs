@@ -41,6 +41,7 @@ export interface CollectionsGenericResponse {
     networks?:  CollectionSource[];
     history?: CollectionHistory[];
     updates?: CollectionUpdatesPolicy[];
+    keypairs?: { keypair: CertificateKeyPair }[];
     total_count?: number;
 }
 
@@ -266,6 +267,22 @@ export interface ICollectionFilterValue {
     product?: string;
     value?: string;
 }
+
+export interface CertificateKeyPair {
+    id?: string;
+    certificate?: string[];
+    encrypted_private_key?: string;
+    name?: string;
+    private_key?: string;
+    type?: string;
+    created?: AlChangeStamp;
+    modified?: AlChangeStamp;
+    _certificate?: string[];
+    _private_key?: string[];
+}
+
+
+
 
 
 
