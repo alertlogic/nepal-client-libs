@@ -3,6 +3,7 @@ import { AlChangeStamp } from '@al/core';
 
 export type StreamType = "offline" | "tmhost" | "syslog" | "tmappliance" | "update" | "updater" | "undefined" | "default";
 export type Status = "ok" | "error" | "warning";
+type GroupBy = 'host_id' | 'stream' | 'source_id' | 'collection_type';
 
 export interface AlCollectorStatusObject {
     account_id: string;
@@ -20,7 +21,7 @@ export interface AlCollectorStatusHistoryResponse {
 }
 
 export interface AlCollectorStatusQueryParams {
-    group_by?: string; // e.g. host_id, stream, source_id, collection_type
+    group_by?: GroupBy;
     limit?: number; // default is 1000
     timestamp?: number;
     timestamp_type?: 's' | 'ms' | 'seconds' | 'miliseconds';
