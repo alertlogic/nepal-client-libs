@@ -1,0 +1,46 @@
+{
+  "name": "@al/collector-status",
+  "version": "1.0.0",
+  "license": "MIT",
+  "description": "A lightweight client library for interacting with the Collector Status API",
+  "author": {
+    "name": "Bryan Tabarez",
+    "email": "bryan.tabarez@alertlogic.com"
+  },
+  "keywords": [
+    "Alert Logic",
+    "Client",
+    "Service",
+    "Collector Status"
+  ],
+  "maintainers": [
+    {
+      "name": "Alert Logic NPM Team",
+      "email": "npm@alertlogic.com"
+    }
+  ],
+  "repository": "github:alertlogic/nepal-client-libs",
+  "main": "./dist/index.cjs.js",
+  "types": "./dist/index.d.ts",
+  "module": "./dist/index.esm5.js",
+  "es2015": "./dist/index.esm2015.js",
+  "scripts": {
+    "test": "karma start",
+    "test-watch": "karma start --no-single-run --auto-watch",
+    "build": "rollup -c ../../rollup.config.ts",
+    "prebuild": "npm run clean && npm run lint",
+    "lint": "tslint -p tsconfig.json -c ../../tslint.json",
+    "clean": "rm -rf dist node_modules",
+    "build-local": "PATH=$(cd ../.. && npm bin):$PATH npm run build",
+    "prepublishOnly": "npm run build"
+  },
+  "dependencies": {
+    "@al/core": "^1.0.173"
+  },
+  "files": [
+    "dist"
+  ],
+  "publishConfig": {
+    "access": "public"
+  }
+}
