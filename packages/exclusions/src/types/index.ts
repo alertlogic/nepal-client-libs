@@ -293,8 +293,10 @@ export class CidrType {
 export class AllExclusionsToSave {
     external_scanning: Array<ExclusionsAssets>;
     internal_scanning: Array<ExclusionsAssets>;
+    agent_scanning: Array<ExclusionsAssets>;
     internal_scanning_ports: { asset: ExclusionsAssets, details: ExlusionsDetails[], ruleId: string }[];
     external_scanning_ports: { asset: ExclusionsAssets, details: ExlusionsDetails[], ruleId: string }[];
+    agent_scanning_ports: { asset: ExclusionsAssets, details: ExlusionsDetails[], ruleId: string };
     networks_ids: Array<CidrType>;
     networks_deleted: Array<string>;
     ports_rules_deleted: Array<string>;
