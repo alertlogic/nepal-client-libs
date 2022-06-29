@@ -271,14 +271,14 @@ export interface ICollectionFilterValue {
 export interface CertificateKeyPair {
     id?: string;
     certificate?: string[];
+    private_key?: string[];
     encrypted_private_key?: string;
     name?: string;
-    private_key?: string;
     type?: string;
     created?: AlChangeStamp;
     modified?: AlChangeStamp;
-    _certificate?: string[];
-    _private_key?: string[];
+    _certificate?: string;
+    _private_key?: string;
 }
 
 
