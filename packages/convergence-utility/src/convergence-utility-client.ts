@@ -478,7 +478,7 @@ export class ConvergenceUtilityClientInstance {
     public async createCertificateKeyPair(accountId: string, data: CertificateKeyPair): Promise<CertificateKeyPair> {
         const { keypair }: { keypair: CertificateKeyPair } =
             await this.client.post({
-                data,
+                data: { keypair: data },
                 service_stack: this.serviceStack,
                 service_name: this.serviceName,
                 version: this.serviceVersion,
