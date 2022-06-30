@@ -1,17 +1,17 @@
 
 import { AlChangeStamp } from '@al/core';
 
-export type ConvergenceQueryParams =  { [i: string]: string | number | boolean };
+export type ConvergenceQueryParams = { [i: string]: string | number | boolean };
 
 export type PolicyType = 'eventlogs'
-                        | 's3'
-                        | 'flatfile'
-                        | 'assignment'
-                        | 'monitoring'
-                        | 'host'
-                        | 'syslog'
-                        | 'updates'
-                        | 'whitelist';
+    | 's3'
+    | 'flatfile'
+    | 'assignment'
+    | 'monitoring'
+    | 'host'
+    | 'syslog'
+    | 'updates'
+    | 'whitelist';
 
 export type LookedUpUsersResponse = { users: { [id: string]: UserData } };
 
@@ -19,9 +19,8 @@ export type CollectionFiltersResponse = { filters: CollectionFilter[] };
 
 export type CollectionFilterValue = ICollectionFilterValue | string;
 
-export type CollectionSourceMetadata = { [i: string]: string };
-
 export type ZoneMembershipResponse = { zoneMembership: ApplianceZoneRecord[] };
+
 
 export interface CloudExplorerAwsRegionRecord {
     id: string;
@@ -34,27 +33,67 @@ export interface ApplianceZoneRecord {
 }
 
 export interface CollectionsGenericResponse {
-    credentials?: CollectionCredential[];
-    policies?: { policy: CollectionPolicy}[];
-    sources?: CollectionSource[];
-    collectors?: CollectionSource[];
-    hosts?: CollectionSource[];
-    networks?:  CollectionSource[];
-    history?: CollectionHistory[];
+    credentials?: {credential: CollectionCredential}[];
+    policies?: { policy: CollectionPolicy }[];
+    schedules?: { schedule: CollectionSchedule }[];
+    sources?: { source: CollectionSource}[];
+    collectors?: { source: CollectionSource}[];
+    hosts?: { source: CollectionSource}[];
+    networks?: { source: CollectionSource}[];
     keypairs?: { keypair: CertificateKeyPair }[];
+    history?:  CollectionHistory[];
     total_count?: number;
 }
 
+export interface CollectionSchedule {
+    blackout?: CollectionScheduleBlackout;
+    name?: string;
+    id?: string;
+    timezone?: string;
+    created?: AlChangeStamp;
+    modified?: AlChangeStamp;
+}
+
+export interface CollectionScheduleBlackout {
+    enabled?: boolean;
+    periods?: CollectionScheduleBlackoutPeriod[];
+}
+
+export interface CollectionScheduleBlackoutPeriod {
+    start_minute?: string;
+    start_hour?: string;
+    end_minute?: string;
+    end_hour?: string;
+}
+
 export interface CollectionHistory {
-    details?: { [k:string]: string }[];
-    host_id?: string;
-    inst_type?: string;
-    reported_by?: string;
-    source_id?: string;
-    status?: string;
-    stream?: string;
-    timestamp?: AlChangeStamp;
-    updated?: AlChangeStamp;
+    key?: string;
+    timestamp?: number;
+    metadata?: CollectionHistoryMetadata;
+    status?: CollectionHistoryStatus;
+}
+
+export interface CollectionHistoryMetadata {
+    host_type?: string;
+    local_hostname?: string;
+    local_ipv4?: string[];
+    local_ipv6?: string[];
+    public_hostname?: string;
+    public_ipv4?: string[];
+    public_ipv6?: string[];
+    num_logical_processors?: number;
+    os_details?: string;
+    os_type?: string;
+    total_mem_mb?: number;
+    version?: string;
+    ec2_instance_id?: string;
+    ec2_ami_id?: string;
+    ec2_instance_type?: string;
+    ec2_account_id?: string;
+    ec2_region?: string;
+    ec2_availability_zone?: string;
+    sqs_endpoint?: string;
+    sqs_queue_name?: string;
 }
 
 export interface CollectionCredential {
@@ -89,21 +128,49 @@ export interface CollectionPolicy {
     collect_from_discovered?: boolean;
     default?: boolean;
     streams?: any[];
-    credential?: any;
     created?: AlChangeStamp;
     modified?: AlChangeStamp;
     template_id?: string;
-    s3?: S3;
-    collection_alert?: CollectionAlert;
-    flatfile?: FlatFile;
     alert_type?: string;
     target_type?: string;
     enabled?: boolean;
-    whitelist?: {rules: WhiteListConfigRule[]};
-    monitoring?: any;
     when?: string;
-    schedule?: CollectionUpdatesPolicySchedule[];
     time_zone?: string;
+    netmask?: string;
+    restrict_network?: boolean;
+    whitelist?: { rules: WhiteListConfigRule[] };
+    monitoring?: MonitoringConfig;
+    s3?: S3Config;
+    tmhost?: HostConfig;
+    flatfile?: FlatFileConfig;
+    appliance_assignment?: ApplianceAssignmentConfig;
+    collection_alert?: CollectionAlertConfig;
+    schedule?: UpdatesScheduleConfig[];
+    credential?: any;
+}
+
+export interface HostConfig {
+    policyId?: string;
+    name?: string;
+    defaultState: any;
+    createdBy?: string;
+    createdDate?: string;
+    updatedBy?: string;
+    updatedDate?: string;
+    udp: boolean;
+    packetSize: number;
+    encrypt: boolean;
+    compress: boolean;
+}
+
+export interface MonitoringConfig {
+    networks: { id: string }[];
+    whitelists: { id: string }[];
+}
+
+export interface ApplianceAssignmentConfig {
+    appliances: number[];
+    secondary_appliances: number[];
 }
 
 export interface WhiteListConfigRule {
@@ -112,7 +179,7 @@ export interface WhiteListConfigRule {
     proto?: string;
 }
 
-export interface CollectionUpdatesPolicySchedule {
+export interface UpdatesScheduleConfig {
     days?: CollectionUpdatesPolicyScheduleDaysConfig;
     time?: CollectionUpdatesPolicyScheduleTimeConfig[];
 }
@@ -131,7 +198,7 @@ export interface CollectionUpdatesPolicyScheduleTimeConfig {
 
 export type TimeConfig = { hour: string, minute: string };
 
-export interface FlatFile {
+export interface FlatFileConfig {
     filename_integer_pattern?: string;
     filename_timestamp_pattern?: string;
     multiline?: MultilineConfig;
@@ -140,7 +207,7 @@ export interface FlatFile {
     timestamp?: TimestampConfig;
 }
 
-export interface CollectionAlert {
+export interface CollectionAlertConfig {
     alert_threshold?: number;
     emails?: string[];
     is_enabled?: boolean;
@@ -148,7 +215,7 @@ export interface CollectionAlert {
     send_threshold?: number;
 }
 
-export interface S3 {
+export interface S3Config {
     multiline?: MultilineConfig;
     timestamp?: TimestampConfig;
 }
@@ -196,12 +263,12 @@ export interface CollectionSourceValue {
     stats?: {
         [k: string]: number;
     };
-    status?: CollectionSourceStatus;
+    status?: CollectionHistoryStatus;
     tags?: {
         name: string;
     }[];
     type?: string;
-    metadata?: CollectionSourceMetadata;
+    metadata?: CollectionHistoryMetadata;
     assignmentPolicy?: {
         id: string;
     };
@@ -211,11 +278,15 @@ export interface CollectionSourceValue {
     timestamp?: AlChangeStamp;
 }
 
-export interface CollectionSourceStatus {
+export interface CollectionHistoryStatus {
     details?: any[];
     status?: string;
     timestamp?: number;
     updated?: number;
+    stream?: string;
+    reported_by?: string;
+    inst_type: string;
+    host_id?: string;
 }
 
 export interface CollectionSourceConfig {
