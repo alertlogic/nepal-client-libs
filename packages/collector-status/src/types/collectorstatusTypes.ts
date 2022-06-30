@@ -10,8 +10,9 @@ export interface AlCollectorStatusObject {
     status_id:	string;
     stream: StreamType;
     status:	Status;
-    timestamp: string;
+    timestamp: number;
     reported?: AlChangeStamp;
+    details?: string[];
 }
 
 export interface AlCollectorStatusHistoryResponse {
