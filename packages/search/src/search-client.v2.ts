@@ -87,6 +87,7 @@ export interface AlSearchStatsV2 {
 export interface AlSearchGetResultsV2 {
     columns: Array<string>;
     records: Array<AlSearchResultRecordV2>;
+    metadata: { [key: string]: string };
 }
 
 export interface AlSearchResultRecordV2 {
