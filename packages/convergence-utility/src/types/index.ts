@@ -10,7 +10,8 @@ export type PolicyType = 'eventlogs'
                         | 'monitoring'
                         | 'host'
                         | 'syslog'
-                        | 'updates';
+                        | 'updates'
+                        | 'whitelist';
 
 export type LookedUpUsersResponse = { users: { [id: string]: UserData } };
 
@@ -34,13 +35,12 @@ export interface ApplianceZoneRecord {
 
 export interface CollectionsGenericResponse {
     credentials?: CollectionCredential[];
-    policies?: CollectionPolicy[];
+    policies?: { policy: CollectionPolicy}[];
     sources?: CollectionSource[];
     collectors?: CollectionSource[];
     hosts?: CollectionSource[];
     networks?:  CollectionSource[];
     history?: CollectionHistory[];
-    updates?: CollectionUpdatesPolicy[];
     keypairs?: { keypair: CertificateKeyPair }[];
     total_count?: number;
 }
@@ -90,7 +90,6 @@ export interface CollectionPolicy {
     default?: boolean;
     streams?: any[];
     credential?: any;
-    schedule?: any;
     created?: AlChangeStamp;
     modified?: AlChangeStamp;
     template_id?: string;
@@ -99,13 +98,18 @@ export interface CollectionPolicy {
     flatfile?: FlatFile;
     alert_type?: string;
     target_type?: string;
+    enabled?: boolean;
+    whitelist?: {rules: WhiteListConfigRule[]};
     monitoring?: any;
-}
-
-export interface CollectionUpdatesPolicy extends CollectionPolicy {
     when?: string;
     schedule?: CollectionUpdatesPolicySchedule[];
     time_zone?: string;
+}
+
+export interface WhiteListConfigRule {
+    cidr?: string;
+    port?: string;
+    proto?: string;
 }
 
 export interface CollectionUpdatesPolicySchedule {
