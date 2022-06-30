@@ -10,7 +10,6 @@ import {
     CollectionCredential,
     CollectionFiltersResponse,
     CollectionPolicy,
-    CollectionUpdatesPolicy,
     CollectionsGenericResponse,
     CollectionSource,
     ConvergenceQueryParams,
@@ -446,60 +445,6 @@ export class ConvergenceUtilityClientInstance {
             version: this.serviceVersion,
             account_id: accountId,
             path: `/apikey`,
-        });
-    }
-
-    public async listUpdatesPolicies(accountId: string, params?: ConvergenceQueryParams): Promise<CollectionsGenericResponse> {
-        return this.client.get({
-            params,
-            service_stack: this.serviceStack,
-            service_name: this.serviceName,
-            version: this.serviceVersion,
-            account_id: accountId,
-            path: `/policies/updates`
-        });
-    }
-
-    public async getUpdatesPolicy(accountId: string, policyId: string): Promise<CollectionUpdatesPolicy> {
-        const rawResponse = await this.client.get({
-            service_stack: this.serviceStack,
-            service_name: this.serviceName,
-            version: this.serviceVersion,
-            account_id: accountId,
-            path: `/policies/updates/${policyId}`
-        });
-        return rawResponse?.policy ?? null;
-    }
-
-    public async deleteUpdatesPolicy(accountId: string, policyId: string): Promise<void> {
-        return this.client.delete({
-            service_stack: this.serviceStack,
-            service_name: this.serviceName,
-            version: this.serviceVersion,
-            account_id: accountId,
-            path: `/policies/updates/${policyId}`
-        });
-    }
-
-    public async createUpdatesPolicy(accountId: string, data: CollectionUpdatesPolicy): Promise<CollectionUpdatesPolicy> {
-        return this.client.post({
-            data,
-            service_stack: this.serviceStack,
-            service_name: this.serviceName,
-            version: this.serviceVersion,
-            account_id: accountId,
-            path: `/policies/updates`
-        });
-    }
-
-    public async updateUpdatesPolicy(accountId: string, policyId: string, data: CollectionUpdatesPolicy): Promise<CollectionUpdatesPolicy> {
-        return this.client.put({
-            data,
-            service_stack: this.serviceStack,
-            service_name: this.serviceName,
-            version: this.serviceVersion,
-            account_id: accountId,
-            path: `/policies/updates/${policyId}`
         });
     }
 

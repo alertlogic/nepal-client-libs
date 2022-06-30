@@ -35,13 +35,12 @@ export interface ApplianceZoneRecord {
 
 export interface CollectionsGenericResponse {
     credentials?: CollectionCredential[];
-    policies?: CollectionPolicy[];
+    policies?: { policy: CollectionPolicy}[];
     sources?: CollectionSource[];
     collectors?: CollectionSource[];
     hosts?: CollectionSource[];
     networks?:  CollectionSource[];
     history?: CollectionHistory[];
-    updates?: CollectionUpdatesPolicy[];
     keypairs?: { keypair: CertificateKeyPair }[];
     total_count?: number;
 }
@@ -91,7 +90,6 @@ export interface CollectionPolicy {
     default?: boolean;
     streams?: any[];
     credential?: any;
-    schedule?: any;
     created?: AlChangeStamp;
     modified?: AlChangeStamp;
     template_id?: string;
@@ -103,18 +101,15 @@ export interface CollectionPolicy {
     enabled?: boolean;
     whitelist?: {rules: WhiteListConfigRule[]};
     monitoring?: any;
+    when?: string;
+    schedule?: CollectionUpdatesPolicySchedule[];
+    time_zone?: string;
 }
 
 export interface WhiteListConfigRule {
     cidr?: string;
     port?: string;
     proto?: string;
-}
-
-export interface CollectionUpdatesPolicy extends CollectionPolicy {
-    when?: string;
-    schedule?: CollectionUpdatesPolicySchedule[];
-    time_zone?: string;
 }
 
 export interface CollectionUpdatesPolicySchedule {
