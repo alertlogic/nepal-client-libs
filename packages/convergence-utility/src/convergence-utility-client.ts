@@ -10,7 +10,7 @@ import {
     CollectionCredential,
     CollectionFiltersResponse,
     CollectionPolicy,
-    CollectionUpdatesPolicy as CollectionUpdatesPolicy,
+    CollectionUpdatesPolicy,
     CollectionsGenericResponse,
     CollectionSource,
     ConvergenceQueryParams,
@@ -202,6 +202,18 @@ export class ConvergenceUtilityClientInstance {
         });
     }
 
+    public async createPolicy(accountId: string, policyType: PolicyType, data: CollectionPolicy): Promise<CollectionPolicy> {
+        const raw = await this.client.post({
+            data,
+            service_stack: this.serviceStack,
+            service_name: this.serviceName,
+            version: this.serviceVersion,
+            account_id: accountId,
+            path: `/policies/${policyType}`
+        });
+        return raw?.policy ?? raw;
+    }
+
     public async getOnePolicy(
         accountId: string,
         policyType: PolicyType,
@@ -216,6 +228,16 @@ export class ConvergenceUtilityClientInstance {
         return raw?.policy ?? raw;
     }
 
+    public async deletePolicy(accountId: string, policyType: PolicyType, policyId: string): Promise<void> {
+        return this.client.delete({
+            service_stack: this.serviceStack,
+            service_name: this.serviceName,
+            version: this.serviceVersion,
+            account_id: accountId,
+            path: `/policies/${policyType}/${policyId}`
+        });
+    }
+
     public async listPolicies(
         accountId: string,
         policyType: PolicyType,
@@ -228,6 +250,23 @@ export class ConvergenceUtilityClientInstance {
             account_id: accountId,
             path: `/policies/${policyType}`
         });
+    }
+
+    public async updatePolicy(
+        accountId: string,
+        policyType: PolicyType,
+        data: CollectionPolicy
+    ): Promise<CollectionPolicy>{
+        const raw =  await this.client.put({
+            data,
+            service_stack: this.serviceStack,
+            service_name: this.serviceName,
+            version: this.serviceVersion,
+            account_id: accountId,
+            path: `/policies/${policyType}`
+        });
+        return raw?.policy ?? raw;
+
     }
 
     public async updateCollector(

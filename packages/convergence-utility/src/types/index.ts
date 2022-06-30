@@ -10,7 +10,8 @@ export type PolicyType = 'eventlogs'
                         | 'monitoring'
                         | 'host'
                         | 'syslog'
-                        | 'updates';
+                        | 'updates'
+                        | 'whitelist';
 
 export type LookedUpUsersResponse = { users: { [id: string]: UserData } };
 
@@ -99,7 +100,15 @@ export interface CollectionPolicy {
     flatfile?: FlatFile;
     alert_type?: string;
     target_type?: string;
+    enabled?: boolean;
+    whitelist?: {rules: WhiteListConfigRule[]};
     monitoring?: any;
+}
+
+export interface WhiteListConfigRule {
+    cidr?: string;
+    port?: string;
+    proto?: string;
 }
 
 export interface CollectionUpdatesPolicy extends CollectionPolicy {
