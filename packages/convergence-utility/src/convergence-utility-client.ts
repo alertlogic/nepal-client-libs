@@ -203,7 +203,7 @@ export class ConvergenceUtilityClientInstance {
 
     public async createPolicy(accountId: string, policyType: PolicyType, data: CollectionPolicy): Promise<CollectionPolicy> {
         const raw = await this.client.post({
-            data,
+            data: { policy: data },
             service_stack: this.serviceStack,
             service_name: this.serviceName,
             version: this.serviceVersion,
@@ -254,15 +254,16 @@ export class ConvergenceUtilityClientInstance {
     public async updatePolicy(
         accountId: string,
         policyType: PolicyType,
+        policyId: string,
         data: CollectionPolicy
-    ): Promise<CollectionPolicy>{
-        const raw =  await this.client.put({
-            data,
+    ): Promise<CollectionPolicy> {
+        const raw = await this.client.put({
+            data: { policy: data },
             service_stack: this.serviceStack,
             service_name: this.serviceName,
             version: this.serviceVersion,
             account_id: accountId,
-            path: `/policies/${policyType}`
+            path: `/policies/${policyType}/${policyId}`
         });
         return raw?.policy ?? raw;
 
@@ -369,30 +370,44 @@ export class ConvergenceUtilityClientInstance {
     public async getCollectionSource(
         accountId: string,
         deploymentId: string,
-        collectionId: string,
-        entityType: string = 'collection'): Promise<CollectionSource> {
+        collectionId: string): Promise<CollectionSource> {
         return this.client.get({
             service_stack: this.serviceStack,
             service_name: this.serviceName,
             version: this.serviceVersion,
             account_id: accountId,
-            path: `/deployments/${deploymentId}/${entityType}/${collectionId}`
+            path: `/deployments/${deploymentId}/collection/${collectionId}`
         });
     }
 
     public async listCollectionSources(
         accountId: string,
         deploymentId: string,
-        params: ConvergenceQueryParams,
-        entityType: string = 'collection'): Promise<CollectionsGenericResponse> {
+        params: ConvergenceQueryParams): Promise<CollectionsGenericResponse> {
         return this.client.get({
             params,
             service_stack: this.serviceStack,
             service_name: this.serviceName,
             version: this.serviceVersion,
             account_id: accountId,
-            path: `/deployments/${deploymentId}/${entityType}`
+            path: `/deployments/${deploymentId}/collection`
         });
+    }
+
+
+    public async listCloudDefenderCollectionSources(
+        accountId: string,
+        params: ConvergenceQueryParams
+    ): Promise<CollectionsGenericResponse> {
+        return this.client.get({
+            params,
+            service_stack: this.serviceStack,
+            service_name: this.serviceName,
+            version: this.serviceVersion,
+            account_id: accountId,
+            path: `/deployments/dc-logsources/collection`
+        });
+
     }
 
     public async addToCase(accountId: string, data: { id: string, type: string }): Promise<any> {
