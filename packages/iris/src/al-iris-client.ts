@@ -38,6 +38,7 @@ import {
     RawFilterColumns,
     AdditionalEvidenceRequest,
     AdditionalEvidenceResponse,
+    MassUpdatePayload,
 } from './types';
 
 export class AlIrisClientInstance {
@@ -1331,9 +1332,10 @@ export class AlIrisClientInstance {
      * For HudUI usage specifically
      * Allows for bulk state update operations to be performed against multiple account Ids to their respective default IRIS residency locations
      */
-    async massAcknowledgeIncidents(
+    async massUpdate(
          incidents: { accountId: number, incidentId: string, state: string }[],
-         newState: { "incidentState": string, "assignedOperatorId": string },
+         payload: MassUpdatePayload,
+         updateType: 'state' | 'properties',
      ): Promise<any[]> {
         const resolveDefaultEndpointsRequests = [];
         const massAcknowledgeIncidentsRequests = [];
@@ -1355,20 +1357,22 @@ export class AlIrisClientInstance {
 
         await Promise.all(resolveDefaultEndpointsRequests);
 
+        let path = `/bulk/${updateType}`;
+
         // Second, actually perform the mass acknowledge operation...
         Object.keys(incidentsByCustomer).forEach(accountId => {
             const data = {
-                newState,
+                ...payload,
                 incidents: incidentsByCustomer[accountId],
             };
             massAcknowledgeIncidentsRequests.push(this.client.post({
                 data,
+                path,
                 context_account_id: accountId,
                 service_stack: AlLocation.InsightAPI,
                 service_name: this.serviceName,
                 residency: 'default', // important
                 version: 'v1',
-                path: '/bulk/state',
             }));
         });
         return await Promise.all(massAcknowledgeIncidentsRequests);
