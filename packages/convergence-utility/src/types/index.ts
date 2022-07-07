@@ -152,15 +152,15 @@ export interface CollectionPolicy {
 export interface HostConfig {
     policyId?: string;
     name?: string;
-    defaultState: any;
+    defaultState?: any;
     createdBy?: string;
     createdDate?: string;
     updatedBy?: string;
     updatedDate?: string;
-    udp: boolean;
-    packetSize: number;
-    encrypt: boolean;
-    compress: boolean;
+    udp?: boolean;
+    packet_size?: number;
+    encrypt?: boolean;
+    compress?: boolean;
 }
 
 export interface MonitoringConfig {
