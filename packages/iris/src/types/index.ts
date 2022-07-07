@@ -199,3 +199,19 @@ export interface RawFilterColumns {
     use_as_filter: boolean;
     sorted?: boolean;
 }
+
+export type MassUpdatePayload = StateUpdatePayload | PropertiesUpdatePayload;
+
+export interface StateUpdatePayload {
+    newState: {
+        "incidentState": string;
+        "assignedOperatorId": string;
+    };
+}
+
+export interface PropertiesUpdatePayload {
+    properties: {
+        property: string,
+        newValue: any,
+    }[];
+}
