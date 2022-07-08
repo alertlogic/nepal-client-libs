@@ -278,6 +278,7 @@ export interface RemediationItemsQueryParams {
     audit_ids?: string;
     remediation_ids?: string;
     vulnerability_ids?: string;
+    basic_details?: boolean;
 }
 export interface RemediationItemsQueryResponse {
     filters?: string[] | RemediationItemsFilter[];
