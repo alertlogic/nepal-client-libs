@@ -57,7 +57,7 @@ export class ConvergenceUtilityClientInstance {
     public async listProtectedHosts(
         accountId: string,
         deploymentId: string,
-        params: ConvergenceQueryParams): Promise<CollectionsGenericResponse> {
+        params?: ConvergenceQueryParams): Promise<CollectionsGenericResponse> {
         return this.client.get({
             params,
             service_stack: this.serviceStack,
@@ -71,7 +71,7 @@ export class ConvergenceUtilityClientInstance {
     public async listNetworks(
         accountId: string,
         deploymentId: string,
-        params: ConvergenceQueryParams): Promise<CollectionsGenericResponse> {
+        params?: ConvergenceQueryParams): Promise<CollectionsGenericResponse> {
         return this.client.get({
             params,
             service_stack: this.serviceStack,
@@ -123,7 +123,7 @@ export class ConvergenceUtilityClientInstance {
         accountId: string,
         deploymentId: string,
         productType: string,
-        params: ConvergenceQueryParams,
+        params?: ConvergenceQueryParams,
         action?: 'massedit' | 'deleted'): Promise<CollectionsGenericResponse> {
         if (productType === "lm") {
             productType = "lmhosts";
@@ -145,7 +145,7 @@ export class ConvergenceUtilityClientInstance {
 
     public async listCredentials(
         accountId: string,
-        params: ConvergenceQueryParams): Promise<CollectionsGenericResponse> {
+        params?: ConvergenceQueryParams): Promise<CollectionsGenericResponse> {
         return this.client.get({
             params,
             service_stack: this.serviceStack,
@@ -184,7 +184,7 @@ export class ConvergenceUtilityClientInstance {
     public async listAlertRules(
         accountId: string,
         productType: string,
-        params: ConvergenceQueryParams
+        params?: ConvergenceQueryParams
     ): Promise<CollectionsGenericResponse> {
         if (productType === "log-collection") {
             productType = "lm_collection";
@@ -240,7 +240,7 @@ export class ConvergenceUtilityClientInstance {
     public async listPolicies(
         accountId: string,
         policyType: PolicyType,
-        params: ConvergenceQueryParams): Promise<CollectionsGenericResponse> {
+        params?: ConvergenceQueryParams): Promise<CollectionsGenericResponse> {
         return this.client.get({
             params,
             service_stack: this.serviceStack,
@@ -300,7 +300,7 @@ export class ConvergenceUtilityClientInstance {
     public async listCollectors(
         accountId: string,
         deploymentId: string,
-        params: { [i: string]: number | string | boolean }): Promise<CollectionsGenericResponse> {
+        params?: { [i: string]: number | string | boolean }): Promise<CollectionsGenericResponse> {
         return this.client.get({
             params,
             service_stack: this.serviceStack,
@@ -383,7 +383,7 @@ export class ConvergenceUtilityClientInstance {
     public async listCollectionSources(
         accountId: string,
         deploymentId: string,
-        params: ConvergenceQueryParams): Promise<CollectionsGenericResponse> {
+        params?: ConvergenceQueryParams): Promise<CollectionsGenericResponse> {
         return this.client.get({
             params,
             service_stack: this.serviceStack,
@@ -397,7 +397,7 @@ export class ConvergenceUtilityClientInstance {
 
     public async listCloudDefenderCollectionSources(
         accountId: string,
-        params: ConvergenceQueryParams
+        params?: ConvergenceQueryParams
     ): Promise<CollectionsGenericResponse> {
         return this.client.get({
             params,
@@ -507,6 +507,20 @@ export class ConvergenceUtilityClientInstance {
             version: this.serviceVersion,
             account_id: accountId,
             path: `/certificates/pemvalidation`
+        });
+    }
+
+    public async listAppliances(
+        accountId: string,
+        deploymentId: string,
+        params?: { [i: string]: number | string | boolean }): Promise<CollectionsGenericResponse> {
+        return this.client.get({
+            params,
+            service_stack: this.serviceStack,
+            service_name: this.serviceName,
+            version: this.serviceVersion,
+            account_id: accountId,
+            path: `/deployments/${deploymentId}/appliances`
         });
     }
 
