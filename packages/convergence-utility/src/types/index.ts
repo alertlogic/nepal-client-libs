@@ -22,6 +22,7 @@ export type CollectionFilterValue = ICollectionFilterValue | string;
 export type ZoneMembershipResponse = { zoneMembership: ApplianceZoneRecord[] };
 
 
+
 export interface CloudExplorerAwsRegionRecord {
     id: string;
     name: string;
@@ -120,6 +121,7 @@ export interface CollectionCredential {
     };
 }
 
+
 export interface CollectionPolicy {
     id?: string;
     name?: string;
@@ -138,7 +140,7 @@ export interface CollectionPolicy {
     time_zone?: string;
     netmask?: string;
     restrict_network?: boolean;
-    whitelist?: { rules: WhiteListConfigRule[] };
+    whitelist?: { rules?: WhiteListConfigRule[], policy?: {id?: string, name?: string} };
     monitoring?: MonitoringConfig;
     s3?: S3Config;
     tmhost?: HostConfig;
@@ -169,8 +171,8 @@ export interface MonitoringConfig {
 }
 
 export interface ApplianceAssignmentConfig {
-    appliances: number[];
-    secondary_appliances: number[];
+    appliances?: string[];
+    secondary_appliances?: string[];
 }
 
 export interface WhiteListConfigRule {
@@ -276,6 +278,7 @@ export interface CollectionSourceValue {
     deployment?: any;
     monitoring?: any;
     timestamp?: AlChangeStamp;
+    whitelist?: any;
 }
 
 export interface CollectionHistoryStatus {
@@ -355,6 +358,7 @@ export interface CertificateKeyPair {
     _certificate?: string;
     _private_key?: string;
 }
+
 
 
 
