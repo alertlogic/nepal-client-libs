@@ -934,4 +934,61 @@ export class AlIrisClientV3Instance extends AlIrisClientInstance {
         });
     }
 
+    /**
+     * Returns the manual evidence added to an incident
+     * GET
+     * /iris/v3/{account_id}/{incident_id}/manual_evidence
+     * https://algithub.pd.alertlogic.net/alertlogic/al_iris_py/blob/master/design/searches/searches.md#manual-evidence
+     */
+    async getManualEvidence(accountId: string, incidentId: string): Promise<string[]> {
+        return this.client.get<any>({
+            service_stack: AlLocation.InsightAPI,
+            account_id: accountId,
+            service_name: this.serviceName,
+            version: this.serviceVersion,
+            path: `/${incidentId}/manual_evidence`,
+        });
+    }
+
+    /**
+     * Add search query events as manual evidence for an incident
+     * POST
+     * /iris/v3/{account_id}/{incident_id}/manual_evidence
+     * https://algithub.pd.alertlogic.net/alertlogic/al_iris_py/blob/master/design/searches/searches.md#manual-evidence
+     */
+    async addManualEvidence(
+        accountId: string,
+        incidentId: string,
+        payload?: { ids?: string[] }
+    ): Promise<{ incidentId?: string; ids: string[]; errors?: {ids: string[]; reason: string}[] }> {
+        return this.client.post<any>({
+            service_stack: AlLocation.InsightAPI,
+            account_id: accountId,
+            service_name: this.serviceName,
+            version: this.serviceVersion,
+            path: `/${incidentId}/manual_evidence`,
+            data: payload,
+        });
+    }
+
+    /**
+     * remove search query events that were added as manual evidence for an incident
+     * DELETE
+     * /iris/v3/{account_id}/{incident_id}/manual_evidence
+     * https://algithub.pd.alertlogic.net/alertlogic/al_iris_py/blob/master/design/searches/searches.md#manual-evidence
+     */
+    async removeManualEvidence(
+        accountId: string,
+        incidentId: string,
+        payload?: { ids?: string[] }
+    ): Promise<{ incidentId?: string; ids: string[]; errors?: {ids: string[]; reason: string}[] }> {
+        return this.client.delete<any>({
+            service_stack: AlLocation.InsightAPI,
+            account_id: accountId,
+            service_name: this.serviceName,
+            version: this.serviceVersion,
+            path: `/${incidentId}/manual_evidence`,
+            data: payload,
+        });
+    }
 }
