@@ -941,7 +941,7 @@ export class AlIrisClientV3Instance extends AlIrisClientInstance {
      * https://algithub.pd.alertlogic.net/alertlogic/al_iris_py/blob/master/design/searches/searches.md#manual-evidence
      */
     async getManualEvidence(accountId: string, incidentId: string): Promise<string[]> {
-        return this.client.get<any>({
+        return this.client.get({
             service_stack: AlLocation.InsightAPI,
             account_id: accountId,
             service_name: this.serviceName,
@@ -961,7 +961,7 @@ export class AlIrisClientV3Instance extends AlIrisClientInstance {
         incidentId: string,
         payload?: { ids?: string[] }
     ): Promise<{ incidentId?: string; ids: string[]; errors?: {ids: string[]; reason: string}[] }> {
-        return this.client.post<any>({
+        return this.client.post({
             service_stack: AlLocation.InsightAPI,
             account_id: accountId,
             service_name: this.serviceName,
@@ -982,7 +982,7 @@ export class AlIrisClientV3Instance extends AlIrisClientInstance {
         incidentId: string,
         payload?: { ids?: string[] }
     ): Promise<{ incidentId?: string; ids: string[]; errors?: {ids: string[]; reason: string}[] }> {
-        return this.client.delete<any>({
+        return this.client.delete({
             service_stack: AlLocation.InsightAPI,
             account_id: accountId,
             service_name: this.serviceName,
