@@ -95,6 +95,48 @@ export class ConvergenceUtilityClientInstance {
         });
     }
 
+    public async listAppliances(
+        accountId: string,
+        deploymentId: string,
+        params?: { [i: string]: number | string | boolean }): Promise<CollectionsGenericResponse> {
+        return this.client.get({
+            params,
+            service_stack: this.serviceStack,
+            service_name: this.serviceName,
+            version: this.serviceVersion,
+            account_id: accountId,
+            path: `/deployments/${deploymentId}/appliances`
+        });
+    }
+
+    public async getOneAppliance(
+        accountId: string,
+        deploymentId: string,
+        applianceId: string): Promise<CollectionSource> {
+        return this.client.get({
+            service_stack: this.serviceStack,
+            service_name: this.serviceName,
+            version: this.serviceVersion,
+            account_id: accountId,
+            path: `/deloyments/${deploymentId}/appliances/${applianceId}`
+        });
+    }
+
+    public async updateAppliance(
+        accountId: string,
+        deploymentId: string,
+        applianceId: string,
+        data: CollectionSource): Promise<CollectionSource> {
+        return this.client.post({
+            data: { source: data},
+            service_stack: this.serviceStack,
+            service_name: this.serviceName,
+            version: this.serviceVersion,
+            account_id: accountId,
+            path: `/deloyments/${deploymentId}/appliances/${applianceId}`
+        });
+    }
+
     public async getHostHistory(
         accountId: string,
         hostId: string,
@@ -225,6 +267,20 @@ export class ConvergenceUtilityClientInstance {
             path: `/policies/${policyType}/${policyId}`
         });
         return raw?.policy ?? raw;
+    }
+
+    public async isPolicyDeletable(
+        accountId: string,
+        policyType: PolicyType,
+        policyId: string): Promise<boolean> {
+        const { isDeleteable } = await this.client.get<{ isDeleteable: boolean }>({
+            service_stack: this.serviceStack,
+            service_name: this.serviceName,
+            version: this.serviceVersion,
+            account_id: accountId,
+            path: `/policies/${policyType}/${policyId}/deletable`
+        });
+        return isDeleteable;
     }
 
     public async deletePolicy(accountId: string, policyType: PolicyType, policyId: string): Promise<void> {
@@ -509,19 +565,4 @@ export class ConvergenceUtilityClientInstance {
             path: `/certificates/pemvalidation`
         });
     }
-
-    public async listAppliances(
-        accountId: string,
-        deploymentId: string,
-        params?: { [i: string]: number | string | boolean }): Promise<CollectionsGenericResponse> {
-        return this.client.get({
-            params,
-            service_stack: this.serviceStack,
-            service_name: this.serviceName,
-            version: this.serviceVersion,
-            account_id: accountId,
-            path: `/deployments/${deploymentId}/appliances`
-        });
-    }
-
 }
