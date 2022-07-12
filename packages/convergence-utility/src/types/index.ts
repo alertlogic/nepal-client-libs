@@ -4,14 +4,14 @@ import { AlChangeStamp } from '@al/core';
 export type ConvergenceQueryParams = { [i: string]: string | number | boolean };
 
 export type PolicyType = 'eventlogs'
-    | 's3'
-    | 'flatfile'
-    | 'assignment'
-    | 'monitoring'
-    | 'host'
-    | 'syslog'
-    | 'updates'
-    | 'whitelist';
+                        | 's3'
+                        | 'flatfile'
+                        | 'assignment'
+                        | 'monitoring'
+                        | 'host'
+                        | 'syslog'
+                        | 'updates'
+                        | 'whitelist';
 
 export type LookedUpUsersResponse = { users: { [id: string]: UserData } };
 
@@ -20,8 +20,6 @@ export type CollectionFiltersResponse = { filters: CollectionFilter[] };
 export type CollectionFilterValue = ICollectionFilterValue | string;
 
 export type ZoneMembershipResponse = { zoneMembership: ApplianceZoneRecord[] };
-
-
 
 export interface CloudExplorerAwsRegionRecord {
     id: string;
@@ -358,9 +356,6 @@ export interface CertificateKeyPair {
     _certificate?: string;
     _private_key?: string;
 }
-
-
-
 
 
 
