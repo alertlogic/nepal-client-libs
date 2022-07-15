@@ -57,6 +57,7 @@ export interface AlResponderPlaybookParameter
     };
     minimum?: number;
     maximum?: number;
+    belowDescription?: string;
 }
 
 export interface AlResponderWorkflowContext
@@ -288,6 +289,7 @@ export interface AlResponderExecutionQueryParams{
         name ?: string | string[];
         playbook_id ?: string | string[];
         trigger_id ?: string | string[];
+        action_id ?: string | string[];
         task_name ?: string | string[];
         status ?: string | string[];
         type ?: string | string[];
@@ -295,6 +297,7 @@ export interface AlResponderExecutionQueryParams{
         parent_execution_id ?: string;
         native_id ?: string;
         deployment_id ?: string | string[];
+        response ?: string | string[];
     };
     aggregations ?: AlResponderExecutionAggregationQueryParams[];
 }
@@ -471,6 +474,7 @@ export interface AlPlaybookTemplateVariable {
     };
     export_to_workflow?: boolean;
     bind: AlPlaybookTemplateVariableBinding[];
+    description?: string;
 }
 
 export interface AlPlaybookTemplateVariableBinding {
@@ -687,10 +691,18 @@ export interface AlResponderMRGeneric {
     enabled?: boolean;
     ttl_sec?: string;
     id?: string;
+    exclusion_list?: Array<string>;
+}
+
+export interface AlResponderGenericSummary {
+    key: string;
+    title: string;
+    values: Array<{ title: string; value: string; count: number; }>;
 }
 
 export interface AlResponderMRList {
     mr_configs: Array<AlResponderMRGeneric>;
+    summary: Array<AlResponderGenericSummary>;
 }
 
 export interface AlResponderMRSchemaDefinition {
@@ -702,15 +714,23 @@ export interface AlResponderMRSchemaDefinition {
     required: Array<string>;
 }
 
-export interface AlResponderMRDefinitions {
-    name: string;
+export interface AlResponderMRSimpleDefinition {
     display_name: string;
     category: string;
     icon: string;
-    schema: AlResponderMRSchemaDefinition;
     connection_target_types: string | Array<string>;
-    form: { controls: Array<AlDynamicFormControlElement> };
+    type: string;
     description: string;
+    analytic_category: string;
+    documentation_url?: string;
+}
+
+export interface AlResponderAllowedValues{
+    [key: string]: Array<{ label: string, value: string }>;
+}
+
+export interface AlResponderMRDefinitions {
+    definitions: Array<AlResponderMRSimpleDefinition>;
 }
 
 export interface AlResponderMRDeviceDefinitions {
@@ -734,5 +754,75 @@ export interface AlResponderMRDryRun {
     result?: {
         connection_info: { [key: string]: unknown };
         logs: Array<{ message: string, error: string, timestamp: number, status: string }>;
+    };
+}
+
+export interface AlResponderBlockHistory {
+    bk_category: string;
+    incident_id: string;
+    block_key: string;
+    bk_location_type: string;
+    bobj: string;
+    bk_location_id: string;
+    bk_tm_bucket: string;
+    status: string;
+}
+
+export interface AlResponderBlockHistoryList {
+    count: number;
+    blocks: Array<AlResponderBlockHistory>;
+    marker: string;
+    summary: { [key: string]: Array<{ [key: string]: number }> };
+    execution_type: string;
+}
+
+export interface AlResponderBlockHistoryPayload {
+    limit?: number;
+    start_timestamp?: number;
+    end_timestamp?: number;
+    marker?: string;
+    filter?: {[key: string]: Array<string> | string};
+}
+
+export interface AlResponderMRDefinitionDetail {
+    form: Array<{ title: string; controls: Array<AlDynamicFormControlElement> }>;
+    allowed_values: AlResponderAllowedValues;
+}
+
+export interface AlResponderManageBlockStatusRequest {
+    requests: Array<AlManageBlockStatus>;
+}
+
+export interface AlManageBlockStatus {
+    bobjs?: Array<string>;
+    block_key: string;
+    intent: AlBlockIntent;
+}
+
+export const enum AlBlockIntent {
+    BlockSoft = "block_soft",
+    UnblockSoft = "unblock_soft",
+    BlockForce = "block_force",
+    UnblockForce = "unblock_force"
+}
+
+export interface AlManagedResponsePayload {
+    config_ids: string[];
+    payload?: {
+        type: "incident",
+        incident: object,
+        parameters?: object
+    };
+    target_account_id?: string;
+}
+
+export interface AlResponderLimitContent {
+    max_count: number;
+    count: number;
+}
+
+export interface AlResponderLimits {
+    limits: {
+        mr_configs: AlResponderLimitContent
     };
 }

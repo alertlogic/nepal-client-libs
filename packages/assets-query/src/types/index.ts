@@ -137,7 +137,9 @@ export interface ExposuresDeploymentSummary {
     type: string;
 }
 export interface ExposureQueryParams {
+    deployment_id?: string;
     details?: boolean;
+    basic_details?: boolean;
     filter?: string | string[];
     group?: 'exposure' | 'remediation' | 'asset';
     include_exposures?: boolean;
@@ -276,6 +278,7 @@ export interface RemediationItemsQueryParams {
     audit_ids?: string;
     remediation_ids?: string;
     vulnerability_ids?: string;
+    basic_details?: boolean;
 }
 export interface RemediationItemsQueryResponse {
     filters?: string[] | RemediationItemsFilter[];
@@ -360,6 +363,7 @@ export interface AssetQueryResultItem {
     declared?: boolean;
     deleted_on?: number;
     deployment_id?: string;
+    deployment_type?: string;
     description?: string;
     group_id?: string;
     group_name?: string;

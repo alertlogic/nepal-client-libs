@@ -7,7 +7,9 @@ import {
     AlResponseValidationError,
     AlLocation,
     APIRequestParams,
+    AlLocatorService,
 } from '@al/core';
+
 import {
     AlIncidentFilterDictionary,
     ConstantDefinition,
@@ -36,6 +38,7 @@ import {
     RawFilterColumns,
     AdditionalEvidenceRequest,
     AdditionalEvidenceResponse,
+    MassUpdatePayload,
 } from './types';
 
 export class AlIrisClientInstance {
@@ -45,7 +48,8 @@ export class AlIrisClientInstance {
         'associated event',
     ];
     public defaultContentType: string[] = ['guardduty'];
-    private serviceName = 'iris';
+    protected serviceName = 'iris';
+    private accountDefaultEndpoints = {};
 
     /* istanbul ignore next */
     constructor(public client: AlApiClient = AlDefaultClient) {
@@ -1307,4 +1311,70 @@ export class AlIrisClientInstance {
         });
     }
 
+
+    /**
+     * Returns the results of any Search elaborations for an incident
+     * GET
+     * /iris/v3/:accountId/:incidentId/searches
+     * "https://algithub.pd.alertlogic.net/alertlogic/al_iris_py/blob/c7c66bd623962bbc1cb1dab2d8ae20e5606d2018/design/searches/searches.md"
+     */
+    async getSearchElaborations(accountId: string, incidentId: string): Promise<any> {
+        return this.client.get<any>({
+            service_stack: AlLocation.InsightAPI,
+            account_id: accountId,
+            service_name: this.serviceName,
+            version: 'v3',
+            path: `/${incidentId}/searches`,
+        });
+    }
+
+     /**
+     * For HudUI usage specifically
+     * Allows for bulk state update operations to be performed against multiple account Ids to their respective default IRIS residency locations
+     */
+    async massUpdate(
+         incidents: { accountId: number, incidentId: string, state: string }[],
+         payload: MassUpdatePayload,
+         updateType: 'state' | 'properties',
+     ): Promise<any[]> {
+        const resolveDefaultEndpointsRequests = [];
+        const massAcknowledgeIncidentsRequests = [];
+
+        const incidentsByCustomer = {};
+        // Prepare requests for each accountId in each incident.
+        incidents.forEach((i) => {
+             if (!incidentsByCustomer[i.accountId]) {
+                 incidentsByCustomer[i.accountId] = [];
+             }
+             incidentsByCustomer[i.accountId].push(i);
+         });
+
+        // Resolve the default residency IRIS service locations for each accountId supplied
+        // This will update the internal endpointCache in the underlying AlClient instance
+        Object.keys(incidentsByCustomer).forEach(accountId => {
+            resolveDefaultEndpointsRequests.push(this.client.resolveDefaultEndpoints(accountId, ['iris']));
+        });
+
+        await Promise.all(resolveDefaultEndpointsRequests);
+
+        let path = `/bulk/${updateType}`;
+
+        // Second, actually perform the mass acknowledge operation...
+        Object.keys(incidentsByCustomer).forEach(accountId => {
+            const data = {
+                ...payload,
+                incidents: incidentsByCustomer[accountId],
+            };
+            massAcknowledgeIncidentsRequests.push(this.client.post({
+                data,
+                path,
+                context_account_id: accountId,
+                service_stack: AlLocation.InsightAPI,
+                service_name: this.serviceName,
+                residency: 'default', // important
+                version: 'v1',
+            }));
+        });
+        return await Promise.all(massAcknowledgeIncidentsRequests);
+    }
 }

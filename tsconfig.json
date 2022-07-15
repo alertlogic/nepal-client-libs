@@ -21,7 +21,10 @@
     "noUnusedLocals"                  : false,
     "sourceMap"                       : true,
     "strict"                          : true,
-    "strictNullChecks"                : false
+    "strictNullChecks"                : false,
+    "paths": {
+        "@al/herald": [ "packages/herald/src/index.ts" ]
+    }
   },
   "include": [
     "packages/**/*.ts"

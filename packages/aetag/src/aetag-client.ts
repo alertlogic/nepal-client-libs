@@ -45,16 +45,16 @@ export class AEtagClientInstance {
      * POST
      * https://algithub.pd.alertlogic.net/pages/alertlogic/aetag/api/index.html#api-Tags_Resources-PostTags
      * @param accountId {string} account id
-     * @param params {object} object with the path name
+     * @param params {object} object with the path name and the definition
      * @param payload {T}
      * @returns
      */
-    public async createOrUpdate<T>(accountId: string, params: {path: string}, payload: T): Promise<{stored: string}> {
+    public async createOrUpdate<T>(accountId: string, params: {path: string; definition: string}, payload: T): Promise<{stored: string}> {
         return this.client.post<any>({
             service_name: this.serviceName,
             version: 'v1',
             account_id: accountId,
-            path: `/tunings`,
+            path: `/tags`,
             data: payload,
             params: params
         });

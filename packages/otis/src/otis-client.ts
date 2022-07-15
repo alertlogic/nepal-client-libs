@@ -9,7 +9,7 @@ export interface TuningOptionScope {
   vpc_key?: string;
 }
 
-export type TuningOptionValue = string | number | {[key:string]: unknown};
+export type TuningOptionValue = string | number | boolean | {[key:string]: unknown};
 
 export interface TuningOption {
   id?: string;

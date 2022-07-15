@@ -38,12 +38,12 @@ export class AlSchedulerClientInstance {
         return hosts as ScanTargetHost;
     }
 
-    async scanAsset(accountId: string, environmentId: string, assetKey: string): Promise<void> {
+    async scanAsset(accountId: string, environmentId: string, assetKey: string, force: boolean = false): Promise<void> {
         return await this.client.put({
             service_name: this.serviceName,
             account_id: accountId,
             path: `${environmentId}/scan`,
-            data: {asset: assetKey},
+            params: {asset: assetKey, force: force},
             version: 1
         });
     }

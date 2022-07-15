@@ -15,7 +15,7 @@ type DeploymentStatus = {
 };
 
 export interface IncludedAsset {
-  type: 'deployment' | 'region' | 'vpc' | 'subnet';
+  type: 'deployment' | 'region' | 'vpc' | 'subnet' | 'host';
   key: string;
   policy?: {
     id: string;
@@ -23,7 +23,7 @@ export interface IncludedAsset {
 }
 
 export interface ExcludedAsset {
-  type: 'region' | 'vpc' | 'subnet';
+  type: 'region' | 'vpc' | 'subnet' | 'host';
   key : string;
 }
 

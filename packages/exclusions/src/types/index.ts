@@ -11,6 +11,7 @@ export class ExclusionsRulesDescriptor {
     public blackouts: ExclusionsBlackouts[] = [];
     public assets: ExclusionsAssets[] = [];
     public details?: ExlusionsDetails[] = [];
+    public modified?: ExclusionsModified[] = [] ;
 
     constructor() {
     }
@@ -48,6 +49,10 @@ export class ExclusionsRulesDescriptor {
             for (let i = 0; i < rawData.details.length; i++) {
                 exclusion.details.push(rawData.details[i].hasOwnProperty('feature') ? ExlusionsDetails.import(rawData.details[i]) : new ExlusionsDetails());
             }
+        }
+
+        if (typeof (rawData?.modified) === 'object') {
+            exclusion.modified.push((rawData.modified.hasOwnProperty('at') || rawData.modified.hasOwnProperty('by')) ? ExclusionsModified.import(rawData.modified) : new ExclusionsModified());
         }
 
         return exclusion;
@@ -214,6 +219,29 @@ export class ExlusionsDetails {
 
 }
 
+export class ExclusionsModified {
+
+    at?: number;
+    by?: string;
+
+    constructor() { }
+
+    public static import(rawData: any): ExclusionsModified {
+
+        let modified = new ExclusionsModified();
+
+        if (rawData.hasOwnProperty('at')) {
+            modified.at = rawData.at;
+        }
+
+        if (rawData.hasOwnProperty('by')) {
+            modified.by = rawData.by;
+        }
+
+        return modified;
+    }
+}
+
 export class ExclusionsRulesSnapshot {
 
     public rules: Array<ExclusionsRulesDescriptor> = [];
@@ -245,6 +273,7 @@ export class CidrType {
     public port: string;
     public networkKey: string;
     public asset_type: string;
+    public description: string;
 
     public static import(rawData: any): CidrType {
         let item = new CidrType();
@@ -255,6 +284,7 @@ export class CidrType {
         item.port = rawData.hasOwnProperty('port') ? rawData.port : '';
         item.networkKey = rawData.hasOwnProperty('networkKey') ? rawData.networkKey : '';
         item.asset_type = rawData.hasOwnProperty('asset_type') ? rawData.asset_type : '';
+        item.description = rawData.hasOwnProperty('description') ? rawData.description : '';
 
         return item;
     }
@@ -263,6 +293,7 @@ export class CidrType {
 export class AllExclusionsToSave {
     external_scanning: Array<ExclusionsAssets>;
     internal_scanning: Array<ExclusionsAssets>;
+    agent_scanning: Array<ExclusionsAssets>;
     internal_scanning_ports: { asset: ExclusionsAssets, details: ExlusionsDetails[], ruleId: string }[];
     external_scanning_ports: { asset: ExclusionsAssets, details: ExlusionsDetails[], ruleId: string }[];
     networks_ids: Array<CidrType>;

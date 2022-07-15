@@ -3,9 +3,9 @@
  */
 import {
     AlDefaultClient,
-    AlLocation,
-    SQXSearchQuery,
+    AlLocation
 } from '@al/core';
+import { SQXSearchQuery } from '@al/search';
 
 export interface AlCreateCorrelationRequestV2 {
     version?: number;

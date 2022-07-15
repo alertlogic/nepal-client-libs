@@ -1,6 +1,6 @@
 {
   "name": "@al/exclusions",
-  "version": "0.0.4",
+  "version": "0.0.9",
   "license": "MIT",
   "description": "A lightweight client library for interacting with the Exclusions API",
   "author": {
@@ -30,16 +30,13 @@
     "build": "rollup -c ../../rollup.config.ts",
     "prebuild": "npm run clean && npm run lint",
     "lint": "tslint -p tsconfig.json -c ../../tslint.json",
-    "clean": "rm -rf dist",
+    "clean": "rm -rf dist node_modules",
     "prepublishOnly": "npm run build",
     "interactive": "npm run build && node -i -e \"const exclusionsClient = require('./dist/commonjs/index.js').AlExclusionsClient;\"",
     "interactive-dev": "npm run build-dev && node -i -e \"const exclusionsClient = require('./dist/commonjs/index.js').AlExclusionsClient;\""
   },
   "dependencies": {
-    "@al/core": "^1.0.2"
-  },
-  "peerDependencies": {
-    "@al/core": "^1.0.2"
+    "@al/core": "^1.0.173"
   },
   "files": [
     "dist"

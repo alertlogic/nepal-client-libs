@@ -10,8 +10,10 @@
     "interactive": "npm run build && node -i -e \"const IRISClient = require('./dist/commonjs/index.js').IRISClient;\""
   },
   "dependencies": {
-    "@al/core": "^1.0.121",
-    "@al/sources": "^1.0.0",
+    "@al/core": "^1.0.181",
+    "@al/sources": "^1.0.2",
+    "@al/search": "^2.0.0",
+    "@al/msgaccess": "1.0.6",
     "date-fns": "^2.16.1",
     "rollup": "^2.6.1"
   },
@@ -36,7 +38,7 @@
     "sinon": "^9.0.2",
     "tslint": "^5.12.1",
     "tslint-config-airbnb": "^5.11.1",
-    "typescript": "~3.8.3",
+    "typescript": "^3.9.10",
     "webpack": "^4.29.0",
     "webpack-cli": "^3.2.1",
     "webpack-node-externals": "^1.7.2"

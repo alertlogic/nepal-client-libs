@@ -1,6 +1,6 @@
 {
   "name": "@al/responder",
-  "version": "1.0.83",
+  "version": "1.0.102",
   "license": "MIT",
   "description": "A lightweight client library for interacting with the Automatic Responder API",
   "author": {
@@ -30,15 +30,12 @@
     "build": "rollup -c ../../rollup.config.ts",
     "prebuild": "npm run clean && npm run lint",
     "lint": "tslint -p tsconfig.json -c ../../tslint.json",
-    "clean": "rm -rf dist",
+    "clean": "rm -rf dist node_modules",
     "build-local": "PATH=$(cd ../.. && npm bin):$PATH npm run build",
     "prepublishOnly": "npm run build"
   },
   "dependencies": {
-    "@al/core": "^1.0.12"
-  },
-  "peerDependencies": {
-    "@al/core": "^1.0.12"
+    "@al/core": "^1.0.173"
   },
   "files": [
     "dist"

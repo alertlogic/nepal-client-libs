@@ -6,11 +6,14 @@ export interface IAssetType {
     icon?: string;
     iconMt?: string;
     debbug?: boolean;
+    format?:string;
+    types?:Array<string>;
     renderName?(asset: any): string;
     getAssetDetails?(asset: any): any;
     renderDescription?(asset: any): string;
     getSetName?(asset: any): string;
     renderID?(asset: any): string;
+    transform?(value:any, assetParam?:any, key?: any): any;
 }
 
 export class AssetTypeDictionary {

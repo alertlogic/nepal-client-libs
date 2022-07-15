@@ -7,9 +7,12 @@ import {
     AlLocation
 } from '@al/core';
 import {
+    AlManagedResponsePayload,
     AlPlaybookRequest,
     AlPlaybookTemplate,
     AlResponderAction,
+    AlResponderBlockHistoryList,
+    AlResponderBlockHistoryPayload,
     AlResponderExecution,
     AlResponderExecutionQueryParams,
     AlResponderExecutionRequest,
@@ -20,8 +23,11 @@ import {
     AlResponderInquiries,
     AlResponderInquiry,
     AlResponderInspectorError,
+    AlResponderLimits,
+    AlResponderManageBlockStatusRequest,
     AlResponderMRAWSSNS,
     AlResponderMRAWSWAF,
+    AlResponderMRDefinitionDetail,
     AlResponderMRDefinitions,
     AlResponderMRDeviceDefinitions,
     AlResponderMRDryRun,
@@ -1206,12 +1212,13 @@ export class AlResponderClientInstance {
      * @param accountId {string} AIMS Account ID
      * @return {Promise<AlResponderMRList>}
      */
-    async getMRConfigList(accountId: string): Promise<AlResponderMRList> {
+    async getMRConfigList(accountId: string, parameters: {[key: string]: string | boolean | number} = {}): Promise<AlResponderMRList> {
         return this.client.get({
             version: this.serviceVersion,
             service_stack: this.serviceStack,
             target_endpoint: this.targetEndpoint,
             account_id: accountId,
+            params: parameters,
             path: `/mr_configs`
         });
     }
@@ -1305,11 +1312,12 @@ export class AlResponderClientInstance {
      * /v1/{accoutId}/definitions/mr_configs
      * https://responder.mdr.global.alertlogic.com
      * @param accountId {string} AIMS Account ID
-     * @returns {Promise<AlResponderMRDefinitions[]>}
+     * @returns {Promise<AlResponderMRDefinitions>}
      */
-    async getMRConfigDefinitions(accountId: string): Promise<AlResponderMRDefinitions[]> {
+    async getMRConfigDefinitions(accountId: string): Promise<AlResponderMRDefinitions> {
         return this.client.get({
             version: this.serviceVersion,
+            target_endpoint: this.targetEndpoint,
             service_stack: this.serviceStack,
             account_id: accountId,
             path: `/definitions/mr_configs`
@@ -1328,6 +1336,7 @@ export class AlResponderClientInstance {
         return this.client.get({
             version: this.serviceVersion,
             service_stack: this.serviceStack,
+            target_endpoint: this.targetEndpoint,
             account_id: accountId,
             path: `/mr_configs/dry_runs`
         });
@@ -1367,6 +1376,7 @@ export class AlResponderClientInstance {
     async getMRDryRunById(accountId: string, id: string): Promise<AlResponderMRDryRun> {
         return this.client.get({
             version: this.serviceVersion,
+            target_endpoint: this.targetEndpoint,
             service_stack: this.serviceStack,
             account_id: accountId,
             path: `/mr_configs/dry_runs/${id}`
@@ -1381,10 +1391,102 @@ export class AlResponderClientInstance {
     async getMRDevicesDefinitions(accountId: string): Promise<Array<AlResponderMRDeviceDefinitions>> {
         return this.client.get({
             version: this.serviceVersion,
+            target_endpoint: this.targetEndpoint,
             service_stack: this.serviceStack,
             account_id: accountId,
             path: `/definitions/mr_devices`
         });
     }
 
+    /**
+     * Simple mode history
+     * POST
+     * @param accountId {string}
+     * @param payload {AlResponderBlockHistoryPayload}
+     * @returns {Promise<AlResponderBlockHistoryList>}
+     */
+    async getBlockHistory(accountId: string, payload: AlResponderBlockHistoryPayload): Promise<AlResponderBlockHistoryList> {
+        return this.client.post({
+            version: this.serviceVersion,
+            target_endpoint: this.targetEndpoint,
+            service_stack: this.serviceStack,
+            account_id: accountId,
+            data: payload,
+            path: `/blocks/history`
+        });
+    }
+
+    /**
+     * GET MR Config definition detail by mr type
+     * GET
+     * /v1/{account_id}/definitions/mr_configs/{mr_type}
+     * https://responder.mdr.global.alertlogic.com
+     * @param accountId {string} AIMS Account ID
+     * @params type {string} mr type
+     * @returns {Promise<AlResponderMRDefinitionDetail>}
+     */
+    async getMRConfigDefinitionDetail(accountId: string, type: string): Promise<AlResponderMRDefinitionDetail> {
+        return this.client.get({
+            version: this.serviceVersion,
+            target_endpoint: this.targetEndpoint,
+            service_stack: this.serviceStack,
+            account_id: accountId,
+            path: `/definitions/mr_configs/${type}`
+        });
+    }
+
+    /**
+     * Manage Block Status
+     * POST
+     * @param accountId {string}
+     * @param payload {AlResponderManageBlockStatusRequest}
+     * @returns {Promise<string>}
+     */
+    async manageBlockStatus(accountId: string, payload: AlResponderManageBlockStatusRequest): Promise<string> {
+        return this.client.post({
+            version: this.serviceVersion,
+            target_endpoint: this.targetEndpoint,
+            service_stack: this.serviceStack,
+            account_id: accountId,
+            data: payload,
+            path: `/blocks/manage`
+        });
+    }
+
+    /**
+     * Execute specific managed response for an incident
+     * POST
+     * @param accountId {string}
+     * @param requestBody {AlManagedResponsePayload}
+     * @returns {Promise<unknown>}
+     */
+    async managedResponse(accountId: string, requestBody: AlManagedResponsePayload, params?: { dry_run: boolean }): Promise<unknown> {
+        return this.client.post({
+            version: this.serviceVersion,
+            target_endpoint: this.targetEndpoint,
+            service_stack: this.serviceStack,
+            account_id: accountId,
+            data: requestBody,
+            params: params,
+            path: `/managed_response`
+        });
+    }
+
+    /**
+     * Get limits for the creation of paybooks, tasks, triggers, simple responses and exclusions
+     * GET
+     * /v1/{account_id}/limits
+     * https://responder.mdr.global.alertlogic.com
+     * @param accountId {string} AIMS Account ID
+     * @returns {Promise<AlResponderLimits>}
+     */
+    async getLimits(accountId: string): Promise<AlResponderLimits> {
+        return this.client.get({
+            version: this.serviceVersion,
+            target_endpoint: this.targetEndpoint,
+            service_stack: this.serviceStack,
+            account_id: accountId,
+            path: `/limits`
+        });
+    }
 }
