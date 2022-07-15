@@ -64,7 +64,7 @@ export class ConvergenceUtilityClientInstance {
             service_name: this.serviceName,
             version: this.serviceVersion,
             account_id: accountId,
-            path: `/deloyments/${deploymentId}/protectedhosts`
+            path: `/deployments/${deploymentId}/protectedhosts`
         });
     }
 
@@ -78,7 +78,7 @@ export class ConvergenceUtilityClientInstance {
             service_name: this.serviceName,
             version: this.serviceVersion,
             account_id: accountId,
-            path: `/deloyments/${deploymentId}/networks`
+            path: `/deployments/${deploymentId}/networks`
         });
     }
 
@@ -91,7 +91,7 @@ export class ConvergenceUtilityClientInstance {
             service_name: this.serviceName,
             version: this.serviceVersion,
             account_id: accountId,
-            path: `/deloyments/${deploymentId}/networks/${networkId}`
+            path: `/deployments/${deploymentId}/networks/${networkId}`
         });
     }
 
@@ -118,7 +118,7 @@ export class ConvergenceUtilityClientInstance {
             service_name: this.serviceName,
             version: this.serviceVersion,
             account_id: accountId,
-            path: `/deloyments/${deploymentId}/appliances/${applianceId}`
+            path: `/deployments/${deploymentId}/appliances/${applianceId}`
         });
     }
 
@@ -133,7 +133,7 @@ export class ConvergenceUtilityClientInstance {
             service_name: this.serviceName,
             version: this.serviceVersion,
             account_id: accountId,
-            path: `/deloyments/${deploymentId}/appliances/${applianceId}`
+            path: `/deployments/${deploymentId}/appliances/${applianceId}`
         });
     }
 
