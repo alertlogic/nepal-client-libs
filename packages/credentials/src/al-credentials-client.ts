@@ -7,7 +7,8 @@ import {
     AlScanCredentialsHost,
     AlScanCredentialsAllHosts,
     AlAssetScanCredentials,
-    AlCredentialsStoredResponse
+    AlCredentialsStoredResponse,
+    AlScanCredentialHost
 } from './types';
 
 export class AlCredentialsClientInstance {
@@ -95,4 +96,15 @@ export class AlCredentialsClientInstance {
             data: credential,
         });
     }
+
+    public getAssetsCredentialsByType(accountId: string, deploymentId: string, type: string, assetId: string): Promise<AlScanCredentialsHost> {
+        return this.client.get<AlScanCredentialsHost>({
+            service_stack: AlLocation.InsightAPI,
+            version: this.serviceVersion,
+            service_name: this.serviceName,
+            account_id: accountId,
+            path: `/${deploymentId}/${type}/scan${assetId}`,
+        });
+    }
+
 }
