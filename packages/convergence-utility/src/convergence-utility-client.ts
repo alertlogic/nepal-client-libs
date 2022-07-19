@@ -127,8 +127,8 @@ export class ConvergenceUtilityClientInstance {
         deploymentId: string,
         applianceId: string,
         data: CollectionSource): Promise<CollectionSource> {
-        return this.client.post({
-            data: { source: data},
+        return this.client.put({
+            data,
             service_stack: this.serviceStack,
             service_name: this.serviceName,
             version: this.serviceVersion,
@@ -278,7 +278,7 @@ export class ConvergenceUtilityClientInstance {
             service_name: this.serviceName,
             version: this.serviceVersion,
             account_id: accountId,
-            path: `/policies/${policyType}/${policyId}/deletable`
+            path: `/policies/${policyType}/${policyId}/deleteable`
         });
         return isDeleteable;
     }

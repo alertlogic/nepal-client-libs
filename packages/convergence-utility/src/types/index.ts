@@ -32,15 +32,15 @@ export interface ApplianceZoneRecord {
 }
 
 export interface CollectionsGenericResponse {
-    credentials?: {credential: CollectionCredential}[];
+    credentials?: { credential: CollectionCredential }[];
     policies?: { policy: CollectionPolicy }[];
     schedules?: { schedule: CollectionSchedule }[];
-    sources?: { source: CollectionSource}[];
-    collectors?: { source: CollectionSource}[];
-    hosts?: { source: CollectionSource}[];
-    networks?: { source: CollectionSource}[];
+    sources?: { source: CollectionSource }[];
+    collectors?: { source: CollectionSource }[];
+    hosts?: { source: CollectionSource }[];
+    networks?: { source: CollectionSource }[];
     keypairs?: { keypair: CertificateKeyPair }[];
-    history?:  CollectionHistory[];
+    history?: CollectionHistory[];
     total_count?: number;
 }
 
@@ -138,7 +138,7 @@ export interface CollectionPolicy {
     time_zone?: string;
     netmask?: string;
     restrict_network?: boolean;
-    whitelist?: { rules?: WhiteListConfigRule[], policy?: {id?: string, name?: string} };
+    whitelist?: { rules?: WhiteListConfigRule[], policy?: { id?: string, name?: string } };
     monitoring?: MonitoringConfig;
     s3?: S3Config;
     tmhost?: HostConfig;
@@ -274,7 +274,7 @@ export interface CollectionSourceValue {
     };
     update_policy?: any;
     deployment?: any;
-    monitoring?: any;
+    monitoring?: { policy?: { id?: string, name?: string } };
     timestamp?: AlChangeStamp;
     whitelist?: any;
 }
