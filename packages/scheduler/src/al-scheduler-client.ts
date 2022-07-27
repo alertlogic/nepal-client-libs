@@ -7,44 +7,46 @@ import {
 } from '@al/core';
 import {
     ScanStatusSummary,
-    ScanTargetHost
+    ScanTarget
 } from './types';
 
 export class AlSchedulerClientInstance {
 
     private serviceName = 'scheduler';
+    private serviceVersion: number = 1;
     /* istanbul ignore next */
     constructor(public client: AlApiClient = AlDefaultClient) {
     }
 
-    async getScanStatusSummary(accountId: string, environmentId: string, queryParams?: {vpc_key: string}): Promise<ScanStatusSummary> {
-        const summary = await this.client.fetch({
+    async getScanStatusSummary(accountId: string, deploymentId: string, queryParams?: {vpc_key: string}): Promise<ScanStatusSummary> {
+        const summary = await this.client.get({
             service_name: this.serviceName,
             account_id: accountId,
-            path: `${environmentId}/summary`,
+            path: `${deploymentId}/summary`,
             params: queryParams,
             version: 1
         });
         return summary as ScanStatusSummary;
     }
 
-    async getTargetHosts(accountId: string, environmentId: string): Promise<ScanTargetHost> {
-        const hosts = await this.client.fetch({
+    async getScanTargets(accountId: string, deploymentId: string): Promise<ScanTarget[]> {
+        const response = await this.client.get({
             service_name: this.serviceName,
             account_id: accountId,
-            path: `${environmentId}/targets`,
-            version: 1
+            path: `${deploymentId}/targets`,
+            version: this.serviceVersion
         });
-        return hosts as ScanTargetHost;
+        return (response?.targets ?? []) as ScanTarget[];
     }
 
-    async scanAsset(accountId: string, environmentId: string, assetKey: string, force: boolean = false): Promise<void> {
+    async scanAsset(accountId: string, deploymentId: string, assetKey: string, force: boolean = false): Promise<void> {
         return await this.client.put({
             service_name: this.serviceName,
             account_id: accountId,
-            path: `${environmentId}/scan`,
+            path: `${deploymentId}/scan`,
             params: {asset: assetKey, force: force},
-            version: 1
+            version: this.serviceVersion
         });
     }
+
 }
