@@ -34,7 +34,7 @@ describe('Scheduler Client Test Suite:', () => {
       stub.restore();
     });
     it('should call fetch() on the AlDefaultClient instance', async () => {
-      await schedulerClient.getTargetHosts('1234', '3546');
+      await schedulerClient.getScanTargets('1234', '3546');
       expect(stub.callCount).to.equal(1);
     });
   });
