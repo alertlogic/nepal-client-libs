@@ -17,7 +17,7 @@ export interface AlTacomaView {
     schedule_frequency?: string[] | false;
     parent_account_only?: boolean;
     report_format?: string[];
-    run_once_time_ranges?: string[];
+    run_once_time_ranges?: AlRunOnceTimeRanges[];
     allowed_schedule_hours?: {
         to: number;
         from: number;
@@ -64,4 +64,9 @@ export interface AlSavedView {
     id:             string;
     name:           string;
     embed_url:      string;
+}
+
+export interface AlRunOnceTimeRanges {
+    type: string;
+    timeframes: number;
 }
