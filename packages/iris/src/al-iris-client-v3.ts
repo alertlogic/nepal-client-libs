@@ -351,6 +351,27 @@ export class AlIrisClientV3Instance extends AlIrisClientInstance {
     }
 
     /**
+     * reelaborate incident
+     * POST https://$CD15_HOST/iris/v3/{account_id}/reelaborate_observation/{incident_id}
+     * @param accountId account id
+     * @param incidentId incident id
+     */
+    async reelaborateObservation(
+        accountId: string,
+        incidentId: string,
+    ): Promise<AdditionalEvidenceResponse> {
+        return this.client.post<AdditionalEvidenceResponse>(
+            {
+                service_stack: AlLocation.InsightAPI,
+                service_name: this.serviceName,
+                version: this.serviceVersion,
+                account_id: accountId,
+                path: `reelaborate_observation/${incidentId}`,
+            }
+        );
+    }
+
+    /**
      * Get the elaborations that are not flagged
      * @param accountId account id
      * @param incidentId incident id
