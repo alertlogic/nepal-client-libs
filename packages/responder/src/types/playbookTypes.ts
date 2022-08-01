@@ -10,6 +10,7 @@ export interface AlResponderPlaybookDefinition{
 
 export interface AlResponderActionShort {
     name ?: string;
+    display_name?: string;
     description ?: string;
     ref ?: string;
     pack ?: string;
@@ -167,7 +168,7 @@ export interface AlResponderExecutionCommonResult {
 export interface AlResponderExecutionCommon {
     id: string;
     native_id ?: string;
-    status ?: string;
+    status ?: AlARStatusIcon;
     start_timestamp ?: string | number;
     elapsed_seconds ?: number;
     end_timestamp ?: string | number;
@@ -191,7 +192,7 @@ export interface AlResponderExecutionsHistory extends AlResponderExecutionCommon
     parent_execution_id ?: string;
     playbook_type ?: string;
     playbook_name ?: string;
-    action ?: unknown;
+    action?: {name?: string, display_name?:string};
 }
 
 export interface AlResponderExecutionSummary { // TODO this should be replace by AlResponderSummary
@@ -219,9 +220,9 @@ export interface AlResponderInspectorError {
     type ?: string;
     taskId ?: string;
 }
-
+export type AlARStatusIcon = 'running' | 'pending' | 'requested' | 'paused' | 'scheduled' | 'succeeded' | 'failed';
 export interface AlResponderExecutionResultLog {
-    status ?: string;
+    status ?: AlARStatusIcon;
     timestamp ?: string;
 }
 
@@ -365,6 +366,9 @@ export interface AlResponderInquiry {
     execution_id?: string;
     modified?: AlChangeStamp;
     created?: AlChangeStamp;
+    result?: unknown;
+    log?: [];
+    mode?:string;
 
     // the following fields are going to be populated in the ui
     playbook_name?: string;
@@ -427,6 +431,7 @@ export interface AlResponderSchedule {
 export interface AlResponderSample {
     id?: string;
     account?: string;
+    account_id?: string;
     name?: string;
     payload_type?: string;
     content?: string;
