@@ -351,7 +351,7 @@ export class AlIrisClientV3Instance extends AlIrisClientInstance {
     }
 
     /**
-     * reelaborate incident
+     * re-elaborate incident
      * POST https://$CD15_HOST/iris/v3/{account_id}/reelaborate_observation/{incident_id}
      * @param accountId account id
      * @param incidentId incident id
