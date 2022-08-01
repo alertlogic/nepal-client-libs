@@ -81,7 +81,7 @@ describe('Responder Client', () => {
             "by": "3fa85f64-5717-4562-b3fc-2c963f66afa6"
         },
         "playbook_id": "string",
-        "status": "new",
+        "status": "running",
         "type": "incident",
         "account_id": "string"
     };
