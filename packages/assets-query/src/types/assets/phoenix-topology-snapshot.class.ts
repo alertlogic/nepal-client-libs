@@ -245,7 +245,6 @@ export class PhoenixTopologySnapshot {
         const summary:  {[i: string]: number} = {};
         const subnets = [];
         assetTypes.forEach(type => summary[type] = 0);
-        console.log("scope", this);
         if (startNodeKey) {
             if (this.getByKey(startNodeKey).type !== 'region' && this.getByKey(startNodeKey).type !== 'vpc') {
                 return {};
