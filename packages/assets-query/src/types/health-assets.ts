@@ -346,6 +346,7 @@ export interface ExposuresCountSummaryQueryParams {
     include_remediations?: boolean;
     filter?: string[];
     deployment_id?: string;
+    details?: boolean;
 }
 
 export interface ExposureSeverities {
@@ -356,13 +357,46 @@ export interface ExposureSeverities {
     all: number;
 }
 
+export interface ExposuresSummaryVInstance {
+    threatiness?: number;
+    target?: {
+        key?: string;
+        type: string;
+        threatiness: number;
+    };
+    key: string;
+}
+
+export interface ExposuresSummaryExposure {
+    vinstances_count?: number;
+    threatiness?: number;
+    severity?: string;
+    name?: string;
+    categories?: string[];
+    asset_count?: number;
+    vinstances?: ExposuresSummaryVInstance[];
+    type: 'vulnerability';
+    vulnerability_id: string;
+}
+
+export interface ExposuresSummaryRemediation {
+    vinstances_count?: number;
+    threatiness?: number;
+    severities?: ExposureSeverities;
+    name?: string;
+    exposures_count?: number;
+    exposures?: ExposuresSummaryExposure;
+    remediation_id: string;
+    type: 'remediation';
+}
+
 export interface ExposuresCountSummary {
     summary: {
         severities: ExposureSeverities
     };
     remediations: {
         rows: number,
-        assets: unknown[]
+        assets: ExposuresSummaryRemediation[]
     };
     filters: unknown[];
 }
