@@ -1,0 +1,49 @@
+{
+  "name": "@al/watchlist",
+  "version": "0.0.1",
+  "license": "MIT",
+  "description": "A client for interacting with the Alert Logic watchlist Service API",
+  "author": {
+    "name": "Jorge Mario Valencia",
+    "email": "jmvalencia@alertlogic.com"
+  },
+  "keywords": [
+    "Alert Logic",
+    "Client",
+    "Service"
+  ],
+  "maintainers": [
+    {
+      "name": "Jorge Mario Valencia",
+      "email": "jmvalencia@alertlogic.com"
+    },
+    {
+      "name": "Alert Logic NPM Team",
+      "email": "npm@alertlogic.com"
+    }
+  ],
+  "repository": "github:alertlogic/nepal-client-libs",
+  "main": "./dist/index.cjs.js",
+  "types": "./dist/index.d.ts",
+  "module": "./dist/index.esm5.js",
+  "es2015": "./dist/index.esm2015.js",
+  "scripts": {
+    "test": "karma start",
+    "test-watch": "karma start --no-single-run --auto-watch",
+    "build": "rollup -c ../../rollup.config.ts",
+    "prebuild": "npm run clean && npm run lint && npm run test",
+    "lint": "tslint -p tsconfig.json -c ../../tslint.json",
+    "clean": "rm -rf dist node_modules",
+    "prepublishOnly": "npm run build",
+    "interactive": "npm run build && node -i -e \"const AlwatchlistClient = require('./dist/commonjs/index.js').AlwatchlistClient;\""
+  },
+  "dependencies": {
+    "@al/core": "^1.0.173"
+  },
+  "files": [
+    "dist"
+  ],
+  "publishConfig": {
+    "access": "public"
+  }
+}
