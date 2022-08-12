@@ -4,4 +4,4 @@ import { AlWatchlistClientInstance } from './watchlist-client';
 export * from './watchlist-client';
 export * from './types';
 /* tslint:disable:variable-name */
-export const AlWhoisClient = AlGlobalizer.instantiate( "AlWatchlistClient", () => new AlWatchlistClientInstance() );
+export const AlWatchlistClient = AlGlobalizer.instantiate( "AlWatchlistClient", () => new AlWatchlistClientInstance() );
