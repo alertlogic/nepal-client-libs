@@ -1,25 +1,25 @@
 import { AlChangeStamp } from "@al/core";
 
-export interface AlScanCredentialHostType {
+export interface AlScanCredentialType {
     username?: string;
     password?: string;
     ssh_type?: string;
     key?: string;
 }
 
-export interface AlScanCredentialsHost {
-    credentials: AlScanCredentialHost[];
+export interface AlScanCredentialsResponse {
+    credentials: AlScanCredential[];
 }
 
-export interface AlScanCredentialHost {
+export interface AlScanCredential {
     id?: string;
     modified?: AlChangeStamp;
     name?: string;
     product_type?: string;
     type?: string;
     created: AlChangeStamp;
-    windows?: AlScanCredentialHostType;
-    ssh?: AlScanCredentialHostType;
+    windows?: AlScanCredentialType;
+    ssh?: AlScanCredentialType;
 }
 
 export interface AlScanCredentialsAllHosts {

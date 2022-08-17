@@ -4,11 +4,11 @@ import {
     AlLocation
 } from '@al/core';
 import {
-    AlScanCredentialsHost,
+    AlScanCredentialsResponse,
     AlScanCredentialsAllHosts,
     AlAssetScanCredentials,
     AlCredentialsStoredResponse,
-    AlScanCredentialHost
+    AlScanCredential
 } from './types';
 
 export class AlCredentialsClientInstance {
@@ -41,6 +41,7 @@ export class AlCredentialsClientInstance {
     }
 
     /**
+     * @deprecatd use getScanCredentials instead
      * Get scan credentials for a host
      * GET
      * /credentials/v1/:account_id/:environment_id/host/scan/:asset_key
@@ -48,13 +49,34 @@ export class AlCredentialsClientInstance {
      */
     async getHostScanCredentials(accountId: string,
         environmentId: string,
-        assetKey: string): Promise<AlScanCredentialsHost> {
-        return this.client.get<AlScanCredentialsHost>({
+        assetKey: string): Promise<AlScanCredentialsResponse> {
+        return this.client.get<AlScanCredentialsResponse>({
             service_stack: AlLocation.InsightAPI,
             version: this.serviceVersion,
             service_name: this.serviceName,
             account_id: accountId,
             path: `/${environmentId}/host/scan/${assetKey}`,
+        });
+    }
+
+    /**
+    * Get scan credentials for an asset
+    * GET
+    * /credentials/v1/:account_id/:environment_id/:asset_type/scan/:asset_key
+    * "https://api.product.dev.alertlogic.com/credentials/v1/134249236/0C51E404-4BB4-4228-B6B7-32B43029C76F/vpc/scan/dc/network/D4BC698D-54E1-4422-9F0B-9F21B064A9E4"
+    */
+    async getScanCredentials(
+            accountId: string,
+            deploymentId: string,
+            assetType: string,
+            assetKey: string
+        ): Promise<AlScanCredentialsResponse> {
+        return this.client.get<AlScanCredentialsResponse>({
+            service_stack: AlLocation.InsightAPI,
+            version: this.serviceVersion,
+            service_name: this.serviceName,
+            account_id: accountId,
+            path: `/${deploymentId}/${assetType}/scan/${assetKey}`,
         });
     }
 
@@ -97,8 +119,8 @@ export class AlCredentialsClientInstance {
         });
     }
 
-    public getAssetsCredentialsByType(accountId: string, deploymentId: string, type: string, assetId: string): Promise<AlScanCredentialsHost> {
-        return this.client.get<AlScanCredentialsHost>({
+    public getAssetsCredentialsByType(accountId: string, deploymentId: string, type: string, assetId: string): Promise<AlScanCredentialsResponse> {
+        return this.client.get<AlScanCredentialsResponse>({
             service_stack: AlLocation.InsightAPI,
             version: this.serviceVersion,
             service_name: this.serviceName,
