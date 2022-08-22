@@ -378,12 +378,16 @@ export interface AssetQueryResultItem {
     name?: string;
     native_type?: string;
     path?: string[];
+    refreshed_on?: number;
     scope_aws_group_description?: string;
     scope_aws_group_id?: string;
     scope_aws_group_name?: string;
     scope_aws_native_id?: string;
     scope_aws_vpc_id?: string;
     scopes?: Scope[];
+    statistics?: AssetQueryResultStatistics;
+    status?: string;
+    statuses?: {[i: string]: AssetQueryResultItemStatus};
     tag_keys?: {
         [key: string]: string;
     };
@@ -394,6 +398,30 @@ export interface AssetQueryResultItem {
     threatiness?: number;
     type?: string;
     version?: number;
+
+}
+
+export interface AssetQueryResultStatistics {
+    bytes_ids?: AssetQueryResultStatisticsDetails;
+    bytes_log?: AssetQueryResultStatisticsDetails;
+    messages_log?: AssetQueryResultStatisticsDetails;
+    packets_ids?: AssetQueryResultStatisticsDetails;
+}
+
+export interface AssetQueryResultStatisticsDetails {
+    hours?: unknown;
+    last_day?: number;
+    last_hour?: number;
+}
+
+export interface AssetQueryResultItemStatus {
+    type?: string;
+    timestamp?: number;
+    stream?: string;
+    condition?: string;
+    application?: string;
+    metadata?: {[i: string] : unknown};
+    reasons?: unknown;
 }
 
 export interface FoundAsset {
