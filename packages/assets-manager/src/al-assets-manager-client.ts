@@ -36,7 +36,10 @@ export class AlAssetsManagerClientInstance {
     /**
      * @remarks https://console.product.dev.alertlogic.com/api/assets_manager/#api-Management-CreateNetwork
      */
-     async createNetwork(accountId: string, deploymentId: string, data: AlAssetManagerNetwork, queryParams?: {force_large_network? : boolean }): Promise<AlAssetManagerNetwork> {
+    async createNetwork(accountId: string,
+                        deploymentId: string,
+                        data: AlAssetManagerNetwork,
+                        queryParams?: {force_large_network? : boolean }): Promise<AlAssetManagerNetwork> {
         return this.client.post<AlAssetManagerNetwork>({
             data,
             service_stack: AlLocation.InsightAPI,
