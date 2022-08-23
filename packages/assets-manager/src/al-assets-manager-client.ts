@@ -36,7 +36,7 @@ export class AlAssetsManagerClientInstance {
     /**
      * @remarks https://console.product.dev.alertlogic.com/api/assets_manager/#api-Management-CreateNetwork
      */
-    async createNetwork(accountId: string, deploymentId: string, data: AlAssetManagerNetwork): Promise<AlAssetManagerNetwork> {
+     async createNetwork(accountId: string, deploymentId: string, data: AlAssetManagerNetwork, queryParams?: {force_large_network? : boolean }): Promise<AlAssetManagerNetwork> {
         return this.client.post<AlAssetManagerNetwork>({
             data,
             service_stack: AlLocation.InsightAPI,
@@ -44,6 +44,7 @@ export class AlAssetsManagerClientInstance {
             version: this.version,
             account_id: accountId,
             path: `/deployments/${deploymentId}/networks`,
+            params: queryParams
         });
     }
 
@@ -51,7 +52,7 @@ export class AlAssetsManagerClientInstance {
      * @remarks https://console.product.dev.alertlogic.com/api/assets_manager/#api-Management-UpdateNetwork
      */
     async modifyNetwork(accountId: string, deploymentId: string,
-                        networkUuid: string, data: AlAssetManagerNetwork): Promise<AlAssetManagerNetwork> {
+            networkUuid: string, data: AlAssetManagerNetwork, queryParams?: {force_large_network? : boolean } ): Promise<AlAssetManagerNetwork> {
         return this.client.put<AlAssetManagerNetwork>({
             data,
             service_stack: AlLocation.InsightAPI,
@@ -59,6 +60,7 @@ export class AlAssetsManagerClientInstance {
             version: this.version,
             account_id: accountId,
             path: `/deployments/${deploymentId}/networks/${networkUuid}`,
+            params: queryParams
         });
     }
 
