@@ -1,6 +1,6 @@
 {
   "name": "@al/assets-manager",
-  "version": "1.0.7",
+  "version": "1.0.8",
   "license": "MIT",
   "description": "A lightweight client library for interacting with the Assets Manager API",
   "author": {
