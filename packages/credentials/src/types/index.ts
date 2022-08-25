@@ -47,6 +47,8 @@ export interface AlCredentialSecrets {
     username?: string;
     client_id?: string;
     client_secret?: string;
+    certificate?: string;
+    private_key?: string;
 }
 
 export interface AlDecryptedCredential {
