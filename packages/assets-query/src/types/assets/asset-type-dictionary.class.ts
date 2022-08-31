@@ -6,18 +6,18 @@ export interface IAssetType {
     icon?: string;
     iconMt?: string;
     debbug?: boolean;
-    format?:string;
-    types?:Array<string>;
+    format?: string;
+    types?: Array<string>;
     renderName?(asset: any): string;
     getAssetDetails?(asset: any): any;
     renderDescription?(asset: any): string;
     getSetName?(asset: any): string;
     renderID?(asset: any): string;
-    transform?(value:any, assetParam?:any, key?: any): any;
+    transform?(value: any, assetParam?: any, key?: any): any;
 }
 
 export class AssetTypeDictionary {
-      /* tslint:disable */
+    /* tslint:disable */
     public static types: { [type: string]: IAssetType } = {
 
         /*  Default entry.  This type doesn't occur in nature, but is provided so that arbitrary asset types (such as scope, acl, acl-entry, network-interface, etc)
@@ -269,10 +269,10 @@ export class AssetTypeDictionary {
                         show: true
                     },
                     "deployment_id": {
-                        caption:"Deployment",
+                        caption: "Deployment",
                         icon: 'fa fa-info-circle',
-                        format:null,
-                        show:true
+                        format: null,
+                        show: true
                     }
                 };
 
@@ -490,15 +490,17 @@ export class AssetTypeDictionary {
                         case "us-west-1":
                             return "US West (N. California)";
                         case "eu-west-1":
-                            return "EU (Ireland)";
+                            return "Europe (Ireland)";
                         case "eu-central-1":
-                            return "EU (Frankfurt)";
+                            return "Europe (Frankfurt)";
                         case "ap-southeast-1":
                             return "Asia Pacific (Singapore)";
                         case "ap-northeast-1":
                             return "Asia Pacific (Tokyo)";
                         case "ap-southeast-2":
                             return "Asia Pacific (Sydney)";
+                        case "ap-southeast-3":
+                            return "Asia Pacific (Jakarta)";
                         case "sa-east-1":
                             return "South America (São Paulo)";
                         case "ap-northeast-2":
@@ -508,9 +510,9 @@ export class AssetTypeDictionary {
                         case "ap-south-1":
                             return "Asia Pacific (Mumbai)";
                         case "eu-west-2":
-                            return "EU (London)";
+                            return "Europe (London)";
                         case "eu-west-3":
-                            return "EU (Paris)";
+                            return "Europe (Paris)";
                         case "ca-central-1":
                             return "Canada (Central)";
                         case "af-south-1":
@@ -527,66 +529,176 @@ export class AssetTypeDictionary {
                             return "Europe (Ireland)";
                         case "me-south-1":
                             return "Middle East (Bahrain)";
+                        case "me-central-1":
+                            return "Middle East (UAE)";
                         case "brazilsouth":
-                            return "Brazil South (Sao Paulo State)";
+                            return "(South America) Brazil South";
                         case "centralindia":
-                            return "Central India (Pune)";
+                            return "(Asia Pacific) Central India";
                         case "southeastasia":
-                            return "Southeast Asia (Singapore)";
+                            return "(Asia Pacific) Southeast Asia";
                         case "westcentralus":
                             return "West Central US (Wyoming)";
                         case "australiasoutheast":
                             return "Australia Southeast (Victoria)";
                         case "eastus":
-                            return "East US (Virginia)";
+                            return "(US) East US";
                         case "westus":
-                            return " West US (California)";
+                            return "(US) West US";
                         case "francesouth":
-                            return "France South (Marseille)";
+                            return "(Europe) France South";
                         case "uksouth":
-                            return "UK South (London)";
+                            return "(Europe) UK South";
                         case "centralus":
-                            return "Central US (Iowa)";
+                            return "(US) Central US";
                         case "japanwest":
                             return "Japan West (Osaka)";
                         case "canadacentral":
-                            return "Canada Central (Toronto)";
+                            return "(Canada) Canada Central";
                         case "canadaeast":
-                            return "Canada East (	Quebec City)";
+                            return "(Canada) Canada East";
                         case "koreasouth":
                             return "Korea South (Busan)";
                         case "koreacentral":
-                            return "Korea Central (Seoul)";
+                            return "(Asia Pacific) Korea Central";
                         case "northeurope":
-                            return "North Europe (Ireland)";
+                            return "(Europe) North Europe";
                         case "northcentralus":
-                            return "North Central US (Illinois)";
+                            return "(US) North Central US";
                         case "southindia":
                             return "South India (Chennai)";
                         case "australiacentral":
                             return "Australia Central (Canberra)";
                         case "japaneast":
-                            return "Japan East (Tokyo, Saitama)";
+                            return "(Asia Pacific) Japan East";
                         case "eastasia":
-                            return "East Asia (Hong Kong)";
+                            return "(Asia Pacific) East Asia";
                         case "australiaeast":
-                            return "Australia East (New South Wales)";
+                            return "(Asia Pacific) Australia East";
                         case "southcentralus":
-                            return "South Central US (Texas)";
+                            return "(US) South Central US";
                         case "westindia":
                             return "West India (Mumbai)";
                         case "westus2":
-                            return "West US 2 (Washington)";
+                            return "(US) West US 2";
+                        case "westus3":
+                            return "US) West US 3";
                         case "eastus2":
-                            return "East US 2 (Virginia)";
+                            return "(US) East US 2";
+                        case "swedencentral":
+                            return "(Europe) Sweden Central";
                         case "francecentral":
-                            return "France Central (Paris)";
+                            return "(Europe) France Central";
                         case "westeurope":
-                            return "West Europe (Netherlands)";
+                            return "(Europe) West Europe";
                         case "australiacentral2":
                             return "Australia Central 2 (Canberra)";
                         case "ukwest":
                             return "UK West (Cardiff)";
+                        case "southafricanorth":
+                            return "(Africa) South Africa North";
+                        case "jioindiawest":
+                            return "(Asia Pacific) Jio India West";
+                        case "germanywestcentral":
+                            return "(Europe) Germany West Central";
+                        case "norwayeast":
+                            return "(Europe) Norway East";
+                        case "switzerlandnorth":
+                            return "(Europe) Switzerland North";
+                        case "uaenorth":
+                            return "(Middle East) UAE North";
+                        case "centralusstage":
+                            return "(US) Central US (Stage)";
+                        case "eastusstage":
+                            return "(US) East US (Stage)";
+                        case "eastus2stage":
+                            return "(US) East US 2 (Stage)";
+                        case "northcentralusstage":
+                            return "(US) North Central US (Stage)";
+                        case "southcentralusstage":
+                            return "(US) South Central US (Stage)";
+                        case "westusstage":
+                            return "(US) West US (Stage)";
+                        case "westus2stage":
+                            return "(US) West US 2 (Stage)";
+                        case "asia":
+                            return "Asia";
+                        case "asiapacific":
+                            return "Asia Pacific";
+                        case "australia":
+                            return "Australia";
+                        case "brazil":
+                            return "Brazil";
+                        case "canada":
+                            return "Canada";
+                        case "europe":
+                            return "Europe";
+                        case "france":
+                            return "France";
+                        case "germany":
+                            return "Germany";
+                        case "global":
+                            return "Global";
+                        case "india":
+                            return "India";
+                        case "japan":
+                            return "Japan";
+                        case "korea":
+                            return "Korea";
+                        case "norway":
+                            return "Norway";
+                        case "southafrica":
+                            return "South Africa";
+                        case "switzerland":
+                            return "Switzerland";
+                        case "uae":
+                            return "United Arab Emirates";
+                        case "uk":
+                            return "United Kingdom";
+                        case "unitedstates":
+                            return "United States";
+                        case "unitedstateseuap":
+                            return "United States EUAP";
+                        case "eastasiastage":
+                            return "(Asia Pacific) East Asia (Stage)";
+                        case "southeastasiastage":
+                            return "(Asia Pacific) Southeast Asia (Stage)";
+                        case "centraluseuap":
+                            return "(US) Central US EUAP";
+                        case "eastus2euap":
+                            return "(US) East US 2 EUAP";
+                        case "westcentralus":
+                            return "(US) West Central US";
+                        case "southafricawest":
+                            return "(Africa) South Africa West";
+                        case "australiacentral":
+                            return "(Asia Pacific) Australia Central";
+                        case "australiacentral2":
+                            return "(Asia Pacific) Australia Central 2";
+                        case "australiasoutheast":
+                            return "(Asia Pacific) Australia Southeast";
+                        case "japanwest":
+                            return "(Asia Pacific) Japan West";
+                        case "jioindiacentral":
+                            return "(Asia Pacific) Jio India Central";
+                        case "koreasouth":
+                            return "(Asia Pacific) Korea South";
+                        case "southindia":
+                            return "(Asia Pacific) South India";
+                        case "westindia":
+                            return "(Asia Pacific) West India";
+                        case "germanynorth":
+                            return "(Europe) Germany North";
+                        case "norwaywest":
+                            return "(Europe) Norway West";
+                        case "switzerlandwest":
+                            return "(Europe) Switzerland West";
+                        case "ukwest":
+                            return "(Europe) UK West";
+                        case "uaecentral":
+                            return "(Middle East) UAE Central";
+                        case "brazilsoutheast":
+                            return "(South America) Brazil Southeast";
                         default:
                             return asset.name;
                     }
