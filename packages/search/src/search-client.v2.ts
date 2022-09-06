@@ -91,7 +91,7 @@ export interface AlSearchGetResultsV2 {
 }
 
 export interface AlSearchResultRecordV2 {
-    fields: Object;
+    fields: { [key: string]: unknown };
     id: AlSearchResultRecordIdV2;
 }
 
