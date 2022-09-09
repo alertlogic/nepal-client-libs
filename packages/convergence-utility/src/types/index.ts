@@ -196,7 +196,7 @@ export interface CollectionUpdatesPolicyScheduleTimeConfig {
     to: TimeConfig;
 }
 
-export type TimeConfig = { hour: string, minute: string };
+export type TimeConfig = { hour: number, minute: number };
 
 export interface FlatFileConfig {
     filename_integer_pattern?: string;
