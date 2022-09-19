@@ -243,6 +243,25 @@ export class ConvergenceUtilityClientInstance {
         });
     }
 
+    public async deleteAlertRule(
+        accountId: string,
+        productType: string,
+        ruleId: string
+    ): Promise<void> {
+        if (productType === "log-collection") {
+            productType = "lm_collection";
+        } else if (productType === "intrusion-detection") {
+            productType = "tm_collection";
+        }
+        return this.client.delete({
+            service_stack: this.serviceStack,
+            service_name: this.serviceName,
+            version: this.serviceVersion,
+            account_id: accountId,
+            path: `/alertrules/${productType}/${ruleId}`
+        });
+    }
+
     public async createPolicy(accountId: string, policyType: PolicyType, data: CollectionPolicy): Promise<CollectionPolicy> {
         const raw = await this.client.post({
             data: { policy: data },
