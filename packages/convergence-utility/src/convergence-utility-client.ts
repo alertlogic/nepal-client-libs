@@ -223,6 +223,8 @@ export class ConvergenceUtilityClientInstance {
         });
     }
 
+
+
     public async listAlertRules(
         accountId: string,
         productType: string,
@@ -243,6 +245,26 @@ export class ConvergenceUtilityClientInstance {
         });
     }
 
+    public async getAlertRule(
+        accountId: string,
+        productType: string,
+        ruleId: string,
+    ): Promise<CollectionPolicy> {
+        if (productType === "log-collection") {
+            productType = "lm_collection";
+        } else if (productType === "intrusion-detection") {
+            productType = "tm_collection";
+        }
+        const response: { policy: CollectionPolicy } = await this.client.get({
+            service_stack: this.serviceStack,
+            service_name: this.serviceName,
+            version: this.serviceVersion,
+            account_id: accountId,
+            path: `/alertrules/${productType}/${ruleId}`
+        });
+        return response.policy;
+    }
+
     public async deleteAlertRule(
         accountId: string,
         productType: string,
@@ -260,6 +282,55 @@ export class ConvergenceUtilityClientInstance {
             account_id: accountId,
             path: `/alertrules/${productType}/${ruleId}`
         });
+    }
+
+    public async updateAlertRule(
+        accountId: string,
+        productType: string,
+        ruleId: string,
+        data: CollectionPolicy
+    ): Promise<CollectionPolicy> {
+        if (productType === "log-collection") {
+            productType = "lm_collection";
+        } else if (productType === "intrusion-detection") {
+            productType = "tm_collection";
+        }
+        const response: CollectionsGenericResponse = await this.client.put({
+            data,
+            service_stack: this.serviceStack,
+            service_name: this.serviceName,
+            version: this.serviceVersion,
+            account_id: accountId,
+            path: `/alertrules/${productType}/${ruleId}`
+        });
+        if ((response?.policies ?? []).length === 1) {
+            const { policy }: { policy: CollectionPolicy } = response.policies[0];
+            return policy;
+        }
+        return null;
+    }
+
+    public async createAlertRule(
+        accountId: string,
+        productType: string,
+        data: CollectionPolicy
+    ): Promise<CollectionPolicy> {
+        if (productType === "log-collection") {
+            productType = "lm_collection";
+        } else if (productType === "intrusion-detection") {
+            productType = "tm_collection";
+        }
+        const response: { policy: CollectionPolicy } = await this.client.post({
+            data,
+            service_stack: this.serviceStack,
+            service_name: this.serviceName,
+            version: this.serviceVersion,
+            account_id: accountId,
+            path: `/alertrules/${productType}`
+        });
+
+        return response?.policy ?? null;
+
     }
 
     public async createPolicy(accountId: string, policyType: PolicyType, data: CollectionPolicy): Promise<CollectionPolicy> {
