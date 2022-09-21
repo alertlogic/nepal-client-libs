@@ -296,7 +296,7 @@ export class ConvergenceUtilityClientInstance {
             productType = "tm_collection";
         }
         const response: CollectionsGenericResponse = await this.client.put({
-            data,
+            data: { policy: data },
             service_stack: this.serviceStack,
             service_name: this.serviceName,
             version: this.serviceVersion,
@@ -321,7 +321,7 @@ export class ConvergenceUtilityClientInstance {
             productType = "tm_collection";
         }
         const response: { policy: CollectionPolicy } = await this.client.post({
-            data,
+            data: { policy: data },
             service_stack: this.serviceStack,
             service_name: this.serviceName,
             version: this.serviceVersion,
