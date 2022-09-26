@@ -373,6 +373,19 @@ export class ConvergenceUtilityClientInstance {
         return isDeleteable;
     }
 
+    public async isCredentialDeletable(
+        accountId: string,
+        credentialId: string): Promise<boolean> {
+        const { isDeleteable } = await this.client.get<{ isDeleteable: boolean }>({
+            service_stack: this.serviceStack,
+            service_name: this.serviceName,
+            version: this.serviceVersion,
+            account_id: accountId,
+            path: `/credentials/${credentialId}/deleteable`
+        });
+        return isDeleteable;
+    }
+
     public async deletePolicy(accountId: string, policyType: PolicyType, policyId: string): Promise<void> {
         return this.client.delete({
             service_stack: this.serviceStack,
