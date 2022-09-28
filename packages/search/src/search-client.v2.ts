@@ -136,6 +136,13 @@ export interface AlSearchStatusV2 {
     progress?: number;
     search_end: number;
     search_start: number;
+    search_progress?: AlSearchProgressV2;
+}
+
+export interface AlSearchProgressV2 {
+    input_scanned_records: number;
+    input_scanned_bytes: number;
+    estimated_output_records: number;
 }
 
 export interface AlSearchStatusStatsV2 {
