@@ -128,11 +128,11 @@ export interface Properties {
     baseline?: Array<any>;
     country?: string;
     event_time?: string;
-    geographic_data?: {
+    geo_data?: {
         title?: string;
         data_types?: Array<{color?: string, display?:string, name?: string, shape?: string }>;
         markers?: { [key:string]: Array<{coords?: Array<number>, text?: string}>; };
-    }
+    };
     hosting?: boolean;
     human_time?: string;
     ip_enriched?: boolean;
