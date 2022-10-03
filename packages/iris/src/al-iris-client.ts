@@ -637,6 +637,7 @@ export class AlIrisClientInstance {
             version: 'v3',
             account_id: accountId,
             path: `nested/${incidentId}`,
+            target_endpoint: "iris",
         }).then(obs => obs.map(ob => AlObservation.import(ob)));
     }
 
