@@ -294,6 +294,9 @@ export interface CollectionSourceConfig {
     collection_method?: string;
     template_id?: string;
     collection_type?: string;
+    network?: {
+        address: string;
+    };
     policy?: {
         id?: string,
         name?: string
