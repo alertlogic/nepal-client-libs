@@ -239,17 +239,17 @@ export class Incident {
     public static getSeverityIcon(severity:string, withColor:boolean = true):string {
         switch (severity) {
             case "Info":
-                return `fa fa-info-circle ${ (withColor) ? "risk-low" : "" }`;
+                return `fa fa-info-circle ${ (withColor) ? "risk low" : "" }`;
             case "Low":
-                return `fa fa-circle ${ (withColor) ? "risk-low" : "" }`;
+                return `fa fa-circle ${ (withColor) ? "risk low" : "" }`;
             case "Medium":
-                return `fa fa-circle-o ${ (withColor) ? "risk-medium" : "" }`;
+                return `fa fa-circle-o ${ (withColor) ? "risk medium" : "" }`;
             case "High":
-                return `fa fa-adjust ${ (withColor) ? "risk-high" : "" }`;
+                return `fa fa-adjust ${ (withColor) ? "risk high" : "" }`;
             case "Critical":
-                return `fa fa-circle ${ (withColor) ? "risk-critical" : "" }`;
+                return `fa fa-circle ${ (withColor) ? "risk critical" : "" }`;
             default:
-                return `fa fa-circle-o ${ (withColor) ? "risk-low" : "" }`;
+                return `fa fa-circle-o ${ (withColor) ? "risk low" : "" }`;
         }
     }
 
