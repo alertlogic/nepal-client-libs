@@ -779,6 +779,16 @@ export interface AlResponderBlockHistoryList {
     marker: string;
     summary: { [key: string]: Array<{ [key: string]: number }> };
     execution_type: string;
+    aggregations?: {
+        name: 'status' | 'intent' | 'bobj' | 'bk_category' | 'bk_locaation_type' | 'bk_location_id';
+        interval?: string;
+        extended_bounds?: {
+            min: number;
+            max: number;
+        };
+        size: number;
+        aggregations: Array<any>;
+    };
 }
 
 export interface AlResponderBlockHistoryPayload {
