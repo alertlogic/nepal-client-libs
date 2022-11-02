@@ -773,6 +773,7 @@ export interface AlResponderBlockHistory {
     status: string;
 }
 
+type BlockHistoryAggregationNameEnum = 'status' | 'intent' | 'bobj' | 'bk_category' | 'bk_location_type' | 'bk_location_id';
 export interface AlResponderBlockHistoryList {
     count: number;
     blocks: Array<AlResponderBlockHistory>;
@@ -780,14 +781,7 @@ export interface AlResponderBlockHistoryList {
     summary: { [key: string]: Array<{ [key: string]: number }> };
     execution_type: string;
     aggregations?: {
-        name: 'status' | 'intent' | 'bobj' | 'bk_category' | 'bk_locaation_type' | 'bk_location_id';
-        interval?: string;
-        extended_bounds?: {
-            min: number;
-            max: number;
-        };
-        size: number;
-        aggregations: Array<any>;
+        [key in BlockHistoryAggregationNameEnum]: {[key: string]: {[key: string]: number}[]}[];
     };
 }
 
@@ -797,6 +791,16 @@ export interface AlResponderBlockHistoryPayload {
     end_timestamp?: number;
     marker?: string;
     filter?: {[key: string]: Array<string> | string};
+    aggregations?: {
+        name: BlockHistoryAggregationNameEnum;
+        interval?: string;
+        extended_bounds?: {
+            min: number;
+            max: number;
+        };
+        size: number;
+        aggregations: Array<any>;
+    };
 }
 
 export interface AlResponderMRDefinitionDetail {
