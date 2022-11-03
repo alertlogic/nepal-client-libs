@@ -28,7 +28,7 @@ export class AlWSMClientInstance {
         return AlDefaultClient.get({
             target_endpoint: this.targetEndpoint,
             service_name: this.serviceName,
-            account_id: accountId,
+            version: '',
             path: `/appliance/select`,
             params: {
                 features: 'wsm_enabled',
@@ -52,7 +52,7 @@ export class AlWSMClientInstance {
         return AlDefaultClient.get({
             target_endpoint: this.targetEndpoint,
             service_name: this.serviceName,
-            account_id: accountId,
+            version: '',
             path: `/wsm/config/appliance/${applianceUuid}`
         });
     }
