@@ -48,7 +48,7 @@ export class AlWSMClientInstance {
      *
      * @remarks
      */
-    async getApplianceInfo(accountId: string, applianceUuid: string): Promise<AlWSMConfigAppliance> {
+    async getApplianceInfo(applianceUuid: string): Promise<AlWSMConfigAppliance> {
         return AlDefaultClient.get({
             target_endpoint: this.targetEndpoint,
             service_name: this.serviceName,
