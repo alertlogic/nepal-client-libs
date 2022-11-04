@@ -2,7 +2,7 @@
  * Al WSM API client
  */
 import {
-    AlDefaultClient
+    AlDefaultClient, AlLocation
 } from '@al/core';
 import {
     AlWSMAppliance,
@@ -12,8 +12,9 @@ import {
 
 export class AlWSMClientInstance {
 
-    private targetEndpoint = 'yard';
-    private serviceName = 'api';
+    private readonly targetEndpoint = 'yard';
+    private readonly serviceName = 'api';
+    private readonly serviceStack = AlLocation.LegacyUI;
 
     /**
      * Get all appliances using an specific accountId
@@ -56,4 +57,23 @@ export class AlWSMClientInstance {
             path: `/wsm/config/appliance/${applianceUuid}`
         });
     }
+
+    /**
+     * Get availability of the appliance UI
+     * GET
+     * /wsm/manage/appliance/${applianceUuid}/auth.html?mode=login
+     *
+     * @param applianceUuid Appliance UUID
+     * @returns a promise with returning true if the UI is up, otherwise false
+     *
+     * @remarks
+     */
+    async getWafUiAvailability(applianceUuid: string): Promise<unknown> {
+        return AlDefaultClient.get({
+            service_stack: this.serviceStack,
+            version: '',
+            path: `/wsm/manage/appliance/${applianceUuid}/auth.html?mode=login`
+        });
+    }
+
 }
