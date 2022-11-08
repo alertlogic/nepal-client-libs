@@ -398,7 +398,7 @@ export interface AssetQueryResultItem {
     threatiness?: number;
     type?: string;
     version?: number;
-
+    alertlogic_agent?: boolean;
 }
 
 export interface AssetQueryResultStatistics {
