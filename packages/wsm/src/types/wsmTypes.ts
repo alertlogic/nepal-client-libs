@@ -69,7 +69,7 @@ export interface SecInfo {
         vp: number;
     };
     key: string;
-    mode: number;
+    mode: string;
     nt: number;
     td: {[key:string]:[]|number};
     ts: number;
@@ -154,25 +154,7 @@ export interface SystemInfo {
     http: {
         global_emerging_threats: number;
     };
-    interfaces: {
-        eth0: {
-            desc: string;
-            netmask: string;
-            dhcp: 1;
-            ipaddr: string;
-            media: {
-                current: string;
-                selected: string;
-                support: string[];
-            };
-            mgmt_port: number;
-            model: string;
-            role: {
-                inbound: number;
-                mgmt: number;
-            };
-        };
-    };
+    interfaces: unknown;
     log: {
         s3: unknown[];
     };
