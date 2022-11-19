@@ -6,9 +6,11 @@ import {
 } from '@al/core';
 import {
     AlWSMAppliance,
-    AlWSMConfigAppliance
+    AlWSMConfigAppliance,
+    StatField,
+    StatsInfo,
+    StatType
 } from './types';
-
 
 export class AlWSMClientInstance {
 
@@ -73,6 +75,32 @@ export class AlWSMClientInstance {
             service_stack: this.serviceStack,
             version: '',
             path: `/wsm/manage/appliance/${applianceUuid}/auth.html?mode=login`
+        });
+    }
+
+    /**
+     * Get Stats
+     * GET
+     * /wsm/stats/${type}/select
+     *
+     * @param type 'network'|'proxy'|'system'
+     * @param accountId AIMS Account ID
+     * @param applianceUuids Appliance UUID array of string
+     * @param fields all allowed fields to get
+     * @returns a promise with returning an array of StatsInfo object
+     *
+     * @remarks
+     */
+    async getStats(type:StatType, accountId:string, applianceUuids:string[], fields:StatField[]): Promise<StatsInfo[]> {
+        return AlDefaultClient.get({
+            service_stack: this.serviceStack,
+            version: '',
+            path: `/wsm/stats/${type}/select`,
+            params: {
+                appliance_uuids: applianceUuids.join(','),
+                customer_ids: accountId,
+                fields: fields.join(',')
+            }
         });
     }
 

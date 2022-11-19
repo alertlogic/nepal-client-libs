@@ -241,3 +241,80 @@ export interface SystemInfo {
         updated: string;
     }};
 }
+
+export interface StatsInfo {
+    uuid?:string;
+    applianceName?:string;
+    interface?:string;
+    timeslice?:string;
+    interval?:string;
+    ipackets?:string;
+    opackets?:string;
+    ierrors?:string;
+    oerrors?:string;
+    ibytes?:string;
+    obytes?:string;
+    core_handled?:string;
+    core_requests?:string;
+    core_accepted?:string;
+    core_waiting?:string;
+    core_active?:string;
+    core_reading?:string;
+    core_writing?:string;
+    cpu_usage?:string;
+    mem_usage?:string;
+    proxy?:string;
+    websiteName?:string;
+    total?:string;
+    compressed?:string;
+    cached?:string;
+    bytes_orig?:string;
+    bytes_sent?:string;
+    bytes_recv?:string;
+    code_ok?:string;
+    code_redirect?:string;
+    code_denied?:string;
+    code_not_found?:string;
+    code_internal_error?:string;
+    code_gateway_error?:string;
+    code_other?:string;
+}
+
+export type StatType = 'network'|'proxy'|'system';
+
+export type StatField =
+    "uuid" |
+    "applianceName" |
+    "interface" |
+    "timeslice" |
+    "interval" |
+    "ipackets" |
+    "opackets" |
+    "ierrors" |
+    "oerrors" |
+    "ibytes" |
+    "obytes" |
+    "core_handled" |
+    "core_requests" |
+    "core_accepted" |
+    "core_waiting" |
+    "core_active" |
+    "core_reading" |
+    "core_writing" |
+    "cpu_usage" |
+    "mem_usage" |
+    "proxy" |
+    "websiteName" |
+    "total" |
+    "compressed" |
+    "cached" |
+    "bytes_orig" |
+    "bytes_sent" |
+    "bytes_recv" |
+    "code_ok" |
+    "code_redirect" |
+    "code_denied" |
+    "code_not_found" |
+    "code_internal_error" |
+    "code_gateway_error" |
+    "code_other";
