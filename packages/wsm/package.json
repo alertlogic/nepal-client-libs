@@ -1,6 +1,6 @@
 {
   "name": "@al/wsm",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "description": "A client for interacting with WSM API via YARD",
   "repository": {
     "type": "git",
