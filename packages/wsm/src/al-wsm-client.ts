@@ -93,7 +93,8 @@ export class AlWSMClientInstance {
      */
     async getStats(type:StatType, accountId:string, applianceUuids:string[], fields:StatField[]): Promise<StatsInfo[]> {
         return AlDefaultClient.get({
-            service_stack: this.serviceStack,
+            target_endpoint: this.targetEndpoint,
+            service_name: this.serviceName,
             version: '',
             path: `/wsm/stats/${type}/select`,
             params: {
