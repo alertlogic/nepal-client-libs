@@ -399,6 +399,7 @@ export interface AssetQueryResultItem {
     type?: string;
     version?: number;
     alertlogic_agent?: boolean;
+    related_properties?: unknown;
 }
 
 export interface AssetQueryResultStatistics {
