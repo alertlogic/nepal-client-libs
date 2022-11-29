@@ -400,6 +400,7 @@ export interface AssetQueryResultItem {
     version?: number;
     alertlogic_agent?: boolean;
     related_properties?: unknown;
+    alertlogic_appliance?: boolean;
 }
 
 export interface AssetQueryResultStatistics {
