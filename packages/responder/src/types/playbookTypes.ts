@@ -258,7 +258,8 @@ export interface AlResponderExecutionsHistoryResultSummary {
 
 export interface AlResponderExecutionsHistoryResult {
     count: number;// minimum 0,
-    marker: string;
+    marker: string; // deprecated
+    continuation_id?: string;
     executions: AlResponderExecutionsHistory[];
     summary: AlResponderExecutionsHistoryResultSummary;
     aggregations?: AlResponderExecutionsHistoryResultAggregations;
@@ -274,7 +275,9 @@ export interface AlResponderExecutionAggregationQueryParams{
 export interface AlResponderExecutionQueryParams{
     limit ?: number;
     offset ?: number;
-    marker ?: string;
+    marker ?: string; // deprecated
+    get_marker ?: boolean;
+    continuation_id ?: string;
     playbook_id ?: string;
     sort_by ?: string;
     sort_order ?:  string;
@@ -381,7 +384,8 @@ export interface AlResponderInquiry {
 export interface AlResponderInquiries {
     executions: AlResponderInquiry[];
     count?: number;
-    marker?: string;
+    marker?: string; // deprecated
+    continuation_id?: string;
     summary: AlResponderSummary;
     start_timestamp?: string | number;
     end_timestamp?: string | string;
@@ -777,7 +781,8 @@ type BlockHistoryAggregationNameEnum = 'status' | 'intent' | 'bobj' | 'bk_catego
 export interface AlResponderBlockHistoryList {
     count: number;
     blocks: Array<AlResponderBlockHistory>;
-    marker: string;
+    marker: string; // deprecated
+    continuation_id?: string;
     summary: { [key: string]: Array<{ [key: string]: number }> };
     execution_type: string;
     aggregations?: {
@@ -789,7 +794,9 @@ export interface AlResponderBlockHistoryPayload {
     limit?: number;
     start_timestamp?: number;
     end_timestamp?: number;
-    marker?: string;
+    marker?: string; // deprecated
+    get_marker?: boolean;
+    continuation_id?: string;
     filter?: {[key: string]: Array<string> | string};
     aggregations?: {
         name: BlockHistoryAggregationNameEnum;
