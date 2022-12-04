@@ -9,6 +9,7 @@ export interface Vulnerability {
     class?: string;
     cve?: string[];
     cvss_vector?: string;
+    cvss_version?: string;
     description?: string;
     exposure_id?: string;
     full_description?: string;
@@ -18,5 +19,11 @@ export interface Vulnerability {
     reference?: string;
     remediation_id?: string;
     resolution?: string;
+    scores?: {
+      score?: number;
+      severity?: string;
+      vector?: string;
+      version?: string;
+    }[]
     severity?: string;
 }
