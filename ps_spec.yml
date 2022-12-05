@@ -13,8 +13,8 @@ stages:
         commands:
             - npm install
             - node_modules/lerna/cli.js info
-            - sudo curl https://intoli.com/install-google-chrome.sh | bash
-            - sudo mv /usr/bin/google-chrome-stable /usr/bin/google-chrome
+            - curl https://intoli.com/install-google-chrome.sh | bash
+            - mv /usr/bin/google-chrome-stable /usr/bin/google-chrome
             - google-chrome --version && which google-chrome
             - npm run lint
             - npm run test
@@ -67,14 +67,8 @@ stages:
         image: public.ecr.aws/codebuild/amazonlinux2-x86_64-standard:4.0
         compute_size: large
         commands:
-            - cd /tmp/
-            - wget https://chromedriver.storage.googleapis.com/80.0.3987.106/chromedriver_linux64.zip
-            - unzip chromedriver_linux64.zip
-            - mv chromedriver /usr/bin/chromedriver
-            - chromedriver --version
-            - cd ..
-            - sudo curl https://intoli.com/install-google-chrome.sh | bash
-            - sudo mv /usr/bin/google-chrome-stable /usr/bin/google-chrome
+            - curl https://intoli.com/install-google-chrome.sh | bash
+            - mv /usr/bin/google-chrome-stable /usr/bin/google-chrome
             - google-chrome --version && which google-chrome
             - |
                 set -ex
