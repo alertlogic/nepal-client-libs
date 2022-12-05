@@ -8,7 +8,7 @@ import {
 } from '@al/core';
 import { AlConfig } from './types';
 
-export class AlConfigClientInstanceV2 {
+export class AlConfigClientV2 {
     protected serviceVersion = 'v2';
     protected serviceName = 'config'
 
@@ -24,5 +24,4 @@ export class AlConfigClientInstanceV2 {
             params: qParams
         });
     }
-
 }
