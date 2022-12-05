@@ -26,6 +26,7 @@ export interface AetherResult {
         cwe?: string;
         reference?: string;
         severity?: string;
+        cvss_scores_list?: string[];
     };
 }
 
