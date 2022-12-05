@@ -8,15 +8,14 @@ stages:
             - pull_request
             - pull_request:
                 trigger_phrase: test it
-        image: 422372788747.dkr.ecr.us-east-1.amazonaws.com/al-node:13
+        image: public.ecr.aws/codebuild/amazonlinux2-x86_64-standard:4.0
         compute_size: large
         commands:
             - npm install
             - node_modules/lerna/cli.js info
-            - echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google-chrome.list
-            - wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add -
-            - apt-get update && apt-get -y install google-chrome-stable jq
-            - export CHROME_BIN='/usr/bin/google-chrome'
+            - curl https://intoli.com/install-google-chrome.sh | bash
+            - mv /usr/bin/google-chrome-stable /usr/bin/google-chrome
+            - google-chrome --version && which google-chrome
             - npm run lint
             - npm run test
             - npx madge --circular --extensions ts --ts-config tsconfig.json packages
@@ -65,13 +64,12 @@ stages:
         name: Master Push - Publish
         when:
             - push: ['master']
-        image: 422372788747.dkr.ecr.us-east-1.amazonaws.com/al-node:13
+        image: public.ecr.aws/codebuild/amazonlinux2-x86_64-standard:4.0
         compute_size: large
         commands:
-            - echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google-chrome.list
-            - wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add -
-            - apt-get update && apt-get -y install google-chrome-stable
-            - export CHROME_BIN='/usr/bin/google-chrome'
+            - curl https://intoli.com/install-google-chrome.sh | bash
+            - mv /usr/bin/google-chrome-stable /usr/bin/google-chrome
+            - google-chrome --version && which google-chrome
             - |
                 set -ex
 
