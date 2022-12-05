@@ -14,7 +14,7 @@ export class AlConfigClientV2 {
 
     constructor(public client: AlApiClient = AlDefaultClient) {}
 
-    getConfigs(accountId: string, qParams: {[key:string]: string|Object}): Promise<AlConfig[]> {
+    listConfigs(accountId: string, qParams: {[key:string]: string|Object}): Promise<AlConfig[]> {
         return this.client.get({
             service_stack: AlLocation.InsightAPI,
             version: 'v2',

@@ -35,7 +35,7 @@ describe('CARGO CLIENT V2', () => {
 
             it('Should call the batchDeleteSchedules (DELETE).', async () => {
                 const path = `configs`;
-                await ALConfigV2.getConfigs(accountId, {'asset_type': 'host'});
+                await ALConfigV2.listConfigs(accountId, {'asset_type': 'host'});
                 expect(spy.callCount).to.equal(1);
                 expect(spy.getCall(0).args[0].version).to.equal(config.version);
                 expect(spy.getCall(0).args[0].method).to.equal('GET');
