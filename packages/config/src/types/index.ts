@@ -1,11 +1,11 @@
 
 export interface AlConfigAssetType {
-    type: string,
-    tags: {[key:string]: string},
-    protection_policy_name?: string,
-    name?: string,
-    key: string,
-    deployment_id: string
+    type: string;
+    tags: {[key:string]: string};
+    protection_policy_name?: string;
+    name?: string;
+    key: string;
+    deployment_id: string;
     alertlogic_appliance?: string;
 }
 
@@ -26,36 +26,36 @@ export interface AlConfigPlatform {
 }
 
 export interface AlConfigDeployment {
-    version: number,
+    version: number;
     status: {
         updated: number,
         status: string
-    },
-    scope: AlConfigDeploymentScope,
-    scan: boolean,
-    platform: AlConfigPlatform,
-    name: string,
+    };
+    scope: AlConfigDeploymentScope;
+    scan: boolean;
+    platform: AlConfigPlatform;
+    name: string;
     modified: {
         by: string,
         at: number
-    },
-    mode: string,
-    id: string,
+    };
+    mode: string;
+    id: string;
     features: {
         abs: { scope: AlConfigScope[] }[]
-    },
-    enabled: true,
-    discover: true,
-    credentials: { version: string, purpose: string, id: string }[],
+    };
+    enabled: true;
+    discover: true;
+    credentials: { version: string, purpose: string, id: string }[];
     created: {
         by: string,
         at: number
-    },
+    };
     cloud_defender: {
         location_id: string,
         enabled: boolean
-    },
-    account_id: string
+    };
+    account_id: string;
 }
 
 export interface AlConfig {
@@ -71,12 +71,12 @@ export interface AlConfig {
         subnet?: AlConfigAssetType,
         region?: AlConfigAssetType,
         deployment?: AlConfigDeployment
-    },
-    policy_ids: string[],
-    features_config: {},
-    feature_types: string[],
-    deployment_id: string,
-    asset_type: string,
-    asset_key: string,
-    account_id: string
-};
+    };
+    policy_ids: string[];
+    features_config: {};
+    feature_types: string[];
+    deployment_id: string;
+    asset_type: string;
+    asset_key: string;
+    account_id: string;
+}

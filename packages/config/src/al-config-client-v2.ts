@@ -10,14 +10,14 @@ import { AlConfig } from './types';
 
 export class AlConfigClientV2 {
     protected serviceVersion = 'v2';
-    protected serviceName = 'config'
+    protected serviceName = 'config';
 
     constructor(public client: AlApiClient = AlDefaultClient) {}
 
     /**
      * Returns a list of configurations for assets of a given type that match given filters
-     * @param accountId 
-     * @param qParams 
+     * @param accountId
+     * @param qParams
      * @returns list of configurations
      * https://console.account.alertlogic.com/users/api/config/#api-Configuration-GetAssetConfigs
      */
