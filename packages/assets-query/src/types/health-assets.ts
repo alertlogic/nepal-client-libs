@@ -350,6 +350,7 @@ export interface ExposuresCountSummaryQueryParams {
 }
 
 export interface ExposureSeverities {
+    critical: number;
     medium: number;
     low: number;
     info: number;
