@@ -1,6 +1,6 @@
 {
   "name": "@al/scheduler",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "license": "MIT",
   "description": "A client for interacting with the Alert Logic Scheduler Public API",
   "author": {
@@ -34,7 +34,7 @@
     "interactive": "npm run build && node -i -e \"const AlSchedulerClient = require('./dist/commonjs/index.js').AlSchedulerClient;\""
   },
   "dependencies": {
-    "@al/core": "^1.0.173"
+    "@al/core": "^1.0.196"
   },
   "files": [
     "dist"
