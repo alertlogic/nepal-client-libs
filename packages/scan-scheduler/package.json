@@ -1,6 +1,6 @@
 {
   "name": "@al/scan-scheduler",
-  "version": "1.0.23",
+  "version": "1.0.24",
   "license": "MIT",
   "description": "A client for interacting with the Alert Logic Scan Scheduler Public API",
   "author": {
@@ -39,7 +39,7 @@
     "interactive": "npm run build && node -i -e \"const AlScanSchedulerClient = require('./dist/commonjs/index.js').AlScanSchedulerClient;\""
   },
   "dependencies": {
-    "@al/core": "^1.0.173"
+    "@al/core": "^1.0.196"
   },
   "files": [
     "dist"
