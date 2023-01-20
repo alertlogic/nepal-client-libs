@@ -61,6 +61,14 @@ export interface SearchResultsQueryParams {
   starting_token?: string;
 }
 
+export interface TokensMetadata {
+    type: string;
+    taxonomy: string;
+    parent: string|null;
+    path: string;
+    id: string;
+}
+
 export interface LogMessageFields {
   time_recv: number;
   hostname: string;
@@ -71,6 +79,9 @@ export interface LogMessageFields {
     rule_name: string;
     pattern_id: string;
     tokens: { [key: string]: string };
+    json?: { [key: string]: unknown };
+    tokens_metadata?: { [key: string]: TokensMetadata };
+    tokens_offsets?: { [key: string]: number[] };
   };
   metadata: {
     uuid: string;
