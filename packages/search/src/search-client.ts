@@ -100,6 +100,7 @@ export interface LogMessageFields {
   };
   prioriy: number;
   program: string;
+  source_id: string;
 }
 export interface ReadLogMessageResponse {
   id: LogMessageMetaData;
