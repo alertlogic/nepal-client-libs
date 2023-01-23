@@ -27,8 +27,8 @@ export class AlCollectorStatusClientInstance {
         accountId: string,
         statusId: string,
         params?: AlCollectorStatusQueryParams
-    ): Promise<AlCollectorStatusHistoryResponse> {
-        return this.client.get<AlCollectorStatusHistoryResponse>({
+    ): Promise<Array<AlCollectorStatusObject>> {
+        return this.client.get<Array<AlCollectorStatusObject>>({
             service_stack: AlLocation.InsightAPI,
             service_name: this.serviceName,
             version: this.serviceVersion,

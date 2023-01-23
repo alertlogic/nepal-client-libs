@@ -401,6 +401,7 @@ export interface AssetQueryResultItem {
     alertlogic_agent?: boolean;
     related_properties?: unknown;
     alertlogic_appliance?: boolean;
+    host_uuid?: string;
 }
 
 export interface AssetQueryResultStatistics {

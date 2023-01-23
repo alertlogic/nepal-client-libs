@@ -1,6 +1,6 @@
 {
   "name": "@al/assets-query",
-  "version": "2.1.64",
+  "version": "2.1.65",
   "license": "MIT",
   "description": "A client for interacting with the Alert Logic Assets Query Public API",
   "author": {
