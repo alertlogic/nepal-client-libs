@@ -1,6 +1,6 @@
 {
   "name": "@al/collector-status",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "license": "MIT",
   "description": "A lightweight client library for interacting with the Collector Status API",
   "author": {
