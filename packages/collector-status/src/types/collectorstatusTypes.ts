@@ -24,12 +24,12 @@ export interface AlCollectorStatusObject {
     collection_type?: string;
     agent_type?: string;
     source_uuid?: string;
-    type?: string,
-    status_key?: string,
-    reasons?: unknown[],
-    metadata: unknown,
-    condition?: string,
-    application?: string
+    type?: string;
+    status_key?: string;
+    reasons?: unknown[];
+    metadata: unknown;
+    condition?: string;
+    application?: string;
 }
 
 export interface AlCollectorStatusHistoryResponse {
