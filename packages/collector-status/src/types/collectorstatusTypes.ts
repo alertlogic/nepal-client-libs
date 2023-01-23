@@ -8,7 +8,7 @@ type GroupBy = 'host_id' | 'stream' | 'source_id' | 'collection_type';
 export interface AlCollectorStatusObject {
     timestamp: number;
     account_id?: string;
-    status_id?:	string;
+    status_id?: string;
     stream?: StreamType;
     status?: Status;
     reported_by?: string;
@@ -20,16 +20,17 @@ export interface AlCollectorStatusObject {
     status_type?: string;
     message_type?: string;
     host_uuid?: string;
-    data?: {[key:string]: string}[];
+    data?: { [key: string]: string }[];
     collection_type?: string;
     agent_type?: string;
     source_uuid?: string;
     type?: string;
     status_key?: string;
     reasons?: unknown[];
-    metadata: unknown;
+    metadata?: unknown;
     condition?: string;
     application?: string;
+    errorinfo?: { details: { [key: string]: string }[]; description: string; code: string };
 }
 
 export interface AlCollectorStatusHistoryResponse {
