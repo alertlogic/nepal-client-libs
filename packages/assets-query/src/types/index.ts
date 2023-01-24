@@ -258,6 +258,8 @@ export interface ExposureVInstanceTarget {
     threat_level?: number;
     threatiness?: number;
     type?: string;
+    created_on?: number;
+    modified_on?: number;
 }
 export interface CollectionHealthQueryParams {
     scope?: boolean;
