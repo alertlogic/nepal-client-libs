@@ -404,6 +404,7 @@ export interface AssetQueryResultItem {
     related_properties?: unknown;
     alertlogic_appliance?: boolean;
     host_uuid?: string;
+    protection_policy_name?: string;
 }
 
 export interface AssetQueryResultStatistics {
