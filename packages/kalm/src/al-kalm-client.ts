@@ -135,7 +135,7 @@ export class AlKalmClientInstance implements AlValidationSchemaProvider {
       service_stack: AlLocation.InsightAPI,
       service_name: this.serviceName,
       version: this.version,
-      path: `${accountId}/query/dashboards_waf_violations_type`,
+      path: `${accountId}/query/dashboards_waf_violations_blocked_attacks`,
       params: queryParams,
     });
   }
