@@ -18,7 +18,7 @@ export class AlKalmClientInstance implements AlValidationSchemaProvider {
 
   /* istanbul ignore next */
   constructor(public client: AlApiClient = AlDefaultClient) {
-}
+  }
   /*
   *
   */
@@ -46,7 +46,7 @@ export class AlKalmClientInstance implements AlValidationSchemaProvider {
   /*
    *
    */
-  async startSimpleQuery(accountId: string, namedQuery: string, queryParams: SimpleQueryAdditionalParams = {}):  Promise<StandardKalmResponse> {
+  async startSimpleQuery(accountId: string, namedQuery: string, queryParams: SimpleQueryAdditionalParams = {}): Promise<StandardKalmResponse> {
     return this.client.get({
       service_stack: AlLocation.InsightAPI,
       service_name: this.serviceName,
@@ -69,7 +69,7 @@ export class AlKalmClientInstance implements AlValidationSchemaProvider {
    * @param queryParams Parameters to filter the query
    * @returns
    */
-  async queryStream(accountId: string, namedQuery: string, queryParams: SimpleQueryAdditionalParams = {}): Promise<StandardKalmResponse>{
+  async queryStream(accountId: string, namedQuery: string, queryParams: SimpleQueryAdditionalParams = {}): Promise<StandardKalmResponse> {
     return this.client.get({
       responseType: 'arraybuffer',
       service_stack: AlLocation.InsightAPI,
@@ -89,28 +89,28 @@ export class AlKalmClientInstance implements AlValidationSchemaProvider {
    * @param queryParams Parameters to filter the query
    * @returns
    */
-  async queryStreamCsv(accountId: string, namedQuery: string, queryParams: SimpleQueryAdditionalParams = {}): Promise<StandardKalmResponse>{
-      return this.client.get({
-        responseType: 'arraybuffer',
-        service_stack: AlLocation.InsightAPI,
-        service_name: this.serviceName,
-        version: this.version,
-        account_id: accountId,
-        path: `/query/${namedQuery}`,
-        params: queryParams,
-      });
+  async queryStreamCsv(accountId: string, namedQuery: string, queryParams: SimpleQueryAdditionalParams = {}): Promise<StandardKalmResponse> {
+    return this.client.get({
+      responseType: 'arraybuffer',
+      service_stack: AlLocation.InsightAPI,
+      service_name: this.serviceName,
+      version: this.version,
+      account_id: accountId,
+      path: `/query/${namedQuery}`,
+      params: queryParams,
+    });
   }
 
-  public hasSchema( schemaId:string ): boolean {
+  public hasSchema(schemaId: string): boolean {
     return schemaId in kalmTypeSchematics;
   }
 
-  public async getSchema( schemaId:string ): Promise<unknown> {
+  public async getSchema(schemaId: string): Promise<unknown> {
     return kalmTypeSchematics[schemaId];
   }
 
   public getProviders(): AlApiClient[] {
-    return [ AlDefaultClient ];
+    return [AlDefaultClient];
   }
 
   /**
@@ -119,10 +119,53 @@ export class AlKalmClientInstance implements AlValidationSchemaProvider {
    */
   public getMitreClassification(accountId: string): Promise<StandardKalmResponse> {
     return this.client.get({
-        service_stack: AlLocation.InsightAPI,
-        service_name: this.serviceName,
-        version: this.version,
-        path: `${accountId}/query/tic_mitre_classification`,
+      service_stack: AlLocation.InsightAPI,
+      service_name: this.serviceName,
+      version: this.version,
+      path: `${accountId}/query/tic_mitre_classification`,
     });
-}
+  }
+
+  /**
+   * /kalm/v1/{account_id}/query/dashboards_waf_violations_blocked_attacks
+   * @returns blocked attacks
+   */
+  public getBlockedAttacks(accountId: string, queryParams: SimpleQueryAdditionalParams): Promise<StandardKalmResponse> {
+    return this.client.get({
+      service_stack: AlLocation.InsightAPI,
+      service_name: this.serviceName,
+      version: this.version,
+      path: `${accountId}/query/dashboards_waf_violations_type`,
+      params: queryParams,
+    });
+  }
+
+  /**
+   * /kalm/v1/{account_id}/query/dashboards_waf_violations_type
+   * @returns violations by type
+   */
+  public getViolationsByType(accountId: string, queryParams: SimpleQueryAdditionalParams): Promise<StandardKalmResponse> {
+    return this.client.get({
+      service_stack: AlLocation.InsightAPI,
+      service_name: this.serviceName,
+      version: this.version,
+      path: `${accountId}/query/dashboards_waf_violations_type`,
+      params: queryParams,
+    });
+  }
+
+  /**
+   * /kalm/v1/{account_id}/query/dashboards_waf_violations_attack_class
+   * @returns blocked attacks
+   */
+  public getViolationsByAttackClass(accountId: string, queryParams: SimpleQueryAdditionalParams): Promise<StandardKalmResponse> {
+    return this.client.get({
+      service_stack: AlLocation.InsightAPI,
+      service_name: this.serviceName,
+      version: this.version,
+      path: `${accountId}/query/dashboards_waf_violations_attack_class`,
+      params: queryParams,
+    });
+  }
+
 }
