@@ -513,6 +513,10 @@ export class AssetTypeDictionary {
                             return "Europe (London)";
                         case "eu-west-3":
                             return "Europe (Paris)";
+                        case "eu-south-2":
+                            return "Europe (Spain)";
+                        case "eu-central-2":
+                            return "Europe (Zurich)";
                         case "ca-central-1":
                             return "Canada (Central)";
                         case "af-south-1":
@@ -521,6 +525,8 @@ export class AssetTypeDictionary {
                             return "Asia Pacific (Hong Kong)";
                         case "ap-northeast-3":
                             return "Asia Pacific (Osaka)";
+                        case "ap-southeast-3":
+                            return "Asia Pacific (Jakarta)";
                         case "eu-north-1":
                             return "Europe (Stockholm)";
                         case "eu-south-1":
