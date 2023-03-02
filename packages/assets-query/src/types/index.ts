@@ -408,7 +408,7 @@ export interface AssetQueryResultItem {
     /** 0 for healthy and 2 for unhealthy */
     health_level?: 0 | 2;
     /** An object mapping exposure severity to open security exposure count  */
-    security_exposure_summary?: {critial: number; high: number; medium: number; low:number; info: number};
+    security_exposure_summary?: {total: number; critial: number; high: number; medium: number; low:number; info: number};
     /** A string containing the highest severity for open security exposures on the asset */
     security_exposure_severity?: 'critial' | 'high' | 'medium' | 'low' | 'info';
     /** A number containing the aggregated threatiness for open security exposures */
