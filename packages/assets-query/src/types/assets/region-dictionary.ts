@@ -1,4 +1,4 @@
-export const RegionDictionary: {[region:string]: string} = {
+export const REGION_DICTIONARY: {[region:string]: string} = {
     "us-east-1": "US East (N. Virginia)",
     "us-west-2": "US West (Oregon)",
     "us-west-1": "US West (N. California)",
