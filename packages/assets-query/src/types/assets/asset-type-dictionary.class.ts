@@ -1,4 +1,4 @@
-import { RegionDictionary } from './region-dictionary';
+import { REGION_DICTIONARY } from './region-dictionary';
 export interface IAssetType {
     type: string;
     caption: string;
@@ -481,8 +481,8 @@ export class AssetTypeDictionary {
             iconMt: '',
             renderName: function (asset): string {
                 if (asset && asset.hasOwnProperty("name") && asset.name !== asset.key) {
-                    if (asset.name in RegionDictionary) {
-                        return RegionDictionary[asset.name];
+                    if (asset.name in REGION_DICTIONARY) {
+                        return REGION_DICTIONARY[asset.name];
                     }
                     return asset.name;
                 } else if (asset.scope_aws_region_name) {
