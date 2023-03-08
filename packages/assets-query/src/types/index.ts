@@ -11,6 +11,7 @@ import {
     HealthResponseFilters,
     HealthAssetCollector
 } from './health-assets';
+
 export * from './assets';
 
 export {
@@ -295,6 +296,16 @@ export interface RemediationItemsFilter {
     key: string;
     count: number;
 }
+
+export interface BasicVulnerability {
+    categories?: string[];
+    name?: string;
+    severity?: string;
+    threat_score?: number;
+    type?: string;
+    vulnerability_id?: string;
+}
+
 export interface RemediationItemAsset {
     account_id?: string;
     applies_to_specific_assets?: boolean;
@@ -340,6 +351,7 @@ export interface RemediationItemAsset {
     user_id?: string;
     vinstances_count?: number;
     vulnerability_id?: string;
+    vulnerability?: BasicVulnerability;
 }
 export interface RemediationItemsQueryResult {
     assets?: RemediationItemAsset[];
