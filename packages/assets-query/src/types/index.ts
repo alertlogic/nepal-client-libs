@@ -416,6 +416,7 @@ export interface AssetQueryResultItem {
     related_properties?: unknown;
     alertlogic_appliance?: boolean;
     host_uuid?: string;
+    protection_policy_id?: string;
     protection_policy_name?: string;
     /** 0 for healthy and 2 for unhealthy */
     health_level?: 0 | 2;
