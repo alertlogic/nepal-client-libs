@@ -1,5 +1,4 @@
 import {
-  AIMSClient,
   AIMSOrganization,
   AlDefaultClient,
   AlLocation,
@@ -19,11 +18,25 @@ export class AlEndpointsClientInstance {
 
     constructor() {}
 
+    /**
+     * Retrieve linked organization
+     */
+    async getAccountOrganizationFromAIMS( accountId:string ):Promise<AIMSOrganization> {
+        const requestDescriptor = {
+            service_stack: AlLocation.InsightAPI,
+            service_name: 'aims',
+            version: 1,
+            account_id: accountId,
+            path: '/organization'
+        };
+        return await AlDefaultClient.get<AIMSOrganization>( requestDescriptor );
+    }
+
     public async getAccountOrganization( accountId:string ):Promise<AIMSOrganization> {
         if ( this.organizationMap.hasOwnProperty( accountId ) ) {
             return this.organizationMap[accountId];
         }
-        let organization = await AIMSClient.getAccountOrganization( accountId );
+        let organization = await this.getAccountOrganizationFromAIMS( accountId );
         this.organizationMap[accountId] = organization;
         return organization;
     }

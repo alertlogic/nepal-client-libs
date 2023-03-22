@@ -2,7 +2,7 @@
  * Module to deal with available Suggestions Public API endpoints
  */
 import {
-    ALClient,
+    AlDefaultClient,
     APIRequestParams,
     AlLocation,
 } from '@al/core';
@@ -29,7 +29,7 @@ import {
 
 export class AlSuggestionsClientInstanceV1 {
 
-    private client = ALClient;
+    private client = AlDefaultClient;
     private serviceName = 'suggestions';
 
     /**

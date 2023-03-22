@@ -1,7 +1,7 @@
 /**
  * A client for interacting with the Alert Logic OTIS Public API.
  */
-import { ALClient, AlLocation } from '@al/core';
+import { AlDefaultClient, AlLocation } from '@al/core';
 
 export interface TuningOptionScope {
   deployment_id?: string;
@@ -21,7 +21,7 @@ export interface TuningOption {
 
 class OTISClient {
 
-  private client = ALClient;
+  private client = AlDefaultClient;
   private serviceName = 'otis';
   private version = 'v3';
   /**
