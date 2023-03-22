@@ -1,5 +1,4 @@
 import {
-  AIMSClient,
   AIMSOrganization,
   AlDefaultClient,
   AlLocation,
@@ -48,7 +47,7 @@ describe('Endpoints API Client', () => {
                 .returns( Promise.resolve({}) );
         lookupDefaultServiceEndpointStub = sinon.stub(AlDefaultClient, 'lookupDefaultServiceEndpoint')
                 .returns( 'https://api.endpoints.product.dev.alertlogic.com' );
-        getOrgStub = sinon.stub( AIMSClient, 'getAccountOrganization' )
+        getOrgStub = sinon.stub( endpointsClient, 'getAccountOrganizationFromAIMS' )
                 .returns( Promise.resolve( organizationMock ) );
         apiBaseURL = AlLocatorService.resolveURL( AlLocation.InsightAPI );
         endpointsApiURL = AlLocatorService.resolveURL( AlLocation.EndpointsAPI );
@@ -61,7 +60,7 @@ describe('Endpoints API Client', () => {
         lookupDefaultServiceEndpointStub.restore();
     });
     describe('dereferencing an account to an organization', () => {
-        it('should use the AIMSClient.getAccountOrganization method and cache results', async() => {
+        it('should use the getAccountOrganizationFromAIMS method and cache results', async() => {
             let organization = await endpointsClient.getAccountOrganization( accountIdMock );
             expect( organization ).to.equal( organizationMock );
             await endpointsClient.getAccountOrganization( accountIdMock );
