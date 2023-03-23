@@ -168,4 +168,18 @@ export class AlKalmClientInstance implements AlValidationSchemaProvider {
     });
   }
 
+  /**
+   * /kalm/v1/{account_id}/query/dashboards_waf_violations_destination
+   * @returns violations by destination
+   */
+  public getViolationsByDestination(accountId: string, queryParams: SimpleQueryAdditionalParams): Promise<StandardKalmResponse> {
+    return this.client.get({
+      service_stack: AlLocation.InsightAPI,
+      service_name: this.serviceName,
+      version: this.version,
+      path: `${accountId}/query/dashboards_waf_violations_destination`,
+      params: queryParams,
+    });
+  }
+
 }
