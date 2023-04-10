@@ -27,6 +27,8 @@ import {
   GenericResponse,
   RemediationsItemsListResponse,
   UndisposeRemediationsRequestBody,
+  AssetsQueryIncidentIdsPayload,
+  AssetsQueryIncidentIdsResponse,
 } from './types';
 import {
   AssetGroup,
@@ -634,6 +636,25 @@ export class AlAssetsQueryClientInstance {
         scope: 'user',
         dry_run: dryRun
       }
+    });
+  }
+
+  /**
+   * Retrieves incident IDs associated with the specified assets.
+   * POST
+   * /assets_query/v1/:account_id/incident_ids
+   * @param {string} accountId - The ID of the account to query.
+   * @param {AssetsQueryIncidentIdsPayload} payload - The payload for the request, including the list of assets and limit.
+   * @returns {Promise<AssetsQueryIncidentIdsResponse>} - A promise that resolves with an object containing incident IDs by asset.
+   */
+  async getIncidentsIdsByAsset(accountId: string, payload: AssetsQueryIncidentIdsPayload): Promise<AssetsQueryIncidentIdsResponse> {
+    return this.client.post({
+      service_stack: AlLocation.InsightAPI,
+      account_id: accountId,
+      service_name: 'assets_query',
+      path: 'incident_ids',
+      version: 'v1',
+      data: payload
     });
   }
 }

@@ -535,5 +535,15 @@ export interface AssetWriteDeletePropertiesResponse {
     type: string;
 }
 
+export interface AssetsQueryIncidentIdsPayload {
+    assets: {
+        deployment_id: string;
+        key: string;
+        type: string;
+    }[];
+    limit: number;
+}
 
-
+export interface AssetsQueryIncidentIdsResponse {
+    [key: string]: string[];
+}
