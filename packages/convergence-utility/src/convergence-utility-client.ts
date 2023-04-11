@@ -54,6 +54,25 @@ export class ConvergenceUtilityClientInstance {
         return Array.isArray(raw?.zoneMembership) ? raw.zoneMembership[0] : raw?.zoneMembership;
     }
 
+    public async listLogSources(
+        accountId: string,
+        deploymentId: 'all' | 'datacenter' | 'manual' | 'dc-logsources',
+        params?: ConvergenceQueryParams
+    ): Promise<CollectionsGenericResponse> {
+        if (['datacenter', 'manual'].includes(deploymentId)) {
+            deploymentId = 'dc-logsources';
+        }
+        return this.client.get({
+            params,
+            service_stack: this.serviceStack,
+            service_name: this.serviceName,
+            version: this.serviceVersion,
+            account_id: accountId,
+            path: `/deployments/${deploymentId}/collection`
+        });
+
+    }
+
     public async listProtectedHosts(
         accountId: string,
         deploymentId: string,
