@@ -215,7 +215,7 @@ export class ConvergenceUtilityClientInstance {
             service_name: this.serviceName,
             version: this.serviceVersion,
             account_id: accountId,
-            path: `/datacenter/deployments/${deploymentId}/${productType}`
+            path: `/deployments/${deploymentId}/${productType}`
         });
     }
 
