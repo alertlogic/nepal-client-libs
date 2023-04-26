@@ -14,7 +14,6 @@ import {
 
 export class AlWSMClientInstance {
 
-    private readonly targetEndpoint = 'yard';
     private readonly serviceName = 'api';
     private readonly serviceStack = AlLocation.LegacyUI;
 
@@ -29,7 +28,6 @@ export class AlWSMClientInstance {
      */
     async getAppliances(accountId: string): Promise<AlWSMAppliance[]> {
         return AlDefaultClient.get({
-            target_endpoint: this.targetEndpoint,
             service_name: this.serviceName,
             version: '',
             path: `/appliance/select`,
@@ -53,7 +51,6 @@ export class AlWSMClientInstance {
      */
     async getApplianceInfo(applianceUuid: string): Promise<AlWSMConfigAppliance> {
         return AlDefaultClient.get({
-            target_endpoint: this.targetEndpoint,
             service_name: this.serviceName,
             version: '',
             path: `/wsm/config/appliance/${applianceUuid}`
@@ -93,7 +90,6 @@ export class AlWSMClientInstance {
      */
     async getStats(type:StatType, accountId:string, applianceUuids:string[], fields:StatField[]): Promise<StatsInfo[]> {
         return AlDefaultClient.get({
-            target_endpoint: this.targetEndpoint,
             service_name: this.serviceName,
             version: '',
             path: `/wsm/stats/${type}/select`,
