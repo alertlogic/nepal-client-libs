@@ -81,14 +81,19 @@ export class ConvergenceUtilityClientInstance {
     public async listProtectedHosts(
         accountId: string,
         deploymentId: string,
-        params?: ConvergenceQueryParams): Promise<CollectionsGenericResponse> {
+        params?: ConvergenceQueryParams,
+        action?: 'massedit' | 'deleted' | null): Promise<CollectionsGenericResponse> {
+        let urlSuffix = 'protectedhosts';
+        if (action) {
+            urlSuffix += "_" + action;
+        }
         return this.client.get({
             params,
             service_stack: this.serviceStack,
             service_name: this.serviceName,
             version: this.serviceVersion,
             account_id: accountId,
-            path: `/deployments/${deploymentId}/protectedhosts`
+            path: `/deployments/${deploymentId}/${urlSuffix}`
         });
     }
 
