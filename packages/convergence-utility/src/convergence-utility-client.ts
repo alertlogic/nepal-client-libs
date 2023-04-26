@@ -560,7 +560,11 @@ export class ConvergenceUtilityClientInstance {
         accountId: string,
         deploymentId: string,
         collectionId: string,
-        entityType: string = 'collection'): Promise<void> {
+        entityType: string = 'collection',
+        action?: 'massedit' | 'deleted' | null): Promise<void> {
+        if (action) {
+            entityType += `_${action}`;
+        }
         return this.client.delete({
             service_stack: this.serviceStack,
             service_name: this.serviceName,
