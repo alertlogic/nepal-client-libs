@@ -29,7 +29,7 @@ export class AlWSMClientInstance {
         return AlDefaultClient.get({
             service_stack: this.serviceStack,
             version: '',
-            path: `/appliance/select`,
+            path: `/api/appliance/select`,
             params: {
                 features: 'wsm_enabled',
                 customer_ids: accountId
@@ -52,7 +52,7 @@ export class AlWSMClientInstance {
         return AlDefaultClient.get({
             service_stack: this.serviceStack,
             version: '',
-            path: `/wsm/config/appliance/${applianceUuid}`
+            path: `/api/wsm/config/appliance/${applianceUuid}`
         });
     }
 
@@ -70,7 +70,7 @@ export class AlWSMClientInstance {
         return AlDefaultClient.get({
             service_stack: this.serviceStack,
             version: '',
-            path: `/wsm/manage/appliance/${applianceUuid}/auth.html?mode=login`
+            path: `/api/wsm/manage/appliance/${applianceUuid}/auth.html?mode=login`
         });
     }
 
@@ -91,7 +91,7 @@ export class AlWSMClientInstance {
         return AlDefaultClient.get({
             service_stack: this.serviceStack,
             version: '',
-            path: `/wsm/stats/${type}/select`,
+            path: `/api/wsm/stats/${type}/select`,
             params: {
                 appliance_uuids: applianceUuids.join(','),
                 customer_ids: accountId,
