@@ -70,6 +70,13 @@ export interface CollectionHistory {
     timestamp?: number;
     metadata?: CollectionHistoryMetadata;
     status?: CollectionHistoryStatus;
+    details?: CollectionHistoryDetail[];
+}
+
+export interface CollectionHistoryDetail {
+    status?: string;
+    error?: string;
+    warning?: string;
 }
 
 export interface CollectionHistoryMetadata {
