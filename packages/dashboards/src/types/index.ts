@@ -72,6 +72,7 @@ export interface DashboardWidgetConfig {
     args?:any;
     method:string;
   };
+  customEmptyGraphModal?: CustomEmptyGraphModal;
 }
 
 export interface DashboardWidgetButtonAction {
@@ -244,4 +245,9 @@ export interface UpdateDashboardItemResponse {
     type?: string;
     created?: AlChangeStamp;
     modified?: AlChangeStamp;
+}
+
+export interface CustomEmptyGraphModal {
+  title?: string;
+  content: string;
 }
