@@ -250,4 +250,8 @@ export interface UpdateDashboardItemResponse {
 export interface CustomEmptyGraphModal {
   title?: string;
   content: string;
+  infoIcon?: {
+      class: string;
+      style: { [klass: string]: any; };
+  };
 }
