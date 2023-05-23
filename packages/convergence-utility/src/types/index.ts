@@ -13,6 +13,14 @@ export type PolicyType = 'eventlogs'
                         | 'updates'
                         | 'whitelist';
 
+export type ExportableRecordsType = 'protectedhosts'
+                                    | 'lmhosts'
+                                    | 'tmhosts'
+                                    | 'appliances'
+                                    | 'networks'
+                                    | 'collection_deleted'
+                                    | 'collection';
+
 export type LookedUpUsersResponse = { users: { [id: string]: UserData } };
 
 export type CollectionFiltersResponse = { filters: CollectionFilter[] };

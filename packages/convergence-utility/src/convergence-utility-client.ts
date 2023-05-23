@@ -16,7 +16,8 @@ import {
     LookedUpUsersResponse,
     PolicyType,
     ZoneMembershipResponse,
-    CertificateKeyPair
+    CertificateKeyPair,
+    ExportableRecordsType
 } from './types';
 
 export class ConvergenceUtilityClientInstance {
@@ -714,6 +715,22 @@ export class ConvergenceUtilityClientInstance {
             version: this.serviceVersion,
             account_id: accountId,
             path: `/certificates/pemvalidation`
+        });
+    }
+
+    public exportRecords(
+            accountId: string,
+            deploymentId: string,
+            type: ExportableRecordsType,
+            params?: ConvergenceQueryParams
+        ): Promise<string> {
+        return this.client.get({
+            params,
+            service_stack: this.serviceStack,
+            service_name: this.serviceName,
+            version: this.serviceVersion,
+            account_id: accountId,
+            path: `/deployments/${deploymentId}/${type}_export`
         });
     }
 }
