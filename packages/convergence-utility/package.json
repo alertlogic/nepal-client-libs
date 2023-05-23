@@ -1,6 +1,6 @@
 {
   "name": "@al/convergence-utility",
-  "version": "1.0.38",
+  "version": "1.0.39",
   "license": "MIT",
   "description": "A client for interacting with the Alert Logic Aegraph Public API",
   "author": {
