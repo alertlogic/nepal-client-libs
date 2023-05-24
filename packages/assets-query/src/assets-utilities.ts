@@ -53,6 +53,7 @@ export function search(
         matched = searchMatch.test(asset.key);
         matched = matched || (asset.name && searchMatch.test(asset.name));
         matched = matched || (asset.properties['description'] && searchMatch.test(asset.properties['description']));
+        matched = matched || (asset.properties['cidr_block'] && searchMatch.test(asset.properties['cidr_block']));
         if (asset.type === 'host') {
             const ips: string = extraProperties.reduce((acc: string, prop: string) => {
                 let addresses: string[] | string = (asset.properties[prop] ?? []);
