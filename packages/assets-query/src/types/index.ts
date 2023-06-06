@@ -432,6 +432,8 @@ export interface AssetQueryResultItem {
     health_exposure_severity?: 'critial' | 'high' | 'medium' | 'low' | 'info';
     /** A number containing the aggregated threatiness for open health exposures */
     health_threatiness?: number;
+    /** Property that exposes what appliance is protecting the host */
+    scope_identity_connected_to?: string;
 }
 
 export interface AssetQueryResultStatistics {
