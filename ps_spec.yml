@@ -101,3 +101,5 @@ stages:
                 node_modules/lerna/cli.js publish from-package --no-git-reset --no-git-tag-version --yes
 
             - echo done
+        env:
+            MEND_ENABLED: "true"
