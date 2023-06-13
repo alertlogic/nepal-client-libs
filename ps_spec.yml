@@ -101,5 +101,18 @@ stages:
                 node_modules/lerna/cli.js publish from-package --no-git-reset --no-git-tag-version --yes
 
             - echo done
-        env:
-            MEND_ENABLED: "true"
+   
+    - 
+        name: mendscan
+        input:
+            stage: Master Push - Publish
+        when:
+            - push: ['master']
+        image: aws/codebuild/standard:7.0
+        compute_size: small
+        commands:
+            - curl -LJO https://github.com/whitesource/unified-agent-distribution/raw/master/standAlone/wss_agent.sh
+            - ls -la
+            - export WS_PROJECTNAME="${ALPS_REPO_NAME}"
+            - export WS_FORCECHECKALLDEPENDENCIES=true
+            - bash wss_agent.sh -apiKey $WS_APIKEY -project $WS_PROJECTNAME -product "$WS_PRODUCTNAME" -d . -wss.url $WS_WSS_URL
