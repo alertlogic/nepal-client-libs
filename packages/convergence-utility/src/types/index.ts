@@ -276,7 +276,7 @@ export interface CollectionSourceValue {
     name?: string;
     product_type?: string;
     stats?: {
-        [k: string]: number;
+        [k: string]: number | string;
     };
     status?: CollectionHistoryStatus;
     tags?: {
