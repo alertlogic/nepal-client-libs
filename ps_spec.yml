@@ -101,6 +101,8 @@ stages:
                 node_modules/lerna/cli.js publish from-package --no-git-reset --no-git-tag-version --yes
 
             - echo done
+        outputs:
+            file: ./packages/**/dist/*
    
     - 
         name: mendscan
