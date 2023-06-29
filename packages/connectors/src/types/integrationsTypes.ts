@@ -91,3 +91,31 @@ export interface AlConnectorsPayloadTypes{
     label ?: string;
     description ?: string;
 }
+
+export interface AlConnectionNotifications {
+    id?: string;
+    connection_id: string;
+    account_id: string;
+    active: boolean;
+    created_at: number;
+    ttl: number;
+    response_code: string;
+    response_body: string;
+    request_body: AlConnectionRequestBody;
+    destination?: string;
+}
+
+export interface AlConnectionRequestBody {
+    incident_class?: string;
+    path: string;
+    victim: string;
+    account_id: string;
+    incident_id: string;
+    credentials: AlConnectionCredentials;
+}
+
+export interface AlConnectionCredentials {
+    SessionToken?: string;
+    AccessKeyId?: string;
+    SecretAccessKey?: string;
+}
