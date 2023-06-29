@@ -40,6 +40,11 @@ export class TopologyNode extends AssetDescriptor {
     stoppedInstance: boolean;
     nodeId: string;
     focused: boolean;
+    guided: boolean;
+    saved: boolean;
+    vpcCount: number;
+    coveredVpcCount: number;
+    subnetCount: number;
 
     static import(rawData: any): TopologyNode {
         let asset = new TopologyNode();
