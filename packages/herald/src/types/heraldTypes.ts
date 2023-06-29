@@ -428,3 +428,18 @@ export interface AlHeraldSubscriptionsQueryV2
     notification_type?: string; // Notification type
     include_subscribers?: boolean;
 }
+
+export interface AlHeraldSubscribedFailedV2 {
+    details?:string[];
+    error?: string;
+    subscriber?: string;
+    subscriberType?: string;
+}
+
+export interface AlHeraldSubcriptionErrorV2 {
+    status?: number;
+    statusText?: string;
+    data?:{
+        subscribers_failed?:AlHeraldSubscribedFailedV2[];
+    };
+}
