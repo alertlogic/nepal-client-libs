@@ -208,7 +208,7 @@ export class AlAssetsQueryClientInstance {
    * /assets_query/v1/:account_id/assets
    * "https://api.cloudinsight.alertlogic.com/assets_query/v1/01000001/assets"
    */
-  async getAccountAssets(accountId: string, queryParams?: AssetsQueryParams): Promise<AssetQueryGeneralResponse> {
+  async getAccountAssets(accountId: string, queryParams?: AssetsQueryParams, clearCache: boolean = false): Promise<AssetQueryGeneralResponse> {
     return this.client.get<AssetQueryGeneralResponse>({
       service_stack: AlLocation.InsightAPI,
       version: 'v1',
@@ -216,6 +216,8 @@ export class AlAssetsQueryClientInstance {
       service_name: 'assets_query',
       path: '/assets',
       params: queryParams,
+      ttl: 0,
+      headers: clearCache ? { 'Cache-Control': 'max-age=0' } : {},
     });
   }
 
