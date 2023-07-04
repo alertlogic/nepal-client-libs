@@ -216,7 +216,6 @@ export class AlAssetsQueryClientInstance {
       service_name: 'assets_query',
       path: '/assets',
       params: queryParams,
-      ttl: 0,
       headers: clearCache ? { 'Cache-Control': 'max-age=0' } : {},
     });
   }
