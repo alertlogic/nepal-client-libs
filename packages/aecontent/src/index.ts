@@ -2,6 +2,7 @@ import { AlGlobalizer } from '@al/core';
 import { AecontentClientInstance } from './aecontent-client';
 
 export * from './aecontent-client';
+export * from './types';
 
 /**
  * Nothing is complete without at least two aliases

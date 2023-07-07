@@ -21,4 +21,18 @@ describe('Aecontent Client Test Suite:', () => {
         });
     });
 
+    describe('when using tuning endpoint ', () => {
+        let stub: sinon.SinonSpy;
+        beforeEach(() => {
+            stub = sinon.stub(AecontentClient.client, 'get');
+        });
+        afterEach(() => {
+            stub.restore();
+        });
+        it('should call getRule() on the AlDefaultClient instance', async () => {
+            await AecontentClient.getRule('1234', 'fakeRule');
+            expect(stub.callCount).to.equal(1);
+        });
+    });
+
 });
