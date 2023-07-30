@@ -155,6 +155,26 @@ export class PhoenixTopologySnapshot {
         return null;
     }
 
+
+    public deleteByKey(key: string): void {
+        const asset = this.getByKey(key);
+        if (!asset) {
+            console.warn("Attempted to delete non existen asset");
+            return;
+        }
+        let prop: string = 'extras';
+        if (['region', 'vpc', 'subnet', 'host'].includes(asset.type)) {
+            prop = `${asset.type}s`;
+        }
+        if (prop === 'extras') {
+            delete this.extras[key];
+        } else {
+            this[prop] = (this[prop] as TopologyNode[]).filter(n => n.key !== key);
+        }
+        delete this.assetsByKey[key];
+    }
+
+
     getByHostUuid(hostUuid: string): TopologyNode | null{
         if (this.hostsByUuid.hasOwnProperty(hostUuid)) {
             return this.hostsByUuid[hostUuid];
