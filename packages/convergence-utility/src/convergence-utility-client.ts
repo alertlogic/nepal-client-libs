@@ -17,7 +17,8 @@ import {
     PolicyType,
     ZoneMembershipResponse,
     CertificateKeyPair,
-    ExportableRecordsType
+    ExportableRecordsType,
+    CollectionSourceValue
 } from './types';
 
 export class ConvergenceUtilityClientInstance {
@@ -228,6 +229,22 @@ export class ConvergenceUtilityClientInstance {
             account_id: accountId,
             path: `/deployments/${deploymentId}/${productType}`
         });
+    }
+
+    public async getOneHost(
+        accountId: string,
+        deploymentId: string,
+        hostId: string,
+        productType: 'lmhosts' | 'tmhosts',
+    ): Promise<CollectionSourceValue> {
+        const raw: CollectionSource = await this.client.get<CollectionSource>({
+            service_stack: this.serviceStack,
+            service_name: this.serviceName,
+            version: this.serviceVersion,
+            account_id: accountId,
+            path: `/deployments/${deploymentId}/${productType}/${hostId}`
+        });
+        return raw?.host ?? null;
     }
 
     public async listCredentials(
@@ -719,11 +736,11 @@ export class ConvergenceUtilityClientInstance {
     }
 
     public exportRecords(
-            accountId: string,
-            deploymentId: string,
-            type: ExportableRecordsType,
-            params?: ConvergenceQueryParams
-        ): Promise<string> {
+        accountId: string,
+        deploymentId: string,
+        type: ExportableRecordsType,
+        params?: ConvergenceQueryParams
+    ): Promise<string> {
         return this.client.get({
             params,
             service_stack: this.serviceStack,
