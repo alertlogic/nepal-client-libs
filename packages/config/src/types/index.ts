@@ -58,6 +58,17 @@ export interface AlConfigDeployment {
     account_id: string;
 }
 
+export interface ProtectionScopeConfig {
+    type: 'undefined' | 'include' | 'exclude';
+    inheritance: {
+        inheritance_type: 'inherited' | 'self';
+        parent_asset?: {
+            key: string;
+            type: string;
+        }
+    };
+}
+
 export interface AlConfig {
     qfields: {
         type: string,
@@ -73,7 +84,9 @@ export interface AlConfig {
         deployment?: AlConfigDeployment
     };
     policy_ids: string[];
-    features_config: {};
+    features_config: {[key: string]: []} & {
+        protection_scope?: ProtectionScopeConfig[]
+    };
     feature_types: string[];
     deployment_id: string;
     asset_type: string;

@@ -1,6 +1,6 @@
 {
   "name": "@al/config",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "license": "MIT",
   "description": "A client for interacting with the Alert Logic Config Public API",
   "author": {
