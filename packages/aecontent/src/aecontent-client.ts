@@ -53,7 +53,7 @@ export class AecontentClientInstance {
             path: `${accountId}/tunings`,
             version: 'v1',
             params: {
-                        ruleName: name
+                        name: name
                     }
         });
     }
@@ -72,8 +72,23 @@ export class AecontentClientInstance {
             path: `${accountId}/tunings`,
             version: 'v1',
             params: {
-                        ruleName: name
+                        name: name
                     }
+        });
+    }
+
+    /**
+     * Get all rules from an account
+     * GET
+     *
+     * @param accountId string tuning rule's belonging account id
+     *
+     */
+    public async getAllRules(accountId: string): Promise<any> {
+        return this.client.get<any>({
+            service_name: this.serviceName,
+            path: `${accountId}/tunings`,
+            version: 'v1'
         });
     }
 }
