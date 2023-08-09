@@ -1,16 +1,22 @@
-export interface Signup {
-    aws_marketplace_token: string;
-    first_name: string;
-    last_name: string;
-    email: string;
-    account_name: string;
-    contact_phone: string;
-    primary_title: string;
-    primary_first_name: string;
-    primary_last_name: string;
-    primary_email: string;
-    primary_contact_phone: string;
-    primary_contact_mobile: string;
+
+export type AlMarketplaceSignupProduct = 'standalone_waf';
+
+export interface AlMarketplaceSignupData {
+    aws_marketplace_token?: string;
+    first_name?: string;
+    last_name?: string;
+    user_email?: string;
+    account_name?: string;
+    phone_number?: string;
+    contact_phone?: string;
+    // ASI legacy props
+    email?: string;
+    primary_title?: string;
+    primary_first_name?: string;
+    primary_last_name?: string;
+    primary_email?: string;
+    primary_contact_phone?: string;
+    primary_contact_mobile?: string;
     secondary_title?: string;
     secondary_first_name?: string;
     secondary_last_name?: string;
@@ -25,11 +31,5 @@ export interface Signup {
     tertiary_contact_mobile?: string;
 }
 
-export interface SignupAWS {
-    aws_marketplace_token: string;
-    first_name: string;
-    last_name: string;
-    user_email: string;
-    account_name: string;
-    phone_number: string;
-}
+
+

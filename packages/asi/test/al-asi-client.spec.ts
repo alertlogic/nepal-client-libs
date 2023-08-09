@@ -4,7 +4,7 @@ import { describe } from 'mocha';
 import * as sinon from 'sinon';
 import {
     AlASIClient,
-    Signup
+    AlMarketplaceSignupData
 } from '../src/index';
 
 
@@ -35,7 +35,7 @@ describe("ASI Configuration Client", () => {
         primary_email: 'Feijoo@Cal',
         primary_contact_phone: '',
         primary_contact_mobile: '',
-    } as Signup;
+    } as AlMarketplaceSignupData;
 
     describe("WHEN signup is called", () => {
         beforeEach(() => {

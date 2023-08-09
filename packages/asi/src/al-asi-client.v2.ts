@@ -3,7 +3,11 @@ import {
     AlDefaultClient,
     AlLocation,
 } from '@al/core';
-import { SignupAWS } from './types';
+import {
+    AlMarketplaceSignupData as Payload,
+    AlMarketplaceSignupProduct as Product
+} from './types';
+
 
 export class AlASIClientInstanceV2 {
     protected client: AlApiClient;
@@ -14,13 +18,17 @@ export class AlASIClientInstanceV2 {
         this.client = client || AlDefaultClient;
     }
 
-    signup(fields: SignupAWS): Promise<any> {
+    signup(data: Payload, product?: Product): Promise<void> {
+        let path = `/registration/signup`;
+        if (product === 'standalone_waf') {
+            path = `/registration/signup/fortra/waf`;
+        }
         return this.client.post({
+            path,
+            data,
             service_stack: AlLocation.InsightAPI,
             service_name: this.serviceName,
             version: this.serviceVersion,
-            path: `/registration/signup`,
-            data: fields
         });
     }
 
