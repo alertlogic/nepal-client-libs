@@ -50,6 +50,7 @@ export interface AlCorrelationRuleV2 {
         by: string
     } | null;
     sql_version?: 'v1'|'v3';
+    disabled_reason?: string;
 }
 export interface Stats {
     enabled: {
