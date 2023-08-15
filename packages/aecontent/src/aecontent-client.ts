@@ -100,7 +100,7 @@ export class AecontentClientInstance {
      * @param name name of the rule to enable
      *
      */
-     public async enableRule(accountId: string, name: string): Promise<any> {
+    public async enableRule(accountId: string, name: string): Promise<any> {
         return this.client.post<any>({
             service_name: this.serviceName,
             path: `${accountId}/tunings/enable`,
@@ -119,7 +119,7 @@ export class AecontentClientInstance {
      *  @param name name of the rule to disable
      *
      */
-     public async disableRule(accountId: string, name: string): Promise<any> {
+    public async disableRule(accountId: string, name: string): Promise<any> {
         return this.client.post<any>({
             service_name: this.serviceName,
             path: `${accountId}/tunings/disable`,
