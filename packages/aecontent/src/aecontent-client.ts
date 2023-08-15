@@ -91,5 +91,43 @@ export class AecontentClientInstance {
             version: 'v1'
         });
     }
+
+    /**
+     * enable a Tuning rule
+     * POST
+     *
+     * @param accountId string tuning rule's belonging account id
+     * @param name name of the rule to enable
+     *
+     */
+     public async enableRule(accountId: string, name: string): Promise<any> {
+        return this.client.post<any>({
+            service_name: this.serviceName,
+            path: `${accountId}/tunings/enable`,
+            version: 'v1',
+            params: {
+                name: name
+            }
+        });
+    }
+
+    /**
+     * disable a Tuning rule
+     * POST
+     *
+     * @param accountId string tuning rule's belonging account id
+     *  @param name name of the rule to disable
+     *
+     */
+     public async disableRule(accountId: string, name: string): Promise<any> {
+        return this.client.post<any>({
+            service_name: this.serviceName,
+            path: `${accountId}/tunings/disable`,
+            version: 'v1',
+            params: {
+                name: name
+            }
+        });
+    }
 }
 
