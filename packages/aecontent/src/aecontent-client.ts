@@ -29,9 +29,10 @@ export class AecontentClientInstance {
      *
      * @param path string observation path
      */
-    public async getObservationByPath(path: string): Promise<any> {
+    public async getObservationByPath(accountId: string, path: string): Promise<any> {
         return this.client.get<any>({
             service_name: this.serviceName,
+            account_id: accountId,
             path: `/observations/paths/${path}`,
             version: 'v1',
         });
