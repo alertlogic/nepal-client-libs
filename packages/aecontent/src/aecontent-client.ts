@@ -24,6 +24,20 @@ export class AecontentClientInstance {
     }
 
     /**
+     * Get Observation by path only
+     * GET
+     *
+     * @param path string observation path
+     */
+    public async getObservationByPath(path: string): Promise<any> {
+        return this.client.get<any>({
+            service_name: this.serviceName,
+            path: `/observations/paths/${path}`,
+            version: 'v1',
+        });
+    }
+
+    /**
      * create Tuning rule
      * POST
      *
