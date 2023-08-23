@@ -1374,7 +1374,7 @@ export class AlIrisClientInstance {
                 service_stack: AlLocation.InsightAPI,
                 service_name: this.serviceName,
                 residency: 'default', // important
-                version: 'v1',
+                version: 'v3',
             }));
         });
         return await Promise.all(massAcknowledgeIncidentsRequests);
