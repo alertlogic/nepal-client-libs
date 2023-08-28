@@ -415,6 +415,7 @@ export interface AssetQueryResultItem {
     alertlogic_agent?: boolean;
     related_properties?: unknown;
     alertlogic_appliance?: boolean;
+    alertlogic_appliance_features?: string[];
     host_uuid?: string;
     protection_policy_id?: string;
     protection_policy_name?: string;
