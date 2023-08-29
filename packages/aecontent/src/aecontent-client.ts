@@ -144,5 +144,22 @@ export class AecontentClientInstance {
             }
         });
     }
+
+    /**
+     * Get tuning schema data
+     * GET
+     *
+     * @param properties string a property to specify part of the desired schema
+     */
+    public async getTuningSchema(properties: string): Promise<any> {
+        return this.client.get<any>({
+            service_name: this.serviceName,
+            path: `/tunings/schema`,
+            version: 'v1',
+            params: {
+                properties: properties
+            }
+        });
+    }
 }
 
