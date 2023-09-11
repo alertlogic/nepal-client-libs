@@ -125,9 +125,10 @@ export class PhoenixTopologySnapshot {
         ['region', 'vpc', 'subnet', 'host',
          'load-balancer', 'image', 'sg',
          'container', 'tag', 'agent'].forEach(type => {
-                if (type === 'agent') {
-                    summary['agents'] = assetCounts?.['host']?.['agent'] ?? 0;
-                } else if (assetCounts.hasOwnProperty(type) && type === 'subnet') {
+                // if (type === 'agent') { // Uncomment this when backend  says so
+                //     summary['agents'] = assetCounts?.['host']?.['agent'] ?? 0;
+                // } else
+                if (assetCounts.hasOwnProperty(type) && type === 'subnet') {
                     summary['subnets'] = assetCounts?.['subnet']?.['standard'] ?? assetCounts?.['subnet']?.['all'] ?? 0;
                 } else if (assetCounts.hasOwnProperty(type) && type !== 'host') {
                     summary[`${type}s`] = assetCounts[type];
