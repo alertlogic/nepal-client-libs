@@ -14,6 +14,8 @@ export interface AlTacomaView {
     saved_views?:   AlSavedView[];
     subscriptions:  string[];
     filter_names?:  string[];
+    download_now_filter_names?: string[];
+    schedule_later_filter_names?: string[];
     schedule_frequency?: string[] | false;
     parent_account_only?: boolean;
     report_format?: string[];
