@@ -1,5 +1,5 @@
 /**
- *  A collection of interfaces and classes to support interaction with the tacoma API.
+ *  A collection of interfaces and  classes to support interaction with the tacoma API.
  *
  *  Author: Kevin Nielsen
  *  Copyright 2019 by Alert Logic, Inc.
