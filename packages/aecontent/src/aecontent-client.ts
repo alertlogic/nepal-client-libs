@@ -99,11 +99,15 @@ export class AecontentClientInstance {
      * @param accountId string tuning rule's belonging account id
      *
      */
-    public async getAllRules(accountId: string): Promise<any> {
+    public async getAllRules(accountId: string, disabled?: boolean, deleted?: boolean): Promise<any> {
         return this.client.get<any>({
             service_name: this.serviceName,
             path: `${accountId}/tunings`,
-            version: 'v1'
+            version: 'v1',
+            params: {
+                return_disabled: disabled,
+                return_deleted: deleted
+            }
         });
     }
 
