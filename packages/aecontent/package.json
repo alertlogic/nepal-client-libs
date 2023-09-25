@@ -1,6 +1,6 @@
 {
   "name": "@al/aecontent",
-  "version": "0.0.10",
+  "version": "0.0.11",
   "license": "MIT",
   "description": "A client for interacting with the Alert Logic Aecontent Public API",
   "author": {
