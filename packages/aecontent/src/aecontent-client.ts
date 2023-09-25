@@ -62,8 +62,8 @@ export class AecontentClientInstance {
      * @param name string tuning rule's name
      *
      */
-    public async deleteRule(accountId: string, name: string): Promise<any> {
-        return this.client.get<any>({
+    public async deleteRule(accountId: string, name: string): Promise<void> {
+        return this.client.delete<void>({
             service_name: this.serviceName,
             path: `${accountId}/tunings`,
             version: 'v1',
