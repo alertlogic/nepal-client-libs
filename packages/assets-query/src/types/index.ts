@@ -435,6 +435,8 @@ export interface AssetQueryResultItem {
     health_threatiness?: number;
     /** Property that exposes what appliance is protecting the host */
     scope_identity_connected_to?: string;
+    region?: string;
+    availability_zone?: string;
 }
 
 export interface AssetQueryResultStatistics {
