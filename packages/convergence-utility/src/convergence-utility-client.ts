@@ -128,6 +128,22 @@ export class ConvergenceUtilityClientInstance {
         });
     }
 
+    public async updateNetwork(
+        accountId: string,
+        deploymentId: string,
+        networkId: string,
+        data: CollectionSource
+    ): Promise<CollectionSource> {
+        return this.client.put({
+            data: { source: data },
+            service_stack: this.serviceStack,
+            service_name: this.serviceName,
+            version: this.serviceVersion,
+            account_id: accountId,
+            path: `/deployments/${deploymentId}/networks/${networkId}`
+        });
+    }
+
     public async getOneNetwork(
         accountId: string,
         deploymentId: string,
