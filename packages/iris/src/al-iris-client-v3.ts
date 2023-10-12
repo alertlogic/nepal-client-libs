@@ -2,30 +2,31 @@
  * Module to deal with available Iris Public API endpoints
  */
 import {
+    APIRequestParams,
     AlApiClient,
     AlDefaultClient,
-    AlResponseValidationError,
     AlLocation,
-    APIRequestParams,
+    AlResponseValidationError,
 } from '@al/core';
 import { AlIrisClientInstance } from './al-iris-client';
 
 import {
+    AdditionalEvidenceRequest,
+    AdditionalEvidenceResponse,
     AlIncidentFilterDictionary,
-    IncidentHistoryResponse,
-    MetaDataDictionary,
     AlObservation,
-    RetinaBody,
-    RetinaFilterOp,
     Elaboration,
-    EvidenceParams,
-    SourceType,
     ElaborationEvent,
     ElaborationGuardDuty,
     ElaborationLog,
+    EvidenceParams,
+    IncidentHistoryResponse,
+    IncidentsArchiveDateRange,
+    MetaDataDictionary,
     RawFilterColumns,
-    AdditionalEvidenceRequest,
-    AdditionalEvidenceResponse,
+    RetinaBody,
+    RetinaFilterOp,
+    SourceType,
 } from './types';
 
 export class AlIrisClientV3Instance extends AlIrisClientInstance {
@@ -1012,4 +1013,49 @@ export class AlIrisClientV3Instance extends AlIrisClientInstance {
             data: payload,
         });
     }
+
+    /**
+     * Retrieves the date range for the oldest and most recent archived incidents for a given account.
+     *
+     * @param {string} accountId - The ID of the account for which to retrieve the archive date range.
+     * @returns {Promise<IncidentsArchiveDateRange>} A Promise that resolves to an object containing the account ID,
+     * the oldest archive date, and the most recent archive date.
+     * @throws {Error} If there was an issue with the retrieval process.
+     */
+    getIncidentsArchiveRange(accountId: string): Promise<IncidentsArchiveDateRange> {
+        return this.client.get<IncidentsArchiveDateRange>({
+            service_stack: AlLocation.InsightAPI,
+            account_id: accountId,
+            service_name: this.serviceName,
+            version: this.serviceVersion,
+            path: '/incidents_archive/range',
+        });
+    }
+
+    /**
+     * Retrieves archived incidents in CSV format for a specified account within a specified time range.
+     *
+     * @param {string} accountId - The ID of the account for which to retrieve the archived incidents in CSV format.
+     * @param {object} [queryParams] - An optional object containing query parameters including 'start_time' and 'end_time' as timestamps or string representations.
+     * @param {number|string} queryParams.start_time - The start timestamp or string representing the start time of the date range.
+     * @param {number|string} queryParams.end_time - The end timestamp or string representing the end time of the date range.
+     * @returns {Promise<unknown>} A Promise that resolves to a ZIP file containing archived incidents in CSV format.
+     * @throws {Error} If there was an issue with the retrieval process.
+     */
+    async getIncidentsArchiveCSV(
+        accountId: string,
+        queryParams?: { start_time: number | string, end_time: number | string },
+    ): Promise<unknown> {
+        return this.client.post<unknown>({
+            responseType: 'arraybuffer',
+            service_stack: AlLocation.InsightAPI,
+            account_id: accountId,
+            service_name: this.serviceName,
+            version: this.serviceVersion,
+            path: '/incidents_archive/csv',
+            params: queryParams,
+        });
+    }
+
+
 }
