@@ -1046,7 +1046,7 @@ export class AlIrisClientV3Instance extends AlIrisClientInstance {
         accountId: string,
         queryParams?: { start_time: number | string, end_time: number | string },
     ): Promise<unknown> {
-        return this.client.post<unknown>({
+        return this.client.get<unknown>({
             responseType: 'arraybuffer',
             service_stack: AlLocation.InsightAPI,
             account_id: accountId,
