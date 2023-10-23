@@ -22,11 +22,16 @@ import {
     EvidenceParams,
     IncidentHistoryResponse,
     IncidentsArchiveDateRange,
+    JSONStore,
     MetaDataDictionary,
     RawFilterColumns,
     RetinaBody,
     RetinaFilterOp,
+    SocTemplate,
     SourceType,
+    TemplateReadRec,
+    WriteFieldBody,
+    ZenDeskItem,
 } from './types';
 
 export class AlIrisClientV3Instance extends AlIrisClientInstance {
@@ -1054,6 +1059,102 @@ export class AlIrisClientV3Instance extends AlIrisClientInstance {
             version: this.serviceVersion,
             path: '/incidents_archive/csv',
             params: queryParams,
+        });
+    }
+
+    updateIncident(accountId: string, incidentId: string, payload: WriteFieldBody): Promise<unknown> {
+        return this.client.put({
+            service_stack: AlLocation.InsightAPI,
+            account_id: accountId,
+            service_name: this.serviceName,
+            version: this.serviceVersion,
+            path: `/${incidentId}`,
+            data: payload
+        });
+    }
+
+    getZendeskTickets(accountId: string): Promise<ZenDeskItem> {
+        return this.client.get({
+            service_stack: AlLocation.InsightAPI,
+            account_id: accountId,
+            service_name: this.serviceName,
+            version: this.serviceVersion,
+            path: `/zendesk`
+        });
+    }
+
+    getJSONStore(accountId: string, hash:string): Promise<JSONStore> {
+        return this.client.get({
+            service_stack: AlLocation.InsightAPI,
+            account_id: accountId,
+            service_name: this.serviceName,
+            version: this.serviceVersion,
+            path: `/jsonstore/${hash}`
+        });
+    }
+
+    createJSONStore(accountId: string, payload: object): Promise<JSONStore> {
+        return this.client.post({
+            service_stack: AlLocation.InsightAPI,
+            account_id: accountId,
+            service_name: this.serviceName,
+            version: this.serviceVersion,
+            path: `/jsonstore`,
+            data: payload
+        });
+    }
+
+    getSocTemplates(accountId: string, params: {[K:string]: string}): Promise<TemplateReadRec[]> {
+        return this.client.get({
+            service_stack: AlLocation.InsightAPI,
+            account_id: accountId,
+            service_name: this.serviceName,
+            version: this.serviceVersion,
+            path: `/socedit`,
+            params: params
+        });
+    }
+
+    createSocTemplate(accountId: string, payload: SocTemplate): Promise<TemplateReadRec> {
+        return this.client.post({
+            service_stack: AlLocation.InsightAPI,
+            account_id: accountId,
+            service_name: this.serviceName,
+            version: this.serviceVersion,
+            path: `/socedit`,
+            data: payload
+        });
+    }
+
+    updateSocTemplate(accountId: string, payload: SocTemplate): Promise<TemplateReadRec> {
+        return this.client.put({
+            service_stack: AlLocation.InsightAPI,
+            account_id: accountId,
+            service_name: this.serviceName,
+            version: this.serviceVersion,
+            path: `/socedit`,
+            data: payload
+        });
+    }
+
+    getSocTemplateHistory(accountId: string, id: string): Promise<unknown> {
+        return this.client.get({
+            service_stack: AlLocation.InsightAPI,
+            account_id: accountId,
+            service_name: this.serviceName,
+            version: this.serviceVersion,
+            path: `/socedit/versions/${id}`
+        });
+    }
+
+    createSocHibernation(accountId: string, id: string, params: { doHibernate: boolean }): Promise<unknown> {
+        return this.client.post({
+            service_stack: AlLocation.InsightAPI,
+            account_id: accountId,
+            service_name: this.serviceName,
+            version: this.serviceVersion,
+            path: `/socedit/hibernate/${id}`,
+            params: params
         });
     }
 
