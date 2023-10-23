@@ -1,5 +1,7 @@
+import { AlChangeStamp } from '@al/core';
 import { ElaborationInterface } from './elaboration.interface';
 
+export * from './additional-evidence-types';
 export * from './al-observation';
 export * from './elaboration-event.class';
 export * from './elaboration-guard-duty.class';
@@ -7,10 +9,9 @@ export * from './elaboration-log.class';
 export * from './elaboration.class';
 export * from './elaboration.interface';
 export * from './evidence.class';
+export * from './incident.class';
 export * from './old-types';
 export * from './source-type.class';
-export * from './additional-evidence-types';
-export * from './incident.class';
 
 export interface AlIncidentFilterDictionary {
   classifications:{[classification:string]:{
@@ -214,4 +215,93 @@ export interface PropertiesUpdatePayload {
         property: string,
         newValue: any,
     }[];
+}
+
+export interface WriteFieldBodyUpdate {
+    property: string;
+    newValue: any;
+    comment?: string;
+}
+
+export interface WriteFieldBody {
+    updates: WriteFieldBodyUpdate[];
+    incident_update_version?: number;
+    sessionId?: string;
+    clientTime?: string;
+}
+
+export interface ZenDeskItem {
+    id: number;
+    created_at?: string;
+    updated_at?: string;
+    formattedUpatedTime: string;
+    title?: string;
+    status?: string;
+    type?: string;
+    url?: string;
+    urlForJson?: string;
+}
+
+export interface JSONStore {
+    accountId: string;
+    key: string;
+    val: { [k: string]: object };
+}
+
+export interface SocTemplateData {
+    format: number;
+    title: string;
+    text: string;
+    filter?: string;
+}
+
+export interface SocTemplate {
+    id?: string;
+    changeId?: number;
+    doIncrement?: boolean;
+    tag?: string;
+    data: SocTemplateData;
+    leaseSeconds?: number;
+    who?: string;
+}
+
+export interface WhoData {
+    access_keys: string[];
+    account_id: string;
+    active: boolean;
+    created: AlChangeStamp;
+    email: string;
+    endpoints_user_id: number;
+    id: string;
+    linked_users: Array<{ location: string; user_id: number }>;
+    locked: boolean;
+    modified: AlChangeStamp;
+    name: string;
+    user_credential: {
+        created: AlChangeStamp;
+        last_login: number;
+        modified: AlChangeStamp;
+        one_time_password: boolean;
+        version: number;
+    };
+    username: string;
+    version: number;
+}
+
+export interface TemplateReadRec {
+    id: string;
+    version: number;
+    changeId: number;
+    who: WhoData | string;
+    _who?: string;
+    when: string;
+    _when?: string;
+    isLeaseHolder: boolean;
+    leaseExpireTime?: string;
+    data: SocTemplateData;
+    hibernateRec?: {
+        who: WhoData | string;
+        when: string;
+        _who?: string;
+    };
 }
