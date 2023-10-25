@@ -1073,7 +1073,7 @@ export class AlIrisClientV3Instance extends AlIrisClientInstance {
         });
     }
 
-    getZendeskTickets(accountId: string): Promise<ZenDeskItem> {
+    getZendeskTickets(accountId: string): Promise<ZenDeskItem[]> {
         return this.client.get({
             service_stack: AlLocation.InsightAPI,
             account_id: accountId,
