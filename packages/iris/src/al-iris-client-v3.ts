@@ -21,6 +21,7 @@ import {
     ElaborationLog,
     EvidenceParams,
     IncidentHistoryResponse,
+    IncidentIdResponse,
     IncidentsArchiveDateRange,
     JSONStore,
     MetaDataDictionary,
@@ -1155,6 +1156,38 @@ export class AlIrisClientV3Instance extends AlIrisClientInstance {
             version: this.serviceVersion,
             path: `/socedit/hibernate/${id}`,
             params: params
+        });
+    }
+
+    /**
+     * Return the actual incident id for a short friendly id
+     * GET
+     * /iris/v3/:accountId/:shortIncidentId/friendly
+     * "https://api.cloudinsight.alertlogic.com/iris/v3/19651/asv3s2/friendly"
+     */
+    async getIncidentIdByFriendlyId(accountId: string, friendlyId: string): Promise<IncidentIdResponse> {
+        return this.client.get<IncidentIdResponse>({
+            service_stack: AlLocation.InsightAPI,
+            account_id: accountId,
+            service_name: this.serviceName,
+            version: this.serviceVersion,
+            path: `/${friendlyId}/friendly`,
+        });
+    }
+
+    /**
+     * Return the actual incident id for a alpha id
+     * GET
+     * /iris/v3/:accountId/:alphaId/alpha_id
+     * "https://api.cloudinsight.alertlogic.com/iris/v3/19651/1234/alpha_id"
+     */
+    async getIncidentIdByAlphaId(accountId: string, alphaId: string): Promise<IncidentIdResponse> {
+        return this.client.get<IncidentIdResponse>({
+            service_stack: AlLocation.InsightAPI,
+            account_id: accountId,
+            service_name: this.serviceName,
+            version: this.serviceVersion,
+            path: `/${alphaId}/alpha_id`,
         });
     }
 
