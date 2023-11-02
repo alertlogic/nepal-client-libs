@@ -10,6 +10,8 @@ export class SourceType {
     public static readonly LOGREVIEWATTACHMENT = 'Attachment';
     public static readonly LOGREVIEWATTACHMENTFLAGGED = 'FlaggedEvidence';
     public static readonly ASSOCIDS = 'application/x-alpacket-idsmsgs';
+    public static readonly EPMSGS = 'application/x-alpacket-epmsgs';
+    public static readonly ATTACHMENTS = 'application/al-lr-case-evidence';
 
 
     /**
@@ -20,20 +22,19 @@ export class SourceType {
     public static getSourceName(type:string):string {
 
         switch (type) {
-            case "application/x-alpacket-logmsgs":
+            case SourceType.ASSOCLOG:
+            case SourceType.ASSOCWEBEVENT:
+            case SourceType.ASSOCLOGMEG:
                 return "Log";
-            case "application/x-alpacket-wafmsgs":
-                return "Log";
-            case "application/x-alpacket-snmsgs":
+            case SourceType.ASSOCEVENT:
+            case SourceType.ASSOCIDS:
                 return "Event";
-            case "application/x-alpacket-megmsgs":
-                return "Log";
-            case "guardduty":
+            case SourceType.GUARDDUTY:
                 return "GuardDuty findings";
-            case "application/al-lr-case-evidence":
+            case SourceType.ATTACHMENTS:
                 return "Attachments";
-            case "application/x-alpacket-idsmsgs":
-                    return "Event";
+            case SourceType.EPMSGS:
+                return "Endpoint";
             default:
                 console.warn("Please notify the ui team that we have a new content type", type);
                 return type;
@@ -48,18 +49,18 @@ export class SourceType {
     public static getType(type:string):string {
 
         switch (type) {
-            case "application/x-alpacket-logmsgs":
+            case SourceType.ASSOCLOG:
+            case SourceType.ASSOCWEBEVENT:
+            case SourceType.ASSOCLOGMEG:
                 return "associated log";
-            case "application/x-alpacket-wafmsgs":
-                return "associated log";
-            case "application/x-alpacket-snmsgs":
+            case SourceType.ASSOCEVENT:
+            case SourceType.ASSOCIDS:
                 return "associated event";
-            case "application/x-alpacket-megmsgs":
-                return "associated log";
-            case "guardduty":
+            case SourceType.GUARDDUTY:
                 return "guardduty";
-            case "application/x-alpacket-idsmsgs":
-                    return "associated event";
+            case SourceType.EPMSGS:
+                return "endpoint event";
+            case "":
             default:
                 console.warn("Please notify the ui team that we have a new content type", type);
                 return type;
