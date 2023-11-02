@@ -1,3 +1,6 @@
+
+export type TuningOptionValue = boolean | number | string | TuningOptionValueDict;
+
 export interface TuningOptionScope {
     deployment_id?: string;
     region_key?: string;
@@ -7,7 +10,11 @@ export interface TuningOptionScope {
     provider_id?: string;
 }
 
-export type TuningOptionValue = string | number | boolean | { [key: string]: unknown };
+export interface TuningOptionValueDict {
+    vpc_key?: string;
+    deployment_id?: string;
+    [key: string]: unknown;
+}
 
 export interface TuningOption {
     id?: string;
