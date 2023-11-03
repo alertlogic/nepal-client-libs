@@ -9,6 +9,7 @@ import { expect } from 'chai';
 import { describe } from 'mocha';
 import { Elaboration } from "../src/types/elaboration.class";
 import { SourceType } from '../src/types/source-type.class';
+import { EvidenceType } from '../src/types/evidence.class';
 
 describe('Elaboration', () => {
 
@@ -27,7 +28,7 @@ describe('Elaboration', () => {
         });
         it('should return an Elaboration object with the properties in raw parameter', () => {
             const type = "associated event";
-            const elaboration = Elaboration.deserialize(rawMock, type);
+            const elaboration = Elaboration.deserialize(rawMock, EvidenceType.AssocEvent);
             expect(elaboration.time).to.eql(new Date(rawMock.__normalizedTime));
             expect(elaboration.evidenceType).to.equal(type);
             expect(elaboration.elaborationType).to.equal(SourceType.getType(rawMock.__contentType));
