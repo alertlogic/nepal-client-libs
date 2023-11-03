@@ -3,9 +3,17 @@
  * Since there is a variety of evidence coming from different sources. this provides a standard interface for filtering and sorting.
  */
 
-export type EvidenceTypes = 'unknown'| 'associated log' | 'associated event' | 'guardduty'| 'Flagged Evidence'| 'Incident Audit Trail';
+export enum EvidenceType {
+    Unknown = 'unknown',
+    AssocLog = 'associated log',
+    AssocEvent = 'associated event',
+    Guardduty = 'guardduty',
+    Flagged = 'Flagged Evidence',
+    AuditLog = 'Incident Audit Trail',
+    EndpointEvent = 'endpoint event'
+}
 export abstract class Evidence {
-    public evidenceType:EvidenceTypes|string = "unknown";
+    public evidenceType:EvidenceType|string = EvidenceType.Unknown;
     public time:Date = new Date(0);
     // putting the notes field on the super class, because i suspect that there will more things besides elborations that will need notes in the future...
     public notes:any;
