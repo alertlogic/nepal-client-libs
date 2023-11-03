@@ -1,3 +1,5 @@
+import { EvidenceType } from "./evidence.class";
+
 export class SourceType {
     // static sources types
     public static readonly AUDITLOG = 'Incident Audit Trail';
@@ -12,7 +14,6 @@ export class SourceType {
     public static readonly ASSOCIDS = 'application/x-alpacket-idsmsgs';
     public static readonly EPMSGS = 'application/x-alpacket-epmsgs';
     public static readonly ATTACHMENTS = 'application/al-lr-case-evidence';
-
 
     /**
      * Return the source name according the content type
@@ -52,14 +53,14 @@ export class SourceType {
             case SourceType.ASSOCLOG:
             case SourceType.ASSOCWEBEVENT:
             case SourceType.ASSOCLOGMEG:
-                return "associated log";
+                return EvidenceType.AssocLog;
             case SourceType.ASSOCEVENT:
             case SourceType.ASSOCIDS:
-                return "associated event";
+                return EvidenceType.AssocEvent;
             case SourceType.GUARDDUTY:
-                return "guardduty";
+                return EvidenceType.Guardduty;
             case SourceType.EPMSGS:
-                return "endpoint event";
+                return EvidenceType.EndpointEvent;
             case "":
             default:
                 console.warn("Please notify the ui team that we have a new content type", type);

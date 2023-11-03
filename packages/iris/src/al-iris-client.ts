@@ -39,13 +39,15 @@ import {
     AdditionalEvidenceRequest,
     AdditionalEvidenceResponse,
     MassUpdatePayload,
+    EvidenceType,
 } from './types';
 
 export class AlIrisClientInstance {
 
     public defaultIrisType: string[] = [
-        'associated log',
-        'associated event',
+        EvidenceType.AssocLog,
+        EvidenceType.AssocEvent,
+        EvidenceType.EndpointEvent
     ];
     public defaultContentType: string[] = ['guardduty'];
     protected serviceName = 'iris';
@@ -826,10 +828,10 @@ export class AlIrisClientInstance {
             );
             const response = isTestIncident ? this.testRetinaSearch(accountId, incidentId, data) : this.retinaSearch(accountId, incidentId, data);
             return response.then((response) => {
-                if (parameters.sourcesFilter !== null && parameters.sourcesFilter.indexOf(SourceType.FLAGGED) === -1) {
+                if (parameters.sourcesFilter !== null && parameters.sourcesFilter.indexOf(EvidenceType.Flagged) === -1) {
                     return [];
                 }
-                return Elaboration.deserializeArray(response.returnVals || [], SourceType.FLAGGED);
+                return Elaboration.deserializeArray(response.returnVals || [], EvidenceType.Flagged);
             });
 
         }
@@ -922,7 +924,7 @@ export class AlIrisClientInstance {
             null,
             null,
             parameters.evidenceFilter,
-            "guardduty",
+            EvidenceType.Guardduty,
             updateElaboration,
         );
 
@@ -983,10 +985,10 @@ export class AlIrisClientInstance {
                 if (Object.keys(json).length === 0) {
                     throw new Error("Malformed response from the backend api");
                 }
-                if (json.__contentType === "guardduty") {
+                if (json.__contentType === EvidenceType.Guardduty) {
                     return ElaborationGuardDuty.deserialize(json);
                 }
-                if (json.__irisType === "associated log") {
+                if (json.__irisType === EvidenceType.AssocLog) {
                     return ElaborationLog.deserialize(json);
                 }
                 return ElaborationEvent.deserialize(json);
