@@ -30,6 +30,8 @@ export class Elaboration extends Evidence {
     public packetCount:string = "";
     public contentType:string;
     public parsed:ParsedData;
+    // this is temporary while defining the properties to be used for the EPMSGS
+    public epmsg: {[key:string]: any};
 
     constructor() {
         super();
@@ -49,6 +51,13 @@ export class Elaboration extends Evidence {
         elaboration.elaborationType = SourceType.getType(raw.__contentType);
         elaboration.contentType = raw.__contentType;
         elaboration.uuid = raw.__uuid;
+
+        // TODO: update this
+        // this is temporary while defining the properties to be used for the EPMSGS
+        if (raw.__contentType === SourceType.EPMSGS) {
+            elaboration.epmsg = raw;
+            return elaboration;
+        }
 
         elaboration.tokens     = raw.__tokens;
         elaboration.rulename   = raw.rulename;
