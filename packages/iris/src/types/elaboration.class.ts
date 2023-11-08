@@ -52,13 +52,6 @@ export class Elaboration extends Evidence {
         elaboration.contentType = raw.__contentType;
         elaboration.uuid = raw.__uuid;
 
-        // TODO: update this
-        // this is temporary while defining the properties to be used for the EPMSGS
-        if (raw.__contentType === SourceType.EPMSGS) {
-            elaboration.epmsg = raw;
-            return elaboration;
-        }
-
         elaboration.tokens     = raw.__tokens;
         elaboration.rulename   = raw.rulename;
         elaboration.sourceName = raw.__sourceName;
@@ -95,6 +88,12 @@ export class Elaboration extends Evidence {
         if (raw.hasOwnProperty('__packetCount') && raw.__packetCount !== null) {
             // Get the packet count and substract the request packet
             elaboration.packetCount = `${raw.__packetCount > 0 ? raw.__packetCount - 1 : raw.__packetCount}`;
+        }
+
+        // TODO: update this
+        // this is temporary while defining the properties to be used for the EPMSGS
+        if (raw.__contentType === SourceType.EPMSGS) {
+            elaboration.epmsg = raw;
         }
 
         return elaboration;
