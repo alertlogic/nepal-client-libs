@@ -105,12 +105,27 @@ export interface IncidentSearchResponse {
 export interface IncidentHistoryResponse {
   details?: {
     threatRating?: string;
-  };
+    message?: string;
+    property?: string;
+    change?: { old?: any; new?: any };
+  } | { [i: string]: any };
   historyType?: number;
   message?: string;
   time?: number;
   time_str?: string;
   who?: string;
+  customerInteresting?: boolean;
+  incident_key?: string;
+  log_id?: string;
+  logtype?: number;
+  logtypeName?: string;
+  soc?: boolean;
+  uid?: string;
+  short?: string;
+  long?: string;
+  property?: string;
+  clientTime?: string;
+  sessionId?: string;
 }
 
 export interface IncidentBatchData {
