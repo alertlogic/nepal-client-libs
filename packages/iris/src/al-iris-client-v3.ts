@@ -51,13 +51,14 @@ export class AlIrisClientV3Instance extends AlIrisClientInstance {
      * /iris/v3/:accountId/:incidentId/history
      * "https://api.cloudinsight.alertlogic.com/iris/v3/100/ascads/history"
      */
-    async getIncidentHistory(accountId: string, incidentId: string): Promise<IncidentHistoryResponse[]> {
+    async getIncidentHistory(accountId: string, incidentId: string, params: {[key:string]: string} = {}): Promise<IncidentHistoryResponse[]> {
         return this.client.get<IncidentHistoryResponse[]>({
             service_stack: AlLocation.InsightAPI,
             account_id: accountId,
             service_name: this.serviceName,
             version: this.serviceVersion,
             path: `${incidentId}/history`,
+            params: params
         });
     }
 
