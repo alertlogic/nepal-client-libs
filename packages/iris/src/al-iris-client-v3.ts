@@ -14,6 +14,8 @@ import {
     AdditionalEvidenceRequest,
     AdditionalEvidenceResponse,
     AlIncidentFilterDictionary,
+    AlManualIncidentResponse,
+    AlManualIncidentRequest,
     AlObservation,
     Elaboration,
     ElaborationEvent,
@@ -1188,6 +1190,23 @@ export class AlIrisClientV3Instance extends AlIrisClientInstance {
             service_name: this.serviceName,
             version: this.serviceVersion,
             path: `/${alphaId}/alpha_id`,
+        });
+    }
+
+    /**
+     * Return the actual incident id for a alpha id
+     * GET
+     * /iris/v3/:accountId/:alphaId/alpha_id
+     * "https://api.cloudinsight.alertlogic.com/iris/v3/1234/alpha_id"
+     */
+    async createManualIncident(accountId: string, observable: AlManualIncidentRequest): Promise<AlManualIncidentResponse> {
+        return this.client.post({
+            service_stack: AlLocation.InsightAPI,
+            service_name: this.serviceName,
+            version:      this.serviceVersion,
+            account_id:   accountId,
+            path:         `/manual_incident`,
+            data: observable
         });
     }
 
