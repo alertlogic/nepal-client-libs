@@ -251,7 +251,7 @@ export class ConvergenceUtilityClientInstance {
         accountId: string,
         deploymentId: string,
         hostId: string,
-        productType: 'lmhosts' | 'tmhosts',
+        productType: 'lmhosts' | 'tmhosts' | 'protectedhosts',
     ): Promise<CollectionSourceValue> {
         const raw: CollectionSource = await this.client.get<CollectionSource>({
             service_stack: this.serviceStack,
