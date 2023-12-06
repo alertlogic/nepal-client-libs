@@ -24,6 +24,21 @@ export class AecontentClientInstance {
     }
 
     /**
+     * Get Observation by path only
+     * GET
+     *
+     * @param path string observation path
+     */
+    public async getObservationByPath(accountId: string, path: string): Promise<any> {
+        return this.client.get<any>({
+            service_name: this.serviceName,
+            account_id: accountId,
+            path: `/observations/paths/${path}`,
+            version: 'v1',
+        });
+    }
+
+    /**
      * create Tuning rule
      * POST
      *
@@ -47,13 +62,13 @@ export class AecontentClientInstance {
      * @param name string tuning rule's name
      *
      */
-    public async deleteRule(accountId: string, name: string): Promise<any> {
-        return this.client.get<any>({
+    public async deleteRule(accountId: string, name: string): Promise<void> {
+        return this.client.delete<void>({
             service_name: this.serviceName,
             path: `${accountId}/tunings`,
             version: 'v1',
             params: {
-                        ruleName: name
+                        name: name
                     }
         });
     }
@@ -72,8 +87,83 @@ export class AecontentClientInstance {
             path: `${accountId}/tunings`,
             version: 'v1',
             params: {
-                        ruleName: name
+                        name: name
                     }
+        });
+    }
+
+    /**
+     * Get all rules from an account
+     * GET
+     *
+     * @param accountId string tuning rule's belonging account id
+     *
+     */
+    public async getAllRules(accountId: string, disabled?: boolean, deleted?: boolean): Promise<any> {
+        return this.client.get<any>({
+            service_name: this.serviceName,
+            path: `${accountId}/tunings`,
+            version: 'v1',
+            params: {
+                return_disabled: disabled,
+                return_deleted: deleted
+            }
+        });
+    }
+
+    /**
+     * enable a Tuning rule
+     * POST
+     *
+     * @param accountId string tuning rule's belonging account id
+     * @param name name of the rule to enable
+     *
+     */
+    public async enableRule(accountId: string, name: string): Promise<any> {
+        return this.client.post<any>({
+            service_name: this.serviceName,
+            path: `${accountId}/tunings/enable`,
+            version: 'v1',
+            params: {
+                name: name
+            }
+        });
+    }
+
+    /**
+     * disable a Tuning rule
+     * POST
+     *
+     * @param accountId string tuning rule's belonging account id
+     *  @param name name of the rule to disable
+     *
+     */
+    public async disableRule(accountId: string, name: string): Promise<any> {
+        return this.client.post<any>({
+            service_name: this.serviceName,
+            path: `${accountId}/tunings/disable`,
+            version: 'v1',
+            params: {
+                name: name
+            }
+        });
+    }
+
+    /**
+     * Get tuning schema data
+     * GET
+     *
+     * @param properties string a property to specify part of the desired schema
+     */
+    public async getTuningSchema(properties?: string, version?: string): Promise<any> {
+        return this.client.get<any>({
+            service_name: this.serviceName,
+            path: `/tunings/schema`,
+            version: 'v1',
+            params: {
+                properties: properties,
+                schema_version: version
+            }
         });
     }
 }

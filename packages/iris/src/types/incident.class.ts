@@ -708,4 +708,8 @@ export class IncidentCard {
     }
 }
 
-
+export interface IncidentsArchiveDateRange {
+    account_id: string;
+    oldest_date: number;
+    youngest_date: number;
+}

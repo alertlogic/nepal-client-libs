@@ -2,30 +2,40 @@
  * Module to deal with available Iris Public API endpoints
  */
 import {
+    APIRequestParams,
     AlApiClient,
     AlDefaultClient,
-    AlResponseValidationError,
     AlLocation,
-    APIRequestParams,
+    AlResponseValidationError,
 } from '@al/core';
 import { AlIrisClientInstance } from './al-iris-client';
 
 import {
+    AdditionalEvidenceRequest,
+    AdditionalEvidenceResponse,
     AlIncidentFilterDictionary,
-    IncidentHistoryResponse,
-    MetaDataDictionary,
+    AlManualIncidentResponse,
+    AlManualIncidentRequest,
     AlObservation,
-    RetinaBody,
-    RetinaFilterOp,
     Elaboration,
-    EvidenceParams,
-    SourceType,
     ElaborationEvent,
     ElaborationGuardDuty,
     ElaborationLog,
+    EvidenceParams,
+    EvidenceType,
+    IncidentHistoryResponse,
+    IncidentIdResponse,
+    IncidentsArchiveDateRange,
+    JSONStore,
+    MetaDataDictionary,
     RawFilterColumns,
-    AdditionalEvidenceRequest,
-    AdditionalEvidenceResponse,
+    RetinaBody,
+    RetinaFilterOp,
+    SocTemplate,
+    SourceType,
+    TemplateReadRec,
+    WriteFieldBody,
+    ZenDeskItem,
 } from './types';
 
 export class AlIrisClientV3Instance extends AlIrisClientInstance {
@@ -43,13 +53,14 @@ export class AlIrisClientV3Instance extends AlIrisClientInstance {
      * /iris/v3/:accountId/:incidentId/history
      * "https://api.cloudinsight.alertlogic.com/iris/v3/100/ascads/history"
      */
-    async getIncidentHistory(accountId: string, incidentId: string): Promise<IncidentHistoryResponse[]> {
+    async getIncidentHistory(accountId: string, incidentId: string, params: {[key:string]: string} = {}): Promise<IncidentHistoryResponse[]> {
         return this.client.get<IncidentHistoryResponse[]>({
             service_stack: AlLocation.InsightAPI,
             account_id: accountId,
             service_name: this.serviceName,
             version: this.serviceVersion,
             path: `${incidentId}/history`,
+            params: params
         });
     }
 
@@ -451,10 +462,10 @@ export class AlIrisClientV3Instance extends AlIrisClientInstance {
             );
             const response = isTestIncident ? this.testRetinaSearch(accountId, incidentId, data) : this.retinaSearch(accountId, incidentId, data);
             return response.then((response) => {
-                if (parameters.sourcesFilter !== null && parameters.sourcesFilter.indexOf(SourceType.FLAGGED) === -1) {
+                if (parameters.sourcesFilter !== null && parameters.sourcesFilter.indexOf(EvidenceType.Flagged) === -1) {
                     return [];
                 }
-                return Elaboration.deserializeArray(response.returnVals || [], SourceType.FLAGGED);
+                return Elaboration.deserializeArray(response.returnVals || [], EvidenceType.Flagged);
             });
 
         }
@@ -547,7 +558,7 @@ export class AlIrisClientV3Instance extends AlIrisClientInstance {
             null,
             null,
             parameters.evidenceFilter,
-            "guardduty",
+            EvidenceType.Guardduty,
             updateElaboration,
         );
 
@@ -608,10 +619,10 @@ export class AlIrisClientV3Instance extends AlIrisClientInstance {
                 if (Object.keys(json).length === 0) {
                     throw new Error("Malformed response from the backend api");
                 }
-                if (json.__contentType === "guardduty") {
+                if (json.__contentType === EvidenceType.Guardduty) {
                     return ElaborationGuardDuty.deserialize(json);
                 }
-                if (json.__irisType === "associated log") {
+                if (json.__irisType === EvidenceType.AssocLog) {
                     return ElaborationLog.deserialize(json);
                 }
                 return ElaborationEvent.deserialize(json);
@@ -1012,4 +1023,192 @@ export class AlIrisClientV3Instance extends AlIrisClientInstance {
             data: payload,
         });
     }
+
+    /**
+     * Retrieves the date range for the oldest and most recent archived incidents for a given account.
+     *
+     * @param {string} accountId - The ID of the account for which to retrieve the archive date range.
+     * @returns {Promise<IncidentsArchiveDateRange>} A Promise that resolves to an object containing the account ID,
+     * the oldest archive date, and the most recent archive date.
+     * @throws {Error} If there was an issue with the retrieval process.
+     */
+    getIncidentsArchiveRange(accountId: string): Promise<IncidentsArchiveDateRange> {
+        return this.client.get<IncidentsArchiveDateRange>({
+            service_stack: AlLocation.InsightAPI,
+            account_id: accountId,
+            service_name: this.serviceName,
+            version: this.serviceVersion,
+            path: '/incidents_archive/range',
+        });
+    }
+
+    /**
+     * Retrieves archived incidents in CSV format for a specified account within a specified time range.
+     *
+     * @param {string} accountId - The ID of the account for which to retrieve the archived incidents in CSV format.
+     * @param {object} [queryParams] - An optional object containing query parameters including 'start_time' and 'end_time' as timestamps or string representations.
+     * @param {number|string} queryParams.start_time - The start timestamp or string representing the start time of the date range.
+     * @param {number|string} queryParams.end_time - The end timestamp or string representing the end time of the date range.
+     * @returns {Promise<unknown>} A Promise that resolves to a ZIP file containing archived incidents in CSV format.
+     * @throws {Error} If there was an issue with the retrieval process.
+     */
+    async getIncidentsArchiveCSV(
+        accountId: string,
+        queryParams?: { start_time: number | string, end_time: number | string },
+    ): Promise<unknown> {
+        return this.client.get<unknown>({
+            responseType: 'arraybuffer',
+            service_stack: AlLocation.InsightAPI,
+            account_id: accountId,
+            service_name: this.serviceName,
+            version: this.serviceVersion,
+            path: '/incidents_archive/csv',
+            params: queryParams,
+        });
+    }
+
+    updateIncident(accountId: string, incidentId: string, payload: WriteFieldBody): Promise<unknown> {
+        return this.client.put({
+            service_stack: AlLocation.InsightAPI,
+            account_id: accountId,
+            service_name: this.serviceName,
+            version: this.serviceVersion,
+            path: `/${incidentId}`,
+            data: payload
+        });
+    }
+
+    getZendeskTickets(accountId: string): Promise<ZenDeskItem[]> {
+        return this.client.get({
+            service_stack: AlLocation.InsightAPI,
+            account_id: accountId,
+            service_name: this.serviceName,
+            version: this.serviceVersion,
+            path: `/zendesk`
+        });
+    }
+
+    getJSONStore(accountId: string, hash:string): Promise<JSONStore> {
+        return this.client.get({
+            service_stack: AlLocation.InsightAPI,
+            account_id: accountId,
+            service_name: this.serviceName,
+            version: this.serviceVersion,
+            path: `/jsonstore/${hash}`
+        });
+    }
+
+    createJSONStore(accountId: string, payload: object): Promise<JSONStore> {
+        return this.client.post({
+            service_stack: AlLocation.InsightAPI,
+            account_id: accountId,
+            service_name: this.serviceName,
+            version: this.serviceVersion,
+            path: `/jsonstore`,
+            data: payload
+        });
+    }
+
+    getSocTemplates(accountId: string, params: {[K:string]: string}): Promise<TemplateReadRec[]> {
+        return this.client.get({
+            service_stack: AlLocation.InsightAPI,
+            account_id: accountId,
+            service_name: this.serviceName,
+            version: this.serviceVersion,
+            path: `/socedit`,
+            params: params
+        });
+    }
+
+    createSocTemplate(accountId: string, payload: SocTemplate): Promise<TemplateReadRec> {
+        return this.client.post({
+            service_stack: AlLocation.InsightAPI,
+            account_id: accountId,
+            service_name: this.serviceName,
+            version: this.serviceVersion,
+            path: `/socedit`,
+            data: payload
+        });
+    }
+
+    updateSocTemplate(accountId: string, payload: SocTemplate): Promise<TemplateReadRec> {
+        return this.client.put({
+            service_stack: AlLocation.InsightAPI,
+            account_id: accountId,
+            service_name: this.serviceName,
+            version: this.serviceVersion,
+            path: `/socedit`,
+            data: payload
+        });
+    }
+
+    getSocTemplateHistory(accountId: string, id: string): Promise<unknown> {
+        return this.client.get({
+            service_stack: AlLocation.InsightAPI,
+            account_id: accountId,
+            service_name: this.serviceName,
+            version: this.serviceVersion,
+            path: `/socedit/versions/${id}`
+        });
+    }
+
+    createSocHibernation(accountId: string, id: string, params: { doHibernate: boolean }): Promise<unknown> {
+        return this.client.post({
+            service_stack: AlLocation.InsightAPI,
+            account_id: accountId,
+            service_name: this.serviceName,
+            version: this.serviceVersion,
+            path: `/socedit/hibernate/${id}`,
+            params: params
+        });
+    }
+
+    /**
+     * Return the actual incident id for a short friendly id
+     * GET
+     * /iris/v3/:accountId/:shortIncidentId/friendly
+     * "https://api.cloudinsight.alertlogic.com/iris/v3/asv3s2/friendly"
+     */
+    async getIncidentIdByFriendlyId(friendlyId: string): Promise<IncidentIdResponse[]> {
+        return this.client.get<IncidentIdResponse[]>({
+            service_stack: AlLocation.InsightAPI,
+            service_name: this.serviceName,
+            version: this.serviceVersion,
+            path: `/${friendlyId}/friendly`,
+        });
+    }
+
+    /**
+     * Return the actual incident id for a alpha id
+     * GET
+     * /iris/v3/:accountId/:alphaId/alpha_id
+     * "https://api.cloudinsight.alertlogic.com/iris/v3/1234/alpha_id"
+     */
+    async getIncidentIdByAlphaId(alphaId: string): Promise<IncidentIdResponse[]> {
+        return this.client.get<IncidentIdResponse[]>({
+            service_stack: AlLocation.InsightAPI,
+            service_name: this.serviceName,
+            version: this.serviceVersion,
+            path: `/${alphaId}/alpha_id`,
+        });
+    }
+
+    /**
+     * Return the actual incident id for a alpha id
+     * GET
+     * /iris/v3/:accountId/:alphaId/alpha_id
+     * "https://api.cloudinsight.alertlogic.com/iris/v3/1234/alpha_id"
+     */
+    async createManualIncident(accountId: string, observable: AlManualIncidentRequest): Promise<AlManualIncidentResponse> {
+        return this.client.post({
+            service_stack: AlLocation.InsightAPI,
+            service_name: this.serviceName,
+            version:      this.serviceVersion,
+            account_id:   accountId,
+            path:         `/manual_incident`,
+            data: observable
+        });
+    }
+
+
 }

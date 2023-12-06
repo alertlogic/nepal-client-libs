@@ -1,5 +1,7 @@
+import { AlChangeStamp } from '@al/core';
 import { ElaborationInterface } from './elaboration.interface';
 
+export * from './additional-evidence-types';
 export * from './al-observation';
 export * from './elaboration-event.class';
 export * from './elaboration-guard-duty.class';
@@ -7,10 +9,9 @@ export * from './elaboration-log.class';
 export * from './elaboration.class';
 export * from './elaboration.interface';
 export * from './evidence.class';
+export * from './incident.class';
 export * from './old-types';
 export * from './source-type.class';
-export * from './additional-evidence-types';
-export * from './incident.class';
 
 export interface AlIncidentFilterDictionary {
   classifications:{[classification:string]:{
@@ -214,4 +215,174 @@ export interface PropertiesUpdatePayload {
         property: string,
         newValue: any,
     }[];
+}
+
+export interface WriteFieldBodyUpdate {
+    property: string;
+    newValue: any;
+    comment?: string;
+}
+
+export interface WriteFieldBody {
+    updates: WriteFieldBodyUpdate[];
+    incident_update_version?: number;
+    sessionId?: string;
+    clientTime?: string;
+}
+
+export interface ZenDeskItem {
+    id: number;
+    created_at?: string;
+    updated_at?: string;
+    formattedUpatedTime: string;
+    title?: string;
+    status?: string;
+    type?: string;
+    url?: string;
+    urlForJson?: string;
+}
+
+export interface JSONStore {
+    accountId: string;
+    key: string;
+    val: { [k: string]: object };
+}
+
+export interface SocTemplateData {
+    format: number;
+    title: string;
+    text: string;
+    filter?: string;
+}
+
+export interface SocTemplate {
+    id?: string;
+    changeId?: number;
+    doIncrement?: boolean;
+    tag?: string;
+    data: SocTemplateData;
+    leaseSeconds?: number;
+    who?: string;
+}
+
+export interface WhoData {
+    access_keys: string[];
+    account_id: string;
+    active: boolean;
+    created: AlChangeStamp;
+    email: string;
+    endpoints_user_id: number;
+    id: string;
+    linked_users: Array<{ location: string; user_id: number }>;
+    locked: boolean;
+    modified: AlChangeStamp;
+    name: string;
+    user_credential: {
+        created: AlChangeStamp;
+        last_login: number;
+        modified: AlChangeStamp;
+        one_time_password: boolean;
+        version: number;
+    };
+    username: string;
+    version: number;
+}
+
+export interface TemplateReadRec {
+    id: string;
+    version: number;
+    changeId: number;
+    who: WhoData | string;
+    _who?: string;
+    when: string;
+    _when?: string;
+    isLeaseHolder: boolean;
+    leaseExpireTime?: string;
+    data: SocTemplateData;
+    hibernateRec?: {
+        who: WhoData | string;
+        when: string;
+        _who?: string;
+    };
+}
+
+export namespace AlManualIncidentRequest {
+    export type SourcesEnum = 'MANL' | 'MANI';
+    export const sourcesEnum = {
+        MANL: 'MANL' as SourcesEnum,
+        MANI: 'MANI' as SourcesEnum
+    };
+    export type ThreatRatingEnum = 'Low' | 'Medium' | 'Hihg' | 'Critical';
+    export const threatRatingEnum = {
+        Low: 'Low' as ThreatRatingEnum,
+        Medium: 'Medium' as ThreatRatingEnum,
+        Hihg: 'Hihg' as ThreatRatingEnum,
+        Critical: 'Critical' as ThreatRatingEnum
+    };
+}
+
+
+export interface AlManualIncidentFactMessage {
+    id?: string;
+    type?: string;
+}
+
+export interface AlManualIncidentFact {
+    message?: AlManualIncidentFactMessage[];
+}
+
+export interface AlManualIncidentRequest {
+    /**
+     * The Account (customer) Id
+     */
+    customer_id: number;
+    /**
+     * The Incident Summary
+     */
+    summary: string;
+    /**
+     * The Incident Description
+     */
+    description: string;
+    /**
+     * The Incident Classification
+     */
+    classification: string;
+    /**
+     * The duration (in minutes)
+     */
+    time_frame: number;
+    /**
+     * A list of message_id and type (associated events or logs)
+     */
+    facts: AlManualIncidentFact[];
+    /**
+     * Only for MANI
+     */
+    correlation: string[];
+    /**
+     * The datacenter that facts are coming from (Ashburn, Denver, Integration, Newport, etc)
+     */
+    datacenter?: string;
+    /**
+     * The Incident Source (MANL for log, MANI for IDS)
+     */
+    sources?: AlManualIncidentRequest.SourcesEnum[];
+    /**
+     * The base_incident_keyedon_value
+     */
+    keyedon_value?: string;
+    /**
+     * The generator type (analytic, guardduty, log_correlation, etc)
+     */
+    gen_type?: string;
+    /**
+     * The threat rating for the incident (Low, Medium, High, Critical)
+     */
+    threat_rating?: AlManualIncidentRequest.ThreatRatingEnum;
+}
+
+export interface AlManualIncidentResponse {
+    status?: string;
+    message?: string;
 }

@@ -415,25 +415,28 @@ export interface AssetQueryResultItem {
     alertlogic_agent?: boolean;
     related_properties?: unknown;
     alertlogic_appliance?: boolean;
+    alertlogic_appliance_features?: string[];
     host_uuid?: string;
     protection_policy_id?: string;
     protection_policy_name?: string;
     /** 0 for healthy and 2 for unhealthy */
     health_level?: 0 | 2;
     /** An object mapping exposure severity to open security exposure count  */
-    security_exposure_summary?: {total: number; critial: number; high: number; medium: number; low:number; info: number};
+    security_exposure_summary?: {total: number; critical: number; high: number; medium: number; low:number; info: number};
     /** A string containing the highest severity for open security exposures on the asset */
-    security_exposure_severity?: 'critial' | 'high' | 'medium' | 'low' | 'info';
+    security_exposure_severity?: 'critical' | 'high' | 'medium' | 'low' | 'info';
     /** A number containing the aggregated threatiness for open security exposures */
     security_threatiness?: number;
     /** An object mapping exposure severity to open health exposure count */
     health_exposure_summary?: { total: number; medium: number; low: number; info: number; high: number; critical: number; };
     /** A string containing the highest severity for open health exposures on the asset */
-    health_exposure_severity?: 'critial' | 'high' | 'medium' | 'low' | 'info';
+    health_exposure_severity?: 'critical' | 'high' | 'medium' | 'low' | 'info';
     /** A number containing the aggregated threatiness for open health exposures */
     health_threatiness?: number;
     /** Property that exposes what appliance is protecting the host */
     scope_identity_connected_to?: string;
+    region?: string;
+    availability_zone?: string;
 }
 
 export interface AssetQueryResultStatistics {

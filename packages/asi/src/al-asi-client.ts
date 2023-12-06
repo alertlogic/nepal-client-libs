@@ -3,7 +3,7 @@ import {
     AlDefaultClient,
     AlLocation,
 } from '@al/core';
-import { Signup } from './types';
+import { AlMarketplaceSignupData } from './types';
 
 export class AlASIClientInstance {
     protected client: AlApiClient;
@@ -14,7 +14,7 @@ export class AlASIClientInstance {
         this.client = client || AlDefaultClient;
     }
 
-    signupMRRProduct(productType: string, fields: Signup): Promise<any> {
+    signupMRRProduct(productType: string, fields: AlMarketplaceSignupData): Promise<void> {
         return this.client.post({
             service_stack: AlLocation.InsightAPI,
             service_name: this.serviceName,
@@ -24,7 +24,7 @@ export class AlASIClientInstance {
         });
     }
 
-    activateAccount(token: string): Promise<any> {
+    activateAccount(token: string): Promise<void> {
         return this.client.post({
             service_stack: AlLocation.InsightAPI,
             service_name: this.serviceName,

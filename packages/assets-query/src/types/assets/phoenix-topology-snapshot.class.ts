@@ -125,14 +125,17 @@ export class PhoenixTopologySnapshot {
         ['region', 'vpc', 'subnet', 'host',
          'load-balancer', 'image', 'sg',
          'container', 'tag', 'agent'].forEach(type => {
+                // if (type === 'agent') { // Uncomment this when backend  says so
+                //     summary['agents'] = assetCounts?.['host']?.['agent'] ?? 0;
+                // } else
                 if (assetCounts.hasOwnProperty(type) && type === 'subnet') {
-                    summary['subnets'] = assetCounts['subnet']['standard'] || assetCounts['subnet']['all'];
+                    summary['subnets'] = assetCounts?.['subnet']?.['standard'] ?? assetCounts?.['subnet']?.['all'] ?? 0;
                 } else if (assetCounts.hasOwnProperty(type) && type !== 'host') {
                     summary[`${type}s`] = assetCounts[type];
                 } else if (assetCounts.hasOwnProperty(type) && type === 'host') {
-                    summary['running_hosts'] = assetCounts['host']['running'];
-                    summary['all_hosts'] = assetCounts['host']['all'];
-                    summary['appliances'] = assetCounts['host'].hasOwnProperty('appliance') ? assetCounts['host']['appliance'] : 0;
+                    summary['running_hosts'] = assetCounts?.['host']?.['running'] ?? 0;
+                    summary['all_hosts'] = assetCounts?.['host']?.['all'] ?? 0;
+                    summary['appliances'] = assetCounts?.['host']?.['appliance'] ?? 0;
                 } else if (!assetCounts.hasOwnProperty(type) && type === 'host') {
                     summary['running_hosts'] = 0;
                     summary['all_hosts'] = 0;
@@ -141,7 +144,6 @@ export class PhoenixTopologySnapshot {
                     summary[`${type}s`] = 0;
                 }
             });
-
         return summary;
     }
 
