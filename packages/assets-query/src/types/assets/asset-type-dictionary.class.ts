@@ -674,10 +674,7 @@ export class AssetTypeDictionary {
             icon: 'material-icons',
             iconMt: 'language',
             renderName: function (asset) {
-                if (asset && asset.hasOwnProperty("name")) {
-                    return asset.name;
-                }
-                return asset.key;
+                return asset?.name ?? asset?.key;
             }
         },
 
