@@ -666,12 +666,19 @@ export class AssetTypeDictionary {
             iconMt: ''
         },
 
+        /* Deployment */
         "deployment": {
             type: "deployment",
             topological: false,
             caption: "Deployment",
             icon: 'material-icons',
-            iconMt: 'language'
+            iconMt: 'language',
+            renderName: function (asset) {
+                if (asset && asset.hasOwnProperty("name")) {
+                    return asset.name;
+                }
+                return asset.key;
+            }
         },
 
         "s3-bucket": {
