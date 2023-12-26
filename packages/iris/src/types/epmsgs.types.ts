@@ -191,7 +191,7 @@ export const EPMSGS_PROPERTIES_DICTIONARY = {
 
 
 export class EPMSGSUtils {
-    static renameProperties (obj: object | any[], propertiesMap): object {
+    static renameProperties (obj: object | any[], propertiesMap: {[key: string]: string}): object {
         if (typeof obj !== 'object' || obj === null) {
             return obj;
         }
