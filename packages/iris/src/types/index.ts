@@ -8,6 +8,7 @@ export * from './elaboration-guard-duty.class';
 export * from './elaboration-log.class';
 export * from './elaboration.class';
 export * from './elaboration.interface';
+export * from './epmsgs.types';
 export * from './evidence.class';
 export * from './incident.class';
 export * from './old-types';
