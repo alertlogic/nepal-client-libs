@@ -260,7 +260,7 @@ export class ConvergenceUtilityClientInstance {
             account_id: accountId,
             path: `/deployments/${deploymentId}/${productType}/${hostId}`
         });
-        return raw?.host ?? null;
+        return raw?.host ??  raw?.source ?? null;
     }
 
     public async listCredentials(
