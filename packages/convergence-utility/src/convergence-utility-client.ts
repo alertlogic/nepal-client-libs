@@ -89,14 +89,18 @@ export class ConvergenceUtilityClientInstance {
         if (action) {
             urlSuffix += "_" + action;
         }
-        return this.client.get({
+        const hosts: CollectionSource[] =  (await this.client.get({
             params,
             service_stack: this.serviceStack,
             service_name: this.serviceName,
             version: this.serviceVersion,
             account_id: accountId,
             path: `/deployments/${deploymentId}/${urlSuffix}`
-        });
+        })).sources;
+        return {
+            sources:  hosts.map(h => ({ source: h})),
+            total_count: hosts.length
+        } as CollectionsGenericResponse;
     }
 
     public async listNetworks(
@@ -251,7 +255,7 @@ export class ConvergenceUtilityClientInstance {
         accountId: string,
         deploymentId: string,
         hostId: string,
-        productType: 'lmhosts' | 'tmhosts' | 'protectedhosts',
+        productType: 'lmhosts' | 'tmhosts'
     ): Promise<CollectionSourceValue> {
         const raw: CollectionSource = await this.client.get<CollectionSource>({
             service_stack: this.serviceStack,
@@ -261,6 +265,20 @@ export class ConvergenceUtilityClientInstance {
             path: `/deployments/${deploymentId}/${productType}/${hostId}`
         });
         return raw?.host ??  raw?.source ?? null;
+    }
+
+    public async getOneProtectedHost(
+        accountId: string,
+        deploymentId: string,
+        hostId: string
+    ): Promise<CollectionSourceValue> {
+        return await this.client.get<CollectionSourceValue>({
+            service_stack: this.serviceStack,
+            service_name: this.serviceName,
+            version: this.serviceVersion,
+            account_id: accountId,
+            path: `/deployments/${deploymentId}/protectedhosts/${hostId}`
+        });
     }
 
     public async listCredentials(
