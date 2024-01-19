@@ -1211,7 +1211,7 @@ export class AlIrisClientV3Instance extends AlIrisClientInstance {
     }
 
     /**
-     * Return the facts for a test incident 
+     * Return the facts for a test incident
      * GET
      * /iris/v3/:accountId/test/:incidentId/facts/:observationId
      * "https://api.cloudinsight.alertlogic.com//iris/v3/:accountId/test/:incidentId/facts/:observationId"
