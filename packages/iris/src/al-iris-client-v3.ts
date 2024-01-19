@@ -1210,5 +1210,21 @@ export class AlIrisClientV3Instance extends AlIrisClientInstance {
         });
     }
 
+    /**
+     * Return the facts for a test incident
+     * GET
+     * /iris/v3/:accountId/test/:incidentId/facts/:observationId
+     * "https://api.cloudinsight.alertlogic.com//iris/v3/:accountId/test/:incidentId/facts/:observationId"
+     */
+    public getTestFacts(accountId: string, incidentId: string, observationId: string): Promise<unknown> {
+        return this.client.get<unknown>({
+            service_stack: AlLocation.InsightAPI,
+            service_name: this.serviceName,
+            version: 'v3',
+            account_id: accountId,
+            path: `/test/${incidentId}/facts/${observationId}`,
+        });
+    }
+
 
 }
