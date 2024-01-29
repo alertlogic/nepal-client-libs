@@ -1,5 +1,5 @@
 import { AlApiClient, AlDefaultClient, AlLocation } from '@al/core';
-import { AlTuningRule } from './types/aecontent-client-tuning.type';
+import { AlTuningDetails, AlTuningRule } from './types/aecontent-client-tuning.type';
 
 export class AecontentClientInstance {
     private serviceName = 'aecontent';
@@ -166,5 +166,30 @@ export class AecontentClientInstance {
             }
         });
     }
-}
 
+    /**
+     * Get a preview of applying a tuning to an incident
+     * POST
+     * Accepts an incident and will apply the all the observation pre-processing including
+     * the explicitly given tunings to the incident and return the modified incident.
+     * This function has no observable side-effects and can therefore be used to get a preview
+     * of applying tunings to an incident.
+     *
+     * @param accountId string incident's belonging account id
+     * @param incidentId string Incident id
+     * @param data Tuning rule's detail
+     */
+    public async getPreviewTuning(accountId: string, incidentId:string, data: AlTuningDetails): Promise<unknown> {
+        return this.client.post<any>({
+            data: {
+                cid: accountId,
+                ingest_id: incidentId,
+                tunings: [ data ]
+            },
+            service_name: this.serviceName,
+            path: `/tunings/preview`,
+            version: 'v1'
+        });
+    }
+
+}
