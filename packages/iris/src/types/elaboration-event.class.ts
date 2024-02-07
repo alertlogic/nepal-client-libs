@@ -57,6 +57,13 @@ export class ElaborationEvent extends Elaboration {
         if (raw.hasOwnProperty('__appliance_name')) {
             elaboration.appliance = raw.__appliance_name;
         }
+        if (raw.hasOwnProperty( 'asset' )) {
+            elaboration.applianceKey = raw.asset?.dict?.asset?.host?.key;
+            elaboration.applianceDeploymentId = raw.asset?.dict?.asset?.deployment?.deployment_id;
+        }
+        if (raw.hasOwnProperty('id') && raw.id?.account) {
+            elaboration.accountId = raw.id.account;
+        }
         if (raw.hasOwnProperty('event_id')) {
             elaboration.event_id = raw.event_id;
         }
