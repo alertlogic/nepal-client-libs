@@ -1,5 +1,3 @@
-import { get } from 'lodash';
-
 interface TimeNameMapping {
     time: string;
     name: string;
@@ -56,8 +54,8 @@ export class AlObservation {
     private initializeTimeAndSummary(raw: any): void {
         if (raw.path in TIME_NAME_PROPERTY_BY_PATH) {
             const { time: timeProperty, name: nameProperty } = TIME_NAME_PROPERTY_BY_PATH[raw.path];
-            const time = get(raw, timeProperty);
-            const name = get(raw, nameProperty);
+            const time = get<number>(raw, timeProperty);
+            const name = get<string>(raw, nameProperty);
             this.time = new Date(time * AlObservation.EPOCH_MULTIPLIER);
             this.summary = name;
         } else {
@@ -105,4 +103,17 @@ export interface ObservationScope {
 
 export interface ObservationKeys {
     [key: string]: any & {enrichment_map?: {[key: string]: string[]}};
+}
+
+function get<T>(obj: any, path: string, defaultValue?: T): T | undefined {
+    const keys = path.split('.');
+    let result: any = {...obj};
+    for (const key of keys) {
+        if (result === undefined || result === null || !result.hasOwnProperty(key)) {
+            return defaultValue;
+        }
+        result = result[key];
+    }
+
+    return result;
 }
