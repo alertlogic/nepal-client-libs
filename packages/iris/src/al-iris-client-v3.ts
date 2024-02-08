@@ -254,7 +254,7 @@ export class AlIrisClientV3Instance extends AlIrisClientInstance {
             version: this.serviceVersion,
             account_id: accountId,
             path: `nested/${incidentId}`,
-        }).then(obs => obs.map(ob => AlObservation.import(ob)));
+        }).then(obs => obs.map(ob => new AlObservation(ob)));
     }
 
     public getTestIncidentById(accountId: string, incidentId: string): Promise<unknown> {
