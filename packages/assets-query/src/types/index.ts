@@ -552,3 +552,35 @@ export interface AssetsQueryIncidentIdsPayload {
 export interface AssetsQueryIncidentIdsResponse {
     [key: string]: string[];
 }
+
+export interface ExposureFilter {
+    /**
+     * The 'type' property represents the category of the filter. 
+     * It is a string that categorizes the filter, helping to identify its purpose or the kind of data it is associated with.
+     */
+    type: string;
+
+    /**
+     * The 'key' property holds the specific value of the filter.
+     * This string value is used to specify the filter criteria or parameters. 
+     */
+    key: string;
+
+    /**
+     * The 'name' property provides a human-readable name for the filter.
+     * This optional property comes into play particularly when the filter represents a deployment. 
+     */
+    name?: string;
+
+    /**
+     * The 'deployment_type' property indicates the type of deployment.
+     * This optional property can have values like 'azure', 'aws', or 'datacenter', specifying the platform.
+     * It helps in categorizing filters based on the deployment platform.
+     */
+    deployment_type?: string;
+
+    /**
+     * The 'deployment_id' property represents the unique identifier of the deployment.
+     */
+    deployment_id?: string;
+}
