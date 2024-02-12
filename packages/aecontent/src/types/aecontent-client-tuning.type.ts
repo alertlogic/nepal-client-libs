@@ -6,9 +6,9 @@ export interface AlTuningRule {
 
 export interface AlTuningDetails {
     type: string;
-    selector: AlTuningOptionDetails;
-    rules: AlTuningOptionDetails[];
-    actions: AlTuningOptionDetails[];
+    selector: AlTuningSelectorDetails;
+    rules: AlTuningRulesDetails[];
+    actions: AlTuningActionsDetails[];
 }
 
 export interface AlTuningOptionDetails {
@@ -16,3 +16,17 @@ export interface AlTuningOptionDetails {
     args: string[];
 }
 
+export interface AlTuningSelectorDetails {
+    func: string;
+    args: string[];
+}
+
+export interface AlTuningRulesDetails {
+    func: string;
+    args: string[];
+}
+
+export interface AlTuningActionsDetails {
+    func: string;
+    args: (string|string[])[];
+}
