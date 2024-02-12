@@ -555,20 +555,20 @@ export interface AssetsQueryIncidentIdsResponse {
 
 export interface ExposureFilter {
     /**
-     * The 'type' property represents the category of the filter. 
+     * The 'type' property represents the category of the filter.
      * It is a string that categorizes the filter, helping to identify its purpose or the kind of data it is associated with.
      */
     type: string;
 
     /**
      * The 'key' property holds the specific value of the filter.
-     * This string value is used to specify the filter criteria or parameters. 
+     * This string value is used to specify the filter criteria or parameters.
      */
     key: string;
 
     /**
      * The 'name' property provides a human-readable name for the filter.
-     * This optional property comes into play particularly when the filter represents a deployment. 
+     * This optional property comes into play particularly when the filter represents a deployment.
      */
     name?: string;
 
