@@ -1,5 +1,18 @@
+interface TimeNameMapping {
+    time: string;
+    name: string;
+}
+
+const TIME_NAME_PROPERTY_BY_PATH: Record<string, TimeNameMapping> = {
+    "Endpoint/DigitalGuardian/AlarmObservation": {
+        time: 'properties.create_time',
+        name: 'properties.alarm_name'
+    }
+};
 
 export class AlObservation {
+    static readonly EPOCH_MULTIPLIER = 1000;
+
     evidenceType: string = 'observation';
     accountId:       number;
     aggregations:    unknown[];
@@ -28,18 +41,28 @@ export class AlObservation {
     // tslint:disable-next-line:variable-name
     __description:   string;
 
-    static import(raw:any): AlObservation {
-        const ob:AlObservation = Object.assign(new AlObservation(), raw);
-        ob.accountId = raw.account_id;
-        ob.customerName = raw.customer_name;
-        ob.startTs = raw.start_ts;
-        ob.endTs = raw.end_ts;
-        ob.time = new Date(ob.ts * 1000);
-        ob.__description = ob.summary;
+    constructor(raw: any) {
+        Object.assign(this, raw);
 
+        this.accountId = raw.account_id;
+        this.customerName = raw.customer_name;
+        this.startTs = raw.start_ts;
+        this.endTs = raw.end_ts;
+        this.initializeTimeAndSummary(raw);
+    }
 
-        return ob;
-
+    private initializeTimeAndSummary(raw: any): void {
+        if (raw.path in TIME_NAME_PROPERTY_BY_PATH) {
+            const { time: timeProperty, name: nameProperty } = TIME_NAME_PROPERTY_BY_PATH[raw.path];
+            const time = get<number>(raw, timeProperty);
+            const name = get<string>(raw, nameProperty);
+            this.time = new Date(time * AlObservation.EPOCH_MULTIPLIER);
+            this.summary = name;
+        } else {
+            this.time = new Date(this.ts * AlObservation.EPOCH_MULTIPLIER);
+            this.summary = this.summary || '';
+        }
+        this.__description = this.summary;
     }
 }
 
@@ -82,5 +105,15 @@ export interface ObservationKeys {
     [key: string]: any & {enrichment_map?: {[key: string]: string[]}};
 }
 
-// Observation wasnt being exported in the js code for some reason
-const ignoreMe = new AlObservation();
+function get<T>(obj: any, path: string, defaultValue?: T): T | undefined {
+    const keys = path.split('.');
+    let result: any = {...obj};
+    for (const key of keys) {
+        if (result === undefined || result === null || !result.hasOwnProperty(key)) {
+            return defaultValue;
+        }
+        result = result[key];
+    }
+
+    return result;
+}

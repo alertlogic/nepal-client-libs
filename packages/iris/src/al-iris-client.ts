@@ -641,7 +641,7 @@ export class AlIrisClientInstance {
             path: `nested/${incidentId}`,
             noEndpointsResolution: true,
             residency: 'default',
-        }).then(obs => obs.map(ob => AlObservation.import(ob)));
+        }).then(obs => obs.map(ob => new AlObservation(ob)));
     }
 
     public getTestIncidentById(accountId: string, incidentId: string): Promise<unknown> {

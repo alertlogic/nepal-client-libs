@@ -25,6 +25,9 @@ export class Elaboration extends Evidence {
     public program:string = "";
     public host_id:string = "";
     public appliance:string;
+    public applianceKey:string;
+    public accountId:string;
+    public applianceDeploymentId:string;
     public sourceType:string = "";
     public message:string = "";
     public packetCount:string = "";
