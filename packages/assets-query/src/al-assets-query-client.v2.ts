@@ -25,7 +25,7 @@ export class AlAssetsQueryV2ClientInstance {
    * @param accountId - The account id for which exposure filters are to be retrieved.
    * @returns A Promise that resolves to an array of ExposureFilter objects.
    */
-  async getExposureFilters(accountId: string): Promise<ExposureFilter[]> {
+  async getExposureFilters(accountId: string): Promise<{filters: ExposureFilter[]}> {
     return await this.client.get({
       service_stack: AlLocation.InsightAPI,
       version: this.version,
