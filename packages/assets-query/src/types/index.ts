@@ -145,6 +145,7 @@ export interface ExposureQueryParams {
     group?: 'exposure' | 'remediation' | 'asset';
     include_exposures?: boolean;
     include_filters?: boolean;
+    include_summary?: boolean;
     include_remediations?: boolean;
     include_remediation_items?: boolean;
     sort?: string;
