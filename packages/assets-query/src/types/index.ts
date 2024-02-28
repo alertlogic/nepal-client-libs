@@ -153,6 +153,11 @@ export interface ExposureQueryParams {
     scope?: boolean;
     concluded?: boolean;
     disposed?: boolean;
+    page_size?: number;
+    continue?: string;
+    group_by_audit_id?: boolean;
+    state?: 'open'|'disposed'|'concluded';
+    detailed_filters?: boolean;
 }
 export interface ExposuresQueryResponse {
     summary?: {
@@ -161,6 +166,7 @@ export interface ExposuresQueryResponse {
     filters?: ExposuresQueryFilter[];
     exposures?: ExposureQueryResults;
     remediations?: ExposureQueryResults;
+    continue?: string;
 }
 export interface ExposuresQueryFilter {
     account_id?: string;
