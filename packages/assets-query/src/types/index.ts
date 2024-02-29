@@ -248,6 +248,7 @@ export interface ExposureVInstanceItem {
     remediation_item_id?: string;
     target?: ExposureVInstanceTarget;
     threatiness?: number;
+    severity?: string;
 }
 export interface ExposureVInstanceTarget {
     account_id?: string;
