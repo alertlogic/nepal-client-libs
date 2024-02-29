@@ -57,6 +57,7 @@ export interface DashboardWidgetConfig {
     options?: WidgetConfigOptions;
     presentation?: any;
     dataConfig?: any;
+    args?: any[];
   };
   actions?: {
     primary?: {
