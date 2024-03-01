@@ -167,6 +167,7 @@ export interface ExposuresQueryResponse {
     exposures?: ExposureQueryResults;
     remediations?: ExposureQueryResults;
     continue?: string;
+    total_rows?: number;
 }
 export interface ExposuresQueryFilter {
     account_id?: string;
