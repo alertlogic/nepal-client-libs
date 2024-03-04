@@ -158,6 +158,7 @@ export interface ExposureQueryParams {
     group_by_audit_id?: boolean;
     state?: 'open'|'disposed'|'concluded';
     detailed_filters?: boolean;
+    search?: string;
 }
 export interface ExposuresQueryResponse {
     summary?: {
