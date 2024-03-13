@@ -6,9 +6,9 @@
  */
 
 export interface AlCreateQueryTemplateV2 {
-    group_id: string | null;
+    tags?: string[];
     name: string;
-    description: string;
+    description?: string;
     search_request: string;
 }
 
@@ -23,7 +23,7 @@ export interface AlUpdateQueryTemplateV2 {
 export interface AlSuggestionsTemplateResponseV2 {
     id: string;
     account_id: string;
-    group_id: string | null;
+    tags: string[];
     name: string;
     description?: string;
     data_type: string;
