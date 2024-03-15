@@ -23,7 +23,7 @@ export interface AlUpdateQueryTemplateV2 {
 export interface AlSuggestionsTemplateResponseV2 {
     id: string;
     account_id: string;
-    tags: string[];
+    tags?: string[];
     name: string;
     description?: string;
     data_type: string;
