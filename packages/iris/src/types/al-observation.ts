@@ -7,6 +7,10 @@ const TIME_NAME_PROPERTY_BY_PATH: Record<string, TimeNameMapping> = {
     "Endpoint/DigitalGuardian/AlarmObservation": {
         time: 'properties.create_time',
         name: 'properties.alarm_name'
+    },
+    "Endpoint/DigitalGuardian/AlarmObservationInfo": {
+        time: 'properties.create_time',
+        name: 'properties.alarm_name'
     }
 };
 
