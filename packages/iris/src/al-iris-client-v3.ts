@@ -1226,5 +1226,20 @@ export class AlIrisClientV3Instance extends AlIrisClientInstance {
         });
     }
 
-
+    /**
+     * Return all the facts given an incident id
+     * GET
+     * /iris/v3/:accountId/nested/:incidentId/facts
+     * @param accountId
+     * @param incidentId
+     */
+    public getNestedFacts(accountId: string, incidentId: string): Promise<unknown> {
+        return this.client.get<any[]>({
+            service_stack: AlLocation.InsightAPI,
+            service_name: this.serviceName,
+            version: this.serviceVersion,
+            account_id: accountId,
+            path: `nested/${incidentId}/facts`,
+        });
+    }
 }
