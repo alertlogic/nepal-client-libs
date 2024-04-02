@@ -1233,7 +1233,7 @@ export class AlIrisClientV3Instance extends AlIrisClientInstance {
      * @param accountId
      * @param incidentId
      */
-    public getNestedFacts(accountId: string, incidentId: string): Promise<unknown> {
+    public getNestedFacts(accountId: string, incidentId: string): Promise<unknown[]> {
         return this.client.get<any[]>({
             service_stack: AlLocation.InsightAPI,
             service_name: this.serviceName,
