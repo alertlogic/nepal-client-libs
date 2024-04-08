@@ -80,7 +80,7 @@ export const EPMSGS_PROPERTIES_DICTIONARY = {
     "dg_dsi": "Signature Issuer",
     "dg_gid": "PKI Group ID",
     "pi_dss": "Signature Subject",
-    "dg_pid": "The machine ID.",
+    "dg_pid": "Process PID",
     "dg_fv": "File version",
     "dg_parent_name": "Parent Application",
     "dg_sesid": "Session ID",
@@ -186,9 +186,28 @@ export const EPMSGS_PROPERTIES_DICTIONARY = {
     "dg_alarm_sev": "Alarm Severity",
     "dg_alarm_name": "Alarm Name",
     "dg_det_id": "Detection rule ID",
-    "dg_det_type": "Detection rule type"
+    "dg_det_type": "Detection rule type",
+    "pi_pel": "Process local end time",
+    "pi_peu": "Process UTC end time"
 };
 
+export const EPMSGS_BLACKLIST_PROPERTIES = [
+    "__contentType",
+    "__description",
+    "__irisType",
+    "__normalizedTime",
+    "__relatedOrAssociated",
+    "__source",
+    "dg_alarm_assignee",
+    "dg_alarm_assignee_id",
+    "dg_alarm_modified",
+    "dg_alarm_modified_by",
+    "dg_vt_count",
+    "dg_vt_pos_count",
+    "dg_vt_status",
+    "dg_vt_sub_time",
+    "dg_vt_time"
+];
 
 export class EPMSGSUtils {
     static renameProperties (obj: object | any[], propertiesMap: {[key: string]: string}): object {
@@ -212,5 +231,13 @@ export class EPMSGSUtils {
             }
         }
         return renamedObj;
+    }
+
+    static removeProperties(obj: object, propsToRemove: string[]): object {
+        let newObj = { ...obj };
+        propsToRemove.forEach(prop => {
+            delete newObj[prop];
+        });
+        return newObj;
     }
 }
