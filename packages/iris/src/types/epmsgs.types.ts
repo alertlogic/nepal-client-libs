@@ -233,7 +233,7 @@ export class EPMSGSUtils {
         return renamedObj;
     }
 
-    static removeProperties(obj, propsToRemove: string[]) {
+    static removeProperties(obj: object, propsToRemove: string[]): object {
         let newObj = { ...obj };
         propsToRemove.forEach(prop => {
             delete newObj[prop];
