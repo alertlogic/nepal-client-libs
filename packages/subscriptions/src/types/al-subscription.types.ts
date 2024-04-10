@@ -91,7 +91,8 @@
         "web_application_firewall",
         "web_security_managed",
         "web_security_manager",
-        "expert_response"
+        "expert_response",
+        "fortra_xdr"
     ];
     protected collection:{[productId:string]:AlEntitlementRecord} = {};
     protected evaluationCache:{[expression:string]:boolean} = {};
