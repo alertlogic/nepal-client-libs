@@ -8,6 +8,7 @@ import {
 } from '@al/core';
 import {
     AlManagedResponsePayload,
+    AlMRIncidents,
     AlPlaybookRequest,
     AlPlaybookTemplate,
     AlResponderAction,
@@ -1487,6 +1488,17 @@ export class AlResponderClientInstance {
             service_stack: this.serviceStack,
             account_id: accountId,
             path: `/limits`
+        });
+    }
+
+    async getMRByIncident(accountId: string, incidentId: string, params: { product_type: string }): Promise<AlMRIncidents> {
+        return this.client.get({
+            version: this.serviceVersion,
+            target_endpoint: this.targetEndpoint,
+            service_stack: this.serviceStack,
+            account_id: accountId,
+            path: `/incidents/${incidentId}/responses`,
+            params: params
         });
     }
 }
