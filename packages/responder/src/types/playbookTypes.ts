@@ -683,7 +683,7 @@ export interface AlResponderMRPaloAltoBlock {
 }
 
 export interface AlResponderMRGeneric {
-    type: 'aws_waf' | 'aws_sns' | 'aws_eventbridge' | 'paloalto_block' | 'st2_action';
+    type: 'aws_waf' | 'aws_sns' | 'aws_eventbridge' | 'paloalto_block' | 'st2_action' | 'aws_waf_ipset';
     name: string;
     tag: string;
     ref_apply?: string;
@@ -701,6 +701,15 @@ export interface AlResponderMRGeneric {
     ttl_sec?: string;
     id?: string;
     exclusion_list?: Array<string>;
+    required_approvals?: Array<string>;
+    analytics?: Array<unknown>;
+    approval_options?: string;
+    scope?: string;
+    account_id?: string;
+    role_id?: string;
+    ip_v6_ipset_arn?: string;
+    ip_v4_ipset_arn?: string;
+    block_external_attackers?: string;
 }
 
 export interface AlResponderGenericSummary {
@@ -851,4 +860,9 @@ export interface AlResponderLimits {
     limits: {
         mr_configs: AlResponderLimitContent
     };
+}
+
+export interface AlMRIncidents {
+    mr_configs:  Array<AlResponderMRGeneric>;
+    mr_config_types: Array<string>;
 }
