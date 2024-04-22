@@ -1,6 +1,6 @@
 {
   "name": "@al/endpoints",
-  "version": "2.0.8",
+  "version": "2.0.9",
   "description": "An API Client for the Alert Logic EEP product backend.",
   "scripts": {
     "test": "karma start",
