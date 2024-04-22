@@ -3,6 +3,8 @@ import {
   AlDefaultClient,
   AlLocation,
   APIRequestParams,
+  AlSession,
+  AlAuthenticationUtility,
 } from '@al/core';
 import {
   AlEEPMappingDictionary,
@@ -15,6 +17,8 @@ import {
 export class AlEndpointsClientInstance {
 
     private organizationMap:{[accountId:string]:AIMSOrganization} = {};
+    private convertedAimsToken?:string;
+    private fortraToken?:string;
 
     constructor() {}
 
@@ -108,6 +112,24 @@ export class AlEndpointsClientInstance {
             requestDescriptor.url = `${esbServiceBaseUrl}/api/v1/${path}`;
             requestDescriptor.aimsAuthHeader = true;
         }
+        const aimsToken = await this.getCorrectAIMSToken();
+        if ( aimsToken ) {
+            requestDescriptor.headers = {
+                'X-AIMS-Auth-Token': aimsToken
+            };
+        }
         return requestDescriptor;
+    }
+
+    private async getCorrectAIMSToken():Promise<string|undefined> {
+        if ( ! AlSession.getFortraSession() ) {
+            return undefined;
+        }
+        if ( ! this.convertedAimsToken || this.fortraToken !== AlSession.getToken() ) {
+            let authenticator = new AlAuthenticationUtility();
+            this.convertedAimsToken = await authenticator.convertFortraToken( AlSession.getFortraSession() );
+            this.fortraToken = AlSession.getToken();
+        }
+        return this.convertedAimsToken;
     }
 }
