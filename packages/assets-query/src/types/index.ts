@@ -271,6 +271,7 @@ export interface ExposureVInstanceTarget {
     type?: string;
     created_on?: number;
     modified_on?: number;
+    last_scan_time?: number;
 }
 export interface CollectionHealthQueryParams {
     scope?: boolean;
