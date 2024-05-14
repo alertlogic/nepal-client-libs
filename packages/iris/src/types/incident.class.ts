@@ -228,6 +228,7 @@ export class Incident {
     public collectorName: string;
     public collectorType: string;
     public properties: Properties;
+    public analyticName: string;
 
     /**
      *  Return the icon according to the severity level
@@ -559,6 +560,7 @@ export class Incident {
         if (rawData.hasOwnProperty('properties')) {
             i.properties = rawData.properties;
         }
+        i.analyticName = rawData?.analytic_name ?? "";
 
         return i;
     }
