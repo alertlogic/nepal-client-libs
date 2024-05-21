@@ -1,6 +1,6 @@
 {
   "name": "@al/suggestions",
-  "version": "2.0.24",
+  "version": "2.0.25",
   "license": "MIT",
   "description": "A client for interacting with the Alert Logic Suggestions API",
   "author": {
