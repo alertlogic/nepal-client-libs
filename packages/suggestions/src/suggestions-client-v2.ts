@@ -40,6 +40,8 @@ export class AlSuggestionsClientInstanceV2 {
             account_id: accountId,
             path: '/templates',
             data: queryTemplate,
+            residency: 'US',
+            noEndpointsResolution: true,
         });
     }
 
@@ -56,6 +58,8 @@ export class AlSuggestionsClientInstanceV2 {
             version: this.serviceVersion,
             account_id: accountId,
             path: `/templates/${queryId}`,
+            residency: 'US',
+            noEndpointsResolution: true,
         });
     }
 
@@ -73,6 +77,8 @@ export class AlSuggestionsClientInstanceV2 {
             account_id: accountId,
             path: '/templates',
             params: params,
+            residency: 'US',
+            noEndpointsResolution: true,
         });
         return result.templates as AlSuggestionsTemplateResponseV2[];
     }
@@ -91,6 +97,8 @@ export class AlSuggestionsClientInstanceV2 {
             account_id: accountId,
             path: '/templates',
             params: params,
+            residency: 'US',
+            noEndpointsResolution: true,
         });
     }
 
@@ -108,6 +116,8 @@ export class AlSuggestionsClientInstanceV2 {
             account_id: accountId,
             path: `/templates/${queryId}`,
             data: queryTemplate,
+            residency: 'US',
+            noEndpointsResolution: true,
         });
     }
 
