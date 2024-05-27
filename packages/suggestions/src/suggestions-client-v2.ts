@@ -40,8 +40,6 @@ export class AlSuggestionsClientInstanceV2 {
             account_id: accountId,
             path: '/templates',
             data: queryTemplate,
-            residency: 'US',
-            noEndpointsResolution: true,
         });
     }
 
@@ -58,8 +56,6 @@ export class AlSuggestionsClientInstanceV2 {
             version: this.serviceVersion,
             account_id: accountId,
             path: `/templates/${queryId}`,
-            residency: 'US',
-            noEndpointsResolution: true,
         });
     }
 
@@ -77,8 +73,6 @@ export class AlSuggestionsClientInstanceV2 {
             account_id: accountId,
             path: '/templates',
             params: params,
-            residency: 'US',
-            noEndpointsResolution: true,
         });
         return result.templates as AlSuggestionsTemplateResponseV2[];
     }
@@ -97,8 +91,6 @@ export class AlSuggestionsClientInstanceV2 {
             account_id: accountId,
             path: '/templates',
             params: params,
-            residency: 'US',
-            noEndpointsResolution: true,
         });
     }
 
@@ -109,6 +101,99 @@ export class AlSuggestionsClientInstanceV2 {
      * @remarks "https://console.account.product.dev.alertlogic.com/users/api/suggestions/index.html#api-Templates-UpdateTemplate"
      */
     updateQueryTemplate(accountId: string, queryId: string, queryTemplate: AlUpdateQueryTemplateV2): Promise<AlSuggestionsTemplateResponseV2> {
+        return this.client.post<AlSuggestionsTemplateResponseV2>({
+            service_stack: AlLocation.InsightAPI,
+            service_name: this.serviceName,
+            version: this.serviceVersion,
+            account_id: accountId,
+            path: `/templates/${queryId}`,
+            data: queryTemplate,
+        });
+    }
+
+    /**
+     * Create a Template forcing call to US endpoint
+     * POST
+     * /suggestions/v2/:account_id/templates
+     * @remarks "https://console.account.product.dev.alertlogic.com/users/api/suggestions/index.html#api-Templates_V2-CreateTemplate"
+     */
+    createQueryTemplateUS(accountId: string, queryTemplate: AlCreateQueryTemplateV2): Promise<AlSuggestionsTemplateResponseV2> {
+        return this.client.post<AlSuggestionsTemplateResponseV2>({
+            service_stack: AlLocation.InsightAPI,
+            service_name: this.serviceName,
+            version: this.serviceVersion,
+            account_id: accountId,
+            path: '/templates',
+            data: queryTemplate,
+            residency: 'US',
+            noEndpointsResolution: true,
+        });
+    }
+
+    /**
+     * Delete Template Query with the given uuid forcing call to US endpoint
+     * DELETE
+     * /suggestions/v2/:account_id/templates/:id
+     * @remarks "https://console.account.product.dev.alertlogic.com/users/api/suggestions/index.html#api-Templates_V2-DeleteTemplate"
+     */
+    deleteQueryTemplateUS(accountId: string, queryId: string): Promise<void> {
+        return this.client.delete({
+            service_stack: AlLocation.InsightAPI,
+            service_name: this.serviceName,
+            version: this.serviceVersion,
+            account_id: accountId,
+            path: `/templates/${queryId}`,
+            residency: 'US',
+            noEndpointsResolution: true,
+        });
+    }
+
+    /**
+     * Get Templates forcing call to US endpoint
+     * GET
+     * /suggestions/v2/:account_id/templates
+     * @remarks "https://console.account.product.dev.alertlogic.com/users/api/suggestions/index.html#api-Templates-GetTemplates"
+     */
+    async getQueryTemplatesUS(accountId:string, params?:{ deleted?:boolean,data_type?:string }):Promise<AlSuggestionsTemplateResponseV2[]> {
+        const result = await this.client.get({
+            service_stack: AlLocation.InsightAPI,
+            service_name: this.serviceName,
+            version: this.serviceVersion,
+            account_id: accountId,
+            path: '/templates',
+            params: params,
+            residency: 'US',
+            noEndpointsResolution: true,
+        });
+        return result.templates as AlSuggestionsTemplateResponseV2[];
+    }
+
+    /**
+     * Get Template forcing call to US endpoint
+     * GET
+     * /suggestions/v2/:account_id/templates/:id
+     * @remarks "https://console.account.product.dev.alertlogic.com/users/api/suggestions/index.html#api-Templates-GetTemplate"
+     */
+    getQueryTemplateUS(accountId:string, params?:{ deleted?:boolean,data_type?:string }):Promise<AlSuggestionsTemplateResponseV2> {
+        return this.client.get<AlSuggestionsTemplateResponseV2>({
+            service_stack: AlLocation.InsightAPI,
+            service_name: this.serviceName,
+            version: this.serviceVersion,
+            account_id: accountId,
+            path: '/templates',
+            params: params,
+            residency: 'US',
+            noEndpointsResolution: true,
+        });
+    }
+
+    /**
+     * Update a Template forcing call to US endpoint
+     * POST
+     * /suggestions/v2/:account_id/templates/:id
+     * @remarks "https://console.account.product.dev.alertlogic.com/users/api/suggestions/index.html#api-Templates-UpdateTemplate"
+     */
+    updateQueryTemplateUS(accountId: string, queryId: string, queryTemplate: AlUpdateQueryTemplateV2): Promise<AlSuggestionsTemplateResponseV2> {
         return this.client.post<AlSuggestionsTemplateResponseV2>({
             service_stack: AlLocation.InsightAPI,
             service_name: this.serviceName,
