@@ -375,6 +375,38 @@ export interface CertificateKeyPair {
     _private_key?: string;
 }
 
+export interface ApplianceImageFileMetadata {
+    link?: string;
+    name?: string;
+    version?: string;
+    date?: string;
+    size?: string;
+    md5?: string;
+}
+
+export interface ApplianceImageOsOptions {
+    '32-bit'?: ApplianceImageFileMetadata[];
+    '64-bit'?: ApplianceImageFileMetadata[];
+    '64-bit ARM'?: ApplianceImageFileMetadata[];
+    'all'?: ApplianceImageFileMetadata[];
+}
+
+export interface ApplianceImageDownloads {
+    agents?: {
+        Debian?: ApplianceImageOsOptions,
+        RPM?: ApplianceImageOsOptions,
+        Windows?: ApplianceImageOsOptions
+    };
+    appliances?: {
+        'Virtual Appliance'?: ApplianceImageOsOptions
+    };
+    collectors?: {
+        Debian?: ApplianceImageOsOptions,
+        RPM?: ApplianceImageOsOptions,
+        Windows?: ApplianceImageOsOptions
+    };
+}
+
 
 
 
