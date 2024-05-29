@@ -18,7 +18,8 @@ import {
     ZoneMembershipResponse,
     CertificateKeyPair,
     ExportableRecordsType,
-    CollectionSourceValue
+    CollectionSourceValue,
+    ApplianceImageDownloads
 } from './types';
 
 export class ConvergenceUtilityClientInstance {
@@ -699,8 +700,8 @@ export class ConvergenceUtilityClientInstance {
         });
     }
 
-    public async getDownloads(accountId: string, product: string): Promise<any> {
-        return this.client.get<any>({
+    public async getDownloads(accountId: string, product: string): Promise<ApplianceImageDownloads> {
+        return this.client.get<ApplianceImageDownloads>({
             service_stack: this.serviceStack,
             service_name: this.serviceName,
             version: this.serviceVersion,
