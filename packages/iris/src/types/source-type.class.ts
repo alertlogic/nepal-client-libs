@@ -14,6 +14,7 @@ export class SourceType {
     public static readonly ASSOCIDS = 'application/x-alpacket-idsmsgs';
     public static readonly EPMSGS = 'application/x-alpacket-epmsgs';
     public static readonly ATTACHMENTS = 'application/al-lr-case-evidence';
+    public static readonly FIMDATA = 'application/x-alpacket-fimdata';
 
     /**
      * Return the source name according the content type
@@ -36,6 +37,8 @@ export class SourceType {
                 return "Attachments";
             case SourceType.EPMSGS:
                 return "Endpoint";
+            case SourceType.FIMDATA:
+                return "FIM Data";
             default:
                 console.warn("Please notify the ui team that we have a new content type", type);
                 return type;
