@@ -1242,4 +1242,38 @@ export class AlIrisClientV3Instance extends AlIrisClientInstance {
             path: `nested/${incidentId}/facts`,
         });
     }
+
+    /**
+     * Return any available enrichment data on a per incident basis
+     * GET
+     * /iris/v3/<account_id>/<incident_id>/enrichment
+     * @param accountId
+     * @param incidentId
+     */
+    public getIncidentEnrichment(accountId: string, incidentId: string): Promise<unknown> {
+        return this.client.get<any[]>({
+            service_stack: AlLocation.InsightAPI,
+            service_name: this.serviceName,
+            version: this.serviceVersion,
+            account_id: accountId,
+            path: `${incidentId}/enrichment`,
+        });
+    }
+
+    /**
+     * this endpoint enable Customers/Analysts to request Enrichment of a specific incident “on-demand”
+     * GET
+     * /iris/v3/<account_id>/<incident_id>/request_enrichment
+     * @param accountId
+     * @param incidentId
+     */
+    public getRequestIncidentEnrichment(accountId: string, incidentId: string): Promise<unknown> {
+        return this.client.get<any[]>({
+            service_stack: AlLocation.InsightAPI,
+            service_name: this.serviceName,
+            version: this.serviceVersion,
+            account_id: accountId,
+            path: `${incidentId}/request_enrichment`,
+        });
+    }
 }
