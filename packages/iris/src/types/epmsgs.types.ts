@@ -223,9 +223,6 @@ export class EPMSGSUtils {
 
         for (const key in obj) {
             if (obj.hasOwnProperty(key)) {
-                if(propertiesMap[key]) {
-                    console.log("changed key", key);
-                }
                 const newName = propertiesMap[key] || key;
                 renamedObj[newName] = EPMSGSUtils.renameProperties(obj[key], propertiesMap);
             }
