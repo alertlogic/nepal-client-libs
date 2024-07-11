@@ -1276,4 +1276,28 @@ export class AlIrisClientV3Instance extends AlIrisClientInstance {
             path: `${incidentId}/request_enrichment`,
         });
     }
+
+    /**
+     * The latest evidence functionality allows for an incident generated from a Real Time Analytic (RTA) to be queried for data for up to 24hrs after the incident was created.
+     * Return an object with the request status
+     * GET
+     * /iris/v3/{cid}/{incident_id}/latest_evidence
+     * https://algithub.pd.alertlogic.net/alertlogic/al_iris_py/blob/integration/design/evidence/latest_evidence.md
+     * @param accountId
+     * @param incidentId
+     * @param {object} [queryParams] - An optional object containing query parameters including 'request_id' as string representation. this is used to get an existing query status.
+     */
+    public getLatestEvidence(
+        accountId: string,
+        incidentId: string,
+        queryParams?: { request_id?: string }): Promise<unknown> {
+        return this.client.get<any[]>({
+            service_stack: AlLocation.InsightAPI,
+            service_name: this.serviceName,
+            version: this.serviceVersion,
+            account_id: accountId,
+            path: `${incidentId}/latest_evidence`,
+            params: queryParams,
+        });
+    }
 }
