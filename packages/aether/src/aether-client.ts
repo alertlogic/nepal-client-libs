@@ -27,6 +27,8 @@ export interface AetherResult {
         reference?: string;
         severity?: string;
         cvss_scores_list?: string[];
+        vulnerability_id?: string[];
+        supported?: string;
     };
 }
 
