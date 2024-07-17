@@ -29,6 +29,7 @@ export interface AetherResult {
         cvss_scores_list?: string[];
         vulnerability_id?: string[];
         supported?: string;
+        cisa_known_vulnerability?: string;
     };
 }
 
