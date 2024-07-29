@@ -219,6 +219,7 @@ export interface ExposureQueryResultItem {
     vulnerabilities?: ExposureVulnerabilityItem[];
     vulnerability_count?: string;
     vulnerability_id?: string;
+    vulnerability_span_id?: string;
 }
 export interface ExposureRemediationItem {
     account_id?: string;
