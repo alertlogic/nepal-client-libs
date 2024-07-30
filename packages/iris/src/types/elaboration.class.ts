@@ -35,6 +35,7 @@ export class Elaboration extends Evidence {
     public parsed:ParsedData;
     // this is temporary while defining the properties to be used for the EPMSGS
     public epmsg: {[key:string]: any};
+    public latestEvidence:boolean = false;
 
     constructor() {
         super();
@@ -63,6 +64,7 @@ export class Elaboration extends Evidence {
         elaboration.parsed     = raw.parsed;
         elaboration.program    = raw.program;
         elaboration.host_id    = raw.__host_id == null ? "No Data Available" : raw.__host_id;
+        elaboration.latestEvidence    = raw.__latest_evidence ?? false;
 
         elaboration.description = "No description available.";
         elaboration.appliance = null;
