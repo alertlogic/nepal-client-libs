@@ -679,7 +679,7 @@ export class AlIrisClientInstance {
         });
     }
 
-    public retinaSearch(accountId: string, incidentId: string, data: any): Promise<any> {
+    public retinaSearch(accountId: string, incidentId: string, data: any, queryParams?: { force_refresh?: boolean }): Promise<any> {
         return this.client.post(
             {
                 service_stack: AlLocation.InsightAPI,
@@ -688,6 +688,7 @@ export class AlIrisClientInstance {
                 account_id: accountId,
                 path: `retinaSearch/${incidentId}`,
                 data: data,
+                params: queryParams
             });
     }
 
@@ -764,6 +765,7 @@ export class AlIrisClientInstance {
         elaborationsExcluded: string[],
         updateElaboration: boolean = false,
         isTestIncident: boolean = false,
+        forceRefresh: boolean = false,
     ): Promise<Elaboration[]> {
 
         const data = this.getElaborationFilter(
@@ -775,7 +777,10 @@ export class AlIrisClientInstance {
             'all',
             updateElaboration,
         );
-        const response = isTestIncident ? this.testRetinaSearch(accountId, incidentId, data) : this.retinaSearch(accountId, incidentId, data);
+        const params = forceRefresh ? {
+            force_refresh: forceRefresh
+        } : {};
+        const response = isTestIncident ? this.testRetinaSearch(accountId, incidentId, data) : this.retinaSearch(accountId, incidentId, data, params);
         return response.then((response) => {
             return Elaboration.deserializeArray(response.returnVals || []);
         });
@@ -810,6 +815,7 @@ export class AlIrisClientInstance {
         parameters: EvidenceParams,
         elaborationsIncluded: string[],
         isTestIncident: boolean = false,
+        forceRefresh: boolean = false
     ): Promise<Elaboration[]> {
 
         // check if the there's not elaborationsIncluded so we don't need make the call
@@ -826,7 +832,10 @@ export class AlIrisClientInstance {
                 false,
                 true,
             );
-            const response = isTestIncident ? this.testRetinaSearch(accountId, incidentId, data) : this.retinaSearch(accountId, incidentId, data);
+            const params = forceRefresh ? {
+                force_refresh: forceRefresh
+            } : {};
+            const response = isTestIncident ? this.testRetinaSearch(accountId, incidentId, data) : this.retinaSearch(accountId, incidentId, data, params);
             return response.then((response) => {
                 if (parameters.sourcesFilter !== null && parameters.sourcesFilter.indexOf(EvidenceType.Flagged) === -1) {
                     return [];
@@ -849,9 +858,13 @@ export class AlIrisClientInstance {
         incidentId: string,
         elaborationsIncluded: string[],
         isTestIncident: boolean = false,
+        forceRefresh: boolean = false,
     ): Promise<{ aggregation?: { [i: string]: { [j: string]: number } } }> {
+        const params = forceRefresh ? {
+            force_refresh: forceRefresh
+        } : {};
         const data = this.getElaborationAggregationFilter(elaborationsIncluded, null);
-        return isTestIncident ? this.testRetinaSearch(accountId, incidentId, data) : this.retinaSearch(accountId, incidentId, data);
+        return isTestIncident ? this.testRetinaSearch(accountId, incidentId, data) : this.retinaSearch(accountId, incidentId, data, params);
     }
 
     /**
@@ -866,9 +879,13 @@ export class AlIrisClientInstance {
         incidentId: string,
         elaborationsExcluded: string[],
         isTestIncident: boolean = false,
+        forceRefresh: boolean = false,
     ): Promise<{ aggregation?: { [i: string]: { [j: string]: number } } }> {
         const data: RetinaBody = this.getElaborationAggregationFilter(null, elaborationsExcluded);
-        return isTestIncident ? this.testRetinaSearch(accountId, incidentId, data) : this.retinaSearch(accountId, incidentId, data);
+        const params = forceRefresh ? {
+            force_refresh: forceRefresh
+        } : {};
+        return isTestIncident ? this.testRetinaSearch(accountId, incidentId, data) : this.retinaSearch(accountId, incidentId, data, params);
     }
 
     /**
