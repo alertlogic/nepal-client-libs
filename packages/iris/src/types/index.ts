@@ -36,6 +36,7 @@ export interface MetaDataDictionary {
     "incident-history-types":{ [i:string]:string };
     "log-types":{ [i:string]:string };
     "sourceMap":{ [i:string]:string };
+    "enrichment_type":{ [i:string]:string };
 }
 
 /**
