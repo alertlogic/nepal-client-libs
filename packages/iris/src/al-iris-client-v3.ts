@@ -1297,6 +1297,22 @@ export class AlIrisClientV3Instance extends AlIrisClientInstance {
     }
 
     /**
+     * this endpoint enable Customers/Analysts to request Enrichment of a specific type “on-demand”
+     * GET
+     * /iris/v3/on_demand_enrichment/<enrichment_type>/<value>
+     * @param enrichment_type
+     * @param value
+     */
+    public getEnrichmentOnDemand(enrichmentType: string, value: string): Promise<unknown> {
+        return this.client.get<any[]>({
+            service_stack: AlLocation.InsightAPI,
+            service_name: this.serviceName,
+            version: this.serviceVersion,
+            path: `on_demand_enrichment/${enrichmentType}/${value}`,
+        });
+    }
+
+    /**
      * The latest evidence functionality allows for an incident generated from a Real Time Analytic (RTA) to be queried for data for up to 24hrs after the incident was created.
      * Return an object with the request status
      * GET
