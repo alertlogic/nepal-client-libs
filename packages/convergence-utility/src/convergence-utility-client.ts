@@ -624,7 +624,7 @@ export class ConvergenceUtilityClientInstance {
         });
     }
 
-    public async getCollectionSource(
+    public async getOneCollectionSource(
         accountId: string,
         deploymentId: string,
         collectionId: string): Promise<CollectionSource> {
