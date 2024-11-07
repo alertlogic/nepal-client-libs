@@ -1,4 +1,4 @@
-module.exports = function (config) {
+module.exports = function( config, name ) {
   config.set({
 
     frameworks: ["mocha", "karma-typescript"],
@@ -25,20 +25,18 @@ module.exports = function (config) {
     karmaTypescriptConfig: {
       bundlerOptions: {
         acornOptions: {
-          ecmaVersion: 8,
+          ecmaVersion: 2018,
         },
       },
       tsconfig: "tsconfig.spec.json",
       reports:
       {
         "html": {
-          "directory": "./../../coverage/subscriptions-client",
-          "subdirectory": "report"
+          "directory": `../../coverage/${name}`
         },
         "text-summary": "",
         "json-summary": {
-          "directory": "./../../coverage/subscriptions-client",
-          "subdirectory": "summary",
+          "directory": `../../coverage/${name}`,
           "filename": "json-summary.json"
         }
       },
