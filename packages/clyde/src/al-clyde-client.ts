@@ -36,7 +36,7 @@ export class AlClydeClientInstance {
     }
 
     /**
-     * Get hosts info 
+     * Get hosts info
      * clyde/v1/2/get_hosts
      */
     async getHostInfo(accountId: string, queryParams?: any): Promise<unknown> {

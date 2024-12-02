@@ -10,7 +10,7 @@ export interface MinVersionQueryParams {
 export interface GetMinVersionResponse {
     ok_count: number;
     ok_percent?: number;
-    outdated_clients?: unknown[],
+    outdated_clients?: unknown[];
     outdated_count?: number;
     outdated_error_count?: number;
     outdated_error_percent?: number;
