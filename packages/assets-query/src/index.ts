@@ -5,7 +5,7 @@ import { AlAssetsWriteClientInstance } from './al-assets-write-client';
 
 /* tslint:disable:variable-name */
 export const AlAssetsQueryClient = AlGlobalizer.instantiate('al.assets-query', () => new AlAssetsQueryClientInstance());
-export const AlAssetsQueryV2Client = AlGlobalizer.instantiate('al.assets-query', () => new AlAssetsQueryV2ClientInstance());
+export const AlAssetsQueryV2Client = AlGlobalizer.instantiate('al.assets-queryV2', () => new AlAssetsQueryV2ClientInstance());
 export const AlAssetsWriteClient = AlGlobalizer.instantiate('al.assets-write', () => new AlAssetsWriteClientInstance());
 
 export { AlAssetsQueryClientInstance } from './al-assets-query-client';
