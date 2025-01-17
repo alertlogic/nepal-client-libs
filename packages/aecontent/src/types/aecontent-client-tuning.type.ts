@@ -1,7 +1,9 @@
 export interface AlTuningRule {
     name: string;
-    description?: string;
     tuning: AlTuningDetails;
+    uuid?: string;
+    version?: string;
+    schema_version?: string;
 }
 
 export interface AlTuningDetails {
@@ -9,6 +11,7 @@ export interface AlTuningDetails {
     selector: AlTuningSelectorDetails;
     rules: AlTuningRulesDetails[];
     actions: AlTuningActionsDetails[];
+    description?: string;
 }
 
 export interface AlTuningOptionDetails {
