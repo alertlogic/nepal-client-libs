@@ -55,6 +55,22 @@ export class AecontentClientInstance {
     }
 
     /**
+     * Update Tuning rule
+     * PUT
+     *
+     * @param accountId string tuning rule's belonging account id
+     *
+     */
+    public async updateRule(accountId: string, data: AlTuningRule): Promise<any> {
+        return this.client.put<any>({
+            data,
+            service_name: this.serviceName,
+            path: `${accountId}/tunings`,
+            version: 'v1'
+        });
+    }
+
+    /**
      * delete Tuning rule
      * DELETE
      *
@@ -62,14 +78,14 @@ export class AecontentClientInstance {
      * @param name string tuning rule's name
      *
      */
-    public async deleteRule(accountId: string, name: string): Promise<void> {
+    public async deleteRule(accountId: string, uuid: string): Promise<void> {
         return this.client.delete<void>({
             service_name: this.serviceName,
             path: `${accountId}/tunings`,
             version: 'v1',
             params: {
-                        name: name
-                    }
+                uuid: uuid
+            }
         });
     }
 
@@ -113,38 +129,38 @@ export class AecontentClientInstance {
 
     /**
      * enable a Tuning rule
-     * POST
+     * PUT
      *
      * @param accountId string tuning rule's belonging account id
      * @param name name of the rule to enable
      *
      */
-    public async enableRule(accountId: string, name: string): Promise<any> {
-        return this.client.post<any>({
+    public async enableRule(accountId: string, uuid: string): Promise<any> {
+        return this.client.put<any>({
             service_name: this.serviceName,
             path: `${accountId}/tunings/enable`,
             version: 'v1',
             params: {
-                name: name
+                uuid: uuid
             }
         });
     }
 
     /**
      * disable a Tuning rule
-     * POST
+     * PUT
      *
      * @param accountId string tuning rule's belonging account id
      *  @param name name of the rule to disable
      *
      */
-    public async disableRule(accountId: string, name: string): Promise<any> {
-        return this.client.post<any>({
+    public async disableRule(accountId: string, uuid: string): Promise<any> {
+        return this.client.put<any>({
             service_name: this.serviceName,
             path: `${accountId}/tunings/disable`,
             version: 'v1',
             params: {
-                name: name
+                uuid: uuid
             }
         });
     }
