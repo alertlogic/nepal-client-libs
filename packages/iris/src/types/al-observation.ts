@@ -29,6 +29,7 @@ export class AlObservation {
     endTs:          number;
     id:              string;
     keys:            ObservationKeys;
+    latestEvidence: boolean = false;
     parents:         ObservationParents;
     path:            string;
     properties:      ObservationProperties;
@@ -52,6 +53,7 @@ export class AlObservation {
         this.customerName = raw.customer_name;
         this.startTs = raw.start_ts;
         this.endTs = raw.end_ts;
+        this.latestEvidence = raw.__latest_evidence ?? false;
         this.initializeTimeAndSummary(raw);
     }
 
