@@ -100,5 +100,8 @@ export const REGION_DICTIONARY: {[region:string]: string} = {
     "southindia": "South India (Chennai)",
     "westindia": "West India (Mumbai)",
     "ukwest": "UK West (Cardiff)",
-    "il-central-1": "Israel (Tel Aviv)"
+    "il-central-1": "Israel (Tel Aviv)",
+    "ca-west-1": "Canada West (Calgary)",
+    "ap-south-2": "Asia Pacific (Hyderabad)",
+    "ap-southeast-5": "Asia Pacific (Malaysia)",
 };
